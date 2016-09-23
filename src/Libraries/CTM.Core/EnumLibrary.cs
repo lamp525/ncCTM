@@ -1,0 +1,300 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+namespace CTM.Core
+{
+    public static class EnumLibrary
+    {
+        /// <summary>
+        /// 数值单位
+        /// </summary>
+        public enum NumericUnit
+        {
+            /// <summary>
+            /// 十
+            /// </summary>
+            Ten = 10,
+
+            /// <summary>
+            /// 百
+            /// </summary>
+            Hundred = 100,
+
+            /// <summary>
+            /// 千
+            /// </summary>
+            Thousand = 1000,
+
+            /// <summary>
+            /// 万
+            /// </summary>
+            TenThousand = 10000,
+
+            /// <summary>
+            /// 十万
+            /// </summary>
+            HundredThousand = 100000,
+
+            /// <summary>
+            /// 百万
+            /// </summary>
+            Million = 1000000,
+
+            /// <summary>
+            /// 千万
+            /// </summary>
+            TenMillion = 10000000,
+
+            /// <summary>
+            /// 亿
+            /// </summary>
+            HundredMillion = 100000000,
+
+            /// <summary>
+            /// 十亿
+            /// </summary>
+            Billion = 1000000000,
+        }
+
+        /// <summary>
+        /// 投资核算部门
+        /// </summary>
+        public enum AccountingDepartment
+        {
+            /// <summary>
+            /// 全部
+            /// </summary>
+            [Description("全部")]
+            All = 0,
+
+            /// <summary>
+            /// 短差部
+            /// </summary>
+            [Description("短差部")]
+            Day = 2,
+
+            /// <summary>
+            /// 波段部
+            /// </summary>
+            [Description("波段部")]
+            Band = 3,
+
+            /// <summary>
+            /// 目标部
+            /// </summary>
+            [Description("目标部")]
+            Target = 4,
+
+            /// <summary>
+            /// 独立核算部
+            /// </summary>
+            [Description("独立核算部")]
+            Independence = 5,
+        }
+
+        /// <summary>
+        /// 统计报表类型
+        /// </summary>
+        public enum StatisticsReportType
+        {
+            /// <summary>
+            /// 日报表
+            /// </summary>
+            Daily = 1,
+
+            /// <summary>
+            /// 周报表
+            /// </summary>
+            Weekly = 2,
+
+            /// <summary>
+            /// 月报表
+            /// </summary>
+            Monthly = 3,
+
+            /// <summary>
+            /// 季报表
+            /// </summary>
+            Quarterly = 4,
+
+            /// <summary>
+            /// 年报表
+            /// </summary>
+            Yearly = 5
+        }
+
+        /// <summary>
+        /// 页面状态
+        /// </summary>
+        public enum PageMode
+        {
+            /// <summary>
+            /// 0：默认
+            /// </summary>
+            Default = 0,
+
+            /// <summary>
+            /// 1：当前用户
+            /// </summary>
+            CurrentUser = 1,
+
+            /// <summary>
+            /// 2：其他
+            /// </summary>
+            Other = 2,
+        }
+
+        /// <summary>
+        /// 字典类别
+        /// </summary>
+        public enum DictionaryType
+        {
+            /// <summary>
+            /// 证券公司
+            /// </summary>
+            SecurityCompay = 1,
+
+            /// <summary>
+            /// 账户属性
+            /// </summary>
+            AccountAttribute = 2,
+
+            /// <summary>
+            /// 职位信息
+            /// </summary>
+            PositionInfo = 3,
+
+            /// <summary>
+            /// 交易类别
+            /// </summary>
+            TradeType = 4,
+
+            /// <summary>
+            /// 账户规划
+            /// </summary>
+            AccountPlan = 5,
+
+            /// <summary>
+            /// 账户类型
+            /// </summary>
+            AccountType = 6
+        }
+
+        /// <summary>
+        /// 交易类别
+        /// </summary>
+        public enum TradeType
+        {
+            /// <summary>
+            /// 全部
+            /// </summary>
+            [Description("全部")]
+            All = 0,
+
+            /// <summary>
+            /// 目标
+            /// </summary>
+            [Description("目标")]
+            Target = 1,
+
+            /// <summary>
+            /// 波段
+            /// </summary>
+            [Description("波段")]
+            Band = 2,
+
+            /// <summary>
+            /// 日内
+            /// </summary>
+            [Description("日内")]
+            Day = 3,
+        }
+
+        /// <summary>
+        /// 数据类型
+        /// </summary>
+        public enum DataType
+        {
+            /// <summary>
+            /// 全部
+            /// </summary>
+            [Description("全部")]
+            All = 0,
+
+            /// <summary>
+            /// 当日委托
+            /// </summary>
+            [Description("当日委托")]
+            Entrust = 1,
+
+            /// <summary>
+            /// 交割单
+            /// </summary>
+            [Description("交割单")]
+            Delivery = 2,
+
+            /// <summary>
+            /// 当日成交
+            /// </summary>
+            [Description("当日成交")]
+            Daily = 3,
+
+            /// <summary>
+            /// 虚拟
+            /// </summary>
+            [Description("虚拟交易")]
+            Virtual = 77,
+
+            /// <summary>
+            /// 股票转移
+            /// </summary>
+            [Description("股票转移")]
+            StockTransfer = 88,
+
+            /// <summary>
+            /// 旧系统
+            /// </summary>
+            [Description("旧系统")]
+            History = 99
+        }
+
+        /// <summary>
+        /// 账户属性
+        /// </summary>
+        public enum AccountAttribute
+        {
+            /// <summary>
+            /// 普通
+            /// </summary>
+            Normal = 1,
+
+            /// <summary>
+            /// 信用
+            /// </summary>
+            Credit = 2
+        }
+
+        /// <summary>
+        /// 操作类型
+        /// </summary>
+        public enum OperateType
+        {
+            /// <summary>
+            /// 添加
+            /// </summary>
+            Add = 1,
+
+            /// <summary>
+            /// 修改
+            /// </summary>
+            Edit = 2,
+
+            /// <summary>
+            /// 删除
+            /// </summary>
+            Delete = 3,
+        }
+    }
+}

@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraSerializer version="1.0" application="View">
+  <property name="#LayoutVersion"></property>
+  <property name="FooterPanelHeight">-1</property>
+  <property name="HorzScrollVisibility">Auto</property>
+  <property name="VertScrollVisibility">Auto</property>
+  <property name="RowHeight">-1</property>
+  <property name="GroupRowHeight">-1</property>
+  <property name="GroupFormat">{0}: [#image]{1} {2}</property>
+  <property name="ChildGridLevelName"></property>
+  <property name="VertScrollTipFieldName"></property>
+  <property name="PreviewFieldName"></property>
+  <property name="ViewCaptionHeight">-1</property>
+  <property name="GroupPanelText"></property>
+  <property name="NewItemRowText"></property>
+  <property name="LevelIndent">-1</property>
+  <property name="PreviewIndent">-1</property>
+  <property name="PreviewLineCount">-1</property>
+  <property name="ActiveFilterEnabled">true</property>
+  <property name="HorzScrollStep">3</property>
+  <property name="FocusRectStyle">CellFocus</property>
+  <property name="ColumnPanelRowHeight">-1</property>
+  <property name="RowSeparatorHeight">0</property>
+  <property name="FixedLineWidth">2</property>
+  <property name="Tag" isnull="true" />
+  <property name="Columns" iskey="true" value="26">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="FieldName">StockFullCode</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="VisibleIndex">0</property>
+      <property name="Caption">股票代码</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colStockFullCode</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="FieldName">StockName</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="VisibleIndex">1</property>
+      <property name="Caption">股票名称</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colStockName</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="FieldName">AccumulatedProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">2</property>
+      <property name="Caption">累计收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colAccumulatedProfit</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="FieldName">InitPositionValue</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">67</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">3</property>
+      <property name="Caption">期初市值</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colInitPositionValue</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="FieldName">InitHoldingVolume</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">5</property>
+      <property name="Caption">期初持仓量</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colInitHoldingVolume</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="FieldName">InitPrice</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">62</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">4</property>
+      <property name="Caption">期初价格</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colInitPrice</property>
+    </property>
+    <property name="Item7" isnull="true" iskey="true">
+      <property name="FieldName">InitProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">6</property>
+      <property name="Caption">期初收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colInitProfit</property>
+    </property>
+    <property name="Item8" isnull="true" iskey="true">
+      <property name="FieldName">CurrentPositionValue</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">67</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">7</property>
+      <property name="Caption">期末市值</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colCurrentPositionValue</property>
+    </property>
+    <property name="Item9" isnull="true" iskey="true">
+      <property name="FieldName">CurrentHoldingVolume</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">9</property>
+      <property name="Caption">期末持仓量</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colCurrentHoldingVolume</property>
+    </property>
+    <property name="Item10" isnull="true" iskey="true">
+      <property name="FieldName">CurrentPrice</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">55</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">8</property>
+      <property name="Caption">最新价</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colCurrentPrice</property>
+    </property>
+    <property name="Item11" isnull="true" iskey="true">
+      <property name="FieldName">CurrentProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">10</property>
+      <property name="Caption">本期收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colCurrentProfit</property>
+    </property>
+    <property name="Item12" isnull="true" iskey="true">
+      <property name="FieldName">TargetPositionValue</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">61</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">11</property>
+      <property name="Caption">目标市值</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colTargetPositionValue</property>
+    </property>
+    <property name="Item13" isnull="true" iskey="true">
+      <property name="FieldName">TargetHoldingVolume</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">71</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">12</property>
+      <property name="Caption">目标持仓量</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colTargetHoldingVolume</property>
+    </property>
+    <property name="Item14" isnull="true" iskey="true">
+      <property name="FieldName">TargetTotalProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">117</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">13</property>
+      <property name="Caption">目标收益额（小计）</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colTargetTotalProfit</property>
+    </property>
+    <property name="Item15" isnull="true" iskey="true">
+      <property name="FieldName">TargetActualProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">97</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">14</property>
+      <property name="Caption">目标实际收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colTargetActualProfit</property>
+    </property>
+    <property name="Item16" isnull="true" iskey="true">
+      <property name="FieldName">TargetFoatingProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">92</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">15</property>
+      <property name="Caption">目标浮动收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colTargetFoatingProfit</property>
+    </property>
+    <property name="Item17" isnull="true" iskey="true">
+      <property name="FieldName">BandPositionValue</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">62</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">16</property>
+      <property name="Caption">波段市值</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colBandPositionValue</property>
+    </property>
+    <property name="Item18" isnull="true" iskey="true">
+      <property name="FieldName">BandHoldingVolume</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">76</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">17</property>
+      <property name="Caption">波段持仓量</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colBandHoldingVolume</property>
+    </property>
+    <property name="Item19" isnull="true" iskey="true">
+      <property name="FieldName">BandTotalProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">119</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">18</property>
+      <property name="Caption">波段收益额（小计）</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colBandTotalProfit</property>
+    </property>
+    <property name="Item20" isnull="true" iskey="true">
+      <property name="FieldName">BandActualProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">99</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">19</property>
+      <property name="Caption">波段实际收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colBandActualProfit</property>
+    </property>
+    <property name="Item21" isnull="true" iskey="true">
+      <property name="FieldName">BandFoatingProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">92</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">20</property>
+      <property name="Caption">波段浮动收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colBandFoatingProfit</property>
+    </property>
+    <property name="Item22" isnull="true" iskey="true">
+      <property name="FieldName">DayPositionValue</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">71</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">21</property>
+      <property name="Caption">日内市值</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colDayPositionValue</property>
+    </property>
+    <property name="Item23" isnull="true" iskey="true">
+      <property name="FieldName">DayHoldingVolume</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">81</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">22</property>
+      <property name="Caption">日内持仓量</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colDayHoldingVolume</property>
+    </property>
+    <property name="Item24" isnull="true" iskey="true">
+      <property name="FieldName">DayTotalProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">122</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">23</property>
+      <property name="Caption">日内收益额（小计）</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colDayTotalProfit</property>
+    </property>
+    <property name="Item25" isnull="true" iskey="true">
+      <property name="FieldName">DayActualProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">100</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">24</property>
+      <property name="Caption">日内实际收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colDayActualProfit</property>
+    </property>
+    <property name="Item26" isnull="true" iskey="true">
+      <property name="FieldName">DayFoatingProfit</property>
+      <property name="ColumnEditName"></property>
+      <property name="Visible">true</property>
+      <property name="Width">100</property>
+      <property name="AppearanceCell" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Far</property>
+        </property>
+      </property>
+      <property name="VisibleIndex">25</property>
+      <property name="Caption">日内浮动收益额</property>
+      <property name="Fixed">None</property>
+      <property name="Name">colDayFoatingProfit</property>
+    </property>
+  </property>
+  <property name="MinBandPanelRowCount">1</property>
+  <property name="OptionsView" isnull="true" iskey="true">
+    <property name="ShowGroupPanel">false</property>
+    <property name="EnableAppearanceOddRow">true</property>
+    <property name="EnableAppearanceEvenRow">true</property>
+    <property name="ShowFilterPanelMode">Never</property>
+    <property name="ShowAutoFilterRow">true</property>
+    <property name="ColumnAutoWidth">false</property>
+  </property>
+  <property name="BandPanelRowHeight">-1</property>
+  <property name="IndicatorWidth">40</property>
+  <property name="Name">bandedGridView1</property>
+  <property name="DetailHeight">350</property>
+  <property name="DetailTabHeaderLocation">Top</property>
+  <property name="ViewCaption"></property>
+  <property name="OptionsSelection" isnull="true" iskey="true">
+    <property name="UseIndicatorForSelection">false</property>
+    <property name="MultiSelectMode">CellSelect</property>
+    <property name="MultiSelect">true</property>
+  </property>
+  <property name="ScrollStyle">LiveVertScroll, LiveHorzScroll</property>
+  <property name="OptionsBehavior" isnull="true" iskey="true">
+    <property name="Editable">false</property>
+    <property name="ReadOnly">true</property>
+  </property>
+  <property name="BorderStyle">Default</property>
+  <property name="SynchronizeClones">true</property>
+  <property name="Bands" iskey="true" value="6">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">基本信息</property>
+      <property name="Columns" iskey="true" value="3">
+        <property name="Item1">colStockFullCode</property>
+        <property name="Item2">colStockName</property>
+        <property name="Item3">colAccumulatedProfit</property>
+      </property>
+      <property name="Width">225</property>
+      <property name="Fixed">Left</property>
+      <property name="Name">gridBand1</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">期  初</property>
+      <property name="Columns" iskey="true" value="4">
+        <property name="Item1">colInitPositionValue</property>
+        <property name="Item2">colInitPrice</property>
+        <property name="Item3">colInitHoldingVolume</property>
+        <property name="Item4">colInitProfit</property>
+      </property>
+      <property name="Width">279</property>
+      <property name="Name">gridBand2</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">期  末</property>
+      <property name="Columns" iskey="true" value="4">
+        <property name="Item1">colCurrentPositionValue</property>
+        <property name="Item2">colCurrentPrice</property>
+        <property name="Item3">colCurrentHoldingVolume</property>
+        <property name="Item4">colCurrentProfit</property>
+      </property>
+      <property name="Width">272</property>
+      <property name="Name">gridBand3</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">目  标</property>
+      <property name="Columns" iskey="true" value="5">
+        <property name="Item1">colTargetPositionValue</property>
+        <property name="Item2">colTargetHoldingVolume</property>
+        <property name="Item3">colTargetTotalProfit</property>
+        <property name="Item4">colTargetActualProfit</property>
+        <property name="Item5">colTargetFoatingProfit</property>
+      </property>
+      <property name="Width">438</property>
+      <property name="Name">gridBand4</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">波  段</property>
+      <property name="Columns" iskey="true" value="5">
+        <property name="Item1">colBandPositionValue</property>
+        <property name="Item2">colBandHoldingVolume</property>
+        <property name="Item3">colBandTotalProfit</property>
+        <property name="Item4">colBandActualProfit</property>
+        <property name="Item5">colBandFoatingProfit</property>
+      </property>
+      <property name="Width">448</property>
+      <property name="Name">gridBand5</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="AppearanceHeader" isnull="true" iskey="true">
+        <property name="Options" isnull="true" iskey="true">
+          <property name="UseTextOptions">true</property>
+          <property name="UseFont">true</property>
+        </property>
+        <property name="TextOptions" isnull="true" iskey="true">
+          <property name="HAlignment">Center</property>
+        </property>
+        <property name="Font">Tahoma, 9pt, style=Bold</property>
+      </property>
+      <property name="Children" iskey="true" value="0" />
+      <property name="Caption">日  内</property>
+      <property name="Columns" iskey="true" value="5">
+        <property name="Item1">colDayPositionValue</property>
+        <property name="Item2">colDayHoldingVolume</property>
+        <property name="Item3">colDayTotalProfit</property>
+        <property name="Item4">colDayActualProfit</property>
+        <property name="Item5">colDayFoatingProfit</property>
+      </property>
+      <property name="Width">474</property>
+      <property name="Name">gridBand6</property>
+    </property>
+  </property>
+  <property name="FormatConditions" iskey="true" value="0" />
+  <property name="FormatRules" iskey="true" value="0" />
+  <property name="ActiveFilterString"></property>
+  <property name="GroupSummary" iskey="true" value="0" />
+  <property name="GroupSummarySortInfoState"></property>
+  <property name="FindFilterText"></property>
+  <property name="FindPanelVisible">false</property>
+</XtraSerializer>

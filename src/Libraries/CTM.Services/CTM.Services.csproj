@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D774BCD-897F-47E5-8E09-67E253D82FC8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CTM.Services</RootNamespace>
+    <AssemblyName>CTM.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.1.0.9, Culture=neutral, PublicKeyToken=7ee2e825d201459e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.MappingAPI.6.1.0.9\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AccountEntity.cs" />
+    <Compile Include="Account\AccountExtensions.cs" />
+    <Compile Include="Account\AccountService.cs" />
+    <Compile Include="Account\IAccountService.cs" />
+    <Compile Include="Common\CommonService.cs" />
+    <Compile Include="Common\ICommonService.cs" />
+    <Compile Include="Department\DepartmentService.cs" />
+    <Compile Include="Department\IDepartmentService.cs" />
+    <Compile Include="Dictionary\DictionaryService.cs" />
+    <Compile Include="Dictionary\IDictionaryService.cs" />
+    <Compile Include="IBaseService.cs" />
+    <Compile Include="Industry\IIndustryService.cs" />
+    <Compile Include="Industry\IndustryService.cs" />
+    <Compile Include="MarginTrading\DailyMarginTradingInfoEntity.cs" />
+    <Compile Include="MarginTrading\IMarginTradingService.cs" />
+    <Compile Include="MarginTrading\MarginTradingEntity.cs" />
+    <Compile Include="MarginTrading\MarginTradingService.cs" />
+    <Compile Include="StatisticsReport\InvestStatisticsCommonEntity.cs" />
+    <Compile Include="StatisticsReport\StatisticsReportService.cs" />
+    <Compile Include="StatisticsReport\UserInvestIncomeEntity.cs" />
+    <Compile Include="StatisticsReport\UserInvestIncomeExtensions.cs" />
+    <Compile Include="StatisticsReport\UserMarginTradingInterestEntity.cs" />
+    <Compile Include="TKLine\ITKLineService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticsReport\IStatisticsReportService.cs" />
+    <Compile Include="Stock\IStockService.cs" />
+    <Compile Include="Stock\StockService.cs" />
+    <Compile Include="TKLine\TKLineService.cs" />
+    <Compile Include="TradeRecord\DailyRecordExtensions.cs" />
+    <Compile Include="TradeRecord\IDailyRecordService.cs" />
+    <Compile Include="TradeRecord\DailyRecordService.cs" />
+    <Compile Include="TradeRecord\RecordImportOperationEntity.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="User\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CTM.Core\CTM.Core.csproj">
+      <Project>{2caf65a1-1354-41a9-8f1d-4739c5cd9563}</Project>
+      <Name>CTM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CTM.Data\CTM.Data.csproj">
+      <Project>{d6a0033b-055c-455f-a65c-563f44f04649}</Project>
+      <Name>CTM.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

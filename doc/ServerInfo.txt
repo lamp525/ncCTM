@@ -1,0 +1,10 @@
+服务器：10.10.10.2
+账号：administrator
+pwd：Hong!@#456
+
+
+CTMDB [Server=10.10.10.2\zb]
+sa 
+Nc@3102
+
+安装地址：http://10.10.10.2:8000/publish.htm

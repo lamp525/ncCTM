@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraSerializer version="1.0" application="View">
+  <property name="#LayoutVersion"></property>
+  <property name="VertScrollTipFieldName"></property>
+  <property name="PreviewFieldName"></property>
+  <property name="GroupPanelText"></property>
+  <property name="NewItemRowText"></property>
+  <property name="LevelIndent">-1</property>
+  <property name="PreviewIndent">-1</property>
+  <property name="PreviewLineCount">-1</property>
+  <property name="ScrollStyle">LiveVertScroll, LiveHorzScroll</property>
+  <property name="FocusRectStyle">CellFocus</property>
+  <property name="HorzScrollStep">3</property>
+  <property name="ViewCaptionHeight">-1</property>
+  <property name="Columns" iskey="true" value="28">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colRecordId</property>
+      <property name="FieldName">RecordId</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">yyyy-MM-dd</property>
+        <property name="FormatType">DateTime</property>
+      </property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">1</property>
+      <property name="Fixed">Left</property>
+      <property name="Name">colTradeDate</property>
+      <property name="Caption">交易日期</property>
+      <property name="FieldName">TradeDate</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="Width">69</property>
+      <property name="ColumnEditName"></property>
+      <property name="Fixed">Left</property>
+      <property name="Name">colTradeTime</property>
+      <property name="Caption">交易时间</property>
+      <property name="FieldName">TradeTime</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colAccountId</property>
+      <property name="FieldName">AccountId</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="Width">74</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">5</property>
+      <property name="Name">colStockCode</property>
+      <property name="Caption">股票代码</property>
+      <property name="FieldName">StockCode</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="Width">68</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">6</property>
+      <property name="Name">colStockName</property>
+      <property name="Caption">股票名称</property>
+      <property name="FieldName">StockName</property>
+    </property>
+    <property name="Item7" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colDealFlag</property>
+      <property name="FieldName">DealFlag</property>
+    </property>
+    <property name="Item8" isnull="true" iskey="true">
+      <property name="Width">60</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">8</property>
+      <property name="Name">colDealFlagName</property>
+      <property name="Caption">买卖标志</property>
+      <property name="FieldName">DealFlagName</property>
+    </property>
+    <property name="Item9" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colDealNo</property>
+      <property name="Caption">交易编号</property>
+      <property name="FieldName">DealNo</property>
+    </property>
+    <property name="Item10" isnull="true" iskey="true">
+      <property name="Width">56</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">10</property>
+      <property name="Name">colDealPrice</property>
+      <property name="Caption">成交价</property>
+      <property name="FieldName">DealPrice</property>
+    </property>
+    <property name="Item11" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">9</property>
+      <property name="Name">colDealVolume</property>
+      <property name="Caption">成交数量</property>
+      <property name="FieldName">DealVolume</property>
+    </property>
+    <property name="Item12" isnull="true" iskey="true">
+      <property name="Width">96</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">11</property>
+      <property name="Name">colDealAmount</property>
+      <property name="Caption">成交金额</property>
+      <property name="FieldName">DealAmount</property>
+    </property>
+    <property name="Item13" isnull="true" iskey="true">
+      <property name="Width">96</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">12</property>
+      <property name="Name">colActualAmount</property>
+      <property name="Caption">发生金额</property>
+      <property name="FieldName">ActualAmount</property>
+    </property>
+    <property name="Item14" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colStampDuty</property>
+      <property name="Caption">印花税</property>
+      <property name="FieldName">StampDuty</property>
+    </property>
+    <property name="Item15" isnull="true" iskey="true">
+      <property name="Width">62</property>
+      <property name="ColumnEditName"></property>
+      <property name="Name">colCommission</property>
+      <property name="Caption">佣金</property>
+      <property name="FieldName">Commission</property>
+    </property>
+    <property name="Item16" isnull="true" iskey="true">
+      <property name="Width">67</property>
+      <property name="ColumnEditName"></property>
+      <property name="Name">colIncidentals</property>
+      <property name="Caption">其他费</property>
+      <property name="FieldName">Incidentals</property>
+    </property>
+    <property name="Item17" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">yyyy-MM-dd HH:mm:ss</property>
+        <property name="FormatType">DateTime</property>
+      </property>
+      <property name="Width">169</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">15</property>
+      <property name="Name">colImportTime</property>
+      <property name="Caption">导入时间</property>
+      <property name="FieldName">ImportTime</property>
+    </property>
+    <property name="Item18" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colUpdateUser</property>
+      <property name="FieldName">UpdateUser</property>
+    </property>
+    <property name="Item19" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colDataType</property>
+      <property name="FieldName">DataType</property>
+    </property>
+    <property name="Item20" isnull="true" iskey="true">
+      <property name="Width">90</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">13</property>
+      <property name="Name">colDataTypeName</property>
+      <property name="Caption">数据类型</property>
+      <property name="FieldName">DataTypeName</property>
+    </property>
+    <property name="Item21" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colTradeType</property>
+      <property name="FieldName">TradeType</property>
+    </property>
+    <property name="Item22" isnull="true" iskey="true">
+      <property name="Width">61</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">7</property>
+      <property name="Name">colTradeTypeName</property>
+      <property name="Caption">交易类别</property>
+      <property name="FieldName">TradeTypeName</property>
+    </property>
+    <property name="Item23" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colOperatorCode</property>
+      <property name="FieldName">OperatorCode</property>
+    </property>
+    <property name="Item24" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colBeneficiary</property>
+      <property name="FieldName">Beneficiary</property>
+    </property>
+    <property name="Item25" isnull="true" iskey="true">
+      <property name="Width">140</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">3</property>
+      <property name="Name">colAccountName</property>
+      <property name="Caption">账户信息</property>
+      <property name="FieldName">AccountName</property>
+    </property>
+    <property name="Item26" isnull="true" iskey="true">
+      <property name="Width">70</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">4</property>
+      <property name="Name">colBeneficiaryName</property>
+      <property name="Caption">实际受益人</property>
+      <property name="FieldName">BeneficiaryName</property>
+    </property>
+    <property name="Item27" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">14</property>
+      <property name="Name">colImportUserName</property>
+      <property name="Caption">导入人</property>
+      <property name="FieldName">ImportUserName</property>
+    </property>
+    <property name="Item28" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">2</property>
+      <property name="Fixed">Left</property>
+      <property name="Name">colOperatorName</property>
+      <property name="Caption">投资人员</property>
+      <property name="FieldName">OperatorName</property>
+    </property>
+  </property>
+  <property name="ViewCaption"></property>
+  <property name="BorderStyle">Default</property>
+  <property name="SynchronizeClones">true</property>
+  <property name="DetailTabHeaderLocation">Top</property>
+  <property name="Name">gridView1</property>
+  <property name="DetailHeight">350</property>
+  <property name="Tag" isnull="true" />
+  <property name="ChildGridLevelName"></property>
+  <property name="GroupFormat">{0}: [#image]{1} {2}</property>
+  <property name="ActiveFilterEnabled">true</property>
+  <property name="GroupRowHeight">-1</property>
+  <property name="OptionsBehavior" isnull="true" iskey="true">
+    <property name="Editable">false</property>
+    <property name="ReadOnly">true</property>
+  </property>
+  <property name="FixedLineWidth">2</property>
+  <property name="OptionsSelection" isnull="true" iskey="true">
+    <property name="CheckBoxSelectorColumnWidth">30</property>
+    <property name="UseIndicatorForSelection">false</property>
+    <property name="MultiSelectMode">CheckBoxRowSelect</property>
+    <property name="MultiSelect">true</property>
+  </property>
+  <property name="OptionsView" isnull="true" iskey="true">
+    <property name="ShowGroupPanel">false</property>
+    <property name="EnableAppearanceOddRow">true</property>
+    <property name="EnableAppearanceEvenRow">true</property>
+    <property name="ShowFilterPanelMode">Never</property>
+    <property name="ColumnAutoWidth">false</property>
+  </property>
+  <property name="ColumnPanelRowHeight">-1</property>
+  <property name="RowSeparatorHeight">0</property>
+  <property name="FooterPanelHeight">-1</property>
+  <property name="HorzScrollVisibility">Auto</property>
+  <property name="VertScrollVisibility">Auto</property>
+  <property name="RowHeight">-1</property>
+  <property name="IndicatorWidth">40</property>
+  <property name="FormatRules" iskey="true" value="0" />
+  <property name="ActiveFilterString"></property>
+  <property name="FormatConditions" iskey="true" value="0" />
+  <property name="GroupSummary" iskey="true" value="0" />
+  <property name="GroupSummarySortInfoState"></property>
+  <property name="FindFilterText"></property>
+  <property name="FindPanelVisible">false</property>
+</XtraSerializer>
