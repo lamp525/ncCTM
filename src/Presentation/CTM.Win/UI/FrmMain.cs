@@ -452,7 +452,7 @@ namespace CTM.Win.UI
         {
             try
             {
-                var argument = LoginInfo.CurrentUser.IsAdmin ? string.Empty : LoginInfo.CurrentUser.UserCode;
+                var argument = LoginInfo.CurrentUser.IsAdmin ? string.Empty : LoginInfo.CurrentUser.DepartmentId.ToString();
 
                 ProcessHelper.StartExternalProgram("Client.exe", @".\External\DailyTradeIdentification", argument, System.Diagnostics.ProcessWindowStyle.Maximized);
             }
