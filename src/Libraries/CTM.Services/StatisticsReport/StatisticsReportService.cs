@@ -126,7 +126,7 @@ namespace CTM.Services.StatisticsReport
                 //实际交易天数
                 if (dealAmount > 0 || dailyModel.ActualMarginAmount > 0) tradeDays++;
                 //平均融资融券额
-                dailyModel.AverageMarginAmount = accumulatedMarginAmount / tradeDays;
+                dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
                 //当日累计净收益
@@ -377,7 +377,7 @@ namespace CTM.Services.StatisticsReport
                 //实际交易天数
                 if (dealAmount > 0 || dailyModel.ActualMarginAmount > 0) tradeDays++;
                 //平均融资融券额
-                dailyModel.AverageMarginAmount = accumulatedMarginAmount / tradeDays;
+                dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
                 //当日累计净收益
@@ -635,7 +635,7 @@ namespace CTM.Services.StatisticsReport
                 //实际交易天数
                 if (dealAmount > 0 || dailyModel.ActualMarginAmount > 0) tradeDays++;
                 //平均融资融券额
-                dailyModel.AverageMarginAmount = accumulatedMarginAmount / tradeDays;
+                dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
                 //当日累计净收益
