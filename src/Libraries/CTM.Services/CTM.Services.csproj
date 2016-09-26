@@ -82,8 +82,13 @@
     <Compile Include="Stock\StockService.cs" />
     <Compile Include="TKLine\TKLineService.cs" />
     <Compile Include="TradeRecord\DailyRecordExtensions.cs" />
+    <Compile Include="TradeRecord\DataImportCommonService.cs" />
+    <Compile Include="TradeRecord\DeliveryRecordExtensions.cs" />
+    <Compile Include="TradeRecord\DeliveryRecordService.cs" />
     <Compile Include="TradeRecord\IDailyRecordService.cs" />
     <Compile Include="TradeRecord\DailyRecordService.cs" />
+    <Compile Include="TradeRecord\IDataImportCommonService.cs" />
+    <Compile Include="TradeRecord\IDeliveryRecordService.cs" />
     <Compile Include="TradeRecord\RecordImportOperationEntity.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="User\UserService.cs" />

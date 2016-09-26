@@ -80,7 +80,6 @@
     <Compile Include="Domain\TradeRecord\DeliveryRecord.cs" />
     <Compile Include="Domain\Industry\IndustryInfo.cs" />
     <Compile Include="Domain\Stock\StockPoolEntry.cs" />
-    <Compile Include="Domain\TradeRecord\BaseRecord.cs" />
     <Compile Include="Dynamic.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Account\AccountInfo.cs" />

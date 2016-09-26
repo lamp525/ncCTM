@@ -1,47 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Domain.User;
-using CTM.Core.Util;
+using CTM.Core.Domain.Account;
 using CTM.Services.Account;
 using CTM.Services.Common;
 using CTM.Services.Dictionary;
-using CTM.Services.MarginTrading;
-using CTM.Services.Stock;
 using CTM.Services.TradeRecord;
-using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
 namespace CTM.Win.UI.Finance
 {
-    public partial class FrmDeliveryImport : BaseForm 
+    public partial class FrmDeliveryImport : BaseForm
     {
         #region Fields
 
         private readonly IDictionaryService _dictionaryService;
         private readonly IAccountService _accountService;
-        private readonly IUserService _userService;
-        private readonly IStockService _stockService;
-        private readonly IDailyRecordService _tradeRecordService;
-        private readonly IMarginTradingService _marginService;
-
+        private readonly IDeliveryRecordService _deliveryRecordService;
+        private readonly IDataImportCommonService _dataImportCommonService;
         private readonly ICommonService _commonService;
 
-        #endregion
+        private EnumLibrary.SecurityAccount _securityAccount;
 
+        #endregion Fields
 
         #region Constructors
-        public FrmDeliveryImport()
+
+        public FrmDeliveryImport
+            (
+            IDictionaryService dictionaryService,
+            IAccountService accountService,
+            IDeliveryRecordService deliveryRecordService,
+            IDataImportCommonService dataImportCommonService,
+            ICommonService commonService
+            )
         {
             InitializeComponent();
+
+            this._dictionaryService = dictionaryService;
+            this._accountService = accountService;
+            this._deliveryRecordService = deliveryRecordService;
+            this._dataImportCommonService = dataImportCommonService;
+            this._commonService = commonService;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Utilities
 
@@ -87,7 +95,8 @@ namespace CTM.Win.UI.Finance
             var accountAttributeCode = int.Parse(accountAttribute.Value.Trim());
 
             //检查选中的证券公司和账户属性是否支持导入处理
-            if (!CheckSeletedObjectImportFunciton(securityCompanyName, accountAttributeName))
+            _securityAccount = _deliveryRecordService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
+            if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
                 DXMessage.ShowTips(string.Format("证券公司【{0}】的【{1}】账户暂不支持数据导入功能，请联系管理员！", securityCompanyName, accountAttributeName));
 
@@ -107,15 +116,87 @@ namespace CTM.Win.UI.Finance
             }
         }
 
-        #endregion
+        /// <summary>
+        /// 绑定数据导入信息
+        /// </summary>
+        private void BindDataImportInfo()
+        {
+            var myGridView = this.gridViewAccount;
+
+            int selectedHandle = myGridView.GetSelectedRows()[0];
+
+            var selectedAccountInfo = this.gridViewPreview.GetRow(selectedHandle) as AccountInfo;
+
+            if (selectedAccountInfo != null)
+            {
+                this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
+            }
+        }
+
+        /// <summary>
+        /// 绑定预览数据
+        /// </summary>
+        /// <param name="importFileName"></param>
+        private void BindPreviewData(string importFileName)
+        {
+            this.gridControlPreview.DataSource = null;
+
+            var deliveryData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
+
+            this.gridControlPreview.DataSource = deliveryData;
+            this.gridViewPreview.PopulateColumns();
+            this.gridViewPreview.BestFitColumns(true);
+        }
+
+        /// <summary>
+        /// 交易数据导入处理
+        /// </summary>
+        /// <returns></returns>
+        private bool DataImportProcess()
+        {
+            bool result = false;
+
+            try
+            {
+                var source = this.gridControlPreview.DataSource as DataTable;
+
+                if (source?.Rows.Count > 0)
+                {
+                    var myGridView = this.gridViewAccount;
+
+                    int selectedHandle = myGridView.GetSelectedRows()[0];
+
+                    var accountInfo = this.gridViewPreview.GetRow(selectedHandle) as AccountInfo;
+
+                    var operationInfo = new RecordImportOperationEntity
+                    {
+                        AccountId = accountInfo.Id,
+                        OperatorCode = string.Empty,
+                        ImportTime = _commonService.GetCurrentServerTime(),
+                        ImportUserCode = LoginInfo.CurrentUser.UserCode,
+                        DataType = EnumLibrary.DataType.Delivery,
+                    };
+                    _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+
+            return result;
+        }
+
+        #endregion Utilities
 
         #region Events
+
         private void FrmDeliveryImport_Load(object sender, EventArgs e)
         {
             try
             {
                 this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-               //this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -140,12 +221,39 @@ namespace CTM.Win.UI.Finance
 
         private void btnExcelTemplate_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnFileSelect_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.btnFileSelect.Enabled = false;
 
+                var myOpenFileDialog = this.openFileDialog1;
+
+                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                myOpenFileDialog.Filter = "Excel文件|*.xlsx";
+                myOpenFileDialog.RestoreDirectory = false;
+                myOpenFileDialog.FileName = string.Empty;
+
+                if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var fileName = myOpenFileDialog.FileName;
+
+                    this.txtFilePath.Text = myOpenFileDialog.FileName;
+
+                    //导入数据预览
+                    BindPreviewData(fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnFileSelect.Enabled = true;
+            }
         }
 
         private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
@@ -156,8 +264,6 @@ namespace CTM.Win.UI.Finance
             {
                 switch (pageName)
                 {
-                    #region 账户选择画面
-
                     case "PageAccount":
 
                         if (this.luSecurityCompany.EditValue == null || this.luSecurityCompany.EditValue.ToString() == "nulltext")
@@ -198,22 +304,10 @@ namespace CTM.Win.UI.Finance
                         }
                         break;
 
-                    #endregion 账户选择画面
-
-                    #region 导入数据选择画面
-
-                    case "PageSelectFile":
-
-                        //交易员
-                        if (string.IsNullOrEmpty(this.luOperator.SelectedValue()))
-                        {
-                            DXMessage.ShowTips("请选择交易员！");
-                            e.Handled = true;
-                            return;
-                        }
+                    case "PageImport":
 
                         //导入的Excel文件路径
-                        string importFileName = this.txtImportFileName.Text.Trim();
+                        string importFileName = this.txtFilePath.Text.Trim();
                         if (string.IsNullOrEmpty(importFileName))
                         {
                             DXMessage.ShowTips("请选择要导入的交易数据Excel文件！");
@@ -221,28 +315,11 @@ namespace CTM.Win.UI.Finance
                             return;
                         }
 
-                        //导入的Excel是否存在
-                        if (!System.IO.File.Exists(importFileName))
-                        {
-                            DXMessage.ShowTips("该Excel文件不存在！");
-                            e.Handled = true;
-                            return;
-                        }
-
-                        //导入数据预览
-                        BindPreviewData(importFileName);
-
-                        break;
-
-                    #endregion 导入数据选择画面
-
-                    #region 数据预览画面
-
-                    case "PagePreview":
-
                         if (this.gridViewPreview.DataRowCount == 0)
                         {
-                            this.PagePreview.AllowNext = false;
+                            DXMessage.ShowTips("该Excel文件不存在交易记录！");
+                            e.Handled = true;
+                            return;
                         }
                         else
                         {
@@ -255,8 +332,6 @@ namespace CTM.Win.UI.Finance
                         }
 
                         break;
-
-                        #endregion 数据预览画面
                 }
             }
             catch (Exception ex)
@@ -267,8 +342,6 @@ namespace CTM.Win.UI.Finance
             }
         }
 
-        #endregion
-
-
+        #endregion Events
     }
 }

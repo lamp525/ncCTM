@@ -198,7 +198,7 @@
             this.PagePreview.Controls.Add(this.layoutControl3);
             this.PagePreview.DescriptionText = "请核对导入记录的列名格式和数据是否正确无误";
             this.PagePreview.Name = "PagePreview";
-            this.PagePreview.Size = new System.Drawing.Size(895, 401);
+            this.PagePreview.Size = new System.Drawing.Size(895, 399);
             this.PagePreview.Text = "待导入交易记录预览";
             // 
             // layoutControl3
@@ -211,7 +211,7 @@
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup5;
-            this.layoutControl3.Size = new System.Drawing.Size(895, 401);
+            this.layoutControl3.Size = new System.Drawing.Size(895, 399);
             this.layoutControl3.TabIndex = 1;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -256,7 +256,7 @@
             this.gridControlPreview.Location = new System.Drawing.Point(12, 52);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(871, 337);
+            this.gridControlPreview.Size = new System.Drawing.Size(871, 335);
             this.gridControlPreview.TabIndex = 0;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -286,7 +286,7 @@
             this.emptySpaceItem15});
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(895, 401);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(895, 399);
             this.layoutControlGroup5.TextVisible = false;
             // 
             // layoutControlItem18
@@ -294,7 +294,7 @@
             this.layoutControlItem18.Control = this.gridControlPreview;
             this.layoutControlItem18.Location = new System.Drawing.Point(0, 40);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(875, 341);
+            this.layoutControlItem18.Size = new System.Drawing.Size(875, 339);
             this.layoutControlItem18.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem18.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem18.TextVisible = false;
@@ -371,7 +371,7 @@
             this.PageSelectFile.Controls.Add(this.layoutControl1);
             this.PageSelectFile.DescriptionText = "交易数据导入信息设置";
             this.PageSelectFile.Name = "PageSelectFile";
-            this.PageSelectFile.Size = new System.Drawing.Size(895, 401);
+            this.PageSelectFile.Size = new System.Drawing.Size(895, 399);
             this.PageSelectFile.Text = "提示：请再次确认交易数据来源信息是否正确！";
             // 
             // layoutControl1
@@ -418,7 +418,7 @@
             // 
             // txtAccountPlan
             // 
-            this.txtAccountPlan.Location = new System.Drawing.Point(123, 139);
+            this.txtAccountPlan.Location = new System.Drawing.Point(123, 138);
             this.txtAccountPlan.Name = "txtAccountPlan";
             this.txtAccountPlan.Properties.ReadOnly = true;
             this.txtAccountPlan.Size = new System.Drawing.Size(285, 20);
@@ -458,7 +458,7 @@
             // 
             // txtAccountType
             // 
-            this.txtAccountType.Location = new System.Drawing.Point(123, 115);
+            this.txtAccountType.Location = new System.Drawing.Point(123, 114);
             this.txtAccountType.Name = "txtAccountType";
             this.txtAccountType.Properties.ReadOnly = true;
             this.txtAccountType.Size = new System.Drawing.Size(285, 20);
@@ -499,7 +499,7 @@
             // 
             // txtAccountAttribute
             // 
-            this.txtAccountAttribute.Location = new System.Drawing.Point(123, 91);
+            this.txtAccountAttribute.Location = new System.Drawing.Point(123, 90);
             this.txtAccountAttribute.Name = "txtAccountAttribute";
             this.txtAccountAttribute.Properties.ReadOnly = true;
             this.txtAccountAttribute.Size = new System.Drawing.Size(285, 20);
@@ -508,7 +508,7 @@
             // 
             // txtSecurityCompany
             // 
-            this.txtSecurityCompany.Location = new System.Drawing.Point(123, 67);
+            this.txtSecurityCompany.Location = new System.Drawing.Point(123, 66);
             this.txtSecurityCompany.Name = "txtSecurityCompany";
             this.txtSecurityCompany.Properties.ReadOnly = true;
             this.txtSecurityCompany.Size = new System.Drawing.Size(285, 20);
@@ -517,7 +517,7 @@
             // 
             // txtAccountName
             // 
-            this.txtAccountName.Location = new System.Drawing.Point(123, 43);
+            this.txtAccountName.Location = new System.Drawing.Point(123, 42);
             this.txtAccountName.Name = "txtAccountName";
             this.txtAccountName.Properties.ReadOnly = true;
             this.txtAccountName.Size = new System.Drawing.Size(285, 20);
@@ -551,7 +551,7 @@
             this.layoutControlItem9});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 163);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 162);
             this.layoutControlGroup2.Text = "交易数据来源信息";
             // 
             // layoutControlItem1
@@ -630,9 +630,9 @@
             this.layoutControlItem17,
             this.layoutControlItem10,
             this.emptySpaceItem8});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 200);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 201);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(764, 140);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(764, 139);
             this.layoutControlGroup3.Text = "交易数据导入信息";
             // 
             // layoutControlItem5
@@ -726,9 +726,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 163);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 162);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(764, 37);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(764, 39);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // PageFinish
@@ -740,7 +740,7 @@
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
-            this.PageFinish.Size = new System.Drawing.Size(710, 412);
+            this.PageFinish.Size = new System.Drawing.Size(710, 411);
             this.PageFinish.Text = "交易数据导入";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
@@ -759,7 +759,7 @@
             this.PageAccount.IntroductionText = "";
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
-            this.PageAccount.Size = new System.Drawing.Size(710, 412);
+            this.PageAccount.Size = new System.Drawing.Size(710, 411);
             this.PageAccount.Text = "选择交易数据导入的目标账户";
             // 
             // layoutControl2
@@ -771,7 +771,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup4;
-            this.layoutControl2.Size = new System.Drawing.Size(710, 412);
+            this.layoutControl2.Size = new System.Drawing.Size(710, 411);
             this.layoutControl2.TabIndex = 12;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -793,7 +793,7 @@
             this.gridControlAccount.Location = new System.Drawing.Point(12, 94);
             this.gridControlAccount.MainView = this.gridViewAccount;
             this.gridControlAccount.Name = "gridControlAccount";
-            this.gridControlAccount.Size = new System.Drawing.Size(686, 306);
+            this.gridControlAccount.Size = new System.Drawing.Size(686, 305);
             this.gridControlAccount.TabIndex = 0;
             this.gridControlAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccount});
@@ -991,7 +991,7 @@
             this.emptySpaceItem10});
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(710, 412);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(710, 411);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // layoutControlItem13
@@ -1017,7 +1017,7 @@
             this.layoutControlItem15.Control = this.gridControlAccount;
             this.layoutControlItem15.Location = new System.Drawing.Point(0, 65);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(690, 327);
+            this.layoutControlItem15.Size = new System.Drawing.Size(690, 326);
             this.layoutControlItem15.Text = "账户信息";
             this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(60, 14);

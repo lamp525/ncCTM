@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.User;
-using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Common;
 using CTM.Services.Dictionary;
@@ -28,7 +27,8 @@ namespace CTM.Win.UI.Function.DataImport
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
-        private readonly IDailyRecordService _tradeRecordService;
+        private readonly IDailyRecordService _dailyRecordService;
+        private readonly IDataImportCommonService _dataImportService;
         private readonly IMarginTradingService _marginService;
 
         private readonly ICommonService _commonService;
@@ -143,7 +143,8 @@ namespace CTM.Win.UI.Function.DataImport
             IAccountService accountService,
             IUserService userService,
             IStockService stockService,
-            IDailyRecordService tradeRecordService,
+            IDailyRecordService dailyRecordService,
+            IDataImportCommonService dataImportService,
             IMarginTradingService marginService,
             ICommonService commonService)
         {
@@ -153,7 +154,8 @@ namespace CTM.Win.UI.Function.DataImport
             this._accountService = accountService;
             this._userService = userService;
             this._stockService = stockService;
-            this._tradeRecordService = tradeRecordService;
+            this._dailyRecordService = dailyRecordService;
+            this._dataImportService = dataImportService;
             this._marginService = marginService;
             this._commonService = commonService;
         }
@@ -293,31 +295,11 @@ namespace CTM.Win.UI.Function.DataImport
 
             if (this._importDataTable != null) this._importDataTable.Clear();
 
-            this._importDataTable = NPOIHelper.ImportFirstSheetToDataTable(importFileName);
-
-            FormatImportData(_importDataTable);
+            this._importDataTable = _dataImportService.GetImportDataFromExcel(importFileName);
 
             this.gridControlPreview.DataSource = this._importDataTable;
             this.gridViewPreview.PopulateColumns();
             this.gridViewPreview.BestFitColumns(true);
-        }
-
-        private void FormatImportData(DataTable importDataTable)
-        {
-            var timeColumns = new List<DataColumn>();
-            foreach (DataColumn column in importDataTable.Columns)
-            {
-                if (column.ColumnName.IndexOf("时间") > -1)
-                    timeColumns.Add(column);
-            }
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                foreach (DataColumn colTime in timeColumns)
-                {
-                    row[colTime] = CommonHelper.FormatNumberString(row[colTime].ToString().Trim());
-                }
-            }
         }
 
         private void DisplayTemplateDialog(string templateFilePath)
@@ -514,7 +496,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var myOpenFileDialog = this.openFileDialog1;
 
-                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  
+                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;

@@ -13,8 +13,6 @@ namespace CTM.Services.TradeRecord
 
         public int AccountId { get; set; }
 
-        public string AccountName { get; set; }
-
         public string OperatorCode { get; set; }
 
         public DateTime ImportTime { get; set; }

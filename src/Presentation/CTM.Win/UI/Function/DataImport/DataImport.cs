@@ -146,7 +146,7 @@ namespace CTM.Win.UI.Function.DataImport
         /// <param name="stockCode"></param>
         /// <param name="stockName"></param>
         /// <returns></returns>
-        private bool VerifySotckInfo(StockInfo stockInfo, string stockCode, string stockName)
+        private bool VerifyStockInfo(StockInfo stockInfo, string stockCode, string stockName)
         {
             if (stockInfo == null)
             {
@@ -274,7 +274,6 @@ namespace CTM.Win.UI.Function.DataImport
                 var importOperation = new RecordImportOperationEntity
                 {
                     AccountId = int.Parse(txtAccountName.Tag.ToString()),
-                    AccountName = txtAccountName.Text.Trim(),
                     OperatorCode = this.luOperator.SelectedValue(),
                     ImportTime = _commonService.GetCurrentServerTime(),
                     ImportUserCode = LoginInfo.CurrentUser.UserCode,
@@ -437,7 +436,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -493,7 +492,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -542,7 +541,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -598,7 +597,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -647,7 +646,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -703,7 +702,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -752,7 +751,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -816,7 +815,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -865,7 +864,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -921,7 +920,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -970,7 +969,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1034,7 +1033,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1083,7 +1082,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1139,7 +1138,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1188,7 +1187,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1244,7 +1243,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1293,7 +1292,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1349,7 +1348,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1398,7 +1397,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1454,7 +1453,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1503,7 +1502,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1559,7 +1558,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1608,7 +1607,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1664,7 +1663,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1713,7 +1712,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1769,7 +1768,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1870,7 +1869,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -1926,7 +1925,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -1969,7 +1968,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2024,7 +2023,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2066,7 +2065,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2122,7 +2121,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2164,7 +2163,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2220,7 +2219,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2262,7 +2261,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2319,7 +2318,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2361,7 +2360,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2417,7 +2416,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2459,7 +2458,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2515,7 +2514,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2557,7 +2556,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2613,7 +2612,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2655,7 +2654,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2712,7 +2711,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2860,7 +2859,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -2926,7 +2925,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -2972,7 +2971,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3038,7 +3037,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3085,7 +3084,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3151,7 +3150,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3197,7 +3196,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3263,7 +3262,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3309,7 +3308,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3375,7 +3374,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3421,7 +3420,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3487,7 +3486,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3533,7 +3532,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3599,7 +3598,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3645,7 +3644,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByName(stockName);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3711,7 +3710,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3757,7 +3756,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3823,7 +3822,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3869,7 +3868,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -3935,7 +3934,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -3984,7 +3983,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4050,7 +4049,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -4095,7 +4094,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4161,7 +4160,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -4207,7 +4206,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockCode = string.Empty;
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4273,7 +4272,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -4319,7 +4318,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4385,7 +4384,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -4431,7 +4430,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4496,7 +4495,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 
@@ -4542,7 +4541,7 @@ namespace CTM.Win.UI.Function.DataImport
 
                 var stockInfo = _stockService.GetStockInfoByCode(stockCode);
 
-                if (!VerifySotckInfo(stockInfo, stockCode, stockName)) return false;
+                if (!VerifyStockInfo(stockInfo, stockCode, stockName)) return false;
 
                 tradeRecord.StockCode = stockInfo.FullCode;
 
@@ -4608,7 +4607,7 @@ namespace CTM.Win.UI.Function.DataImport
                 tradeRecords.Add(tradeRecord);
             }
 
-            _tradeRecordService.InsertDailyRecords(tradeRecords);
+            _dailyRecordService.InsertDailyRecords(tradeRecords);
 
             #endregion DataProcess
 

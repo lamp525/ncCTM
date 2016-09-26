@@ -208,6 +208,12 @@
     <Compile Include="UI\Common\_dialogProgressPanel.Designer.cs">
       <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Finance\FrmDeliveryImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Finance\FrmDeliveryImport.Designer.cs">
+      <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Function\DataImport\_dialogImportDataTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -441,6 +447,9 @@
     <EmbeddedResource Include="UI\Common\_dialogProgressPanel.resx">
       <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Finance\FrmDeliveryImport.resx">
+      <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\DataImport\_dialogImportDataTemplate.resx">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
     </EmbeddedResource>
@@ -621,7 +630,6 @@
   <ItemGroup>
     <Folder Include="CustomControl\" />
     <Folder Include="Resources\" />
-    <Folder Include="UI\Finance\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\CTM.Core\CTM.Core.csproj">
