@@ -50,6 +50,11 @@ namespace CTM.Core.Domain.TradeRecord
         public int AccountId { get; set; }
 
         /// <summary>
+        /// 账号编码
+        /// </summary>
+        public string AccountCode { get; set; }
+
+        /// <summary>
         /// 证券代码
         /// </summary>
         public string StockCode { get; set; }

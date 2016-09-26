@@ -464,6 +464,18 @@ namespace CTM.Win.UI
 
         #endregion Function
 
+        #region Accounting
+        /// <summary>
+        /// 交割单数据导入（财务核算人员用）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryDataImport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
+        }
+        #endregion 
+
         #region Setting
 
         /// <summary>
@@ -544,5 +556,7 @@ namespace CTM.Win.UI
         #endregion Application
 
         #endregion Events
+
+      
     }
 }

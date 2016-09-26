@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.UI.Finance
+﻿namespace CTM.Win.UI.Function.DataImport
 {
     partial class FrmDeliveryImport
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.wizardControl1 = new DevExpress.XtraWizard.WizardControl();
-            this.pageAccount = new DevExpress.XtraWizard.WelcomeWizardPage();
+            this.PageAccount = new DevExpress.XtraWizard.WelcomeWizardPage();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.gridControlAccount = new DevExpress.XtraGrid.GridControl();
             this.gridViewAccount = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -87,7 +87,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
             this.wizardControl1.SuspendLayout();
-            this.pageAccount.SuspendLayout();
+            this.PageAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAccount)).BeginInit();
@@ -121,27 +121,27 @@
             // 
             // wizardControl1
             // 
-            this.wizardControl1.Controls.Add(this.pageAccount);
+            this.wizardControl1.Controls.Add(this.PageAccount);
             this.wizardControl1.Controls.Add(this.PageImport);
             this.wizardControl1.Controls.Add(this.completionWizardPage1);
             this.wizardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wizardControl1.Location = new System.Drawing.Point(0, 0);
             this.wizardControl1.Name = "wizardControl1";
             this.wizardControl1.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
-            this.pageAccount,
+            this.PageAccount,
             this.PageImport,
             this.completionWizardPage1});
             this.wizardControl1.Size = new System.Drawing.Size(1534, 760);
             this.wizardControl1.NextClick += new DevExpress.XtraWizard.WizardCommandButtonClickEventHandler(this.wizardControl1_NextClick);
             // 
-            // pageAccount
+            // PageAccount
             // 
-            this.pageAccount.Controls.Add(this.layoutControl1);
-            this.pageAccount.IntroductionText = "";
-            this.pageAccount.Name = "pageAccount";
-            this.pageAccount.ProceedText = "";
-            this.pageAccount.Size = new System.Drawing.Size(1317, 627);
-            this.pageAccount.Text = "选择交割单导入目标账户";
+            this.PageAccount.Controls.Add(this.layoutControl1);
+            this.PageAccount.IntroductionText = "";
+            this.PageAccount.Name = "PageAccount";
+            this.PageAccount.ProceedText = "";
+            this.PageAccount.Size = new System.Drawing.Size(1317, 627);
+            this.PageAccount.Text = "选择交割单导入目标账户";
             // 
             // layoutControl1
             // 
@@ -514,9 +514,9 @@
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Location = new System.Drawing.Point(106, 48);
+            this.txtFilePath.Location = new System.Drawing.Point(103, 48);
             this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(502, 20);
+            this.txtFilePath.Size = new System.Drawing.Size(505, 20);
             this.txtFilePath.StyleController = this.layoutControl2;
             this.txtFilePath.TabIndex = 8;
             // 
@@ -557,10 +557,10 @@
             // 
             // txtAccountInfo
             // 
-            this.txtAccountInfo.Location = new System.Drawing.Point(106, 12);
+            this.txtAccountInfo.Location = new System.Drawing.Point(103, 12);
             this.txtAccountInfo.Name = "txtAccountInfo";
             this.txtAccountInfo.Properties.ReadOnly = true;
-            this.txtAccountInfo.Size = new System.Drawing.Size(502, 20);
+            this.txtAccountInfo.Size = new System.Drawing.Size(505, 20);
             this.txtAccountInfo.StyleController = this.layoutControl2;
             this.txtAccountInfo.TabIndex = 4;
             // 
@@ -590,7 +590,7 @@
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(600, 26);
             this.layoutControlItem2.Text = "账户信息：";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(91, 14);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(88, 14);
             // 
             // layoutControlItem3
             // 
@@ -600,9 +600,9 @@
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(1482, 523);
-            this.layoutControlItem3.Text = "交割单数据明细";
+            this.layoutControlItem3.Text = "导入数据预览";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(91, 14);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(88, 14);
             // 
             // emptySpaceItem4
             // 
@@ -628,7 +628,7 @@
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(600, 26);
             this.layoutControlItem6.Text = "Excel文件路径：";
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(91, 14);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(88, 14);
             // 
             // emptySpaceItem6
             // 
@@ -683,7 +683,7 @@
             this.Load += new System.EventHandler(this.FrmDeliveryImport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
             this.wizardControl1.ResumeLayout(false);
-            this.pageAccount.ResumeLayout(false);
+            this.PageAccount.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAccount)).EndInit();
@@ -720,7 +720,7 @@
         #endregion
 
         private DevExpress.XtraWizard.WizardControl wizardControl1;
-        private DevExpress.XtraWizard.WelcomeWizardPage pageAccount;
+        private DevExpress.XtraWizard.WelcomeWizardPage PageAccount;
         private DevExpress.XtraWizard.WizardPage PageImport;
         private DevExpress.XtraWizard.CompletionWizardPage completionWizardPage1;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;

@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
             this.barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -84,6 +85,7 @@
             this.bbiUserInvestIncomeRetracement = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserInvestIncomeAccount = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDailyTradeIdentification = new DevExpress.XtraBars.BarButtonItem();
+            this.bsiInstallUrl = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -103,9 +105,11 @@
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel();
-            this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager();
-            this.bsiInstallUrl = new DevExpress.XtraBars.BarStaticItem();
+            this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.ribbonPageAccounting = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.rgpAccountingDataManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.bbiDeliveryDataImport = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -170,12 +174,14 @@
             this.bbiUserInvestIncomeRetracement,
             this.bbiUserInvestIncomeAccount,
             this.bbiDailyTradeIdentification,
-            this.bsiInstallUrl});
+            this.bsiInstallUrl,
+            this.bbiDeliveryDataImport});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 27;
+            this.ribbonControl1.MaxItemId = 28;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
+            this.ribbonPageAccounting,
             this.ribbonPageAdmin,
             this.ribbonPageSetting});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
@@ -647,6 +653,14 @@
             this.bbiDailyTradeIdentification.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.bbiDailyTradeIdentification.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDailyTradeIdentification_ItemClick);
             // 
+            // bsiInstallUrl
+            // 
+            this.bsiInstallUrl.AllowHtmlText = DevExpress.Utils.DefaultBoolean.True;
+            this.bsiInstallUrl.Caption = "InstallUrl";
+            this.bsiInstallUrl.Id = 26;
+            this.bsiInstallUrl.Name = "bsiInstallUrl";
+            this.bsiInstallUrl.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -813,13 +827,27 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // bsiInstallUrl
+            // ribbonPageAccounting
             // 
-            this.bsiInstallUrl.AllowHtmlText = DevExpress.Utils.DefaultBoolean.True;
-            this.bsiInstallUrl.Caption = "InstallUrl";
-            this.bsiInstallUrl.Id = 26;
-            this.bsiInstallUrl.Name = "bsiInstallUrl";
-            this.bsiInstallUrl.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.ribbonPageAccounting.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.rgpAccountingDataManage});
+            this.ribbonPageAccounting.Name = "ribbonPageAccounting";
+            this.ribbonPageAccounting.Text = "财务核算";
+            // 
+            // rgpAccountingDataManage
+            // 
+            this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryDataImport);
+            this.rgpAccountingDataManage.Name = "rgpAccountingDataManage";
+            // 
+            // bbiDeliveryDataImport
+            // 
+            this.bbiDeliveryDataImport.Caption = "交割单导入";
+            this.bbiDeliveryDataImport.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryDataImport.Glyph")));
+            this.bbiDeliveryDataImport.Id = 27;
+            this.bbiDeliveryDataImport.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryDataImport.LargeGlyph")));
+            this.bbiDeliveryDataImport.Name = "bbiDeliveryDataImport";
+            this.bbiDeliveryDataImport.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.bbiDeliveryDataImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryDataImport_ItemClick);
             // 
             // FrmMain
             // 
@@ -923,6 +951,9 @@
         private DevExpress.XtraBars.BarButtonItem bbiUserInvestIncomeAccount;
         private DevExpress.XtraBars.BarButtonItem bbiDailyTradeIdentification;
         private DevExpress.XtraBars.BarStaticItem bsiInstallUrl;
+        private DevExpress.XtraBars.BarButtonItem bbiDeliveryDataImport;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageAccounting;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup rgpAccountingDataManage;
     }
 }
 

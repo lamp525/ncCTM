@@ -13,7 +13,7 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Finance
+namespace CTM.Win.UI.Function.DataImport
 {
     public partial class FrmDeliveryImport : BaseForm
     {
@@ -123,13 +123,15 @@ namespace CTM.Win.UI.Finance
         {
             var myGridView = this.gridViewAccount;
 
+            var aa = this.gridControlAccount.DataSource;
+
             int selectedHandle = myGridView.GetSelectedRows()[0];
 
             var selectedAccountInfo = this.gridViewPreview.GetRow(selectedHandle) as AccountInfo;
 
             if (selectedAccountInfo != null)
             {
-                this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
+               this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
             }
         }
 
