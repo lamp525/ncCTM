@@ -7,6 +7,7 @@ namespace CTM.Data.Migrations
     {
         public override void Up()
         {
+            AddColumn("dbo.AccountInfo", "Code", c => c.String());
             AddColumn("dbo.DeliveryRecord", "DataType", c => c.Int(nullable: false));
             AddColumn("dbo.DeliveryRecord", "AccountCode", c => c.String());
             AddColumn("dbo.DailyRecord", "AccountCode", c => c.String());
@@ -23,6 +24,7 @@ namespace CTM.Data.Migrations
             DropColumn("dbo.DailyRecord", "AccountCode");
             DropColumn("dbo.DeliveryRecord", "AccountCode");
             DropColumn("dbo.DeliveryRecord", "DataType");
+            DropColumn("dbo.AccountInfo", "Code");
         }
     }
 }
