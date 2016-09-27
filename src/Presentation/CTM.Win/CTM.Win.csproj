@@ -208,16 +208,16 @@
     <Compile Include="UI\Common\_dialogProgressPanel.Designer.cs">
       <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataImport\FrmDeliveryImport.cs">
+    <Compile Include="UI\Accounting\DataManage\FrmDeliveryImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataImport\FrmDeliveryImport.Designer.cs">
+    <Compile Include="UI\Accounting\DataManage\FrmDeliveryImport.Designer.cs">
       <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataImport\_dialogImportDataTemplate.cs">
+    <Compile Include="UI\Common\_dialogImportDataTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataImport\_dialogImportDataTemplate.Designer.cs">
+    <Compile Include="UI\Common\_dialogImportDataTemplate.Designer.cs">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Function\DataManage\_dialogDailyRecordEdit.cs">
@@ -447,10 +447,10 @@
     <EmbeddedResource Include="UI\Common\_dialogProgressPanel.resx">
       <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataImport\FrmDeliveryImport.resx">
+    <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryImport.resx">
       <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataImport\_dialogImportDataTemplate.resx">
+    <EmbeddedResource Include="UI\Common\_dialogImportDataTemplate.resx">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\DataManage\_dialogDailyRecordSplit.resx">

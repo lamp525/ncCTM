@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CTM.Win.UI.Function.DataImport
+namespace CTM.Win.UI.Common
 {
     public partial class _dialogImportDataTemplate : BaseForm
     {

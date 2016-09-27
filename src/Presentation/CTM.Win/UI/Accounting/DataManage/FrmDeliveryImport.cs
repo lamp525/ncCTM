@@ -13,9 +13,10 @@ using CTM.Services.Dictionary;
 using CTM.Services.TradeRecord;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
+using CTM.Win.UI.Common;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Function.DataImport
+namespace CTM.Win.UI.Accounting.DataMange
 {
     public partial class FrmDeliveryImport : BaseForm
     {

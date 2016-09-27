@@ -8,6 +8,7 @@ using CTM.Services.MarginTrading;
 using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
+using CTM.Win.UI.Accounting.DataMange;
 using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
 using CTM.Win.UI.Function.DataImport;
@@ -467,6 +468,7 @@ namespace CTM.Win.UI
         #endregion Function
 
         #region Accounting
+
         /// <summary>
         /// 交割单数据导入（财务核算人员用）
         /// </summary>
@@ -476,7 +478,10 @@ namespace CTM.Win.UI
         {
             this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
         }
-        #endregion 
+
+        #endregion Accounting
+
+
 
         #region Setting
 
@@ -558,7 +563,5 @@ namespace CTM.Win.UI
         #endregion Application
 
         #endregion Events
-
-      
     }
 }
