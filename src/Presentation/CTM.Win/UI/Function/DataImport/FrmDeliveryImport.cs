@@ -121,17 +121,13 @@ namespace CTM.Win.UI.Function.DataImport
         /// </summary>
         private void BindDataImportInfo()
         {
-            var myGridView = this.gridViewAccount;
+            int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
 
-            var aa = this.gridControlAccount.DataSource;
-
-            int selectedHandle = myGridView.GetSelectedRows()[0];
-
-            var selectedAccountInfo = this.gridViewPreview.GetRow(selectedHandle) as AccountInfo;
+            var selectedAccountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
 
             if (selectedAccountInfo != null)
             {
-               this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
+                this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
             }
         }
 
@@ -164,11 +160,9 @@ namespace CTM.Win.UI.Function.DataImport
 
                 if (source?.Rows.Count > 0)
                 {
-                    var myGridView = this.gridViewAccount;
+                    int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
 
-                    int selectedHandle = myGridView.GetSelectedRows()[0];
-
-                    var accountInfo = this.gridViewPreview.GetRow(selectedHandle) as AccountInfo;
+                    var accountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
 
                     var operationInfo = new RecordImportOperationEntity
                     {
@@ -180,10 +174,12 @@ namespace CTM.Win.UI.Function.DataImport
                     };
                     _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo);
                 }
+
+                result = true;
             }
             catch (Exception ex)
             {
-                DXMessage.ShowError(ex.Message);
+                throw ex;
             }
 
             return result;
@@ -258,6 +254,21 @@ namespace CTM.Win.UI.Function.DataImport
             }
         }
 
+        private void PageFinish_PageInit(object sender, EventArgs e)
+        {
+            try
+            {
+                //数据导入
+                if (DataImportProcess())
+                    this.PageFinish.AllowBack = false;
+            }
+            catch (Exception ex)
+            {
+                this.PageFinish.AllowBack = true;
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
         private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
         {
             var pageName = e.Page.Name.Trim();
@@ -268,7 +279,7 @@ namespace CTM.Win.UI.Function.DataImport
                 {
                     case "PageAccount":
 
-                        if (this.luSecurityCompany.EditValue == null || this.luSecurityCompany.EditValue.ToString() == "nulltext")
+                        if (string.IsNullOrEmpty(this.luSecurityCompany.SelectedValue()))
                         {
                             DXMessage.ShowTips("请选择证券公司！");
                             e.Handled = true;
@@ -323,15 +334,6 @@ namespace CTM.Win.UI.Function.DataImport
                             e.Handled = true;
                             return;
                         }
-                        else
-                        {
-                            //数据导入
-                            if (!DataImportProcess())
-                            {
-                                e.Handled = true;
-                                return;
-                            }
-                        }
 
                         break;
                 }
@@ -341,6 +343,22 @@ namespace CTM.Win.UI.Function.DataImport
                 DXMessage.ShowError(ex.Message);
                 e.Handled = true;
                 return;
+            }
+        }
+
+        private void gridViewAccount_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridViewPreview_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
 

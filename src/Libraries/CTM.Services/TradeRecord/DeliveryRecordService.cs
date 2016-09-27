@@ -56,7 +56,7 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportCaiTong_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportCaiTong_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
@@ -72,8 +72,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -134,16 +134,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim());
 
-                tradeRecord.Remarks = string.Empty;
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--财通证券（信用）
@@ -156,11 +154,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportCaiTong_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportCaiTong_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交均价", "成交数量", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "本次金额", "合同编号", "成交时间", "股东帐户", "备注", "成交编号", "交易市场", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交均价", "成交数量", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "本次金额", "合同编号", "成交时间", "股东帐户", "备注", "成交编号", "交易市场" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -172,8 +170,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -234,16 +232,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--财通证券（普通）
@@ -257,11 +253,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importDataTable"></param>
         /// <returns></returns>
 
-        private bool DeliveryImportFounder_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportFounder_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "成交时间", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "佣金", "过户费", "交易市场", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "成交时间", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "佣金", "过户费", "交易市场" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -273,8 +269,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -340,11 +336,9 @@ namespace CTM.Services.TradeRecord
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--方正证券（普通）
@@ -357,11 +351,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportSinoLink_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportSinoLink_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "佣金", "印花税", "过户费", "成交编号", "股东代码", "备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "佣金", "印花税", "过户费", "成交编号", "股东代码", "备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -373,8 +367,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -427,7 +421,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
-                tradeRecord.ContractNo = string.Empty;
+                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
 
                 tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
 
@@ -435,16 +429,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--国金证券（普通）
@@ -457,11 +449,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportGuoTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportGuoTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "业务名称", "证券代码", "证券名称", "成交价格", "成交数量", "剩余数量", "成交金额", "清算金额", "剩余金额", "净佣金", "规费", "印花税", "过户费", "结算费", "附加费", "成交编号", "股东代码", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "业务名称", "证券代码", "证券名称", "成交价格", "成交数量", "剩余数量", "成交金额", "清算金额", "剩余金额", "净佣金", "规费", "印花税", "过户费", "结算费", "附加费", "成交编号", "股东代码" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -473,8 +465,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -527,7 +519,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
-                tradeRecord.ContractNo = string.Empty;
+                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
 
                 tradeRecord.Commission = decimal.Parse(row["净佣金"].ToString().Trim());
 
@@ -540,11 +532,9 @@ namespace CTM.Services.TradeRecord
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--国泰证券（信用）
@@ -557,11 +547,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "市场名称", "股东帐户", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "市场名称", "股东帐户" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -573,8 +563,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -640,11 +630,9 @@ namespace CTM.Services.TradeRecord
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--国泰证券（普通）
@@ -657,11 +645,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportHuaTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportHuaTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "操作", "证券代码", "结算汇率", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "操作", "证券代码", "结算汇率" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -673,8 +661,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -735,16 +723,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["摘要"].ToString().Trim();
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--华泰证券（普通）
@@ -757,11 +743,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportHuaTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportHuaTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "本次资金余额", "本次股票余额", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "本次资金余额", "本次股票余额" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -773,8 +759,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -829,16 +815,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["摘要"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--华泰证券（信用）
@@ -851,11 +835,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportShenWan_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportShenWan_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "手续费", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "交易市场", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "手续费", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "交易市场" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -867,8 +851,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -929,16 +913,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
 
-                tradeRecord.Remarks = string.Empty;
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--申万证券（普通）
@@ -951,11 +933,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportGalaxy_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportGalaxy_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "股东帐户", "交收日期", "净佣金", "过户费", "结算费", "币种", "交易类别" };
+            var TemplateColumnNames = new List<string> { "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "股东帐户", "交收日期", "净佣金", "过户费", "结算费", "币种" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -967,8 +949,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1029,16 +1011,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["手续费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim()) + decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim());
 
-                tradeRecord.Remarks = string.Empty;
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--银河证券（普通）
@@ -1051,11 +1031,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportZhaoShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportZhaoShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "币种", "证券名称", "成交日期", "成交价格", "成交数量", "发生金额", "资金余额", "合同编号", "业务名称", "手续费", "印花税", "过户费", "结算费", "证券代码", "股东代码", "交易类别" };
+            var TemplateColumnNames = new List<string> { "币种", "证券名称", "成交日期", "成交价格", "成交数量", "发生金额", "资金余额", "合同编号", "业务名称", "手续费", "印花税", "过户费", "结算费", "证券代码", "股东代码" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1065,15 +1045,11 @@ namespace CTM.Services.TradeRecord
 
             var tradeRecords = new List<DeliveryRecord>();
 
-            var validRecords = importDataTable.AsEnumerable()
-                .Where(x =>
-                CommonHelper.IsInt(x.Field<string>("合同编号").Trim()) &&
-                Convert.ToDecimal(x.Field<string>("成交价格").Trim()) != 0 &&
-                Convert.ToDecimal(x.Field<string>("成交数量").Trim()) != 0
-                ).ToList();
-
-            foreach (DataRow row in validRecords)
+            foreach (DataRow row in importDataTable.Rows)
             {
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
+
                 var tradeRecord = new DeliveryRecord();
                 tradeRecord.SetTradeRecordCommonFields(importOperation);
 
@@ -1137,11 +1113,9 @@ namespace CTM.Services.TradeRecord
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--招商证券（普通）
@@ -1154,11 +1128,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportZheShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportZheShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "成交价格", "发生数量", "成交数量", "成交金额", "发生金额", "股票余额", "佣金", "印花税", "过户费", "成交编号", "合同编号", "操作", "股东帐户", "交易市场", "备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "成交价格", "发生数量", "成交数量", "成交金额", "发生金额", "股票余额", "佣金", "印花税", "过户费", "成交编号", "合同编号", "操作", "股东帐户", "交易市场", "备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1170,8 +1144,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
                 tradeRecord.SetTradeRecordCommonFields(importOperation);
@@ -1231,16 +1205,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--浙商证券（普通）
@@ -1253,11 +1225,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportCITIC_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportCITIC_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "发生日期", "证券名称", "委托编号", "成交数量", "成交价格", "成交金额", "手续费", "印花税", "清算金额", "资金本次余额", "股东代码", "备注", "过户费", "交易所清算费", "成交时间", "资金帐号", "币种", "费用备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "发生日期", "证券名称", "委托编号", "成交数量", "成交价格", "成交金额", "手续费", "印花税", "清算金额", "资金本次余额", "股东代码", "备注", "过户费", "交易所清算费", "成交时间", "资金帐号", "币种", "费用备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1269,8 +1241,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1331,16 +1303,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易所清算费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["费用备注"].ToString().Trim();
+                tradeRecord.Remarks = row["备注"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--中信国际（信用）
@@ -1353,11 +1323,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportCITIC_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportCITIC_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "业务名称", "成交数量", "成交价格", "成交金额", "余额", "清算金额", "手续费", "印花税", "附加费", "资金本次余额", "委托编号", "股东代码", "过户费", "交易所清算费", "资金帐号", "币种", "费用备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "业务名称", "成交数量", "成交价格", "成交金额", "余额", "清算金额", "手续费", "印花税", "附加费", "资金本次余额", "委托编号", "股东代码", "过户费", "交易所清算费", "资金帐号", "币种", "费用备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1369,8 +1339,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1431,16 +1401,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易所清算费"].ToString().Trim()) + decimal.Parse(row["附加费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["费用备注"].ToString().Trim();
+                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--中信证券（普通）
@@ -1453,11 +1421,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportBOCI_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportBOCI_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1469,8 +1437,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1531,16 +1499,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易征费"].ToString().Trim()) + decimal.Parse(row["交易规费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--中银国际（信用）
@@ -1553,11 +1519,11 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        private bool DeliveryImportBOCI_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> DeliveryImportBOCI_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注", "交易类别" };
+            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -1569,8 +1535,8 @@ namespace CTM.Services.TradeRecord
 
             foreach (DataRow row in importDataTable.Rows)
             {
-                //过滤无实际成交额或成交量的交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1631,16 +1597,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易征费"].ToString().Trim()) + decimal.Parse(row["交易规费"].ToString().Trim());
 
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
+                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
 
                 tradeRecords.Add(tradeRecord);
             }
 
-            InsertDeliveryRecords(tradeRecords);
-
             #endregion DataProcess
 
-            return true;
+            return tradeRecords;
         }
 
         #endregion 交割单--中银国际（普通）
@@ -1776,90 +1740,94 @@ namespace CTM.Services.TradeRecord
 
         public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation)
         {
-            bool result = false;
+            IList<DeliveryRecord> records = new List<DeliveryRecord>();
+
             switch (securityAccount)
             {
                 //财通信用
                 case EnumLibrary.SecurityAccount.CaiTong_C:
-                    result = DeliveryImportCaiTong_C(importOperation, importDataTable);
+                    records = DeliveryImportCaiTong_C(importOperation, importDataTable);
                     break;
 
                 //财通普通
                 case EnumLibrary.SecurityAccount.CaiTong_N:
-                    result = DeliveryImportCaiTong_N(importOperation, importDataTable);
+                    records = DeliveryImportCaiTong_N(importOperation, importDataTable);
                     break;
 
                 //方正普通
                 case EnumLibrary.SecurityAccount.Founder_N:
-                    result = DeliveryImportFounder_N(importOperation, importDataTable);
+                    records = DeliveryImportFounder_N(importOperation, importDataTable);
                     break;
 
                 //国金普通
                 case EnumLibrary.SecurityAccount.SinoLink_N:
-                    result = DeliveryImportSinoLink_N(importOperation, importDataTable);
+                    records = DeliveryImportSinoLink_N(importOperation, importDataTable);
                     break;
 
                 //国泰信用
                 case EnumLibrary.SecurityAccount.GuoTai_C:
-                    result = DeliveryImportGuoTai_C(importOperation, importDataTable);
+                    records = DeliveryImportGuoTai_C(importOperation, importDataTable);
                     break;
 
                 //国泰普通
                 case EnumLibrary.SecurityAccount.GuoTai_N:
-                    result = DeliveryImportGuoTai_N(importOperation, importDataTable);
+                    records = DeliveryImportGuoTai_N(importOperation, importDataTable);
                     break;
 
                 //华泰信用
                 case EnumLibrary.SecurityAccount.HuaTai_C:
-                    result = DeliveryImportHuaTai_C(importOperation, importDataTable);
+                    records = DeliveryImportHuaTai_C(importOperation, importDataTable);
                     break;
 
                 //华泰普通
                 case EnumLibrary.SecurityAccount.HuaTai_N:
-                    result = DeliveryImportHuaTai_N(importOperation, importDataTable);
+                    records = DeliveryImportHuaTai_N(importOperation, importDataTable);
                     break;
 
                 //申万普通
                 case EnumLibrary.SecurityAccount.ShenWan_N:
-                    result = DeliveryImportShenWan_N(importOperation, importDataTable);
+                    records = DeliveryImportShenWan_N(importOperation, importDataTable);
                     break;
 
                 //银河普通
                 case EnumLibrary.SecurityAccount.Galaxy_N:
-                    result = DeliveryImportGalaxy_N(importOperation, importDataTable);
+                    records = DeliveryImportGalaxy_N(importOperation, importDataTable);
                     break;
 
                 //招商普通
                 case EnumLibrary.SecurityAccount.ZhaoShang_N:
-                    result = DeliveryImportZhaoShang_N(importOperation, importDataTable);
+                    records = DeliveryImportZhaoShang_N(importOperation, importDataTable);
                     break;
 
                 //浙商普通
                 case EnumLibrary.SecurityAccount.ZheShang_N:
-                    result = DeliveryImportZheShang_N(importOperation, importDataTable);
+                    records = DeliveryImportZheShang_N(importOperation, importDataTable);
                     break;
 
                 //中信信用
                 case EnumLibrary.SecurityAccount.CITIC_C:
-                    result = DeliveryImportCITIC_C(importOperation, importDataTable);
+                    records = DeliveryImportCITIC_C(importOperation, importDataTable);
                     break;
 
                 //中信普通
                 case EnumLibrary.SecurityAccount.CITIC_N:
-                    result = DeliveryImportCITIC_N(importOperation, importDataTable);
+                    records = DeliveryImportCITIC_N(importOperation, importDataTable);
                     break;
 
                 //中银信用
                 case EnumLibrary.SecurityAccount.BOCI_C:
-                    result = DeliveryImportBOCI_C(importOperation, importDataTable);
+                    records = DeliveryImportBOCI_C(importOperation, importDataTable);
                     break;
 
                 //中银普通
                 case EnumLibrary.SecurityAccount.BOCI_N:
-                    result = DeliveryImportBOCI_N(importOperation, importDataTable);
+                    records = DeliveryImportBOCI_N(importOperation, importDataTable);
                     break;
             }
-            return result;
+
+            InsertDeliveryRecords(records);
+
+            return true;
         }
 
         #endregion Methods

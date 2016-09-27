@@ -60,7 +60,7 @@ namespace CTM.Win.Extensions
             comboBox.Properties.Items.AddRange(source);
             comboBox.Properties.NullText = "请选择...";
             comboBox.Properties.DropDownRows = count;
-            comboBox.SelectedIndex = -1;
+            //comboBox.SelectedIndex = -1;
             comboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
         }
 

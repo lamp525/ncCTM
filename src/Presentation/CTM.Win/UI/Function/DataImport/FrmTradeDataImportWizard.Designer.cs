@@ -760,7 +760,7 @@
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
             this.PageAccount.Size = new System.Drawing.Size(710, 411);
-            this.PageAccount.Text = "选择交易数据导入的目标账户";
+            this.PageAccount.Text = "选择交易数据导入目标账户";
             // 
             // layoutControl2
             // 

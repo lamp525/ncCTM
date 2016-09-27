@@ -35,72 +35,72 @@ namespace CTM.Win.UI.Function.DataImport
         {
             if (securityCompanyName == "中银国际" && accountAttributeName == "信用")
             {
-                this._securityAccount = SecurityAccount.BOCI_C;
+                this._securityAccount = EnumLibrary.SecurityAccount.BOCI_C;
                 return true;
             }
 
             if (securityCompanyName == "中银国际" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.BOCI_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.BOCI_N;
                 return true;
             }
 
             if (securityCompanyName == "浙商证券" && accountAttributeName == "信用")
             {
-                //this._securityAccount = SecurityAccount.ZheShang_C;
+                //this._securityAccount = EnumLibrary.SecurityAccount.ZheShang_C;
                 //return true;
             }
 
             if (securityCompanyName == "浙商证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.ZheShang_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.ZheShang_N;
                 return true;
             }
 
             if (securityCompanyName == "中信证券" && accountAttributeName == "信用")
             {
-                this._securityAccount = SecurityAccount.CITIC_C;
+                this._securityAccount = EnumLibrary.SecurityAccount.CITIC_C;
                 return true;
             }
 
             if (securityCompanyName == "中信证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.CITIC_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.CITIC_N;
                 return true;
             }
             if (securityCompanyName == "方正证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.Founder_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.Founder_N;
                 return true;
             }
             if (securityCompanyName == "银河证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.Galaxy_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.Galaxy_N;
                 return true;
             }
             if (securityCompanyName == "国金证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.SinoLink_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.SinoLink_N;
                 return true;
             }
             if (securityCompanyName == "国泰君安" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.GuoTai_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.GuoTai_N;
                 return true;
             }
             if (securityCompanyName == "国泰君安" && accountAttributeName == "信用")
             {
-                this._securityAccount = SecurityAccount.GuoTai_C;
+                this._securityAccount = EnumLibrary.SecurityAccount.GuoTai_C;
                 return true;
             }
             if (securityCompanyName == "华泰证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.HuaTai_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.HuaTai_N;
                 return true;
             }
             if (securityCompanyName == "华泰证券" && accountAttributeName == "信用")
             {
-                this._securityAccount = SecurityAccount.HuaTai_C;
+                this._securityAccount = EnumLibrary.SecurityAccount.HuaTai_C;
                 return true;
             }
             if (securityCompanyName == "安信证券" && accountAttributeName == "普通")
@@ -113,22 +113,22 @@ namespace CTM.Win.UI.Function.DataImport
             }
             if (securityCompanyName == "申万宏源" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.ShenWan_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.ShenWan_N;
                 return true;
             }
             if (securityCompanyName == "财通证券" && accountAttributeName == "信用")
             {
-                this._securityAccount = SecurityAccount.CaiTong_C;
+                this._securityAccount = EnumLibrary.SecurityAccount.CaiTong_C;
                 return true;
             }
             if (securityCompanyName == "财通证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.CaiTong_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.CaiTong_N;
                 return true;
             }
             if (securityCompanyName == "招商证券" && accountAttributeName == "普通")
             {
-                this._securityAccount = SecurityAccount.ZhaoShang_N;
+                this._securityAccount = EnumLibrary.SecurityAccount.ZhaoShang_N;
                 return true;
             }
 
@@ -322,72 +322,72 @@ namespace CTM.Win.UI.Function.DataImport
             switch (this._securityAccount)
             {
                 //财通信用
-                case SecurityAccount.CaiTong_C:
+                case EnumLibrary.SecurityAccount.CaiTong_C:
                     result = EntrustImportCaiTong_C(importOperation, importDataTable);
                     break;
 
                 //财通普通
-                case SecurityAccount.CaiTong_N:
+                case EnumLibrary.SecurityAccount.CaiTong_N:
                     result = EntrustImportCaiTong_N(importOperation, importDataTable);
                     break;
 
                 //方正普通
-                case SecurityAccount.Founder_N:
+                case EnumLibrary.SecurityAccount.Founder_N:
                     result = EntrustImportFounder_N(importOperation, importDataTable);
                     break;
 
                 // 银河普通
-                case SecurityAccount.Galaxy_N:
+                case EnumLibrary.SecurityAccount.Galaxy_N:
                     result = EntrustImportGalaxy_N(importOperation, importDataTable);
                     break;
 
                 //国泰普通
-                case SecurityAccount.GuoTai_N:
+                case EnumLibrary.SecurityAccount.GuoTai_N:
                     result = EntrustImportGuoTai_N(importOperation, importDataTable);
                     break;
 
                 //国泰信用
-                case SecurityAccount.GuoTai_C:
+                case EnumLibrary.SecurityAccount.GuoTai_C:
                     result = EntrustImportGuoTai_C(importOperation, importDataTable);
                     break;
 
                 //华泰普通
-                case SecurityAccount.HuaTai_N:
+                case EnumLibrary.SecurityAccount.HuaTai_N:
                     result = EntrustImportHuaTai_N(importOperation, importDataTable);
                     break;
 
                 //华泰信用
-                case SecurityAccount.HuaTai_C:
+                case EnumLibrary.SecurityAccount.HuaTai_C:
                     result = EntrustImportHuaTai_C(importOperation, importDataTable);
                     break;
 
                 //申万普通
-                case SecurityAccount.ShenWan_N:
+                case EnumLibrary.SecurityAccount.ShenWan_N:
                     result = EntrustImportShenWan_N(importOperation, importDataTable);
                     break;
 
                 //浙商普通
-                case SecurityAccount.ZheShang_N:
+                case EnumLibrary.SecurityAccount.ZheShang_N:
                     result = EntrustImportZheShang_N(importOperation, importDataTable);
                     break;
 
                 //中信普通
-                case SecurityAccount.CITIC_N:
+                case EnumLibrary.SecurityAccount.CITIC_N:
                     result = EntrustImportCITIC_N(importOperation, importDataTable);
                     break;
 
                 //中信信用
-                case SecurityAccount.CITIC_C:
+                case EnumLibrary.SecurityAccount.CITIC_C:
                     result = EntrustImportCITIC_C(importOperation, importDataTable);
                     break;
 
                 ////中银信用
-                //case SecurityAccount.BOCI_C:
+                //case EnumLibrary.SecurityAccount.BOCI_C:
                 //    result = EntrustImportBOCI_C(importOperation, importDataTable);
                 //    break;
 
                 //中银普通
-                case SecurityAccount.BOCI_N:
+                case EnumLibrary.SecurityAccount.BOCI_N:
                     result = EntrustImportBOCI_N(importOperation, importDataTable);
                     break;
             }
@@ -1789,47 +1789,47 @@ namespace CTM.Win.UI.Function.DataImport
             switch (this._securityAccount)
             {
                 //财通信用
-                case SecurityAccount.CaiTong_C:
+                case EnumLibrary.SecurityAccount.CaiTong_C:
                     result = DailyImportCaiTong_C(importOperation, importDataTable);
                     break;
 
                 //国金普通
-                case SecurityAccount.SinoLink_N:
+                case EnumLibrary.SecurityAccount.SinoLink_N:
                     result = DailyImportSinoLink_N(importOperation, importDataTable);
                     break;
 
                 //国泰普通
-                case SecurityAccount.GuoTai_N:
+                case EnumLibrary.SecurityAccount.GuoTai_N:
                     result = DailyImportGuoTai_N(importOperation, importDataTable);
                     break;
 
                 //华泰普通
-                case SecurityAccount.HuaTai_N:
+                case EnumLibrary.SecurityAccount.HuaTai_N:
                     result = DailyImportHuaTai_N(importOperation, importDataTable);
                     break;
 
                 //华泰信用
-                case SecurityAccount.HuaTai_C:
+                case EnumLibrary.SecurityAccount.HuaTai_C:
                     result = DailyImportHuaTai_C(importOperation, importDataTable);
                     break;
 
                 //申万普通
-                case SecurityAccount.ShenWan_N:
+                case EnumLibrary.SecurityAccount.ShenWan_N:
                     result = DailyImportShenWan_N(importOperation, importDataTable);
                     break;
 
                 //浙商普通
-                case SecurityAccount.ZheShang_N:
+                case EnumLibrary.SecurityAccount.ZheShang_N:
                     result = DailyImportZheShang_N(importOperation, importDataTable);
                     break;
 
                 //中信普通
-                case SecurityAccount.CITIC_N:
+                case EnumLibrary.SecurityAccount.CITIC_N:
                     result = DailyImportCITIC_N(importOperation, importDataTable);
                     break;
 
                 //中银信用
-                case SecurityAccount.BOCI_C:
+                case EnumLibrary.SecurityAccount.BOCI_C:
                     result = DialyImportBOCI_C(importOperation, importDataTable);
                     break;
             }
@@ -2738,82 +2738,82 @@ namespace CTM.Win.UI.Function.DataImport
             switch (this._securityAccount)
             {
                 //财通信用
-                case SecurityAccount.CaiTong_C:
+                case EnumLibrary.SecurityAccount.CaiTong_C:
                     result = DeliveryImportCaiTong_C(importOperation, importDataTable);
                     break;
 
                 //财通普通
-                case SecurityAccount.CaiTong_N:
+                case EnumLibrary.SecurityAccount.CaiTong_N:
                     result = DeliveryImportCaiTong_N(importOperation, importDataTable);
                     break;
 
                 //方正普通
-                case SecurityAccount.Founder_N:
+                case EnumLibrary.SecurityAccount.Founder_N:
                     result = DeliveryImportFounder_N(importOperation, importDataTable);
                     break;
 
                 //国金普通
-                case SecurityAccount.SinoLink_N:
+                case EnumLibrary.SecurityAccount.SinoLink_N:
                     result = DeliveryImportSinoLink_N(importOperation, importDataTable);
                     break;
 
                 //国泰信用
-                case SecurityAccount.GuoTai_C:
+                case EnumLibrary.SecurityAccount.GuoTai_C:
                     result = DeliveryImportGuoTai_C(importOperation, importDataTable);
                     break;
 
                 //国泰普通
-                case SecurityAccount.GuoTai_N:
+                case EnumLibrary.SecurityAccount.GuoTai_N:
                     result = DeliveryImportGuoTai_N(importOperation, importDataTable);
                     break;
 
                 //华泰信用
-                case SecurityAccount.HuaTai_C:
+                case EnumLibrary.SecurityAccount.HuaTai_C:
                     result = DeliveryImportHuaTai_C(importOperation, importDataTable);
                     break;
 
                 //华泰普通
-                case SecurityAccount.HuaTai_N:
+                case EnumLibrary.SecurityAccount.HuaTai_N:
                     result = DeliveryImportHuaTai_N(importOperation, importDataTable);
                     break;
 
                 //申万普通
-                case SecurityAccount.ShenWan_N:
+                case EnumLibrary.SecurityAccount.ShenWan_N:
                     result = DeliveryImportShenWan_N(importOperation, importDataTable);
                     break;
 
                 //银河普通
-                case SecurityAccount.Galaxy_N:
+                case EnumLibrary.SecurityAccount.Galaxy_N:
                     result = DeliveryImportGalaxy_N(importOperation, importDataTable);
                     break;
 
                 //招商普通
-                case SecurityAccount.ZhaoShang_N:
+                case EnumLibrary.SecurityAccount.ZhaoShang_N:
                     result = DeliveryImportZhaoShang_N(importOperation, importDataTable);
                     break;
 
                 //浙商普通
-                case SecurityAccount.ZheShang_N:
+                case EnumLibrary.SecurityAccount.ZheShang_N:
                     result = DeliveryImportZheShang_N(importOperation, importDataTable);
                     break;
 
                 //中信信用
-                case SecurityAccount.CITIC_C:
+                case EnumLibrary.SecurityAccount.CITIC_C:
                     result = DeliveryImportCITIC_C(importOperation, importDataTable);
                     break;
 
                 //中信普通
-                case SecurityAccount.CITIC_N:
+                case EnumLibrary.SecurityAccount.CITIC_N:
                     result = DeliveryImportCITIC_N(importOperation, importDataTable);
                     break;
 
                 //中银信用
-                case SecurityAccount.BOCI_C:
+                case EnumLibrary.SecurityAccount.BOCI_C:
                     result = DeliveryImportBOCI_C(importOperation, importDataTable);
                     break;
 
                 //中银普通
-                case SecurityAccount.BOCI_N:
+                case EnumLibrary.SecurityAccount.BOCI_N:
                     result = DeliveryImportBOCI_N(importOperation, importDataTable);
                     break;
             }
