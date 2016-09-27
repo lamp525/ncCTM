@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using CTM.Core;
 using CTM.Core.Domain.Stock;
 using CTM.Core.Util;
 
@@ -90,6 +91,113 @@ namespace CTM.Services.TradeRecord
         {
             if (stockInfo == null)
                 throw new Exception($"系统不存在【代码：{stockCode}】【名称：{stockName}】的股票信息！");
+        }
+
+        /// <summary>
+        /// 判断选中的证券公司和账户属性是否支持数据导入处理
+        /// </summary>
+        /// <param name="securityCompanyName"></param>
+        /// <param name="accountAttributeName"></param>
+        /// <returns></returns>
+        public virtual EnumLibrary.SecurityAccount GetSelectedSecurityCompanyEnum(string securityCompanyName, string accountAttributeName)
+        {
+            var securityAccount = EnumLibrary.SecurityAccount.Unknown;
+
+            if (securityCompanyName == "中银国际" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.BOCI_C;
+            }
+
+            if (securityCompanyName == "中银国际" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.BOCI_N;
+            }
+
+            if (securityCompanyName == "浙商证券" && accountAttributeName == "信用")
+            {
+                //securityAccount = EnumLibrary.SecurityAccount.ZheShang_C;
+            }
+
+            if (securityCompanyName == "浙商证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.ZheShang_N;
+            }
+
+            if (securityCompanyName == "中信证券" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.CITIC_C;
+            }
+
+            if (securityCompanyName == "中信证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.CITIC_N;
+            }
+
+            if (securityCompanyName == "方正证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.Founder_N;
+            }
+
+            if (securityCompanyName == "银河证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.Galaxy_N;
+            }
+
+            if (securityCompanyName == "国金证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.SinoLink_N;
+            }
+
+            if (securityCompanyName == "国泰君安" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.GuoTai_N;
+            }
+
+            if (securityCompanyName == "国泰君安" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.GuoTai_C;
+            }
+
+            if (securityCompanyName == "华泰证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.HuaTai_N;
+            }
+
+            if (securityCompanyName == "华泰证券" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.HuaTai_C;
+            }
+
+            if (securityCompanyName == "安信证券" && accountAttributeName == "普通")
+            {
+                // return true;
+            }
+            if (securityCompanyName == "海通证券" && accountAttributeName == "普通")
+            {
+                // return true;
+            }
+
+            if (securityCompanyName == "申万宏源" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.ShenWan_N;
+            }
+
+            if (securityCompanyName == "财通证券" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.CaiTong_C;
+            }
+
+            if (securityCompanyName == "财通证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.CaiTong_N;
+            }
+
+            if (securityCompanyName == "招商证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.ZhaoShang_N;
+            }
+
+            return securityAccount;
         }
 
         #endregion Methods

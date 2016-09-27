@@ -98,7 +98,7 @@ namespace CTM.Win.UI.Accounting.DataMange
             var accountAttributeCode = int.Parse(accountAttribute.Value.Trim());
 
             //检查选中的证券公司和账户属性是否支持导入处理
-            _securityAccount = _deliveryRecordService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
+            _securityAccount = _dataImportCommonService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
             if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
                 DXMessage.ShowTips(string.Format("证券公司【{0}】的【{1}】账户暂不支持数据导入功能，请联系管理员！", securityCompanyName, accountAttributeName));

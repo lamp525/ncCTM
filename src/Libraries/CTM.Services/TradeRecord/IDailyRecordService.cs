@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using CTM.Core;
 using CTM.Core.Domain.TradeRecord;
 
 namespace CTM.Services.TradeRecord
@@ -74,5 +76,7 @@ namespace CTM.Services.TradeRecord
             DateTime? tradeDateFrom = null,
             DateTime? tradeDateTo = null
             );
+
+        bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable source, RecordImportOperationEntity operationInfo);
     }
 }

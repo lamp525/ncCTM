@@ -111,10 +111,10 @@ namespace CTM.Services.TradeRecord
         public static void SetTradeRecordCommonFields(this DailyRecord dailyRecord, RecordImportOperationEntity recordImportOperationInfo)
         {
             if (dailyRecord == null)
-                throw new ArgumentNullException("dailyRecord");
+                throw new ArgumentNullException(nameof(dailyRecord));
 
             if (recordImportOperationInfo == null)
-                throw new ArgumentNullException("recordImportOperationInfo");
+                throw new ArgumentNullException(nameof(recordImportOperationInfo));
 
             dailyRecord.DataType = (int)recordImportOperationInfo.DataType;
             dailyRecord.AccountId = recordImportOperationInfo.AccountId;
@@ -135,7 +135,7 @@ namespace CTM.Services.TradeRecord
         public static void SetTradeType(this DailyRecord dailyRecord, string tradeType)
         {
             if (dailyRecord == null)
-                throw new ArgumentNullException("dailyRecord");
+                throw new ArgumentNullException(nameof(dailyRecord));
 
             switch (tradeType)
             {
@@ -162,7 +162,7 @@ namespace CTM.Services.TradeRecord
         public static void SetBeneficiary(this DailyRecord dailyRecord, string bandPrincipal, string targetPrincipal)
         {
             if (dailyRecord == null)
-                throw new ArgumentNullException("dailyRecord");
+                throw new ArgumentNullException(nameof(dailyRecord));
 
             switch (dailyRecord.TradeType)
             {

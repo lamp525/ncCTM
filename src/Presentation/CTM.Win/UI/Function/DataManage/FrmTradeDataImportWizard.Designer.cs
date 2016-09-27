@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.UI.Function.DataImport
+﻿namespace CTM.Win.UI.Function.DataManage
 {
     partial class FrmTradeDataImportWizard
     {

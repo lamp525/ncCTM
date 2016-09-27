@@ -13,8 +13,6 @@ namespace CTM.Services.TradeRecord
 
         void InsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords);
 
-        EnumLibrary.SecurityAccount GetSelectedSecurityCompanyEnum(string securityCompanyName, string accountAttributeName);
-
         bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable source, RecordImportOperationEntity operationInfo);
     }
 }

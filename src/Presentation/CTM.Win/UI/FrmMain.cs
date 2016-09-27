@@ -11,7 +11,6 @@ using CTM.Win.Models;
 using CTM.Win.UI.Accounting.DataMange;
 using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
-using CTM.Win.UI.Function.DataImport;
 using CTM.Win.UI.Function.DataManage;
 using CTM.Win.UI.Function.MarginTrading;
 using CTM.Win.UI.Function.StatisticsReport;
@@ -480,8 +479,6 @@ namespace CTM.Win.UI
         }
 
         #endregion Accounting
-
-
 
         #region Setting
 

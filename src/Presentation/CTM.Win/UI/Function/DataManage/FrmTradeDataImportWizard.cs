@@ -18,7 +18,7 @@ using CTM.Win.Models;
 using CTM.Win.UI.Common;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Function.DataImport
+namespace CTM.Win.UI.Function.DataManage
 {
     public partial class FrmTradeDataImportWizard : BaseForm
     {
@@ -29,12 +29,9 @@ namespace CTM.Win.UI.Function.DataImport
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
         private readonly IDailyRecordService _dailyRecordService;
-        private readonly IDataImportCommonService _dataImportService;
+        private readonly IDataImportCommonService _dataImportCommonService;
         private readonly IMarginTradingService _marginService;
-
         private readonly ICommonService _commonService;
-
-        private DataTable _importDataTable;
 
         private EnumLibrary.SecurityAccount _securityAccount;
 
@@ -59,7 +56,7 @@ namespace CTM.Win.UI.Function.DataImport
             this._userService = userService;
             this._stockService = stockService;
             this._dailyRecordService = dailyRecordService;
-            this._dataImportService = dataImportService;
+            this._dataImportCommonService = dataImportService;
             this._marginService = marginService;
             this._commonService = commonService;
         }
@@ -110,7 +107,8 @@ namespace CTM.Win.UI.Function.DataImport
             var accountAttributeCode = int.Parse(accountAttribute.Value.Trim());
 
             //检查选中的证券公司和账户属性是否支持导入处理
-            if (!CheckSeletedObjectImportFunciton(securityCompanyName, accountAttributeName))
+            _securityAccount = _dataImportCommonService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
+            if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
                 DXMessage.ShowTips(string.Format("证券公司【{0}】的【{1}】账户暂不支持数据导入功能，请联系管理员！", securityCompanyName, accountAttributeName));
 
@@ -197,11 +195,9 @@ namespace CTM.Win.UI.Function.DataImport
             targetOperatorInfos = targetOperatorInfos.OrderBy(x => x.Code).ToList();
             this.luTargetPrincipal.Initialize(targetOperatorInfos, "Code", "Name", enableSearch: true);
 
-            if (this._importDataTable != null) this._importDataTable.Clear();
+            var deliveryData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
 
-            this._importDataTable = _dataImportService.GetImportDataFromExcel(importFileName);
-
-            this.gridControlPreview.DataSource = this._importDataTable;
+            this.gridControlPreview.DataSource = deliveryData;
             this.gridViewPreview.PopulateColumns();
             this.gridViewPreview.BestFitColumns(true);
         }
@@ -212,6 +208,44 @@ namespace CTM.Win.UI.Function.DataImport
             dialog.TemplateFilePath = templateFilePath;
             dialog.Text = "导入数据模板Excel预览";
             dialog.Show();
+        }
+
+        /// <summary>
+        /// 交易数据导入处理
+        /// </summary>
+        /// <returns></returns>
+        private bool DataImportProcess()
+        {
+            bool result = false;
+
+            try
+            {
+                var source = this.gridControlPreview.DataSource as DataTable;
+
+                if (source?.Rows.Count > 0)
+                {
+                    var operationInfo = new RecordImportOperationEntity
+                    {
+                        AccountId = int.Parse(txtAccountName.Tag.ToString()),
+                        OperatorCode = this.luOperator.SelectedValue(),
+                        ImportTime = _commonService.GetCurrentServerTime(),
+                        ImportUserCode = LoginInfo.CurrentUser.UserCode,
+                        DataType = this.checkDaily.Checked ? EnumLibrary.DataType.Daily : this.chkEntrust.Checked ? EnumLibrary.DataType.Entrust : EnumLibrary.DataType.Delivery,
+                        BandPrincipal = this.luBandPrincipal.SelectedValue(),
+                        TargetPrincipal = this.luTargetPrincipal.SelectedValue(),
+                    };
+
+                    _dailyRecordService.DataImportProcess(_securityAccount, source, operationInfo);
+                }
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+
+            return result;
         }
 
         #endregion Utilities

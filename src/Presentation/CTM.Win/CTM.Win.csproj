@@ -385,13 +385,10 @@
     <Compile Include="UI\Admin\BaseData\FrmDepartment.Designer.cs">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataImport\DataImport.cs">
+    <Compile Include="UI\Function\DataManage\FrmTradeDataImportWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataImport\FrmTradeDataImportWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Function\DataImport\FrmTradeDataImportWizard.Designer.cs">
+    <Compile Include="UI\Function\DataManage\FrmTradeDataImportWizard.Designer.cs">
       <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Function\DataManage\FrmTradeDataManage.cs">
@@ -497,7 +494,7 @@
     <EmbeddedResource Include="UI\Admin\BaseData\FrmDepartment.resx">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataImport\FrmTradeDataImportWizard.resx">
+    <EmbeddedResource Include="UI\Function\DataManage\FrmTradeDataImportWizard.resx">
       <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\DataManage\FrmTradeDataManage.resx">
