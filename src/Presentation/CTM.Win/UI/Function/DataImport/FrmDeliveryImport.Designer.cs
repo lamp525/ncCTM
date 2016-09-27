@@ -84,6 +84,8 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageFinish = new DevExpress.XtraWizard.CompletionWizardPage();
+            this.lblFinish = new DevExpress.XtraEditors.LabelControl();
+            this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
             this.wizardControl1.SuspendLayout();
@@ -117,6 +119,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            this.PageFinish.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // wizardControl1
@@ -132,6 +136,8 @@
             this.PageImport,
             this.PageFinish});
             this.wizardControl1.Size = new System.Drawing.Size(1316, 728);
+            this.wizardControl1.CancelClick += new System.ComponentModel.CancelEventHandler(this.wizardControl1_CancelClick);
+            this.wizardControl1.FinishClick += new System.ComponentModel.CancelEventHandler(this.wizardControl1_FinishClick);
             this.wizardControl1.NextClick += new DevExpress.XtraWizard.WizardCommandButtonClickEventHandler(this.wizardControl1_NextClick);
             // 
             // PageAccount
@@ -661,12 +667,37 @@
             // 
             // PageFinish
             // 
+            this.PageFinish.AllowCancel = false;
+            this.PageFinish.AllowNext = false;
+            this.PageFinish.Controls.Add(this.lblFinish);
+            this.PageFinish.Controls.Add(this.marqueeProgressBarControl1);
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
             this.PageFinish.Size = new System.Drawing.Size(1099, 595);
             this.PageFinish.Text = "数据导入处理";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
+            // 
+            // lblFinish
+            // 
+            this.lblFinish.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.lblFinish.Location = new System.Drawing.Point(220, 247);
+            this.lblFinish.Name = "lblFinish";
+            this.lblFinish.Size = new System.Drawing.Size(102, 18);
+            this.lblFinish.TabIndex = 1;
+            this.lblFinish.Text = "labelControl1";
+            this.lblFinish.Visible = false;
+            // 
+            // marqueeProgressBarControl1
+            // 
+            this.marqueeProgressBarControl1.EditValue = "";
+            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(220, 219);
+            this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
+            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 50;
+            this.marqueeProgressBarControl1.Properties.MarqueeWidth = 10;
+            this.marqueeProgressBarControl1.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
+            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(579, 22);
+            this.marqueeProgressBarControl1.TabIndex = 0;
             // 
             // openFileDialog1
             // 
@@ -713,6 +744,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            this.PageFinish.ResumeLayout(false);
+            this.PageFinish.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -776,5 +810,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+        private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgressBarControl1;
+        private DevExpress.XtraEditors.LabelControl lblFinish;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
@@ -146,43 +148,12 @@ namespace CTM.Win.UI.Function.DataImport
             this.gridViewPreview.BestFitColumns(true);
         }
 
-        /// <summary>
-        /// 交易数据导入处理
-        /// </summary>
-        /// <returns></returns>
-        private bool DataImportProcess()
+        private void DisplayTemplateDialog(string templateFilePath)
         {
-            bool result = false;
-
-            try
-            {
-                var source = this.gridControlPreview.DataSource as DataTable;
-
-                if (source?.Rows.Count > 0)
-                {
-                    int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
-
-                    var accountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
-
-                    var operationInfo = new RecordImportOperationEntity
-                    {
-                        AccountId = accountInfo.Id,
-                        OperatorCode = string.Empty,
-                        ImportTime = _commonService.GetCurrentServerTime(),
-                        ImportUserCode = LoginInfo.CurrentUser.UserCode,
-                        DataType = EnumLibrary.DataType.Delivery,
-                    };
-                    _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo);
-                }
-
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return result;
+            var dialog = this.CreateDialog<_dialogImportDataTemplate>(FormBorderStyle.FixedSingle);
+            dialog.TemplateFilePath = templateFilePath;
+            dialog.Text = "导入数据模板Excel预览";
+            dialog.Show();
         }
 
         #endregion Utilities
@@ -194,7 +165,7 @@ namespace CTM.Win.UI.Function.DataImport
             try
             {
                 this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 60);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -219,6 +190,33 @@ namespace CTM.Win.UI.Function.DataImport
 
         private void btnExcelTemplate_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.btnExcelTemplate.Enabled = false;
+
+                var targetDirectoryName = "DataTemplate\\AccountingDelivery";
+
+                var fileName = _securityAccount.ToString() + ".xlsx";
+
+                var templateFilePath = Path.Combine(Application.StartupPath, targetDirectoryName, fileName);
+
+                if (!File.Exists(templateFilePath))
+                {
+                    DXMessage.ShowTips("Sorry！未找到对应的Excel模板文件！");
+                    return;
+                }
+
+                //弹出显示模板Excel
+                DisplayTemplateDialog(templateFilePath);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExcelTemplate.Enabled = true;
+            }
         }
 
         private void btnFileSelect_Click(object sender, EventArgs e)
@@ -258,15 +256,84 @@ namespace CTM.Win.UI.Function.DataImport
         {
             try
             {
-                //数据导入
-                if (DataImportProcess())
-                    this.PageFinish.AllowBack = false;
+                this.lblFinish.Visible = false;
+                this.PageFinish.AllowBack = false;
+
+                this.marqueeProgressBarControl1.Visible = true;
+                this.marqueeProgressBarControl1.Text = "数据导入中...请稍后...";
+                this.marqueeProgressBarControl1.Properties.ShowTitle = true;
+
+                var bw = new BackgroundWorker();
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(DataImportProcess);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DataImportCompleted);
+                bw.RunWorkerAsync();
             }
             catch (Exception ex)
             {
                 this.PageFinish.AllowBack = true;
                 DXMessage.ShowError(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 交易数据导入处理
+        /// </summary>
+        /// <returns></returns>
+        private void DataImportProcess(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                var source = this.gridControlPreview.DataSource as DataTable;
+
+                if (source?.Rows.Count > 0)
+                {
+                    int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
+
+                    var accountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
+
+                    var operationInfo = new RecordImportOperationEntity
+                    {
+                        AccountId = accountInfo.Id,
+                        OperatorCode = string.Empty,
+                        ImportTime = _commonService.GetCurrentServerTime(),
+                        ImportUserCode = LoginInfo.CurrentUser.UserCode,
+                        DataType = EnumLibrary.DataType.Delivery,
+                    };
+                    _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
+        }
+
+        private void DataImportCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.marqueeProgressBarControl1.Properties.Stopped = true;
+            this.marqueeProgressBarControl1.Visible = false;
+            this.lblFinish.Visible = true;
+
+            if (e.Error == null && e.Result == null)
+            {
+                this.lblFinish.Text = "数据导入完成！";
+                this.lblFinish.ForeColor = System.Drawing.Color.Black;
+                this.PageFinish.AllowBack = false;
+            }
+            else
+            {
+                var msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
+                this.lblFinish.Text = msg;
+                this.lblFinish.ForeColor = System.Drawing.Color.Red;
+                this.PageFinish.AllowBack = true;
+            }
+        }
+
+        private void wizardControl1_CancelClick(object sender, CancelEventArgs e)
+        {
+            if (DXMessage.ShowYesNoAndTips("确定取消本次数据导入操作么？") == DialogResult.Yes)
+                this.Close();
         }
 
         private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
@@ -344,6 +411,11 @@ namespace CTM.Win.UI.Function.DataImport
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void wizardControl1_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.Close();
         }
 
         private void gridViewAccount_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
