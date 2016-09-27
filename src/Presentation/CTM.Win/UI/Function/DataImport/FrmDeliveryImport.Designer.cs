@@ -146,7 +146,7 @@
             this.PageAccount.IntroductionText = "";
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
-            this.PageAccount.Size = new System.Drawing.Size(1099, 595);
+            this.PageAccount.Size = new System.Drawing.Size(1099, 596);
             this.PageAccount.Text = "选择交割单导入目标账户";
             // 
             // layoutControl1
@@ -158,7 +158,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1099, 595);
+            this.layoutControl1.Size = new System.Drawing.Size(1099, 596);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -167,7 +167,7 @@
             this.gridControlAccount.Location = new System.Drawing.Point(12, 87);
             this.gridControlAccount.MainView = this.gridViewAccount;
             this.gridControlAccount.Name = "gridControlAccount";
-            this.gridControlAccount.Size = new System.Drawing.Size(1075, 496);
+            this.gridControlAccount.Size = new System.Drawing.Size(1075, 497);
             this.gridControlAccount.TabIndex = 11;
             this.gridControlAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccount});
@@ -440,7 +440,7 @@
             this.layoutControlItem14});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1099, 595);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1099, 596);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem13
@@ -466,7 +466,7 @@
             this.layoutControlItem1.Control = this.gridControlAccount;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 58);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1079, 517);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1079, 518);
             this.layoutControlItem1.Text = "账户信息";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(60, 14);
@@ -494,7 +494,7 @@
             this.PageImport.Controls.Add(this.layoutControl2);
             this.PageImport.DescriptionText = "注意：请再次核对选择的目标账号是否正确。";
             this.PageImport.Name = "PageImport";
-            this.PageImport.Size = new System.Drawing.Size(1284, 583);
+            this.PageImport.Size = new System.Drawing.Size(1284, 585);
             this.PageImport.Text = "交割单数据导入预览";
             // 
             // layoutControl2
@@ -508,7 +508,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1284, 583);
+            this.layoutControl2.Size = new System.Drawing.Size(1284, 585);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -546,7 +546,7 @@
             this.gridControlPreview.Location = new System.Drawing.Point(12, 101);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(1260, 470);
+            this.gridControlPreview.Size = new System.Drawing.Size(1260, 472);
             this.gridControlPreview.TabIndex = 5;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -582,7 +582,7 @@
             this.emptySpaceItem5});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1284, 583);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1284, 585);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem2
@@ -601,7 +601,7 @@
             this.layoutControlItem3.Control = this.gridControlPreview;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1264, 491);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1264, 493);
             this.layoutControlItem3.Text = "导入数据预览";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(88, 14);
@@ -674,7 +674,7 @@
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
-            this.PageFinish.Size = new System.Drawing.Size(1099, 595);
+            this.PageFinish.Size = new System.Drawing.Size(1099, 596);
             this.PageFinish.Text = "数据导入处理";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
@@ -693,9 +693,11 @@
             this.marqueeProgressBarControl1.EditValue = "";
             this.marqueeProgressBarControl1.Location = new System.Drawing.Point(220, 219);
             this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
-            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 50;
-            this.marqueeProgressBarControl1.Properties.MarqueeWidth = 10;
-            this.marqueeProgressBarControl1.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
+            this.marqueeProgressBarControl1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.marqueeProgressBarControl1.Properties.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 40;
+            this.marqueeProgressBarControl1.Properties.MarqueeWidth = 80;
+            this.marqueeProgressBarControl1.Properties.ProgressAnimationMode = DevExpress.Utils.Drawing.ProgressAnimationMode.Cycle;
             this.marqueeProgressBarControl1.Size = new System.Drawing.Size(579, 22);
             this.marqueeProgressBarControl1.TabIndex = 0;
             // 

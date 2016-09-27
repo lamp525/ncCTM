@@ -82,6 +82,7 @@ namespace CTM.Win.UI
             if (!_loginUserInfo.IsAdmin)
             {
                 this.ribbonPageAdmin.Visible = false;
+                this.ribbonPageAccounting.Visible = false;
 
                 this.rpgUser.Visible = false;
                 this.rpgInvestIncomeReport.Visible = false;
@@ -105,6 +106,7 @@ namespace CTM.Win.UI
             else
             {
                 this.ribbonPageAdmin.Visible = true;
+                this.ribbonPageAccounting.Visible = true;
 
                 this.rpgInvestIncomeReport.Visible = false;
                 this.rpgUser.Visible = false;
