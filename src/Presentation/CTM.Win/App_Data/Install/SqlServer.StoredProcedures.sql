@@ -137,3 +137,40 @@ BEGIN
 END
 GO
 
+
+
+DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
+GO
+
+CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
+(
+@AccountId int,
+@DateFrom datetime,
+@DateTo datetime
+)
+AS
+
+BEGIN	
+
+	SET NOCOUNT ON
+
+	SELECT Delivery.*, (ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff, (ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0)))VolumeDiff, Daily.*
+	FROM
+	(
+		SELECT CONVERT(nvarchar(10),TradeDate,111) DE_TradeDate, StockCode DE_StockCode,MAX(StockName) DE_StockName, DealFlag DE_DealFlag, SUM(ActualAmount) DE_TotalActualAmount, SUM(DealVolume) DE_TotalDealVolume
+		FROM DeliveryRecord 
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom AND TradeDate <= @DateTo
+		GROUP BY TradeDate,StockCode,DealFlag 
+	) Delivery
+	FULL JOIN 
+	(
+		SELECT CONVERT(nvarchar(10),TradeDate,111) DA_TradeDate, StockCode DA_StockCode, MAX(StockName) DA_StockName, DealFlag DA_DealFlag, SUM(ActualAmount) DA_TotalActualAmount, SUM(DealVolume) DA_TotalDealVolume
+		FROM DailyRecord 
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom AND TradeDate <= @DateTo
+		GROUP BY TradeDate,StockCode,DealFlag 
+	) Daily 
+	ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+
+END
+GO
+
