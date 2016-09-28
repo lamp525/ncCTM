@@ -29,11 +29,11 @@ namespace CTM.Core.Data
         void Insert(IEnumerable<T> entities);
 
         /// <summary>
-        /// BulkInsert entities
+        ///  BulkInsert entities
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="batchSieze"></param>
-        void BatchInsert(IEnumerable<T> entities, int? batchSieze = null);
+        /// <param name="batchSize"></param>
+        void BatchInsert(IEnumerable<T> entities, int? batchSize = default(int?));
 
         /// <summary>
         /// Update entity

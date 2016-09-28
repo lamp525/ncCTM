@@ -109,7 +109,7 @@ namespace CTM.Data
         /// </summary>
         /// <param name="entities"></param>
         /// <param name="batchSize"></param>
-        public void BatchInsert(IEnumerable<T> entities, int? batchSize = null)
+        public void BatchInsert(IEnumerable<T> entities, int? batchSize = default(int?))
         {
             try
             {

@@ -26,7 +26,9 @@ namespace CTM.Win.Models
 
         public bool IsRememberPwd { get; set; }
 
-        //单例模式，保存用户登录状态
+        /// <summary>
+        /// 单例模式，保存用户登录状态
+        /// </summary>
         public static LoginInfo CurrentUser
         {
             get

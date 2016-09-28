@@ -77,6 +77,6 @@ namespace CTM.Data
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="entities"></param>
         /// <param name="batchSize"></param>
-        void BatchInsert<TEntity>(IEnumerable<TEntity> entities, int? batchSize = null) where TEntity : BaseEntity;
+        void BatchInsert<TEntity>(IEnumerable<TEntity> entities, int? batchSize = default(int?)) where TEntity : BaseEntity;
     }
 }
