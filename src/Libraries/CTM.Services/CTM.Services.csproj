@@ -83,11 +83,14 @@
     <Compile Include="TKLine\TKLineService.cs" />
     <Compile Include="TradeRecord\DailyRecordExtensions.cs" />
     <Compile Include="TradeRecord\DataImportCommonService.cs" />
+    <Compile Include="TradeRecord\DataVerifyEntity.cs" />
+    <Compile Include="TradeRecord\DataVerifyService.cs" />
     <Compile Include="TradeRecord\DeliveryRecordExtensions.cs" />
     <Compile Include="TradeRecord\DeliveryRecordService.cs" />
     <Compile Include="TradeRecord\IDailyRecordService.cs" />
     <Compile Include="TradeRecord\DailyRecordService.cs" />
     <Compile Include="TradeRecord\IDataImportCommonService.cs" />
+    <Compile Include="TradeRecord\IDataVerifyService.cs" />
     <Compile Include="TradeRecord\IDeliveryRecordService.cs" />
     <Compile Include="TradeRecord\RecordImportOperationEntity.cs" />
     <Compile Include="User\IUserService.cs" />
