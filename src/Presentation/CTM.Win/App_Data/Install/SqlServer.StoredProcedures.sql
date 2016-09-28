@@ -139,6 +139,7 @@ GO
 
 
 
+
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
 
@@ -154,23 +155,47 @@ BEGIN
 
 	SET NOCOUNT ON
 
-	SELECT Delivery.*, (ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff, (ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0)))VolumeDiff, Daily.*
+	SELECT	
+			Delivery.* 
+			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
+			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
+			,Daily.*
 	FROM
 	(
-		SELECT CONVERT(nvarchar(10),TradeDate,111) DE_TradeDate, StockCode DE_StockCode,MAX(StockName) DE_StockName, DealFlag DE_DealFlag, SUM(ActualAmount) DE_TotalActualAmount, SUM(DealVolume) DE_TotalDealVolume
+		SELECT 
+			CONVERT(nvarchar(10),TradeDate,111) DE_TradeDate,
+			StockCode DE_StockCode,
+			MAX(StockName) DE_StockName, 
+			DealFlag DE_DealFlag,
+			CASE WHEN DealFlag = 1 THEN '买入'
+					 WHEN DealFlag = 0 THEN '卖出'
+			END DE_DealName,
+			SUM(ActualAmount) DE_TotalActualAmount,
+			SUM(DealVolume) DE_TotalDealVolume
 		FROM DeliveryRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom AND TradeDate <= @DateTo
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
 		GROUP BY TradeDate,StockCode,DealFlag 
 	) Delivery
 	FULL JOIN 
 	(
-		SELECT CONVERT(nvarchar(10),TradeDate,111) DA_TradeDate, StockCode DA_StockCode, MAX(StockName) DA_StockName, DealFlag DA_DealFlag, SUM(ActualAmount) DA_TotalActualAmount, SUM(DealVolume) DA_TotalDealVolume
+		SELECT 
+			CONVERT(nvarchar(10),TradeDate,111) DA_TradeDate,
+			StockCode DA_StockCode,
+			MAX(StockName) DA_StockName, 
+			DealFlag DA_DealFlag,
+			CASE WHEN DealFlag = 1 THEN '买入'
+					 WHEN DealFlag = 0 THEN '卖出'
+			END DA_DealName,
+			SUM(ActualAmount) DA_TotalActualAmount,
+			SUM(DealVolume) DA_TotalDealVolume
 		FROM DailyRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom AND TradeDate <= @DateTo
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
 		GROUP BY TradeDate,StockCode,DealFlag 
 	) Daily 
 	ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
 
 END
 GO
+
+
 
