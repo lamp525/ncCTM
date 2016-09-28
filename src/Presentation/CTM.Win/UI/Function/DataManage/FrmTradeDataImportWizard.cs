@@ -110,7 +110,7 @@ namespace CTM.Win.UI.Function.DataManage
             _securityAccount = _dataImportCommonService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
             if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
-                DXMessage.ShowTips(string.Format("证券公司【{0}】的【{1}】账户暂不支持数据导入功能，请联系管理员！", securityCompanyName, accountAttributeName));
+                DXMessage.ShowTips($"证券公司【{securityCompanyName}】的【{accountAttributeName}】账户暂不支持数据导入功能，请联系管理员！");
 
                 return;
             }
@@ -124,7 +124,7 @@ namespace CTM.Win.UI.Function.DataManage
             }
             else
             {
-                DXMessage.ShowTips(string.Format("证券公司【{0}】没有账户属性为【{1}】的账户信息，请重新选择！", securityCompanyName, accountAttributeName));
+                DXMessage.ShowTips($"证券公司【{securityCompanyName}】没有账户属性为【{accountAttributeName}】的账户信息，请重新选择！");
             }
         }
 
@@ -314,7 +314,7 @@ namespace CTM.Win.UI.Function.DataManage
 
                     case "PageAccount":
 
-                        if (this.luSecurityCompany.EditValue == null || this.luSecurityCompany.EditValue.ToString() == "nulltext")
+                        if (string.IsNullOrEmpty(this.luSecurityCompany.SelectedValue()))
                         {
                             DXMessage.ShowTips("请选择证券公司！");
                             e.Handled = true;
