@@ -160,6 +160,12 @@
     <Compile Include="Models\StockInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
     <Compile Include="Models\TradeRecordSearchModel.cs" />
+    <Compile Include="UI\Accounting\DataManage\FrmTradeDataVerify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting\DataManage\FrmTradeDataVerify.Designer.cs">
+      <DependentUpon>FrmTradeDataVerify.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Admin\BaseData\FrmStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -405,6 +411,9 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\Accounting\DataManage\FrmTradeDataVerify.resx">
+      <DependentUpon>FrmTradeDataVerify.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\BaseData\FrmAccount.resx">
       <DependentUpon>FrmAccount.cs</DependentUpon>
     </EmbeddedResource>
