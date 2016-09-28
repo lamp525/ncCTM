@@ -8,6 +8,7 @@ using CTM.Services.MarginTrading;
 using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
+using CTM.Win.UI.Accounting.DataManage;
 using CTM.Win.UI.Accounting.DataMange;
 using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
@@ -478,6 +479,16 @@ namespace CTM.Win.UI
             this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
         }
 
+        /// <summary>
+        /// 交易数据核对
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDataVerify_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmTradeDataVerify>("交易数据核对");
+        }
+
         #endregion Accounting
 
         #region Setting
@@ -560,5 +571,7 @@ namespace CTM.Win.UI
         #endregion Application
 
         #endregion Events
+
+    
     }
 }
