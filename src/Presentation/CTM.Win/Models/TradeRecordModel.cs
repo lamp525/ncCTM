@@ -19,9 +19,14 @@ namespace CTM.Win.Models
         public string TradeTime { get; set; }
 
         /// <summary>
-        /// 账号ID
+        /// 账户ID
         /// </summary>
         public int AccountId { get; set; }
+
+        /// <summary>
+        /// 账户编码
+        /// </summary>
+        public string AccountCode { get; set; }
 
         /// <summary>
         /// 证券代码
