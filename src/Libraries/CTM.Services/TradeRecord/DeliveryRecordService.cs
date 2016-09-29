@@ -1748,7 +1748,7 @@ namespace CTM.Services.TradeRecord
                     break;
             }
 
-            InsertDeliveryRecords(records);
+            BatchInsertDeliveryRecords(records);    
 
             return true;
         }
