@@ -24,7 +24,7 @@ namespace CTM.Services.TradeRecord
         #region Constants
 
         private readonly List<string> _buyTexts = new List<string> { "买入", "证券买入", "融券回购", "普通买入", "担保物买入", "融资买入", "融资借入" };
-        private readonly List<string> _sellTexts = new List<string> { "卖出", "证券卖出", "融券购回", "普通卖出", "担保物卖出", "融资卖出", "卖券还款" };
+        private readonly List<string> _sellTexts = new List<string> { "卖出", "证券卖出", "融券购回", "普通卖出", "担保物卖出", "融资卖出", "卖券还款", "直接还券" };
 
         #endregion Constants
 
@@ -77,22 +77,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["委托日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -102,6 +86,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["委托日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -175,22 +177,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -200,6 +186,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -274,22 +278,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -299,6 +287,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -372,22 +378,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["买卖标志"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["买卖标志"].ToString().Trim()))
@@ -397,6 +387,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -470,22 +478,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["业务名称"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["业务名称"].ToString().Trim()))
@@ -495,6 +487,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -568,22 +578,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -593,6 +587,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -666,22 +678,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -691,6 +687,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -856,22 +870,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -881,6 +879,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -954,22 +970,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["交收日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
@@ -979,6 +979,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["交收日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -1051,21 +1069,6 @@ namespace CTM.Services.TradeRecord
                 if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim().Substring(0, 8));
-
-                tradeRecord.TradeTime = string.Empty;
 
                 if (_buyTexts.Contains(row["业务名称"].ToString().Trim().Substring(0, 4)))
                     tradeRecord.DealFlag = true;
@@ -1076,6 +1079,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim().Substring(0, 8));
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -1148,21 +1169,6 @@ namespace CTM.Services.TradeRecord
                 if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
 
                 if (_buyTexts.Contains(row["操作"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
@@ -1173,6 +1179,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -1246,22 +1270,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByName(stockName);
-
-                var stockCode = string.Empty;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["备注"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["备注"].ToString().Trim()))
@@ -1271,6 +1279,22 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByName(stockName);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -1344,22 +1368,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["业务名称"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["业务名称"].ToString().Trim()))
@@ -1369,6 +1377,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = string.Empty;
 
@@ -1442,22 +1468,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["买卖标志"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["买卖标志"].ToString().Trim()))
@@ -1467,6 +1477,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -1540,22 +1568,6 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
                 if (_buyTexts.Contains(row["买卖标志"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
                 else if (_sellTexts.Contains(row["买卖标志"].ToString().Trim()))
@@ -1565,6 +1577,24 @@ namespace CTM.Services.TradeRecord
                     //跳过操作类型不明的数据
                     continue;
                 }
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
@@ -1631,7 +1661,6 @@ namespace CTM.Services.TradeRecord
             _deliveryRepository.Insert(deliveryRecords);
         }
 
- 
         public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation)
         {
             IList<DeliveryRecord> records = new List<DeliveryRecord>();
