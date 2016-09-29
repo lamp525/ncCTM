@@ -399,6 +399,30 @@ namespace CTM.Win.UI.Accounting.DataManage
                 this.btnDelete.Enabled = true;
         }
 
+        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column == this.colDealFlagName)
+            {
+                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as DeliveryRecord;
+                if (row == null) return;
+
+                switch (row.DealFlag)
+                {
+                    case false:
+                        e.DisplayText = "卖出";
+                        break;
+
+                    case true:
+                        e.DisplayText = "买入";
+                        break;
+
+                    default:
+                        e.DisplayText = "";
+                        break;
+                }
+            }
+        }
+
         /// <summary>
         /// 显示数据行号
         /// </summary>
@@ -413,29 +437,5 @@ namespace CTM.Win.UI.Accounting.DataManage
         }
 
         #endregion Events
-
-        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column == this.colDealFlagName)
-            {
-                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as DeliveryRecord;
-                if (row == null) return;
-
-                switch (row.DealFlag)
-                {
-                    case false:
-                 e.DisplayText = "卖出";
-                        break;
-
-                    case true:
-                        e.DisplayText = "买入";
-                        break;
-
-                    default:
-                        e.DisplayText = "";
-                        break;
-                }
-            }
-        }
     }
 }

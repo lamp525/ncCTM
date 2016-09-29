@@ -176,10 +176,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 188);
+            this.gridControl1.Location = new System.Drawing.Point(24, 172);
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1486, 597);
+            this.gridControl1.Size = new System.Drawing.Size(1486, 613);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bandedGridView1});
@@ -222,6 +222,7 @@
             this.bandedGridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
+            this.bandedGridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.bandedGridView1_CustomDrawCell);
             // 
             // gridBandDeleivery
             // 
@@ -310,7 +311,7 @@
             // 
             // colAmountDiff
             // 
-            this.colAmountDiff.AppearanceCell.BackColor = System.Drawing.SystemColors.Info;
+            this.colAmountDiff.AppearanceCell.BackColor = System.Drawing.Color.Azure;
             this.colAmountDiff.AppearanceCell.Options.UseBackColor = true;
             this.colAmountDiff.Caption = "差额（金额）";
             this.colAmountDiff.FieldName = "AmountDiff";
@@ -320,7 +321,7 @@
             // 
             // colVolumeDiff
             // 
-            this.colVolumeDiff.AppearanceCell.BackColor = System.Drawing.SystemColors.Info;
+            this.colVolumeDiff.AppearanceCell.BackColor = System.Drawing.Color.Azure;
             this.colVolumeDiff.AppearanceCell.Options.UseBackColor = true;
             this.colVolumeDiff.Caption = "差额（数量）";
             this.colVolumeDiff.FieldName = "VolumeDiff";
@@ -592,9 +593,9 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.gridControl1;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 52);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 36);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1490, 601);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1490, 617);
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
@@ -612,7 +613,7 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(10, 26);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1480, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1480, 10);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
@@ -629,7 +630,7 @@
             this.emptySpaceItem7.AllowHotTrack = false;
             this.emptySpaceItem7.Location = new System.Drawing.Point(0, 26);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 10);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // FrmTradeDataVerify

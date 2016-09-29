@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Util;
@@ -179,6 +180,33 @@ namespace CTM.Win.UI.Accounting.DataManage
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
             this.bandedGridView1.SaveLayout(_layoutXmlName);
+        }
+
+        private void bandedGridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            var currentView = sender as DevExpress.XtraGrid.Views.BandedGrid.BandedGridView;
+
+            if (currentView != null && e.RowHandle == currentView.FocusedRowHandle) return;
+
+     
+            //数量差额
+            if (e.Column == this.colVolumeDiff)
+            {
+                if (int.Parse(e.CellValue.ToString()) != 0)            
+                    e.Appearance.ForeColor = Color.Red;
+            }
+
+            //金额差额
+            if (e.Column == this.colAmountDiff)
+            {
+                var row = currentView.GetRow(e.RowHandle) as DataVerifyEntity;
+                if (row == null) return;
+
+                var diffRate = CommonHelper.CalculateRate(Math.Abs(row.AmountDiff), Math.Abs(row.DE_TotalActualAmount == null ? 0 : row.DE_TotalActualAmount.Value));
+
+                if (diffRate > 0.001M)         
+                    e.Appearance.ForeColor = Color.Red;
+            }
         }
 
         private void bandedGridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
