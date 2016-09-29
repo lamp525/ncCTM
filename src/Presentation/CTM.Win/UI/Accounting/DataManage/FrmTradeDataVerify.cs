@@ -107,6 +107,9 @@ namespace CTM.Win.UI.Accounting.DataManage
         {
             try
             {
+                this.bandedGridView1.LoadLayout(_layoutXmlName);
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true);
+
                 BindSearchInfo();
             }
             catch (Exception ex)
@@ -162,7 +165,7 @@ namespace CTM.Win.UI.Accounting.DataManage
                 var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(accountId, dateFrom, dateTo);
 
                 this.gridControl1.DataSource = diffInfos;
-                this.gridView1.PopulateColumns();
+             
             }
             catch (Exception ex)
             {
@@ -176,17 +179,18 @@ namespace CTM.Win.UI.Accounting.DataManage
 
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
-            this.gridView1.SaveLayout(_layoutXmlName);
+            this.bandedGridView1.SaveLayout(_layoutXmlName);
         }
 
-        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        private void bandedGridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
-
         #endregion Events
+
+
     }
 }
