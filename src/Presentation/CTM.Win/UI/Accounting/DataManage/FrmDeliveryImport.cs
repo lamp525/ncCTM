@@ -106,9 +106,11 @@ namespace CTM.Win.UI.Accounting.DataMange
                 return;
             }
 
-            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode);
+            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode)
+                                    .OrderBy(x => x.Name)
+                                    .ToList();
 
-            if (accounts.Count > 0)
+            if (accounts.Any())
             {
                 this.gridControlAccount.DataSource = accounts;
                 this.gridViewAccount.SelectRow(0);
