@@ -408,6 +408,9 @@
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LayoutXml\FrmDeliveryImport_Account_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LayoutXml\FrmTradeDataVerify_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

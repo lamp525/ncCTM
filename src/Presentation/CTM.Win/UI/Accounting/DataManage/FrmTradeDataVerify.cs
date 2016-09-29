@@ -83,7 +83,7 @@ namespace CTM.Win.UI.Accounting.DataManage
                      DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName + " - " + x.TypeName,
                  }
                 )
-                .OrderBy(x=>x.AccountName )
+                .OrderBy(x => x.AccountName)
                .ToList();
 
             this.luAccount.Initialize(_accounts, "AccountId", "DisplayMember", showHeader: true, enableSearch: true);
@@ -108,7 +108,7 @@ namespace CTM.Win.UI.Accounting.DataManage
             try
             {
                 this.bandedGridView1.LoadLayout(_layoutXmlName);
-                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true);
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
 
                 BindSearchInfo();
             }
@@ -165,7 +165,6 @@ namespace CTM.Win.UI.Accounting.DataManage
                 var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(accountId, dateFrom, dateTo);
 
                 this.gridControl1.DataSource = diffInfos;
-             
             }
             catch (Exception ex)
             {
@@ -189,8 +188,7 @@ namespace CTM.Win.UI.Accounting.DataManage
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+
         #endregion Events
-
-
     }
 }

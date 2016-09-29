@@ -48,13 +48,13 @@
             this.colAmountDiff = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colVolumeDiff = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBandDaily = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.colDA_TradeDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDA_StockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDA_StockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDA_DealFlag = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDA_DealName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDA_TotalActualAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDA_TotalDealVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_TotalActualAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_DealName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_StockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_StockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_TradeDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDA_DealFlag = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.cbAccountAttribute = new DevExpress.XtraEditors.ComboBoxEdit();
             this.luAccount = new DevExpress.XtraEditors.LookUpEdit();
             this.cbSecurity = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -135,15 +135,15 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(699, 69);
+            this.deTo.Location = new System.Drawing.Point(799, 69);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deTo.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deTo.Size = new System.Drawing.Size(141, 20);
+            this.deTo.Size = new System.Drawing.Size(241, 20);
             this.deTo.StyleController = this.layoutControl1;
-            this.deTo.TabIndex = 13;
+            this.deTo.TabIndex = 5;
             // 
             // deFrom
             // 
@@ -154,9 +154,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deFrom.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deFrom.Size = new System.Drawing.Size(141, 20);
+            this.deFrom.Size = new System.Drawing.Size(241, 20);
             this.deFrom.StyleController = this.layoutControl1;
-            this.deFrom.TabIndex = 12;
+            this.deFrom.TabIndex = 4;
             // 
             // simpleButton5
             // 
@@ -164,7 +164,7 @@
             this.simpleButton5.Name = "simpleButton5";
             this.simpleButton5.Size = new System.Drawing.Size(89, 22);
             this.simpleButton5.StyleController = this.layoutControl1;
-            this.simpleButton5.TabIndex = 11;
+            this.simpleButton5.TabIndex = 8;
             this.simpleButton5.Text = "simpleButton5";
             // 
             // btnSaveLayout
@@ -173,17 +173,17 @@
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
-            this.btnSaveLayout.TabIndex = 8;
+            this.btnSaveLayout.TabIndex = 7;
             this.btnSaveLayout.Text = " 保存样式 ";
             this.btnSaveLayout.Click += new System.EventHandler(this.btnSaveLayout_Click);
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(854, 69);
+            this.btnSearch.Location = new System.Drawing.Point(1054, 69);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
-            this.btnSearch.TabIndex = 7;
+            this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "    查  询    ";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -193,7 +193,7 @@
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1486, 593);
-            this.gridControl1.TabIndex = 6;
+            this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bandedGridView1});
             // 
@@ -228,7 +228,6 @@
             this.bandedGridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
             this.bandedGridView1.OptionsSelection.MultiSelect = true;
             this.bandedGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.bandedGridView1.OptionsSelection.UseIndicatorForSelection = false;
             this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
             this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.bandedGridView1.OptionsView.EnableAppearanceOddRow = true;
@@ -360,42 +359,13 @@
             this.gridBandDaily.VisibleIndex = 2;
             this.gridBandDaily.Width = 590;
             // 
-            // colDA_TradeDate
+            // colDA_TotalDealVolume
             // 
-            this.colDA_TradeDate.Caption = "交易日期";
-            this.colDA_TradeDate.FieldName = "DA_TradeDate";
-            this.colDA_TradeDate.Name = "colDA_TradeDate";
-            this.colDA_TradeDate.Visible = true;
-            this.colDA_TradeDate.Width = 90;
-            // 
-            // colDA_StockCode
-            // 
-            this.colDA_StockCode.Caption = "证券代码";
-            this.colDA_StockCode.FieldName = "DA_StockCode";
-            this.colDA_StockCode.Name = "colDA_StockCode";
-            this.colDA_StockCode.Visible = true;
-            this.colDA_StockCode.Width = 90;
-            // 
-            // colDA_StockName
-            // 
-            this.colDA_StockName.Caption = "证券名称";
-            this.colDA_StockName.FieldName = "DA_StockName";
-            this.colDA_StockName.Name = "colDA_StockName";
-            this.colDA_StockName.Visible = true;
-            this.colDA_StockName.Width = 90;
-            // 
-            // colDA_DealFlag
-            // 
-            this.colDA_DealFlag.FieldName = "DA_DealFlag";
-            this.colDA_DealFlag.Name = "colDA_DealFlag";
-            // 
-            // colDA_DealName
-            // 
-            this.colDA_DealName.Caption = "操作";
-            this.colDA_DealName.FieldName = "DA_DealName";
-            this.colDA_DealName.Name = "colDA_DealName";
-            this.colDA_DealName.Visible = true;
-            this.colDA_DealName.Width = 80;
+            this.colDA_TotalDealVolume.Caption = "成交数量";
+            this.colDA_TotalDealVolume.FieldName = "DA_TotalDealVolume";
+            this.colDA_TotalDealVolume.Name = "colDA_TotalDealVolume";
+            this.colDA_TotalDealVolume.Visible = true;
+            this.colDA_TotalDealVolume.Width = 120;
             // 
             // colDA_TotalActualAmount
             // 
@@ -405,13 +375,42 @@
             this.colDA_TotalActualAmount.Visible = true;
             this.colDA_TotalActualAmount.Width = 120;
             // 
-            // colDA_TotalDealVolume
+            // colDA_DealName
             // 
-            this.colDA_TotalDealVolume.Caption = "成交数量";
-            this.colDA_TotalDealVolume.FieldName = "DA_TotalDealVolume";
-            this.colDA_TotalDealVolume.Name = "colDA_TotalDealVolume";
-            this.colDA_TotalDealVolume.Visible = true;
-            this.colDA_TotalDealVolume.Width = 120;
+            this.colDA_DealName.Caption = "操作";
+            this.colDA_DealName.FieldName = "DA_DealName";
+            this.colDA_DealName.Name = "colDA_DealName";
+            this.colDA_DealName.Visible = true;
+            this.colDA_DealName.Width = 80;
+            // 
+            // colDA_StockName
+            // 
+            this.colDA_StockName.Caption = "证券名称";
+            this.colDA_StockName.FieldName = "DA_StockName";
+            this.colDA_StockName.Name = "colDA_StockName";
+            this.colDA_StockName.Visible = true;
+            this.colDA_StockName.Width = 90;
+            // 
+            // colDA_StockCode
+            // 
+            this.colDA_StockCode.Caption = "证券代码";
+            this.colDA_StockCode.FieldName = "DA_StockCode";
+            this.colDA_StockCode.Name = "colDA_StockCode";
+            this.colDA_StockCode.Visible = true;
+            this.colDA_StockCode.Width = 90;
+            // 
+            // colDA_TradeDate
+            // 
+            this.colDA_TradeDate.Caption = "交易日期";
+            this.colDA_TradeDate.FieldName = "DA_TradeDate";
+            this.colDA_TradeDate.Name = "colDA_TradeDate";
+            this.colDA_TradeDate.Visible = true;
+            this.colDA_TradeDate.Width = 90;
+            // 
+            // colDA_DealFlag
+            // 
+            this.colDA_DealFlag.FieldName = "DA_DealFlag";
+            this.colDA_DealFlag.Name = "colDA_DealFlag";
             // 
             // cbAccountAttribute
             // 
@@ -419,9 +418,9 @@
             this.cbAccountAttribute.Name = "cbAccountAttribute";
             this.cbAccountAttribute.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbAccountAttribute.Size = new System.Drawing.Size(141, 20);
+            this.cbAccountAttribute.Size = new System.Drawing.Size(241, 20);
             this.cbAccountAttribute.StyleController = this.layoutControl1;
-            this.cbAccountAttribute.TabIndex = 5;
+            this.cbAccountAttribute.TabIndex = 2;
             this.cbAccountAttribute.SelectedIndexChanged += new System.EventHandler(this.cbAccountAttribute_SelectedIndexChanged);
             // 
             // luAccount
@@ -438,7 +437,7 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TypeName", "账户类别")});
             this.luAccount.Size = new System.Drawing.Size(341, 20);
             this.luAccount.StyleController = this.layoutControl1;
-            this.luAccount.TabIndex = 4;
+            this.luAccount.TabIndex = 3;
             // 
             // cbSecurity
             // 
@@ -448,7 +447,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbSecurity.Size = new System.Drawing.Size(341, 20);
             this.cbSecurity.StyleController = this.layoutControl1;
-            this.cbSecurity.TabIndex = 5;
+            this.cbSecurity.TabIndex = 0;
             this.cbSecurity.SelectedIndexChanged += new System.EventHandler(this.cbSecurity_SelectedIndexChanged);
             // 
             // layoutControlGroup1
@@ -508,24 +507,24 @@
             this.layoutControlItem2.Control = this.cbAccountAttribute;
             this.layoutControlItem2.Location = new System.Drawing.Point(410, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(200, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(300, 24);
             this.layoutControlItem2.Text = "账户属性:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(52, 14);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(610, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(710, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(880, 24);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(780, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem8
             // 
             this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(909, 24);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(1109, 24);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(581, 26);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(381, 26);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem10
@@ -533,14 +532,14 @@
             this.layoutControlItem10.Control = this.deFrom;
             this.layoutControlItem10.Location = new System.Drawing.Point(410, 24);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(200, 26);
+            this.layoutControlItem10.Size = new System.Drawing.Size(300, 26);
             this.layoutControlItem10.Text = "开始日期:";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(52, 14);
             // 
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(610, 24);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(710, 24);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -548,16 +547,16 @@
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.deTo;
-            this.layoutControlItem11.Location = new System.Drawing.Point(620, 24);
+            this.layoutControlItem11.Location = new System.Drawing.Point(720, 24);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(200, 26);
+            this.layoutControlItem11.Size = new System.Drawing.Size(300, 26);
             this.layoutControlItem11.Text = "结束日期:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(52, 14);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnSearch;
-            this.layoutControlItem5.Location = new System.Drawing.Point(830, 24);
+            this.layoutControlItem5.Location = new System.Drawing.Point(1030, 24);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -566,7 +565,7 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(820, 24);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(1020, 24);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
