@@ -16,7 +16,7 @@ using CTM.Win.Models;
 using CTM.Win.UI.Common;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Accounting.DataMange
+namespace CTM.Win.UI.Accounting.DataManage
 {
     public partial class FrmDeliveryImport : BaseForm
     {

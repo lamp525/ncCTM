@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.UI.Accounting.DataMange
+﻿namespace CTM.Win.UI.Accounting.DataManage
 {
     partial class FrmDeliveryImport
     {
