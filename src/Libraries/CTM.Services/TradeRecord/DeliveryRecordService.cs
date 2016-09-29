@@ -1745,7 +1745,7 @@ namespace CTM.Services.TradeRecord
             return true;
         }
 
-        public void BatchInsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
+        public virtual void BatchInsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
         {
             if (deliveryRecords == null)
                 throw new ArgumentNullException(nameof(deliveryRecords));
@@ -1761,7 +1761,7 @@ namespace CTM.Services.TradeRecord
             _deliveryRepository.Insert(deliveryRecords);
         }
 
-        public void DeleteDeliveryRecords(int[] ids)
+        public virtual void DeleteDeliveryRecords(int[] ids)
         {
             if (ids == null)
                 throw new ArgumentNullException(nameof(ids));
@@ -1772,8 +1772,7 @@ namespace CTM.Services.TradeRecord
             _deliveryRepository.Delete(query.ToList());
         }
 
-        public IList<DeliveryRecord> GetDeliveryRecordsDetail(string stockCode, int accountId, bool? dealFlag, DateTime? tradeDateFrom, DateTime? tradeDateTo, string importUserCode, DateTime? importDateFrom, DateTime? importDateTo)
-
+        public virtual IList<DeliveryRecord> GetDeliveryRecordsDetail(string stockCode, int accountId, bool? dealFlag, DateTime? tradeDateFrom, DateTime? tradeDateTo, string importUserCode, DateTime? importDateFrom, DateTime? importDateTo)
         {
             var query = _deliveryRepository.TableNoTracking;
 

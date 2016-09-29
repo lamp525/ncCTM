@@ -3678,7 +3678,7 @@ namespace CTM.Services.TradeRecord
             return result;
         }
 
-        public void BatchInsertDailyRecords(IList<DailyRecord> dailyRecords)
+        public virtual void BatchInsertDailyRecords(IList<DailyRecord> dailyRecords)
         {
             if (dailyRecords == null)
                 throw new ArgumentNullException(nameof(dailyRecords));
@@ -3718,7 +3718,7 @@ namespace CTM.Services.TradeRecord
             _dailyRepository.Update(dailyRecords);
         }
 
-        public void DeleteDailyRecords(int[] ids)
+        public virtual void DeleteDailyRecords(int[] ids)
         {
             if (ids == null)
                 throw new ArgumentNullException(nameof(ids));
@@ -3729,7 +3729,7 @@ namespace CTM.Services.TradeRecord
             _dailyRepository.Delete(query.ToList());
         }
 
-        public void DeleteDailyRecords(IList<DailyRecord> dailyRecords)
+        public virtual void DeleteDailyRecords(IList<DailyRecord> dailyRecords)
         {
             if (dailyRecords == null)
                 throw new ArgumentNullException(nameof(dailyRecords));
@@ -3737,7 +3737,7 @@ namespace CTM.Services.TradeRecord
             _dailyRepository.Delete(dailyRecords);
         }
 
-        public void InsertDailyRecord(DailyRecord dailyRecord)
+        public virtual void InsertDailyRecord(DailyRecord dailyRecord)
         {
             if (dailyRecord == null)
                 throw new ArgumentNullException(nameof(dailyRecord));
@@ -3745,7 +3745,7 @@ namespace CTM.Services.TradeRecord
             _dailyRepository.Insert(dailyRecord);
         }
 
-        public void UpdateDailyRecord(DailyRecord dailyRecord)
+        public virtual void UpdateDailyRecord(DailyRecord dailyRecord)
         {
             if (dailyRecord == null)
                 throw new ArgumentNullException(nameof(dailyRecord));
