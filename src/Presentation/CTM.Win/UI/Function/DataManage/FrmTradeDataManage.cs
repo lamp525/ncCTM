@@ -28,11 +28,42 @@ namespace CTM.Win.UI.Function.DataManage
         private readonly IDictionaryService _dictionaryService;
         private readonly ICommonService _commonService;
 
-        private TradeRecordSearchModel _searchCondition;
+        private SearchModel _searchCondition;
 
         private const string _layoutXmlName = "FrmTradeDataManage";
 
         #endregion Fields
+
+        #region Nested
+
+        private class SearchModel
+        {
+            public int DataType { get; set; }
+
+            public string StockCode { get; set; }
+
+            public int AccountId { get; set; }
+
+            public string Beneficiary { get; set; }
+
+            public int TradeType { get; set; }
+
+            public bool? DealFlag { get; set; }
+
+            public string Operator { get; set; }
+
+            public DateTime? TradeDateFrom { get; set; }
+
+            public DateTime? TradeDateTo { get; set; }
+
+            public string ImportUser { get; set; }
+
+            public DateTime? ImportDateFrom { get; set; }
+
+            public DateTime? ImportDateTo { get; set; }
+        }
+
+        #endregion Nested
 
         #region Constructors
 
@@ -245,13 +276,13 @@ namespace CTM.Win.UI.Function.DataManage
         /// <summary>
         /// 绑定交易记录列表
         /// </summary>
-        private void BindTradeRecord(TradeRecordSearchModel seachCondition)
+        private void BindTradeRecord(SearchModel seachCondition)
         {
             var today = _commonService.GetCurrentServerTime().Date;
 
             if (seachCondition == null)
             {
-                seachCondition = new TradeRecordSearchModel
+                seachCondition = new SearchModel
                 {
                     DataType = -1,
                     ImportDateFrom = today.AddDays(-1),
@@ -416,7 +447,7 @@ namespace CTM.Win.UI.Function.DataManage
                 this.btnSearch.Enabled = false;
                 this.btnClear.Enabled = false;
 
-                _searchCondition = new TradeRecordSearchModel();
+                _searchCondition = new SearchModel();
 
                 //股票代码
                 var stockInfo = this.luStock.GetSelectedDataRow() as StockInfoModel;

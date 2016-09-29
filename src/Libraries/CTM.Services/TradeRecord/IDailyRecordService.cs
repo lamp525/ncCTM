@@ -9,6 +9,8 @@ namespace CTM.Services.TradeRecord
 {
     public partial interface IDailyRecordService : IBaseService
     {
+        bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable source, RecordImportOperationEntity operationInfo);
+
         void BatchInsertDailyRecords(IList<DailyRecord> dailyRecords);
 
         void InsertDailyRecords(IList<DailyRecord> dailyRecords);
@@ -76,7 +78,5 @@ namespace CTM.Services.TradeRecord
             DateTime? tradeDateFrom = null,
             DateTime? tradeDateTo = null
             );
-
-        bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable source, RecordImportOperationEntity operationInfo);
     }
 }
