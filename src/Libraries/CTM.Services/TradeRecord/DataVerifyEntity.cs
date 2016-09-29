@@ -14,7 +14,7 @@ namespace CTM.Services.TradeRecord
 
         public string DE_StockName { get; set; }
 
-        public int? DE_DealFlag { get; set; }
+        public bool? DE_DealFlag { get; set; }
 
         public string DE_DealName { get; set; }
 
@@ -36,7 +36,7 @@ namespace CTM.Services.TradeRecord
 
         public string DA_StockName { get; set; }
 
-        public int? DA_DealFlag { get; set; }
+        public bool? DA_DealFlag { get; set; }
 
         public string DA_DealName { get; set; }
 

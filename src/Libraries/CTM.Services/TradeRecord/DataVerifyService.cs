@@ -26,7 +26,10 @@ namespace CTM.Services.TradeRecord
 
         public virtual IList<DataVerifyEntity> GetDiffBetweenDeliveryAndDailyData(int accountId, DateTime dateFrom, DateTime dateTo)
         {
-            var commanText = $@"EXEC [dbo].[sp_GetDiffBetweenDeliveryAndDailyData] @AccountId = {accountId}, @DateFrom = '{dateFrom.ToShortDateString()}', @DateTo = '{dateTo.ToShortDateString()}'";
+            var commanText = $@"EXEC [dbo].[sp_GetDiffBetweenDeliveryAndDailyData] 
+                                                @AccountId = {accountId}, 
+                                                @DateFrom = '{dateFrom}', 
+                                                @DateTo = '{dateTo}'";
 
             var result = _dbContext.SqlQuery<DataVerifyEntity>(commanText).ToList();
 
