@@ -167,8 +167,9 @@ BEGIN
 			StockCode DE_StockCode,
 			MAX(StockName) DE_StockName, 
 			DealFlag DE_DealFlag,
-			CASE WHEN DealFlag = 1 THEN '买入'
-					 WHEN DealFlag = 0 THEN '卖出'
+			CASE DealFlag 
+				WHEN 1 THEN '买入'
+				WHEN 0 THEN '卖出'
 			END DE_DealName,
 			SUM(ActualAmount) DE_TotalActualAmount,
 			SUM(DealVolume) DE_TotalDealVolume
@@ -183,8 +184,9 @@ BEGIN
 			StockCode DA_StockCode,
 			MAX(StockName) DA_StockName, 
 			DealFlag DA_DealFlag,
-			CASE WHEN DealFlag = 1 THEN '买入'
-					 WHEN DealFlag = 0 THEN '卖出'
+			CASE DealFlag 
+				WHEN 1 THEN '买入'
+				WHEN 0 THEN '卖出'
 			END DA_DealName,
 			SUM(ActualAmount) DA_TotalActualAmount,
 			SUM(DealVolume) DA_TotalDealVolume
