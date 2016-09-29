@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Common;
-using CTM.Services.Dictionary;
 using CTM.Services.Stock;
 using CTM.Services.TradeRecord;
 using CTM.Services.User;
@@ -15,43 +15,63 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Function.DataManage
+namespace CTM.Win.UI.Accounting.DataManage
 {
     public partial class FrmDeliveryManage : BaseForm
     {
         #region Fields
 
-        private readonly IDailyRecordService _dailyRecordService;
+        private readonly IDeliveryRecordService _deliveryRecordService;
         private readonly IStockService _stockService;
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
-        private readonly IDictionaryService _dictionaryService;
         private readonly ICommonService _commonService;
 
-        private TradeRecordSearchModel _searchCondition;
+        private SearchModel _searchCondition;
 
-        private const string _layoutXmlName = "FrmTradeDataManage";
+        private const string _layoutXmlName = "FrmDeliveryManage";
 
         #endregion Fields
+
+        #region Nested
+
+        private class SearchModel
+        {
+            public string StockCode { get; set; }
+
+            public int AccountId { get; set; }
+
+            public bool? DealFlag { get; set; }
+
+            public DateTime? TradeDateFrom { get; set; }
+
+            public DateTime? TradeDateTo { get; set; }
+
+            public string ImportUser { get; set; }
+
+            public DateTime? ImportDateFrom { get; set; }
+
+            public DateTime? ImportDateTo { get; set; }
+        }
+
+        #endregion Nested
 
         #region Constructors
 
         public FrmDeliveryManage(
-            IDailyRecordService tradeRecordService,
+            IDeliveryRecordService deliveryRecordService,
             IStockService stockService,
             IAccountService accountService,
             IUserService userService,
-            IDictionaryService dictionaryService,
             ICommonService commonService
             )
         {
             InitializeComponent();
 
-            this._dailyRecordService = tradeRecordService;
+            this._deliveryRecordService = deliveryRecordService;
             this._accountService = accountService;
             this._stockService = stockService;
             this._userService = userService;
-            this._dictionaryService = dictionaryService;
             this._commonService = commonService;
         }
 
@@ -112,61 +132,8 @@ namespace CTM.Win.UI.Function.DataManage
             accounts = accounts.OrderBy(x => x.AccountName).ThenBy(x => x.SecurityCompanyName).ToList();
             luAccount.Initialize(accounts, "AccountId", "DisplayMember", enableSearch: true);
 
-            //数据类型
-            var dataTypes = new List<ComboBoxItemModel>();
-
-            var entrustModel = new ComboBoxItemModel
-            {
-                Text = "当日委托",
-                Value = "1",
-            };
-            dataTypes.Add(entrustModel);
-
-            var dailyModel = new ComboBoxItemModel
-            {
-                Text = "当日成交",
-                Value = "3",
-            };
-            dataTypes.Add(dailyModel);
-
-            var deliveryModel = new ComboBoxItemModel
-            {
-                Text = "交割单",
-                Value = "2",
-            };
-            dataTypes.Add(deliveryModel);
-
-            var virtualModel = new ComboBoxItemModel
-            {
-                Text = "虚拟交易",
-                Value = "77",
-            };
-            dataTypes.Add(virtualModel);
-
-            var stockTransferModel = new ComboBoxItemModel
-            {
-                Text = "股票转移",
-                Value = "88",
-            };
-            dataTypes.Add(stockTransferModel);
-
-            var oldSystemModel = new ComboBoxItemModel
-            {
-                Text = "旧系统",
-                Value = "99",
-            };
-            dataTypes.Add(oldSystemModel);
-
-            this.cbDataType.Initialize(dataTypes, displayAdditionalItem: true);
-
-            //交易类别
-            var tradeTypes = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
-                .Select(x => new ComboBoxItemModel
-                {
-                    Text = x.Name,
-                    Value = x.Code.ToString(),
-                }).ToList();
-            cbTradeType.Initialize(tradeTypes, displayAdditionalItem: true);
+            //导入人
+            var importors = _userService.GetAllAdmins(showDeleted: true);
 
             var allUserModel = new UserInfo
             {
@@ -174,24 +141,10 @@ namespace CTM.Win.UI.Function.DataManage
                 Name = "全部",
             };
 
-            var dealers = _userService.GetAllDealer(showDeleted: true);
-            dealers.Add(allUserModel);
-            dealers = dealers.OrderBy(x => x.Code).ToList();
+            importors.Add(allUserModel);
 
-            //受益人
-            luBeneficiary.Initialize(dealers, "Code", "Name", showHeader: true, enableSearch: true);
+            importors = importors.OrderBy(x => x.Code).ToList();
 
-            //交易员
-            luOperator.Initialize(dealers, "Code", "Name", showHeader: true, enableSearch: true);
-
-            var admins = _userService.GetAllAdmins(showDeleted: true);
-            var importors = new List<UserInfo>();
-            importors.AddRange(dealers);
-            importors.AddRange(admins);
-
-            importors = importors.Distinct().OrderBy(x => x.Code).ToList();
-
-            //导入人
             luImport.Initialize(importors, "Code", "Name", showHeader: true, enableSearch: true);
 
             SetDefaultSearchInfo();
@@ -218,147 +171,49 @@ namespace CTM.Win.UI.Function.DataManage
             luStock.EditValue = null;
             luAccount.EditValue = null;
 
-            cbTradeType.EditValue = null;
-
             //导入人
             luImport.EditValue = null;
-
-            luBeneficiary.EditValue = null;
-
-            if (LoginInfo.CurrentUser.IsAdmin)
-            {
-                luOperator.EditValue = null;
-                luImport.EditValue = null;
-                luBeneficiary.EditValue = null;
-            }
-            else
-            {
-                luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
-                luOperator.ReadOnly = true;
-                luBeneficiary.EditValue = LoginInfo.CurrentUser.UserCode;
-                luBeneficiary.ReadOnly = true;
-                luImport.EditValue = LoginInfo.CurrentUser.UserCode;
-                luImport.ReadOnly = true;
-            }
         }
 
         /// <summary>
-        /// 绑定交易记录列表
+        /// 绑定交割单记录列表
         /// </summary>
-        private void BindTradeRecord(TradeRecordSearchModel seachCondition)
+        private void BindDeliveryRecord(SearchModel seachCondition)
         {
             var today = _commonService.GetCurrentServerTime().Date;
 
             if (seachCondition == null)
             {
-                seachCondition = new TradeRecordSearchModel
+                seachCondition = new SearchModel
                 {
-                    DataType = -1,
                     ImportDateFrom = today.AddDays(-1),
                     ImportDateTo = today,
                     ImportUser = LoginInfo.CurrentUser.UserCode,
-                    Beneficiary = LoginInfo.CurrentUser.IsAdmin ? null : LoginInfo.CurrentUser.UserCode,
-                    Operator = LoginInfo.CurrentUser.IsAdmin ? null : LoginInfo.CurrentUser.UserCode,
                 };
             }
 
-            var records = _dailyRecordService.GetDailyRecordsDetailBySearchCondition(
-                IsAdmin: LoginInfo.CurrentUser.IsAdmin,
+            var records = _deliveryRecordService.GetDeliveryRecordsDetail(
                 stockCode: seachCondition.StockCode,
                 accountId: seachCondition.AccountId,
-                dataType: seachCondition.DataType,
-                tradeType: seachCondition.TradeType,
                 dealFlag: seachCondition.DealFlag,
-                beneficiary: seachCondition.Beneficiary,
-                operatorCode: seachCondition.Operator,
                 tradeDateFrom: seachCondition.TradeDateFrom,
                 tradeDateTo: seachCondition.TradeDateTo,
                 importUserCode: seachCondition.ImportUser,
                 importDateFrom: seachCondition.ImportDateFrom,
                 importDateTo: seachCondition.ImportDateTo
                 )
-                .Select(x => new TradeRecordModel
-                {
-                    RecordId = x.Id,
-                    AccountId = x.AccountId,
-                    AccountName = x.AccountName,
-                    ActualAmount = CommonHelper.SetDecimalDigits(x.ActualAmount),
-                    AuditFlag = x.AuditFlag,
-                    AuditNo = x.AuditNo,
-                    AuditTime = x.AuditTime,
-                    Beneficiary = x.Beneficiary,
-                    BeneficiaryName = x.BeneficiaryName,
-                    Commission = CommonHelper.SetDecimalDigits(x.Commission),
-                    ContractNo = x.ContractNo,
-                    DataType = x.DataType,
-                    DataTypeName = CTMHelper.GetDataTypeName(x.DataType),
-                    DealAmount = CommonHelper.SetDecimalDigits(x.DealAmount),
-                    DealFlag = x.DealFlag,
-                    DealFlagName = x.DealFlag ? "买入" : "卖出",
-                    DealNo = x.DealNo,
-                    DealPrice = x.DealPrice,
-                    DealVolume = x.DealVolume,
-                    ImportTime = x.ImportTime,
-                    ImportUser = x.ImportUser,
-                    ImportUserName = x.ImportUserName,
-                    Incidentals = CommonHelper.SetDecimalDigits(x.Incidentals),
-                    OperatorCode = x.OperatorCode,
-                    OperatorName = x.OperatorName,
-                    Remarks = x.Remarks,
-                    SplitNo = x.SplitNo,
-                    StampDuty = CommonHelper.SetDecimalDigits(x.StampDuty),
-                    StockCode = x.StockCode,
-                    StockHolderCode = x.StockHolderCode,
-                    StockName = x.StockName,
-                    TradeDate = x.TradeDate,
-                    TradeTime = x.TradeTime,
-                    TradeType = x.TradeType,
-                    TradeTypeName = CTMHelper.GetTradeTypeName(x.TradeType),
-                    UpdateTime = x.UpdateTime,
-                    UpdateUser = x.UpdateUser,
-                    UpdateUserName = x.UpdateUserName,
-                }
-                ).ToList();
-
-            records = records.OrderBy(x => x.TradeDate).ThenBy(x => x.TradeTime).ToList();
+                .OrderBy(x => x.TradeDate)
+                .ThenBy(x => x.TradeTime)
+                .ToList();
 
             this.gridControl1.DataSource = records;
-        }
-
-        private void DisplayEditDialog(List<TradeRecordModel> selectedRecords)
-        {
-            var dialog = this.CreateDialog<_dialogDailyRecordEdit>();
-            dialog.RefreshEvent += new _dialogDailyRecordEdit.RefreshParentForm(RefreshForm);
-            dialog.Records = selectedRecords;
-            dialog.Text = "交易数据修改";
-
-            dialog.ShowDialog();
-        }
-
-        private void DisplaySplitDialog(TradeRecordModel selectedRecord)
-        {
-            var dialog = this.CreateDialog<_dialogDailyRecordSplit>();
-            dialog.RefreshEvent += new _dialogDailyRecordSplit.RefreshParentForm(RefreshForm);
-            dialog.Record = selectedRecord;
-            dialog.Text = "交易记录拆单";
-
-            dialog.ShowDialog();
-        }
-
-        private void DispalyVirtualRecordDialog()
-        {
-            var dialog = this.CreateDialog<_dialogVirtualRecord>();
-            dialog.RefreshEvent += new _dialogVirtualRecord.RefreshParentForm(RefreshForm);
-            dialog.Text = "添加虚拟交易记录";
-
-            dialog.ShowDialog();
         }
 
         private void RefreshForm()
         {
             try
             {
-                BindTradeRecord(_searchCondition);
+                BindDeliveryRecord(_searchCondition);
             }
             catch (Exception ex)
             {
@@ -374,9 +229,7 @@ namespace CTM.Win.UI.Function.DataManage
         {
             try
             {
-                this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
-                this.btnSplit.Enabled = false;
 
                 this.gridView1.LoadLayout(_layoutXmlName);
 
@@ -386,7 +239,7 @@ namespace CTM.Win.UI.Function.DataManage
 
                 this.ActiveControl = this.btnSearch;
 
-                BindTradeRecord(null);
+                BindDeliveryRecord(null);
             }
             catch (Exception ex)
             {
@@ -416,7 +269,7 @@ namespace CTM.Win.UI.Function.DataManage
                 this.btnSearch.Enabled = false;
                 this.btnClear.Enabled = false;
 
-                _searchCondition = new TradeRecordSearchModel();
+                _searchCondition = new SearchModel();
 
                 //股票代码
                 var stockInfo = this.luStock.GetSelectedDataRow() as StockInfoModel;
@@ -425,20 +278,8 @@ namespace CTM.Win.UI.Function.DataManage
                 //账号ID
                 _searchCondition.AccountId = luAccount.EditValue == null ? 0 : int.Parse(luAccount.EditValue.ToString());
 
-                //受益人
-                _searchCondition.Beneficiary = luBeneficiary.EditValue == null ? null : luBeneficiary.EditValue.ToString();
-
                 //导入人
                 _searchCondition.ImportUser = luImport.EditValue == null ? null : luImport.EditValue.ToString();
-
-                //交易员
-                _searchCondition.Operator = luOperator.EditValue == null ? null : luOperator.EditValue.ToString();
-
-                //交易类型
-                _searchCondition.TradeType = cbTradeType.EditValue == null ? 0 : int.Parse(cbTradeType.SelectedValue());
-
-                //数据类型
-                _searchCondition.DataType = cbDataType.EditValue == null ? -1 : int.Parse(cbDataType.SelectedValue());
 
                 //买卖标志
                 if (chkBuy.Checked)
@@ -468,7 +309,7 @@ namespace CTM.Win.UI.Function.DataManage
                 else
                     _searchCondition.TradeDateTo = CommonHelper.StringToDateTime(deTradeTo.EditValue.ToString());
 
-                BindTradeRecord(_searchCondition);
+                BindDeliveryRecord(_searchCondition);
             }
             catch (Exception ex)
             {
@@ -491,33 +332,9 @@ namespace CTM.Win.UI.Function.DataManage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void btnImport_Click(object sender, EventArgs e)
         {
-            try
-            {
-                this.btnEdit.Enabled = false;
-
-                var myView = this.gridView1;
-
-                var selectedHandles = myView.GetSelectedRows();
-
-                var selectedRecords = new List<TradeRecordModel>();
-                for (var index = 0; index < selectedHandles.Length; index++)
-                {
-                    var record = myView.GetRow(selectedHandles[index]) as TradeRecordModel;
-                    selectedRecords.Add(record);
-                }
-
-                DisplayEditDialog(selectedRecords);
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnEdit.Enabled = true;
-            }
+            this.ParentForm.DisplayForm<FrmDeliveryImport>("交割单数据导入");
         }
 
         /// <summary>
@@ -535,7 +352,7 @@ namespace CTM.Win.UI.Function.DataManage
 
                 var selectedHandles = myView.GetSelectedRows();
 
-                if (DXMessage.ShowYesNoAndWarning("确定删除所选的交易记录吗？") == DialogResult.Yes)
+                if (DXMessage.ShowYesNoAndWarning("确定删除所选的交割单记录吗？") == DialogResult.Yes)
                 {
                     var recordIds = new List<int>();
 
@@ -544,7 +361,7 @@ namespace CTM.Win.UI.Function.DataManage
                         recordIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colRecordId).ToString()));
                     }
 
-                    this._dailyRecordService.DeleteDailyRecords(recordIds.ToArray());
+                    this._deliveryRecordService.DeleteDeliveryRecords(recordIds.ToArray());
 
                     myView.DeleteSelectedRows();
                 }
@@ -556,62 +373,6 @@ namespace CTM.Win.UI.Function.DataManage
             finally
             {
                 this.btnDelete.Enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// 交易记录拆单
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSplit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnSplit.Enabled = false;
-
-                var myView = this.gridView1;
-
-                var selectedHandles = myView.GetSelectedRows();
-
-                if (selectedHandles.Length != 1)
-                {
-                    DXMessage.ShowTips("请选择一条要拆单的交易记录！");
-                    return;
-                }
-                var record = myView.GetRow(selectedHandles[0]) as TradeRecordModel;
-                DisplaySplitDialog(record);
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnSplit.Enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// 添加虚拟交易记录
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddVirtualRecord_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAddVirtualRecord.Enabled = false;
-
-                DispalyVirtualRecordDialog();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnAddVirtualRecord.Enabled = true;
             }
         }
 
@@ -633,21 +394,9 @@ namespace CTM.Win.UI.Function.DataManage
             var selectedHandles = myView.GetSelectedRows();
 
             if (selectedHandles.Length == 0)
-            {
-                this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
-                this.btnSplit.Enabled = false;
-            }
-            else if (selectedHandles.Length > 0)
-            {
-                this.btnEdit.Enabled = true;
+            else
                 this.btnDelete.Enabled = true;
-
-                if (selectedHandles.Length == 1)
-                    this.btnSplit.Enabled = true;
-                else
-                    this.btnSplit.Enabled = false;
-            }
         }
 
         /// <summary>
@@ -664,5 +413,29 @@ namespace CTM.Win.UI.Function.DataManage
         }
 
         #endregion Events
+
+        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column == this.colDealFlagName)
+            {
+                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as DeliveryRecord;
+                if (row == null) return;
+
+                switch (row.DealFlag)
+                {
+                    case false:
+                 e.DisplayText = "卖出";
+                        break;
+
+                    case true:
+                        e.DisplayText = "买入";
+                        break;
+
+                    default:
+                        e.DisplayText = "";
+                        break;
+                }
+            }
+        }
     }
 }

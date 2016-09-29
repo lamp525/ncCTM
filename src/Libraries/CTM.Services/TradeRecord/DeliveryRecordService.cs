@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Data;
+using CTM.Core.Domain.Account;
 using CTM.Core.Domain.TradeRecord;
+using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Stock;
 
@@ -15,6 +17,8 @@ namespace CTM.Services.TradeRecord
         #region Fields
 
         private readonly IRepository<DeliveryRecord> _deliveryRepository;
+        private readonly IRepository<UserInfo> _userRepository;
+        private readonly IRepository<AccountInfo> _accountRepository;
 
         private readonly IDataImportCommonService _dataImportService;
         private readonly IStockService _stockService;
@@ -33,11 +37,15 @@ namespace CTM.Services.TradeRecord
         public DeliveryRecordService
             (
             IRepository<DeliveryRecord> deliveryRepository,
+            IRepository<UserInfo> userRepository,
+            IRepository<AccountInfo> accountRepository,
             IDataImportCommonService DICService,
             IStockService stockService
             )
         {
             this._deliveryRepository = deliveryRepository;
+            this._userRepository = userRepository;
+            this._accountRepository = accountRepository;
             this._dataImportService = DICService;
             this._stockService = stockService;
         }
@@ -1645,22 +1653,6 @@ namespace CTM.Services.TradeRecord
 
         #region Methods
 
-        public void BatchInsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
-        {
-            if (deliveryRecords == null)
-                throw new ArgumentNullException(nameof(deliveryRecords));
-
-            _deliveryRepository.BatchInsert(deliveryRecords, 1000);
-        }
-
-        public virtual void InsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
-        {
-            if (deliveryRecords == null)
-                throw new ArgumentNullException(nameof(deliveryRecords));
-
-            _deliveryRepository.Insert(deliveryRecords);
-        }
-
         public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation)
         {
             IList<DeliveryRecord> records = new List<DeliveryRecord>();
@@ -1748,9 +1740,115 @@ namespace CTM.Services.TradeRecord
                     break;
             }
 
-            BatchInsertDeliveryRecords(records);    
+            BatchInsertDeliveryRecords(records);
 
             return true;
+        }
+
+        public void BatchInsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
+        {
+            if (deliveryRecords == null)
+                throw new ArgumentNullException(nameof(deliveryRecords));
+
+            _deliveryRepository.BatchInsert(deliveryRecords, 1000);
+        }
+
+        public virtual void InsertDeliveryRecords(IList<DeliveryRecord> deliveryRecords)
+        {
+            if (deliveryRecords == null)
+                throw new ArgumentNullException(nameof(deliveryRecords));
+
+            _deliveryRepository.Insert(deliveryRecords);
+        }
+
+        public void DeleteDeliveryRecords(int[] ids)
+        {
+            if (ids == null)
+                throw new ArgumentNullException(nameof(ids));
+
+            var query = _deliveryRepository.Table;
+            query = query.Where(x => ids.Contains(x.Id));
+
+            _deliveryRepository.Delete(query.ToList());
+        }
+
+        public IList<DeliveryRecord> GetDeliveryRecordsDetail(string stockCode, int accountId, bool? dealFlag, DateTime? tradeDateFrom, DateTime? tradeDateTo, string importUserCode, DateTime? importDateFrom, DateTime? importDateTo)
+
+        {
+            var query = _deliveryRepository.TableNoTracking;
+
+            if (!string.IsNullOrEmpty(stockCode))
+                query = query.Where(x => x.StockCode == stockCode);
+
+            if (accountId > 0)
+                query = query.Where(x => x.AccountId == accountId);
+
+            if (dealFlag.HasValue)
+                query = query.Where(x => x.DealFlag == dealFlag.Value);
+
+            if (tradeDateFrom.HasValue)
+                query = query.Where(x => x.TradeDate >= tradeDateFrom);
+
+            if (tradeDateTo.HasValue)
+                query = query.Where(x => x.TradeDate <= tradeDateTo);
+
+            if (!string.IsNullOrEmpty(importUserCode))
+                query = query.Where(x => x.ImportUser == importUserCode);
+
+            if (importDateFrom.HasValue)
+                query = query.Where(x => x.ImportTime >= importDateFrom);
+
+            if (importDateTo.HasValue)
+            {
+                var to = importDateTo.Value.AddDays(1);
+                query = query.Where(x => x.ImportTime < to);
+            }
+
+            var infos = from d in query
+                        join a in _accountRepository.Table
+                        on d.AccountId equals a.Id into temp1
+                        from account in temp1.DefaultIfEmpty()
+                        join u1 in _userRepository.Table
+                        on d.ImportUser equals u1.Code into temp2
+                        from importUser in temp2.DefaultIfEmpty()
+                        join u4 in _userRepository.Table
+                        on d.UpdateUser equals u4.Code into temp3
+                        from updateUser in temp3.DefaultIfEmpty()
+                        select new { d, account, importUser, updateUser };
+
+            var result = infos.ToList().Select(x => new DeliveryRecord
+            {
+                Id = x.d.Id,
+                AccountId = x.d.AccountId,
+                AccountName = x.account == null ? null : x.account.Name + " - " + x.account.SecurityCompanyName + " - " + x.account.AttributeName,
+                ActualAmount = x.d.ActualAmount,
+                Commission = x.d.Commission,
+                ContractNo = x.d.ContractNo,
+                DataType = x.d.DataType,
+                DealAmount = x.d.DealAmount,
+                DealFlag = x.d.DealFlag,
+                DealNo = x.d.DealNo,
+                DealPrice = x.d.DealPrice,
+                DealVolume = x.d.DealVolume,
+                ImportTime = x.d.ImportTime,
+                ImportUser = x.importUser == null ? null : x.importUser.Code,
+                ImportUserName = x.importUser.Name,
+                Incidentals = x.d.Incidentals,
+                Remarks = x.d.Remarks,
+                StampDuty = x.d.StampDuty,
+                StockCode = x.d.StockCode,
+                StockHolderCode = x.d.StockHolderCode,
+                StockName = x.d.StockName,
+                TradeDate = x.d.TradeDate,
+                TradeTime = x.d.TradeTime,
+                UpdateTime = x.d.UpdateTime,
+                UpdateUser = x.d.UpdateUser,
+                UpdateUserName = x.updateUser == null ? null : x.updateUser.Name,
+            }
+            )
+            .ToList();
+
+            return result;
         }
 
         #endregion Methods

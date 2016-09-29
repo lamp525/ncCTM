@@ -87,6 +87,8 @@
             this.bbiDailyTradeIdentification = new DevExpress.XtraBars.BarButtonItem();
             this.bsiInstallUrl = new DevExpress.XtraBars.BarStaticItem();
             this.bbiDeliveryDataImport = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDataVerify = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDeliveryManage = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -110,7 +112,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.bbiDataVerify = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -177,9 +178,10 @@
             this.bbiDailyTradeIdentification,
             this.bsiInstallUrl,
             this.bbiDeliveryDataImport,
-            this.bbiDataVerify});
+            this.bbiDataVerify,
+            this.bbiDeliveryManage});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 29;
+            this.ribbonControl1.MaxItemId = 30;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -673,6 +675,25 @@
             this.bbiDeliveryDataImport.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.bbiDeliveryDataImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryDataImport_ItemClick);
             // 
+            // bbiDataVerify
+            // 
+            this.bbiDataVerify.Caption = "数据核对";
+            this.bbiDataVerify.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDataVerify.Glyph")));
+            this.bbiDataVerify.Id = 28;
+            this.bbiDataVerify.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDataVerify.LargeGlyph")));
+            this.bbiDataVerify.Name = "bbiDataVerify";
+            this.bbiDataVerify.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDataVerify_ItemClick);
+            // 
+            // bbiDeliveryManage
+            // 
+            this.bbiDeliveryManage.Caption = "数据维护";
+            this.bbiDeliveryManage.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryManage.Glyph")));
+            this.bbiDeliveryManage.Id = 29;
+            this.bbiDeliveryManage.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryManage.LargeGlyph")));
+            this.bbiDeliveryManage.Name = "bbiDeliveryManage";
+            this.bbiDeliveryManage.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.bbiDeliveryManage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryManage_ItemClick);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -749,6 +770,7 @@
             // 
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryDataImport);
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDataVerify);
+            this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryManage);
             this.rgpAccountingDataManage.Name = "rgpAccountingDataManage";
             // 
             // ribbonPageAdmin
@@ -851,15 +873,6 @@
             // 
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
-            // 
-            // bbiDataVerify
-            // 
-            this.bbiDataVerify.Caption = "数据核对";
-            this.bbiDataVerify.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDataVerify.Glyph")));
-            this.bbiDataVerify.Id = 28;
-            this.bbiDataVerify.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDataVerify.LargeGlyph")));
-            this.bbiDataVerify.Name = "bbiDataVerify";
-            this.bbiDataVerify.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDataVerify_ItemClick);
             // 
             // FrmMain
             // 
@@ -967,6 +980,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageAccounting;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rgpAccountingDataManage;
         private DevExpress.XtraBars.BarButtonItem bbiDataVerify;
+        private DevExpress.XtraBars.BarButtonItem bbiDeliveryManage;
     }
 }
 
