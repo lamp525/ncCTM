@@ -14,6 +14,7 @@ using CTM.Win.UI.Admin.DataManage;
 using CTM.Win.UI.Function.DataManage;
 using CTM.Win.UI.Function.MarginTrading;
 using CTM.Win.UI.Function.StatisticsReport;
+using CTM.Win.UI.Function.ReportExport;
 using CTM.Win.UI.Setting;
 using CTM.Win.Util;
 using DevExpress.XtraBars;
@@ -104,7 +105,7 @@ namespace CTM.Win.UI
                 this.ribbonPageAdmin.Visible = true;
                 this.ribbonPageAccounting.Visible = true;
 
-                this.rpgInvestIncomeReport.Visible = false;
+                this.rpgInvestIncomeReport.Visible = true;
 
                 //交易数据维护
                 // this.bbiTradeDataManage.Visibility = BarItemVisibility.Always;
@@ -236,13 +237,13 @@ namespace CTM.Win.UI
         #region Reports
 
         /// <summary>
-        /// 个人投资收益报表
+        /// 投资收益报表导出
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void barButtonItem7_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiInvestIncomeReportExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            //this.DisplayTabbedForm<FrmInvestIncomeReport>("");
+            this.DisplayTabbedForm<FrmInvestIncomeReportExport >("投资收益报表导出");
         }
 
         /// <summary>

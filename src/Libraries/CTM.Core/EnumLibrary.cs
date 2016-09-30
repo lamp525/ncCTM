@@ -7,6 +7,24 @@ namespace CTM.Core
 {
     public static class EnumLibrary
     {
+        public enum ReportType
+        {
+            [Description("日报表")]
+            Day = 1,
+
+            [Description("周报表")]
+            Week = 2,
+
+            [Description("月报表")]
+            Month = 3,
+
+            [Description("季报表")]
+            Quarter = 4,
+
+            [Description("年报表")]
+            Year = 5
+        }
+
         /// <summary>
         /// 数值单位
         /// </summary>
@@ -92,37 +110,6 @@ namespace CTM.Core
             /// </summary>
             [Description("独立核算部")]
             Independence = 5,
-        }
-
-        /// <summary>
-        /// 统计报表类型
-        /// </summary>
-        public enum StatisticsReportType
-        {
-            /// <summary>
-            /// 日报表
-            /// </summary>
-            Daily = 1,
-
-            /// <summary>
-            /// 周报表
-            /// </summary>
-            Weekly = 2,
-
-            /// <summary>
-            /// 月报表
-            /// </summary>
-            Monthly = 3,
-
-            /// <summary>
-            /// 季报表
-            /// </summary>
-            Quarterly = 4,
-
-            /// <summary>
-            /// 年报表
-            /// </summary>
-            Yearly = 5
         }
 
         /// <summary>
@@ -296,7 +283,6 @@ namespace CTM.Core
             /// </summary>
             Delete = 3,
         }
-
 
         public enum SecurityAccount
         {

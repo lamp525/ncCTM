@@ -14,7 +14,7 @@ namespace CTM.Core.Util
         /// <param name="value"></param>
         /// <param name="enumType"></param>
         /// <returns></returns>
-        public static string ToEnumString(this int value, Type enumType, Enum aa)
+        public static string ToEnumString(this int value, Type enumType)
         {
             NameValueCollection nvc = GetEnumStringFromEnumValue(enumType);
             return nvc[value.ToString()];

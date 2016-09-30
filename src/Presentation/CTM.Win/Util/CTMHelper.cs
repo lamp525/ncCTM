@@ -48,6 +48,13 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="tradeType"></param>
         /// <returns></returns>
+        public static string GetReportTypeName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.ReportType));
+
+        /// <summary>
+        /// 取得交易类别名称
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <returns></returns>
         public static string GetTradeTypeName(int value)
         {
             string name = value.ToEnumDescriptionString(typeof(EnumLibrary.TradeType));
