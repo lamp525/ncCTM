@@ -273,7 +273,7 @@ namespace CTM.Services.Stock
             return users.ToList();
         }
 
-        public int[] GetStockIdsByStockCode(string[] stockCodes)
+        public virtual int[] GetStockIdsByStockCode(string[] stockCodes)
         {
             if (stockCodes == null)
                 throw new ArgumentNullException(nameof(stockCodes));
