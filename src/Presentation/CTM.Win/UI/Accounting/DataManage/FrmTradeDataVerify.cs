@@ -188,11 +188,10 @@ namespace CTM.Win.UI.Accounting.DataManage
 
             if (currentView != null && e.RowHandle == currentView.FocusedRowHandle) return;
 
-     
             //数量差额
             if (e.Column == this.colVolumeDiff)
             {
-                if (int.Parse(e.CellValue.ToString()) != 0)            
+                if (int.Parse(e.CellValue.ToString()) != 0)
                     e.Appearance.ForeColor = Color.Red;
             }
 
@@ -202,10 +201,15 @@ namespace CTM.Win.UI.Accounting.DataManage
                 var row = currentView.GetRow(e.RowHandle) as DataVerifyEntity;
                 if (row == null) return;
 
-                var diffRate = CommonHelper.CalculateRate(Math.Abs(row.AmountDiff), Math.Abs(row.DE_TotalActualAmount == null ? 0 : row.DE_TotalActualAmount.Value));
-
-                if (diffRate > 0.001M)         
+                if (row.VolumeDiff != 0)
                     e.Appearance.ForeColor = Color.Red;
+                else
+                {
+                    var diffRate = CommonHelper.CalculateRate(Math.Abs(row.AmountDiff), Math.Abs(row.DE_TotalActualAmount == null ? 0 : row.DE_TotalActualAmount.Value));
+
+                    if (diffRate > 0.001M)
+                        e.Appearance.ForeColor = Color.Red;
+                }
             }
         }
 

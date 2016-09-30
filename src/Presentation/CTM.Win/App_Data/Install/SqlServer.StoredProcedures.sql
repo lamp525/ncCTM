@@ -163,7 +163,7 @@ BEGIN
 	FROM
 	(
 		SELECT 
-			CONVERT(nvarchar(10),TradeDate,111) DE_TradeDate,
+			TradeDate DE_TradeDate,
 			StockCode DE_StockCode,
 			MAX(StockName) DE_StockName, 
 			DealFlag DE_DealFlag,
@@ -180,7 +180,7 @@ BEGIN
 	FULL JOIN 
 	(
 		SELECT 
-			CONVERT(nvarchar(10),TradeDate,111) DA_TradeDate,
+			TradeDate DA_TradeDate,
 			StockCode DA_StockCode,
 			MAX(StockName) DA_StockName, 
 			DealFlag DA_DealFlag,
