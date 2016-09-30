@@ -30,7 +30,7 @@ namespace CTM.Services.Common
         /// <returns></returns>
         public virtual DateTime GetCurrentServerTime()
         {
-            string sql = "select getdate() as CurrentTime";
+            string sql = "SELECT GETDATE() AS CurrentTime";
             var query = _context.SqlQuery<DateTime>(sql);
 
             var result = query.FirstOrDefault();
