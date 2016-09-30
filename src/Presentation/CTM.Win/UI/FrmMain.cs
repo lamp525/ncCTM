@@ -84,14 +84,10 @@ namespace CTM.Win.UI
                 this.ribbonPageAdmin.Visible = false;
                 this.ribbonPageAccounting.Visible = false;
 
-                this.rpgUser.Visible = false;
                 this.rpgInvestIncomeReport.Visible = false;
 
                 //交易数据维护
                 //this.bbiTradeDataManage.Visibility = BarItemVisibility.Never;
-
-                //交易数据钩稽
-                this.bbiTradeDataAudit.Visibility = BarItemVisibility.Never;
 
                 //账户投资收益流水查询
                 this.bbiAccountInvestIncomeFlow.Visibility = BarItemVisibility.Always;
@@ -109,13 +105,9 @@ namespace CTM.Win.UI
                 this.ribbonPageAccounting.Visible = true;
 
                 this.rpgInvestIncomeReport.Visible = false;
-                this.rpgUser.Visible = false;
 
                 //交易数据维护
                 // this.bbiTradeDataManage.Visibility = BarItemVisibility.Always;
-
-                //交易数据钩稽
-                this.bbiTradeDataAudit.Visibility = BarItemVisibility.Always;
 
                 //账户投资收益流水查询
                 this.bbiAccountInvestIncomeFlow.Visibility = BarItemVisibility.Always;
