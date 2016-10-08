@@ -243,7 +243,7 @@ namespace CTM.Win.UI
         /// <param name="e"></param>
         private void bbiInvestIncomeReportExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmInvestIncomeReportExport >("投资收益报表导出");
+            this.DisplayForm<FrmInvestIncomeReportExport >("投资收益报表导出");
         }
 
         /// <summary>

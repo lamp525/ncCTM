@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -77,6 +78,7 @@ namespace CTM.Win.UI.Function.ReportExport
                     Value = x.Id.ToString(),
                 }).ToList();
             this.cbDepartment.Initialize(deptInfos, displayAdditionalItem: false);
+            this.cbDepartment.DefaultSelected(((int)EnumLibrary.AccountingDepartment.Day).ToString());
 
             //报表类型
             var reportTypes = new List<ComboBoxItemModel>
@@ -88,22 +90,25 @@ namespace CTM.Win.UI.Function.ReportExport
 
             this.cbReportType.Initialize(reportTypes, displayAdditionalItem: false);
             this.cbReportType.DefaultSelected(EnumLibrary.ReportType.Day.ToString());
+
+            //保存路径
+            this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
-        private string GetReportTemplateFilePath(int deptId)
+        private string GetReportTemplateFilePath(EnumLibrary.TradeType tradeType)
         {
             string templateFilePath = string.Empty;
-            EnumLibrary.TradeType tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
-
             string directoryName = "ReportTemplate\\UserDailyProfitFlow";
             string fileName = string.Empty;
 
             switch (tradeType)
             {
                 case EnumLibrary.TradeType.Target:
+                    fileName = "TargetReport.xlsx";
                     break;
 
                 case EnumLibrary.TradeType.Band:
+                    fileName = "BandReport.xlsx";
                     break;
 
                 case EnumLibrary.TradeType.Day:
@@ -117,28 +122,57 @@ namespace CTM.Win.UI.Function.ReportExport
             return Path.Combine(Application.StartupPath, directoryName, fileName);
         }
 
-        private void CreateReport(DateTime endDate, int deptId, string reportType)
+        private string GetReportDestinyFilePath(EnumLibrary.TradeType tradeType, string savePath)
         {
-            var reportData = GetReportData(endDate, deptId, reportType);
-            var templateFileName = GetReportTemplateFilePath(deptId);
+            string destinyFilePath = string.Empty;
+            string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string typeName = string.Empty;
 
-            if (!File.Exists(templateFileName))
+            switch (tradeType)
             {
-                DXMessage.ShowError("报表模板Excel文件不存在！");
-                return;
+                case EnumLibrary.TradeType.Target:
+                    typeName = "目标";
+                    break;
+
+                case EnumLibrary.TradeType.Band:
+                    typeName = "波段";
+                    break;
+
+                case EnumLibrary.TradeType.Day:
+                    typeName = "短差";
+                    break;
+
+                default:
+                    break;
             }
 
-            WriteDataToExcel(reportData, templateFileName);
+            var fileName = $"证券投资部收益报表({typeName})" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+
+            return Path.Combine(directoryName, fileName);
         }
 
-        private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, string templateFileName)
+        private void CreateReport(DateTime endDate, int deptId, string reportType, string savePath)
         {
-            if (!File.Exists(templateFileName))
-                throw new FileNotFoundException("文件不存在");
+            var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
+            var templateFilePath = GetReportTemplateFilePath(tradeType);
 
+            if (!File.Exists(templateFilePath))
+            {
+                throw new FileNotFoundException("报表模板Excel文件不存在！");
+            }
+
+            var destinyFileName = GetReportDestinyFilePath(tradeType, savePath);
+
+            var reportData = GetReportData(endDate, deptId, tradeType, reportType);
+
+            WriteDataToExcel(reportData, tradeType, templateFilePath, destinyFileName);
+        }
+
+        private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, EnumLibrary.TradeType tradeType, string templateFilePath, string destinyFilePath)
+        {
             Excel.Application excelApp = new Excel.Application();
 
-            Excel.Workbook workbook = excelApp.Workbooks.Open(templateFileName);
+            Excel.Workbook workbook = excelApp.Workbooks.Open(templateFilePath);
 
             foreach (var item in reportData)
             {
@@ -153,6 +187,8 @@ namespace CTM.Win.UI.Function.ReportExport
 
                 if (worksheet == null) continue;
 
+                WorksheetFormatting(worksheet);
+
                 var startRowIndex = 34;
 
                 var data = item.Value;
@@ -161,8 +197,23 @@ namespace CTM.Win.UI.Function.ReportExport
                 {
                     var investInfo = data[i];
 
+                    if (tradeType != EnumLibrary.TradeType.Day)
+                    {
+                        //周一（万元）
+                        worksheet.Cells[startRowIndex + i, 3] = CommonHelper.SetDecimalDigits(investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand);
+
+                        //净资产（万元）
+                        worksheet.Cells[startRowIndex + i, 4] = CommonHelper.SetDecimalDigits(investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand);
+
+                        //持仓市值（万元）
+                        worksheet.Cells[startRowIndex + i, 9] = CommonHelper.SetDecimalDigits(investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand);
+
+                        //持仓仓位
+                        worksheet.Cells[startRowIndex + i, 12] = CommonHelper.SetDecimalDigits(investInfo.PositionRate * 100, 0).ToString() + "%";
+                    }
+
                     //日期
-                    worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime.ToShortDateString();
+                    worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
 
                     //累计收益额（万元）
                     worksheet.Cells[startRowIndex + i, 5] = CommonHelper.SetDecimalDigits(investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand);
@@ -178,25 +229,58 @@ namespace CTM.Win.UI.Function.ReportExport
                 }
             }
 
-            var destinyFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "证券投资部收益报表(短差)" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx");
-
-            workbook.SaveAs(destinyFileName, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
+            workbook.SaveAs(destinyFilePath, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
 
             workbook = null;
             excelApp.Quit();
             excelApp = null;
-
-            if (File.Exists(destinyFileName))
-                DXMessage.ShowTips("报表导出成功！");
         }
 
-        private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, string reportType)
+        private void WorksheetFormatting(Excel._Worksheet worksheet)
+        {
+            Excel.Range rngColB = worksheet.Columns["B", Type.Missing];
+            rngColB.NumberFormatLocal = @"yy/mm/dd";
+
+            Excel.Range rngColC = worksheet.Columns["C", Type.Missing];
+            rngColC.NumberFormatLocal = "@";
+
+            Excel.Range rngColD = worksheet.Columns["D", Type.Missing];
+            rngColD.NumberFormatLocal = "@";
+
+            Excel.Range rngColE = worksheet.Columns["E", Type.Missing];
+            rngColE.NumberFormatLocal = "@";
+
+            Excel.Range rngColF = worksheet.Columns["F", Type.Missing];
+            rngColF.NumberFormatLocal = "@";
+
+            Excel.Range rngColG = worksheet.Columns["G", Type.Missing];
+            rngColG.NumberFormatLocal = "@";
+
+            Excel.Range rngColH = worksheet.Columns["H", Type.Missing];
+            rngColH.NumberFormatLocal = "@";
+
+            Excel.Range rngColI = worksheet.Columns["I", Type.Missing];
+            rngColI.NumberFormatLocal = "@";
+
+            Excel.Range rngColL = worksheet.Columns["L", Type.Missing];
+            rngColL.NumberFormatLocal = "@";
+        }
+
+        private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, EnumLibrary.TradeType tradeType, string reportType)
         {
             IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> result = new List<KeyValuePair<string, IList<UserInvestIncomeEntity>>>();
 
-            EnumLibrary.TradeType tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
-
             IList<UserInfo> investors = _userService.GetUserInfos(departmentIds: new int[] { deptId }).Where(x => x.IsDeleted == false).ToList();
+
+            //合计
+            var summation = new UserInfo
+            {
+                Code = string.Empty,
+                Name = "合计",
+                AllotFund = investors.Sum(x => x.AllotFund),
+            };
+
+            investors.Add(summation);
 
             var queryDates = new List<DateTime>();
 
@@ -209,10 +293,16 @@ namespace CTM.Win.UI.Function.ReportExport
 
             foreach (var investor in investors)
             {
-                var statisticalInvestorCodes = new string[] { investor.Code };
+                var statisticalInvestorCodes = new List<string>();
+
+                if (string.IsNullOrEmpty(investor.Code))
+
+                    statisticalInvestorCodes = investors.Where(x => !string.IsNullOrEmpty(x.Code)).Select(x => x.Code).ToList();
+                else
+                    statisticalInvestorCodes.Add(investor.Code);
 
                 //交易记录
-                var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: (int)tradeType, beneficiaries: statisticalInvestorCodes, tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
+                var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: (int)tradeType, beneficiaries: statisticalInvestorCodes.ToArray(), tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
 
                 //交易记录中的所有股票代码
                 var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
@@ -239,6 +329,9 @@ namespace CTM.Win.UI.Function.ReportExport
             try
             {
                 BindSearchInfo();
+
+                this.mpbUserInvestIncomeFlow.Enabled = false;
+                this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
             catch (Exception ex)
             {
@@ -246,20 +339,19 @@ namespace CTM.Win.UI.Function.ReportExport
             }
         }
 
-        private void btnExport2Excel_Click(object sender, EventArgs e)
+        private void btnChangeSavePath_Click(object sender, EventArgs e)
         {
             try
             {
-                btnExport2Excel.Enabled = false;
+                this.btnChangeSavePath.Enabled = false;
 
-                //查询截至交易日
-                var endDate = CommonHelper.StringToDateTime(this.deEnd.EditValue.ToString());
+                var mySaveFolderDialog = new FolderBrowserDialog();
+                mySaveFolderDialog.Description = "请选择保存路径";
 
-                var deptId = int.Parse(this.cbDepartment.SelectedValue());
-
-                var reportType = this.cbReportType.SelectedValue();
-
-                CreateReport(endDate, deptId, reportType);
+                if (mySaveFolderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.txtSavePath.Text = mySaveFolderDialog.SelectedPath;
+                }
             }
             catch (Exception ex)
             {
@@ -267,8 +359,72 @@ namespace CTM.Win.UI.Function.ReportExport
             }
             finally
             {
-                btnExport2Excel.Enabled = true;
+                this.btnChangeSavePath.Enabled = true;
             }
+        }
+
+        private void btnExport2Excel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExport2Excel.Enabled = false;
+
+                if (!Directory.Exists(this.txtSavePath.Text.Trim()))
+                    throw new DirectoryNotFoundException("保存路径不存在！");
+
+                this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.mpbUserInvestIncomeFlow.Enabled = true;
+                this.mpbUserInvestIncomeFlow.Text = "报表生成中...请稍后...";
+                this.mpbUserInvestIncomeFlow.Properties.ShowTitle = true;
+
+                var bw = new BackgroundWorker();
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(Export2ExcelProcess);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Export2ExcelCompleted);
+                bw.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void Export2ExcelProcess(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                //查询截至交易日
+                var endDate = CommonHelper.StringToDateTime(this.deEnd.EditValue.ToString());
+
+                var deptId = int.Parse(this.cbDepartment.SelectedValue());
+
+                var reportType = this.cbReportType.SelectedValue();
+
+                var savePath = this.txtSavePath.Text.Trim();
+
+                CreateReport(endDate, deptId, reportType, savePath);
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
+        }
+
+        private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.mpbUserInvestIncomeFlow.Properties.Stopped = true;
+            this.mpbUserInvestIncomeFlow.Enabled = false;
+
+            var msg = string.Empty;
+            if (e.Error == null && e.Result == null)
+                msg = "报表导出成功！";
+            else
+                msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
+
+            DXMessage.ShowTips(msg);
+
+            this.btnExport2Excel.Enabled = true;
         }
 
         #endregion Events
