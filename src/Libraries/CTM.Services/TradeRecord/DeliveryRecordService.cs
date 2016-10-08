@@ -1370,7 +1370,7 @@ namespace CTM.Services.TradeRecord
             foreach (DataRow row in importDataTable.Rows)
             {
                 //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
@@ -1476,7 +1476,7 @@ namespace CTM.Services.TradeRecord
             foreach (DataRow row in importDataTable.Rows)
             {
                 //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
 
                 var tradeRecord = new DeliveryRecord();
 
