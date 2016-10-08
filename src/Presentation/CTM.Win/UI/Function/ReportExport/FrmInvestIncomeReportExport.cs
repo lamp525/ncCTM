@@ -200,32 +200,32 @@ namespace CTM.Win.UI.Function.ReportExport
                     if (tradeType != EnumLibrary.TradeType.Day)
                     {
                         //周一（万元）
-                        worksheet.Cells[startRowIndex + i, 3] = CommonHelper.SetDecimalDigits(investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand);
+                        worksheet.Cells[startRowIndex + i, 3] = investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //净资产（万元）
-                        worksheet.Cells[startRowIndex + i, 4] = CommonHelper.SetDecimalDigits(investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand);
+                        worksheet.Cells[startRowIndex + i, 4] = investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //持仓市值（万元）
-                        worksheet.Cells[startRowIndex + i, 9] = CommonHelper.SetDecimalDigits(investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand);
+                        worksheet.Cells[startRowIndex + i, 9] = investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //持仓仓位
-                        worksheet.Cells[startRowIndex + i, 12] = CommonHelper.SetDecimalDigits(investInfo.PositionRate * 100, 0).ToString() + "%";
+                        worksheet.Cells[startRowIndex + i, 12] = investInfo.PositionRate;
                     }
 
                     //日期
                     worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
 
                     //累计收益额（万元）
-                    worksheet.Cells[startRowIndex + i, 5] = CommonHelper.SetDecimalDigits(investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand);
+                    worksheet.Cells[startRowIndex + i, 5] = investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
                     //当日收益率
-                    worksheet.Cells[startRowIndex + i, 6] = CommonHelper.ConvertToPercentage(investInfo.CurrentIncomeRate);
+                    worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
 
                     //日收益额（万元）
-                    worksheet.Cells[startRowIndex + i, 7] = CommonHelper.SetDecimalDigits(investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand);
+                    worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
                     //累计收益率
-                    worksheet.Cells[startRowIndex + i, 8] = CommonHelper.ConvertToPercentage(investInfo.AccumulatedIncomeRate);
+                    worksheet.Cells[startRowIndex + i, 8] = investInfo.AccumulatedIncomeRate;
                 }
             }
 
@@ -238,32 +238,41 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private void WorksheetFormatting(Excel._Worksheet worksheet)
         {
+            //日期
             Excel.Range rngColB = worksheet.Columns["B", Type.Missing];
             rngColB.NumberFormatLocal = @"yy/mm/dd";
 
+            //周一（万元）
             Excel.Range rngColC = worksheet.Columns["C", Type.Missing];
-            rngColC.NumberFormatLocal = "@";
+            rngColC.NumberFormatLocal = @"0";
 
+            //净资产（万元）
             Excel.Range rngColD = worksheet.Columns["D", Type.Missing];
-            rngColD.NumberFormatLocal = "@";
+            rngColD.NumberFormatLocal = @"0.00";
 
+            //累计收益额（万元）
             Excel.Range rngColE = worksheet.Columns["E", Type.Missing];
-            rngColE.NumberFormatLocal = "@";
+            rngColE.NumberFormatLocal = @"0.00";
 
-            Excel.Range rngColF = worksheet.Columns["F", Type.Missing];
-            rngColF.NumberFormatLocal = "@";
+            ////当日收益率
+            //Excel.Range rngColF = worksheet.Columns["F", Type.Missing];
+            //rngColF.NumberFormatLocal = @"0.00";
 
+            //日收益额（万元）
             Excel.Range rngColG = worksheet.Columns["G", Type.Missing];
-            rngColG.NumberFormatLocal = "@";
+            rngColG.NumberFormatLocal = @"0.00";
 
-            Excel.Range rngColH = worksheet.Columns["H", Type.Missing];
-            rngColH.NumberFormatLocal = "@";
+            ////累计收益率
+            //Excel.Range rngColH = worksheet.Columns["H", Type.Missing];
+            //rngColH.NumberFormatLocal = @"0.00";
 
-            Excel.Range rngColI = worksheet.Columns["I", Type.Missing];
-            rngColI.NumberFormatLocal = "@";
+            ////持仓市值（万元）
+            //Excel.Range rngColI = worksheet.Columns["I", Type.Missing];
+            //rngColI.NumberFormatLocal = @"0.0";
 
-            Excel.Range rngColL = worksheet.Columns["L", Type.Missing];
-            rngColL.NumberFormatLocal = "@";
+            ////持仓仓位
+            //Excel.Range rngColL = worksheet.Columns["L", Type.Missing];
+            //rngColL.NumberFormatLocal = @"0.00";
         }
 
         private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, EnumLibrary.TradeType tradeType, string reportType)
@@ -374,6 +383,7 @@ namespace CTM.Win.UI.Function.ReportExport
 
                 this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.mpbUserInvestIncomeFlow.Enabled = true;
+                this.mpbUserInvestIncomeFlow.Properties.Stopped = false;
                 this.mpbUserInvestIncomeFlow.Text = "报表生成中...请稍后...";
                 this.mpbUserInvestIncomeFlow.Properties.ShowTitle = true;
 

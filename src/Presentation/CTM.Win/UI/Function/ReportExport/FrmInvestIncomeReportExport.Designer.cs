@@ -30,6 +30,7 @@
         {
             this.pageUserInvestIncomeFlow = new System.Windows.Forms.TabPage();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.mpbUserInvestIncomeFlow = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.btnChangeSavePath = new DevExpress.XtraEditors.SimpleButton();
             this.txtSavePath = new DevExpress.XtraEditors.TextEdit();
             this.btnExport2Excel = new DevExpress.XtraEditors.SimpleButton();
@@ -51,12 +52,12 @@
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.mpbUserInvestIncomeFlow = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.lciProgress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pageUserInvestIncomeFlow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSavePath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties)).BeginInit();
@@ -77,9 +78,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pageUserInvestIncomeFlow
@@ -111,6 +111,16 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // mpbUserInvestIncomeFlow
+            // 
+            this.mpbUserInvestIncomeFlow.EditValue = 0;
+            this.mpbUserInvestIncomeFlow.Location = new System.Drawing.Point(12, 110);
+            this.mpbUserInvestIncomeFlow.Name = "mpbUserInvestIncomeFlow";
+            this.mpbUserInvestIncomeFlow.Properties.MarqueeAnimationSpeed = 30;
+            this.mpbUserInvestIncomeFlow.Size = new System.Drawing.Size(604, 16);
+            this.mpbUserInvestIncomeFlow.StyleController = this.layoutControl1;
+            this.mpbUserInvestIncomeFlow.TabIndex = 7;
+            // 
             // btnChangeSavePath
             // 
             this.btnChangeSavePath.Location = new System.Drawing.Point(545, 84);
@@ -131,7 +141,7 @@
             // 
             // btnExport2Excel
             // 
-            this.btnExport2Excel.Location = new System.Drawing.Point(22, 128);
+            this.btnExport2Excel.Location = new System.Drawing.Point(22, 130);
             this.btnExport2Excel.Name = "btnExport2Excel";
             this.btnExport2Excel.Size = new System.Drawing.Size(83, 22);
             this.btnExport2Excel.StyleController = this.layoutControl1;
@@ -212,9 +222,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 142);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 144);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(618, 136);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(618, 134);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem13
@@ -240,7 +250,7 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 116);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 118);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -248,7 +258,7 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(97, 116);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(97, 118);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(521, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -256,7 +266,7 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnExport2Excel;
-            this.layoutControlItem2.Location = new System.Drawing.Point(10, 116);
+            this.layoutControlItem2.Location = new System.Drawing.Point(10, 118);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(87, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -308,7 +318,7 @@
             this.emptySpaceItem8.AllowHotTrack = false;
             this.emptySpaceItem8.Location = new System.Drawing.Point(608, 98);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 18);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 20);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
@@ -320,6 +330,15 @@
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
+            // lciProgress
+            // 
+            this.lciProgress.Control = this.mpbUserInvestIncomeFlow;
+            this.lciProgress.Location = new System.Drawing.Point(0, 98);
+            this.lciProgress.Name = "lciProgress";
+            this.lciProgress.Size = new System.Drawing.Size(608, 20);
+            this.lciProgress.TextSize = new System.Drawing.Size(0, 0);
+            this.lciProgress.TextVisible = false;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.pageUserInvestIncomeFlow);
@@ -329,23 +348,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(652, 331);
             this.tabControl1.TabIndex = 0;
-            // 
-            // mpbUserInvestIncomeFlow
-            // 
-            this.mpbUserInvestIncomeFlow.Location = new System.Drawing.Point(12, 110);
-            this.mpbUserInvestIncomeFlow.Name = "mpbUserInvestIncomeFlow";
-            this.mpbUserInvestIncomeFlow.Size = new System.Drawing.Size(604, 14);
-            this.mpbUserInvestIncomeFlow.StyleController = this.layoutControl1;
-            this.mpbUserInvestIncomeFlow.TabIndex = 7;
-            // 
-            // lciProgress
-            // 
-            this.lciProgress.Control = this.mpbUserInvestIncomeFlow;
-            this.lciProgress.Location = new System.Drawing.Point(0, 98);
-            this.lciProgress.Name = "lciProgress";
-            this.lciProgress.Size = new System.Drawing.Size(608, 18);
-            this.lciProgress.TextSize = new System.Drawing.Size(0, 0);
-            this.lciProgress.TextVisible = false;
             // 
             // FrmInvestIncomeReportExport
             // 
@@ -359,6 +361,7 @@
             this.pageUserInvestIncomeFlow.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSavePath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties)).EndInit();
@@ -379,9 +382,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
