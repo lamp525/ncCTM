@@ -85,7 +85,7 @@ namespace CTM.Win.UI.Function.ReportExport
             {
                 new ComboBoxItemModel { Text = CTMHelper.GetReportTypeName ((int)EnumLibrary.ReportType.Day), Value = EnumLibrary.ReportType.Day.ToString() },
                 new ComboBoxItemModel { Text = CTMHelper.GetReportTypeName ((int)EnumLibrary.ReportType.Week), Value = EnumLibrary.ReportType.Week.ToString() },
-                new ComboBoxItemModel { Text = CTMHelper.GetReportTypeName ((int)EnumLibrary.ReportType.Month) , Value = EnumLibrary.ReportType.Month.ToString() },
+                new ComboBoxItemModel { Text = CTMHelper.GetReportTypeName ((int)EnumLibrary.ReportType.Month), Value = EnumLibrary.ReportType.Month.ToString() },
             };
 
             this.cbReportType.Initialize(reportTypes, displayAdditionalItem: false);
@@ -97,7 +97,6 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private string GetReportTemplateFilePath(EnumLibrary.TradeType tradeType)
         {
-            string templateFilePath = string.Empty;
             string directoryName = "ReportTemplate\\UserDailyProfitFlow";
             string fileName = string.Empty;
 
@@ -124,7 +123,6 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private string GetReportDestinyFilePath(EnumLibrary.TradeType tradeType, string savePath)
         {
-            string destinyFilePath = string.Empty;
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string typeName = string.Empty;
 
@@ -170,6 +168,9 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, EnumLibrary.TradeType tradeType, string templateFilePath, string destinyFilePath)
         {
+            if (reportData == null)
+                throw new NullReferenceException(nameof(reportData));
+
             Excel.Application excelApp = new Excel.Application();
 
             Excel.Workbook workbook = excelApp.Workbooks.Open(templateFilePath);
@@ -355,7 +356,7 @@ namespace CTM.Win.UI.Function.ReportExport
                 this.btnChangeSavePath.Enabled = false;
 
                 var mySaveFolderDialog = new FolderBrowserDialog();
-                mySaveFolderDialog.Description = "请选择保存路径";
+                mySaveFolderDialog.Description = "请选择保存目录";
 
                 if (mySaveFolderDialog.ShowDialog() == DialogResult.OK)
                 {
