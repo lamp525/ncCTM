@@ -119,6 +119,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if(stockName =="GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -218,6 +226,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -320,6 +336,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -419,6 +443,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -520,6 +552,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -619,6 +659,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -720,6 +768,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -811,6 +867,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -912,6 +976,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -1012,6 +1084,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -1107,6 +1187,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -1212,6 +1300,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -1309,6 +1405,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
@@ -1410,6 +1514,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -1510,6 +1622,14 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+
                 //买入
                 if (tradeRecord.DealFlag)
                 {
@@ -1609,6 +1729,14 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (stockName == "GC001")
+                {
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    else
+                        tradeRecord.DealFlag = false;
+                }
 
                 //买入
                 if (tradeRecord.DealFlag)
