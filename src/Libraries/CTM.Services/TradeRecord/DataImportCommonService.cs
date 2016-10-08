@@ -24,9 +24,7 @@ namespace CTM.Services.TradeRecord
             foreach (DataRow row in source.Rows)
             {
                 foreach (DataColumn colTime in timeColumns)
-                {
                     row[colTime] = CommonHelper.FormatNumberString(row[colTime].ToString().Trim());
-                }
             }
         }
 
@@ -66,17 +64,13 @@ namespace CTM.Services.TradeRecord
                 if (TemplateColumnNames.Contains(column.ColumnName))
                     DataColumnNames.Add(column.ColumnName);
                 else
-                {
                     throw new Exception($"交易数据Excel文件中列【{column.ColumnName}】的名称不正确。");
-                }
             }
 
             foreach (var name in TemplateColumnNames)
             {
                 if (!DataColumnNames.Contains(name))
-                {
                     throw new Exception($"交易数据Excel文件中缺少列【{name}】。");
-                }
             }
         }
 
