@@ -259,6 +259,7 @@ namespace CTM.Win.UI.Accounting.DataManage
         {
             try
             {
+                this.lblFinish.Text = string.Empty;
                 this.lblFinish.Visible = false;
                 this.PageFinish.AllowBack = false;
 
