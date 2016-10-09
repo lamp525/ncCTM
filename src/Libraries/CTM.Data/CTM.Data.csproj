@@ -80,6 +80,10 @@
     <Compile Include="Mapping\Stock\StockPoolEntryMap.cs" />
     <Compile Include="Mapping\TradeRecord\DailyRecordMap.cs" />
     <Compile Include="Mapping\User\UserInfoMap.cs" />
+    <Compile Include="Migrations\201610090510257_Initial.cs" />
+    <Compile Include="Migrations\201610090510257_Initial.Designer.cs">
+      <DependentUpon>201610090510257_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -93,6 +97,11 @@
       <Project>{2caf65a1-1354-41a9-8f1d-4739c5cd9563}</Project>
       <Name>CTM.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610090510257_Initial.resx">
+      <DependentUpon>201610090510257_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

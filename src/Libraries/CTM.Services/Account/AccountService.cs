@@ -70,17 +70,17 @@ namespace CTM.Services.Account
             return _accountInfoRepository.GetById(accountId);
         }
 
-        public virtual AccountInfo GetAccountDetailById(int accountId)
+        public virtual AccountEntity GetAccountDetailById(int accountId)
         {
             if (accountId == 0) return null;
 
-            var result = new AccountInfo();
+            var result = new AccountEntity();
             var details = GetAccountDetails(accountIds: new int[] { accountId }, showDisabled: true);
 
             return details.SingleOrDefault();
         }
 
-        public virtual IList<AccountInfo> GetAccountDetails(
+        public virtual IList<AccountEntity> GetAccountDetails(
             int[] accountIds = null,
             int industryId = 0,
             int securityCompanyCode = 0,
@@ -105,35 +105,7 @@ namespace CTM.Services.Account
 
             var query = this._dbContext.SqlQuery<AccountEntity>(commanText);
 
-            var result = query.ToList().Select(x => new AccountInfo
-            {
-                Id = x.AccountId,
-                AttributeCode = x.AttributeCode,
-                AttributeName = x.AttributeName,
-                Balance = x.Balance,
-                CommissionRate = x.CommissionRate,
-                FinancingAmount = x.FinancingAmount,
-                IncidentalsRate = x.IncidentalsRate,
-                IncomeRate = x.IncomeRate,
-                IndustryId = x.IndustryId,
-                IndustryName = x.IndustryName,
-                InvestFund = x.InvestFund,
-                IsDisabled = x.IsDisabled,
-                Name = x.AccountName,
-                NeedAccounting = x.NeedAccounting,
-                OperatorNames = x.OperatorNames,
-                PlanCode = x.PlanCode,
-                PlanName = x.PlanName,
-                Remarks = x.Remarks,
-                SecurityCompanyCode = x.SecurityCompanyCode,
-                SecurityCompanyName = x.SecurityCompanyName,
-                StampDutyRate = x.StampDutyRate,
-                TotalFund = x.TotalFund,
-                TypeCode = x.TypeCode,
-                TypeName = x.TypeName,
-            }).ToList();
-
-            return result;
+            return query.ToList();
         }
 
         public virtual IList<AccountInfo> GetAccountInfos(int[] accountIds = null, int industryId = 0, int securityCompanyCode = 0, int attributeCode = 0, int planCode = 0, int typeCode = 0, bool onlyNeedAccounting = false, bool showDisabled = false, bool tableNoTracking = false)

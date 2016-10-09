@@ -20,9 +20,6 @@ namespace CTM.Data.Mapping.Account
             this.Property(p => p.InvestFund).HasPrecision(24, 4);
             this.Property(p => p.FinancingAmount).HasPrecision(24, 4);
             this.Property(p => p.Balance).HasPrecision(24, 4);
-
-            this.Ignore(p => p.OperatorNames);
-            this.Ignore(p => p.IndustryName);
         }
     }
 }

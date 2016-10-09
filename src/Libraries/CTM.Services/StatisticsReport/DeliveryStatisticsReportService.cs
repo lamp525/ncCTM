@@ -56,7 +56,7 @@ namespace CTM.Services.StatisticsReport
                 var incomeModel = new AccountInvestIncomeEntity()
                 {
                     //账户名称
-                    AccountName = accountInfo.AccountName,
+                    AccountName = accountInfo.Name,
                     //账户属性
                     AccountAttributeName = accountInfo.AttributeName,
                     //账户类别

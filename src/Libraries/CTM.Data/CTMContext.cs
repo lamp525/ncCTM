@@ -16,7 +16,7 @@ namespace CTM.Data
     {
         #region Constructors
 
-        public CTMContext() : base()
+        public CTMContext() : base("name=CTMContext")
         {
         }
 

@@ -2,17 +2,24 @@
 {
     public class AccountEntity
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 编码
         /// </summary>
-        public string AccountCode { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// 名称
         /// </summary>
-        public string AccountName { get; set; }
+        public string Name { get; set; }
+
+        public string Owner { get; set; }
+
+        /// <summary>
+        /// 开户所在地
+        /// </summary>
+        public string Location { get; set; }
 
         public int IndustryId { get; set; }
 

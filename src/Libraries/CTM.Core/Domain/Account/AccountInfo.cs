@@ -10,6 +10,26 @@ namespace CTM.Core.Domain.Account
         private ICollection<AccountOperator> _operators;
 
         /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 账户所有人
+        /// </summary>
+        public string Owner { get; set; }
+
+        /// <summary>
+        /// 开户所在地
+        /// </summary>
+        public string Location { get; set; }
+
+        /// <summary>
         /// 产业分类ID
         /// </summary>
         public int IndustryId { get; set; }
@@ -28,16 +48,6 @@ namespace CTM.Core.Domain.Account
         /// 规划编码
         /// </summary>
         public int PlanCode { get; set; }
-
-        /// <summary>
-        /// 编码
-        /// </summary>
-        public string Code { get; set; }
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// 开户券商编码
@@ -110,10 +120,6 @@ namespace CTM.Core.Domain.Account
         public string PlanName { get; set; }
 
         public string SecurityCompanyName { get; set; }
-
-        public virtual string OperatorNames { get; set; }
-
-        public virtual string IndustryName { get; set; }
 
         public virtual ICollection<AccountOperator> AccountOperators
         {
