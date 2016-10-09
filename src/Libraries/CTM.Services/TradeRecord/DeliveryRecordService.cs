@@ -1978,6 +1978,11 @@ namespace CTM.Services.TradeRecord
             return result;
         }
 
+        public virtual IList<DeliveryRecord> GetDeliveryRecords(int[] accountIds, DateTime? tradeDateFrom, DateTime? tradeDateTo)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Methods
     }
 }

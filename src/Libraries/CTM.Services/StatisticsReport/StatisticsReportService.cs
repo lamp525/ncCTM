@@ -17,7 +17,7 @@ namespace CTM.Services.StatisticsReport
         #region Fields
 
         private readonly ITKLineService _tKLineService;
-        private readonly IDailyRecordService _tradeRecordService;
+        private readonly IDailyRecordService _dailyRecordService;
         private readonly IMarginTradingService _marginService;
 
         #endregion Fields
@@ -25,12 +25,12 @@ namespace CTM.Services.StatisticsReport
         #region Constructorss
 
         public StatisticsReportService(
-            IDailyRecordService tradeRecordService,
+            IDailyRecordService dailyRecordService,
             ITKLineService tKLineService,
             IMarginTradingService marginService
             )
         {
-            this._tradeRecordService = tradeRecordService;
+            this._dailyRecordService = dailyRecordService;
             this._tKLineService = tKLineService;
             this._marginService = marginService;
         }
@@ -841,38 +841,38 @@ namespace CTM.Services.StatisticsReport
         /// </summary>
         /// <param name="investorInfo"></param>
         /// <param name="statisticalInvestorCodes"></param>
-        /// <param name="tradeRecords"></param>
+        /// <param name="dailyRecords"></param>
         /// <param name="statisticalDates"></param>
         /// <param name="stockClosePrices"></param>
         /// <returns></returns>
-        public virtual IList<UserInvestIncomeEntity> CalculateUserInvestIncome(UserInfo investorInfo, IList<string> statisticalInvestorCodes, IList<DailyRecord> tradeRecords, IList<DateTime> statisticalDates, IList<TKLineToday> stockClosePrices)
+        public virtual IList<UserInvestIncomeEntity> CalculateUserInvestIncome(UserInfo investorInfo, IList<string> statisticalInvestorCodes, IList<DailyRecord> dailyRecords, IList<DateTime> statisticalDates, IList<TKLineToday> stockClosePrices)
         {
             IList<UserInvestIncomeEntity> result = new List<UserInvestIncomeEntity>();
 
-            if (investorInfo == null || tradeRecords == null || !tradeRecords.Any() || statisticalDates == null || !statisticalDates.Any())
+            if (investorInfo == null || dailyRecords?.Count == 0 || statisticalDates?.Count == 0)
                 return result;
 
-            tradeRecords = tradeRecords.OrderBy(x => x.TradeDate).ToList();
+            dailyRecords = dailyRecords.OrderBy(x => x.TradeDate).ToList();
             statisticalDates = statisticalDates.OrderBy(x => x).ToList();
 
             //日内每日投资收益统计
             IList<UserInvestIncomeEntity> dayInvestIncomeInfos = new List<UserInvestIncomeEntity>();
             //日内交易数据
-            var dayRecords = tradeRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Day).ToList();
+            var dayRecords = dailyRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Day).ToList();
             if (dayRecords.Any())
                 dayInvestIncomeInfos = GetUserDayInvestIncomeInfo(investorInfo, statisticalInvestorCodes, dayRecords, statisticalDates, stockClosePrices);
 
             //波段每日投资收益统计
             IList<UserInvestIncomeEntity> bandInvestIncomeInfos = new List<UserInvestIncomeEntity>();
             //波段交易数据
-            var bandRecords = tradeRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Band).ToList();
+            var bandRecords = dailyRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Band).ToList();
             if (bandRecords.Any())
                 bandInvestIncomeInfos = GetUserBandInvestIncomeInfo(investorInfo, statisticalInvestorCodes, bandRecords, statisticalDates, stockClosePrices);
 
             //目标每日投资收益统计
             IList<UserInvestIncomeEntity> targetInvestIncomeInfos = new List<UserInvestIncomeEntity>();
             //目标交易记录
-            var targetRecords = tradeRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target).ToList();
+            var targetRecords = dailyRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target).ToList();
             if (targetRecords.Any())
                 targetInvestIncomeInfos = GetUserTargetInvestIncomeInfo(investorInfo, statisticalInvestorCodes, targetRecords, statisticalDates, stockClosePrices);
 

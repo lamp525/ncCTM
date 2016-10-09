@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Domain.TradeRecord;
+using CTM.Services.Account;
+using CTM.Services.StatisticsReport;
 using CTM.Win.Models;
 
 namespace CTM.Win.Util
@@ -130,9 +132,9 @@ namespace CTM.Win.Util
         /// <param name="stockClosePrices"></param>
         /// <param name="accountDetailInfo"></param>
         /// <returns></returns>
-        public static IList<AccountInvestIncomeModel> CalculateAccountInvestIncome(IList<DailyRecord> tradeRecords, IList<DateTime> queryDates, DataSet stockClosePrices, AccountInfoModel accountDetailInfo)
+        public static IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DailyRecord> tradeRecords, IList<DateTime> queryDates, DataSet stockClosePrices, AccountEntity accountDetailInfo)
         {
-            var result = new List<AccountInvestIncomeModel>();
+            var result = new List<AccountInvestIncomeEntity>();
 
             if (tradeRecords == null || !tradeRecords.Any() || stockClosePrices == null) return result;
 
@@ -167,7 +169,7 @@ namespace CTM.Win.Util
                 //当日成交额
                 var dealAmount = CalculateDealAmount(tradeRecords.Where(x => x.TradeDate == date).ToList());
 
-                var incomeModel = new AccountInvestIncomeModel()
+                var incomeModel = new AccountInvestIncomeEntity()
                 {
                     //账户名称
                     AccountName = accountDetailInfo.AccountName,

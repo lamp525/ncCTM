@@ -70,6 +70,9 @@
     <Compile Include="MarginTrading\IMarginTradingService.cs" />
     <Compile Include="MarginTrading\MarginTradingEntity.cs" />
     <Compile Include="MarginTrading\MarginTradingService.cs" />
+    <Compile Include="StatisticsReport\AccountInvestIncomeEntity.cs" />
+    <Compile Include="StatisticsReport\DeliveryStatisticsReportService.cs" />
+    <Compile Include="StatisticsReport\IDeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\InvestStatisticsCommonEntity.cs" />
     <Compile Include="StatisticsReport\StatisticsReportService.cs" />
     <Compile Include="StatisticsReport\UserInvestIncomeEntity.cs" />

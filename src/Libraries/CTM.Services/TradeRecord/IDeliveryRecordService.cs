@@ -18,5 +18,7 @@ namespace CTM.Services.TradeRecord
         void DeleteDeliveryRecords(int[] ids);
 
         IList<DeliveryRecord> GetDeliveryRecordsDetail(string stockCode, int accountId, bool? dealFlag, DateTime? tradeDateFrom, DateTime? tradeDateTo, string importUserCode, DateTime? importDateFrom, DateTime? importDateTo);
+
+        IList<DeliveryRecord> GetDeliveryRecords(int[] accountIds, DateTime? tradeDateFrom, DateTime? tradeDateTo);
     }
 }

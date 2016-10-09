@@ -4,9 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using CTM.Core;
+using CTM.Core.Domain.Account;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Dictionary;
+using CTM.Services.StatisticsReport;
 using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
 using CTM.Services.User;
@@ -15,44 +17,47 @@ using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils;
 
-namespace CTM.Win.UI.Function.StatisticsReport
+namespace CTM.Win.UI.Accounting.StatisticsReport
 {
-    public partial class FrmAccountInvestIncomeFlow : BaseForm
+    public partial class FrmDeliveryAccountInvestIncomeFlow : BaseForm
     {
         #region Fields
 
-        private readonly IDailyRecordService _tradeRecordService;
+        private readonly IDeliveryRecordService _deliveryRecordService;
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
         private readonly IDictionaryService _dictionaryService;
         private readonly ITKLineService _tkLineService;
+        private readonly IDeliveryStatisticsReportService _deliveryReportService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
 
         //查询交易日数量
         private const int _tradeDateNumber = 25;
 
-        private const string _layoutXmlName = "FrmAccountInvestIncomeFlow";
+        private const string _layoutXmlName = "FrmDeliveryAccountInvestIncomeFlow";
 
         #endregion Fields
 
         #region Constructors
 
-        public FrmAccountInvestIncomeFlow(
-            IDailyRecordService tradeRecordService,
+        public FrmDeliveryAccountInvestIncomeFlow(
+            IDeliveryRecordService deliveryRecordService,
             IAccountService accountService,
             IUserService userService,
             IDictionaryService dictionaryService,
-            ITKLineService tkLineService
+            ITKLineService tkLineService,
+            IDeliveryStatisticsReportService deliveryReportService
             )
         {
             InitializeComponent();
 
-            this._tradeRecordService = tradeRecordService;
+            this._deliveryRecordService = deliveryRecordService;
             this._accountService = accountService;
             this._userService = userService;
             this._dictionaryService = dictionaryService;
             this._tkLineService = tkLineService;
+            this._deliveryReportService = deliveryReportService;
         }
 
         #endregion Constructors
@@ -163,20 +168,20 @@ namespace CTM.Win.UI.Function.StatisticsReport
             var accountIds = accounts.Select(x => x.AccountId).ToArray();
 
             //交易记录
-            var tradeRecords = _tradeRecordService.GetDailyRecords(accountIds: accountIds, tradeDateFrom: startDate, tradeDateTo: endDate).ToList();
+            var records = _deliveryRecordService.GetDeliveryRecords(accountIds: accountIds, tradeDateFrom: startDate, tradeDateTo: endDate).ToList();
 
-            if (tradeRecords == null || !tradeRecords.Any()) return;
+            if (records?.Count == 0) return;
 
             //取得26个交易日日期
             var queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate, _tradeDateNumber + 1).OrderBy(x => x).ToList();
             //交易记录中的所有股票代码
-            var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
+            var stockFullCodes = records.Select(x => x.StockCode).Distinct().ToArray();
             //各交易日所有股票收盘价
-            var stockClosePrices = TKLineHelper.GetStockClosePrices(queryDates, stockFullCodes);
+            var stockClosePrices = this._tkLineService.GetStockClosePrices(queryDates, stockFullCodes);
 
-            var queryResult = InvestStatisticsHelper.CalculateAccountInvestIncome(tradeRecords, queryDates, stockClosePrices, selectedAccount).ToList();
+            var queryResult = this._deliveryReportService.CalculateAccountInvestIncome(records, queryDates, stockClosePrices, selectedAccount);
 
-            var source = queryResult.Select(x => new AccountInvestIncomeModel
+            var source = queryResult.Select(x => new AccountInvestIncomeEntity
             {
                 AccountAttributeName = x.AccountAttributeName,
                 AccountName = x.AccountName,

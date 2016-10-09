@@ -107,7 +107,7 @@ namespace CTM.Services.Account
 
             var result = query.ToList().Select(x => new AccountInfo
             {
-                Id = x.Id,
+                Id = x.AccountId,
                 AttributeCode = x.AttributeCode,
                 AttributeName = x.AttributeName,
                 Balance = x.Balance,
@@ -119,7 +119,7 @@ namespace CTM.Services.Account
                 IndustryName = x.IndustryName,
                 InvestFund = x.InvestFund,
                 IsDisabled = x.IsDisabled,
-                Name = x.Name,
+                Name = x.AccountName,
                 NeedAccounting = x.NeedAccounting,
                 OperatorNames = x.OperatorNames,
                 PlanCode = x.PlanCode,

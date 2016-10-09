@@ -22,7 +22,7 @@ namespace CTM.Win.UI.Accounting.DataManage
         private readonly IAccountService _accountService;
         private readonly IDataVerifyService _dataVerifyService;
 
-        private IList<AccountInfoModel> _accounts;
+        private IList<AccountEntity> _accounts;
 
         private const string _layoutXmlName = "FrmTradeDataVerify";
 
@@ -72,7 +72,7 @@ namespace CTM.Win.UI.Accounting.DataManage
 
             //账户信息
             _accounts = _accountService.GetAccountDetails(onlyNeedAccounting: true, showDisabled: true)
-                 .Select(x => new AccountInfoModel
+                 .Select(x => new AccountEntity
                  {
                      AccountId = x.Id,
                      AccountName = x.Name,
@@ -128,7 +128,7 @@ namespace CTM.Win.UI.Accounting.DataManage
         {
             if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()) || !string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
             {
-                var source = new List<AccountInfoModel>();
+                var source = new List<AccountEntity>();
                 source.AddRange(_accounts);
 
                 if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()))

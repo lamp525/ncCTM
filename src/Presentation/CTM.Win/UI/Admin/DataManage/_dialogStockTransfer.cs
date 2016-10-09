@@ -171,7 +171,7 @@ namespace CTM.Win.UI.Admin.DataManage
             var stockFullCode = this.txtStockCode.Text.Trim();
             var stockName = this.txtStockName.Text.Trim();
             var receivedAccountId = int.Parse(this.luReceivedAccount.SelectedValue());
-            var receivedAccountInfo = (this.luReceivedAccount.GetSelectedDataRow() as AccountInfoModel).DisplayMember;
+            var receivedAccountInfo = (this.luReceivedAccount.GetSelectedDataRow() as AccountEntity).DisplayMember;
 
             var now = _commonService.GetCurrentServerTime();
             var tradeDate = CommonHelper.GetPreviousWorkDay(now);
@@ -317,7 +317,7 @@ namespace CTM.Win.UI.Admin.DataManage
             }
 
             var accountInfos = _accountService.GetAccountInfos(accountIds: accountIds.ToArray())
-                  .Select(x => new AccountInfoModel
+                  .Select(x => new AccountEntity
                   {
                       AccountId = x.Id,
                       AccountName = x.Name,

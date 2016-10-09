@@ -1,44 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CTM.Services.Account
+﻿namespace CTM.Services.Account
 {
     public class AccountEntity
     {
-        public int Id { get; set; }
+        public int AccountId { get; set; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        public string AccountCode { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string AccountName { get; set; }
 
         public int IndustryId { get; set; }
+
+        public string IndustryName { get; set; }
 
         /// <summary>
         /// 类别编码
         /// </summary>
         public int TypeCode { get; set; }
 
+        public string TypeName { get; set; }
+
         /// <summary>
         /// 属性编码
         /// </summary>
         public int AttributeCode { get; set; }
+
+        public string AttributeName { get; set; }
 
         /// <summary>
         /// 规划编码
         /// </summary>
         public int PlanCode { get; set; }
 
-        /// <summary>
-        /// 编码
-        /// </summary>
-       //public string Code { get; set; }
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; set; }
+        public string PlanName { get; set; }
 
         /// <summary>
         /// 开户券商编码
         /// </summary>
         public int SecurityCompanyCode { get; set; }
+
+        public string SecurityCompanyName { get; set; }
 
         /// <summary>
         /// 总资产
@@ -99,16 +105,8 @@ namespace CTM.Services.Account
         /// </summary>
         public string Remarks { get; set; }
 
-        public string AttributeName { get; set; }
-
-        public string TypeName { get; set; }
-
-        public string PlanName { get; set; }
-
-        public string SecurityCompanyName { get; set; }
-
         public string OperatorNames { get; set; }
 
-        public string IndustryName { get; set; }
+        public string DisplayMember { get; set; }
     }
 }

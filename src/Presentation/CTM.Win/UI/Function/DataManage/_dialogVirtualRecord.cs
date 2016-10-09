@@ -397,7 +397,7 @@ namespace CTM.Win.UI.Function.DataManage
             if (accountIds == null || !accountIds.Any()) return;
 
             var accounts = _accountService.GetAccountInfos(accountIds: accountIds.ToArray(), tableNoTracking: true)
-                  .Select(x => new AccountInfoModel
+                  .Select(x => new AccountEntity
                   {
                       AccountId = x.Id,
                       AccountName = x.Name,

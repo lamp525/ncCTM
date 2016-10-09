@@ -109,7 +109,7 @@ namespace CTM.Win.UI.Accounting.DataManage
 
             //账户
             var accounts = _accountService.GetAccountInfos(showDisabled: true)
-                 .Select(x => new AccountInfoModel
+                 .Select(x => new AccountEntity
                  {
                      AccountId = x.Id,
                      AccountName = x.Name,
@@ -120,7 +120,7 @@ namespace CTM.Win.UI.Accounting.DataManage
                  )
                  .ToList();
 
-            var allAccountModel = new AccountInfoModel
+            var allAccountModel = new AccountEntity
             {
                 AccountId = 0,
                 AccountName = "  全部  ",
