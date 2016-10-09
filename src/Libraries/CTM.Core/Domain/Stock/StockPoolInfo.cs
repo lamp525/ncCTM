@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CTM.Core.Domain.Stock
+﻿namespace CTM.Core.Domain.Stock
 {
     public class StockPoolInfo : BaseEntity
     {

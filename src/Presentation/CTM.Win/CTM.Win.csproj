@@ -713,6 +713,12 @@
     <Content Include="DataTemplate\AccountingDelivery\ZheShang_N.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DataTemplate\AccountingDelivery\CaiTong_N.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataTemplate\Delivery\CaiTong_N.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

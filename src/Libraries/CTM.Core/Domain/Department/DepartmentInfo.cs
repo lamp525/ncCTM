@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CTM.Core.Domain.Department
+﻿namespace CTM.Core.Domain.Department
 {
     public class DepartmentInfo : BaseEntity
     {

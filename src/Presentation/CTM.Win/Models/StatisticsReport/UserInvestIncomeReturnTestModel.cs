@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CTM.Win.Models
+﻿namespace CTM.Win.Models
 {
     public class UserInvestIncomeRetracementModel
     {

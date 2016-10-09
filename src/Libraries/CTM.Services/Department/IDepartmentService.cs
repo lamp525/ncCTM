@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using CTM.Core.Domain.Department;
 
 namespace CTM.Services.Department

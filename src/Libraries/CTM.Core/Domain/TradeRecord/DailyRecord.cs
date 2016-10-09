@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CTM.Core.Domain.TradeRecord
 {
@@ -162,8 +160,6 @@ namespace CTM.Core.Domain.TradeRecord
         /// 备注说明
         /// </summary>
         public string Remarks { get; set; }
-
-
 
         public virtual string AccountName { get; set; }
 

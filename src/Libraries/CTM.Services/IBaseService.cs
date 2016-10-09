@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CTM.Services
+﻿namespace CTM.Services
 {
     public partial interface IBaseService
     {

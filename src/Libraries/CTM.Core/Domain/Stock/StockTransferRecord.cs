@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CTM.Core.Domain.Stock
+﻿namespace CTM.Core.Domain.Stock
 {
     public class StockTransferRecord : BaseEntity
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CTM.Core.Domain.Stock
+﻿namespace CTM.Core.Domain.Stock
 {
     public class StockInfo : BaseEntity
     {

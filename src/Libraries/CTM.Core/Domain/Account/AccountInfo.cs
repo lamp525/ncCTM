@@ -32,7 +32,7 @@ namespace CTM.Core.Domain.Account
         /// <summary>
         /// 编码
         /// </summary>
-       public string Code { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// 名称

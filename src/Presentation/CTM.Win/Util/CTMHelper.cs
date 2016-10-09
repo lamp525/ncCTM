@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CTM.Core;
+﻿using CTM.Core;
 using CTM.Core.Util;
 
 namespace CTM.Win.Util

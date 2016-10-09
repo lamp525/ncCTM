@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CTM.Core.Domain.Stock;
 using CTM.Core.Util;
 using CTM.Services.Stock;

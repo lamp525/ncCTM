@@ -10,8 +10,7 @@ using CTM.Services.TradeRecord;
 namespace CTM.Services.StatisticsReport
 {
     public partial class DeliveryStatisticsReportService : IDeliveryStatisticsReportService
-    {   
-
+    {
         /// <summary>
         /// 帐户投资收益计算
         /// </summary>
@@ -52,7 +51,7 @@ namespace CTM.Services.StatisticsReport
                 var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == date).ToList();
 
                 //当日投资收益信息
-                var currentInvestIncomeInfo = currentRecords.GetInvestStatisticsCommonInfo(currentDateClosePrices);            
+                var currentInvestIncomeInfo = currentRecords.GetInvestStatisticsCommonInfo(currentDateClosePrices);
 
                 var incomeModel = new AccountInvestIncomeEntity()
                 {

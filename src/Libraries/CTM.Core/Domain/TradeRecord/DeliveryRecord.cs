@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CTM.Core.Domain.TradeRecord
 {
@@ -25,7 +23,6 @@ namespace CTM.Core.Domain.TradeRecord
         /// 账号ID
         /// </summary>
         public int AccountId { get; set; }
-
 
         /// <summary>
         /// 账号编码

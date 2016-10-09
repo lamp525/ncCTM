@@ -119,7 +119,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                if(stockName =="GC001")
+                if (stockName == "GC001")
                 {
                     if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
                         tradeRecord.DealFlag = true;

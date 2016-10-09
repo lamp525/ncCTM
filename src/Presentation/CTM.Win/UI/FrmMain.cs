@@ -13,8 +13,8 @@ using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
 using CTM.Win.UI.Function.DataManage;
 using CTM.Win.UI.Function.MarginTrading;
-using CTM.Win.UI.Function.StatisticsReport;
 using CTM.Win.UI.Function.ReportExport;
+using CTM.Win.UI.Function.StatisticsReport;
 using CTM.Win.UI.Setting;
 using CTM.Win.Util;
 using DevExpress.XtraBars;
@@ -243,7 +243,7 @@ namespace CTM.Win.UI
         /// <param name="e"></param>
         private void bbiInvestIncomeReportExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmInvestIncomeReportExport >("投资收益报表导出");
+            this.DisplayForm<FrmInvestIncomeReportExport>("投资收益报表导出");
         }
 
         /// <summary>
