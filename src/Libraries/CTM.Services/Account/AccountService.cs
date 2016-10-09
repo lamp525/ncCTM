@@ -91,7 +91,11 @@ namespace CTM.Services.Account
             bool showDisabled = false,
             bool tableNoTracking = false)
         {
-            var commaSeparatedAccountIds = accountIds == null ? "''" : string.Join(",", accountIds);
+            string commaSeparatedAccountIds = null;
+            if (accountIds?.Length > 0)
+                commaSeparatedAccountIds = @"'" + string.Join(",", accountIds) + @"'";
+            else
+                commaSeparatedAccountIds = @"''";
 
             var commanText = $@"EXEC [dbo].[sp_GetAccountDetail]
                                         @IndustyId = {industryId},

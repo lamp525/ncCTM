@@ -119,7 +119,7 @@ namespace CTM.Win.UI.Function.DataManage
             luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             //账户
-            var accounts = _accountService.GetAccountDetails(showDisabled: true) .ToList();
+            var accounts = _accountService.GetAccountDetails(showDisabled: true).ToList();
 
             var allAccountModel = new AccountEntity
             {

@@ -316,7 +316,7 @@ namespace CTM.Win.UI.Admin.DataManage
                 return;
             }
 
-            var accountInfos = _accountService.GetAccountDetails(accountIds: accountIds.ToArray())                .ToList();
+            var accountInfos = _accountService.GetAccountDetails(accountIds: accountIds.ToArray()).ToList();
 
             this.luReceivedAccount.Initialize(accountInfos, "Id", "DisplayMember", showHeader: true, enableSearch: true);
         }

@@ -1980,7 +1980,23 @@ namespace CTM.Services.TradeRecord
 
         public virtual IList<DeliveryRecord> GetDeliveryRecords(int[] accountIds, DateTime? tradeDateFrom, DateTime? tradeDateTo)
         {
-            throw new NotImplementedException();
+            var query = _deliveryRepository.TableNoTracking;
+
+            if (accountIds != null)
+                query = query.Where(x => accountIds.Contains(x.AccountId));
+            if (tradeDateFrom.HasValue)
+                query = query.Where(x => x.TradeDate >= tradeDateFrom);
+            if (tradeDateTo.HasValue)
+                query = query.Where(x => x.TradeDate <= tradeDateTo);
+
+            return query.ToList();
+        }
+
+        public virtual IList<int> GetTradingAccountIds()
+        {
+            var query = _deliveryRepository.Table.Select(x => x.AccountId).Distinct();
+
+            return query.ToList();
         }
 
         #endregion Methods

@@ -14,16 +14,16 @@ namespace CTM.Services.StatisticsReport
         /// <summary>
         /// 帐户投资收益计算
         /// </summary>
-        /// <param name="deliveryRecords"></param>
+        /// <param name="records"></param>
         /// <param name="queryDates"></param>
         /// <param name="stockClosePrices"></param>
         /// <param name="accountInfo"></param>
         /// <returns></returns>
-        public virtual IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DeliveryRecord> deliveryRecords, IList<DateTime> queryDates, IList<TKLineToday> stockClosePrices, AccountEntity accountInfo)
+        public virtual IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DeliveryRecord> records, IList<DateTime> queryDates, IList<TKLineToday> stockClosePrices, AccountEntity accountInfo)
         {
             var result = new List<AccountInvestIncomeEntity>();
 
-            if (deliveryRecords == null || !deliveryRecords.Any() || stockClosePrices == null) return result;
+            if (records == null || !records.Any() || stockClosePrices == null) return result;
 
             //帐户分配资金
             decimal allotFund = accountInfo.InvestFund;
@@ -31,7 +31,7 @@ namespace CTM.Services.StatisticsReport
             #region 统计日前一天
 
             var lastDate = queryDates.First();
-            var lastRecords = deliveryRecords.Where(x => x.TradeDate <= lastDate).ToList();
+            var lastRecords = records.Where(x => x.TradeDate <= lastDate).ToList();
             var lastDateClosePrices = stockClosePrices.Where(x => x.TradeDate == lastDate).ToList();
 
             //前一天的累计收益额
@@ -47,7 +47,7 @@ namespace CTM.Services.StatisticsReport
             {
                 #region 当前统计日
 
-                var currentRecords = deliveryRecords.Where(x => x.TradeDate < date).ToList();
+                var currentRecords = records.Where(x => x.TradeDate < date).ToList();
                 var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == date).ToList();
 
                 //当日投资收益信息

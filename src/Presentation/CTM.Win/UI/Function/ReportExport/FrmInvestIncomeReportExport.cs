@@ -28,7 +28,7 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private readonly IDailyRecordService _dailyRecordService;
         private readonly IDepartmentService _departmentService;
-        private readonly IStatisticsReportService _statisticsReportService;
+        private readonly IDailyStatisticsReportService _statisticsReportService;
         private readonly ITKLineService _tKLineService;
         private readonly IUserService _userService;
 
@@ -41,7 +41,7 @@ namespace CTM.Win.UI.Function.ReportExport
         public FrmInvestIncomeReportExport(
             IDailyRecordService dailyRecordService,
             IDepartmentService departmentService,
-            IStatisticsReportService statisticsReportService,
+            IDailyStatisticsReportService statisticsReportService,
             ITKLineService tKLineService,
             IUserService userService
             )

@@ -74,13 +74,13 @@
     <Compile Include="StatisticsReport\DeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\IDeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\InvestStatisticsCommonEntity.cs" />
-    <Compile Include="StatisticsReport\StatisticsReportService.cs" />
+    <Compile Include="StatisticsReport\DailyStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\UserInvestIncomeEntity.cs" />
     <Compile Include="StatisticsReport\UserInvestIncomeExtensions.cs" />
     <Compile Include="StatisticsReport\UserMarginTradingInterestEntity.cs" />
     <Compile Include="TKLine\ITKLineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatisticsReport\IStatisticsReportService.cs" />
+    <Compile Include="StatisticsReport\IDailyStatisticsReportService.cs" />
     <Compile Include="Stock\IStockService.cs" />
     <Compile Include="Stock\StockService.cs" />
     <Compile Include="TKLine\TKLineService.cs" />

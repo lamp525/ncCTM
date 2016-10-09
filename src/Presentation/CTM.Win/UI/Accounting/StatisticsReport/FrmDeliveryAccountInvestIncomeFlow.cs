@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Services.Account;
@@ -10,7 +9,6 @@ using CTM.Services.Dictionary;
 using CTM.Services.StatisticsReport;
 using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
-using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -22,14 +20,15 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
     {
         #region Fields
 
-        private readonly IDeliveryRecordService _deliveryRecordService;
         private readonly IAccountService _accountService;
-        private readonly IUserService _userService;
+        private readonly IDeliveryRecordService _deliveryRecordService;
+        private readonly IDeliveryStatisticsReportService _deliveryReportService;
         private readonly IDictionaryService _dictionaryService;
         private readonly ITKLineService _tkLineService;
-        private readonly IDeliveryStatisticsReportService _deliveryReportService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
+
+        private IList<int> _tradingAccountIds = null;
 
         //查询交易日数量
         private const int _tradeDateNumber = 25;
@@ -41,27 +40,29 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
         #region Constructors
 
         public FrmDeliveryAccountInvestIncomeFlow(
-            IDeliveryRecordService deliveryRecordService,
             IAccountService accountService,
-            IUserService userService,
+            IDeliveryRecordService deliveryRecordService,
+            IDeliveryStatisticsReportService deliveryReportService,
             IDictionaryService dictionaryService,
-            ITKLineService tkLineService,
-            IDeliveryStatisticsReportService deliveryReportService
-            )
+            ITKLineService tkLineService)
         {
             InitializeComponent();
 
-            this._deliveryRecordService = deliveryRecordService;
             this._accountService = accountService;
-            this._userService = userService;
+            this._deliveryRecordService = deliveryRecordService;
+            this._deliveryReportService = deliveryReportService;
             this._dictionaryService = dictionaryService;
             this._tkLineService = tkLineService;
-            this._deliveryReportService = deliveryReportService;
         }
 
         #endregion Constructors
 
         #region Utilities
+
+        private void GetTradingAccountId()
+        {
+            this._tradingAccountIds = this._deliveryRecordService.GetTradingAccountIds();
+        }
 
         private void BindSearchInfo()
         {
@@ -94,7 +95,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
             //账户
             var accounts = new List<AccountEntity>();
 
-            var infos = _accountService.GetAccountDetails(typeCode: accountType, onlyNeedAccounting: true, showDisabled: true)                .ToList();
+            var infos = _accountService.GetAccountDetails(accountIds: _tradingAccountIds?.ToArray(), typeCode: accountType, onlyNeedAccounting: true, showDisabled: true).ToList();
 
             accounts.AddRange(infos);
             if (accounts.Count > 0)
@@ -221,26 +222,30 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
 
         private void FrmAccountInvestIncomeFlow_Load(object sender, EventArgs e)
         {
-            BindSearchInfo();
+            try
+            {
+                GetTradingAccountId();
 
-            AccessControl();
+                BindSearchInfo();
 
-            this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                AccessControl();
 
-            this.ActiveControl = this.btnSearch;
+                this.gridView1.LoadLayout(_layoutXmlName);
+                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+
+                this.ActiveControl = this.btnSearch;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
                 this.btnSearch.Enabled = false;
-
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
 
                 GetSearchResult();
             }
@@ -251,8 +256,6 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
             }
             finally
             {
-                pph.StopFlag = true;
-
                 this.btnSearch.Enabled = true;
             }
         }

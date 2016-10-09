@@ -122,6 +122,7 @@
             this.btnSaveLayout.StyleController = this.layoutControl1;
             this.btnSaveLayout.TabIndex = 7;
             this.btnSaveLayout.Text = " 保存样式  ";
+            this.btnSaveLayout.Click += new System.EventHandler(this.btnSaveLayout_Click);
             // 
             // gridControl1
             // 
@@ -352,8 +353,8 @@
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luAccount.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AccountId", "账户ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AccountName", 90, "账户名称"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "账户ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", 90, "账户名称"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SecurityCompanyName", 90, "开户券商"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AttributeName", 90, "账户属性"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TypeName", 90, "账户类别")});
@@ -555,13 +556,13 @@
             this.simpleButton1.TabIndex = 7;
             this.simpleButton1.Text = "查询";
             // 
-            // FrmAccountInvestIncomeFlow
+            // FrmDeliveryAccountInvestIncomeFlow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1524, 851);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "FrmAccountInvestIncomeFlow";
+            this.Name = "FrmDeliveryAccountInvestIncomeFlow";
             this.Text = "FrmAccountInvestIncomeFlow";
             this.Load += new System.EventHandler(this.FrmAccountInvestIncomeFlow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

@@ -3487,6 +3487,7 @@ namespace CTM.Services.TradeRecord
 
             if (tradeDateFrom.HasValue)
                 query = query.Where(x => x.TradeDate >= tradeDateFrom);
+
             if (tradeDateTo.HasValue)
                 query = query.Where(x => x.TradeDate <= tradeDateTo);
 
@@ -3751,6 +3752,13 @@ namespace CTM.Services.TradeRecord
                 throw new ArgumentNullException(nameof(dailyRecord));
 
             _dailyRepository.Update(dailyRecord);
+        }
+
+        public virtual IList<int> GetTradingAccountIds()
+        {
+            var query = _dailyRepository.Table.Select(x => x.AccountId).Distinct();
+
+            return query.ToList();
         }
 
         #endregion Methods

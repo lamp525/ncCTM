@@ -8,6 +8,6 @@ namespace CTM.Services.StatisticsReport
 {
     public partial interface IDeliveryStatisticsReportService : IBaseService
     {
-        IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DeliveryRecord> deliveryRecords, IList<DateTime> queryDates, IList<TKLineToday> stockClosePrices, AccountEntity accountInfo);
+        IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DeliveryRecord> records, IList<DateTime> queryDates, IList<TKLineToday> stockClosePrices, AccountEntity accountInfo);
     }
 }

@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading;
 using CTM.Core;
-using CTM.Core.Domain.Account;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Dictionary;
+using CTM.Services.StatisticsReport;
 using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
-using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -22,36 +20,37 @@ namespace CTM.Win.UI.Function.StatisticsReport
     {
         #region Fields
 
-        private readonly IDailyRecordService _tradeRecordService;
         private readonly IAccountService _accountService;
-        private readonly IUserService _userService;
+        private readonly IDailyRecordService _dailyRecordService;
+        private readonly IDailyStatisticsReportService _dailyReportService;
         private readonly IDictionaryService _dictionaryService;
         private readonly ITKLineService _tkLineService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
 
+        private IList<int> _tradingAccountIds = null;
+
         //查询交易日数量
         private const int _tradeDateNumber = 25;
 
-        private const string _layoutXmlName = "FrmAccountInvestIncomeFlow";
+        private const string _layoutXmlName = "FrmDailyAccountInvestIncomeFlow";
 
         #endregion Fields
 
         #region Constructors
 
         public FrmAccountInvestIncomeFlow(
-            IDailyRecordService tradeRecordService,
             IAccountService accountService,
-            IUserService userService,
+            IDailyRecordService dailyRecordService,
+            IDailyStatisticsReportService dailyReportService,
             IDictionaryService dictionaryService,
-            ITKLineService tkLineService
-            )
+            ITKLineService tkLineService)
         {
             InitializeComponent();
 
-            this._tradeRecordService = tradeRecordService;
             this._accountService = accountService;
-            this._userService = userService;
+            this._dailyRecordService = dailyRecordService;
+            this._dailyReportService = dailyReportService;
             this._dictionaryService = dictionaryService;
             this._tkLineService = tkLineService;
         }
@@ -59,6 +58,11 @@ namespace CTM.Win.UI.Function.StatisticsReport
         #endregion Constructors
 
         #region Utilities
+
+        private void GetTradingAccountId()
+        {
+            this._tradingAccountIds = this._dailyRecordService.GetTradingAccountIds();
+        }
 
         private void BindSearchInfo()
         {
@@ -89,8 +93,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
         private void BindAccountInfo(int accountType)
         {
             //账户
-            var accounts = _accountService.GetAccountDetails(typeCode: accountType, onlyNeedAccounting: true, showDisabled: true).ToList();
-      
+            var accounts = _accountService.GetAccountDetails(accountIds: _tradingAccountIds.ToArray(), typeCode: accountType, onlyNeedAccounting: true, showDisabled: true).ToList();
+
             if (accounts.Count > 0)
             {
                 //添加全选
@@ -149,18 +153,18 @@ namespace CTM.Win.UI.Function.StatisticsReport
             var accountIds = accounts.Select(x => x.Id).ToArray();
 
             //交易记录
-            var tradeRecords = _tradeRecordService.GetDailyRecords(accountIds: accountIds, tradeDateFrom: startDate, tradeDateTo: endDate).ToList();
+            var records = _dailyRecordService.GetDailyRecords(accountIds: accountIds, tradeDateFrom: startDate, tradeDateTo: endDate).ToList();
 
-            if (tradeRecords == null || !tradeRecords.Any()) return;
+            if (records?.Count == 0) return;
 
             //取得26个交易日日期
             var queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate, _tradeDateNumber + 1).OrderBy(x => x).ToList();
             //交易记录中的所有股票代码
-            var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
+            var stockFullCodes = records.Select(x => x.StockCode).Distinct().ToArray();
             //各交易日所有股票收盘价
-            var stockClosePrices = TKLineHelper.GetStockClosePrices(queryDates, stockFullCodes);
+            var stockClosePrices = this._tkLineService.GetStockClosePrices(queryDates, stockFullCodes);
 
-            var queryResult = InvestStatisticsHelper.CalculateAccountInvestIncome(tradeRecords, queryDates, stockClosePrices, selectedAccount).ToList();
+            var queryResult = this._dailyReportService.CalculateAccountInvestIncome(records, queryDates, stockClosePrices, selectedAccount);
 
             var source = queryResult.Select(x => new AccountInvestIncomeModel
             {
@@ -215,26 +219,30 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         private void FrmAccountInvestIncomeFlow_Load(object sender, EventArgs e)
         {
-            BindSearchInfo();
+            try
+            {
+                GetTradingAccountId();
 
-            AccessControl();
+                BindSearchInfo();
 
-            this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                AccessControl();
 
-            this.ActiveControl = this.btnSearch;
+                this.gridView1.LoadLayout(_layoutXmlName);
+                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+
+                this.ActiveControl = this.btnSearch;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
                 this.btnSearch.Enabled = false;
-
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
 
                 GetSearchResult();
             }
@@ -245,8 +253,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
             }
             finally
             {
-                pph.StopFlag = true;
-
                 this.btnSearch.Enabled = true;
             }
         }

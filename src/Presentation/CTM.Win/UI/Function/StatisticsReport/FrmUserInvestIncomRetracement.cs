@@ -23,7 +23,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
         private readonly IDailyRecordService _dailyRecordService;
         private readonly IUserService _userService;
         private readonly IDepartmentService _departmentService;
-        private readonly IStatisticsReportService _statisticsReportService;
+        private readonly IDailyStatisticsReportService _statisticsReportService;
         private readonly ITKLineService _tKLineService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
@@ -40,7 +40,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
             IDailyRecordService dailyRecordService,
             IUserService userService,
             IDepartmentService departmentService,
-            IStatisticsReportService statisticsReportService,
+            IDailyStatisticsReportService statisticsReportService,
             ITKLineService tKLineService
             )
         {

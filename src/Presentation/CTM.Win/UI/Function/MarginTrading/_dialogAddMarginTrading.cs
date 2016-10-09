@@ -406,7 +406,7 @@ namespace CTM.Win.UI.Function.MarginTrading
 
             if (accountIds == null || !accountIds.Any()) return;
 
-            var accounts = _accountService.GetAccountDetails(accountIds: accountIds.ToArray(), tableNoTracking: true)                .OrderBy(x => x.Name).ToList();
+            var accounts = _accountService.GetAccountDetails(accountIds: accountIds.ToArray(), tableNoTracking: true).OrderBy(x => x.Name).ToList();
 
             luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
 

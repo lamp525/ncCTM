@@ -77,5 +77,7 @@ namespace CTM.Services.TradeRecord
             DateTime? tradeDateFrom = null,
             DateTime? tradeDateTo = null
             );
+
+        IList<int> GetTradingAccountIds();
     }
 }

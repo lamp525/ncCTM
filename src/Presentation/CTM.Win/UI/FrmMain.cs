@@ -9,6 +9,7 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.UI.Accounting.DataManage;
+using CTM.Win.UI.Accounting.StatisticsReport;
 using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
 using CTM.Win.UI.Function.DataManage;
@@ -286,7 +287,7 @@ namespace CTM.Win.UI
         }
 
         /// <summary>
-        /// 个人投资收益表（25日）
+        /// 个人投资收益流水查询
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -410,6 +411,20 @@ namespace CTM.Win.UI
         {
             this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
         }
+
+        #region Report
+
+        /// <summary>
+        /// 交割单账户投资收益流水查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryAccountInvestIncomeFlow_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeFlow>("交割单账户投资收益流水查询");
+        }
+
+        #endregion Report
 
         #endregion Accounting
 

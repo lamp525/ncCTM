@@ -108,6 +108,8 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.bbiDeliveryAccountInvestIncomeFlow = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -172,9 +174,10 @@
             this.bsiInstallUrl,
             this.bbiDeliveryDataImport,
             this.bbiDataVerify,
-            this.bbiDeliveryManage});
+            this.bbiDeliveryManage,
+            this.bbiDeliveryAccountInvestIncomeFlow});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 30;
+            this.ribbonControl1.MaxItemId = 31;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -715,7 +718,8 @@
             // ribbonPageAccounting
             // 
             this.ribbonPageAccounting.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.rgpAccountingDataManage});
+            this.rgpAccountingDataManage,
+            this.ribbonPageGroup1});
             this.ribbonPageAccounting.Name = "ribbonPageAccounting";
             this.ribbonPageAccounting.Text = "财务核算";
             // 
@@ -827,6 +831,19 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            // 
+            // bbiDeliveryAccountInvestIncomeFlow
+            // 
+            this.bbiDeliveryAccountInvestIncomeFlow.Caption = "账户 - 投资收益流水查询";
+            this.bbiDeliveryAccountInvestIncomeFlow.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeFlow.Glyph")));
+            this.bbiDeliveryAccountInvestIncomeFlow.Id = 30;
+            this.bbiDeliveryAccountInvestIncomeFlow.Name = "bbiDeliveryAccountInvestIncomeFlow";
+            this.bbiDeliveryAccountInvestIncomeFlow.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeFlow_ItemClick);
+            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
@@ -930,6 +947,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rgpAccountingDataManage;
         private DevExpress.XtraBars.BarButtonItem bbiDataVerify;
         private DevExpress.XtraBars.BarButtonItem bbiDeliveryManage;
+        private DevExpress.XtraBars.BarButtonItem bbiDeliveryAccountInvestIncomeFlow;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
     }
 }
 

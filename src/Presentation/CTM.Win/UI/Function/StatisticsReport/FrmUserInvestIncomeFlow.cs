@@ -32,7 +32,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
         private readonly IDictionaryService _dictionaryService;
         private readonly IDepartmentService _departmentService;
         private readonly ITKLineService _tKLineService;
-        private readonly IStatisticsReportService _statisticsReportService;
+        private readonly IDailyStatisticsReportService _statisticsReportService;
 
         private Series _seriesPositionValue;
         private Series _seriesCurrentAsset;
@@ -87,7 +87,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
             IDictionaryService dictionaryService,
             IDepartmentService departmentService,
             ITKLineService tKLineService,
-            IStatisticsReportService statisticsReportService
+            IDailyStatisticsReportService statisticsReportService
             )
         {
             InitializeComponent();
