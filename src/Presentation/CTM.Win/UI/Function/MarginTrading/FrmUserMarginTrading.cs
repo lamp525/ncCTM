@@ -281,6 +281,8 @@ namespace CTM.Win.UI.Function.MarginTrading
 
                 if (selectedHandles.Length == 0) return;
 
+                 selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
+
                 if (DXMessage.ShowYesNoAndTips("确定移除所选的信息么？") == System.Windows.Forms.DialogResult.Yes)
                 {
                     var ids = new List<int>();

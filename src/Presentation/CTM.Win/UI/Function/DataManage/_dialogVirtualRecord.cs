@@ -350,7 +350,7 @@ namespace CTM.Win.UI.Function.DataManage
 
                 var myView = this.gridView1;
 
-                var selectedHandles = myView.GetSelectedRows();
+                var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndWarning("确定删除所选的交易记录吗？") == DialogResult.Yes)
                 {

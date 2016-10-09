@@ -340,7 +340,7 @@ namespace CTM.Win.UI.Accounting.DataManage
 
                 var myView = this.gridView1;
 
-                var selectedHandles = myView.GetSelectedRows();
+                var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndWarning("确定删除所选的交割单记录吗？") == DialogResult.Yes)
                 {

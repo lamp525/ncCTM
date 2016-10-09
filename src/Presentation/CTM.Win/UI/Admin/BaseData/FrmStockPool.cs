@@ -255,7 +255,7 @@ namespace CTM.Win.UI.Admin.BaseData
 
                 var myView = this.gridView1;
 
-                var selectedHandles = myView.GetSelectedRows();
+                var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndTips("确定将该股票移出股票池吗？") == DialogResult.Yes)
                 {

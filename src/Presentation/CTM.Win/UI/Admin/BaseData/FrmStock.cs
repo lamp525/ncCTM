@@ -170,7 +170,7 @@ namespace CTM.Win.UI.Admin.BaseData
 
                 var myView = this.gridView1;
 
-                var selectedHandles = myView.GetSelectedRows();
+                var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 var stockIds = new List<int>();
 
