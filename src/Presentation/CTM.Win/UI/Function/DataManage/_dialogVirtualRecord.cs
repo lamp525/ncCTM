@@ -396,19 +396,10 @@ namespace CTM.Win.UI.Function.DataManage
 
             if (accountIds == null || !accountIds.Any()) return;
 
-            var accounts = _accountService.GetAccountInfos(accountIds: accountIds.ToArray(), tableNoTracking: true)
-                  .Select(x => new AccountEntity
-                  {
-                      AccountId = x.Id,
-                      AccountName = x.Name,
-                      AttributeName = x.AttributeName,
-                      SecurityCompanyName = x.SecurityCompanyName,
-                      DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName,
-                  }
-                 )
-                .OrderBy(x => x.AccountName).ToList();
+            var accounts = _accountService.GetAccountDetails(accountIds: accountIds.ToArray(), tableNoTracking: true)
+                .OrderBy(x => x.Name).ToList();
 
-            luAccount.Initialize(accounts, "AccountId", "DisplayMember", enableSearch: true);
+            luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
 
             BindVirtualRecord();
         }

@@ -116,7 +116,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1418, 112);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1418, 116);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(82, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -125,10 +125,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 138);
+            this.gridControl1.Location = new System.Drawing.Point(24, 142);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1476, 689);
+            this.gridControl1.Size = new System.Drawing.Size(1476, 685);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -324,7 +324,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1127, 43);
+            this.btnSearch.Location = new System.Drawing.Point(1127, 45);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(77, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -335,7 +335,7 @@
             // deEndTradeDate
             // 
             this.deEndTradeDate.EditValue = null;
-            this.deEndTradeDate.Location = new System.Drawing.Point(310, 43);
+            this.deEndTradeDate.Location = new System.Drawing.Point(310, 45);
             this.deEndTradeDate.Name = "deEndTradeDate";
             this.deEndTradeDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -347,13 +347,13 @@
             // 
             // luAccount
             // 
-            this.luAccount.Location = new System.Drawing.Point(756, 43);
+            this.luAccount.Location = new System.Drawing.Point(756, 45);
             this.luAccount.Name = "luAccount";
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luAccount.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AccountId", "账户ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AccountName", 90, "账户名称"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "账户ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", 90, "账户名称"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SecurityCompanyName", 90, "开户券商"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AttributeName", 90, "账户属性"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TypeName", 90, "账户类别")});
@@ -363,7 +363,7 @@
             // 
             // cbAccountType
             // 
-            this.cbAccountType.Location = new System.Drawing.Point(533, 43);
+            this.cbAccountType.Location = new System.Drawing.Point(533, 45);
             this.cbAccountType.Name = "cbAccountType";
             this.cbAccountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -375,7 +375,7 @@
             // deStartTradeDate
             // 
             this.deStartTradeDate.EditValue = null;
-            this.deStartTradeDate.Location = new System.Drawing.Point(87, 43);
+            this.deStartTradeDate.Location = new System.Drawing.Point(87, 45);
             this.deStartTradeDate.Name = "deStartTradeDate";
             this.deStartTradeDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -415,7 +415,7 @@
             this.emptySpaceItem2});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1504, 69);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1504, 71);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // layoutControlItem2
@@ -515,9 +515,9 @@
             this.layoutControlItem5,
             this.emptySpaceItem6,
             this.layoutControlItem6});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1504, 762);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1504, 760);
             this.layoutControlGroup3.Text = "投资收益明细（金额单位：元）";
             // 
             // layoutControlItem5
@@ -525,7 +525,7 @@
             this.layoutControlItem5.Control = this.gridControl1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1480, 693);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1480, 689);
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;

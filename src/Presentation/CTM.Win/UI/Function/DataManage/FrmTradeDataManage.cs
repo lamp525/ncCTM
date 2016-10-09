@@ -119,29 +119,19 @@ namespace CTM.Win.UI.Function.DataManage
             luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             //账户
-            var accounts = _accountService.GetAccountInfos(showDisabled: true)
-                 .Select(x => new AccountEntity
-                 {
-                     AccountId = x.Id,
-                     AccountName = x.Name,
-                     AttributeName = x.AttributeName,
-                     SecurityCompanyName = x.SecurityCompanyName,
-                     DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName,
-                 }
-                 )
-                 .ToList();
+            var accounts = _accountService.GetAccountDetails(showDisabled: true) .ToList();
 
             var allAccountModel = new AccountEntity
             {
-                AccountId = 0,
-                AccountName = "  全部  ",
+                Id = 0,
+                Name = "  全部  ",
                 AttributeName = "  全部  ",
                 SecurityCompanyName = "  全部  ",
                 DisplayMember = "  全部  ",
             };
             accounts.Add(allAccountModel);
-            accounts = accounts.OrderBy(x => x.AccountName).ThenBy(x => x.SecurityCompanyName).ToList();
-            luAccount.Initialize(accounts, "AccountId", "DisplayMember", enableSearch: true);
+            accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ToList();
+            luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
 
             //数据类型
             var dataTypes = new List<ComboBoxItemModel>();

@@ -94,19 +94,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
             //账户
             var accounts = new List<AccountEntity>();
 
-            var infos = _accountService.GetAccountInfos(typeCode: accountType, onlyNeedAccounting: true, showDisabled: true)
-                  .Select(x => new AccountEntity
-                  {
-                      AccountId = x.Id,
-                      AccountName = x.Name,
-                      AttributeName = x.AttributeName,
-                      InvestFund = x.InvestFund,
-                      SecurityCompanyName = x.SecurityCompanyName,
-                      TypeName = x.TypeName,
-                      DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName + " - " + x.TypeName,
-                  }
-                 )
-                .ToList();
+            var infos = _accountService.GetAccountDetails(typeCode: accountType, onlyNeedAccounting: true, showDisabled: true)                .ToList();
 
             accounts.AddRange(infos);
             if (accounts.Count > 0)
@@ -114,8 +102,8 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
                 //添加全选
                 var all = new AccountEntity
                 {
-                    AccountId = 0,
-                    AccountName = " 全部 ",
+                    Id = 0,
+                    Name = " 全部 ",
                     AttributeName = " 全部 ",
                     SecurityCompanyName = " 全部 ",
                     TypeName = this.cbAccountType.Text,
@@ -124,9 +112,9 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
                 accounts.Add(all);
             }
 
-            accounts = accounts.OrderBy(x => x.AccountName).ThenBy(x => x.SecurityCompanyName).ToList();
+            accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ToList();
 
-            luAccount.Initialize(accounts, "AccountId", "DisplayMember", showHeader: true, enableSearch: true);
+            luAccount.Initialize(accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
             luAccount.EditValue = 0;
         }
 
@@ -156,7 +144,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
 
             var accounts = new List<AccountEntity>();
 
-            if (selectedAccount.AccountId == 0)
+            if (selectedAccount.Id == 0)
             {
                 accounts = this.luAccount.Properties.DataSource as List<AccountEntity>;
                 selectedAccount.InvestFund = accounts.Sum(x => x.InvestFund);
@@ -164,7 +152,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
             else
                 accounts.Add(selectedAccount);
 
-            var accountIds = accounts.Select(x => x.AccountId).ToArray();
+            var accountIds = accounts.Select(x => x.Id).ToArray();
 
             //交易记录
             var records = _deliveryRecordService.GetDeliveryRecords(accountIds: accountIds, tradeDateFrom: startDate, tradeDateTo: endDate).ToList();

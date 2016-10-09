@@ -92,7 +92,7 @@ BEGIN
 
 	DECLARE @commandText varchar(8000)
 
-	SET @commandText = N'SELECT IndustryName =II.Name, OperatorNames =[dbo].[f_GetAccountOperatorNames](AI.Id), AI.*
+	SET @commandText = N'SELECT IndustryName =II.Name, OperatorNames =[dbo].[f_GetAccountOperatorNames](AI.Id), AI.*, DisplayMember = AI.Name + '' - '' + AI.SecurityCompanyName + '' - '' +AI.AttributeName + '' - '' +AI.TypeName
 											 FROM [dbo].[AccountInfo]  AS AI 
 											 LEFT JOIN [dbo].[IndustryInfo] AS II ON II.Id = AI.IndustryId
 											 WHERE '

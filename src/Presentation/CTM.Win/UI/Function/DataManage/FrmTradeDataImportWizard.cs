@@ -114,9 +114,7 @@ namespace CTM.Win.UI.Function.DataManage
                 return;
             }
 
-            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode)
-                                    .OrderBy(x => x.Name)
-                                    .ToList();
+            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode).OrderBy(x => x.Name).ToList();
 
             if (accounts.Any())
             {

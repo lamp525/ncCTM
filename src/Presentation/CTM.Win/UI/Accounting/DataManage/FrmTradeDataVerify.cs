@@ -71,23 +71,9 @@ namespace CTM.Win.UI.Accounting.DataManage
             this.cbSecurity.Initialize(securityCompanys);
 
             //账户信息
-            _accounts = _accountService.GetAccountDetails(onlyNeedAccounting: true, showDisabled: true)
-                 .Select(x => new AccountEntity
-                 {
-                     AccountId = x.Id,
-                     AccountName = x.Name,
-                     AttributeCode = x.AttributeCode,
-                     AttributeName = x.AttributeName,
-                     SecurityCompanyCode = x.SecurityCompanyCode,
-                     SecurityCompanyName = x.SecurityCompanyName,
-                     TypeName = x.TypeName,
-                     DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName + " - " + x.TypeName,
-                 }
-                )
-                .OrderBy(x => x.AccountName)
-               .ToList();
+            _accounts = _accountService.GetAccountDetails(onlyNeedAccounting: true, showDisabled: true).OrderBy(x => x.Name).ToList();
 
-            this.luAccount.Initialize(_accounts, "AccountId", "DisplayMember", showHeader: true, enableSearch: true);
+            this.luAccount.Initialize(_accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
 
             var now = DateTime.Now.Date;
 

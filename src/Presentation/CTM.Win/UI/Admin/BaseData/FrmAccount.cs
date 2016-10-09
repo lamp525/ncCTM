@@ -66,10 +66,7 @@ namespace CTM.Win.UI.Admin.BaseData
 
         private void BindAccountInfo(int industryId)
         {
-            var sss = DateTime.Now;
             var accounts = _accountService.GetAccountDetails(industryId: industryId, showDisabled: true, tableNoTracking: true).OrderBy(x => x.Name);
-            var eee = DateTime.Now;
-            System.Diagnostics.Debug.WriteLine("【" + this.Name + "】帐户信息查询用时：" + (eee - sss));
 
             this.gridControl1.DataSource = accounts;
         }

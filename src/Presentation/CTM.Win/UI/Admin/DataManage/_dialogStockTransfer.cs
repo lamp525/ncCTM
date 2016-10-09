@@ -316,19 +316,9 @@ namespace CTM.Win.UI.Admin.DataManage
                 return;
             }
 
-            var accountInfos = _accountService.GetAccountInfos(accountIds: accountIds.ToArray())
-                  .Select(x => new AccountEntity
-                  {
-                      AccountId = x.Id,
-                      AccountName = x.Name,
-                      AttributeName = x.AttributeName,
-                      SecurityCompanyName = x.SecurityCompanyName,
-                      DisplayMember = x.Name + " - " + x.SecurityCompanyName + " - " + x.AttributeName,
-                  }
-                 )
-                .ToList();
+            var accountInfos = _accountService.GetAccountDetails(accountIds: accountIds.ToArray())                .ToList();
 
-            this.luReceivedAccount.Initialize(accountInfos, "AccountId", "DisplayMember", showHeader: true, enableSearch: true);
+            this.luReceivedAccount.Initialize(accountInfos, "Id", "DisplayMember", showHeader: true, enableSearch: true);
         }
 
         #endregion Events

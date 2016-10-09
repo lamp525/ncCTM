@@ -172,7 +172,7 @@ namespace CTM.Win.Util
                 var incomeModel = new AccountInvestIncomeEntity()
                 {
                     //账户名称
-                    AccountName = accountDetailInfo.AccountName,
+                    AccountName = accountDetailInfo.Name,
                     //账户属性
                     AccountAttributeName = accountDetailInfo.AttributeName,
                     //账户类别

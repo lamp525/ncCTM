@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Domain.Account;
 using CTM.Services.Account;
 using CTM.Services.Common;
 using CTM.Services.Dictionary;
@@ -105,9 +104,7 @@ namespace CTM.Win.UI.Accounting.DataManage
                 return;
             }
 
-            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode)
-                                    .OrderBy(x => x.Name)
-                                    .ToList();
+            var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode).OrderBy(x => x.Name).ToList();
 
             if (accounts.Any())
             {
@@ -127,7 +124,7 @@ namespace CTM.Win.UI.Accounting.DataManage
         {
             int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
 
-            var selectedAccountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
+            var selectedAccountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountEntity;
 
             if (selectedAccountInfo != null)
             {
@@ -293,11 +290,11 @@ namespace CTM.Win.UI.Accounting.DataManage
                 {
                     int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
 
-                    var accountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountInfo;
+                    var accountId = int.Parse(this.gridViewAccount.GetRowCellValue(selectedHandle, colAccountId).ToString());
 
                     var operationInfo = new RecordImportOperationEntity
                     {
-                        AccountId = accountInfo.Id,
+                        AccountId = accountId,
                         OperatorCode = string.Empty,
                         ImportTime = _commonService.GetCurrentServerTime(),
                         ImportUserCode = LoginInfo.CurrentUser.UserCode,
