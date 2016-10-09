@@ -304,7 +304,7 @@ namespace CTM.Services.Stock
             if (string.IsNullOrEmpty(stockCode))
                 throw new ArgumentNullException(nameof(stockCode));
 
-            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code).SingleOrDefault();
+            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code).FirstOrDefault();
 
             return info;
         }
@@ -314,7 +314,7 @@ namespace CTM.Services.Stock
             if (string.IsNullOrEmpty(stockName))
                 throw new ArgumentNullException(nameof(stockName));
 
-            var info = _stockInfoRepository.Table.Where(x => stockName == x.Name).SingleOrDefault();
+            var info = _stockInfoRepository.Table.Where(x => stockName == x.Name).FirstOrDefault();
 
             return info;
         }
