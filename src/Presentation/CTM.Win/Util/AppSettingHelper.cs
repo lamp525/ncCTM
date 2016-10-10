@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Windows.Forms;
+﻿using System;
+using System.IO;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Win.Models;
@@ -8,7 +8,7 @@ namespace CTM.Win.Util
 {
     public class AppSettingHelper
     {
-        private static string _directoryPath = Application.StartupPath;
+        private static string _directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static string _fileName = "87CFDD5F4EBA497C88B196ABD09AAA42.ini";
 
         /// <summary>
@@ -29,6 +29,7 @@ namespace CTM.Win.Util
             byte[] arrByte = new byte[1024];
             fs.Read(arrByte, 0, 1024);
             fs.Close();
+            fs.Dispose();
 
             int nLength = CommonHelper.byteToInt(arrByte);
             byte[] arrEncryptByte = new byte[nLength];
@@ -60,6 +61,7 @@ namespace CTM.Win.Util
             fs.Write(arrEncryptByte, 0, arrEncryptByte.Length);
 
             fs.Close();
+            fs.Dispose();
         }
 
         /// <summary>
