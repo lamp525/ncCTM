@@ -166,7 +166,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
             var queryResult = this._dailyReportService.CalculateAccountInvestIncome(records, queryDates, stockClosePrices, selectedAccount);
 
-            var source = queryResult.Select(x => new AccountInvestIncomeModel
+            var source = queryResult.Select(x => new AccountInvestIncomeEntity
             {
                 AccountAttributeName = x.AccountAttributeName,
                 AccountName = x.AccountName,
