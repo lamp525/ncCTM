@@ -127,6 +127,8 @@ namespace CTM.Win.UI.Admin.BaseData
                 var myView = this.gridView1;
 
                 var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
                 if (selectedHandles.Length != 1)
                 {
@@ -227,6 +229,8 @@ namespace CTM.Win.UI.Admin.BaseData
             {
                 var myView = this.gridView1;
                 var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
                 if (selectedHandles.Length == 0)
                 {

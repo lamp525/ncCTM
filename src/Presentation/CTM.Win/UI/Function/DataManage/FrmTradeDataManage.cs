@@ -522,6 +522,9 @@ namespace CTM.Win.UI.Function.DataManage
 
                 var selectedHandles = myView.GetSelectedRows();
 
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
                 var selectedRecords = new List<TradeRecordModel>();
                 for (var index = 0; index < selectedHandles.Length; index++)
                 {
@@ -595,11 +598,9 @@ namespace CTM.Win.UI.Function.DataManage
 
                 var selectedHandles = myView.GetSelectedRows();
 
-                if (selectedHandles.Length != 1)
-                {
-                    DXMessage.ShowTips("请选择一条要拆单的交易记录！");
-                    return;
-                }
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
                 var record = myView.GetRow(selectedHandles[0]) as TradeRecordModel;
                 DisplaySplitDialog(record);
             }
@@ -652,6 +653,9 @@ namespace CTM.Win.UI.Function.DataManage
         {
             var myView = this.gridView1;
             var selectedHandles = myView.GetSelectedRows();
+
+            if (selectedHandles.Any())
+                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
             if (selectedHandles.Length == 0)
             {

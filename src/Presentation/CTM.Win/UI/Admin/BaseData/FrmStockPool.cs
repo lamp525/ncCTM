@@ -221,6 +221,8 @@ namespace CTM.Win.UI.Admin.BaseData
         {
             var myView = this.gridView1;
             var selectedHandles = myView.GetSelectedRows();
+            if (selectedHandles.Any())
+                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
             if (selectedHandles.Length == 0)
             {
@@ -300,6 +302,8 @@ namespace CTM.Win.UI.Admin.BaseData
                 var myView = this.gridView1;
 
                 var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
                 var stockId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colStockId).ToString());
 
