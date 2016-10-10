@@ -87,6 +87,7 @@
             this.bbiDataVerify = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDeliveryManage = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDeliveryAccountInvestIncomeFlow = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDeliveryAccountInvestIncomeDetail = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -110,7 +111,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.bbiDeliveryAccountInvestIncomeDetail = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -671,6 +671,14 @@
             this.bbiDeliveryAccountInvestIncomeFlow.Name = "bbiDeliveryAccountInvestIncomeFlow";
             this.bbiDeliveryAccountInvestIncomeFlow.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeFlow_ItemClick);
             // 
+            // bbiDeliveryAccountInvestIncomeDetail
+            // 
+            this.bbiDeliveryAccountInvestIncomeDetail.Caption = "账户 - 投资收益明细查询";
+            this.bbiDeliveryAccountInvestIncomeDetail.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeDetail.Glyph")));
+            this.bbiDeliveryAccountInvestIncomeDetail.Id = 31;
+            this.bbiDeliveryAccountInvestIncomeDetail.Name = "bbiDeliveryAccountInvestIncomeDetail";
+            this.bbiDeliveryAccountInvestIncomeDetail.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeDetail_ItemClick);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -844,16 +852,12 @@
             // 
             // xtraTabbedMdiManager1
             // 
+            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = System.Drawing.Color.SteelBlue;
+            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseFont = true;
+            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseForeColor = true;
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
-            // 
-            // bbiDeliveryAccountInvestIncomeDetail
-            // 
-            this.bbiDeliveryAccountInvestIncomeDetail.Caption = "账户 - 投资收益明细查询";
-            this.bbiDeliveryAccountInvestIncomeDetail.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeDetail.Glyph")));
-            this.bbiDeliveryAccountInvestIncomeDetail.Id = 31;
-            this.bbiDeliveryAccountInvestIncomeDetail.Name = "bbiDeliveryAccountInvestIncomeDetail";
-            this.bbiDeliveryAccountInvestIncomeDetail.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeDetail_ItemClick);
             // 
             // FrmMain
             // 
