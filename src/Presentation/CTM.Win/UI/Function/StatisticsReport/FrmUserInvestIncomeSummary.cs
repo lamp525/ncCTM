@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading;
 using CTM.Core;
 using CTM.Core.Domain.TKLine;
 using CTM.Core.Util;
@@ -344,14 +343,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
                 this.btnSearch.Enabled = false;
-
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
 
                 DisplaySearchResult();
             }
@@ -361,8 +355,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
             }
             finally
             {
-                pph.StopFlag = true;
-
                 this.btnSearch.Enabled = true;
             }
         }

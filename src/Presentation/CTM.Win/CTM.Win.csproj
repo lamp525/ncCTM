@@ -230,12 +230,6 @@
     <Compile Include="UI\Admin\DataManage\_dialogStockTransfer.Designer.cs">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\_dialogProgressPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Common\_dialogProgressPanel.Designer.cs">
-      <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Accounting\DataManage\FrmDeliveryImport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -429,8 +423,6 @@
     <Compile Include="UI\Function\DataManage\FrmTradeDataManage.Designer.cs">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\ProgressPanelHelper.cs" />
-    <Compile Include="Util\TKLineHelper.cs" />
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -490,9 +482,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\DataManage\_dialogStockTransfer.resx">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\_dialogProgressPanel.resx">
-      <DependentUpon>_dialogProgressPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryImport.resx">
       <DependentUpon>FrmDeliveryImport.cs</DependentUpon>

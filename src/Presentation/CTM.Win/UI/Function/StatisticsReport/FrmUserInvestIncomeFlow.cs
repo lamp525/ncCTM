@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using CTM.Core;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
@@ -1318,13 +1317,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
         /// <param name="e"></param>
         private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
-
                 if (e.Page.Caption == tabPageRanking.Caption)
                 {
                     if (_rankingFirstTime)
@@ -1357,10 +1351,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 DXMessage.ShowError(ex.Message);
                 this._rankingFirstTime = true;
             }
-            finally
-            {
-                pph.StopFlag = true;
-            }
         }
 
         /// <summary>
@@ -1370,14 +1360,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
         /// <param name="e"></param>
         private void btnUpdateRanking_Click(object sender, EventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
                 this.btnUpdateRanking.Enabled = false;
-
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
 
                 this._dayRankingInfos = null;
                 this._bandRankingInfos = null;
@@ -1393,8 +1378,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
             }
             finally
             {
-                pph.StopFlag = true;
-
                 this.btnUpdateRanking.Enabled = true;
             }
         }
