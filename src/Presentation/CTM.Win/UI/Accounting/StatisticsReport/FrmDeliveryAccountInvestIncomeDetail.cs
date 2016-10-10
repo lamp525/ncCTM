@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using CTM.Core;
+using CTM.Core.Domain.TKLine;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Department;
@@ -59,14 +60,14 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
             var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
 
-            var source = CalculateInvestIncome(dateFrom, dateTo).OrderBy(x => x.InvestorName).ThenBy(x => x.AccountName).ToList();
+            var source = CalculateInvestIncome(dateFrom, dateTo).OrderBy(x => x.AccountName).ThenBy(x => x.StockDetail).ToList();
 
             this.gridControl1.DataSource = source;
         }
 
-        private IList<UserInvestIncomeAccountModel> CalculateInvestIncome(DateTime fromDate, DateTime toDate)
+        private IList<DeliveryInvestIncomeAccountModel> CalculateInvestIncome(DateTime fromDate, DateTime toDate)
         {
-            var result = new List<UserInvestIncomeAccountModel>();
+            var result = new List<DeliveryInvestIncomeAccountModel>();
 
             var tradeRecords = _deliveryRecordService.GetDeliveryRecords(accountIds: null, tradeDateFrom: _initDate, tradeDateTo: toDate);
 
@@ -102,14 +103,17 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
                     var startStatisticsInfo = investStatisticsInfoPerStock.First();
                     var endStatisticsInfo = investStatisticsInfoPerStock.Last();
 
-                    var investIncomePerStockModel = new UserInvestIncomeAccountModel
+                    var investIncomePerStockModel = new DeliveryInvestIncomeAccountModel
                     {
                         AccountDetail = currentAccount.Name + " - " + currentAccount.SecurityCompanyName + " - " + currentAccount.AttributeName,
                         AccountId = currentAccount.Id,
                         AccountName = currentAccount.Name,
                         AccumulatedProfit = CommonHelper.SetDecimalDigits(endStatisticsInfo.AccumulatedProfit),
                         AttributeName = currentAccount.AttributeName,
-                        Profit = CommonHelper.SetDecimalDigits((endStatisticsInfo.AccumulatedProfit - startStatisticsInfo.AccumulatedProfit)),
+                        LatestPrice = (stockClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockRecords.Key && x.TradeDate == toDate) ?? new TKLineToday()).Close,
+                        PositionValue = CommonHelper.SetDecimalDigits(endStatisticsInfo.PositionValue),
+                        PositionVolume = stockRecords.Sum(x => x.DealVolume),
+                        Profit = CommonHelper.SetDecimalDigits(endStatisticsInfo.AccumulatedProfit - startStatisticsInfo.AccumulatedProfit),
                         QueryPeriod = queryPeriod,
                         SecurityCompnayName = currentAccount.SecurityCompanyName,
                         StockCode = stockRecords.Key,
