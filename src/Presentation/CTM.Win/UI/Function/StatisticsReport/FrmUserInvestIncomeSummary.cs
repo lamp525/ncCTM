@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using CTM.Core;
+using CTM.Core.Domain.TKLine;
 using CTM.Core.Util;
+using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
 using CTM.Services.User;
 using CTM.Win.Extensions;
@@ -19,6 +21,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
         #region Fields
 
         private readonly IDailyRecordService _tradeRecordService;
+        private readonly ITKLineService _TKLineService;
         private readonly IUserService _userService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
@@ -29,11 +32,12 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         #region Constructors
 
-        public FrmUserInvestIncomeSummary(IDailyRecordService tradeRecordService, IUserService userService)
+        public FrmUserInvestIncomeSummary(IDailyRecordService tradeRecordService, ITKLineService TKLineService, IUserService userService)
         {
             InitializeComponent();
 
             this._tradeRecordService = tradeRecordService;
+            this._TKLineService = TKLineService;
             this._userService = userService;
         }
 
@@ -186,9 +190,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
             var stockFullCodes = allRecords.Select(x => x.StockCode).Distinct().ToArray();
             var queryDates = new List<DateTime> { startDate, endDate };
-            var stockClosePrices = TKLineHelper.GetStockClosePrices(queryDates, stockFullCodes);
-            var initDateClosePrices = stockClosePrices.Tables[startDate.ToString()];
-            var currentDateClosePrices = stockClosePrices.Tables[endDate.ToString()];
+            var stockClosePrices = _TKLineService.GetStockClosePrices(queryDates, stockFullCodes);
+            var initDateClosePrices = stockClosePrices.Where(x => x.TradeDate == startDate).ToList();
+            var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == endDate).ToList();
 
             var allBeneficiaries = allRecords.Select(x => x.Beneficiary).Distinct().ToArray();
             var allBeneficiaryInfos = _userService.GetUserInfoByCode(allBeneficiaries);
@@ -215,10 +219,10 @@ namespace CTM.Win.UI.Function.StatisticsReport
                     var recordsByTradeType = stockGroup.GroupBy(x => x.TradeType);
 
                     //期初股票最新收盘价格
-                    decimal initClosePrice = initDateClosePrices.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockFullCode).Select(x => x.Field<decimal>("Close")).SingleOrDefault();
+                    decimal initClosePrice = (initDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
 
                     //期末股票最新收盘价格
-                    decimal currentClosePrice = currentDateClosePrices.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockFullCode).Select(x => x.Field<decimal>("Close")).SingleOrDefault();
+                    decimal currentClosePrice = (currentDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
 
                     foreach (var tradeTypeGroup in recordsByTradeType)
                     {
@@ -236,7 +240,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         int initHoldingVolume = initRecords.Sum(x => x.DealVolume);
 
                         //持仓市值
-                        decimal initPositionValue = initHoldingVolume * initClosePrice;
+                        decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
 
                         //累计收益额
                         decimal initAccumulatedProfit = initActualAmount + initPositionValue;
@@ -255,7 +259,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);
 
                         //持仓市值
-                        decimal currentPositionValue = currentHoldingVolume * currentClosePrice;
+                        decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
 
                         //累计收益额
                         decimal currentAccumulatedProfit = currentActualAmount + currentPositionValue;

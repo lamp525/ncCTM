@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading;
 using CTM.Core;
+using CTM.Core.Domain.TKLine;
 using CTM.Core.Util;
+using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
 using CTM.Services.User;
 using CTM.Win.Extensions;
@@ -18,7 +19,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
     {
         #region Fields
 
-        private readonly IDailyRecordService _tradeRecordService;
+        private readonly IDailyRecordService _dailyRecordService;
+        private readonly ITKLineService _TKLineService;
         private readonly IUserService _userService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
@@ -29,11 +31,12 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         #region Constructors
 
-        public FrmStockInvestIncomeSummary(IDailyRecordService tradeRecordService, IUserService userService)
+        public FrmStockInvestIncomeSummary(IDailyRecordService dailyRecordService, ITKLineService TKLineService, IUserService userService)
         {
             InitializeComponent();
 
-            this._tradeRecordService = tradeRecordService;
+            this._dailyRecordService = dailyRecordService;
+            this._TKLineService = TKLineService;
             this._userService = userService;
         }
 
@@ -152,15 +155,15 @@ namespace CTM.Win.UI.Function.StatisticsReport
         {
             var result = new List<StockInvestIncomeSummaryModel>();
 
-            var allRecords = _tradeRecordService.GetDailyRecords(tradeDateFrom: _initDate, tradeDateTo: endDate);
+            var allRecords = _dailyRecordService.GetDailyRecords(tradeDateFrom: _initDate, tradeDateTo: endDate);
 
             if (!allRecords.Any()) return result;
 
             var stockFullCodes = allRecords.Select(x => x.StockCode).Distinct().ToArray();
             var queryDates = new List<DateTime> { startDate, endDate };
-            var stockClosePrices = TKLineHelper.GetStockClosePrices(queryDates, stockFullCodes);
-            var initDateClosePrices = stockClosePrices.Tables[startDate.ToString()];
-            var currentDateClosePrices = stockClosePrices.Tables[endDate.ToString()];
+            var stockClosePrices = _TKLineService.GetStockClosePrices(queryDates, stockFullCodes);
+            var initDateClosePrices = stockClosePrices.Where(x => x.TradeDate == startDate).ToList();
+            var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == endDate).ToList();
 
             //股票分组记录
             var recordsByStockCode = allRecords.GroupBy(x => x.StockCode);
@@ -173,10 +176,10 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 var recordsByTradeType = stockGroup.GroupBy(x => x.TradeType);
 
                 //期初股票最新收盘价格
-                decimal initClosePrice = initDateClosePrices.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockFullCode).Select(x => x.Field<decimal>("Close")).SingleOrDefault();
+                decimal initClosePrice = (initDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
 
                 //期末股票最新收盘价格
-                decimal currentClosePrice = currentDateClosePrices.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockFullCode).Select(x => x.Field<decimal>("Close")).SingleOrDefault();
+                decimal currentClosePrice = (currentDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
 
                 #region 期初处理
 
@@ -190,22 +193,22 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 int initHoldingVolume = initRecords.Sum(x => x.DealVolume);
 
                 //持仓市值
-                decimal initPositionValue = initHoldingVolume * initClosePrice;
+                decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
 
                 //累计收益额
                 decimal initAccumulatedProfit = initActualAmount + initPositionValue;
 
                 //目标累计收益额
                 var initTargetRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
-                decimal initTargetAccumulatedProfit = initTargetRecords.Sum(x => x.ActualAmount) + initTargetRecords.Sum(x => x.DealVolume) * initClosePrice;
+                decimal initTargetAccumulatedProfit = initTargetRecords.Sum(x => x.ActualAmount) + Math.Abs(initTargetRecords.Sum(x => x.DealVolume)) * initClosePrice;
 
                 //波段累计收益额
                 var initBandRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
-                decimal initBandAccumulatedProfit = initBandRecords.Sum(x => x.ActualAmount) + initBandRecords.Sum(x => x.DealVolume) * initClosePrice;
+                decimal initBandAccumulatedProfit = initBandRecords.Sum(x => x.ActualAmount) + Math.Abs(initBandRecords.Sum(x => x.DealVolume)) * initClosePrice;
 
                 //日内累计收益额
                 var initDayRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
-                decimal initDayAccumulatedProfit = initDayRecords.Sum(x => x.ActualAmount) + initDayRecords.Sum(x => x.DealVolume) * initClosePrice;
+                decimal initDayAccumulatedProfit = initDayRecords.Sum(x => x.ActualAmount) + Math.Abs(initDayRecords.Sum(x => x.DealVolume)) * initClosePrice;
 
                 #endregion 期初处理
 
@@ -221,7 +224,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);
 
                 //持仓市值
-                decimal currentPositionValue = currentHoldingVolume * currentClosePrice;
+                decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
 
                 //累计收益额
                 decimal currentAccumulatedProfit = currentActualAmount + currentPositionValue;
@@ -247,7 +250,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal targetActualAmount = targetRecords.Sum(x => x.ActualAmount);
 
                 //目标持仓市值
-                decimal targetPositionValue = targetHoldingVolume * currentClosePrice;
+                decimal targetPositionValue = Math.Abs(targetHoldingVolume) * currentClosePrice;
 
                 //目标累计收益额
                 decimal targetAccumulatedProfit = targetActualAmount + targetPositionValue;
@@ -272,7 +275,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal bandActualAmount = bandRecords.Sum(x => x.ActualAmount);
 
                 //波段持仓市值
-                decimal bandPositionValue = bandHoldingVolume * currentClosePrice;
+                decimal bandPositionValue = Math.Abs(bandHoldingVolume) * currentClosePrice;
 
                 //波段累计收益额
                 decimal bandAccumulatedProfit = bandActualAmount + bandPositionValue;
@@ -297,7 +300,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal dayActualAmount = dayRecords.Sum(x => x.ActualAmount);
 
                 //日内持仓市值
-                decimal dayPositionValue = dayHoldingVolume * currentClosePrice;
+                decimal dayPositionValue = Math.Abs(dayHoldingVolume) * currentClosePrice;
 
                 //日内累计收益额
                 decimal dayAccumulatedProfit = dayActualAmount + dayPositionValue;
@@ -380,14 +383,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var pph = new ProgressPanelHelper();
-
             try
             {
                 this.btnSearch.Enabled = false;
-
-                Thread progressPanelThread = pph.CreateProgressPanelThread();
-                progressPanelThread.Start();
 
                 DisplaySearchResult();
             }
@@ -397,8 +395,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
             }
             finally
             {
-                pph.StopFlag = true;
-
                 this.btnSearch.Enabled = true;
             }
         }
