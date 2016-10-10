@@ -52,23 +52,13 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="tradeType"></param>
         /// <returns></returns>
-        public static string GetTradeTypeName(int value)
-        {
-            string name = value.ToEnumDescriptionString(typeof(EnumLibrary.TradeType));
-
-            return name;
-        }
+        public static string GetTradeTypeName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.TradeType));
 
         /// <summary>
         /// 取得交易数据类别名称
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string GetDataTypeName(int value)
-        {
-            string name = value.ToEnumDescriptionString(typeof(EnumLibrary.DataType));
-
-            return name;
-        }
+        public static string GetDataTypeName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.DataType));
     }
 }
