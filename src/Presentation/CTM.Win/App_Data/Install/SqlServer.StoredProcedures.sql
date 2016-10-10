@@ -34,7 +34,7 @@ BEGIN
 								 ,[Close]  
 								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
 					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
-					 WHERE   [TradeDate] < @loopDate
+					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
 					)  AS t
 			WHERE t.RowNumber =1
 		
