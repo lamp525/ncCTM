@@ -86,6 +86,7 @@
             this.bbiDeliveryDataImport = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDataVerify = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDeliveryManage = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDeliveryAccountInvestIncomeFlow = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -95,6 +96,7 @@
             this.ribbonPageGroup13 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAccounting = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rgpAccountingDataManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -108,8 +110,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.bbiDeliveryAccountInvestIncomeFlow = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -185,7 +185,7 @@
             this.ribbonPageAdmin,
             this.ribbonPageSetting});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
-            this.ribbonControl1.Size = new System.Drawing.Size(1546, 151);
+            this.ribbonControl1.Size = new System.Drawing.Size(1557, 151);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             // 
             // popupMenu1
@@ -661,6 +661,14 @@
             this.bbiDeliveryManage.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.bbiDeliveryManage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryManage_ItemClick);
             // 
+            // bbiDeliveryAccountInvestIncomeFlow
+            // 
+            this.bbiDeliveryAccountInvestIncomeFlow.Caption = "账户 - 投资收益流水查询";
+            this.bbiDeliveryAccountInvestIncomeFlow.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeFlow.Glyph")));
+            this.bbiDeliveryAccountInvestIncomeFlow.Id = 30;
+            this.bbiDeliveryAccountInvestIncomeFlow.Name = "bbiDeliveryAccountInvestIncomeFlow";
+            this.bbiDeliveryAccountInvestIncomeFlow.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeFlow_ItemClick);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -729,6 +737,11 @@
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDataVerify);
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryManage);
             this.rgpAccountingDataManage.Name = "rgpAccountingDataManage";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             // 
             // ribbonPageAdmin
             // 
@@ -820,7 +833,7 @@
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 802);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1546, 23);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1557, 23);
             // 
             // defaultLookAndFeelMainForm
             // 
@@ -831,25 +844,12 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // ribbonPageGroup1
-            // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            // 
-            // bbiDeliveryAccountInvestIncomeFlow
-            // 
-            this.bbiDeliveryAccountInvestIncomeFlow.Caption = "账户 - 投资收益流水查询";
-            this.bbiDeliveryAccountInvestIncomeFlow.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeFlow.Glyph")));
-            this.bbiDeliveryAccountInvestIncomeFlow.Id = 30;
-            this.bbiDeliveryAccountInvestIncomeFlow.Name = "bbiDeliveryAccountInvestIncomeFlow";
-            this.bbiDeliveryAccountInvestIncomeFlow.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeFlow_ItemClick);
-            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1546, 825);
+            this.ClientSize = new System.Drawing.Size(1557, 825);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.IsMdiContainer = true;
