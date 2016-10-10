@@ -112,7 +112,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
                         AttributeName = currentAccount.AttributeName,
                         LatestPrice = (stockClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockRecords.Key && x.TradeDate == toDate) ?? new TKLineToday()).Close,
                         PositionValue = CommonHelper.SetDecimalDigits(endStatisticsInfo.PositionValue),
-                        PositionVolume = stockRecords.Sum(x => x.DealVolume),
+                        HoldingVolume = stockRecords.Sum(x => x.DealVolume),
                         Profit = CommonHelper.SetDecimalDigits(endStatisticsInfo.AccumulatedProfit - startStatisticsInfo.AccumulatedProfit),
                         QueryPeriod = queryPeriod,
                         SecurityCompnayName = currentAccount.SecurityCompanyName,

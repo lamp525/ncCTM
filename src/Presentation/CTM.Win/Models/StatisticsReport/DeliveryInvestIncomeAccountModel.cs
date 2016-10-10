@@ -22,7 +22,7 @@
 
         public decimal PositionValue { get; set; }
 
-        public decimal PositionVolume { get; set; }
+        public decimal HoldingVolume { get; set; }
 
         public decimal LatestPrice { get; set; }
 

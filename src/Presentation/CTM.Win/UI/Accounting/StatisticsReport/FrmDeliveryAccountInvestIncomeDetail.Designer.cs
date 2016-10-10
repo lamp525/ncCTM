@@ -39,7 +39,7 @@
             this.colStockDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPositionVolume = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHoldingVolume = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLatestPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnSaveLayout = new DevExpress.XtraEditors.SimpleButton();
@@ -118,7 +118,7 @@
             this.colStockDetail,
             this.colStockCode,
             this.colStockName,
-            this.colPositionVolume,
+            this.colHoldingVolume,
             this.colPositionValue,
             this.colLatestPrice});
             this.gridView1.GridControl = this.gridControl1;
@@ -209,14 +209,14 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.Width = 90;
             // 
-            // colPositionVolume
+            // colHoldingVolume
             // 
-            this.colPositionVolume.Caption = "持仓数量";
-            this.colPositionVolume.FieldName = "PositionVolume";
-            this.colPositionVolume.Name = "colPositionVolume";
-            this.colPositionVolume.Visible = true;
-            this.colPositionVolume.VisibleIndex = 3;
-            this.colPositionVolume.Width = 110;
+            this.colHoldingVolume.Caption = "持仓数量";
+            this.colHoldingVolume.FieldName = "HoldingVolume";
+            this.colHoldingVolume.Name = "colHoldingVolume";
+            this.colHoldingVolume.Visible = true;
+            this.colHoldingVolume.VisibleIndex = 3;
+            this.colHoldingVolume.Width = 110;
             // 
             // colPositionValue
             // 
@@ -476,7 +476,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStockName;
         private DevExpress.XtraGrid.Columns.GridColumn colAccountDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colStockDetail;
-        private DevExpress.XtraGrid.Columns.GridColumn colPositionVolume;
+        private DevExpress.XtraGrid.Columns.GridColumn colHoldingVolume;
         private DevExpress.XtraGrid.Columns.GridColumn colPositionValue;
         private DevExpress.XtraGrid.Columns.GridColumn colLatestPrice;
     }
