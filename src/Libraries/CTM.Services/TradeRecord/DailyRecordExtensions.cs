@@ -33,12 +33,14 @@ namespace CTM.Services.TradeRecord
             //累计收益额
             decimal accumulatedProfit = 0;
 
+            accumulatedActualAmount = source.Sum(x => x.ActualAmount);
+
             var recordsByStock = source.GroupBy(x => x.StockCode);
             foreach (var stockGroup in recordsByStock)
             {
-                //各只股票发生金额
-                decimal actualAmountPerStock = stockGroup.Sum(x => x.ActualAmount);
-                accumulatedActualAmount += actualAmountPerStock;
+                ////各只股票发生金额
+                //decimal actualAmountPerStock = stockGroup.Sum(x => x.ActualAmount);
+                //accumulatedActualAmount += actualAmountPerStock;
 
                 //各只股票的持股数
                 decimal holdingVolume = stockGroup.Sum(x => x.DealVolume);
@@ -103,12 +105,14 @@ namespace CTM.Services.TradeRecord
                 //累计收益额
                 decimal accumulatedProfit = 0;
 
+                accumulatedActualAmount = source.Sum(x => x.ActualAmount);
+
                 var recordsByStock = currentRecords.GroupBy(x => x.StockCode);
                 foreach (var stockGroup in recordsByStock)
                 {
-                    //各只股票发生金额
-                    decimal actualAmountPerStock = stockGroup.Sum(x => x.ActualAmount);
-                    accumulatedActualAmount += actualAmountPerStock;
+                    ////各只股票发生金额
+                    //decimal actualAmountPerStock = stockGroup.Sum(x => x.ActualAmount);
+                    //accumulatedActualAmount += actualAmountPerStock;
 
                     //各只股票的持股数
                     decimal holdingVolume = stockGroup.Sum(x => x.DealVolume);
