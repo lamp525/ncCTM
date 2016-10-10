@@ -110,6 +110,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.bbiDeliveryAccountInvestIncomeDetail = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -175,9 +176,10 @@
             this.bbiDeliveryDataImport,
             this.bbiDataVerify,
             this.bbiDeliveryManage,
-            this.bbiDeliveryAccountInvestIncomeFlow});
+            this.bbiDeliveryAccountInvestIncomeFlow,
+            this.bbiDeliveryAccountInvestIncomeDetail});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 31;
+            this.ribbonControl1.MaxItemId = 32;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -741,6 +743,7 @@
             // ribbonPageGroup1
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
+            this.ribbonPageGroup1.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeDetail);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             // 
             // ribbonPageAdmin
@@ -843,6 +846,14 @@
             // 
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
+            // 
+            // bbiDeliveryAccountInvestIncomeDetail
+            // 
+            this.bbiDeliveryAccountInvestIncomeDetail.Caption = "账户 - 投资收益明细查询";
+            this.bbiDeliveryAccountInvestIncomeDetail.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDeliveryAccountInvestIncomeDetail.Glyph")));
+            this.bbiDeliveryAccountInvestIncomeDetail.Id = 31;
+            this.bbiDeliveryAccountInvestIncomeDetail.Name = "bbiDeliveryAccountInvestIncomeDetail";
+            this.bbiDeliveryAccountInvestIncomeDetail.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeDetail_ItemClick);
             // 
             // FrmMain
             // 
@@ -949,6 +960,7 @@
         private DevExpress.XtraBars.BarButtonItem bbiDeliveryManage;
         private DevExpress.XtraBars.BarButtonItem bbiDeliveryAccountInvestIncomeFlow;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem bbiDeliveryAccountInvestIncomeDetail;
     }
 }
 

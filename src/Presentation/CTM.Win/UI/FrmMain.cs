@@ -424,6 +424,16 @@ namespace CTM.Win.UI
             this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeFlow>("交割单账户投资收益流水查询");
         }
 
+        /// <summary>
+        /// 交割单账户投资收益明细查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryAccountInvestIncomeDetail_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeDetail>("交割单账户投资收益明细查询");
+        }
+
         #endregion Report
 
         #endregion Accounting

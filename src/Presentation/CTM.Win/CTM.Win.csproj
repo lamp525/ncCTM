@@ -155,8 +155,6 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Models\StatisticsReport\AccountInvestIncomeModel.cs" />
-    <Compile Include="Models\StatisticsReport\InvestStatisticsCommonModel.cs" />
     <Compile Include="Models\StatisticsReport\UserInvestIncomeAccountModel.cs" />
     <Compile Include="Models\StatisticsReport\StockInvestIncomeSummaryModel.cs" />
     <Compile Include="Models\StatisticsReport\UserInvestIncomeRankingModel.cs" />
@@ -182,6 +180,12 @@
     </Compile>
     <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.Designer.cs">
       <DependentUpon>FrmDeliveryAccountInvestIncomeFlow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.Designer.cs">
+      <DependentUpon>FrmDeliveryAccountInvestIncomeDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Admin\BaseData\FrmStock.cs">
       <SubType>Form</SubType>
@@ -446,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.resx">
       <DependentUpon>FrmDeliveryAccountInvestIncomeFlow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.resx">
+      <DependentUpon>FrmDeliveryAccountInvestIncomeDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\BaseData\FrmAccount.resx">
       <DependentUpon>FrmAccount.cs</DependentUpon>
