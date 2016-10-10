@@ -105,7 +105,7 @@ namespace CTM.Services.TradeRecord
                 //累计收益额
                 decimal accumulatedProfit = 0;
 
-                accumulatedActualAmount = source.Sum(x => x.ActualAmount);
+                accumulatedActualAmount = currentRecords.Sum(x => x.ActualAmount);
 
                 var recordsByStock = currentRecords.GroupBy(x => x.StockCode);
                 foreach (var stockGroup in recordsByStock)
