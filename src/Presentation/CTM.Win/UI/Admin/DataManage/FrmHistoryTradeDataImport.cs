@@ -113,7 +113,7 @@ namespace CTM.Win.UI.Admin.DataManage
 
         private bool DataImportProcess(out int importRecordNumber)
         {
-            System.Diagnostics.Debug.WriteLine("导入开始：");
+        
             importRecordNumber = 0;
 
             var startDate = CommonHelper.StringToDateTime(this.deStart.EditValue.ToString());
@@ -135,7 +135,7 @@ namespace CTM.Win.UI.Admin.DataManage
             foreach (DataRow row in historyRecords.Rows)
             {
                 importRecordNumber++;
-                System.Diagnostics.Debug.WriteLine("ID: " + row["ID"]);
+      
 
                 var tradeRecord = new DailyRecord();
 
@@ -224,7 +224,7 @@ namespace CTM.Win.UI.Admin.DataManage
             if (DeleteExistedRecords(tradeDateFrom, tradeDateTo))
                 _tradeRecordService.BatchInsertDailyRecords(tradeRecords);
 
-            System.Diagnostics.Debug.WriteLine("导入结束！");
+    
 
             return true;
         }

@@ -115,19 +115,12 @@ namespace CTM.Win.UI.Function.StatisticsReport
             var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
             var queryDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
 
-            var sss = DateTime.Now;
             var stockClosePrices = this._tKLineService.GetStockClosePrices(queryDates, stockFullCodes);
-            var eee = DateTime.Now;
-            System.Diagnostics.Debug.WriteLine("【" + _layoutXmlName + "】股票价格查询时间： " + (eee - sss));
 
             var statisticalDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate, 2);
 
             foreach (var user in beneficiaryInfos)
             {
-                //var a = 1;
-                //if (user.Code == "nctz046")
-                //    a++;
-
                 //当前用户交易记录
                 var userRecords = tradeRecords.Where(x => x.Beneficiary == user.Code).ToList();
                 var userStockCodes = userRecords.Select(x => x.StockCode).Distinct().ToList();

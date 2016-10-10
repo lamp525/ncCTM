@@ -119,11 +119,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
             //股票收盘价
             var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
             var queryDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
-
-            var a = DateTime.Now;
             var stockClosePrices = this._tKLineService.GetStockClosePrices(queryDates, stockFullCodes);
-            var b = DateTime.Now;
-            System.Diagnostics.Debug.WriteLine("【" + _layoutXmlName + "】股票价格查询时间： " + (b - a));
 
             foreach (var user in beneficiaryInfos)
             {

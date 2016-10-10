@@ -126,11 +126,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 //当前投资人员信息
                 var currentInvest = investors.SingleOrDefault(x => x.Code == investorRecords.Key);
 
-                if (currentInvest == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("Investor :" + investorRecords.Key);
+                if (currentInvest == null)             
                     continue;
-                }
+      
 
                 var recordsByAccount = investorRecords.GroupBy(x => x.AccountId);
                 foreach (var accountRecords in recordsByAccount)
@@ -139,10 +137,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
                     var currentAccount = accounts.SingleOrDefault(x => x.Id == accountRecords.Key);
 
                     if (currentAccount == null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Account :" + accountRecords.Key);
                         continue;
-                    }
+  
 
                     var recordsByStock = accountRecords.GroupBy(x => x.StockCode);
                     foreach (var stockRecords in recordsByStock)

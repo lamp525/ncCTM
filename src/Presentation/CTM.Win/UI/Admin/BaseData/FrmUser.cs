@@ -66,12 +66,7 @@ namespace CTM.Win.UI.Admin.BaseData
 
         private void BindUserInfo(int departmentId)
         {
-            var sss = DateTime.Now;
-            var users = _userService.GetUserDetails(departmentId).OrderBy(x => x.Code);
-            var eee = DateTime.Now;
-            System.Diagnostics.Debug.WriteLine("【" + this.Name + "】用户信息查询用时：" + (eee - sss));
-
-            this.gridControl1.DataSource = users;
+            this.gridControl1.DataSource = _userService.GetUserDetails(departmentId).OrderBy(x => x.Code);
         }
 
         private void RefreshForm(int departmentId)

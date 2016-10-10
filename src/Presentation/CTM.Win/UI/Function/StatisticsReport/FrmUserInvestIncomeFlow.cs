@@ -194,12 +194,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
             var allRankingInfos = new List<UserInvestIncomeRankingModel>();
 
-            var loop = 0;
             foreach (var user in investors)
             {
-                loop++;
-                System.Diagnostics.Debug.WriteLine(loop + " User: " + user.Name);
-
                 var userRecords = tradeRecords.Where(x => x.Beneficiary == user.Code).ToList();
                 var userStockCodes = userRecords.Select(x => x.StockCode).Distinct().ToList();
                 var userStockClosePrices = stockClosePrices.Where(x => userStockCodes.Contains(x.StockCode.Trim())).ToList();
