@@ -7,7 +7,7 @@ using CTM.Core;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Dictionary;
-using CTM.Services.TradeRecord;
+using CTM.Services.StatisticsReport;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -86,6 +86,24 @@ namespace CTM.Win.UI.Accounting.DataManage
             this.deTo.EditValue = CommonHelper.GetLastDayOfMonth(now);
         }
 
+        private void AccountFilter()
+        {
+            if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()) || !string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
+            {
+                var source = new List<AccountEntity>();
+                source.AddRange(_accounts);
+
+                if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()))
+                    source = source?.Where(x => x.AttributeCode == int.Parse(this.cbAccountAttribute.SelectedValue())).ToList();
+
+                if (!string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
+                    source = source?.Where(x => x.SecurityCompanyCode == int.Parse(this.cbSecurity.SelectedValue())).ToList();
+
+                this.luAccount.Properties.DataSource = source;
+                this.luAccount.Properties.DropDownRows = source.Count;
+            }
+        }
+
         #endregion Utilities
 
         #region Events
@@ -108,24 +126,6 @@ namespace CTM.Win.UI.Accounting.DataManage
         private void cbAccountAttribute_SelectedIndexChanged(object sender, EventArgs e)
         {
             AccountFilter();
-        }
-
-        private void AccountFilter()
-        {
-            if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()) || !string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
-            {
-                var source = new List<AccountEntity>();
-                source.AddRange(_accounts);
-
-                if (!string.IsNullOrEmpty(this.cbAccountAttribute.SelectedValue()))
-                    source = source?.Where(x => x.AttributeCode == int.Parse(this.cbAccountAttribute.SelectedValue())).ToList();
-
-                if (!string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
-                    source = source?.Where(x => x.SecurityCompanyCode == int.Parse(this.cbSecurity.SelectedValue())).ToList();
-
-                this.luAccount.Properties.DataSource = source;
-                this.luAccount.Properties.DropDownRows = source.Count;
-            }
         }
 
         private void cbSecurity_SelectedIndexChanged(object sender, EventArgs e)
