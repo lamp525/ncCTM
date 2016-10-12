@@ -681,11 +681,19 @@ namespace CTM.Services.TradeRecord
 
                 var tradeRecord = new DeliveryRecord();
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
                 var stockCode = string.Empty;
 
                 var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByName (stockName);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
 
                 tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
 
