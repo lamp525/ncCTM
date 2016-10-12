@@ -159,12 +159,9 @@ namespace CTM.Win.UI.Admin.BaseData
                 var myView = this.gridView1;
 
                 var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Length == 0) return;
 
-                if (selectedHandles.Length == 0)
-                {
-                    DXMessage.ShowTips("请选择要禁用的账户！");
-                    return;
-                }
+                selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndWarning("确定禁用选择的账户吗？") == DialogResult.Yes)
                 {
