@@ -1,8 +1,9 @@
 USE [CTMDB]
 GO
 
-
-
+/*
+-- [sp_GetStockDailyClosePrices]
+*/
 DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
 GO
 
@@ -68,7 +69,9 @@ BEGIN
 END
 GO
 
-
+/*
+-- [sp_GetAccountDetail]
+*/
 
 DROP PROCEDURE [dbo].[sp_GetAccountDetail]
 GO
@@ -138,7 +141,9 @@ END
 GO
 
 
-
+/*
+-- [sp_GetDiffBetweenDeliveryAndDailyData]
+*/
 
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
@@ -200,4 +205,83 @@ END
 GO
 
 
+/*
+-- [sp_DeliveryAccountInvestIncomeDetail]
+*/
 
+DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
+GO
+
+CREATE PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
+(
+@DateFrom datetime,
+@DateTo datetime
+)
+AS
+
+BEGIN	
+
+	SET NOCOUNT ON
+	
+	SELECT 	
+		MAX(DR.AccountId) AccId,
+		MAX(DR.StockCode) SCode, 
+		MAX(DR.StockName) SName, 
+		SUM(DR.ActualAmount) TotalActualAmount,
+		SUM(DR.DealVolume) HoldingVolume,
+		ISNULL(MAX(TT.[Close]),0) LatestPrice,
+		(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
+		(SUM(DR.ActualAmount) + ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit	
+	INTO #TableEnd
+	FROM DeliveryRecord DR
+	LEFT JOIN TKLineToday TT
+	ON DR.StockCode = TT.StockCode AND TT.TradeDate = @DateTo
+	WHERE DR.TradeDate <= @DateTo
+	GROUP BY DR.AccountId, DR.StockCode
+
+	SELECT 	
+		MAX(DR.AccountId) AccId,
+		MAX(DR.StockCode) SCode, 
+		--SUM(DR.ActualAmount) TotalActualAmount,
+		--SUM(DR.DealVolume) HoldingVolume,
+		--ISNULL(MAX(TT.[Close]),0) LatestPrice,
+		--(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
+		(SUM(DR.ActualAmount) + ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit
+	INTO #TableStart
+	FROM DeliveryRecord DR
+	LEFT JOIN TKLineToday TT
+	ON DR.StockCode = TT.StockCode AND TT.TradeDate = DATEADD(DAY,-1,@DateFrom)
+	WHERE DR.TradeDate < @DateFrom
+	GROUP BY DR.AccountId, DR.StockCode
+
+	--SELECT COUNT(*)START_NUM FROM #TableStart
+	--SELECT COUNT(*)END_NUM FROM #TableEnd 
+
+	SELECT 
+		(CONVERT(varchar(10),@DateFrom,111) + ' - ' +  CONVERT(varchar(10),@DateTo,111)) QueryPeriod,
+		(AI.Name + ' - ' + AI.SecurityCompanyName + ' - ' + AI.AttributeName + ' - ' + AI.TypeName) AccountDetail,
+		(E.SCode + ' - ' + E.SName) StockDetail,	
+		CAST(E.HoldingVolume AS decimal(18,0)) HoldingVolume,
+		E.LatestPrice,
+		E.PositionValue,
+		ISNULL((E.AccumulatedProfit - S.AccumulatedProfit),0) Profit,
+		E.AccumulatedProfit,	
+		E.SCode StockCode,
+		E.SName StockName,	
+		AI.Id AccountId,
+		AI.Name AccountName,
+		AI.SecurityCompanyName,
+		AI.AttributeName 	
+	FROM #TableStart S
+	FULL JOIN #TableEnd E
+	ON S.AccId = E.AccId AND S.SCode = E.SCode
+	LEFT JOIN AccountInfo AI
+	ON E.AccId = AI.Id
+	ORDER BY AccountDetail, StockDetail
+
+	DROP TABLE #TableStart
+	DROP TABLE #TableEnd
+
+END
+
+GO
