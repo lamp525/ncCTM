@@ -71,6 +71,7 @@
     <Compile Include="MarginTrading\MarginTradingEntity.cs" />
     <Compile Include="MarginTrading\MarginTradingService.cs" />
     <Compile Include="StatisticsReport\AccountInvestIncomeEntity.cs" />
+    <Compile Include="StatisticsReport\DeliveryAccountInvestIncomeEntity.cs" />
     <Compile Include="StatisticsReport\DeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\IDeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\InvestStatisticsCommonEntity.cs" />
@@ -86,14 +87,14 @@
     <Compile Include="TKLine\TKLineService.cs" />
     <Compile Include="TradeRecord\DailyRecordExtensions.cs" />
     <Compile Include="TradeRecord\DataImportCommonService.cs" />
-    <Compile Include="TradeRecord\DataVerifyEntity.cs" />
-    <Compile Include="TradeRecord\DataVerifyService.cs" />
+    <Compile Include="StatisticsReport\DataVerifyEntity.cs" />
+    <Compile Include="StatisticsReport\DataVerifyService.cs" />
     <Compile Include="TradeRecord\DeliveryRecordExtensions.cs" />
     <Compile Include="TradeRecord\DeliveryRecordService.cs" />
     <Compile Include="TradeRecord\IDailyRecordService.cs" />
     <Compile Include="TradeRecord\DailyRecordService.cs" />
     <Compile Include="TradeRecord\IDataImportCommonService.cs" />
-    <Compile Include="TradeRecord\IDataVerifyService.cs" />
+    <Compile Include="StatisticsReport\IDataVerifyService.cs" />
     <Compile Include="TradeRecord\IDeliveryRecordService.cs" />
     <Compile Include="TradeRecord\RecordImportOperationEntity.cs" />
     <Compile Include="User\IUserService.cs" />
