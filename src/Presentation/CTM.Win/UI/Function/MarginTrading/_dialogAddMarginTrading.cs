@@ -458,6 +458,8 @@ namespace CTM.Win.UI.Function.MarginTrading
 
             if (selectedHandles.Length > 0)
                 this.btnDelete.Enabled = true;
+            else
+                this.btnDelete.Enabled = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
