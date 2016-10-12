@@ -220,7 +220,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                         ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
                     }
 
-                    this._accountService.DisableAccount(ids.ToArray());
+                    this._accountService.DeleteAccountFundTransfer(ids.ToArray());
 
                     RefreshForm();
                 }
@@ -245,5 +245,29 @@ namespace CTM.Win.UI.Accounting.AccountManage
         }
 
         #endregion Events
+
+        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column == this.colFlowFlagName)
+            {
+                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as AccountFundTransferEntity ;
+                if (row == null) return;
+
+                switch (row.FlowFlag)
+                {
+                    case false:
+                        e.DisplayText = "转出";
+                        break;
+
+                    case true:
+                        e.DisplayText = "转入";
+                        break;
+
+                    default:
+                        e.DisplayText = "";
+                        break;
+                }
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@
   <property name="FocusRectStyle">CellFocus</property>
   <property name="HorzScrollStep">3</property>
   <property name="ViewCaptionHeight">-1</property>
-  <property name="Columns" iskey="true" value="12">
+  <property name="Columns" iskey="true" value="13">
     <property name="Item1" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colId</property>
@@ -59,21 +59,25 @@
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">4</property>
-      <property name="Name">colFlowFlag</property>
+      <property name="Name">colFlowFlagName</property>
       <property name="Caption">操作</property>
-      <property name="FieldName">FlowFlag</property>
     </property>
     <property name="Item7" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colFlowFlag</property>
+      <property name="FieldName">FlowFlag</property>
+    </property>
+    <property name="Item8" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colTargetAccountId</property>
       <property name="FieldName">TargetAccountId</property>
     </property>
-    <property name="Item8" isnull="true" iskey="true">
+    <property name="Item9" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colTargetAccountCode</property>
       <property name="FieldName">TargetAccountCode</property>
     </property>
-    <property name="Item9" isnull="true" iskey="true">
+    <property name="Item10" isnull="true" iskey="true">
       <property name="DisplayFormat" isnull="true" iskey="true">
         <property name="FormatString">0.#0</property>
         <property name="FormatType">Numeric</property>
@@ -83,10 +87,10 @@
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">3</property>
       <property name="Name">colBalance</property>
-      <property name="Caption">余额</property>
+      <property name="Caption">余额（元）</property>
       <property name="FieldName">Balance</property>
     </property>
-    <property name="Item10" isnull="true" iskey="true">
+    <property name="Item11" isnull="true" iskey="true">
       <property name="Width">120</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
@@ -95,7 +99,7 @@
       <property name="Caption">操作时间</property>
       <property name="FieldName">OperateTime</property>
     </property>
-    <property name="Item11" isnull="true" iskey="true">
+    <property name="Item12" isnull="true" iskey="true">
       <property name="Width">80</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
@@ -104,7 +108,7 @@
       <property name="Caption">操作人</property>
       <property name="FieldName">Operator</property>
     </property>
-    <property name="Item12" isnull="true" iskey="true">
+    <property name="Item13" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colRemarks</property>
       <property name="FieldName">Remarks</property>

@@ -37,6 +37,7 @@
             this.colTransferType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransferAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlowFlag = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFlowFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTargetAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTargetAccountCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBalance = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -133,6 +134,7 @@
             this.colTransferType,
             this.colTransferAmount,
             this.colFlowFlag,
+            this.colFlowFlagName,
             this.colTargetAccountId,
             this.colTargetAccountCode,
             this.colBalance,
@@ -155,6 +157,7 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
+            this.gridView1.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView1_CustomColumnDisplayText);
             // 
             // colId
             // 
@@ -197,12 +200,16 @@
             // 
             // colFlowFlag
             // 
-            this.colFlowFlag.Caption = "操作";
             this.colFlowFlag.FieldName = "FlowFlag";
             this.colFlowFlag.Name = "colFlowFlag";
-            this.colFlowFlag.Visible = true;
-            this.colFlowFlag.VisibleIndex = 4;
             this.colFlowFlag.Width = 80;
+            // 
+            // colFlowFlagName
+            // 
+            this.colFlowFlagName.Caption = "操作";
+            this.colFlowFlagName.Name = "colFlowFlagName";
+            this.colFlowFlagName.Visible = true;
+            this.colFlowFlagName.VisibleIndex = 4;
             // 
             // colTargetAccountId
             // 
@@ -216,7 +223,7 @@
             // 
             // colBalance
             // 
-            this.colBalance.Caption = "余额";
+            this.colBalance.Caption = "余额（元）";
             this.colBalance.DisplayFormat.FormatString = "0.#0";
             this.colBalance.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colBalance.FieldName = "Balance";
@@ -577,5 +584,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colOperateTime;
         private DevExpress.XtraGrid.Columns.GridColumn colOperator;
         private DevExpress.XtraGrid.Columns.GridColumn colRemarks;
+        private DevExpress.XtraGrid.Columns.GridColumn colFlowFlagName;
     }
 }

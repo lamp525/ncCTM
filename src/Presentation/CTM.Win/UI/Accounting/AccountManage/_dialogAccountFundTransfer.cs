@@ -146,15 +146,12 @@ namespace CTM.Win.UI.Accounting.AccountManage
                     TransferDate = transferDate,
                 };
 
-                if (DXMessage.ShowYesNoAndTips("确定添加该信息么？") == System.Windows.Forms.DialogResult.Yes)
-                {
-                    this._accountService.AddAccuntFundTransfer(info);
+                this._accountService.AddAccuntFundTransfer(info);
 
-                    BindFundTransferInfo();
+                BindFundTransferInfo();
 
-                    this.txtAmount.Text = null;
-                    this.chkIn.Checked = true;
-                }
+                this.txtAmount.Text = null;
+                this.chkIn.Checked = true;
             }
             catch (Exception ex)
             {
@@ -228,5 +225,29 @@ namespace CTM.Win.UI.Accounting.AccountManage
         }
 
         #endregion Events
+
+        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column == this.colFlowFlagName)
+            {
+                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as AccountFundTransferEntity;
+                if (row == null) return;
+
+                switch (row.FlowFlag)
+                {
+                    case false:
+                        e.DisplayText = "转出";
+                        break;
+
+                    case true:
+                        e.DisplayText = "转入";
+                        break;
+
+                    default:
+                        e.DisplayText = "";
+                        break;
+                }
+            }
+        }
     }
 }
