@@ -169,6 +169,12 @@
     <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.Designer.cs">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.Designer.cs">
+      <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Accounting\DataManage\FrmDeliveryManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,6 +437,9 @@
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LayoutXml\FrmAccountFundTransfer_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LayoutXml\FrmDeliveryAccountInvestIncomeDetail_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -445,6 +454,9 @@
     </Content>
     <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.resx">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.resx">
+      <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryManage.resx">
       <DependentUpon>FrmDeliveryManage.cs</DependentUpon>

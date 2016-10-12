@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CTM.Core.Domain.Account;
 using CTM.Core.Domain.User;
 
@@ -28,9 +29,15 @@ namespace CTM.Services.Account
 
         void AddAccountOperator(AccountOperator accountOperator);
 
-        AccountOperator GetAccountOperatorByAccountIdAndOperatorId(int accountId, int operatorId);
-
         void DeleteAccountOperator(AccountOperator accountOperator);
+
+        void AddAccuntFundTransfer(AccountFundTransfer entity);
+
+        void DeleteAccountFundTransfer(IList<int> ids);
+
+        IList<AccountFundTransferEntity> GetAccountFundTransferInfo(int accountId = 0, DateTime? transferDateFrom = null, DateTime? transferDateTo = null, DateTime? operateDate = null);
+
+        AccountOperator GetAccountOperatorByAccountIdAndOperatorId(int accountId, int operatorId);
 
         IList<int> GetAccountIdByOperatorId(int operatorId);
     }

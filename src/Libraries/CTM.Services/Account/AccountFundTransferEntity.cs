@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CTM.Core.Domain.Account
+namespace CTM.Services.Account
 {
-    public class AccountFundTransfer : BaseEntity
+  public   class AccountFundTransferEntity
     {
+        public int Id { get; set; }
+
         public int AccountId { get; set; }
 
         public string AccountCode { get; set; }
+
+        public string AccountDetail { get; set; }
 
         public DateTime TransferDate { get; set; }
 
@@ -18,7 +26,7 @@ namespace CTM.Core.Domain.Account
 
         public int TargetAccountId { get; set; }
 
-        public string TargetAccountCode { get; set; } 
+        public string TargetAccountCode { get; set; }
 
         public decimal Balance { get; set; }
 

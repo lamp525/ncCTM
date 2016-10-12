@@ -8,6 +8,7 @@ using CTM.Services.MarginTrading;
 using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
+using CTM.Win.UI.Accounting.AccountManage;
 using CTM.Win.UI.Accounting.DataManage;
 using CTM.Win.UI.Accounting.StatisticsReport;
 using CTM.Win.UI.Admin.BaseData;
@@ -412,6 +413,16 @@ namespace CTM.Win.UI
             this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
         }
 
+        /// <summary>
+        /// 账户资金调拨
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountFundTransfer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountFundTransfer>("账户资金调拨");
+        }
+
         #region Report
 
         /// <summary>
@@ -606,5 +617,7 @@ namespace CTM.Win.UI
         #endregion Application
 
         #endregion Events
+
+ 
     }
 }

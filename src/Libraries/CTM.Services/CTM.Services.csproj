@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Account\AccountEntity.cs" />
     <Compile Include="Account\AccountExtensions.cs" />
+    <Compile Include="Account\AccountFundTransferEntity.cs" />
     <Compile Include="Account\AccountService.cs" />
     <Compile Include="Account\IAccountService.cs" />
     <Compile Include="Common\CommonService.cs" />

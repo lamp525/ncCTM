@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraSerializer version="1.0" application="View">
+  <property name="#LayoutVersion"></property>
+  <property name="VertScrollTipFieldName"></property>
+  <property name="PreviewFieldName"></property>
+  <property name="GroupPanelText"></property>
+  <property name="NewItemRowText"></property>
+  <property name="LevelIndent">-1</property>
+  <property name="PreviewIndent">-1</property>
+  <property name="PreviewLineCount">-1</property>
+  <property name="ScrollStyle">LiveVertScroll, LiveHorzScroll</property>
+  <property name="FocusRectStyle">CellFocus</property>
+  <property name="HorzScrollStep">3</property>
+  <property name="ViewCaptionHeight">-1</property>
+  <property name="Columns" iskey="true" value="12">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colId</property>
+      <property name="FieldName">Id</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="Width">200</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">2</property>
+      <property name="Name">colAccountDetail</property>
+      <property name="Caption">账户信息</property>
+      <property name="FieldName">AccountDetail</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="Width">90</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">1</property>
+      <property name="Name">colTransferDate</property>
+      <property name="Caption">日期</property>
+      <property name="FieldName">TransferDate</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colTransferType</property>
+      <property name="FieldName">TransferType</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
+      <property name="Width">120</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">5</property>
+      <property name="Name">colTransferAmount</property>
+      <property name="Caption">金额（元）</property>
+      <property name="FieldName">TransferAmount</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="Width">80</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">4</property>
+      <property name="Name">colFlowFlag</property>
+      <property name="Caption">操作</property>
+      <property name="FieldName">FlowFlag</property>
+    </property>
+    <property name="Item7" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colTargetAccountId</property>
+      <property name="FieldName">TargetAccountId</property>
+    </property>
+    <property name="Item8" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colTargetAccountCode</property>
+      <property name="FieldName">TargetAccountCode</property>
+    </property>
+    <property name="Item9" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
+      <property name="Width">120</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">3</property>
+      <property name="Name">colBalance</property>
+      <property name="Caption">余额</property>
+      <property name="FieldName">Balance</property>
+    </property>
+    <property name="Item10" isnull="true" iskey="true">
+      <property name="Width">120</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">7</property>
+      <property name="Name">colOperateTime</property>
+      <property name="Caption">操作时间</property>
+      <property name="FieldName">OperateTime</property>
+    </property>
+    <property name="Item11" isnull="true" iskey="true">
+      <property name="Width">80</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">6</property>
+      <property name="Name">colOperator</property>
+      <property name="Caption">操作人</property>
+      <property name="FieldName">Operator</property>
+    </property>
+    <property name="Item12" isnull="true" iskey="true">
+      <property name="ColumnEditName"></property>
+      <property name="Name">colRemarks</property>
+      <property name="FieldName">Remarks</property>
+    </property>
+  </property>
+  <property name="ViewCaption"></property>
+  <property name="BorderStyle">Default</property>
+  <property name="SynchronizeClones">true</property>
+  <property name="DetailTabHeaderLocation">Top</property>
+  <property name="Name">gridView1</property>
+  <property name="DetailHeight">350</property>
+  <property name="Tag" isnull="true" />
+  <property name="ChildGridLevelName"></property>
+  <property name="GroupFormat">{0}: [#image]{1} {2}</property>
+  <property name="ActiveFilterEnabled">true</property>
+  <property name="GroupRowHeight">-1</property>
+  <property name="OptionsBehavior" isnull="true" iskey="true">
+    <property name="Editable">false</property>
+    <property name="ReadOnly">true</property>
+  </property>
+  <property name="FixedLineWidth">2</property>
+  <property name="OptionsSelection" isnull="true" iskey="true">
+    <property name="CheckBoxSelectorColumnWidth">30</property>
+    <property name="UseIndicatorForSelection">false</property>
+    <property name="MultiSelectMode">CheckBoxRowSelect</property>
+    <property name="MultiSelect">true</property>
+  </property>
+  <property name="OptionsView" isnull="true" iskey="true">
+    <property name="ShowGroupPanel">false</property>
+    <property name="EnableAppearanceOddRow">true</property>
+    <property name="EnableAppearanceEvenRow">true</property>
+    <property name="ShowFilterPanelMode">ShowAlways</property>
+    <property name="ColumnAutoWidth">false</property>
+  </property>
+  <property name="ColumnPanelRowHeight">-1</property>
+  <property name="RowSeparatorHeight">0</property>
+  <property name="FooterPanelHeight">-1</property>
+  <property name="HorzScrollVisibility">Auto</property>
+  <property name="VertScrollVisibility">Auto</property>
+  <property name="RowHeight">-1</property>
+  <property name="IndicatorWidth">50</property>
+  <property name="FormatRules" iskey="true" value="0" />
+  <property name="ActiveFilterString"></property>
+  <property name="FormatConditions" iskey="true" value="0" />
+  <property name="GroupSummary" iskey="true" value="0" />
+  <property name="GroupSummarySortInfoState"></property>
+  <property name="FindFilterText"></property>
+  <property name="FindPanelVisible">false</property>
+</XtraSerializer>

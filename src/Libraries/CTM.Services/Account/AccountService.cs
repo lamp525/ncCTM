@@ -18,10 +18,11 @@ namespace CTM.Services.Account
         private readonly IDbContext _dbContext;
 
         private readonly IRepository<AccountInfo> _accountInfoRepository;
-        private readonly IRepository<DictionaryInfo> _dictionaryInfoRepository;
+        private readonly IRepository<AccountFundTransfer> _accountFundTransferRepository;
         private readonly IRepository<AccountOperator> _accountOperatorRepository;
-        private readonly IRepository<UserInfo> _userInfoRepository;
+        private readonly IRepository<DictionaryInfo> _dictionaryInfoRepository;
         private readonly IRepository<IndustryInfo> _industryInfoRepository;
+        private readonly IRepository<UserInfo> _userInfoRepository;
 
         #endregion Fields
 
@@ -29,6 +30,7 @@ namespace CTM.Services.Account
 
         public AccountService(
             IRepository<AccountInfo> accountInfoRepository,
+            IRepository<AccountFundTransfer> accountFundTransferRepository,
             IRepository<DictionaryInfo> dictionaryInfoRepository,
             IRepository<AccountOperator> accountOperatorRepository,
             IRepository<UserInfo> userInfoRepository,
@@ -37,6 +39,7 @@ namespace CTM.Services.Account
             )
         {
             this._accountInfoRepository = accountInfoRepository;
+            this._accountFundTransferRepository = accountFundTransferRepository;
             this._dictionaryInfoRepository = dictionaryInfoRepository;
             this._accountOperatorRepository = accountOperatorRepository;
             this._userInfoRepository = userInfoRepository;
@@ -220,6 +223,69 @@ namespace CTM.Services.Account
                         ).ToList();
 
             return accountIds;
+        }
+
+        public virtual void AddAccuntFundTransfer(AccountFundTransfer entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _accountFundTransferRepository.Insert(entity);
+        }
+
+        public virtual void DeleteAccountFundTransfer(IList<int> ids)
+        {
+            if (ids == null)
+                throw new ArgumentNullException(nameof(ids));
+
+            var query = _accountFundTransferRepository.Table.Where(x => ids.Contains(x.Id));
+
+            _accountFundTransferRepository.Delete(query.ToArray());
+        }
+
+        public virtual IList<AccountFundTransferEntity> GetAccountFundTransferInfo(int accountId = 0, DateTime? transferDateFrom = default(DateTime?), DateTime? transferDateTo = default(DateTime?), DateTime? operateDate = default(DateTime?))
+        {
+            var query = _accountFundTransferRepository.Table;
+
+            if (accountId > 0)
+                query = query.Where(x => x.AccountId == accountId);
+
+            if (transferDateFrom.HasValue)
+                query = query.Where(x => x.TransferDate >= transferDateFrom.Value);
+
+            if (transferDateTo.HasValue)
+                query = query.Where(x => x.TransferDate <= transferDateTo.Value);
+
+            if (operateDate.HasValue)
+            {
+                var operateDateTo = operateDate.Value.AddDays(1);
+                query = query.Where(x => x.OperateTime > operateDate.Value && x.OperateTime < operateDateTo);
+            }
+
+            var info = from t in query
+                       join a in _accountInfoRepository.Table
+                       on t.AccountId equals a.Id
+                       join u in _userInfoRepository.Table
+                       on t.Operator equals u.Code
+                       select new AccountFundTransferEntity
+                       {
+                           Id = t.Id,
+                           AccountId = t.AccountId,
+                           AccountCode = t.AccountCode,
+                           AccountDetail = a.Name + " - " + a.SecurityCompanyName + " - " + a.AttributeName,
+                           Balance = t.Balance,
+                           FlowFlag = t.FlowFlag,
+                           OperateTime = t.OperateTime,
+                           Operator = u.Name,
+                           Remarks = t.Remarks,
+                           TargetAccountCode = t.TargetAccountCode,
+                           TargetAccountId = t.TargetAccountId,
+                           TransferAmount = t.TransferAmount,
+                           TransferDate = t.TransferDate,
+                           TransferType = t.TransferType,
+                       };
+
+            return info.ToList();
         }
 
         #endregion Methods
