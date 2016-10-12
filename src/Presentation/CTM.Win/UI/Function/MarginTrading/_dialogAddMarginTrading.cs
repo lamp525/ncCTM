@@ -496,11 +496,6 @@ namespace CTM.Win.UI.Function.MarginTrading
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void _dialogAddMarginTrading_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             this.RefreshEvent?.Invoke();
