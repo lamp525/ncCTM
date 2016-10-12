@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CTM.Data;
 
-namespace CTM.Services.TradeRecord
+namespace CTM.Services.StatisticsReport
 {
     public partial class DataVerifyService : IDataVerifyService
     {

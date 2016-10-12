@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CTM.Services.TradeRecord
+namespace CTM.Services.StatisticsReport
 {
     public partial interface IDataVerifyService : IBaseService
     {
