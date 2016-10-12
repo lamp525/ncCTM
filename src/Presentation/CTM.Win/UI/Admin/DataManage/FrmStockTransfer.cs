@@ -73,6 +73,8 @@ namespace CTM.Win.UI.Admin.DataManage
 
         private void BindStockPosition(string dealerCode)
         {
+            this.gridControl1.DataSource = null;
+
             var records = _tradeRecordService.GetDailyRecordsBySearchCondition(beneficiary: dealerCode, tradeDateFrom: _initDate);
 
             if (!records.Any()) return;
