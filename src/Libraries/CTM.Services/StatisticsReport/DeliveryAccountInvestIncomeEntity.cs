@@ -1,6 +1,6 @@
-﻿namespace CTM.Win.Models
+﻿namespace CTM.Services.StatisticsReport
 {
-    public class DeliveryInvestIncomeAccountModel
+    public class DeliveryAccountInvestIncomeEntity
     {
         public string QueryPeriod { get; set; }
 

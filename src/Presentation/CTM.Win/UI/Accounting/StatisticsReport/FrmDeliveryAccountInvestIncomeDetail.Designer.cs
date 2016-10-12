@@ -99,10 +99,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 138);
+            this.gridControl1.Location = new System.Drawing.Point(24, 142);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1157, 663);
+            this.gridControl1.Size = new System.Drawing.Size(1157, 659);
             this.gridControl1.TabIndex = 8;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -169,6 +169,7 @@
             // colProfit
             // 
             this.colProfit.Caption = "本期收益额";
+            this.colProfit.DisplayFormat.FormatString = "0.#0";
             this.colProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
@@ -179,6 +180,7 @@
             // colAccumulatedProfit
             // 
             this.colAccumulatedProfit.Caption = "累计收益额";
+            this.colAccumulatedProfit.DisplayFormat.FormatString = "0.#0";
             this.colAccumulatedProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colAccumulatedProfit.FieldName = "AccumulatedProfit";
             this.colAccumulatedProfit.Name = "colAccumulatedProfit";
@@ -221,6 +223,7 @@
             // colPositionValue
             // 
             this.colPositionValue.Caption = "持仓市值";
+            this.colPositionValue.DisplayFormat.FormatString = "0.#0";
             this.colPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colPositionValue.FieldName = "PositionValue";
             this.colPositionValue.Name = "colPositionValue";
@@ -239,9 +242,9 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1116, 112);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1114, 116);
             this.btnSaveLayout.Name = "btnSaveLayout";
-            this.btnSaveLayout.Size = new System.Drawing.Size(65, 22);
+            this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
             this.btnSaveLayout.TabIndex = 7;
             this.btnSaveLayout.Text = " 保存样式 ";
@@ -249,9 +252,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(444, 43);
+            this.btnSearch.Location = new System.Drawing.Point(444, 45);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(73, 22);
+            this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "    查  询    ";
@@ -260,7 +263,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(297, 43);
+            this.deTo.Location = new System.Drawing.Point(297, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -273,7 +276,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(87, 43);
+            this.deFrom.Location = new System.Drawing.Point(87, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -309,7 +312,7 @@
             this.emptySpaceItem7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1185, 69);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1185, 71);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // layoutControlItem1
@@ -343,16 +346,16 @@
             this.layoutControlItem3.Control = this.btnSearch;
             this.layoutControlItem3.Location = new System.Drawing.Point(420, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(497, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(499, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(664, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(662, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem7
@@ -372,9 +375,9 @@
             this.emptySpaceItem3,
             this.layoutControlItem4,
             this.layoutControlItem5});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1185, 736);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1185, 734);
             this.layoutControlGroup3.Text = "账户投资收益信息（金额单位：元）";
             // 
             // emptySpaceItem3
@@ -382,15 +385,15 @@
             this.emptySpaceItem3.AllowHotTrack = false;
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1092, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1090, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnSaveLayout;
-            this.layoutControlItem4.Location = new System.Drawing.Point(1092, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(1090, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(69, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(71, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -399,7 +402,7 @@
             this.layoutControlItem5.Control = this.gridControl1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1161, 667);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1161, 663);
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;

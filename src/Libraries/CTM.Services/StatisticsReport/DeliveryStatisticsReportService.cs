@@ -4,6 +4,7 @@ using System.Linq;
 using CTM.Core.Domain.TKLine;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Util;
+using CTM.Data;
 using CTM.Services.Account;
 using CTM.Services.TradeRecord;
 
@@ -11,6 +12,23 @@ namespace CTM.Services.StatisticsReport
 {
     public partial class DeliveryStatisticsReportService : IDeliveryStatisticsReportService
     {
+        #region Fields
+
+        private readonly IDbContext _dbContext;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public DeliveryStatisticsReportService(IDbContext dbContext)
+        {
+            this._dbContext = dbContext;
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
         /// 帐户投资收益计算
         /// </summary>
@@ -99,5 +117,18 @@ namespace CTM.Services.StatisticsReport
             }
             return result;
         }
+
+        public virtual IList<DeliveryAccountInvestIncomeEntity> GetDeliveryAccountInvestIncomeDetail(DateTime dateFrom, DateTime dateTo)
+        {
+            var commanText = $@"EXEC [dbo].[sp_DeliveryAccountInvestIncomeDetail]
+                                                @DateFrom = '{dateFrom}',
+                                                @DateTo = '{dateTo}'";
+
+            var result = _dbContext.SqlQuery<DeliveryAccountInvestIncomeEntity>(commanText).ToList();
+
+            return result;
+        }
+
+        #endregion Methods
     }
 }
