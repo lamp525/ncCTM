@@ -184,7 +184,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                     var ids = new List<int>();
                     foreach (var rowhandle in selectedHandles)
                     {
-                        //  ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                        ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
                     }
 
                     this._accountService.DeleteAccountFundTransfer(ids);
@@ -210,6 +210,8 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
             if (selectedHandles.Length > 0)
                 this.btnDelete.Enabled = true;
+            else
+                this.btnDelete.Enabled = false;
         }
 
         private void _dialogAccountFundTransfer_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)

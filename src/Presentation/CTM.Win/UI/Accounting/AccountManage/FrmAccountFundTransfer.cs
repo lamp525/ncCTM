@@ -172,6 +172,9 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
             if (selectedHandles.Length > 0)
                 this.btnDelete.Enabled = true;
+            else
+                this.btnDelete.Enabled = false;
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -204,11 +207,9 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
                 var selectedHandles = myView.GetSelectedRows();
 
-                if (selectedHandles.Length == 0)
-                {
-                    DXMessage.ShowTips("请选择要删除的明细信息！");
-                    return;
-                }
+                if (selectedHandles.Length == 0) return;
+
+                selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndWarning("确定删除选择的明细吗？") == DialogResult.Yes)
                 {
@@ -216,7 +217,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
                     for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
-                        //  ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colAccountId).ToString()));
+                        ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
                     }
 
                     this._accountService.DisableAccount(ids.ToArray());
