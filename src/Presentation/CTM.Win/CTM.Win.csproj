@@ -163,6 +163,12 @@
     <Compile Include="Models\StockPositionModel.cs" />
     <Compile Include="Models\StockInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
+    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.Designer.cs">
+      <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Accounting\DataManage\FrmDeliveryManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -437,6 +443,9 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.resx">
+      <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryManage.resx">
       <DependentUpon>FrmDeliveryManage.cs</DependentUpon>
     </EmbeddedResource>

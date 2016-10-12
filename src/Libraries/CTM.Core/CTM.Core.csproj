@@ -83,8 +83,7 @@
     <Compile Include="Dynamic.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Account\AccountInfo.cs" />
-    <Compile Include="Domain\Account\AccountTradeFund.cs" />
-    <Compile Include="Domain\Account\AccountTransferFund.cs" />
+    <Compile Include="Domain\Account\AccountFundTransfer.cs" />
     <Compile Include="Domain\Department\DepartmentInfo.cs" />
     <Compile Include="Domain\Dictionary\DictionaryInfo.cs" />
     <Compile Include="Domain\Dictionary\DictionaryType.cs" />
