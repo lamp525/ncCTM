@@ -7,7 +7,6 @@ using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Department;
-using CTM.Services.Dictionary;
 using CTM.Services.TKLine;
 using CTM.Services.TradeRecord;
 using CTM.Services.User;
@@ -25,7 +24,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
         private readonly IDailyRecordService _dailyRecordService;
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
-        private readonly IDictionaryService _dictionaryService;
         private readonly IDepartmentService _deptService;
         private readonly ITKLineService _tKLineService;
 
@@ -43,17 +41,14 @@ namespace CTM.Win.UI.Function.StatisticsReport
             IDailyRecordService dailyRecordService,
             IAccountService accountService,
             IUserService userService,
-            IDictionaryService dictionaryService,
             IDepartmentService deptService,
-            ITKLineService tKLineService
-            )
+            ITKLineService tKLineService)
         {
             InitializeComponent();
 
             this._dailyRecordService = dailyRecordService;
             this._accountService = accountService;
             this._userService = userService;
-            this._dictionaryService = dictionaryService;
             this._deptService = deptService;
             this._tKLineService = tKLineService;
         }
@@ -126,9 +121,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 //当前投资人员信息
                 var currentInvest = investors.SingleOrDefault(x => x.Code == investorRecords.Key);
 
-                if (currentInvest == null)             
+                if (currentInvest == null)
                     continue;
-      
 
                 var recordsByAccount = investorRecords.GroupBy(x => x.AccountId);
                 foreach (var accountRecords in recordsByAccount)
@@ -138,7 +132,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
                     if (currentAccount == null)
                         continue;
-  
 
                     var recordsByStock = accountRecords.GroupBy(x => x.StockCode);
                     foreach (var stockRecords in recordsByStock)

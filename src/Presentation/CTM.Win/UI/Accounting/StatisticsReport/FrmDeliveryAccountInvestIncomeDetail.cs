@@ -1,11 +1,6 @@
 ﻿using System;
 using CTM.Core.Util;
-using CTM.Services.Account;
-using CTM.Services.Department;
-using CTM.Services.Dictionary;
 using CTM.Services.StatisticsReport;
-using CTM.Services.TKLine;
-using CTM.Services.TradeRecord;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
 using DevExpress.Utils;
@@ -16,12 +11,7 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
     {
         #region Fields
 
-        private readonly IAccountService _accountService;
-        private readonly IDeliveryRecordService _deliveryRecordService;
         private readonly IDeliveryStatisticsReportService _deliveryReportService;
-        private readonly IDepartmentService _deptService;
-        private readonly IDictionaryService _dictionaryService;
-        private readonly ITKLineService _tKLineService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
 
@@ -31,22 +21,11 @@ namespace CTM.Win.UI.Accounting.StatisticsReport
 
         #region Constructors
 
-        public FrmDeliveryAccountInvestIncomeDetail(
-            IAccountService accountService,
-            IDeliveryRecordService deliveryRecordService,
-            IDeliveryStatisticsReportService deliveryReportService,
-            IDepartmentService deptService,
-            IDictionaryService dictionaryService,
-            ITKLineService tKLineService)
+        public FrmDeliveryAccountInvestIncomeDetail(IDeliveryStatisticsReportService deliveryReportService)
         {
             InitializeComponent();
 
-            this._accountService = accountService;
-            this._deliveryRecordService = deliveryRecordService;
             this._deliveryReportService = deliveryReportService;
-            this._deptService = deptService;
-            this._dictionaryService = dictionaryService;
-            this._tKLineService = tKLineService;
         }
 
         #endregion Constructors
