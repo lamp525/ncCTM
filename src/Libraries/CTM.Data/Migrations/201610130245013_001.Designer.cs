@@ -13,7 +13,7 @@ namespace CTM.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610120826264_001"; }
+            get { return "201610130245013_001"; }
         }
         
         string IMigrationMetadata.Source

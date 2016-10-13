@@ -20,10 +20,22 @@ namespace CTM.Data.Migrations
                         FlowFlag = c.Boolean(nullable: false),
                         TargetAccountId = c.Int(nullable: false),
                         TargetAccountCode = c.String(),
-                        Balance = c.Decimal(nullable: false, precision: 24, scale: 4),
                         OperateTime = c.DateTime(nullable: false),
                         Operator = c.String(),
                         Remarks = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.AccountInitialFund",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        AccountId = c.Int(nullable: false),
+                        AccountCode = c.String(),
+                        Month = c.Int(nullable: false),
+                        Amount = c.Decimal(nullable: false, precision: 24, scale: 4),
+                        IsInitial = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -31,6 +43,7 @@ namespace CTM.Data.Migrations
         
         public override void Down()
         {
+            DropTable("dbo.AccountInitialFund");
             DropTable("dbo.AccountFundTransfer");
         }
     }

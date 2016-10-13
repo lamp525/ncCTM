@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Account\AccountInitialFund.cs" />
     <Compile Include="Util\AppConfigHelper.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Util\CommonHelper.cs" />
