@@ -51,39 +51,55 @@
       <property name="FieldName">AttributeName</property>
     </property>
     <property name="Item6" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
       <property name="Width">150</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">3</property>
       <property name="Name">colInitialAmount</property>
-      <property name="Caption">期初资金（万）</property>
+      <property name="Caption">期初资金（元）</property>
       <property name="FieldName">InitialAmount</property>
     </property>
     <property name="Item7" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
       <property name="Width">150</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">4</property>
       <property name="Name">colInAmount</property>
-      <property name="Caption">投入资金（万）</property>
+      <property name="Caption">投入资金（元）</property>
       <property name="FieldName">InAmount</property>
     </property>
     <property name="Item8" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
       <property name="Width">150</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">5</property>
       <property name="Name">colOutAmount</property>
-      <property name="Caption">转出资金（万）</property>
+      <property name="Caption">转出资金（元）</property>
       <property name="FieldName">OutAmount</property>
     </property>
     <property name="Item9" isnull="true" iskey="true">
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">0.#0</property>
+        <property name="FormatType">Numeric</property>
+      </property>
       <property name="Width">150</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">6</property>
       <property name="Name">colFinalAMount</property>
-      <property name="Caption">期末资金（万）</property>
+      <property name="Caption">期末资金（元）</property>
       <property name="FieldName">FinalAMount</property>
     </property>
   </property>
