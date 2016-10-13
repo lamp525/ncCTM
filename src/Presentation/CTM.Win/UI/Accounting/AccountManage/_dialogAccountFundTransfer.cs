@@ -130,15 +130,13 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 var transferDate = CommonHelper.StringToDateTime(this.deTransfer.EditValue.ToString());
                 var transferAmount = decimal.Parse(this.txtAmount.Text.Trim());
                 var account = this.luAccount.GetSelectedDataRow() as AccountEntity;
-                var balance = this.chkIn.Checked ? account.Balance + transferAmount : account.Balance - transferAmount;
 
                 if (account == null) return;
 
                 var info = new AccountFundTransfer
                 {
                     AccountCode = account.Code,
-                    AccountId = account.Id,
-                    Balance = balance,
+                    AccountId = account.Id,             
                     FlowFlag = this.chkIn.Checked,
                     OperateTime = _commonService.GetCurrentServerTime(),
                     Operator = LoginInfo.CurrentUser.UserCode,

@@ -11,7 +11,6 @@ namespace CTM.Data.Mapping.Account
             this.HasKey(p => p.Id);
 
             this.Property(p => p.TransferAmount).HasPrecision(24, 4);
-            this.Property(p => p.Balance).HasPrecision(24, 4);
         }
     }
 }

@@ -36,8 +36,8 @@
             this.colTransferDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransferType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTransferAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFlowFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlowFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFlowFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTargetAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTargetAccountCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBalance = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -195,21 +195,21 @@
             this.colTransferAmount.FieldName = "TransferAmount";
             this.colTransferAmount.Name = "colTransferAmount";
             this.colTransferAmount.Visible = true;
-            this.colTransferAmount.VisibleIndex = 5;
+            this.colTransferAmount.VisibleIndex = 4;
             this.colTransferAmount.Width = 120;
-            // 
-            // colFlowFlag
-            // 
-            this.colFlowFlag.FieldName = "FlowFlag";
-            this.colFlowFlag.Name = "colFlowFlag";
             // 
             // colFlowFlagName
             // 
             this.colFlowFlagName.Caption = "操作";
             this.colFlowFlagName.Name = "colFlowFlagName";
             this.colFlowFlagName.Visible = true;
-            this.colFlowFlagName.VisibleIndex = 4;
+            this.colFlowFlagName.VisibleIndex = 3;
             this.colFlowFlagName.Width = 80;
+            // 
+            // colFlowFlag
+            // 
+            this.colFlowFlag.FieldName = "FlowFlag";
+            this.colFlowFlag.Name = "colFlowFlag";
             // 
             // colTargetAccountId
             // 
@@ -228,8 +228,6 @@
             this.colBalance.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colBalance.FieldName = "Balance";
             this.colBalance.Name = "colBalance";
-            this.colBalance.Visible = true;
-            this.colBalance.VisibleIndex = 3;
             this.colBalance.Width = 120;
             // 
             // colOperateTime
@@ -240,8 +238,8 @@
             this.colOperateTime.FieldName = "OperateTime";
             this.colOperateTime.Name = "colOperateTime";
             this.colOperateTime.Visible = true;
-            this.colOperateTime.VisibleIndex = 7;
-            this.colOperateTime.Width = 151;
+            this.colOperateTime.VisibleIndex = 6;
+            this.colOperateTime.Width = 168;
             // 
             // colOperator
             // 
@@ -249,7 +247,7 @@
             this.colOperator.FieldName = "Operator";
             this.colOperator.Name = "colOperator";
             this.colOperator.Visible = true;
-            this.colOperator.VisibleIndex = 6;
+            this.colOperator.VisibleIndex = 5;
             this.colOperator.Width = 80;
             // 
             // colRemarks

@@ -20,8 +20,6 @@ namespace CTM.Core.Domain.Account
 
         public string TargetAccountCode { get; set; } 
 
-        public decimal Balance { get; set; }
-
         public DateTime OperateTime { get; set; }
 
         public string Operator { get; set; }
