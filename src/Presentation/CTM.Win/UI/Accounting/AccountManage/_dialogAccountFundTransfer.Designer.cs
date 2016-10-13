@@ -133,8 +133,8 @@
             this.colTransferDate,
             this.colTransferType,
             this.colTransferAmount,
-            this.colFlowFlag,
             this.colFlowFlagName,
+            this.colFlowFlag,
             this.colTargetAccountId,
             this.colTargetAccountCode,
             this.colBalance,
@@ -202,7 +202,6 @@
             // 
             this.colFlowFlag.FieldName = "FlowFlag";
             this.colFlowFlag.Name = "colFlowFlag";
-            this.colFlowFlag.Width = 80;
             // 
             // colFlowFlagName
             // 
@@ -210,6 +209,7 @@
             this.colFlowFlagName.Name = "colFlowFlagName";
             this.colFlowFlagName.Visible = true;
             this.colFlowFlagName.VisibleIndex = 4;
+            this.colFlowFlagName.Width = 80;
             // 
             // colTargetAccountId
             // 
@@ -235,11 +235,13 @@
             // colOperateTime
             // 
             this.colOperateTime.Caption = "操作时间";
+            this.colOperateTime.DisplayFormat.FormatString = "yyyy-MM-dd HH:mm:ss";
+            this.colOperateTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colOperateTime.FieldName = "OperateTime";
             this.colOperateTime.Name = "colOperateTime";
             this.colOperateTime.Visible = true;
             this.colOperateTime.VisibleIndex = 7;
-            this.colOperateTime.Width = 120;
+            this.colOperateTime.Width = 151;
             // 
             // colOperator
             // 
@@ -259,7 +261,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(864, 43);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(73, 22);
+            this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
             this.btnAdd.TabIndex = 10;
             this.btnAdd.Text = "    添  加    ";
@@ -269,7 +271,7 @@
             // 
             this.btnDelete.Location = new System.Drawing.Point(34, 112);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(73, 22);
+            this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "    删  除    ";
@@ -374,9 +376,9 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(87, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(89, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(860, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(858, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
@@ -384,7 +386,7 @@
             this.layoutControlItem6.Control = this.btnDelete;
             this.layoutControlItem6.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -464,16 +466,16 @@
             this.layoutControlItem7.Control = this.btnAdd;
             this.layoutControlItem7.Location = new System.Drawing.Point(840, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // emptySpaceItem7
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(917, 0);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(919, 0);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(30, 26);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(28, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3

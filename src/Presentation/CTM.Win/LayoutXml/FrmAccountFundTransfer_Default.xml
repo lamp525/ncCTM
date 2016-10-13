@@ -91,7 +91,11 @@
       <property name="FieldName">Balance</property>
     </property>
     <property name="Item11" isnull="true" iskey="true">
-      <property name="Width">120</property>
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">yyyy-MM-dd HH:mm:ss</property>
+        <property name="FormatType">DateTime</property>
+      </property>
+      <property name="Width">151</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">7</property>
