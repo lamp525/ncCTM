@@ -136,11 +136,11 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 var info = new AccountFundTransfer
                 {
                     AccountCode = account.Code,
-                    AccountId = account.Id,             
+                    AccountId = account.Id,
                     FlowFlag = this.chkIn.Checked,
                     OperateTime = _commonService.GetCurrentServerTime(),
                     Operator = LoginInfo.CurrentUser.UserCode,
-                    TransferAmount = transferAmount,
+                    TransferAmount = this.chkIn.Checked ? transferAmount : -transferAmount,
                     TransferDate = transferDate,
                 };
 
