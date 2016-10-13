@@ -329,6 +329,7 @@ BEGIN
 
 	SELECT 
 		AI.Id AccountId, 
+		AI.Code AccountCode,
 		AI.Name AccountName, 
 		AI.SecurityCompanyName, 
 		AI.AttributeName,
@@ -343,6 +344,7 @@ BEGIN
 	ON T0.AccountId =Q.AccountId  AND T0.FlowFlag = 0
 	LEFT JOIN AccountInfo AI
 	ON AI.Id = Q.AccountId 
+	ORDER BY AccountName, SecurityCompanyName, AttributeName 
 	
 	/****** Drop Temp Table ******/
 	DROP TABLE #QueryInitial 
