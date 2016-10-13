@@ -2,6 +2,9 @@ USE [CTMDB]
 GO
 
 
+/*
+/****** [f_GetAccountOperatorNames] ******/
+*/
 
 DROP FUNCTION [dbo].[f_GetAccountOperatorNames]
 GO
@@ -24,4 +27,39 @@ BEGIN
 END
 GO
 
+
+/*
+/****** [f_GetFirstDayOfMonth] ******/
+*/
+
+DROP FUNCTION [dbo].[f_GetFirstDayOfMonth]
+GO
+
+CREATE FUNCTION [dbo].[f_GetFirstDayOfMonth](@CurrentDate datetime)
+RETURNS datetime
+AS
+BEGIN    
+
+    RETURN DATEADD(m,DATEDIFF(m,0,@CurrentDate),0)	
+		
+END
+GO
+
+
+/*
+/****** [f_GetLastDayOfMonth] ******/
+*/
+
+DROP FUNCTION [dbo].[f_GetLastDayOfMonth]
+GO
+
+CREATE FUNCTION [dbo].[f_GetLastDayOfMonth](@CurrentDate datetime)
+RETURNS datetime
+AS
+BEGIN    
+
+    RETURN DATEADD(d,-1,DATEADD(m,DATEDIFF(m,0,GETDATE())+1,0))	
+		
+END
+GO
 
