@@ -129,6 +129,17 @@ namespace CTM.Services.StatisticsReport
             return result;
         }
 
+        public virtual IList<AccountInvestFundEntity> GetAccountInvestFundDetail(DateTime dateFrom, DateTime dateTo)
+        {
+            var commanText = $@"EXEC [dbo].[sp_AccountInvestFundDetail]
+                                                @DateFrom = '{dateFrom}',
+                                                @DateTo = '{dateTo}'";
+
+            var result = _dbContext.SqlQuery<AccountInvestFundEntity>(commanText).ToList();
+
+            return result;
+        }
+
         #endregion Methods
     }
 }

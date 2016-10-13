@@ -88,6 +88,8 @@
             this.bbiDeliveryManage = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDeliveryAccountInvestIncomeFlow = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDeliveryAccountInvestIncomeDetail = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiAccountFundTransfer = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiAccountInvestFund = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -97,6 +99,7 @@
             this.ribbonPageGroup13 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAccounting = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rgpAccountingDataManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.rpgAccountManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgAccountingReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -111,8 +114,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.rpgAccountManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.bbiAccountFundTransfer = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -180,9 +181,10 @@
             this.bbiDeliveryManage,
             this.bbiDeliveryAccountInvestIncomeFlow,
             this.bbiDeliveryAccountInvestIncomeDetail,
-            this.bbiAccountFundTransfer});
+            this.bbiAccountFundTransfer,
+            this.bbiAccountInvestFund});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 33;
+            this.ribbonControl1.MaxItemId = 34;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -682,6 +684,23 @@
             this.bbiDeliveryAccountInvestIncomeDetail.Name = "bbiDeliveryAccountInvestIncomeDetail";
             this.bbiDeliveryAccountInvestIncomeDetail.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDeliveryAccountInvestIncomeDetail_ItemClick);
             // 
+            // bbiAccountFundTransfer
+            // 
+            this.bbiAccountFundTransfer.Caption = "账户资金调拨";
+            this.bbiAccountFundTransfer.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundTransfer.Glyph")));
+            this.bbiAccountFundTransfer.Id = 32;
+            this.bbiAccountFundTransfer.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundTransfer.LargeGlyph")));
+            this.bbiAccountFundTransfer.Name = "bbiAccountFundTransfer";
+            this.bbiAccountFundTransfer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAccountFundTransfer_ItemClick);
+            // 
+            // bbiAccountInvestFund
+            // 
+            this.bbiAccountInvestFund.Caption = "账户 - 投资资金查询";
+            this.bbiAccountInvestFund.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountInvestFund.Glyph")));
+            this.bbiAccountInvestFund.Id = 33;
+            this.bbiAccountInvestFund.Name = "bbiAccountInvestFund";
+            this.bbiAccountInvestFund.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAccountInvestFund_ItemClick);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -752,8 +771,14 @@
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryManage);
             this.rgpAccountingDataManage.Name = "rgpAccountingDataManage";
             // 
+            // rpgAccountManage
+            // 
+            this.rpgAccountManage.ItemLinks.Add(this.bbiAccountFundTransfer);
+            this.rpgAccountManage.Name = "rpgAccountManage";
+            // 
             // rpgAccountingReport
             // 
+            this.rpgAccountingReport.ItemLinks.Add(this.bbiAccountInvestFund);
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeDetail);
             this.rpgAccountingReport.Name = "rpgAccountingReport";
@@ -863,20 +888,6 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // rpgAccountManage
-            // 
-            this.rpgAccountManage.ItemLinks.Add(this.bbiAccountFundTransfer);
-            this.rpgAccountManage.Name = "rpgAccountManage";
-            // 
-            // bbiAccountFundTransfer
-            // 
-            this.bbiAccountFundTransfer.Caption = "账户资金调拨";
-            this.bbiAccountFundTransfer.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundTransfer.Glyph")));
-            this.bbiAccountFundTransfer.Id = 32;
-            this.bbiAccountFundTransfer.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundTransfer.LargeGlyph")));
-            this.bbiAccountFundTransfer.Name = "bbiAccountFundTransfer";
-            this.bbiAccountFundTransfer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAccountFundTransfer_ItemClick);
-            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
@@ -985,6 +996,7 @@
         private DevExpress.XtraBars.BarButtonItem bbiDeliveryAccountInvestIncomeDetail;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgAccountManage;
         private DevExpress.XtraBars.BarButtonItem bbiAccountFundTransfer;
+        private DevExpress.XtraBars.BarButtonItem bbiAccountInvestFund;
     }
 }
 
