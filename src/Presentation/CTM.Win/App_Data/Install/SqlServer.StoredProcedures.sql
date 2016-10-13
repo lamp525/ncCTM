@@ -281,6 +281,7 @@ GO
 /****** [sp_AccountInvestFundDetail] ******/
 */
 
+
 DROP PROCEDURE [dbo].[sp_AccountInvestFundDetail]
 GO
 
@@ -293,29 +294,30 @@ AS
 BEGIN	
 
 	SET NOCOUNT ON
-
-	DECLARE @currentMonth int = YEAR(@DateFrom) * 100 + MONTH(@DateFrom)
-	DECLARE @firstDayOfMonth datetime = [dbo].[f_GetFirstDayOfMonth](@DateFrom)
-
+	
+	/****** 账户最新月结信息 ******/
 	SELECT 
-		AIF.AccountId,
-		(ISNULL(AIF.Amount,0) + ISNULL(T.TransferAmount,0)) InitialAmount
+		MAX(AccountId) AccountId,
+		MAX(Amount) Amount,
+		MAX([Month]) SettleMonth,
+		(CAST(MAX([Month]) AS varchar) + '01') FirstDayOfSettleMonth
+	INTO #Settle
+	FROM AccountInitialFund 
+	GROUP BY AccountId
+
+
+	/****** 开始查询日期的账户月结信息 ******/
+	SELECT 		
+		MAX(S.AccountId) AccountId, 		
+		(ISNULL(MAX(S.Amount),0) + ISNULL(SUM(T.TransferAmount),0)) InitialAmount	
 	INTO #QueryInitial
-	FROM AccountInitialFund AIF
-	LEFT JOIN
-	(
-		SELECT 		
-			AccountId, 		
-			ISNULL(SUM(TransferAmount),0) TransferAmount 	
-		FROM AccountFundTransfer 
-		WHERE TransferDate BETWEEN @firstDayOfMonth AND @DateFrom
-		GROUP BY AccountId
-	)T
-	ON T.AccountId = AIF.AccountId 
-	WHERE AIF.[Month] = @currentMonth
+	FROM #Settle S 	
+	LEFT JOIN AccountFundTransfer T
+	ON T.AccountId = S.AccountId AND T.TransferDate BETWEEN S.FirstDayOfSettleMonth AND @DateFrom
+	GROUP BY T.AccountId		
+	
 
-	--SELECT * FROM #QueryInitial 
-
+	/****** 查询时间段的账户资金调拨信息 ******/
 	SELECT 		
 		AccountId, 
 		FlowFlag,
@@ -324,9 +326,9 @@ BEGIN
 	FROM AccountFundTransfer 
 	WHERE TransferDate BETWEEN @DateFrom AND @DateTo
 	GROUP BY AccountId, FlowFlag
+	
 
-	--SELECT * FROM #Transfer
-
+	/****** 账户投资资金明细查询结果 ******/
 	SELECT 
 		AI.Id AccountId, 
 		AI.Code AccountCode,
@@ -337,18 +339,21 @@ BEGIN
 		ISNULL(T1.TransferAmount,0) InAmount, 
 		ISNULL(T0.TransferAmount,0) OutAmount, 
 		(ISNULL(Q.InitialAmount,0) + ISNULL(T1.TransferAmount,0) + ISNULL(T0.TransferAmount,0)) FinalAmount
-	FROM #QueryInitial Q 
+	FROM  AccountInfo AI
+	LEFT JOIN #QueryInitial Q 
+	ON AI.Id = Q.AccountId 
 	LEFT JOIN #Transfer T1
 	ON T1.AccountId =Q.AccountId  AND T1.FlowFlag =1
 	LEFT JOIN #Transfer T0
 	ON T0.AccountId =Q.AccountId  AND T0.FlowFlag = 0
-	LEFT JOIN AccountInfo AI
-	ON AI.Id = Q.AccountId 
 	ORDER BY AccountName, SecurityCompanyName, AttributeName 
 	
 	/****** Drop Temp Table ******/
+	DROP TABLE #Settle 
 	DROP TABLE #QueryInitial 
 	DROP TABLE #Transfer 
+	
   
 END
 GO
+
