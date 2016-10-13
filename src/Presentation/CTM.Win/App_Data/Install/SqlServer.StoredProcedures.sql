@@ -2,7 +2,7 @@ USE [CTMDB]
 GO
 
 /*
--- [sp_GetStockDailyClosePrices]
+/****** [sp_GetStockDailyClosePrices] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
 GO
@@ -20,7 +20,6 @@ BEGIN
 	
 	WHILE(@loopDate < @nowDate)
 		BEGIN
-
 			SET @loopDate =DATEADD(DAY,1,@loopDate)
 			/* PRINT @loopDate */
 
@@ -37,14 +36,11 @@ BEGIN
 					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
 					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
 					)  AS t
-			WHERE t.RowNumber =1
-		
-			
+			WHERE t.RowNumber =1					
 		END
 
 	IF(@loopDate = @nowDate)
 		BEGIN
-
 			DELETE FROM [dbo].[TKLineToday] WHERE [TradeDate] = @nowDate
 			/* PRINT N'The Current Date Close Price Has Been Deleted !!!' */
 			
@@ -62,7 +58,6 @@ BEGIN
 					 WHERE [TradeDate] < DATEADD(DAY,1,@loopDate)
 					)  AS t
 			WHERE t.RowNumber =1
-
 			/* PRINT N'The Current Date Close Price Has Been Inserted !!!' */
 		END
 
@@ -70,7 +65,7 @@ END
 GO
 
 /*
--- [sp_GetAccountDetail]
+/****** [sp_GetAccountDetail] ******/
 */
 
 DROP PROCEDURE [dbo].[sp_GetAccountDetail]
@@ -88,7 +83,6 @@ CREATE PROCEDURE  [dbo].[sp_GetAccountDetail]
 @ShowDisabled bit = 0
 )
 AS
-
 BEGIN
 
 	SET NOCOUNT ON
@@ -136,13 +130,12 @@ BEGIN
 
 	EXEC( @commandText )
 	
-	
 END
 GO
 
 
 /*
--- [sp_GetDiffBetweenDeliveryAndDailyData]
+/****** [sp_GetDiffBetweenDeliveryAndDailyData] ******/
 */
 
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
@@ -155,7 +148,6 @@ CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 @DateTo datetime
 )
 AS
-
 BEGIN	
 
 	SET NOCOUNT ON
@@ -206,7 +198,7 @@ GO
 
 
 /*
--- [sp_DeliveryAccountInvestIncomeDetail]
+/****** [sp_DeliveryAccountInvestIncomeDetail] ******/
 */
 
 DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
@@ -218,7 +210,6 @@ CREATE PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
 @DateTo datetime
 )
 AS
-
 BEGIN	
 
 	SET NOCOUNT ON
@@ -283,5 +274,79 @@ BEGIN
 	DROP TABLE #TableEnd
 
 END
+GO
 
+
+/*
+/****** [sp_AccountInvestFundDetail] ******/
+*/
+
+DROP PROCEDURE [dbo].[sp_AccountInvestFundDetail]
+GO
+
+CREATE PROCEDURE [dbo].[sp_AccountInvestFundDetail]
+(
+@DateFrom datetime,
+@DateTo datetime
+)	
+AS
+BEGIN	
+
+	SET NOCOUNT ON
+
+	DECLARE @currentMonth int = YEAR(@DateFrom) * 100 + MONTH(@DateFrom)
+	DECLARE @firstDayOfMonth datetime = [dbo].[f_GetFirstDayOfMonth](@DateFrom)
+
+	SELECT 
+		AIF.AccountId,
+		(ISNULL(AIF.Amount,0) + ISNULL(T.TransferAmount,0)) InitialAmount
+	INTO #QueryInitial
+	FROM AccountInitialFund AIF
+	LEFT JOIN
+	(
+		SELECT 		
+			AccountId, 		
+			ISNULL(SUM(TransferAmount),0) TransferAmount 	
+		FROM AccountFundTransfer 
+		WHERE TransferDate BETWEEN @firstDayOfMonth AND @DateFrom
+		GROUP BY AccountId
+	)T
+	ON T.AccountId = AIF.AccountId 
+	WHERE AIF.[Month] = @currentMonth
+
+	--SELECT * FROM #QueryInitial 
+
+	SELECT 		
+		AccountId, 
+		FlowFlag,
+		ISNULL(SUM(TransferAmount),0) TransferAmount 
+	INTO #Transfer
+	FROM AccountFundTransfer 
+	WHERE TransferDate BETWEEN @DateFrom AND @DateTo
+	GROUP BY AccountId, FlowFlag
+
+	--SELECT * FROM #Transfer
+
+	SELECT 
+		AI.Id AccountId, 
+		AI.Name AccountName, 
+		AI.SecurityCompanyName, 
+		AI.AttributeName,
+		ISNULL(Q.InitialAmount,0) InitialAmount,
+		ISNULL(T1.TransferAmount,0) InAmount, 
+		ISNULL(T0.TransferAmount,0) OutAmount, 
+		(ISNULL(Q.InitialAmount,0) + ISNULL(T1.TransferAmount,0) + ISNULL(T0.TransferAmount,0)) FinalAmount
+	FROM #QueryInitial Q 
+	LEFT JOIN #Transfer T1
+	ON T1.AccountId =Q.AccountId  AND T1.FlowFlag =1
+	LEFT JOIN #Transfer T0
+	ON T0.AccountId =Q.AccountId  AND T0.FlowFlag = 0
+	LEFT JOIN AccountInfo AI
+	ON AI.Id = Q.AccountId 
+	
+	/****** Drop Temp Table ******/
+	DROP TABLE #QueryInitial 
+	DROP TABLE #Transfer 
+  
+END
 GO
