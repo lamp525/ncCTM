@@ -1,12 +1,12 @@
 USE [CTMDB]
 GO
 
+
 /*
 /****** [sp_GetStockDailyClosePrices] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
 GO
-
 CREATE PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
 AS
 BEGIN
@@ -64,13 +64,12 @@ BEGIN
 END
 GO
 
+
 /*
 /****** [sp_GetAccountDetail] ******/
 */
-
 DROP PROCEDURE [dbo].[sp_GetAccountDetail]
 GO
-
 CREATE PROCEDURE  [dbo].[sp_GetAccountDetail]
 (
 @IndustyId int = 0,
@@ -137,10 +136,8 @@ GO
 /*
 /****** [sp_GetDiffBetweenDeliveryAndDailyData] ******/
 */
-
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
-
 CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 (
 @AccountId int,
@@ -200,10 +197,8 @@ GO
 /*
 /****** [sp_DeliveryAccountInvestIncomeDetail] ******/
 */
-
 DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
 GO
-
 CREATE PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
 (
 @DateFrom datetime,
@@ -280,11 +275,8 @@ GO
 /*
 /****** [sp_AccountInvestFundDetail] ******/
 */
-
-
 DROP PROCEDURE [dbo].[sp_AccountInvestFundDetail]
 GO
-
 CREATE PROCEDURE [dbo].[sp_AccountInvestFundDetail]
 (
 @DateFrom datetime,
