@@ -242,7 +242,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
 
                         //累计收益额
-                        decimal initAccumulatedProfit = initActualAmount + initPositionValue;
+                        decimal initAccumulatedProfit = initActualAmount + initHoldingVolume *initClosePrice;
 
                         #endregion 期初处理
 
@@ -261,7 +261,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
 
                         //累计收益额
-                        decimal currentAccumulatedProfit = currentActualAmount + currentPositionValue;
+                        decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume *currentClosePrice;
 
                         //累计收益率
                         decimal currentAccumulatedIncomeRate = 0.00M;
