@@ -298,7 +298,7 @@ BEGIN
 	GROUP BY AccountId
 
 
-	/****** 开始查询日期的账户月结信息 ******/
+	/****** 开始查询日期的账户资金信息 ******/
 	SELECT 		
 		MAX(S.AccountId) AccountId, 		
 		(ISNULL(MAX(S.Amount),0) + ISNULL(SUM(T.TransferAmount),0)) InitialAmount	
@@ -306,7 +306,7 @@ BEGIN
 	FROM #Settle S 	
 	LEFT JOIN AccountFundTransfer T
 	ON T.AccountId = S.AccountId AND T.TransferDate BETWEEN S.FirstDayOfSettleMonth AND @DateFrom
-	GROUP BY T.AccountId		
+	GROUP BY S.AccountId		
 	
 
 	/****** 查询时间段的账户资金调拨信息 ******/
@@ -331,8 +331,8 @@ BEGIN
 		ISNULL(T1.TransferAmount,0) InAmount, 
 		ISNULL(T0.TransferAmount,0) OutAmount, 
 		(ISNULL(Q.InitialAmount,0) + ISNULL(T1.TransferAmount,0) + ISNULL(T0.TransferAmount,0)) FinalAmount
-	FROM  AccountInfo AI
-	LEFT JOIN #QueryInitial Q 
+	FROM  #QueryInitial Q 
+	LEFT JOIN  AccountInfo AI
 	ON AI.Id = Q.AccountId 
 	LEFT JOIN #Transfer T1
 	ON T1.AccountId =Q.AccountId  AND T1.FlowFlag =1
