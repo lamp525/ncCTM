@@ -270,7 +270,7 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString"></property>
+        <property name="FormatString">#0.00%</property>
         <property name="FormatType">Numeric</property>
       </property>
       <property name="VisibleIndex">15</property>

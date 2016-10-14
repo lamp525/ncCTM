@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
+            this.chkAll = new DevExpress.XtraEditors.CheckEdit();
+            this.chkOnWorking = new DevExpress.XtraEditors.CheckEdit();
             this.btnSaveLayout = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -59,20 +61,20 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.chkOnWorking = new DevExpress.XtraEditors.CheckEdit();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.chkAll = new DevExpress.XtraEditors.CheckEdit();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOnWorking.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties.CalendarTimeProperties)).BeginInit();
@@ -84,18 +86,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkOnWorking.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl2
@@ -114,6 +114,27 @@
             this.layoutControl2.Size = new System.Drawing.Size(1546, 801);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
+            // 
+            // chkAll
+            // 
+            this.chkAll.Location = new System.Drawing.Point(130, 116);
+            this.chkAll.Name = "chkAll";
+            this.chkAll.Properties.Caption = "全部";
+            this.chkAll.Size = new System.Drawing.Size(46, 19);
+            this.chkAll.StyleController = this.layoutControl2;
+            this.chkAll.TabIndex = 8;
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
+            // 
+            // chkOnWorking
+            // 
+            this.chkOnWorking.EditValue = true;
+            this.chkOnWorking.Location = new System.Drawing.Point(34, 116);
+            this.chkOnWorking.Name = "chkOnWorking";
+            this.chkOnWorking.Properties.Caption = "在职人员";
+            this.chkOnWorking.Size = new System.Drawing.Size(82, 19);
+            this.chkOnWorking.StyleController = this.layoutControl2;
+            this.chkOnWorking.TabIndex = 7;
+            this.chkOnWorking.CheckedChanged += new System.EventHandler(this.chkOnWorking_CheckedChanged);
             // 
             // btnSaveLayout
             // 
@@ -376,6 +397,7 @@
             this.colCurrentIncomeRate.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentIncomeRate.Caption = "本期收益率";
+            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#0.00%";
             this.colCurrentIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCurrentIncomeRate.FieldName = "CurrentIncomeRate";
             this.colCurrentIncomeRate.Name = "colCurrentIncomeRate";
@@ -475,6 +497,40 @@
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.chkOnWorking;
+            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(86, 26);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.chkAll;
+            this.layoutControlItem3.Location = new System.Drawing.Point(106, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(50, 26);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem3
+            // 
+            this.emptySpaceItem3.AllowHotTrack = false;
+            this.emptySpaceItem3.Location = new System.Drawing.Point(96, 0);
+            this.emptySpaceItem3.Name = "emptySpaceItem3";
+            this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // layoutControlGroup6
             // 
             this.layoutControlGroup6.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -542,61 +598,6 @@
             this.emptySpaceItem6.Text = "emptySpaceItem2";
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // chkOnWorking
-            // 
-            this.chkOnWorking.EditValue = true;
-            this.chkOnWorking.Location = new System.Drawing.Point(34, 116);
-            this.chkOnWorking.Name = "chkOnWorking";
-            this.chkOnWorking.Properties.Caption = "在职人员";
-            this.chkOnWorking.Size = new System.Drawing.Size(82, 19);
-            this.chkOnWorking.StyleController = this.layoutControl2;
-            this.chkOnWorking.TabIndex = 7;
-            this.chkOnWorking.CheckedChanged += new System.EventHandler(this.chkOnWorking_CheckedChanged);
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.chkOnWorking;
-            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(86, 26);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // chkAll
-            // 
-            this.chkAll.Location = new System.Drawing.Point(130, 116);
-            this.chkAll.Name = "chkAll";
-            this.chkAll.Properties.Caption = "全部";
-            this.chkAll.Size = new System.Drawing.Size(46, 19);
-            this.chkAll.StyleController = this.layoutControl2;
-            this.chkAll.TabIndex = 8;
-            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.chkAll;
-            this.layoutControlItem3.Location = new System.Drawing.Point(106, 0);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(50, 26);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(96, 0);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // FrmUserInvestIncomeSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -608,6 +609,8 @@
             this.Load += new System.EventHandler(this.FrmUserInvestIncomeSummary_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOnWorking.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties.CalendarTimeProperties)).EndInit();
@@ -619,18 +622,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkOnWorking.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             this.ResumeLayout(false);
 
         }
