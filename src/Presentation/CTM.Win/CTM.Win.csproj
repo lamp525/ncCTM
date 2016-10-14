@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -163,6 +163,12 @@
     <Compile Include="Models\StockPositionModel.cs" />
     <Compile Include="Models\StockInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
+    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundSettleMonthly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundSettleMonthly.Designer.cs">
+      <DependentUpon>FrmAccountFundSettleMonthly.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -467,6 +473,9 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundSettleMonthly.resx">
+      <DependentUpon>FrmAccountFundSettleMonthly.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.resx">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
