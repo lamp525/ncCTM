@@ -27,6 +27,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         private const string _layoutXmlName = "FrmUserInvestIncomeSummary";
 
+        public IList<UserInvestIncomeSummaryModel> _queryResult = null;
+
         #endregion Fields
 
         #region Constructors
@@ -44,14 +46,25 @@ namespace CTM.Win.UI.Function.StatisticsReport
 
         #region Utilities
 
-        private void DisplaySearchResult()
+        private void DisplaySearchResult(bool isSearch)
         {
+            this.gridControl1.DataSource = null;
+
             var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
 
-            var queryResult = CalculateUserIncomeSummary(dateFrom.AddDays(-1), dateTo);
+            if (isSearch)
+                _queryResult = CalculateUserIncomeSummary(dateFrom.AddDays(-1), dateTo);
 
-            var totalSummary = CalculateTotalInvestIncome(queryResult);
+            if (_queryResult == null) return;
+
+            var currentResult = new List<UserInvestIncomeSummaryModel>();
+            if (this.chkOnWorking.Checked)
+                currentResult = _queryResult.Where(x => x.IsOnWorking).ToList();
+            else
+                currentResult.AddRange(_queryResult);
+
+            var totalSummary = CalculateTotalInvestIncome(currentResult);
 
             var result = DataFormat(totalSummary);
 
@@ -96,6 +109,9 @@ namespace CTM.Win.UI.Function.StatisticsReport
         private IList<UserInvestIncomeSummaryModel> CalculateTotalInvestIncome(IList<UserInvestIncomeSummaryModel> queryResult)
         {
             var totalSummaryRecords = new List<UserInvestIncomeSummaryModel>();
+
+            if (queryResult == null) return totalSummaryRecords;
+
             totalSummaryRecords.AddRange(queryResult);
 
             //投资人小计
@@ -204,7 +220,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 var beneficiaryInfo = allBeneficiaryInfos.SingleOrDefault(x => x.Code == beneficiaryGroup.Key);
                 if (beneficiaryInfo == null) continue;
 
-                var investor = beneficiaryInfo.Name;
+                //var investor = beneficiaryInfo.Name;
                 var allotFund = beneficiaryInfo.AllotFund;
 
                 //股票分组记录
@@ -242,7 +258,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
 
                         //累计收益额
-                        decimal initAccumulatedProfit = initActualAmount + initHoldingVolume *initClosePrice;
+                        decimal initAccumulatedProfit = initActualAmount + initHoldingVolume * initClosePrice;
 
                         #endregion 期初处理
 
@@ -261,7 +277,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
 
                         //累计收益额
-                        decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume *currentClosePrice;
+                        decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume * currentClosePrice;
 
                         //累计收益率
                         decimal currentAccumulatedIncomeRate = 0.00M;
@@ -289,7 +305,8 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         {
                             Type = 0,
 
-                            Investor = investor,
+                            Investor = beneficiaryInfo.Name,
+                            IsOnWorking = !beneficiaryInfo.IsDeleted,
 
                             StockFullCode = stockFullCode,
                             StockName = stockName,
@@ -317,6 +334,11 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 }
             }
             return result;
+        }
+
+        private void FilterSearchResult()
+        {
+            DisplaySearchResult(false);
         }
 
         #endregion Utilities
@@ -347,7 +369,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
             {
                 this.btnSearch.Enabled = false;
 
-                DisplaySearchResult();
+                DisplaySearchResult(true);
             }
             catch (Exception ex)
             {
@@ -357,6 +379,22 @@ namespace CTM.Win.UI.Function.StatisticsReport
             {
                 this.btnSearch.Enabled = true;
             }
+        }
+
+        private void chkOnWorking_CheckedChanged(object sender, EventArgs e)
+        {
+            this.chkAll.Checked = !this.chkOnWorking.Checked;
+
+            if (this.chkOnWorking.Checked)
+                FilterSearchResult();
+        }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            this.chkOnWorking.Checked = !this.chkAll.Checked;
+
+            if (this.chkAll.Checked)
+                FilterSearchResult();
         }
 
         private void btnSaveLayout_Click(object sender, EventArgs e)
