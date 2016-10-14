@@ -12,6 +12,8 @@
 
         public string Investor { get; set; }
 
+        public bool IsOnWorking { get; set; }
+
         public int TradeType { get; set; }
 
         public string TradeTypeName { get; set; }
