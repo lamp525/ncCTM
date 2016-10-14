@@ -2050,7 +2050,7 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
                 //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
                     tradeRecord.DealFlag = true;
                 //卖出
                 else
@@ -2058,7 +2058,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
 
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                tradeRecord.ActualAmount = decimal.Parse(row["清算金额"].ToString().Trim());
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
