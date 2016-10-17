@@ -90,6 +90,7 @@
             this.bbiDeliveryAccountInvestIncomeDetail = new DevExpress.XtraBars.BarButtonItem();
             this.bbiAccountFundTransfer = new DevExpress.XtraBars.BarButtonItem();
             this.bbiAccountInvestFund = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiAccountFundMonthlyStatement = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -182,9 +183,10 @@
             this.bbiDeliveryAccountInvestIncomeFlow,
             this.bbiDeliveryAccountInvestIncomeDetail,
             this.bbiAccountFundTransfer,
-            this.bbiAccountInvestFund});
+            this.bbiAccountInvestFund,
+            this.bbiAccountFundMonthlyStatement});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 34;
+            this.ribbonControl1.MaxItemId = 35;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -701,6 +703,15 @@
             this.bbiAccountInvestFund.Name = "bbiAccountInvestFund";
             this.bbiAccountInvestFund.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAccountInvestFund_ItemClick);
             // 
+            // bbiAccountFundMonthlyStatement
+            // 
+            this.bbiAccountFundMonthlyStatement.Caption = "账户资金月结";
+            this.bbiAccountFundMonthlyStatement.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundMonthlyStatement.Glyph")));
+            this.bbiAccountFundMonthlyStatement.Id = 34;
+            this.bbiAccountFundMonthlyStatement.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiAccountFundMonthlyStatement.LargeGlyph")));
+            this.bbiAccountFundMonthlyStatement.Name = "bbiAccountFundMonthlyStatement";
+            this.bbiAccountFundMonthlyStatement.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAccountFundMonthlyStatement_ItemClick);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -774,6 +785,7 @@
             // rpgAccountManage
             // 
             this.rpgAccountManage.ItemLinks.Add(this.bbiAccountFundTransfer);
+            this.rpgAccountManage.ItemLinks.Add(this.bbiAccountFundMonthlyStatement);
             this.rpgAccountManage.Name = "rpgAccountManage";
             // 
             // rpgAccountingReport
@@ -997,6 +1009,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgAccountManage;
         private DevExpress.XtraBars.BarButtonItem bbiAccountFundTransfer;
         private DevExpress.XtraBars.BarButtonItem bbiAccountInvestFund;
+        private DevExpress.XtraBars.BarButtonItem bbiAccountFundMonthlyStatement;
     }
 }
 

@@ -40,5 +40,12 @@ namespace CTM.Services.Account
         AccountOperator GetAccountOperatorByAccountIdAndOperatorId(int accountId, int operatorId);
 
         IList<int> GetAccountIdByOperatorId(int operatorId);
+
+        KeyValuePair <int,bool> GetLatestAccountFundInitialInfo();
+
+        void AccountFundSettleProcess();
+
+        void AccountFundRevokeProcess();
+
     }
 }

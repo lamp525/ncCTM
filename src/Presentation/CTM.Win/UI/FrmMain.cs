@@ -423,6 +423,16 @@ namespace CTM.Win.UI
             this.DisplayTabbedForm<FrmAccountFundTransfer>("账户资金调拨");
         }
 
+        /// <summary>
+        /// 账户资金月结
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountFundMonthlyStatement_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmAccountFundMonthlyStatements>("账户资金月结");
+        }
+
         #region Report
 
         /// <summary>
@@ -624,8 +634,11 @@ namespace CTM.Win.UI
                 e.Cancel = true;
         }
 
+
         #endregion Application
 
         #endregion Events
+
+     
     }
 }

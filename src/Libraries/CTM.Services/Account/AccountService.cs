@@ -19,6 +19,7 @@ namespace CTM.Services.Account
 
         private readonly IRepository<AccountInfo> _accountInfoRepository;
         private readonly IRepository<AccountFundTransfer> _accountFundTransferRepository;
+        private readonly IRepository<AccountInitialFund> _accountInitialFundRepository;
         private readonly IRepository<AccountOperator> _accountOperatorRepository;
         private readonly IRepository<DictionaryInfo> _dictionaryInfoRepository;
         private readonly IRepository<IndustryInfo> _industryInfoRepository;
@@ -31,6 +32,7 @@ namespace CTM.Services.Account
         public AccountService(
             IRepository<AccountInfo> accountInfoRepository,
             IRepository<AccountFundTransfer> accountFundTransferRepository,
+            IRepository<AccountInitialFund> accountInitialFundRepository,
             IRepository<DictionaryInfo> dictionaryInfoRepository,
             IRepository<AccountOperator> accountOperatorRepository,
             IRepository<UserInfo> userInfoRepository,
@@ -40,6 +42,7 @@ namespace CTM.Services.Account
         {
             this._accountInfoRepository = accountInfoRepository;
             this._accountFundTransferRepository = accountFundTransferRepository;
+            this._accountInitialFundRepository = accountInitialFundRepository;
             this._dictionaryInfoRepository = dictionaryInfoRepository;
             this._accountOperatorRepository = accountOperatorRepository;
             this._userInfoRepository = userInfoRepository;
@@ -272,7 +275,7 @@ namespace CTM.Services.Account
                            Id = t.Id,
                            AccountId = t.AccountId,
                            AccountCode = t.AccountCode,
-                           AccountDetail = a.Name + " - " + a.SecurityCompanyName + " - " + a.AttributeName,                   
+                           AccountDetail = a.Name + " - " + a.SecurityCompanyName + " - " + a.AttributeName,
                            FlowFlag = t.FlowFlag,
                            OperateTime = t.OperateTime,
                            Operator = u.Name,
@@ -285,6 +288,39 @@ namespace CTM.Services.Account
                        };
 
             return info.ToList();
+        }
+
+        public virtual KeyValuePair<int, bool> GetLatestAccountFundInitialInfo()
+        {
+            int latestInitialMonth = 0;
+            bool canRevoke = false;
+
+            var query = _accountInitialFundRepository.Table;
+
+            if (query.Any())
+            {
+                var info = query.Where(x => x.IsInitial == false);
+
+                if (info.Any())
+                    latestInitialMonth = info.Max(x => x.Month);
+
+                if (latestInitialMonth == 0)
+                    latestInitialMonth = query.Where(x => x.IsInitial == true).Min(x => x.Month);
+
+                canRevoke = query.Count(x => x.Month == latestInitialMonth && x.IsInitial == false) > 0 ? true : false;
+            }
+
+            return new KeyValuePair<int, bool>(latestInitialMonth, canRevoke);
+        }
+
+        public void AccountFundSettleProcess()
+        {
+            _dbContext.ExecuteSqlCommand(@"EXEC [dbo].[sp_AccountFundSettleProcess]");
+        }
+
+        public void AccountFundRevokeProcess()
+        {
+            _dbContext.ExecuteSqlCommand(@"EXEC [dbo].[sp_AccountFundRevokeProcess]");
         }
 
         #endregion Methods
