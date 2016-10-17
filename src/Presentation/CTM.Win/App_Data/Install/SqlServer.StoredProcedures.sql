@@ -349,3 +349,54 @@ BEGIN
 END
 GO
 
+
+/*
+/****** [sp_AccountFundSettleProcess] ******/
+*/
+DROP PROCEDURE [dbo].[sp_AccountFundSettleProcess]
+GO
+
+CREATE PROCEDURE [dbo].[sp_AccountFundSettleProcess]
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	DECLARE @currentSettleMonth int = 0
+
+	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
+
+	IF @currentSettleMonth = 0 
+	BEGIN
+		SELECT @currentSettleMonth = ISNULL(MIN([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 1
+	END
+	
+	IF @currentSettleMonth = 0 	RETURN
+
+	DECLARE @firstDayOfSettleMonth varchar(10) = CAST(@currentSettleMonth AS varchar) + '01'
+	DECLARE @lastDayOfSettleMonth varchar(10) = [dbo].[f_GetLastDayOfMonth](@firstDayOfSettleMonth)
+
+	DECLARE @initialMonth int = YEAR(DATEADD(M,1,@firstDayOfSettleMonth))*100 + MONTH(DATEADD(M,1,@firstDayOfSettleMonth))
+
+	INSERT INTO AccountInitialFund (AccountId,AccountCode,[Month],Amount,IsInitial)
+	SELECT 
+		AIF.AccountId,
+		AIF.AccountCode,
+		@initialMonth,
+		AIF.Amount + ISNULL(T.TransferAmount,0),
+		0
+	FROM AccountInitialFund AIF
+	LEFT JOIN
+	(
+		SELECT 
+			MAX(AccountId) AccountId,
+			SUM(TransferAmount) TransferAmount
+		FROM AccountFundTransfer
+		WHERE TransferDate BETWEEN @firstDayOfSettleMonth AND @lastDayOfSettleMonth
+	) T
+	ON AIF.AccountId = t.AccountId 
+	WHERE AIF.[Month] = @currentSettleMonth
+ 
+END
+GO
+
