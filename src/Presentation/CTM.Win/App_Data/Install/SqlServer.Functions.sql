@@ -58,7 +58,7 @@ RETURNS datetime
 AS
 BEGIN    
 
-    RETURN DATEADD(d,-1,DATEADD(m,DATEDIFF(m,0,GETDATE())+1,0))	
+    RETURN DATEADD(d,-1,DATEADD(m,DATEDIFF(m,0,@CurrentDate)+1,0))	
 		
 END
 GO
