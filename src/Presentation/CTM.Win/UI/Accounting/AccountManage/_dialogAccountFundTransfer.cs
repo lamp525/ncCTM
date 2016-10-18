@@ -177,7 +177,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 if (DXMessage.ShowYesNoAndWarning("确定删除所选的信息么？") == System.Windows.Forms.DialogResult.Yes)
                 {
                     var ids = new List<int>();
-                    foreach (var rowhandle in selectedHandles)
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
                         ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
                     }
