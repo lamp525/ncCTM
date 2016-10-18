@@ -1,4 +1,5 @@
-﻿using CTM.Core.Domain.InvestmentDecision;
+﻿using System.Collections.Generic;
+using CTM.Core.Domain.InvestmentDecision;
 
 namespace CTM.Services.InvestmentDecision
 {
@@ -6,6 +7,6 @@ namespace CTM.Services.InvestmentDecision
     {
         void AddInvestmentDecisionForm(InvestmentDecisionForm entity);
 
-        void DeleteInvestmentDecisionForm(InvestmentDecisionForm entity);
+        void DeleteInvestmentDecisionForm(IList<int> ids);
     }
 }

@@ -55,7 +55,7 @@ namespace CTM.Win.UI.InvestmentDecision
             var now = _commonService.GetCurrentServerTime();
 
             //申请编号
-            this.txtSerialNo.Text = "NCSQD" + now.ToLongTimeString();
+            this.txtSerialNo.Text = "NCSQD" + now.ToString ("yyyyMMddHHmmss");
 
             this.deApply.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deApply.EditValue = now.Date;
@@ -93,7 +93,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             this.txtPrice.SetNumericMask(4);
             this.txtPrice.Text = string.Empty;
-            this.txtVolume.SetNumericMask(0);
+            this.txtVolume.SetNumberMask();
             this.txtVolume.Text = string.Empty;
         }
 
@@ -134,8 +134,10 @@ namespace CTM.Win.UI.InvestmentDecision
             }
 
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
+            var tradeType = int.Parse(this.cbOperateType.SelectedValue());
             var price = decimal.Parse(this.txtPrice.Text.Trim());
             var volume = decimal.Parse(this.txtVolume.Text.Trim());
+            
 
             var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
 
@@ -151,7 +153,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 Status = (int)EnumLibrary.IDFormStatus.Proceed,
                 StockFullCode = stock.FullCode,
                 StockName = stock.Name,
-                TradeType = int.Parse(this.cbOperateType.EditValue.ToString()),
+                TradeType = tradeType,
                 Volume = volume,
             };
 
@@ -202,7 +204,7 @@ namespace CTM.Win.UI.InvestmentDecision
             }
             finally
             {
-                this.btnSubmit.Enabled = false;
+                this.btnSubmit.Enabled = true;
             }
         }
 

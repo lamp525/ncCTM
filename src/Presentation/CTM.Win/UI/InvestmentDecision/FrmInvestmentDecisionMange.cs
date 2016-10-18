@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
@@ -27,9 +24,15 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void BindApplicationInfo()
         {
-            throw new NotImplementedException();
-        }
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
+            var ds = SqlHelper.ExecuteDataset(connString, CommandType.StoredProcedure, "[sp_GetInvestmentDecisionForm]");
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            var source = ds.Tables[0];
+            this.gridControl1.DataSource = source;
+        }
 
         private void FrmInvestmentDecisionMange_Load(object sender, EventArgs e)
         {
@@ -37,9 +40,10 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
                 this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
-             
 
                 this.btnDelete.Enabled = false;
+
+                BindApplicationInfo();
             }
             catch (Exception ex)
             {
@@ -55,7 +59,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 var dialog = this.CreateDialog<_dialogTradeApplication>();
                 dialog.RefreshEvent += new _dialogTradeApplication.RefreshParentForm(BindApplicationInfo);
                 dialog.Text = "股票投资交易申请";
-              
 
                 dialog.ShowDialog();
             }
@@ -87,10 +90,10 @@ namespace CTM.Win.UI.InvestmentDecision
 
                     for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
-                       // ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                        ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
                     }
 
-                    //this._IDService.DeleteInvestmentDecisionForm(ids.ToArray());
+                    this._IDService.DeleteInvestmentDecisionForm(ids.ToArray());
 
                     BindApplicationInfo();
                 }
@@ -101,14 +104,49 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
-   
-
         private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
-
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
         }
 
         private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            var myView = this.gridView1;
+            var selectedHandles = myView.GetSelectedRows();
+            if (selectedHandles.Any())
+                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+            if (selectedHandles.Length > 0)
+                this.btnDelete.Enabled = true;
+            else
+                this.btnDelete.Enabled = false;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnSearch.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnSearch.Enabled = true;
+            }
+        }
+
+        private void btnSaveLayout_Click(object sender, EventArgs e)
+        {
+            this.gridView1.SaveLayout(_layoutXmlName);
+        }
+
+        private void repositoryItemBtnApproval_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
 
         }

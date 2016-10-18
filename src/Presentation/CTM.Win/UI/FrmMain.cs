@@ -17,6 +17,7 @@ using CTM.Win.UI.Function.DataManage;
 using CTM.Win.UI.Function.MarginTrading;
 using CTM.Win.UI.Function.ReportExport;
 using CTM.Win.UI.Function.StatisticsReport;
+using CTM.Win.UI.InvestmentDecision;
 using CTM.Win.UI.Setting;
 using CTM.Win.Util;
 using DevExpress.XtraBars;
@@ -635,10 +636,14 @@ namespace CTM.Win.UI
         }
 
 
+
         #endregion Application
 
         #endregion Events
 
-     
+        private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmInvestmentDecisionMange>("股票投资决策单管理");
+        }
     }
 }

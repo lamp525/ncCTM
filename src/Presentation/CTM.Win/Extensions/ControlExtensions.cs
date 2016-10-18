@@ -317,6 +317,19 @@ namespace CTM.Win.Extensions
             textEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
         }
 
+        /// <summary>
+        /// Set TextEdit's Number mask
+        /// </summary>
+        /// <param name="textEdit"></param>
+        /// <param name="length"></param>
+        public static void SetNumberMask(this TextEdit textEdit , int length = 9 )
+        {
+            textEdit.Properties.MaxLength = length;
+            textEdit.Properties.Mask.EditMask = "[0-9]*";
+            textEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            textEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+        }
+
         #endregion TextEdit
 
         #region DateEdit
