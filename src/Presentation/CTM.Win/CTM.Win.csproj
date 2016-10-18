@@ -782,6 +782,7 @@
   <ItemGroup>
     <Folder Include="CustomControl\" />
     <Folder Include="Resources\" />
+    <Folder Include="UI\InvestmentDecision\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\CTM.Core\CTM.Core.csproj">

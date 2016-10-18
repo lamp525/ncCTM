@@ -298,28 +298,28 @@
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(707, 43);
+            this.txtAmount.Location = new System.Drawing.Point(719, 43);
             this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(153, 20);
+            this.txtAmount.Size = new System.Drawing.Size(141, 20);
             this.txtAmount.StyleController = this.layoutControl1;
             this.txtAmount.TabIndex = 6;
             // 
             // deTransfer
             // 
             this.deTransfer.EditValue = null;
-            this.deTransfer.Location = new System.Drawing.Point(407, 43);
+            this.deTransfer.Location = new System.Drawing.Point(419, 43);
             this.deTransfer.Name = "deTransfer";
             this.deTransfer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deTransfer.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deTransfer.Size = new System.Drawing.Size(103, 20);
+            this.deTransfer.Size = new System.Drawing.Size(91, 20);
             this.deTransfer.StyleController = this.layoutControl1;
             this.deTransfer.TabIndex = 5;
             // 
             // luAccount
             // 
-            this.luAccount.Location = new System.Drawing.Point(97, 43);
+            this.luAccount.Location = new System.Drawing.Point(109, 43);
             this.luAccount.Name = "luAccount";
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -328,7 +328,7 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SecurityCompanyName", "开户券商"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("AttributeName", "属性"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default)});
-            this.luAccount.Size = new System.Drawing.Size(223, 20);
+            this.luAccount.Size = new System.Drawing.Size(211, 20);
             this.luAccount.StyleController = this.layoutControl1;
             this.luAccount.TabIndex = 4;
             // 
@@ -449,7 +449,7 @@
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(180, 26);
             this.layoutControlItem2.Text = "操作日期";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(70, 14);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(82, 14);
             // 
             // emptySpaceItem5
             // 
@@ -482,8 +482,8 @@
             this.layoutControlItem3.Location = new System.Drawing.Point(610, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(230, 26);
-            this.layoutControlItem3.Text = "操作金额(元)";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(70, 14);
+            this.layoutControlItem3.Text = "操作金额(万元)";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(82, 14);
             // 
             // layoutControlItem1
             // 
@@ -492,7 +492,7 @@
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(300, 26);
             this.layoutControlItem1.Text = "账户信息";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(70, 14);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(82, 14);
             // 
             // emptySpaceItem1
             // 

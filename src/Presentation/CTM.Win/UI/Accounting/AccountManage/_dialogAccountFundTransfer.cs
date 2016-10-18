@@ -63,7 +63,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 this.luAccount.EditValue = this.AccountId;
 
             //操作金额
-            this.txtAmount.SetNumericMask(2);
+            this.txtAmount.SetNumericMask(6);
             this.btnDelete.Enabled = false;
         }
 
@@ -128,7 +128,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 }
 
                 var transferDate = CommonHelper.StringToDateTime(this.deTransfer.EditValue.ToString());
-                var transferAmount = decimal.Parse(this.txtAmount.Text.Trim());
+                var transferAmount = decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand;
                 var account = this.luAccount.GetSelectedDataRow() as AccountEntity;
 
                 if (account == null) return;
