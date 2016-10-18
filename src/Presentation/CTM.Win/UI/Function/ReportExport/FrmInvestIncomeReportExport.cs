@@ -95,22 +95,22 @@ namespace CTM.Win.UI.Function.ReportExport
             this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
-        private string GetReportTemplateFilePath(EnumLibrary.TradeType tradeType)
+        private string GetReportTemplateFilePath(int deptId)
         {
             string directoryName = "ReportTemplate\\UserDailyProfitFlow";
             string fileName = string.Empty;
 
-            switch (tradeType)
+            switch ((EnumLibrary.AccountingDepartment)deptId)
             {
-                case EnumLibrary.TradeType.Target:
+                case EnumLibrary.AccountingDepartment.Target:
                     fileName = "TargetReport.xlsx";
                     break;
 
-                case EnumLibrary.TradeType.Band:
+                case EnumLibrary.AccountingDepartment.Band:
                     fileName = "BandReport.xlsx";
                     break;
 
-                case EnumLibrary.TradeType.Day:
+                case EnumLibrary.AccountingDepartment.Day:
                     fileName = "DayReport.xlsx";
                     break;
 
@@ -121,22 +121,22 @@ namespace CTM.Win.UI.Function.ReportExport
             return Path.Combine(Application.StartupPath, directoryName, fileName);
         }
 
-        private string GetReportDestinyFilePath(EnumLibrary.TradeType tradeType, string savePath)
+        private string GetReportDestinyFilePath(int deptId, string savePath)
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string typeName = string.Empty;
 
-            switch (tradeType)
+            switch ((EnumLibrary.AccountingDepartment)deptId)
             {
-                case EnumLibrary.TradeType.Target:
+                case EnumLibrary.AccountingDepartment.Target:
                     typeName = "目标";
                     break;
 
-                case EnumLibrary.TradeType.Band:
+                case EnumLibrary.AccountingDepartment.Band:
                     typeName = "波段";
                     break;
 
-                case EnumLibrary.TradeType.Day:
+                case EnumLibrary.AccountingDepartment.Day:
                     typeName = "短差";
                     break;
 
@@ -151,22 +151,22 @@ namespace CTM.Win.UI.Function.ReportExport
 
         private void CreateReport(DateTime endDate, int deptId, string reportType, string savePath)
         {
-            var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
-            var templateFilePath = GetReportTemplateFilePath(tradeType);
+            // var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
+            var templateFilePath = GetReportTemplateFilePath(deptId);
 
             if (!File.Exists(templateFilePath))
             {
                 throw new FileNotFoundException("报表模板Excel文件不存在！");
             }
 
-            var destinyFileName = GetReportDestinyFilePath(tradeType, savePath);
+            var destinyFileName = GetReportDestinyFilePath(deptId, savePath);
 
-            var reportData = GetReportData(endDate, deptId, tradeType, reportType);
+            var reportData = GetReportData(endDate, deptId, reportType);
 
-            WriteDataToExcel(reportData, tradeType, templateFilePath, destinyFileName);
+            WriteDataToExcel(reportData, deptId, templateFilePath, destinyFileName);
         }
 
-        private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, EnumLibrary.TradeType tradeType, string templateFilePath, string destinyFilePath)
+        private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, int deptId, string templateFilePath, string destinyFilePath)
         {
             if (reportData == null)
                 throw new NullReferenceException(nameof(reportData));
@@ -198,7 +198,7 @@ namespace CTM.Win.UI.Function.ReportExport
                 {
                     var investInfo = data[i];
 
-                    if (tradeType != EnumLibrary.TradeType.Day)
+                    if (deptId != (int)EnumLibrary.AccountingDepartment.Day)
                     {
                         //周一（万元）
                         worksheet.Cells[startRowIndex + i, 3] = investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
@@ -276,7 +276,7 @@ namespace CTM.Win.UI.Function.ReportExport
             //rngColL.NumberFormatLocal = @"0.00";
         }
 
-        private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, EnumLibrary.TradeType tradeType, string reportType)
+        private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, string reportType)
         {
             IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> result = new List<KeyValuePair<string, IList<UserInvestIncomeEntity>>>();
 
@@ -312,7 +312,7 @@ namespace CTM.Win.UI.Function.ReportExport
                     statisticalInvestorCodes.Add(investor.Code);
 
                 //交易记录
-                var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: (int)tradeType, beneficiaries: statisticalInvestorCodes.ToArray(), tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
+                var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: 0, beneficiaries: statisticalInvestorCodes.ToArray(), tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
 
                 //交易记录中的所有股票代码
                 var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
