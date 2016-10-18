@@ -4,6 +4,24 @@ namespace CTM.Core
 {
     public static class EnumLibrary
     {
+        /// <summary>
+        /// 投资决策单状态
+        /// </summary>
+        public enum IDFormStatus
+        {
+            [Description("已提交")]
+            Submited = 1,
+
+            [Description("进行中")]
+            Proceed = 2,
+
+            [Description("申请通过")]
+            Passed = 3,
+
+            [Description("申请不通过")]
+            Denied = 4,
+        }
+
         public enum ReportType
         {
             [Description("日报表")]

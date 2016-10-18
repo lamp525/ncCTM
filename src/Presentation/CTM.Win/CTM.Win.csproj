@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -367,6 +367,18 @@
     <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.Designer.cs">
+      <DependentUpon>FrmInvestmentDecisionMange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.Designer.cs">
+      <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Setting\_dialogChangePwd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -565,6 +577,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.resx">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.resx">
+      <DependentUpon>FrmInvestmentDecisionMange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\_dialogTradeApplication.resx">
+      <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\_dialogLogin.resx">
       <DependentUpon>_dialogLogin.cs</DependentUpon>
@@ -782,7 +800,6 @@
   <ItemGroup>
     <Folder Include="CustomControl\" />
     <Folder Include="Resources\" />
-    <Folder Include="UI\InvestmentDecision\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\CTM.Core\CTM.Core.csproj">

@@ -67,6 +67,9 @@
     <Compile Include="IBaseService.cs" />
     <Compile Include="Industry\IIndustryService.cs" />
     <Compile Include="Industry\IndustryService.cs" />
+    <Compile Include="InvestmentDecision\IInvestmentDecisionService.cs" />
+    <Compile Include="InvestmentDecision\InvestmentDecisionEntity.cs" />
+    <Compile Include="InvestmentDecision\InvestmentDecisionService.cs" />
     <Compile Include="MarginTrading\DailyMarginTradingInfoEntity.cs" />
     <Compile Include="MarginTrading\IMarginTradingService.cs" />
     <Compile Include="MarginTrading\MarginTradingEntity.cs" />
