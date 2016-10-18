@@ -400,3 +400,31 @@ BEGIN
 END
 GO
 
+
+
+/*
+/****** [sp_AccountFundRevokeProcess] ******/
+*/
+DROP PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
+GO
+
+CREATE PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	DECLARE @currentSettleMonth int = 0
+
+	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
+
+	IF @currentSettleMonth = 0 	RETURN
+
+	DELETE 
+	FROM AccountInitialFund 
+	WHERE IsInitial = 0 AND [Month] = @currentSettleMonth
+	
+ 
+END
+GO
+
