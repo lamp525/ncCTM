@@ -60,5 +60,12 @@ namespace CTM.Win.Util
         /// <param name="value"></param>
         /// <returns></returns>
         public static string GetDataTypeName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.DataType));
+
+        /// <summary>
+        /// 取得投资决策投票标志名称
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetIDVoteFlagName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.IDVoteFlag));
     }
 }

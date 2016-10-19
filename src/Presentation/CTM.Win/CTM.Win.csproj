@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -270,6 +270,12 @@
     </Compile>
     <Compile Include="UI\Common\_dialogImportDataTemplate.Designer.cs">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\_dialogInputContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Common\_dialogInputContent.Designer.cs">
+      <DependentUpon>_dialogInputContent.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Function\DataManage\_dialogDailyRecordEdit.cs">
       <SubType>Form</SubType>
@@ -553,6 +559,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Common\_dialogImportDataTemplate.resx">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Common\_dialogInputContent.resx">
+      <DependentUpon>_dialogInputContent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\DataManage\_dialogDailyRecordSplit.resx">
       <DependentUpon>_dialogDailyRecordSplit.cs</DependentUpon>

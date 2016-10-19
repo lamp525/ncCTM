@@ -5,6 +5,25 @@ namespace CTM.Core
     public static class EnumLibrary
     {
         /// <summary>
+        /// 投资决策单投票标志
+        /// </summary>
+        public enum IDVoteFlag
+        {
+            [Description("未投票")]
+            None =0,
+
+            [Description("赞同")]
+            Approval = 1,
+
+            [Description("反对")]
+            Oppose =2,
+
+            [Description("弃权")]
+            Abstain =3,
+        }
+
+
+        /// <summary>
         /// 投资决策单状态
         /// </summary>
         public enum IDFormStatus
