@@ -82,6 +82,7 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
@@ -263,7 +264,8 @@
             this.colProfit,
             this.colRelateTradePlanNo,
             this.colCreateTime,
-            this.colOperate});
+            this.colOperate,
+            this.colReason});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 50;
             this.gridView1.Name = "gridView1";
@@ -387,7 +389,7 @@
             this.colCreateTime.FieldName = "CreateTime";
             this.colCreateTime.Name = "colCreateTime";
             this.colCreateTime.Visible = true;
-            this.colCreateTime.VisibleIndex = 15;
+            this.colCreateTime.VisibleIndex = 16;
             // 
             // colOperate
             // 
@@ -614,6 +616,14 @@
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
+            // colReason
+            // 
+            this.colReason.Caption = "申请理由";
+            this.colReason.FieldName = "Reason";
+            this.colReason.Name = "colReason";
+            this.colReason.Visible = true;
+            this.colReason.VisibleIndex = 15;
+            // 
             // FrmInvestmentDecisionMange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -712,5 +722,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCreateTime;
         private DevExpress.XtraGrid.Columns.GridColumn colOperate;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemBtnApproval;
+        private DevExpress.XtraGrid.Columns.GridColumn colReason;
     }
 }

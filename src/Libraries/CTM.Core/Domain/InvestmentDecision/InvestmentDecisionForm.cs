@@ -26,10 +26,14 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public decimal Volume { get; set; }
 
+        public decimal Amount { get; set; }
+
         public decimal Profit { get; set; }
 
         public string RelateTradePlanNo { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public string Reason { get; set; }
     }
 }

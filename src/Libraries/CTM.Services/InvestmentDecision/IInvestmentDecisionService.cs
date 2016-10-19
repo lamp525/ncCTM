@@ -6,7 +6,7 @@ namespace CTM.Services.InvestmentDecision
 {
     public partial interface IInvestmentDecisionService : IBaseService
     {
-        void AddInvestmentDecisionForm(InvestmentDecisionForm entity);
+        void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity);
 
         void DeleteInvestmentDecisionForm(IList<int> ids);
 

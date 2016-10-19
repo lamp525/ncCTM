@@ -86,9 +86,9 @@
             // 
             // memoContent
             // 
-            this.memoContent.Location = new System.Drawing.Point(12, 29);
+            this.memoContent.Location = new System.Drawing.Point(12, 31);
             this.memoContent.Name = "memoContent";
-            this.memoContent.Size = new System.Drawing.Size(437, 207);
+            this.memoContent.Size = new System.Drawing.Size(437, 205);
             this.memoContent.StyleController = this.layoutControl1;
             this.memoContent.TabIndex = 4;
             // 
@@ -110,13 +110,15 @@
             // 
             // lciContent
             // 
+            this.lciContent.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lciContent.AppearanceItemCaption.Options.UseFont = true;
             this.lciContent.Control = this.memoContent;
             this.lciContent.Location = new System.Drawing.Point(0, 0);
             this.lciContent.Name = "lciContent";
             this.lciContent.Size = new System.Drawing.Size(441, 228);
             this.lciContent.Text = "Title";
             this.lciContent.TextLocation = DevExpress.Utils.Locations.Top;
-            this.lciContent.TextSize = new System.Drawing.Size(24, 14);
+            this.lciContent.TextSize = new System.Drawing.Size(27, 16);
             // 
             // emptySpaceItem1
             // 
