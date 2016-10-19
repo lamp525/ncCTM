@@ -157,7 +157,6 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
-            this.gridView1.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView1_CustomColumnDisplayText);
             // 
             // colId
             // 
@@ -189,8 +188,7 @@
             // 
             // colTransferAmount
             // 
-            this.colTransferAmount.Caption = "金额（元）";
-            this.colTransferAmount.DisplayFormat.FormatString = "0.#0";
+            this.colTransferAmount.Caption = "金额（万元）";
             this.colTransferAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colTransferAmount.FieldName = "TransferAmount";
             this.colTransferAmount.Name = "colTransferAmount";
@@ -201,6 +199,7 @@
             // colFlowFlagName
             // 
             this.colFlowFlagName.Caption = "操作";
+            this.colFlowFlagName.FieldName = "FlowFlagName";
             this.colFlowFlagName.Name = "colFlowFlagName";
             this.colFlowFlagName.Visible = true;
             this.colFlowFlagName.VisibleIndex = 3;

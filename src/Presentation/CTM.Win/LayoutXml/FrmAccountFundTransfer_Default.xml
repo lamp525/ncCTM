@@ -43,7 +43,7 @@
     </property>
     <property name="Item5" isnull="true" iskey="true">
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">0.#0</property>
+        <property name="FormatString"></property>
         <property name="FormatType">Numeric</property>
       </property>
       <property name="Width">120</property>
@@ -51,7 +51,7 @@
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">4</property>
       <property name="Name">colTransferAmount</property>
-      <property name="Caption">金额（元）</property>
+      <property name="Caption">金额（万元）</property>
       <property name="FieldName">TransferAmount</property>
     </property>
     <property name="Item6" isnull="true" iskey="true">
@@ -61,6 +61,7 @@
       <property name="VisibleIndex">3</property>
       <property name="Name">colFlowFlagName</property>
       <property name="Caption">操作</property>
+      <property name="FieldName">FlowFlagName</property>
     </property>
     <property name="Item7" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>

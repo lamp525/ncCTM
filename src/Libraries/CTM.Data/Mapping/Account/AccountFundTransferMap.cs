@@ -10,7 +10,7 @@ namespace CTM.Data.Mapping.Account
             this.ToTable(nameof(AccountFundTransfer));
             this.HasKey(p => p.Id);
 
-            this.Property(p => p.TransferAmount).HasPrecision(24, 4);
+            this.Property(p => p.TransferAmount).HasPrecision(24, 6);
         }
     }
 }

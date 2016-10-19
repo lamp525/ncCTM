@@ -277,6 +277,7 @@ namespace CTM.Services.Account
                            AccountCode = t.AccountCode,
                            AccountDetail = a.Name + " - " + a.SecurityCompanyName + " - " + a.AttributeName,
                            FlowFlag = t.FlowFlag,
+                           FlowFlagName = t.FlowFlag ? "转入" : "转出",
                            OperateTime = t.OperateTime,
                            Operator = u.Name,
                            Remarks = t.Remarks,

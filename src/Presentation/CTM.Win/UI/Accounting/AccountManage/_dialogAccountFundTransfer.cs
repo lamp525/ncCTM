@@ -69,8 +69,9 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
         private void BindFundTransferInfo()
         {
-            var info = _accountService.GetAccountFundTransferInfo(operateDate: _commonService.GetCurrentServerTime().Date);
-            this.gridControl1.DataSource = info;
+            var source = _accountService.GetAccountFundTransferInfo(operateDate: _commonService.GetCurrentServerTime().Date);
+
+            this.gridControl1.DataSource = source;
         }
 
         #endregion Utilities
@@ -128,7 +129,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 }
 
                 var transferDate = CommonHelper.StringToDateTime(this.deTransfer.EditValue.ToString());
-                var transferAmount = decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand;
+                var transferAmount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()));
                 var account = this.luAccount.GetSelectedDataRow() as AccountEntity;
 
                 if (account == null) return;
@@ -223,29 +224,5 @@ namespace CTM.Win.UI.Accounting.AccountManage
         }
 
         #endregion Events
-
-        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column == this.colFlowFlagName)
-            {
-                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as AccountFundTransferEntity;
-                if (row == null) return;
-
-                switch (row.FlowFlag)
-                {
-                    case false:
-                        e.DisplayText = "转出";
-                        break;
-
-                    case true:
-                        e.DisplayText = "转入";
-                        break;
-
-                    default:
-                        e.DisplayText = "";
-                        break;
-                }
-            }
-        }
     }
 }

@@ -24,6 +24,8 @@ namespace CTM.Services.Account
 
         public bool FlowFlag { get; set; }
 
+        public string FlowFlagName { get; set; }
+
         public int TargetAccountId { get; set; }
 
         public string TargetAccountCode { get; set; }

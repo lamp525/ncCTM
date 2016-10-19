@@ -15,7 +15,7 @@ namespace CTM.Data.Mapping.Account
             this.ToTable(nameof(AccountInitialFund));
             this.HasKey(p => p.Id);
 
-            this.Property(p => p.Amount).HasPrecision(24, 4);
+            this.Property(p => p.Amount).HasPrecision(24, 6);
         }
     }
 }

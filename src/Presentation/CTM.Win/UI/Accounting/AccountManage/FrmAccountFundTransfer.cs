@@ -109,6 +109,10 @@ namespace CTM.Win.UI.Accounting.AccountManage
 
             this.gridControl1.DataSource = source;
 
+            if (source.Any())
+                this.btnExportToExcel.Enabled = true;
+            else
+                this.btnExportToExcel.Enabled = false;
         }
 
         #endregion Utilities
@@ -124,6 +128,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 BindSearchInfo();
 
                 this.btnDelete.Enabled = false;
+                this.btnExportToExcel.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -174,7 +179,6 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 this.btnDelete.Enabled = true;
             else
                 this.btnDelete.Enabled = false;
-            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -231,6 +235,24 @@ namespace CTM.Win.UI.Accounting.AccountManage
             }
         }
 
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExportToExcel.Enabled = false;
+
+                this.gridView1.ExportToExcelAndOpen("账户资金调拨明细 - " + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExportToExcel.Enabled = true;
+            }
+        }
+
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
             this.gridView1.SaveLayout(_layoutXmlName);
@@ -245,29 +267,5 @@ namespace CTM.Win.UI.Accounting.AccountManage
         }
 
         #endregion Events
-
-        private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column == this.colFlowFlagName)
-            {
-                var row = this.gridView1.GetRow(e.ListSourceRowIndex) as AccountFundTransferEntity ;
-                if (row == null) return;
-
-                switch (row.FlowFlag)
-                {
-                    case false:
-                        e.DisplayText = "转出";
-                        break;
-
-                    case true:
-                        e.DisplayText = "转入";
-                        break;
-
-                    default:
-                        e.DisplayText = "";
-                        break;
-                }
-            }
-        }
     }
 }

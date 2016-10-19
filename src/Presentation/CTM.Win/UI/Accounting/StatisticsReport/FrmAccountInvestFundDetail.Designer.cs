@@ -191,8 +191,7 @@
             // 
             // colInitialAmount
             // 
-            this.colInitialAmount.Caption = "期初资金（元）";
-            this.colInitialAmount.DisplayFormat.FormatString = "0.#0";
+            this.colInitialAmount.Caption = "期初资金（万元）";
             this.colInitialAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colInitialAmount.FieldName = "InitialAmount";
             this.colInitialAmount.Name = "colInitialAmount";
@@ -202,8 +201,7 @@
             // 
             // colInAmount
             // 
-            this.colInAmount.Caption = "投入资金（元）";
-            this.colInAmount.DisplayFormat.FormatString = "0.#0";
+            this.colInAmount.Caption = "投入资金（万元）";
             this.colInAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colInAmount.FieldName = "InAmount";
             this.colInAmount.Name = "colInAmount";
@@ -213,8 +211,7 @@
             // 
             // colOutAmount
             // 
-            this.colOutAmount.Caption = "转出资金（元）";
-            this.colOutAmount.DisplayFormat.FormatString = "0.#0";
+            this.colOutAmount.Caption = "转出资金（万元）";
             this.colOutAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colOutAmount.FieldName = "OutAmount";
             this.colOutAmount.Name = "colOutAmount";
@@ -224,8 +221,7 @@
             // 
             // colFinalAMount
             // 
-            this.colFinalAMount.Caption = "期末资金（元）";
-            this.colFinalAMount.DisplayFormat.FormatString = "0.#0";
+            this.colFinalAMount.Caption = "期末资金（万元）";
             this.colFinalAMount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colFinalAMount.FieldName = "FinalAMount";
             this.colFinalAMount.Name = "colFinalAMount";
