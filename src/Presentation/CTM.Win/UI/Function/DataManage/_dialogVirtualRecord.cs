@@ -386,10 +386,10 @@ namespace CTM.Win.UI.Function.DataManage
 
             this.cbTradeType.DefaultSelected(defaultTradeType.ToString());
 
-            if (investor.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
-                this.cbTradeType.ReadOnly = false;
-            else
-                this.cbTradeType.ReadOnly = true;
+            //if (investor.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
+            //    this.cbTradeType.ReadOnly = false;
+            //else
+            //    this.cbTradeType.ReadOnly = true;
 
             //账户信息
             var accountIds = _accountService.GetAccountIdByOperatorId(investor.Id);
