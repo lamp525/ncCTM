@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils;
@@ -118,7 +120,8 @@ namespace CTM.Win.Extensions
         /// <param name="showCheckBoxRowSelect"></param>
         /// <param name="checkBoxSelectorColumnWidth"></param>
         /// <param name="rowIndicatorWidth"></param>
-        public static void SetLayout(this GridView gridView,
+        public static void SetLayout(
+            this GridView gridView,
             bool showGroupPanel = false,
             bool showFilterPanel = false,
             bool showFooter = false,
@@ -129,8 +132,7 @@ namespace CTM.Win.Extensions
             bool setAlternateRowColor = true,
             bool showCheckBoxRowSelect = true,
             int checkBoxSelectorColumnWidth = 30,
-            int rowIndicatorWidth = 40
-            )
+            int rowIndicatorWidth = 40)
         {
             gridView.OptionsBehavior.Editable = editable;
 
@@ -216,6 +218,35 @@ namespace CTM.Win.Extensions
             if (!System.IO.File.Exists(filePath)) return;
 
             gridView.RestoreLayoutFromXml(filePath, OptionsLayoutBase.FullLayout);
+        }
+
+        public static void ExportToExcelAndOpen(this GridView gridView, string fileName)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Title = "请选择文件存放路径";
+            saveFile.Filter = "Excel文档(*.xls)|*.xls|Excel文档(*.xlsx)|*.xlsx";
+            saveFile.FileName = fileName;
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                DevExpress.XtraPrinting.XlsExportOptions options = new DevExpress.XtraPrinting.XlsExportOptions();
+                options.TextExportMode = DevExpress.XtraPrinting.TextExportMode.Text;
+                options.SheetName = fileName;
+                gridView.OptionsPrint.AutoWidth = false;
+                gridView.OptionsPrint.AllowCancelPrintExport = false;
+                gridView.AppearancePrint.Row.Font = new System.Drawing.Font("宋体", 9);
+                try
+                {
+                    gridView.ExportToXls(saveFile.FileName, options);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                if (DXMessage.ShowYesNoAndTips("导出成功,是否打开文件？") == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(saveFile.FileName);
+              
+            }
         }
 
         #endregion GridControl/GridView
@@ -322,7 +353,7 @@ namespace CTM.Win.Extensions
         /// </summary>
         /// <param name="textEdit"></param>
         /// <param name="length"></param>
-        public static void SetNumberMask(this TextEdit textEdit , int length = 9 )
+        public static void SetNumberMask(this TextEdit textEdit, int length = 9)
         {
             textEdit.Properties.MaxLength = length;
             textEdit.Properties.Mask.EditMask = "[0-9]*";
