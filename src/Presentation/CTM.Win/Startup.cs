@@ -37,7 +37,9 @@ namespace CTM.Win
                 var loginForm = EngineContext.Current.Resolve<_dialogLogin>();
 
                 loginForm.StartPosition = FormStartPosition.CenterScreen;
-                loginForm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                loginForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+                loginForm.MinimizeBox = false;
+                loginForm.MaximizeBox = false;
                 loginForm.ShowDialog();
 
                 if (loginForm.DialogResult == DialogResult.OK)
