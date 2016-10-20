@@ -460,8 +460,44 @@ BEGIN
 		END
 
 	UPDATE InvestmentDecisionForm 
-	SET [Status] = [dbo].[f_GetIDFStatus](@FormSerialNo)
+	SET [Status] = [dbo].[f_GetIDFStatus](@FormSerialNo), UpdateTime = GETDATE()
 	WHERE SerialNo = @FormSerialNo 
+ 
+END
+GO
+
+
+/*
+/****** [sp_GetIDVoteResult] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GetIDVoteResult]
+GO
+CREATE PROCEDURE [dbo].[sp_GetIDVoteResult]
+(
+@FormSerialNo varchar(50)
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT 
+		ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
+		U.Code 人员编号,
+		U.Name 姓名,
+		CAST(V.[Weight]*100 AS varchar ) + '%' 权重,
+		CASE V.Flag
+			WHEN 1 THEN '赞同'
+			WHEN 2 THEN '反对'
+			WHEN 3 THEN '弃权'
+		END	投票信息,
+		V.Reason 理由,
+		V.VoteTime 投票日期,
+		''  确定日期
+	FROM InvestmentDecisionVote V
+	LEFT JOIN UserInfo U
+	ON V.UserCode = U.Code	
+	WHERE V.FormSerialNo =@FormSerialNo
  
 END
 GO
