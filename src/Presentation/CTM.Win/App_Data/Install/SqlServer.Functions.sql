@@ -5,10 +5,8 @@ GO
 /*
 /****** [f_GetAccountOperatorNames] ******/
 */
-
 DROP FUNCTION [dbo].[f_GetAccountOperatorNames]
 GO
-
 CREATE FUNCTION [dbo].[f_GetAccountOperatorNames](@AccountId int)
 RETURNS varchar(8000)
 AS
@@ -31,10 +29,8 @@ GO
 /*
 /****** [f_GetFirstDayOfMonth] ******/
 */
-
 DROP FUNCTION [dbo].[f_GetFirstDayOfMonth]
 GO
-
 CREATE FUNCTION [dbo].[f_GetFirstDayOfMonth](@CurrentDate datetime)
 RETURNS datetime
 AS
@@ -49,10 +45,8 @@ GO
 /*
 /****** [f_GetLastDayOfMonth] ******/
 */
-
 DROP FUNCTION [dbo].[f_GetLastDayOfMonth]
 GO
-
 CREATE FUNCTION [dbo].[f_GetLastDayOfMonth](@CurrentDate datetime)
 RETURNS datetime
 AS
@@ -63,3 +57,54 @@ BEGIN
 END
 GO
 
+
+/*
+/****** [f_GetIDFStatus] ******/
+*/
+DROP FUNCTION [dbo].[f_GetIDFStatus]
+GO
+CREATE FUNCTION [dbo].[f_GetIDFStatus](@SerialNo varchar(50))
+RETURNS int
+AS
+BEGIN    
+
+	-- 申请单状态：1-已提交 2-进行中 3-申请通过 4-申请不通过 --
+	-- 投票Flag：0-未投票 1-赞同 2-反对 3-弃权 --
+	-- 投票类别：1-申请人 2-决策委员会 3-普通交易员 99-一票否决 -- 
+
+	DECLARE @status int = 0
+	DECLARE @voteNumber int = 0
+	
+	SELECT @voteNumber = COUNT(UserCode)
+	FROM InvestmentDecisionVote 
+	WHERE FormSerialNo = @SerialNo  AND [Type] != 1 AND Flag > 0
+
+	IF(@voteNumber = 0) 
+		SET @status = 1
+	ELSE
+		BEGIN
+			DECLARE @committeeVotes int = 0
+
+			SELECT @committeeVotes = COUNT(UserCode)
+			FROM InvestmentDecisionVote 	
+			WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
+	
+			IF(@committeeVotes > 0) 
+				SET @status =  2 		
+			ELSE
+				BEGIN
+					DECLARE @point int = 0
+
+					SELECT @point = SUM([Weight]) *100
+					FROM InvestmentDecisionVote 
+					WHERE FormSerialNo = @SerialNo AND Flag = 1
+	
+					IF(@point > 60) SET @status = 3
+					ELSE			SET @status = 4
+				END			
+		END
+
+	RETURN @status
+		
+END
+GO
