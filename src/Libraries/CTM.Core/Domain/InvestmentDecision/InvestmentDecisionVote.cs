@@ -19,7 +19,7 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int AuthorityLevel { get; set; }
 
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
 
         /// <summary>
         /// 投票标志

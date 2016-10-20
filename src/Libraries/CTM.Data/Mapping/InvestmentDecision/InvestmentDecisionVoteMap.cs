@@ -9,6 +9,9 @@ namespace CTM.Data.Mapping.InvestmentDecision
         {
             this.ToTable(nameof(InvestmentDecisionVote));
             this.HasKey(p => p.Id);
+
+            this.Property(p => p.Weight).HasPrecision(18, 4);
+
         }
     }
 }

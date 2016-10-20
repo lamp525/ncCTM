@@ -643,7 +643,7 @@ namespace CTM.Win.UI
 
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmInvestmentDecisionMange>("股票投资决策单管理");
+            this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策单管理");
         }
     }
 }

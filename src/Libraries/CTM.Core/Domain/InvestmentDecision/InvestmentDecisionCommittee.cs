@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
     }
 }

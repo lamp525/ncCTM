@@ -15,16 +15,16 @@ using DevExpress.XtraGrid.Columns;
 
 namespace CTM.Win.UI.InvestmentDecision
 {
-    public partial class FrmInvestmentDecisionMange : BaseForm
+    public partial class FrmInvestmentDecisionManage : BaseForm
     {
         private readonly IInvestmentDecisionService _IDService;
 
         private IList<InvestmentDecisionVote> _currentUserVotes = null;
         private string _voteReason = null;
 
-        private const string _layoutXmlName = "FrmInvestmentDecisionMange";
+        private const string _layoutXmlName = "FrmInvestmentDecisionManage";
 
-        public FrmInvestmentDecisionMange(IInvestmentDecisionService IDService)
+        public FrmInvestmentDecisionManage(IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
@@ -34,7 +34,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private void SetGridViewLayout()
         {
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: true, editable: true, readOnly: false, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);           
+            this.gridView1.SetLayout(showCheckBoxRowSelect: true, editable: true, readOnly: false, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
@@ -119,14 +119,14 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 if (DXMessage.ShowYesNoAndWarning("确定删除选择的信息吗？") == DialogResult.Yes)
                 {
-                    var ids = new List<int>();
+                    var serialNos = new List<string>();
 
                     for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
-                        ids.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                        serialNos.Add(myView.GetRowCellValue(selectedHandles[rowhandle], colSerialNo).ToString());
                     }
 
-                    this._IDService.DeleteInvestmentDecisionForm(ids.ToArray());
+                    this._IDService.DeleteInvestmentDecisionForm(serialNos.ToArray());
 
                     BindApplicationInfo();
                 }
@@ -219,11 +219,11 @@ namespace CTM.Win.UI.InvestmentDecision
                         break;
                 }
 
-               if(voteFlag == EnumLibrary.IDVoteFlag.Approval || voteFlag == EnumLibrary.IDVoteFlag.Oppose )
+                if (voteFlag == EnumLibrary.IDVoteFlag.Approval || voteFlag == EnumLibrary.IDVoteFlag.Oppose)
                 {
-                    var dialog = this.CreateDialog<_dialogInputContent>();       
-                    dialog.ReturnEvent  += new _dialogInputContent.ReturnContentToParentForm (GetVoteReason);
-                    dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) +"理由";
+                    var dialog = this.CreateDialog<_dialogInputContent>();
+                    dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetVoteReason);
+                    dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
                     if (dialog.ShowDialog() != DialogResult.OK)
                         return;
                 }
@@ -240,8 +240,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 _voteReason = null;
             }
         }
-
-  
 
         private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
         {

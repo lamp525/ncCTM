@@ -4,6 +4,7 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Data;
 using CTM.Core.Domain.InvestmentDecision;
+using CTM.Data;
 using CTM.Services.Common;
 
 namespace CTM.Services.InvestmentDecision
@@ -18,6 +19,8 @@ namespace CTM.Services.InvestmentDecision
 
         private readonly ICommonService _commonService;
 
+        private readonly IDbContext _dbContext;
+
         #endregion Fields
 
         #region Constructors
@@ -26,13 +29,15 @@ namespace CTM.Services.InvestmentDecision
         IRepository<InvestmentDecisionCommittee> IDCRepository,
         IRepository<InvestmentDecisionForm> IDFRepository,
         IRepository<InvestmentDecisionVote> IDVRepository,
-        ICommonService commonService)
+        ICommonService commonService,
+        IDbContext dbContext)
         {
             this._IDCRepository = IDCRepository;
             this._IDFRepository = IDFRepository;
             this._IDVRepository = IDVRepository;
 
             this._commonService = commonService;
+            this._dbContext = dbContext;
         }
 
         #endregion Constructors
@@ -46,12 +51,23 @@ namespace CTM.Services.InvestmentDecision
 
             _IDFRepository.Insert(entity);
 
-            var committeeCodes = _IDCRepository.Table.Select(x => x.Code).ToList();
-            committeeCodes.Add(entity.ApplyUser);
-            committeeCodes = committeeCodes.Distinct().ToList();
+            decimal applyUserWeight = 0;
+            decimal otherWeight = 0;
 
-            var applyUserWeight = 35;
-            var otherWeight = (100 - applyUserWeight) / (committeeCodes.Count - 1);
+            if (_IDCRepository.Table.Count() == 0)
+                throw new Exception("请设置投资决策委员会成员！");
+
+            var committeeCodes = _IDCRepository.Table.Select(x => x.Code).ToList();
+
+            if(committeeCodes.Contains (entity.ApplyUser ))
+            {
+                applyUserWeight = otherWeight = 1 / committeeCodes.Count;
+            }
+            else
+            {
+                applyUserWeight = 0.35M;
+                otherWeight = (1 - applyUserWeight) / committeeCodes.Count;
+            }
 
             var defaultVoteInfos = new List<InvestmentDecisionVote>();
             foreach (var code in committeeCodes)
@@ -62,6 +78,7 @@ namespace CTM.Services.InvestmentDecision
                     Flag = code == entity.ApplyUser ? (int)EnumLibrary.IDVoteFlag.Approval : (int)EnumLibrary.IDVoteFlag.None,
                     FormSerialNo = entity.SerialNo,
                     Reason = code == entity.ApplyUser ? "发起人默认赞同。" : string.Empty,
+                    Type = code == entity.ApplyUser ?(int)EnumLibrary.IDVoteType .Applicant : (int) EnumLibrary.IDVoteType.Committee, 
                     UserCode = code,
                     VoteTime = _commonService.GetCurrentServerTime(),
                     Weight = code == entity.ApplyUser ? applyUserWeight : otherWeight,
@@ -72,14 +89,18 @@ namespace CTM.Services.InvestmentDecision
             _IDVRepository.Insert(defaultVoteInfos);
         }
 
-        public virtual void DeleteInvestmentDecisionForm(IList<int> ids)
+        public virtual void DeleteInvestmentDecisionForm(IList<string> serialNos)
         {
-            if (ids == null)
-                throw new ArgumentNullException(nameof(ids));
+            if (serialNos == null)
+                throw new ArgumentNullException(nameof(serialNos));
 
-            var query = _IDFRepository.Table.Where(x => ids.Contains(x.Id));
+            var forms = _IDFRepository.Table.Where(x => serialNos.Contains(x.SerialNo));
 
-            _IDFRepository.Delete(query.ToArray());
+            _IDFRepository.Delete(forms.ToArray());
+
+            var votes = _IDVRepository.Table.Where(x => serialNos.Contains(x.FormSerialNo));
+
+            _IDVRepository.Delete(votes.ToArray());
         }
 
         public virtual InvestmentDecisionVote GetInvestmentDecisionVote(string investorCode, string formSerialNo)
@@ -133,33 +154,14 @@ namespace CTM.Services.InvestmentDecision
 
         public void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason)
         {
-            var info = _IDVRepository.Table.SingleOrDefault(x => x.UserCode == investorCode && x.FormSerialNo == formSerialNo);
+            var commanText = $@"EXEC [dbo].[sp_InvestmentDecisionVoteProcess]
+                                        @InvestorCode = {investorCode},
+		                                @FormSerialNo = {formSerialNo},
+		                                @VoteFlag = {(int)flag},
+		                                @Reason = {reason}";
 
-            var now = _commonService.GetCurrentServerTime();
+            _dbContext.ExecuteSqlCommand(commanText); 
 
-            if (info == null)
-            {
-                info = new InvestmentDecisionVote
-                {
-                    AuthorityLevel = 0,
-                    Flag = (int)flag,
-                    FormSerialNo = formSerialNo,
-                    Reason = reason,
-                    UserCode = investorCode,
-                    VoteTime = now,
-                    Weight = 0,
-                };
-
-                _IDVRepository.Insert(info);
-            }
-            else
-            {
-                info.Flag = (int)flag;
-                info.Reason = reason;
-                info.VoteTime = now;
-
-                _IDVRepository.Update(info);
-            }
         }
 
         #endregion Methods

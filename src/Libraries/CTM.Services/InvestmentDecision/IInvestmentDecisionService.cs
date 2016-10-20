@@ -8,17 +8,9 @@ namespace CTM.Services.InvestmentDecision
     {
         void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity);
 
-        void DeleteInvestmentDecisionForm(IList<int> ids);
-
-        void AddInvestmentDecisionVote(InvestmentDecisionVote entity);
-
-        void DeleteInvestmentDecisionVote(string investorCode, string formSerialNo);
-
-        void UpdateInvestmentDecisionVote(InvestmentDecisionVote entity);
+        void DeleteInvestmentDecisionForm(IList<string> serialNos);
 
         void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason);
-
-        InvestmentDecisionVote GetInvestmentDecisionVote(string investorCode, string formSerialNo);
 
         IList<InvestmentDecisionVote> GetInvestmentDecisionVotes(string investorCode);
     }

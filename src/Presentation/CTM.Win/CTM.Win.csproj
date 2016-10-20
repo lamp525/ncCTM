@@ -373,11 +373,11 @@
     <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.cs">
+    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.Designer.cs">
-      <DependentUpon>FrmInvestmentDecisionMange.cs</DependentUpon>
+    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.Designer.cs">
+      <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.cs">
       <SubType>Form</SubType>
@@ -485,6 +485,9 @@
     <Content Include="LayoutXml\FrmDeliveryImport_Account_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LayoutXml\FrmInvestmentDecisionManage_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LayoutXml\FrmTradeDataVerify_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -587,8 +590,8 @@
     <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.resx">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionMange.resx">
-      <DependentUpon>FrmInvestmentDecisionMange.cs</DependentUpon>
+    <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">
+      <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogTradeApplication.resx">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
