@@ -34,6 +34,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public DateTime CreateTime { get; set; }
 
+        public DateTime UpdateTime { get; set; }
+
         public string Reason { get; set; }
     }
 }
