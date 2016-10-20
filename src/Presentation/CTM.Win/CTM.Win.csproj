@@ -379,6 +379,12 @@
     <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.Designer.cs">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogIDVoteResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogIDVoteResult.Designer.cs">
+      <DependentUpon>_dialogIDVoteResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -592,6 +598,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\_dialogIDVoteResult.resx">
+      <DependentUpon>_dialogIDVoteResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogTradeApplication.resx">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
+using CTM.Core.Infrastructure;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
@@ -31,6 +32,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this._IDService = IDService;
         }
 
+        #region Utilities
         private void SetGridViewLayout()
         {
             this.gridView1.LoadLayout(_layoutXmlName);
@@ -66,6 +68,58 @@ namespace CTM.Win.UI.InvestmentDecision
             this._voteReason = content;
         }
 
+
+        private void VoteProcess(string formSerialNo, string buttonTag)
+        {
+            EnumLibrary.IDVoteFlag voteFlag = EnumLibrary.IDVoteFlag.None;
+
+            switch (buttonTag)
+            {
+                case "Approval":
+                    voteFlag = EnumLibrary.IDVoteFlag.Approval;
+                    break;
+
+                case "Oppose":
+                    voteFlag = EnumLibrary.IDVoteFlag.Oppose;
+                    break;
+
+                case "Abstain":
+                    voteFlag = EnumLibrary.IDVoteFlag.Abstain;
+                    break;
+
+                case "Revoke":
+                    voteFlag = EnumLibrary.IDVoteFlag.None;
+                    break;
+
+                default:
+                    voteFlag = EnumLibrary.IDVoteFlag.None;
+                    break;
+            }
+
+            if (voteFlag == EnumLibrary.IDVoteFlag.Approval || voteFlag == EnumLibrary.IDVoteFlag.Oppose || voteFlag == EnumLibrary.IDVoteFlag.Abstain)
+            {
+                var dialog = this.CreateDialog<_dialogInputContent>();
+                dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetVoteReason);
+                dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
+                if (dialog.ShowDialog() != DialogResult.OK)
+                    return;
+            }
+
+            _IDService.InvestmentDecisionVoteProcess(LoginInfo.CurrentUser.UserCode, formSerialNo, voteFlag, _voteReason);
+        }
+
+        private void DisplayVoteResult(string formSerialNo)
+        {
+            var form = EngineContext.Current.Resolve<_dialogIDVoteResult >();
+            form.Owner = this;
+            form.Text = "交易申请单投票结果";            
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.SerialNo = formSerialNo;
+            form.Show();
+        }
+        #endregion
+
+        #region Events
         private void FrmInvestmentDecisionMange_Load(object sender, EventArgs e)
         {
             try
@@ -179,7 +233,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridView1.SaveLayout(_layoutXmlName);
         }
 
-        private void repositoryItemBtnApproval_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void repositoryItemBtnVote_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
@@ -194,41 +248,16 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 var buttonTag = e.Button.Tag.ToString().Trim();
 
-                EnumLibrary.IDVoteFlag voteFlag = EnumLibrary.IDVoteFlag.None;
+                if (string.IsNullOrEmpty(buttonTag)) return;
 
-                switch (buttonTag)
+                if (buttonTag == "View")
                 {
-                    case "Approval":
-                        voteFlag = EnumLibrary.IDVoteFlag.Approval;
-                        break;
-
-                    case "Oppose":
-                        voteFlag = EnumLibrary.IDVoteFlag.Oppose;
-                        break;
-
-                    case "Abstain":
-                        voteFlag = EnumLibrary.IDVoteFlag.Abstain;
-                        break;
-
-                    case "Revoke":
-                        voteFlag = EnumLibrary.IDVoteFlag.None;
-                        break;
-
-                    default:
-                        voteFlag = EnumLibrary.IDVoteFlag.None;
-                        break;
+                    DisplayVoteResult(formSerialNo);
                 }
-
-                if (voteFlag == EnumLibrary.IDVoteFlag.Approval || voteFlag == EnumLibrary.IDVoteFlag.Oppose)
+                else
                 {
-                    var dialog = this.CreateDialog<_dialogInputContent>();
-                    dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetVoteReason);
-                    dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
-                    if (dialog.ShowDialog() != DialogResult.OK)
-                        return;
+                    VoteProcess(formSerialNo, buttonTag);
                 }
-
-                _IDService.InvestmentDecisionVoteProcess(LoginInfo.CurrentUser.UserCode, formSerialNo, voteFlag, _voteReason);
             }
             catch (Exception ex)
             {
@@ -239,6 +268,12 @@ namespace CTM.Win.UI.InvestmentDecision
                 e.Button.Enabled = true;
                 _voteReason = null;
             }
+        }
+
+
+
+        private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
         }
 
         private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
@@ -267,6 +302,7 @@ namespace CTM.Win.UI.InvestmentDecision
             //    if (inBounds)
             //        editor.PerformClick(btn.Button);
             //}
-        }
+        } 
+        #endregion
     }
 }

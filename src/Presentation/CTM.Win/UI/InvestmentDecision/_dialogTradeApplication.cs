@@ -173,13 +173,14 @@ namespace CTM.Win.UI.InvestmentDecision
             var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
 
             var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
+            var now = _commonService.GetCurrentServerTime();
 
             var form = new InvestmentDecisionForm
             {
                 Amount = this.chkBuy.Checked ? amount : -amount,
                 ApplyDate = applyDate,
                 ApplyUser = investor,
-                CreateTime = _commonService.GetCurrentServerTime(),
+                CreateTime = now,
                 DealFlag = this.chkBuy.Checked ? true : false,
                 Price = price,
                 Reason = this.memoReason.Text.Trim(),
@@ -189,6 +190,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 StockFullCode = stock.FullCode,
                 StockName = stock.Name,
                 TradeType = tradeType,
+                UpdateTime = now,
                 Volume = volume,
             };
 
