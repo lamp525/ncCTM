@@ -91,10 +91,10 @@ BEGIN
 				SET @status = 4
 			ELSE
 				BEGIN
-					DECLARE @notVotecommittee int = 0
-					SELECT @notVotecommittee = COUNT(UserCode) FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
+					DECLARE @notVoteCommittee int = 0
+					SELECT @notVoteCommittee = COUNT(UserCode) FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
 				
-					IF(@notVotecommittee > 0) 
+					IF(@notVoteCommittee > 0) 
 						SET @status =  2 		
 					ELSE
 						BEGIN
@@ -105,13 +105,52 @@ BEGIN
 							ELSE			
 								SET @status = 4
 						END			
-				END
-				
-
-			
+				END	
 		END
 
 	RETURN @status
+		
+END
+GO
+
+
+/*
+/****** [f_GetIDVoteType] ******/
+*/
+DROP FUNCTION [dbo].[f_GetIDVoteType]
+GO
+CREATE FUNCTION [dbo].[f_GetIDVoteType]
+(
+@SerialNo varchar(50),
+@InvestorCode varchar(50)
+)
+RETURNS int
+AS
+BEGIN    
+
+	-- 申请单Status：1-已提交 2-进行中 3-申请通过 4-申请不通过 --
+	-- 投票Flag：0-未投票 1-赞同 2-反对 3-弃权 --
+	-- 投票Type：1-申请人 2-决策委员会 3-普通交易员 99-一票否决 -- 
+
+	DECLARE @voteType int = 0
+
+	IF(@InvestorCode ='888888') 
+		SET @voteType = 99
+	ELSE
+		BEGIN			
+			SELECT @voteType = [Type] FROM InvestmentDecisionVote WHERE UserCode = @InvestorCode AND FormSerialNo = @SerialNo			
+			IF(@voteType = 0 )
+				BEGIN
+					DECLARE @applicant int =0
+					SELECT @applicant = ApplyUser  FROM InvestmentDecisionForm  WHERE SerialNo = @SerialNo
+					IF(@applicant = @InvestorCode)
+						SET @voteType = 1
+					ELSE
+						SET @voteType = 3
+				END		
+		END
+
+	RETURN @voteType
 		
 END
 GO
