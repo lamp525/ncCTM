@@ -355,7 +355,6 @@ GO
 */
 DROP PROCEDURE [dbo].[sp_AccountFundSettleProcess]
 GO
-
 CREATE PROCEDURE [dbo].[sp_AccountFundSettleProcess]
 AS
 BEGIN
@@ -401,13 +400,11 @@ END
 GO
 
 
-
 /*
 /****** [sp_AccountFundRevokeProcess] ******/
 */
 DROP PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
 GO
-
 CREATE PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
 AS
 BEGIN
@@ -428,3 +425,43 @@ BEGIN
 END
 GO
 
+
+/*
+/****** [sp_InvestmentDecisionVoteProcess] ******/
+*/
+DROP PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
+GO
+CREATE PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
+(
+@InvestorCode varchar(50),
+@FormSerialNo varchar(50),
+@VoteFlag int,
+@Reason varchar(1000)
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	DECLARE @voteNumber int = 0
+
+	SELECT @voteNumber = COUNT(UserCode) FROM InvestmentDecisionVote WHERE UserCode = @InvestorCode AND FormSerialNo = @FormSerialNo
+
+	IF(@voteNumber = 0)
+		BEGIN
+			INSERT INTO InvestmentDecisionVote (AuthorityLevel,Flag,FormSerialNo,Reason,[Type], UserCode,VoteTime,[Weight])
+			VALUES(0,@VoteFlag,@FormSerialNo,@Reason,[dbo].[f_GetIDVoteType](@FormSerialNo,@InvestorCode),@InvestorCode,GETDATE(),0)
+		END
+	ELSE
+		BEGIN
+			UPDATE InvestmentDecisionVote 
+			SET Flag = @VoteFlag, Reason = @Reason, VoteTime = GETDATE()
+			WHERE UserCode = @InvestorCode AND FormSerialNo = @FormSerialNo
+		END
+
+	UPDATE InvestmentDecisionForm 
+	SET [Status] = [dbo].[f_GetIDFStatus](@FormSerialNo)
+	WHERE SerialNo = @FormSerialNo 
+ 
+END
+GO
