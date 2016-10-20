@@ -68,40 +68,47 @@ RETURNS int
 AS
 BEGIN    
 
-	-- 申请单状态：1-已提交 2-进行中 3-申请通过 4-申请不通过 --
+	-- 申请单Status：1-已提交 2-进行中 3-申请通过 4-申请不通过 --
 	-- 投票Flag：0-未投票 1-赞同 2-反对 3-弃权 --
-	-- 投票类别：1-申请人 2-决策委员会 3-普通交易员 99-一票否决 -- 
+	-- 投票Type：1-申请人 2-决策委员会 3-普通交易员 99-一票否决 -- 
 
 	DECLARE @status int = 0
-	DECLARE @voteNumber int = 0
-	
-	SELECT @voteNumber = COUNT(UserCode)
-	FROM InvestmentDecisionVote 
-	WHERE FormSerialNo = @SerialNo  AND [Type] != 1 AND Flag > 0
+
+	DECLARE @voteNumber int = 0	
+	SELECT @voteNumber = COUNT(UserCode)	FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] != 1 AND Flag > 0
 
 	IF(@voteNumber = 0) 
 		SET @status = 1
 	ELSE
 		BEGIN
-			DECLARE @committeeVotes int = 0
 
-			SELECT @committeeVotes = COUNT(UserCode)
-			FROM InvestmentDecisionVote 	
-			WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
-	
-			IF(@committeeVotes > 0) 
-				SET @status =  2 		
+			DECLARE @oneVoteVetoFlag int = 0
+			SELECT @oneVoteVetoFlag = Flag FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND [Type] = 99
+
+			IF (@oneVoteVetoFlag = 1)
+				SET @status =  3 		
+			ELSE IF (@oneVoteVetoFlag = 2)
+				SET @status = 4
 			ELSE
 				BEGIN
-					DECLARE @point int = 0
+					DECLARE @notVotecommittee int = 0
+					SELECT @notVotecommittee = COUNT(UserCode) FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
+				
+					IF(@notVotecommittee > 0) 
+						SET @status =  2 		
+					ELSE
+						BEGIN
+							DECLARE @point int = 0
+							SELECT @point = SUM([Weight]) *100	FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo AND Flag = 1	
+							IF(@point > 60) 
+								SET @status = 3
+							ELSE			
+								SET @status = 4
+						END			
+				END
+				
 
-					SELECT @point = SUM([Weight]) *100
-					FROM InvestmentDecisionVote 
-					WHERE FormSerialNo = @SerialNo AND Flag = 1
-	
-					IF(@point > 60) SET @status = 3
-					ELSE			SET @status = 4
-				END			
+			
 		END
 
 	RETURN @status
