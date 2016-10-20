@@ -8,6 +8,15 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string UserCode { get; set; }
 
+        /// <summary>
+        /// 投票类别
+        /// 1：申请人
+        /// 2：决策委员会
+        /// 3：普通交易员
+        /// 99：一票否决
+        /// </summary>
+        public int Type { get; set; }
+
         public int AuthorityLevel { get; set; }
 
         public int Weight { get; set; }
