@@ -1516,6 +1516,7 @@ namespace CTM.Services.TradeRecord
         #endregion 当日委托数据导入
 
         /*
+
         #region 交割单数据导入
 
         #region 交割单--券商选择
@@ -3108,7 +3109,7 @@ namespace CTM.Services.TradeRecord
         #endregion 交割单--中银国际（普通）
 
         #endregion 交割单数据导入
-        
+
         */
 
         #region 交割单数据导入
@@ -3185,6 +3186,11 @@ namespace CTM.Services.TradeRecord
                 //浙商普通
                 case EnumLibrary.SecurityAccount.ZheShang_N:
                     result = DeliveryImportZheShang_N(importOperation, importDataTable);
+                    break;
+
+                //浙商信用
+                case EnumLibrary.SecurityAccount.ZheShang_C:
+                    result = DeliveryImportZheShang_C(importOperation, importDataTable);
                     break;
 
                 //中信信用
@@ -4498,6 +4504,112 @@ namespace CTM.Services.TradeRecord
         }
 
         #endregion 交割单--浙商证券（普通）
+
+        #region 交割单--浙商证券（信用）
+
+        /// <summary>
+        /// 交割单--浙商证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DailyRecord> DeliveryImportZheShang_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            #region DataFormatCheck
+
+            var TemplateColumnNames = new List<string> { "委托日期", "股东帐户", "证券代码", "证券名称", "合同编号", "操作", "成交数量", "可用余额", "成交均价", "成交金额", "印花税", "过户费", "其他杂费", "佣金", "发生金额", "可用金额",  "交易类别" };
+
+            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+
+            #endregion DataFormatCheck
+
+            #region DataProcess
+
+            var tradeRecords = new List<DailyRecord>();
+
+            foreach (DataRow row in importDataTable.Rows)
+            {
+                //过滤无实际成交额或成交量的交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 || decimal.Parse(row["成交金额"].ToString().Trim()) == 0) continue;
+
+                var tradeRecord = new DailyRecord();
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                VerifyStockInfo(stockInfo, stockCode, stockName);
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                var stockPoolInfo = _stockService.GetStockPoolInfoByStockId(stockInfo.Id);
+
+                var tradeType = row["交易类别"].ToString().Trim();
+                tradeRecord.SetTradeType(tradeType);
+
+                tradeRecord.SetBeneficiary(importOperation.BandPrincipal, importOperation.TargetPrincipal);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["委托日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
+
+                if (_buyTexts.Contains(row["操作"].ToString().Trim()))
+                    tradeRecord.DealFlag = true;
+                else if (_sellTexts.Contains(row["操作"].ToString().Trim()))
+                    tradeRecord.DealFlag = false;
+                else
+                {
+                    //跳过操作类型不明的数据
+                    continue;
+                }
+
+                tradeRecord.DealNo = row["合同编号"].ToString().Trim();
+
+                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
+
+                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
+                //卖出
+                else
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
+
+                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
+
+                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
+
+                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
+
+                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
+
+                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim()); 
+
+                tradeRecord.Remarks = row["操作"].ToString().Trim();
+
+                tradeRecords.Add(tradeRecord);
+            }
+
+            #endregion DataProcess
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--浙商证券（信用）
 
         #region 交割单--中信国际（信用）
 

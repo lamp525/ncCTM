@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationRevision>28</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -373,6 +373,12 @@
     <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.Designer.cs">
+      <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -596,6 +602,9 @@
     <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.resx">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\FrmCloseStockAnalysis.resx">
+      <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </EmbeddedResource>
@@ -805,6 +814,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataTemplate\Delivery\CaiTong_N.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataTemplate\AccountingDelivery\ZheShang_C.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataTemplate\Delivery\ZheShang_C.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

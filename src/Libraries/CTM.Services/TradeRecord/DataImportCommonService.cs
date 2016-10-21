@@ -108,7 +108,7 @@ namespace CTM.Services.TradeRecord
 
             if (securityCompanyName == "浙商证券" && accountAttributeName == "信用")
             {
-                //securityAccount = EnumLibrary.SecurityAccount.ZheShang_C;
+                securityAccount = EnumLibrary.SecurityAccount.ZheShang_C;
             }
 
             if (securityCompanyName == "浙商证券" && accountAttributeName == "普通")
