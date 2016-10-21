@@ -99,6 +99,7 @@ namespace CTM.Services.StatisticsReport
             decimal lastAverageMarginAmount = 0;
             decimal lastDayMarginAmount = 0;
             decimal accumulatedInterest = 0;
+            decimal lastDayAccumulatedProfit = 0;
             var tradeDays = 0;
             foreach (var tradeDate in tradeDates)
             {
@@ -130,13 +131,13 @@ namespace CTM.Services.StatisticsReport
                 dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
-                //当日累计净收益
-                var accumulatedNetProfit = currentCommonInfo.AccumulatedActualAmount;
                 //当日利息
-                dailyModel.CurrentInterest = ((dailyModel.ActualFinancingAmount - accumulatedNetProfit > 0 ? dailyModel.ActualFinancingAmount - accumulatedNetProfit : 0) + dailyModel.ActualLoanAmount) * AppConfigHelper.MarginTradingDPR;
+                dailyModel.CurrentInterest = ((dailyModel.ActualFinancingAmount - lastDayAccumulatedProfit > 0 ? dailyModel.ActualFinancingAmount - lastDayAccumulatedProfit : 0) + dailyModel.ActualLoanAmount) * AppConfigHelper.MarginTradingDPR;
                 //累计利息
                 accumulatedInterest += dailyModel.CurrentInterest;
                 dailyModel.AccumulatedInterest = accumulatedInterest;
+                //前一日累计收益
+                lastDayAccumulatedProfit = currentCommonInfo.AccumulatedProfit;
 
                 result.Add(dailyModel);
             }
@@ -345,6 +346,7 @@ namespace CTM.Services.StatisticsReport
             decimal lastDayMarginAmount = 0;
             decimal lastDayInterest = 0;
             decimal accumulatedInterest = 0;
+            decimal lastDayAccumulatedProfit = 0;
             var tradeDays = 0;
             foreach (var tradeDate in tradeDates)
             {
@@ -365,8 +367,8 @@ namespace CTM.Services.StatisticsReport
                 var positionValue = currentCommonInfo.PositionValue;
                 //当日实际融资融券额
                 dailyModel.ActualMarginAmount = positionValue > dailyModel.PlanMarginAmount ? positionValue : dailyModel.PlanMarginAmount;
-                if (dealAmount > dailyModel.ActualMarginAmount)
-                    dailyModel.ActualMarginAmount = dealAmount;
+                //if (dealAmount > dailyModel.ActualMarginAmount)
+                //    dailyModel.ActualMarginAmount = dealAmount;
                 dailyModel.ActualLoanAmount = dailyModel.PlanLoanAmount;
                 dailyModel.ActualFinancingAmount = dailyModel.ActualMarginAmount - dailyModel.ActualLoanAmount;
                 //前一日融资融券额
@@ -381,10 +383,8 @@ namespace CTM.Services.StatisticsReport
                 dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
-                //当日累计净收益
-                var accumulatedNetProfit = currentCommonInfo.AccumulatedActualAmount;
                 //当日利息
-                var usedFinancingAmount = dailyModel.ActualFinancingAmount < accumulatedNetProfit ? 0 : dailyModel.ActualFinancingAmount - accumulatedNetProfit;
+                var usedFinancingAmount = dailyModel.ActualFinancingAmount < lastDayAccumulatedProfit ? 0 : dailyModel.ActualFinancingAmount - lastDayAccumulatedProfit;
                 var usedLoanAmount = dailyModel.ActualLoanAmount - currentOutMarginInfo.LoanAmount;
                 dailyModel.CurrentInterest = (usedFinancingAmount + usedLoanAmount) * AppConfigHelper.MarginTradingDPR;
                 //前一日利息
@@ -395,6 +395,8 @@ namespace CTM.Services.StatisticsReport
                     accumulatedInterest += dailyModel.LastDayInterest * 2;
                 accumulatedInterest += dailyModel.CurrentInterest;
                 dailyModel.AccumulatedInterest = accumulatedInterest;
+                //前一日累计收益
+                lastDayAccumulatedProfit = currentCommonInfo.AccumulatedProfit;
 
                 result.Add(dailyModel);
             }
@@ -586,7 +588,7 @@ namespace CTM.Services.StatisticsReport
         }
 
         /// <summary>
-        /// 用户每日波段融资融券及利息计算
+        /// 用户每日目标融资融券及利息计算
         /// </summary>
         /// <param name="dailyCommonInfos"></param>
         /// <param name="tradeDates"></param>
@@ -603,6 +605,7 @@ namespace CTM.Services.StatisticsReport
             decimal lastDayMarginAmount = 0;
             decimal lastDayInterest = 0;
             decimal accumulatedInterest = 0;
+            decimal lastDayAccumulatedProfit = 0;
             var tradeDays = 0;
             foreach (var tradeDate in tradeDates)
             {
@@ -639,10 +642,8 @@ namespace CTM.Services.StatisticsReport
                 dailyModel.AverageMarginAmount = CommonHelper.CalculateRate(accumulatedMarginAmount, tradeDays);
                 //前一日平均融资融券额
                 lastAverageMarginAmount = dailyModel.AverageMarginAmount;
-                //当日累计净收益
-                var accumulatedNetProfit = currentCommonInfo.AccumulatedActualAmount;
                 //当日利息
-                var usedFinancingAmount = dailyModel.ActualFinancingAmount - accumulatedNetProfit;
+                var usedFinancingAmount = dailyModel.ActualFinancingAmount < lastDayAccumulatedProfit ? 0 : dailyModel.ActualFinancingAmount - lastDayAccumulatedProfit;
                 var usedLoanAmount = dailyModel.ActualLoanAmount - currentOutMarginInfo.LoanAmount;
                 dailyModel.CurrentInterest = (usedFinancingAmount + usedLoanAmount) * AppConfigHelper.MarginTradingDPR;
                 //前一日利息
@@ -653,6 +654,8 @@ namespace CTM.Services.StatisticsReport
                     accumulatedInterest += dailyModel.LastDayInterest * 2;
                 accumulatedInterest += dailyModel.CurrentInterest;
                 dailyModel.AccumulatedInterest = accumulatedInterest;
+                //前一日累计收益
+                lastDayAccumulatedProfit = currentCommonInfo.AccumulatedProfit;
 
                 result.Add(dailyModel);
             }
