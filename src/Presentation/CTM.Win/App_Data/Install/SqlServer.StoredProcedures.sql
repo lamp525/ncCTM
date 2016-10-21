@@ -427,6 +427,54 @@ GO
 
 
 /*
+/****** [sp_GetInvestmentDecisionForm] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GetInvestmentDecisionForm]
+GO
+CREATE PROCEDURE [dbo].[sp_GetInvestmentDecisionForm]
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT 	
+		CASE IDF.[Status]
+			WHEN 1 THEN '已提交'
+			WHEN 2 THEN '进行中'
+			WHEN 3 THEN '申请通过'
+			WHEN 4 THEN '申请不通过'
+		END StatusName,
+		CASE IDF.TradeType
+			WHEN 1 THEN '目标'
+			WHEN 2 THEN '波段'
+		END TradeTypeName,
+		CASE IDF.DealFlag 
+			WHEN 1 THEN '买入'
+			WHEN 0 THEN '卖出'
+		END DealFlagName,
+		U.Name ApplyUserName,
+		T.TotalWeight * 100 VotePoint,
+		IDF.*
+	FROM InvestmentDecisionForm	IDF
+	LEFT JOIN UserInfo U
+	ON IDF.ApplyUser = U.Code
+	LEFT JOIN 
+	(
+		SELECT 
+			FormSerialNo,
+			SUM([Weight]) TotalWeight
+		FROM InvestmentDecisionVote 	
+		WHERE Flag = 1 AND [Type] =2
+		GROUP BY FormSerialNo
+	) T
+	ON IDF.SerialNo = T.FormSerialNo
+
+ 
+END
+GO
+
+
+/*
 /****** [sp_InvestmentDecisionVoteProcess] ******/
 */
 DROP PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
