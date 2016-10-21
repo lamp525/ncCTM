@@ -438,6 +438,7 @@ BEGIN
 	SET NOCOUNT ON
 
 	SELECT 	
+		D.Name DepartmentName,
 		CASE IDF.[Status]
 			WHEN 1 THEN '已提交'
 			WHEN 2 THEN '进行中'
@@ -454,10 +455,14 @@ BEGIN
 		END DealFlagName,
 		U.Name ApplyUserName,
 		T.TotalWeight * 100 VotePoint,
+		CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar)PriceBoundRange,
+		CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '%' PriceBoundPercentage,
 		IDF.*
 	FROM InvestmentDecisionForm	IDF
 	LEFT JOIN UserInfo U
 	ON IDF.ApplyUser = U.Code
+	LEFT JOIN DepartmentInfo D
+	ON IDF.DepartmentId = D.Id 
 	LEFT JOIN 
 	(
 		SELECT 
@@ -467,9 +472,7 @@ BEGIN
 		WHERE Flag = 1 AND [Type] =2
 		GROUP BY FormSerialNo
 	) T
-	ON IDF.SerialNo = T.FormSerialNo
-
- 
+	ON IDF.SerialNo = T.FormSerialNo 
 END
 GO
 
