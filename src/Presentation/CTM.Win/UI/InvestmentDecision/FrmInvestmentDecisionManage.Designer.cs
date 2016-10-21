@@ -322,7 +322,7 @@
             this.colStatusName.FieldName = "StatusName";
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 13;
+            this.colStatusName.VisibleIndex = 14;
             // 
             // colStatus
             // 
@@ -335,7 +335,7 @@
             this.colVotePoint.FieldName = "VotePoint";
             this.colVotePoint.Name = "colVotePoint";
             this.colVotePoint.Visible = true;
-            this.colVotePoint.VisibleIndex = 14;
+            this.colVotePoint.VisibleIndex = 15;
             // 
             // colApplyDate
             // 
@@ -352,7 +352,7 @@
             this.colApplyUserName.FieldName = "ApplyUserName";
             this.colApplyUserName.Name = "colApplyUserName";
             this.colApplyUserName.Visible = true;
-            this.colApplyUserName.VisibleIndex = 15;
+            this.colApplyUserName.VisibleIndex = 3;
             // 
             // colApplyUser
             // 
@@ -365,7 +365,7 @@
             this.colStockFullCode.FieldName = "StockFullCode";
             this.colStockFullCode.Name = "colStockFullCode";
             this.colStockFullCode.Visible = true;
-            this.colStockFullCode.VisibleIndex = 3;
+            this.colStockFullCode.VisibleIndex = 4;
             this.colStockFullCode.Width = 97;
             // 
             // colStockName
@@ -374,7 +374,7 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 4;
+            this.colStockName.VisibleIndex = 5;
             // 
             // colTradeTypeName
             // 
@@ -382,7 +382,7 @@
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 5;
+            this.colTradeTypeName.VisibleIndex = 6;
             // 
             // colTradeType
             // 
@@ -395,7 +395,7 @@
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 8;
+            this.colDealFlagName.VisibleIndex = 9;
             // 
             // colDealFlag
             // 
@@ -408,7 +408,7 @@
             this.colPrice.FieldName = "Price";
             this.colPrice.Name = "colPrice";
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 9;
+            this.colPrice.VisibleIndex = 10;
             // 
             // colVolume
             // 
@@ -416,7 +416,7 @@
             this.colVolume.FieldName = "Volume";
             this.colVolume.Name = "colVolume";
             this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 10;
+            this.colVolume.VisibleIndex = 11;
             // 
             // colAmount
             // 
@@ -424,7 +424,7 @@
             this.colAmount.FieldName = "Amount";
             this.colAmount.Name = "colAmount";
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 11;
+            this.colAmount.VisibleIndex = 12;
             this.colAmount.Width = 124;
             // 
             // colProfit
@@ -433,7 +433,7 @@
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
             this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 7;
+            this.colProfit.VisibleIndex = 8;
             this.colProfit.Width = 124;
             // 
             // colRelateTradePlanNo
@@ -442,7 +442,7 @@
             this.colRelateTradePlanNo.FieldName = "RelateTradePlanNo";
             this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
             this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 6;
+            this.colRelateTradePlanNo.VisibleIndex = 7;
             this.colRelateTradePlanNo.Width = 125;
             // 
             // colCreateTime
@@ -453,7 +453,7 @@
             this.colCreateTime.FieldName = "CreateTime";
             this.colCreateTime.Name = "colCreateTime";
             this.colCreateTime.Visible = true;
-            this.colCreateTime.VisibleIndex = 16;
+            this.colCreateTime.VisibleIndex = 17;
             this.colCreateTime.Width = 142;
             // 
             // colOperate
@@ -464,7 +464,7 @@
             this.colOperate.ColumnEdit = this.repositoryItemBtnVote;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 12;
+            this.colOperate.VisibleIndex = 13;
             this.colOperate.Width = 174;
             // 
             // repositoryItemBtnVote
@@ -486,7 +486,7 @@
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 17;
+            this.colReason.VisibleIndex = 16;
             this.colReason.Width = 201;
             // 
             // gridColumn1

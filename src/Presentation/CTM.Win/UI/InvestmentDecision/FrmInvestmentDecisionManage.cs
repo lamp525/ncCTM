@@ -33,6 +33,7 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #region Utilities
+
         private void SetGridViewLayout()
         {
             this.gridView1.LoadLayout(_layoutXmlName);
@@ -68,8 +69,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this._voteReason = content;
         }
 
-
-        private void VoteProcess(string formSerialNo, string buttonTag)
+        private bool VoteProcess(string formSerialNo, string buttonTag)
         {
             EnumLibrary.IDVoteFlag voteFlag = EnumLibrary.IDVoteFlag.None;
 
@@ -102,24 +102,33 @@ namespace CTM.Win.UI.InvestmentDecision
                 dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetVoteReason);
                 dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
                 if (dialog.ShowDialog() != DialogResult.OK)
-                    return;
+                    return false;
+            }
+            else
+            {
+                if (DXMessage.ShowYesNoAndTips("确定撤销上次投票结果么？") == DialogResult.No)
+                    return false;
             }
 
             _IDService.InvestmentDecisionVoteProcess(LoginInfo.CurrentUser.UserCode, formSerialNo, voteFlag, _voteReason);
+
+            return true;
         }
 
         private void DisplayVoteResult(string formSerialNo)
         {
-            var form = EngineContext.Current.Resolve<_dialogIDVoteResult >();
-            form.Owner = this;
-            form.Text = "交易申请单投票结果";            
+            var form = EngineContext.Current.Resolve<_dialogIDVoteResult>();
+            form.Owner = this.ParentForm;
+            form.Text = "交易申请单投票结果";
             form.StartPosition = FormStartPosition.CenterScreen;
             form.SerialNo = formSerialNo;
             form.Show();
         }
-        #endregion
+
+        #endregion Utilities
 
         #region Events
+
         private void FrmInvestmentDecisionMange_Load(object sender, EventArgs e)
         {
             try
@@ -256,7 +265,8 @@ namespace CTM.Win.UI.InvestmentDecision
                 }
                 else
                 {
-                    VoteProcess(formSerialNo, buttonTag);
+                    if (VoteProcess(formSerialNo, buttonTag))
+                        BindApplicationInfo();
                 }
             }
             catch (Exception ex)
@@ -269,8 +279,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 _voteReason = null;
             }
         }
-
-
 
         private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -302,7 +310,8 @@ namespace CTM.Win.UI.InvestmentDecision
             //    if (inBounds)
             //        editor.PerformClick(btn.Button);
             //}
-        } 
-        #endregion
+        }
+
+        #endregion Events
     }
 }

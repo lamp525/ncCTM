@@ -4,6 +4,7 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Data;
 using CTM.Core.Domain.InvestmentDecision;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Common;
 
@@ -49,24 +50,27 @@ namespace CTM.Services.InvestmentDecision
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _IDFRepository.Insert(entity);
-
-            decimal applyUserWeight = 0;
-            decimal otherWeight = 0;
-
             if (_IDCRepository.Table.Count() == 0)
                 throw new Exception("请设置投资决策委员会成员！");
 
+            _IDFRepository.Insert(entity);
+
+            decimal totalWeight = 1;
+            decimal applyUserWeight = 0;
+            decimal otherWeight = 0;
+
             var committeeCodes = _IDCRepository.Table.Select(x => x.Code).ToList();
 
-            if(committeeCodes.Contains (entity.ApplyUser ))
+            if (committeeCodes.Contains(entity.ApplyUser))
             {
-                applyUserWeight = otherWeight = 1 / committeeCodes.Count;
+                applyUserWeight = otherWeight = CommonHelper.SetDecimalDigits(totalWeight / committeeCodes.Count);
             }
             else
             {
                 applyUserWeight = 0.35M;
-                otherWeight = (1 - applyUserWeight) / committeeCodes.Count;
+                otherWeight = CommonHelper.SetDecimalDigits((totalWeight - applyUserWeight) / committeeCodes.Count);
+
+                committeeCodes.Add(entity.ApplyUser);
             }
 
             var defaultVoteInfos = new List<InvestmentDecisionVote>();
@@ -78,7 +82,7 @@ namespace CTM.Services.InvestmentDecision
                     Flag = code == entity.ApplyUser ? (int)EnumLibrary.IDVoteFlag.Approval : (int)EnumLibrary.IDVoteFlag.None,
                     FormSerialNo = entity.SerialNo,
                     Reason = code == entity.ApplyUser ? "发起人默认赞同。" : string.Empty,
-                    Type = code == entity.ApplyUser ?(int)EnumLibrary.IDVoteType .Applicant : (int) EnumLibrary.IDVoteType.Committee, 
+                    Type = code == entity.ApplyUser ? (int)EnumLibrary.IDVoteType.Applicant : (int)EnumLibrary.IDVoteType.Committee,
                     UserCode = code,
                     VoteTime = _commonService.GetCurrentServerTime(),
                     Weight = code == entity.ApplyUser ? applyUserWeight : otherWeight,
@@ -154,14 +158,17 @@ namespace CTM.Services.InvestmentDecision
 
         public void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason)
         {
+
+            if (string.IsNullOrEmpty(reason))
+                reason = @"''";
+
             var commanText = $@"EXEC [dbo].[sp_InvestmentDecisionVoteProcess]
                                         @InvestorCode = {investorCode},
 		                                @FormSerialNo = {formSerialNo},
 		                                @VoteFlag = {(int)flag},
 		                                @Reason = {reason}";
 
-            _dbContext.ExecuteSqlCommand(commanText); 
-
+            _dbContext.ExecuteSqlCommand(commanText);
         }
 
         #endregion Methods

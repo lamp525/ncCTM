@@ -545,7 +545,8 @@ BEGIN
 	FROM InvestmentDecisionVote V
 	LEFT JOIN UserInfo U
 	ON V.UserCode = U.Code	
-	WHERE V.FormSerialNo =@FormSerialNo
+	WHERE V.FormSerialNo =@FormSerialNo AND((V.Flag != 0) OR (V.Flag = 0 AND V.[Type] != 3))
+	ORDER BY V.UserCode
  
 END
 GO

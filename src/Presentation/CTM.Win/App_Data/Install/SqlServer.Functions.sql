@@ -141,7 +141,7 @@ BEGIN
 			SELECT @voteType = [Type] FROM InvestmentDecisionVote WHERE UserCode = @InvestorCode AND FormSerialNo = @SerialNo			
 			IF(@voteType = 0 )
 				BEGIN
-					DECLARE @applicant int =0
+					DECLARE @applicant varchar(50)
 					SELECT @applicant = ApplyUser  FROM InvestmentDecisionForm  WHERE SerialNo = @SerialNo
 					IF(@applicant = @InvestorCode)
 						SET @voteType = 1
