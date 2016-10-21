@@ -14,6 +14,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string ApplyUser { get; set; }
 
+        public int DepartmentId { get; set; }
+
         public string StockFullCode { get; set; }
 
         public string StockName { get; set; }
@@ -23,6 +25,8 @@ namespace CTM.Core.Domain.InvestmentDecision
         public bool DealFlag { get; set; }
 
         public decimal Price { get; set; }
+
+        public  decimal PriceBound { get; set; }
 
         public decimal Volume { get; set; }
 

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
+using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
@@ -60,7 +61,7 @@ namespace CTM.Win.UI.InvestmentDecision
             var investors = _userService.GetAllOperators(true).OrderBy(x => x.Code).ToList();
             this.luInvestor.Initialize(investors, "Code", "Name", enableSearch: true);
             this.luInvestor.EditValue = LoginInfo.CurrentUser.UserCode;
-         
+
             if (investors != null && investors.Any())
             {
                 if (investors.Exists(x => x.Code == LoginInfo.CurrentUser.UserCode))
@@ -108,8 +109,10 @@ namespace CTM.Win.UI.InvestmentDecision
             this.cbOperateType.Initialize(operateTypes);
             this.cbOperateType.DefaultSelected("1");
 
-            this.txtPrice.SetNumericMask(4);
+            this.txtPrice.SetNumericMask(2);
             this.txtPrice.Text = string.Empty;
+            this.txtPriceBound.MaxLength = 2;
+            this.txtPriceBound.Text = "1";
             this.txtVolume.SetNumberMask();
             this.txtVolume.Text = string.Empty;
         }
@@ -144,6 +147,28 @@ namespace CTM.Win.UI.InvestmentDecision
                 return false;
             }
 
+            if (this.txtPriceBound.Text.Trim().Length == 0)
+            {
+                DXMessage.ShowTips("请输入单价上下限！");
+                this.txtPriceBound.Focus();
+                return false;
+            }
+
+            int priceBound;
+            if (!int.TryParse(txtPriceBound.Text.Trim(), out priceBound))
+            {
+                DXMessage.ShowTips("单价上下限应该输入数字！");
+                this.txtPriceBound.Focus();
+                return false;
+            }
+
+            if (int.Parse(this.txtPriceBound.Text.Trim()) <= 0)
+            {
+                DXMessage.ShowTips("单价上下限应该大于0！");
+                this.txtPriceBound.Focus();
+                return false;
+            }
+
             if (this.txtVolume.Text.Trim().Length == 0)
             {
                 DXMessage.ShowTips("请输入数量！");
@@ -165,7 +190,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 return false;
             }
 
-            var investor = this.luInvestor.SelectedValue();
+            var investorInfo = this.luInvestor.GetSelectedDataRow() as UserInfo;
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
             var tradeType = int.Parse(this.cbOperateType.SelectedValue());
             var price = decimal.Parse(this.txtPrice.Text.Trim());
@@ -179,10 +204,12 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 Amount = this.chkBuy.Checked ? amount : -amount,
                 ApplyDate = applyDate,
-                ApplyUser = investor,
+                ApplyUser = investorInfo.Code ,
                 CreateTime = now,
                 DealFlag = this.chkBuy.Checked ? true : false,
+                DepartmentId =investorInfo.DepartmentId,
                 Price = price,
+                PriceBound = (decimal)priceBound / (int)EnumLibrary.NumericUnit.Hundred,
                 Reason = this.memoReason.Text.Trim(),
                 RelateTradePlanNo = txtPlanNo.Text.Trim(),
                 SerialNo = this.txtSerialNo.Text.Trim(),
@@ -206,6 +233,16 @@ namespace CTM.Win.UI.InvestmentDecision
                 decimal dealAmount = CommonHelper.SetDecimalDigits(decimal.Parse(this.txtVolume.Text.Trim()) * decimal.Parse(this.txtPrice.Text.Trim()) / (int)EnumLibrary.NumericUnit.TenThousand, 6);
 
                 this.txtAmount.Text = dealAmount.ToString();
+            }
+        }
+
+        private void CalculatePriceBound()
+        {
+            if (!string.IsNullOrEmpty(this.txtPriceBound.Text.Trim()) && !string.IsNullOrEmpty(this.txtPrice.Text.Trim()))
+            {
+                decimal dealUpBound = CommonHelper.SetDecimalDigits((1 + decimal.Parse(this.txtPriceBound.Text.Trim()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
+                decimal dealDownBound = CommonHelper.SetDecimalDigits((1 - decimal.Parse(this.txtPriceBound.Text.Trim()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
+                this.lblPriceBound.Text = dealDownBound.ToString() + " ~ " + dealUpBound.ToString();
             }
         }
 
@@ -263,10 +300,9 @@ namespace CTM.Win.UI.InvestmentDecision
             this.Close();
         }
 
-        #endregion Events
-
         private void txtPrice_EditValueChanged(object sender, EventArgs e)
         {
+            CalculatePriceBound();
             CalculateAmount();
         }
 
@@ -274,5 +310,12 @@ namespace CTM.Win.UI.InvestmentDecision
         {
             CalculateAmount();
         }
+
+        private void txtPriceBound_TextChanged(object sender, EventArgs e)
+        {
+            CalculatePriceBound();
+        }
+
+        #endregion Events
     }
 }

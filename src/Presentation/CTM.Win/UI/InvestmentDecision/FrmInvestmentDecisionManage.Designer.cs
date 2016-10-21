@@ -61,6 +61,7 @@
             this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceBoundPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVolume = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProfit = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -92,6 +93,8 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colDepartmentName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
@@ -267,6 +270,8 @@
             this.colVotePoint,
             this.colApplyDate,
             this.colApplyUserName,
+            this.colDepartmentId,
+            this.colDepartmentName,
             this.colApplyUser,
             this.colStockFullCode,
             this.colStockName,
@@ -275,6 +280,7 @@
             this.colDealFlagName,
             this.colDealFlag,
             this.colPrice,
+            this.colPriceBoundPercentage,
             this.colVolume,
             this.colAmount,
             this.colProfit,
@@ -322,7 +328,7 @@
             this.colStatusName.FieldName = "StatusName";
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 14;
+            this.colStatusName.VisibleIndex = 16;
             // 
             // colStatus
             // 
@@ -335,7 +341,7 @@
             this.colVotePoint.FieldName = "VotePoint";
             this.colVotePoint.Name = "colVotePoint";
             this.colVotePoint.Visible = true;
-            this.colVotePoint.VisibleIndex = 15;
+            this.colVotePoint.VisibleIndex = 17;
             // 
             // colApplyDate
             // 
@@ -365,7 +371,7 @@
             this.colStockFullCode.FieldName = "StockFullCode";
             this.colStockFullCode.Name = "colStockFullCode";
             this.colStockFullCode.Visible = true;
-            this.colStockFullCode.VisibleIndex = 4;
+            this.colStockFullCode.VisibleIndex = 5;
             this.colStockFullCode.Width = 97;
             // 
             // colStockName
@@ -374,7 +380,7 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 5;
+            this.colStockName.VisibleIndex = 6;
             // 
             // colTradeTypeName
             // 
@@ -382,7 +388,7 @@
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 6;
+            this.colTradeTypeName.VisibleIndex = 7;
             // 
             // colTradeType
             // 
@@ -395,7 +401,7 @@
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 9;
+            this.colDealFlagName.VisibleIndex = 10;
             // 
             // colDealFlag
             // 
@@ -408,7 +414,16 @@
             this.colPrice.FieldName = "Price";
             this.colPrice.Name = "colPrice";
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 10;
+            this.colPrice.VisibleIndex = 11;
+            // 
+            // colPriceBoundPercentage
+            // 
+            this.colPriceBoundPercentage.Caption = "上下限";
+            this.colPriceBoundPercentage.FieldName = "PriceBoundPercentage";
+            this.colPriceBoundPercentage.Name = "colPriceBoundPercentage";
+            this.colPriceBoundPercentage.Visible = true;
+            this.colPriceBoundPercentage.VisibleIndex = 12;
+            this.colPriceBoundPercentage.Width = 53;
             // 
             // colVolume
             // 
@@ -416,7 +431,7 @@
             this.colVolume.FieldName = "Volume";
             this.colVolume.Name = "colVolume";
             this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 11;
+            this.colVolume.VisibleIndex = 13;
             // 
             // colAmount
             // 
@@ -424,7 +439,7 @@
             this.colAmount.FieldName = "Amount";
             this.colAmount.Name = "colAmount";
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 12;
+            this.colAmount.VisibleIndex = 14;
             this.colAmount.Width = 124;
             // 
             // colProfit
@@ -433,7 +448,7 @@
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
             this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 8;
+            this.colProfit.VisibleIndex = 9;
             this.colProfit.Width = 124;
             // 
             // colRelateTradePlanNo
@@ -442,7 +457,7 @@
             this.colRelateTradePlanNo.FieldName = "RelateTradePlanNo";
             this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
             this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 7;
+            this.colRelateTradePlanNo.VisibleIndex = 8;
             this.colRelateTradePlanNo.Width = 125;
             // 
             // colCreateTime
@@ -453,7 +468,7 @@
             this.colCreateTime.FieldName = "CreateTime";
             this.colCreateTime.Name = "colCreateTime";
             this.colCreateTime.Visible = true;
-            this.colCreateTime.VisibleIndex = 17;
+            this.colCreateTime.VisibleIndex = 19;
             this.colCreateTime.Width = 142;
             // 
             // colOperate
@@ -464,7 +479,7 @@
             this.colOperate.ColumnEdit = this.repositoryItemBtnVote;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 13;
+            this.colOperate.VisibleIndex = 15;
             this.colOperate.Width = 174;
             // 
             // repositoryItemBtnVote
@@ -486,7 +501,7 @@
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 16;
+            this.colReason.VisibleIndex = 18;
             this.colReason.Width = 201;
             // 
             // gridColumn1
@@ -495,7 +510,7 @@
             this.gridColumn1.ColumnEdit = this.repositoryItemBtnOperate;
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 18;
+            this.gridColumn1.VisibleIndex = 20;
             // 
             // repositoryItemBtnOperate
             // 
@@ -712,6 +727,21 @@
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
+            // colDepartmentName
+            // 
+            this.colDepartmentName.Caption = "部门名称";
+            this.colDepartmentName.FieldName = "DepartmentName";
+            this.colDepartmentName.Name = "colDepartmentName";
+            this.colDepartmentName.Visible = true;
+            this.colDepartmentName.VisibleIndex = 4;
+            this.colDepartmentName.Width = 89;
+            // 
+            // colDepartmentId
+            // 
+            this.colDepartmentId.Caption = "Department Id";
+            this.colDepartmentId.FieldName = "DepartmentId";
+            this.colDepartmentId.Name = "colDepartmentId";
+            // 
             // FrmInvestmentDecisionManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -819,5 +849,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colAmount;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemBtnOperate;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceBoundPercentage;
+        private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
+        private DevExpress.XtraGrid.Columns.GridColumn colDepartmentName;
     }
 }
