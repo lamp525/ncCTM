@@ -530,11 +530,12 @@ BEGIN
 	SET NOCOUNT ON
 
 	SELECT 
-		ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
+		--ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
 		U.Code 人员编号,
 		U.Name 姓名,
 		CAST(V.[Weight]*100 AS varchar ) + '%' 权重,
 		CASE V.Flag
+			WHEN 0 THEN '未投票'
 			WHEN 1 THEN '赞同'
 			WHEN 2 THEN '反对'
 			WHEN 3 THEN '弃权'
@@ -546,7 +547,7 @@ BEGIN
 	LEFT JOIN UserInfo U
 	ON V.UserCode = U.Code	
 	WHERE V.FormSerialNo =@FormSerialNo AND((V.Flag != 0) OR (V.Flag = 0 AND V.[Type] != 3))
-	ORDER BY V.UserCode
+	ORDER BY V.[Weight] DESC, V.UserCode
  
 END
 GO
