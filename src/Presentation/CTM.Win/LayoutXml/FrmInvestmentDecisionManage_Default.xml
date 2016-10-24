@@ -16,37 +16,54 @@
     <property name="Item1" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colId</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="FieldName">Id</property>
     </property>
     <property name="Item2" isnull="true" iskey="true">
-      <property name="Width">158</property>
+      <property name="Width">148</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">1</property>
       <property name="Name">colSerialNo</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">申请编号</property>
       <property name="FieldName">SerialNo</property>
     </property>
     <property name="Item3" isnull="true" iskey="true">
+      <property name="Width">62</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">16</property>
+      <property name="VisibleIndex">15</property>
       <property name="Name">colStatusName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">状态</property>
       <property name="FieldName">StatusName</property>
     </property>
     <property name="Item4" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colStatus</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="FieldName">Status</property>
     </property>
     <property name="Item5" isnull="true" iskey="true">
+      <property name="Width">61</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">17</property>
-      <property name="Name">colVotePoint</property>
+      <property name="VisibleIndex">16</property>
+      <property name="Name">colPoint</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">投票分数</property>
-      <property name="FieldName">VotePoint</property>
+      <property name="FieldName">Point</property>
     </property>
     <property name="Item6" isnull="true" iskey="true">
       <property name="Width">89</property>
@@ -54,129 +71,185 @@
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">2</property>
       <property name="Name">colApplyDate</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">申请日期</property>
       <property name="FieldName">ApplyDate</property>
     </property>
     <property name="Item7" isnull="true" iskey="true">
+      <property name="Width">57</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">3</property>
       <property name="Name">colApplyUserName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">申请人</property>
       <property name="FieldName">ApplyUserName</property>
     </property>
     <property name="Item8" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colDepartmentId</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">Department Id</property>
       <property name="FieldName">DepartmentId</property>
     </property>
     <property name="Item9" isnull="true" iskey="true">
-      <property name="Width">89</property>
+      <property name="Width">79</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">4</property>
       <property name="Name">colDepartmentName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">部门名称</property>
       <property name="FieldName">DepartmentName</property>
     </property>
     <property name="Item10" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colApplyUser</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="FieldName">ApplyUser</property>
     </property>
     <property name="Item11" isnull="true" iskey="true">
-      <property name="Width">97</property>
+      <property name="Width">78</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">5</property>
       <property name="Name">colStockFullCode</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">股票代码</property>
       <property name="FieldName">StockFullCode</property>
     </property>
     <property name="Item12" isnull="true" iskey="true">
+      <property name="Width">66</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">6</property>
       <property name="Name">colStockName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">股票名称</property>
       <property name="FieldName">StockName</property>
     </property>
     <property name="Item13" isnull="true" iskey="true">
+      <property name="Width">58</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">7</property>
       <property name="Name">colTradeTypeName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">交易类型</property>
       <property name="FieldName">TradeTypeName</property>
     </property>
     <property name="Item14" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colTradeType</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="FieldName">TradeType</property>
     </property>
     <property name="Item15" isnull="true" iskey="true">
+      <property name="Width">40</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">10</property>
+      <property name="VisibleIndex">9</property>
       <property name="Name">colDealFlagName</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">买卖</property>
       <property name="FieldName">DealFlagName</property>
     </property>
     <property name="Item16" isnull="true" iskey="true">
       <property name="ColumnEditName"></property>
       <property name="Name">colDealFlag</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="FieldName">DealFlag</property>
     </property>
     <property name="Item17" isnull="true" iskey="true">
+      <property name="Width">55</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">11</property>
+      <property name="VisibleIndex">10</property>
       <property name="Name">colPrice</property>
-      <property name="Caption">单价</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">单价(元)</property>
       <property name="FieldName">Price</property>
     </property>
     <property name="Item18" isnull="true" iskey="true">
-      <property name="Width">53</property>
+      <property name="Width">128</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">12</property>
+      <property name="VisibleIndex">11</property>
       <property name="Name">colPriceBoundPercentage</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">上下限</property>
       <property name="FieldName">PriceBoundPercentage</property>
     </property>
     <property name="Item19" isnull="true" iskey="true">
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">13</property>
+      <property name="VisibleIndex">12</property>
       <property name="Name">colVolume</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">数量</property>
       <property name="FieldName">Volume</property>
     </property>
     <property name="Item20" isnull="true" iskey="true">
-      <property name="Width">124</property>
+      <property name="Width">83</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">14</property>
+      <property name="VisibleIndex">13</property>
       <property name="Name">colAmount</property>
-      <property name="Caption">金额</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">金额(万元)</property>
       <property name="FieldName">Amount</property>
     </property>
     <property name="Item21" isnull="true" iskey="true">
-      <property name="Width">124</property>
-      <property name="Visible">true</property>
-      <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">9</property>
-      <property name="Name">colProfit</property>
-      <property name="Caption">本次盈亏</property>
-      <property name="FieldName">Profit</property>
-    </property>
-    <property name="Item22" isnull="true" iskey="true">
-      <property name="Width">125</property>
+      <property name="Width">96</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">8</property>
+      <property name="Name">colProfit</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
+      <property name="Caption">本次盈亏(万元)</property>
+      <property name="FieldName">Profit</property>
+    </property>
+    <property name="Item22" isnull="true" iskey="true">
+      <property name="Width">107</property>
+      <property name="Visible">true</property>
+      <property name="ColumnEditName"></property>
+      <property name="VisibleIndex">19</property>
       <property name="Name">colRelateTradePlanNo</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">关联计划单号</property>
       <property name="FieldName">RelateTradePlanNo</property>
     </property>
@@ -188,8 +261,11 @@
       <property name="Width">142</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">19</property>
+      <property name="VisibleIndex">18</property>
       <property name="Name">colCreateTime</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">创建时间</property>
       <property name="FieldName">CreateTime</property>
     </property>
@@ -205,7 +281,7 @@
       <property name="Width">174</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName">repositoryItemBtnVote</property>
-      <property name="VisibleIndex">15</property>
+      <property name="VisibleIndex">14</property>
       <property name="Name">colOperate</property>
       <property name="Caption">投票</property>
     </property>
@@ -213,16 +289,23 @@
       <property name="Width">201</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">18</property>
+      <property name="VisibleIndex">17</property>
       <property name="Name">colReason</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">申请理由</property>
       <property name="FieldName">Reason</property>
     </property>
     <property name="Item26" isnull="true" iskey="true">
+      <property name="Width">61</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName">repositoryItemBtnOperate</property>
       <property name="VisibleIndex">20</property>
       <property name="Name">gridColumn1</property>
+      <property name="OptionsColumn" isnull="true" iskey="true">
+        <property name="AllowEdit">false</property>
+      </property>
       <property name="Caption">操作</property>
     </property>
   </property>
@@ -237,10 +320,6 @@
   <property name="GroupFormat">{0}: [#image]{1} {2}</property>
   <property name="ActiveFilterEnabled">true</property>
   <property name="GroupRowHeight">-1</property>
-  <property name="OptionsBehavior" isnull="true" iskey="true">
-    <property name="Editable">false</property>
-    <property name="ReadOnly">true</property>
-  </property>
   <property name="FixedLineWidth">2</property>
   <property name="OptionsSelection" isnull="true" iskey="true">
     <property name="CheckBoxSelectorColumnWidth">30</property>

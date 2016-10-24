@@ -35,6 +35,7 @@
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.lookUpEdit2 = new DevExpress.XtraEditors.LookUpEdit();
             this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
@@ -50,9 +51,11 @@
             this.colSerialNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colVotePoint = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPoint = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyUserName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDepartmentName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyUser = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockFullCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -82,6 +85,8 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -93,8 +98,6 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colDepartmentName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
@@ -118,6 +121,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
@@ -133,6 +138,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.btnRefresh);
             this.layoutControl1.Controls.Add(this.btnSearch);
             this.layoutControl1.Controls.Add(this.lookUpEdit2);
             this.layoutControl1.Controls.Add(this.lookUpEdit1);
@@ -150,6 +156,16 @@
             this.layoutControl1.Size = new System.Drawing.Size(1542, 759);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(212, 214);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 22);
+            this.btnRefresh.StyleController = this.layoutControl1;
+            this.btnRefresh.TabIndex = 14;
+            this.btnRefresh.Text = "    刷  新    ";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSearch
             // 
@@ -219,9 +235,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(137, 214);
+            this.btnDelete.Location = new System.Drawing.Point(123, 214);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(89, 22);
+            this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "    删  除    ";
@@ -231,7 +247,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(34, 214);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(89, 22);
+            this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "    添  加    ";
@@ -267,7 +283,7 @@
             this.colSerialNo,
             this.colStatusName,
             this.colStatus,
-            this.colVotePoint,
+            this.colPoint,
             this.colApplyDate,
             this.colApplyUserName,
             this.colDepartmentId,
@@ -292,8 +308,6 @@
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 50;
             this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.Editable = false;
-            this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
@@ -312,42 +326,50 @@
             // 
             this.colId.FieldName = "Id";
             this.colId.Name = "colId";
+            this.colId.OptionsColumn.AllowEdit = false;
             // 
             // colSerialNo
             // 
             this.colSerialNo.Caption = "申请编号";
             this.colSerialNo.FieldName = "SerialNo";
             this.colSerialNo.Name = "colSerialNo";
+            this.colSerialNo.OptionsColumn.AllowEdit = false;
             this.colSerialNo.Visible = true;
             this.colSerialNo.VisibleIndex = 1;
-            this.colSerialNo.Width = 158;
+            this.colSerialNo.Width = 148;
             // 
             // colStatusName
             // 
             this.colStatusName.Caption = "状态";
             this.colStatusName.FieldName = "StatusName";
             this.colStatusName.Name = "colStatusName";
+            this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 16;
+            this.colStatusName.VisibleIndex = 15;
+            this.colStatusName.Width = 62;
             // 
             // colStatus
             // 
             this.colStatus.FieldName = "Status";
             this.colStatus.Name = "colStatus";
+            this.colStatus.OptionsColumn.AllowEdit = false;
             // 
-            // colVotePoint
+            // colPoint
             // 
-            this.colVotePoint.Caption = "投票分数";
-            this.colVotePoint.FieldName = "VotePoint";
-            this.colVotePoint.Name = "colVotePoint";
-            this.colVotePoint.Visible = true;
-            this.colVotePoint.VisibleIndex = 17;
+            this.colPoint.Caption = "投票分数";
+            this.colPoint.FieldName = "Point";
+            this.colPoint.Name = "colPoint";
+            this.colPoint.OptionsColumn.AllowEdit = false;
+            this.colPoint.Visible = true;
+            this.colPoint.VisibleIndex = 16;
+            this.colPoint.Width = 61;
             // 
             // colApplyDate
             // 
             this.colApplyDate.Caption = "申请日期";
             this.colApplyDate.FieldName = "ApplyDate";
             this.colApplyDate.Name = "colApplyDate";
+            this.colApplyDate.OptionsColumn.AllowEdit = false;
             this.colApplyDate.Visible = true;
             this.colApplyDate.VisibleIndex = 2;
             this.colApplyDate.Width = 89;
@@ -357,108 +379,144 @@
             this.colApplyUserName.Caption = "申请人";
             this.colApplyUserName.FieldName = "ApplyUserName";
             this.colApplyUserName.Name = "colApplyUserName";
+            this.colApplyUserName.OptionsColumn.AllowEdit = false;
             this.colApplyUserName.Visible = true;
             this.colApplyUserName.VisibleIndex = 3;
+            this.colApplyUserName.Width = 57;
+            // 
+            // colDepartmentId
+            // 
+            this.colDepartmentId.Caption = "Department Id";
+            this.colDepartmentId.FieldName = "DepartmentId";
+            this.colDepartmentId.Name = "colDepartmentId";
+            this.colDepartmentId.OptionsColumn.AllowEdit = false;
+            // 
+            // colDepartmentName
+            // 
+            this.colDepartmentName.Caption = "部门名称";
+            this.colDepartmentName.FieldName = "DepartmentName";
+            this.colDepartmentName.Name = "colDepartmentName";
+            this.colDepartmentName.OptionsColumn.AllowEdit = false;
+            this.colDepartmentName.Visible = true;
+            this.colDepartmentName.VisibleIndex = 4;
+            this.colDepartmentName.Width = 79;
             // 
             // colApplyUser
             // 
             this.colApplyUser.FieldName = "ApplyUser";
             this.colApplyUser.Name = "colApplyUser";
+            this.colApplyUser.OptionsColumn.AllowEdit = false;
             // 
             // colStockFullCode
             // 
             this.colStockFullCode.Caption = "股票代码";
             this.colStockFullCode.FieldName = "StockFullCode";
             this.colStockFullCode.Name = "colStockFullCode";
+            this.colStockFullCode.OptionsColumn.AllowEdit = false;
             this.colStockFullCode.Visible = true;
             this.colStockFullCode.VisibleIndex = 5;
-            this.colStockFullCode.Width = 97;
+            this.colStockFullCode.Width = 78;
             // 
             // colStockName
             // 
             this.colStockName.Caption = "股票名称";
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
+            this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.Visible = true;
             this.colStockName.VisibleIndex = 6;
+            this.colStockName.Width = 66;
             // 
             // colTradeTypeName
             // 
             this.colTradeTypeName.Caption = "交易类型";
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
+            this.colTradeTypeName.OptionsColumn.AllowEdit = false;
             this.colTradeTypeName.Visible = true;
             this.colTradeTypeName.VisibleIndex = 7;
+            this.colTradeTypeName.Width = 58;
             // 
             // colTradeType
             // 
             this.colTradeType.FieldName = "TradeType";
             this.colTradeType.Name = "colTradeType";
+            this.colTradeType.OptionsColumn.AllowEdit = false;
             // 
             // colDealFlagName
             // 
             this.colDealFlagName.Caption = "买卖";
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
+            this.colDealFlagName.OptionsColumn.AllowEdit = false;
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 10;
+            this.colDealFlagName.VisibleIndex = 9;
+            this.colDealFlagName.Width = 40;
             // 
             // colDealFlag
             // 
             this.colDealFlag.FieldName = "DealFlag";
             this.colDealFlag.Name = "colDealFlag";
+            this.colDealFlag.OptionsColumn.AllowEdit = false;
             // 
             // colPrice
             // 
-            this.colPrice.Caption = "单价";
+            this.colPrice.Caption = "单价(元)";
             this.colPrice.FieldName = "Price";
             this.colPrice.Name = "colPrice";
+            this.colPrice.OptionsColumn.AllowEdit = false;
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 11;
+            this.colPrice.VisibleIndex = 10;
+            this.colPrice.Width = 55;
             // 
             // colPriceBoundPercentage
             // 
             this.colPriceBoundPercentage.Caption = "上下限";
             this.colPriceBoundPercentage.FieldName = "PriceBoundPercentage";
             this.colPriceBoundPercentage.Name = "colPriceBoundPercentage";
+            this.colPriceBoundPercentage.OptionsColumn.AllowEdit = false;
             this.colPriceBoundPercentage.Visible = true;
-            this.colPriceBoundPercentage.VisibleIndex = 12;
-            this.colPriceBoundPercentage.Width = 53;
+            this.colPriceBoundPercentage.VisibleIndex = 11;
+            this.colPriceBoundPercentage.Width = 128;
             // 
             // colVolume
             // 
             this.colVolume.Caption = "数量";
             this.colVolume.FieldName = "Volume";
             this.colVolume.Name = "colVolume";
+            this.colVolume.OptionsColumn.AllowEdit = false;
             this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 13;
+            this.colVolume.VisibleIndex = 12;
             // 
             // colAmount
             // 
-            this.colAmount.Caption = "金额";
+            this.colAmount.Caption = "金额(万元)";
             this.colAmount.FieldName = "Amount";
             this.colAmount.Name = "colAmount";
+            this.colAmount.OptionsColumn.AllowEdit = false;
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 14;
-            this.colAmount.Width = 124;
+            this.colAmount.VisibleIndex = 13;
+            this.colAmount.Width = 83;
             // 
             // colProfit
             // 
-            this.colProfit.Caption = "本次盈亏";
+            this.colProfit.Caption = "本次盈亏(万元)";
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
+            this.colProfit.OptionsColumn.AllowEdit = false;
             this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 9;
-            this.colProfit.Width = 124;
+            this.colProfit.VisibleIndex = 8;
+            this.colProfit.Width = 96;
             // 
             // colRelateTradePlanNo
             // 
             this.colRelateTradePlanNo.Caption = "关联计划单号";
             this.colRelateTradePlanNo.FieldName = "RelateTradePlanNo";
             this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
+            this.colRelateTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 8;
-            this.colRelateTradePlanNo.Width = 125;
+            this.colRelateTradePlanNo.VisibleIndex = 19;
+            this.colRelateTradePlanNo.Width = 107;
             // 
             // colCreateTime
             // 
@@ -467,8 +525,9 @@
             this.colCreateTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colCreateTime.FieldName = "CreateTime";
             this.colCreateTime.Name = "colCreateTime";
+            this.colCreateTime.OptionsColumn.AllowEdit = false;
             this.colCreateTime.Visible = true;
-            this.colCreateTime.VisibleIndex = 19;
+            this.colCreateTime.VisibleIndex = 18;
             this.colCreateTime.Width = 142;
             // 
             // colOperate
@@ -479,7 +538,7 @@
             this.colOperate.ColumnEdit = this.repositoryItemBtnVote;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 15;
+            this.colOperate.VisibleIndex = 14;
             this.colOperate.Width = 174;
             // 
             // repositoryItemBtnVote
@@ -500,8 +559,9 @@
             this.colReason.Caption = "申请理由";
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
+            this.colReason.OptionsColumn.AllowEdit = false;
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 18;
+            this.colReason.VisibleIndex = 17;
             this.colReason.Width = 201;
             // 
             // gridColumn1
@@ -509,8 +569,10 @@
             this.gridColumn1.Caption = "操作";
             this.gridColumn1.ColumnEdit = this.repositoryItemBtnOperate;
             this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.OptionsColumn.AllowEdit = false;
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 20;
+            this.gridColumn1.Width = 61;
             // 
             // repositoryItemBtnOperate
             // 
@@ -546,7 +608,9 @@
             this.emptySpaceItem1,
             this.emptySpaceItem3,
             this.emptySpaceItem4,
-            this.layoutControlItem5});
+            this.layoutControlItem5,
+            this.layoutControlItem11,
+            this.emptySpaceItem9});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 143);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Size = new System.Drawing.Size(1522, 596);
@@ -555,9 +619,9 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(206, 26);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(267, 26);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1292, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1231, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem1
@@ -575,16 +639,16 @@
             this.layoutControlItem3.Control = this.btnAdd;
             this.layoutControlItem3.Location = new System.Drawing.Point(10, 26);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(93, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnDelete;
-            this.layoutControlItem4.Location = new System.Drawing.Point(113, 26);
+            this.layoutControlItem4.Location = new System.Drawing.Point(99, 26);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(93, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -599,7 +663,7 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(103, 26);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(89, 26);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -620,6 +684,23 @@
             this.layoutControlItem5.Size = new System.Drawing.Size(71, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.btnRefresh;
+            this.layoutControlItem11.Location = new System.Drawing.Point(188, 26);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(79, 26);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
+            // 
+            // emptySpaceItem9
+            // 
+            this.emptySpaceItem9.AllowHotTrack = false;
+            this.emptySpaceItem9.Location = new System.Drawing.Point(178, 26);
+            this.emptySpaceItem9.Name = "emptySpaceItem9";
+            this.emptySpaceItem9.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup3
             // 
@@ -727,21 +808,6 @@
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
-            // colDepartmentName
-            // 
-            this.colDepartmentName.Caption = "部门名称";
-            this.colDepartmentName.FieldName = "DepartmentName";
-            this.colDepartmentName.Name = "colDepartmentName";
-            this.colDepartmentName.Visible = true;
-            this.colDepartmentName.VisibleIndex = 4;
-            this.colDepartmentName.Width = 89;
-            // 
-            // colDepartmentId
-            // 
-            this.colDepartmentId.Caption = "Department Id";
-            this.colDepartmentId.FieldName = "DepartmentId";
-            this.colDepartmentId.Name = "colDepartmentId";
-            // 
             // FrmInvestmentDecisionManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -774,6 +840,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
@@ -827,7 +895,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colId;
         private DevExpress.XtraGrid.Columns.GridColumn colSerialNo;
         private DevExpress.XtraGrid.Columns.GridColumn colStatus;
-        private DevExpress.XtraGrid.Columns.GridColumn colVotePoint;
+        private DevExpress.XtraGrid.Columns.GridColumn colPoint;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyDate;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyUser;
         private DevExpress.XtraGrid.Columns.GridColumn colStockFullCode;
@@ -852,5 +920,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPriceBoundPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentName;
+        private DevExpress.XtraEditors.SimpleButton btnRefresh;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
     }
 }

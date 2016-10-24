@@ -454,25 +454,25 @@ BEGIN
 			WHEN 0 THEN '卖出'
 		END DealFlagName,
 		U.Name ApplyUserName,
-		T.TotalWeight * 100 VotePoint,
-		CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar)PriceBoundRange,
-		CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '%' PriceBoundPercentage,
-		IDF.*
+		CAST(IDF.Point AS decimal(18,0)) Point,
+		PriceBoundPercentage = CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '% ' + '(' + CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar) + ')',
+		IDF.SerialNo,
+		IDF.ApplyDate,
+		IDF.StockFullCode,
+		IDF.StockName,
+		IDF.RelateTradePlanNo,
+		CAST(IDF.Profit /10000 AS decimal(24,2)) Profit,
+		CAST(IDF.Price AS decimal(18,2)) Price,
+		IDF.Volume,
+		CAST(IDF.Amount /10000 AS decimal(24,2)) Amount,
+		IDF.[Status],
+		IDF.Reason,
+		IDF.CreateTime
 	FROM InvestmentDecisionForm	IDF
 	LEFT JOIN UserInfo U
 	ON IDF.ApplyUser = U.Code
 	LEFT JOIN DepartmentInfo D
-	ON IDF.DepartmentId = D.Id 
-	LEFT JOIN 
-	(
-		SELECT 
-			FormSerialNo,
-			SUM([Weight]) TotalWeight
-		FROM InvestmentDecisionVote 	
-		WHERE Flag = 1 AND [Type] =2
-		GROUP BY FormSerialNo
-	) T
-	ON IDF.SerialNo = T.FormSerialNo 
+	ON IDF.DepartmentId = D.Id 	
 END
 GO
 
@@ -511,7 +511,10 @@ BEGIN
 		END
 
 	UPDATE InvestmentDecisionForm 
-	SET [Status] = [dbo].[f_GetIDFStatus](@FormSerialNo), UpdateTime = GETDATE()
+	SET 
+		Point =	(SELECT SUM([Weight]) FROM InvestmentDecisionVote WHERE Flag = 1 AND ([Type] =1 OR [Type] =2) AND FormSerialNo = @FormSerialNo),
+		[Status] = [dbo].[f_GetIDFStatus](@FormSerialNo), 
+		UpdateTime = GETDATE()
 	WHERE SerialNo = @FormSerialNo 
  
 END
@@ -534,18 +537,18 @@ BEGIN
 
 	SELECT 
 		--ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
-		U.Code 人员编号,
-		U.Name 姓名,
-		CAST(V.[Weight]*100 AS varchar ) + '%' 权重,
+		U.Code InvestorCode,
+		U.Name InvestorName,
+		CAST(CAST(V.[Weight]*100 AS numeric(18,2)) AS varchar ) + '%' WeightPercentage,
 		CASE V.Flag
 			WHEN 0 THEN '未投票'
 			WHEN 1 THEN '赞同'
 			WHEN 2 THEN '反对'
 			WHEN 3 THEN '弃权'
-		END	投票信息,
-		V.Reason 理由,
-		V.VoteTime 投票日期,
-		''  确定日期
+		END	FlagName,
+		V.Reason,
+		V.VoteTime,
+		''  ConfirmTime
 	FROM InvestmentDecisionVote V
 	LEFT JOIN UserInfo U
 	ON V.UserCode = U.Code	

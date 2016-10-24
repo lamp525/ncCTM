@@ -73,8 +73,9 @@ namespace CTM.Win.UI.InvestmentDecision
             var now = _commonService.GetCurrentServerTime();
 
             //申请编号
-            this.txtSerialNo.Text = "NCSQD" + now.ToString("yyyyMMddHHmmss");
+            this.txtSerialNo.Text = string.Empty;
 
+            //申请日期
             this.deApply.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deApply.EditValue = now.Date;
 
@@ -262,6 +263,12 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void deApply_EditValueChanged(object sender, EventArgs e)
+        {
+            var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
+            this.txtSerialNo.Text = _IDService.GenerateSerialNo(applyDate);
+        }
+
         private void chkBuy_CheckedChanged(object sender, EventArgs e)
         {
             this.chkSell.Checked = !this.chkBuy.Checked;
@@ -317,5 +324,7 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
+
+   
     }
 }

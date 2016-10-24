@@ -330,6 +330,7 @@
             this.deApply.Size = new System.Drawing.Size(240, 20);
             this.deApply.StyleController = this.layoutControl1;
             this.deApply.TabIndex = 4;
+            this.deApply.EditValueChanged += new System.EventHandler(this.deApply_EditValueChanged);
             // 
             // txtAmount
             // 

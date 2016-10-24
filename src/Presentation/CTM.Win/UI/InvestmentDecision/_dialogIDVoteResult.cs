@@ -26,7 +26,7 @@ namespace CTM.Win.UI.InvestmentDecision
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
             var commandText = $@"EXEC [dbo].[sp_GetIDVoteResult]
-                                            @FormSerialNo = {SerialNo}";
+                                            @FormSerialNo = '{SerialNo}'";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -34,7 +34,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             var source = ds.Tables[0];
             this.gridControl1.DataSource = source;
-            this.gridView1.PopulateColumns();
+
         }
 
         #endregion Utilities

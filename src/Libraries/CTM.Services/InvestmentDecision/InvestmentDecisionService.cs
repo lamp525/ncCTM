@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Data;
@@ -45,6 +46,29 @@ namespace CTM.Services.InvestmentDecision
 
         #region Methods
 
+        public virtual string GenerateSerialNo(DateTime applyDate)
+        {
+            var serialNo = "SQ" + applyDate.ToString("yyMMdd");
+
+            var info = _IDFRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).ToList().LastOrDefault();
+
+            var suffix = string.Empty;
+            if (info == null)
+                suffix = "001";
+            else
+            {
+                var lastSuffix = info.SerialNo.Substring(info.SerialNo.Length - 3, 3);
+                suffix = (int.Parse(lastSuffix) + 1).ToString("00#");
+                //for (var i = 0; i < 3; i++)
+                //{
+                //    suffix = "0" + suffix;
+                //}
+            }
+
+            serialNo = serialNo + suffix;
+            return serialNo;
+        }
+
         public virtual void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity)
         {
             if (entity == null)
@@ -52,8 +76,6 @@ namespace CTM.Services.InvestmentDecision
 
             if (_IDCRepository.Table.Count() == 0)
                 throw new Exception("请设置投资决策委员会成员！");
-
-            _IDFRepository.Insert(entity);
 
             decimal totalWeight = 1;
             decimal applyUserWeight = 0;
@@ -73,6 +95,9 @@ namespace CTM.Services.InvestmentDecision
                 committeeCodes.Add(entity.ApplyUser);
             }
 
+            entity.Point = (int)(applyUserWeight * 100);
+            _IDFRepository.Insert(entity);
+
             var defaultVoteInfos = new List<InvestmentDecisionVote>();
             foreach (var code in committeeCodes)
             {
@@ -81,7 +106,7 @@ namespace CTM.Services.InvestmentDecision
                     AuthorityLevel = 0,
                     Flag = code == entity.ApplyUser ? (int)EnumLibrary.IDVoteFlag.Approval : (int)EnumLibrary.IDVoteFlag.None,
                     FormSerialNo = entity.SerialNo,
-                    Reason = code == entity.ApplyUser ? "发起人默认赞同。" : string.Empty,
+                    Reason = code == entity.ApplyUser ? entity.Reason : string.Empty,
                     Type = code == entity.ApplyUser ? (int)EnumLibrary.IDVoteType.Applicant : (int)EnumLibrary.IDVoteType.Committee,
                     UserCode = code,
                     VoteTime = _commonService.GetCurrentServerTime(),
@@ -156,17 +181,18 @@ namespace CTM.Services.InvestmentDecision
             return query.ToList();
         }
 
-        public void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason)
+        public virtual void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason)
         {
-
             if (string.IsNullOrEmpty(reason))
-                reason = @"''";
+                reason = @"";
+
+            reason = reason.Replace("'", "''");
 
             var commanText = $@"EXEC [dbo].[sp_InvestmentDecisionVoteProcess]
-                                        @InvestorCode = {investorCode},
-		                                @FormSerialNo = {formSerialNo},
+                                        @InvestorCode = '{investorCode}',
+		                                @FormSerialNo = '{formSerialNo}',
 		                                @VoteFlag = {(int)flag},
-		                                @Reason = {reason}";
+		                                @Reason =N'{@reason}'";
 
             _dbContext.ExecuteSqlCommand(commanText);
         }

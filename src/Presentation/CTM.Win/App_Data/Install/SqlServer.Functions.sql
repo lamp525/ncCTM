@@ -100,7 +100,7 @@ BEGIN
 						BEGIN
 							DECLARE @point int = 0
 							SELECT @point = SUM([Weight]) *100	FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo AND Flag = 1	
-							IF(@point > 60) 
+							IF(@point >= 60) 
 								SET @status = 3
 							ELSE			
 								SET @status = 4

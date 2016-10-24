@@ -147,6 +147,24 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnRefresh.Enabled = false;
+
+                BindApplicationInfo();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnRefresh.Enabled = true;
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
