@@ -83,16 +83,17 @@ namespace CTM.Services.InvestmentDecision
 
             var committeeCodes = _IDCRepository.Table.Select(x => x.Code).ToList();
 
-            if (committeeCodes.Contains(entity.ApplyUser))
+            if (!committeeCodes.Contains(entity.ApplyUser))
             {
-                applyUserWeight = otherWeight = CommonHelper.SetDecimalDigits(totalWeight / committeeCodes.Count);
+                applyUserWeight = 0;
+                otherWeight = CommonHelper.SetDecimalDigits(totalWeight, 4) / committeeCodes.Count;
+
+                committeeCodes.Add(entity.ApplyUser);
             }
             else
             {
                 applyUserWeight = 0.35M;
-                otherWeight = CommonHelper.SetDecimalDigits((totalWeight - applyUserWeight) / committeeCodes.Count);
-
-                committeeCodes.Add(entity.ApplyUser);
+                otherWeight = CommonHelper.SetDecimalDigits((totalWeight - applyUserWeight), 4) / committeeCodes.Count;
             }
 
             entity.Point = (int)(applyUserWeight * 100);

@@ -512,7 +512,7 @@ BEGIN
 
 	UPDATE InvestmentDecisionForm 
 	SET 
-		Point =	(SELECT SUM([Weight]) FROM InvestmentDecisionVote WHERE Flag = 1 AND ([Type] =1 OR [Type] =2) AND FormSerialNo = @FormSerialNo),
+		Point =	(SELECT SUM([Weight])*100 FROM InvestmentDecisionVote WHERE Flag = 1 AND ([Type] =1 OR [Type] =2) AND FormSerialNo = @FormSerialNo),
 		[Status] = [dbo].[f_GetIDFStatus](@FormSerialNo), 
 		UpdateTime = GETDATE()
 	WHERE SerialNo = @FormSerialNo 
