@@ -217,7 +217,7 @@ BEGIN
 		SUM(DR.DealVolume) HoldingVolume,
 		ISNULL(MAX(TT.[Close]),0) LatestPrice,
 		(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
-		(SUM(DR.ActualAmount) + ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit	
+		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit	
 	INTO #TableEnd
 	FROM DeliveryRecord DR
 	LEFT JOIN TKLineToday TT
@@ -232,7 +232,7 @@ BEGIN
 		--SUM(DR.DealVolume) HoldingVolume,
 		--ISNULL(MAX(TT.[Close]),0) LatestPrice,
 		--(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
-		(SUM(DR.ActualAmount) + ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit
+		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit
 	INTO #TableStart
 	FROM DeliveryRecord DR
 	LEFT JOIN TKLineToday TT
@@ -547,7 +547,10 @@ BEGIN
 			WHEN 3 THEN 'ÆúÈ¨'
 		END	FlagName,
 		V.Reason,
-		V.VoteTime,
+		CASE V.Flag
+			WHEN 0 THEN NULL
+			ELSE V.VoteTime
+		END VoteTime,
 		''  ConfirmTime
 	FROM InvestmentDecisionVote V
 	LEFT JOIN UserInfo U
