@@ -102,16 +102,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -188,16 +212,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -275,16 +323,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -361,16 +433,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
@@ -447,16 +543,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["清算金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
@@ -533,16 +653,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -619,16 +763,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -685,7 +853,7 @@ namespace CTM.Services.TradeRecord
 
                 var stockName = row["证券名称"].ToString().Trim();
 
-                var stockInfo = _stockService.GetStockInfoByName (stockName);
+                var stockInfo = _stockService.GetStockInfoByName(stockName);
 
                 if (stockInfo == null) continue;
 
@@ -705,16 +873,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -791,16 +983,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -877,16 +1093,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -958,17 +1198,40 @@ namespace CTM.Services.TradeRecord
                 tradeRecord.TradeTime = string.Empty;
 
                 tradeRecord.DealNo = string.Empty;
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
+                    tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
 
                 //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                    tradeRecord.DealFlag = true;
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
 
@@ -1049,16 +1312,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -1080,7 +1367,7 @@ namespace CTM.Services.TradeRecord
             return tradeRecords;
         }
 
-        #endregion 交割单--浙商证券（普通）
+        #endregion 交割单--浙商证券（信用）
 
         #region 交割单--浙商证券（普通）
 
@@ -1135,16 +1422,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
 
@@ -1219,16 +1530,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["清算金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
@@ -1305,16 +1640,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["清算金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
@@ -1391,16 +1750,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
@@ -1477,16 +1860,40 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
-                //买入
-                if (int.Parse(row["成交数量"].ToString().Trim()) > 0 || decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
+                {
+                    //买入
                     tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
                 //卖出
                 else
-                    tradeRecord.DealFlag = false;
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
 
-                tradeRecord.DealVolume = int.Parse(row["成交数量"].ToString().Trim());
-
-                tradeRecord.ActualAmount = decimal.Parse(row["发生金额"].ToString().Trim());
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
+                }
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
