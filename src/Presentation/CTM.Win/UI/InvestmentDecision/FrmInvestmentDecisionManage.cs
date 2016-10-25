@@ -50,16 +50,24 @@ namespace CTM.Win.UI.InvestmentDecision
 
         #region Utilities
 
-        private void SetGridViewLayout()
+        private void FormInit()
         {
+            if (LoginInfo.CurrentUser.IsAdmin)
+                this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            else
+                this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+            this.btnDelete.Enabled = false;
+
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: true, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 40);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
-                if (column.Name == this.colVote.Name) continue;
-
-                column.OptionsColumn.AllowEdit = false;
+                if (column.Name == this.colVote.Name || column.Name == this.colOperate.Name)
+                    column.OptionsColumn.AllowEdit = true;
+                else
+                    column.OptionsColumn.AllowEdit = false;
             }
         }
 
@@ -247,6 +255,32 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
+        {
+            if (LoginInfo.CurrentUser.IsAdmin)
+            {
+                buttonVI.RightButtons[0].Button.Enabled = true;
+                buttonVI.RightButtons[0].State = ObjectState.Normal;
+            }
+            else
+            {
+                var status = int.Parse(dr[colStatus.FieldName]?.ToString());
+                var applyUser = dr[colApplyUser.FieldName]?.ToString();
+
+                //申请单已提交且当前用户为申请者
+                if (status == (int)EnumLibrary.IDFormStatus.Submited && applyUser == LoginInfo.CurrentUser.UserCode)
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = true;
+                    buttonVI.RightButtons[0].State = ObjectState.Normal;
+                }
+                else
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                }
+            }
+        }
+
         #endregion Utilities
 
         #region Events
@@ -255,9 +289,7 @@ namespace CTM.Win.UI.InvestmentDecision
         {
             try
             {
-                this.btnDelete.Enabled = false;
-
-                SetGridViewLayout();
+                FormInit();
 
                 BindApplicationInfo();
             }
@@ -318,7 +350,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
-                if (DXMessage.ShowYesNoAndWarning("确定删除选择的信息吗？") == DialogResult.Yes)
+                if (DXMessage.ShowYesNoAndWarning("确定删除选择的申请单吗？") == DialogResult.Yes)
                 {
                     var serialNos = new List<string>();
 
@@ -418,8 +450,47 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void repositoryItemBtnOperate_ButtonPressed(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var a = 1;
+        }
+
         private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
+            try
+            {
+                e.Button.Enabled = false;
+
+                var myView = this.gridView1;
+
+                DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
+
+                var serialNo = dr?[colSerialNo.FieldName]?.ToString();
+
+                if (string.IsNullOrEmpty(serialNo)) return;
+
+                var buttonTag = e.Button.Tag.ToString().Trim();
+
+                if (string.IsNullOrEmpty(buttonTag)) return;
+
+                if (buttonTag == "Delete")
+                {
+                    if (DXMessage.ShowYesNoAndWarning("确定删除选择的申请单吗？") == DialogResult.Yes)
+                    {
+                        this._IDService.DeleteInvestmentDecisionForm(serialNo);
+
+                        BindApplicationInfo();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                e.Button.Enabled = true;
+            }
         }
 
         private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
@@ -454,23 +525,25 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            try
+            var myView = sender as GridView;
+
+            DataRow dr = myView.GetDataRow(e.RowHandle);
+
+            if (dr == null) return;
+
+            //投票
+            if (e.Column.Name == colVote.Name)
             {
-                if (e.Column.Name == colVote.Name)
-                {
-                    var myView = sender as GridView;
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-                    DataRow dr = myView.GetDataRow(e.RowHandle);
-
-                    if (dr == null) return;
-
-                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                    VoteButtonStatusSetting(dr, buttonVI);
-                }
+                VoteButtonStatusSetting(dr, buttonVI);
             }
-            catch (Exception ex)
+            //操作
+            else if (e.Column.Name == colOperate.Name)
             {
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                OperateButtonStatusSetting(dr, buttonVI);
             }
         }
     }

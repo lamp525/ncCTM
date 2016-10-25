@@ -119,6 +119,17 @@ namespace CTM.Services.InvestmentDecision
             _IDVRepository.Insert(defaultVoteInfos);
         }
 
+        public virtual void DeleteInvestmentDecisionForm(string serialNo)
+        {
+            if (string.IsNullOrEmpty(serialNo))
+                throw new NotImplementedException();
+
+            var info = _IDFRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
+
+            if (info != null)
+                _IDFRepository.Delete(info);
+        }
+
         public virtual void DeleteInvestmentDecisionForm(IList<string> serialNos)
         {
             if (serialNos == null)
@@ -177,7 +188,7 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual IList<InvestmentDecisionVote> GetInvestmentDecisionVotes(string investorCode)
         {
-            var query = _IDVRepository.Table.Where(x => x.UserCode == investorCode && x.Flag !=(int)EnumLibrary.IDVoteFlag.None );
+            var query = _IDVRepository.Table.Where(x => x.UserCode == investorCode && x.Flag != (int)EnumLibrary.IDVoteFlag.None);
 
             return query.ToList();
         }
