@@ -68,6 +68,7 @@
     <Compile Include="Mapping\Account\AccountOperatorMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionCommitteeMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionFormMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionStockPoolMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionVoteMap.cs" />
     <Compile Include="Mapping\MarginTrading\MarginTradingInfoMap.cs" />
     <Compile Include="Mapping\Stock\StockPoolLogMap.cs" />

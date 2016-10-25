@@ -70,7 +70,9 @@
     <Compile Include="Domain\Account\AccountInitialFund.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionCommittee.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionForm.cs" />
+    <Compile Include="Domain\InvestmentDecision\InvestmentDecisionStockPool.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionVote.cs" />
+    <Compile Include="Domain\InvestmentDecision\MarketTrendForecast.cs" />
     <Compile Include="Util\AppConfigHelper.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Util\CommonHelper.cs" />

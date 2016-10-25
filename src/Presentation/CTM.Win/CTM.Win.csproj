@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -385,6 +385,12 @@
     <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.Designer.cs">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmMarketTrendForecast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmMarketTrendForecast.Designer.cs">
+      <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogIDVoteResult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -610,6 +616,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\FrmMarketTrendForecast.resx">
+      <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogIDVoteResult.resx">
       <DependentUpon>_dialogIDVoteResult.cs</DependentUpon>
