@@ -52,6 +52,8 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void FormInit()
         {
+            this.lblHint.Text = string.Empty;
+
             if (LoginInfo.CurrentUser.IsAdmin)
                 this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             else
@@ -449,7 +451,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 _voteReason = null;
             }
         }
-        
 
         private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -489,6 +490,30 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            var myView = sender as GridView;
+
+            DataRow dr = myView.GetDataRow(e.RowHandle);
+
+            if (dr == null) return;
+
+            //投票
+            if (e.Column.Name == colVote.Name)
+            {
+                //ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                //VoteButtonStatusSetting(dr, buttonVI);
+            }
+            //操作
+            else if (e.Column.Name == colOperate.Name)
+            {
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                OperateButtonStatusSetting(dr, buttonVI);
+            }
+        }
+
         private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
         {
         }
@@ -518,31 +543,5 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
-
-        private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
-        {
-            var myView = sender as GridView;
-
-            DataRow dr = myView.GetDataRow(e.RowHandle);
-
-            if (dr == null) return;
-
-            //投票
-            if (e.Column.Name == colVote.Name)
-            {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                VoteButtonStatusSetting(dr, buttonVI);
-            }
-            //操作
-            else if (e.Column.Name == colOperate.Name)
-            {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                OperateButtonStatusSetting(dr, buttonVI);
-            }
-        }
-
-
     }
 }
