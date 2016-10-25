@@ -210,30 +210,38 @@ namespace CTM.Win.UI.InvestmentDecision
                         buttonVI.RightButtons[2].Button.Enabled = false;
                         buttonVI.RightButtons[2].State = ObjectState.Disabled;
 
-                        bool canRevoke = true;
-                        if (_commonService.GetCurrentServerTime() - myVoteinfo.VoteTime > new TimeSpan(0, 5, 0))
-                            canRevoke = false;
+                        //撤销按钮
+                        buttonVI.RightButtons[3].Button.Enabled = true;
+                        buttonVI.RightButtons[3].State = ObjectState.Normal;
 
-                        if (canRevoke)
-                        {
-                            //撤销按钮
-                            buttonVI.RightButtons[3].Button.Enabled = true;
-                            buttonVI.RightButtons[3].State = ObjectState.Normal;
+                        //查看按钮
+                        buttonVI.RightButtons[4].Button.Enabled = true;
+                        buttonVI.RightButtons[4].State = ObjectState.Normal;
 
-                            //查看按钮
-                            buttonVI.RightButtons[4].Button.Enabled = false;
-                            buttonVI.RightButtons[4].State = ObjectState.Disabled;
-                        }
-                        else
-                        {
-                            //撤销按钮
-                            buttonVI.RightButtons[3].Button.Enabled = false;
-                            buttonVI.RightButtons[3].State = ObjectState.Disabled;
+                        //bool canRevoke = true;
+                        //if (_commonService.GetCurrentServerTime() - myVoteinfo.VoteTime > new TimeSpan(0, 5, 0))
+                        //    canRevoke = false;
 
-                            //查看按钮
-                            buttonVI.RightButtons[4].Button.Enabled = true;
-                            buttonVI.RightButtons[4].State = ObjectState.Normal;
-                        }
+                        //if (canRevoke)
+                        //{
+                        //    //撤销按钮
+                        //    buttonVI.RightButtons[3].Button.Enabled = true;
+                        //    buttonVI.RightButtons[3].State = ObjectState.Normal;
+
+                        //    //查看按钮
+                        //    buttonVI.RightButtons[4].Button.Enabled = false;
+                        //    buttonVI.RightButtons[4].State = ObjectState.Disabled;
+                        //}
+                        //else
+                        //{
+                        //    //撤销按钮
+                        //    buttonVI.RightButtons[3].Button.Enabled = false;
+                        //    buttonVI.RightButtons[3].State = ObjectState.Disabled;
+
+                        //    //查看按钮
+                        //    buttonVI.RightButtons[4].Button.Enabled = true;
+                        //    buttonVI.RightButtons[4].State = ObjectState.Normal;
+                        //}
                     }
                 }
             }
@@ -501,9 +509,9 @@ namespace CTM.Win.UI.InvestmentDecision
             //投票
             if (e.Column.Name == colVote.Name)
             {
-                //ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-                //VoteButtonStatusSetting(dr, buttonVI);
+                VoteButtonStatusSetting(dr, buttonVI);
             }
             //操作
             else if (e.Column.Name == colOperate.Name)

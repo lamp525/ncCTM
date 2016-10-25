@@ -10,14 +10,19 @@ using System.Windows.Forms;
 
 namespace CTM.Win.UI.InvestmentDecision
 {
-    public partial class FrmMarketTrendForecast : BaseForm
+    public partial class FrmMarketTrendForecastManage : BaseForm
     {
-        public FrmMarketTrendForecast()
+        public FrmMarketTrendForecastManage()
         {
             InitializeComponent();
         }
 
         private void FrmMarketTrendForecast_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
 
         }
