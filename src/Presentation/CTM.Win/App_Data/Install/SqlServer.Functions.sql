@@ -92,7 +92,7 @@ BEGIN
 					DECLARE @lastVoteTime  datetime 
 					SELECT @lastVoteTime = MAX(VoteTime) FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND ([Type] = 2 OR [Type] = 99) AND Flag !=0
 
-					IF(DATEDIFF(MI,@lastVoteTime,GETDATE()) <= 5)
+					IF(1 = 2 )--(DATEDIFF(MI,@lastVoteTime,GETDATE()) <= 5)
 						SET @status =  2 	
 					ELSE
 						BEGIN
