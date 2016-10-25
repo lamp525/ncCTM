@@ -593,7 +593,6 @@
             this.repositoryItemBtnOperate.Name = "repositoryItemBtnOperate";
             this.repositoryItemBtnOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemBtnOperate.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemBtnOperate_ButtonClick);
-            this.repositoryItemBtnOperate.ButtonPressed += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemBtnOperate_ButtonPressed);
             // 
             // layoutControlGroup1
             // 

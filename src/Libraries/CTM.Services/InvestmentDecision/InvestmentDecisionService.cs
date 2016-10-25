@@ -126,8 +126,11 @@ namespace CTM.Services.InvestmentDecision
 
             var info = _IDFRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
 
-            if (info != null)
-                _IDFRepository.Delete(info);
+            _IDFRepository.Delete(info);
+
+            var votes = _IDVRepository.Table.Where(x => x.FormSerialNo == serialNo);
+
+            _IDVRepository.Delete(votes.ToArray());
         }
 
         public virtual void DeleteInvestmentDecisionForm(IList<string> serialNos)

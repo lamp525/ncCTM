@@ -449,11 +449,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 _voteReason = null;
             }
         }
-
-        private void repositoryItemBtnOperate_ButtonPressed(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            var a = 1;
-        }
+        
 
         private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -475,7 +471,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 if (buttonTag == "Delete")
                 {
-                    if (DXMessage.ShowYesNoAndWarning("确定删除选择的申请单吗？") == DialogResult.Yes)
+                    if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
                     {
                         this._IDService.DeleteInvestmentDecisionForm(serialNo);
 
@@ -546,5 +542,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 OperateButtonStatusSetting(dr, buttonVI);
             }
         }
+
+
     }
 }
