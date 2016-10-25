@@ -191,7 +191,7 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual IList<InvestmentDecisionVote> GetInvestmentDecisionVotes(string investorCode)
         {
-            var query = _IDVRepository.Table.Where(x => x.UserCode == investorCode && x.Flag != (int)EnumLibrary.IDVoteFlag.None);
+            var query = _IDVRepository.TableNoTracking.Where(x => x.UserCode == investorCode && x.Flag != (int)EnumLibrary.IDVoteFlag.None);
 
             return query.ToList();
         }
