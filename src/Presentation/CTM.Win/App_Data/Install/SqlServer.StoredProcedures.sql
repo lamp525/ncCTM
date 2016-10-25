@@ -457,7 +457,7 @@ BEGIN
 		CASE IDF.[Status]
 			WHEN 3 THEN CAST(IDF.Point AS decimal(18,0)) 
 			WHEN 4 THEN CAST(IDF.Point AS decimal(18,0)) 
-			ELSE NULL
+			ELSE CAST(IDF.Point AS decimal(18,0)) 
 		END Point,
 		PriceBoundPercentage = CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '% ' + '(' + CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar) + ')',
 		IDF.SerialNo,
