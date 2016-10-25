@@ -552,6 +552,12 @@ BEGIN
 			WHEN 2 THEN '反对'
 			WHEN 3 THEN '弃权'
 		END	FlagName,
+		CASE V.[Type]
+			WHEN 1 THEN '申请人'
+			WHEN 2 THEN '决策委员会'
+			WHEN 3 THEN '其他交易员'
+			WHEN 99 THEN '一票否决'
+		END	TypeName,
 		V.Reason,
 		CASE V.Flag
 			WHEN 0 THEN NULL
@@ -562,7 +568,7 @@ BEGIN
 	LEFT JOIN UserInfo U
 	ON V.UserCode = U.Code	
 	WHERE V.FormSerialNo =@FormSerialNo AND((V.Flag != 0) OR (V.Flag = 0 AND V.[Type] != 3))
-	ORDER BY V.[Weight] DESC, V.UserCode
+	ORDER BY V.[Type], V.UserCode
  
 END
 GO
