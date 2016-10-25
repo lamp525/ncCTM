@@ -22,7 +22,7 @@
       <property name="FieldName">Id</property>
     </property>
     <property name="Item2" isnull="true" iskey="true">
-      <property name="Width">148</property>
+      <property name="Width">93</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">1</property>
@@ -195,7 +195,7 @@
       <property name="FieldName">Price</property>
     </property>
     <property name="Item18" isnull="true" iskey="true">
-      <property name="Width">128</property>
+      <property name="Width">135</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
       <property name="VisibleIndex">11</property>
@@ -245,7 +245,7 @@
       <property name="Width">107</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">19</property>
+      <property name="VisibleIndex">18</property>
       <property name="Name">colRelateTradePlanNo</property>
       <property name="OptionsColumn" isnull="true" iskey="true">
         <property name="AllowEdit">false</property>
@@ -259,9 +259,7 @@
         <property name="FormatType">DateTime</property>
       </property>
       <property name="Width">142</property>
-      <property name="Visible">true</property>
       <property name="ColumnEditName"></property>
-      <property name="VisibleIndex">18</property>
       <property name="Name">colCreateTime</property>
       <property name="OptionsColumn" isnull="true" iskey="true">
         <property name="AllowEdit">false</property>
@@ -282,7 +280,7 @@
       <property name="Visible">true</property>
       <property name="ColumnEditName">repositoryItemBtnVote</property>
       <property name="VisibleIndex">14</property>
-      <property name="Name">colOperate</property>
+      <property name="Name">colVote</property>
       <property name="Caption">投票</property>
     </property>
     <property name="Item25" isnull="true" iskey="true">
@@ -301,8 +299,8 @@
       <property name="Width">61</property>
       <property name="Visible">true</property>
       <property name="ColumnEditName">repositoryItemBtnOperate</property>
-      <property name="VisibleIndex">20</property>
-      <property name="Name">gridColumn1</property>
+      <property name="VisibleIndex">19</property>
+      <property name="Name">colOperate</property>
       <property name="OptionsColumn" isnull="true" iskey="true">
         <property name="AllowEdit">false</property>
       </property>
@@ -328,7 +326,7 @@
     <property name="MultiSelect">true</property>
   </property>
   <property name="OptionsView" isnull="true" iskey="true">
-    <property name="ShowGroupPanel">false</property>
+    <property name="ShowGroupedColumns">true</property>
     <property name="EnableAppearanceOddRow">true</property>
     <property name="EnableAppearanceEvenRow">true</property>
     <property name="ShowFilterPanelMode">ShowAlways</property>

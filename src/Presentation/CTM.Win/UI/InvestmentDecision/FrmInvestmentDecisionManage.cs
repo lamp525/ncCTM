@@ -7,41 +7,57 @@ using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Infrastructure;
 using CTM.Data;
+using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.UI.Common;
 using CTM.Win.Util;
+using DevExpress.Utils.Drawing;
+using DevExpress.XtraEditors.Drawing;
+using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace CTM.Win.UI.InvestmentDecision
 {
     public partial class FrmInvestmentDecisionManage : BaseForm
     {
-        private readonly IInvestmentDecisionService _IDService;
+        #region Fields
 
-        private IList<InvestmentDecisionVote> _currentUserVotes = null;
+        private readonly IInvestmentDecisionService _IDService;
+        private readonly ICommonService _commonService;
+
+        private IList<InvestmentDecisionVote> _myVotes = null;
         private string _voteReason = null;
 
         private const string _layoutXmlName = "FrmInvestmentDecisionManage";
 
-        public FrmInvestmentDecisionManage(IInvestmentDecisionService IDService)
+        #endregion Fields
+
+        #region Constructors
+
+        public FrmInvestmentDecisionManage(IInvestmentDecisionService IDService, ICommonService commonService)
         {
             InitializeComponent();
 
             this._IDService = IDService;
+            this._commonService = commonService;
         }
+
+        #endregion Constructors
 
         #region Utilities
 
         private void SetGridViewLayout()
         {
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: true, editable: true, readOnly: false, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: true, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
-                if (column.Name == this.colOperate.Name) continue;
+                if (column.Name == this.colVote.Name) continue;
 
                 column.OptionsColumn.AllowEdit = false;
             }
@@ -57,11 +73,8 @@ namespace CTM.Win.UI.InvestmentDecision
 
             var source = ds.Tables[0];
             this.gridControl1.DataSource = source;
-        }
 
-        private void GetCurrentUserVoteInfo()
-        {
-            _currentUserVotes = _IDService.GetInvestmentDecisionVotes(LoginInfo.CurrentUser.UserCode);
+            _myVotes = _IDService.GetInvestmentDecisionVotes(LoginInfo.CurrentUser.UserCode);
         }
 
         private void GetVoteReason(string content)
@@ -125,6 +138,115 @@ namespace CTM.Win.UI.InvestmentDecision
             form.Show();
         }
 
+        private void VoteButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
+        {
+            var status = int.Parse(dr[colStatus.FieldName]?.ToString());
+            var serialNo = dr[colSerialNo.FieldName]?.ToString();
+            var applyUser = dr[colApplyUser.FieldName]?.ToString();
+
+            var myVoteinfo = _myVotes.FirstOrDefault(x => x.FormSerialNo == serialNo && x.UserCode == LoginInfo.CurrentUser.UserCode);
+
+            //申请单已提交或投票进行中
+            if (status == (int)EnumLibrary.IDFormStatus.Submited || status == (int)EnumLibrary.IDFormStatus.Proceed)
+            {
+                //当前用户为申请者
+                if (applyUser == LoginInfo.CurrentUser.UserCode)
+                {
+                    foreach (EditorButtonObjectInfoArgs args in buttonVI.RightButtons)
+                    {
+                        if (args.Button.Tag.ToString() == "View")
+                        {
+                            args.Button.Enabled = true;
+                            args.State = ObjectState.Normal;
+                        }
+                        else
+                        {
+                            args.Button.Enabled = false;
+                            args.State = ObjectState.Disabled;
+                        }
+                    }
+                }
+                //当前用户不为申请者
+                else
+                {
+                    //未投票
+                    if (myVoteinfo == null || myVoteinfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                    {
+                        buttonVI.RightButtons[0].Button.Enabled = true;
+                        buttonVI.RightButtons[0].State = ObjectState.Normal;
+
+                        buttonVI.RightButtons[1].Button.Enabled = true;
+                        buttonVI.RightButtons[1].State = ObjectState.Normal;
+
+                        buttonVI.RightButtons[2].Button.Enabled = true;
+                        buttonVI.RightButtons[2].State = ObjectState.Normal;
+
+                        buttonVI.RightButtons[3].Button.Enabled = false;
+                        buttonVI.RightButtons[3].State = ObjectState.Disabled;
+
+                        //查看按钮
+                        buttonVI.RightButtons[4].Button.Enabled = false;
+                        buttonVI.RightButtons[4].State = ObjectState.Disabled;
+                    }
+                    //已投票
+                    else
+                    {
+                        buttonVI.RightButtons[0].Button.Enabled = false;
+                        buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                        buttonVI.RightButtons[1].Button.Enabled = false;
+                        buttonVI.RightButtons[1].State = ObjectState.Disabled;
+
+                        buttonVI.RightButtons[2].Button.Enabled = false;
+                        buttonVI.RightButtons[2].State = ObjectState.Disabled;
+
+                        bool canRevoke = true;
+                        if (_commonService.GetCurrentServerTime() - myVoteinfo.VoteTime > new TimeSpan(0, 5, 0))
+                            canRevoke = false;
+
+                        if (canRevoke)
+                        {
+                            //撤销按钮
+                            buttonVI.RightButtons[3].Button.Enabled = true;
+                            buttonVI.RightButtons[3].State = ObjectState.Normal;
+
+                            //查看按钮
+                            buttonVI.RightButtons[4].Button.Enabled = false;
+                            buttonVI.RightButtons[4].State = ObjectState.Disabled;
+                        }
+                        else
+                        {
+                            //撤销按钮
+                            buttonVI.RightButtons[3].Button.Enabled = false;
+                            buttonVI.RightButtons[3].State = ObjectState.Disabled;
+
+                            //查看按钮
+                            buttonVI.RightButtons[4].Button.Enabled = true;
+                            buttonVI.RightButtons[4].State = ObjectState.Normal;
+                        }
+                    }
+                }
+            }
+            //申请单投票完成
+            else if (status == (int)EnumLibrary.IDFormStatus.Denied || status == (int)EnumLibrary.IDFormStatus.Passed)
+            {
+                buttonVI.RightButtons[0].Button.Enabled = false;
+                buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[1].Button.Enabled = false;
+                buttonVI.RightButtons[1].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[2].Button.Enabled = false;
+                buttonVI.RightButtons[2].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[3].Button.Enabled = false;
+                buttonVI.RightButtons[3].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[4].Button.Enabled = true;
+                buttonVI.RightButtons[4].State = ObjectState.Normal;
+            }
+        }
+
         #endregion Utilities
 
         #region Events
@@ -138,8 +260,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 SetGridViewLayout();
 
                 BindApplicationInfo();
-
-                GetCurrentUserVoteInfo();
             }
             catch (Exception ex)
             {
@@ -269,7 +389,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 var myView = this.gridView1;
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
-                var formSerialNo = dr?["SerialNo"]?.ToString();
+                var formSerialNo = dr?[colSerialNo.FieldName]?.ToString();
 
                 if (string.IsNullOrEmpty(formSerialNo)) return;
 
@@ -331,5 +451,27 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
+
+        private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            try
+            {
+                if (e.Column.Name == colVote.Name)
+                {
+                    var myView = sender as GridView;
+
+                    DataRow dr = myView.GetDataRow(e.RowHandle);
+
+                    if (dr == null) return;
+
+                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                    VoteButtonStatusSetting(dr, buttonVI);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
 }

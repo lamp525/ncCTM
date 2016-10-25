@@ -214,7 +214,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 Reason = this.memoReason.Text.Trim(),
                 RelateTradePlanNo = txtPlanNo.Text.Trim(),
                 SerialNo = this.txtSerialNo.Text.Trim(),
-                Status = (int)EnumLibrary.IDFormStatus.Proceed,
+                Status = (int)EnumLibrary.IDFormStatus.Submited,
                 StockFullCode = stock.FullCode,
                 StockName = stock.Name,
                 TradeType = tradeType,

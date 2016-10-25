@@ -173,6 +173,11 @@ namespace CTM.Win.Extensions
 
             gridView.OptionsView.ShowGroupPanel = showGroupPanel;
 
+            if (showGroupPanel)
+            {
+                gridView.OptionsView.ShowGroupedColumns = true;
+            }
+
             if (showFilterPanel)
                 gridView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
             else

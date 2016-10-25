@@ -33,6 +33,7 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -70,12 +71,14 @@
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.Click += new System.EventHandler(this.gridControl1_Click);
             // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colInvestorCode,
             this.colInvestorName,
+            this.colTypeName,
             this.colWeightPercentage,
             this.colFlagName,
             this.colReason,
@@ -83,6 +86,7 @@
             this.colConfirmTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
             // colInvestorCode
@@ -92,7 +96,7 @@
             this.colInvestorCode.Name = "colInvestorCode";
             this.colInvestorCode.Visible = true;
             this.colInvestorCode.VisibleIndex = 0;
-            this.colInvestorCode.Width = 121;
+            this.colInvestorCode.Width = 100;
             // 
             // colInvestorName
             // 
@@ -101,7 +105,16 @@
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
             this.colInvestorName.VisibleIndex = 1;
-            this.colInvestorName.Width = 113;
+            this.colInvestorName.Width = 100;
+            // 
+            // colTypeName
+            // 
+            this.colTypeName.Caption = "类别";
+            this.colTypeName.FieldName = "TypeName";
+            this.colTypeName.Name = "colTypeName";
+            this.colTypeName.Visible = true;
+            this.colTypeName.VisibleIndex = 2;
+            this.colTypeName.Width = 140;
             // 
             // colWeightPercentage
             // 
@@ -111,8 +124,8 @@
             this.colWeightPercentage.FieldName = "WeightPercentage";
             this.colWeightPercentage.Name = "colWeightPercentage";
             this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 2;
-            this.colWeightPercentage.Width = 113;
+            this.colWeightPercentage.VisibleIndex = 3;
+            this.colWeightPercentage.Width = 80;
             // 
             // colFlagName
             // 
@@ -120,8 +133,8 @@
             this.colFlagName.FieldName = "FlagName";
             this.colFlagName.Name = "colFlagName";
             this.colFlagName.Visible = true;
-            this.colFlagName.VisibleIndex = 3;
-            this.colFlagName.Width = 98;
+            this.colFlagName.VisibleIndex = 4;
+            this.colFlagName.Width = 80;
             // 
             // colReason
             // 
@@ -131,8 +144,8 @@
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 4;
-            this.colReason.Width = 560;
+            this.colReason.VisibleIndex = 5;
+            this.colReason.Width = 550;
             // 
             // colVoteTime
             // 
@@ -140,7 +153,7 @@
             this.colVoteTime.FieldName = "VoteTime";
             this.colVoteTime.Name = "colVoteTime";
             this.colVoteTime.Visible = true;
-            this.colVoteTime.VisibleIndex = 5;
+            this.colVoteTime.VisibleIndex = 6;
             this.colVoteTime.Width = 100;
             // 
             // colConfirmTime
@@ -149,8 +162,8 @@
             this.colConfirmTime.FieldName = "ConfirmTime";
             this.colConfirmTime.Name = "colConfirmTime";
             this.colConfirmTime.Visible = true;
-            this.colConfirmTime.VisibleIndex = 6;
-            this.colConfirmTime.Width = 105;
+            this.colConfirmTime.VisibleIndex = 7;
+            this.colConfirmTime.Width = 100;
             // 
             // layoutControlGroup1
             // 
@@ -221,5 +234,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colVoteTime;
         private DevExpress.XtraGrid.Columns.GridColumn colConfirmTime;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraGrid.Columns.GridColumn colTypeName;
     }
 }

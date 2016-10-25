@@ -75,27 +75,25 @@ BEGIN
 	DECLARE @status int = 0
 
 	DECLARE @voteNumber int = 0	
-	SELECT @voteNumber = COUNT(UserCode)	FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] != 1 AND Flag > 0
+	SELECT @voteNumber = COUNT(UserCode) FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND [Type] != 1 AND Flag > 0
 
+	-- 除申请者之外没有投票信息
 	IF(@voteNumber = 0) 
 		SET @status = 1
 	ELSE
-		BEGIN
-
-			DECLARE @oneVoteVetoFlag int = 0
-			SELECT @oneVoteVetoFlag = Flag FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND [Type] = 99
-
-			IF (@oneVoteVetoFlag = 1)
-				SET @status =  3 		
-			ELSE IF (@oneVoteVetoFlag = 2)
-				SET @status = 4
-			ELSE
-				BEGIN
-					DECLARE @notVoteCommittee int = 0
-					SELECT @notVoteCommittee = COUNT(UserCode) FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0
+		BEGIN		
+			DECLARE @notVoteCommittee int = 0
+			SELECT @notVoteCommittee = COUNT(UserCode) FROM InvestmentDecisionVote 	WHERE FormSerialNo = @SerialNo  AND [Type] = 2 AND Flag = 0					
 				
-					IF(@notVoteCommittee > 0) 
-						SET @status =  2 		
+			IF(@notVoteCommittee > 0) 
+				SET @status =  2 		
+			ELSE
+				BEGIN		
+					DECLARE @lastVoteTime  datetime 
+					SELECT @lastVoteTime = MAX(VoteTime) FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND ([Type] = 2 OR [Type] = 99) AND Flag !=0
+
+					IF(DATEDIFF(MI,@lastVoteTime,GETDATE()) <= 5)
+						SET @status =  2 	
 					ELSE
 						BEGIN
 							DECLARE @point int = 0
@@ -104,15 +102,23 @@ BEGIN
 								SET @status = 3
 							ELSE			
 								SET @status = 4
-						END			
+
+							DECLARE @oneVoteVetoFlag int = 0
+							SELECT @oneVoteVetoFlag = Flag FROM InvestmentDecisionVote WHERE FormSerialNo = @SerialNo  AND [Type] = 99
+							-- 一票否决者赞同
+							IF (@oneVoteVetoFlag = 1)
+								SET @status =  3 		
+							ELSE IF (@oneVoteVetoFlag = 2)
+								SET @status = 4
+						END							
 				END	
 		END
 
 	RETURN @status
 		
 END
-GO
 
+GO
 
 /*
 /****** [f_GetIDVoteType] ******/

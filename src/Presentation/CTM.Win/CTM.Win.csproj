@@ -497,6 +497,9 @@
     <Content Include="LayoutXml\FrmDeliveryImport_Account_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LayoutXml\FrmIDVoteResult_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LayoutXml\FrmInvestmentDecisionManage_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
