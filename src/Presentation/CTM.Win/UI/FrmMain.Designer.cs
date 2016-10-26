@@ -118,6 +118,8 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -188,9 +190,11 @@
             this.bbiAccountFundTransfer,
             this.bbiAccountInvestFund,
             this.bbiAccountFundMonthlyStatement,
-            this.barButtonItem6});
+            this.barButtonItem6,
+            this.barButtonItem7,
+            this.barButtonItem8});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 36;
+            this.ribbonControl1.MaxItemId = 38;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -719,7 +723,7 @@
             // 
             // barButtonItem6
             // 
-            this.barButtonItem6.Caption = "股票投资决策单管理";
+            this.barButtonItem6.Caption = "股票投资决策管理";
             this.barButtonItem6.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.Glyph")));
             this.barButtonItem6.Id = 35;
             this.barButtonItem6.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.LargeGlyph")));
@@ -820,6 +824,8 @@
             // ribbonPageGroup1
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem6);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem7);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem8);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             // 
             // ribbonPageAdmin
@@ -926,6 +932,26 @@
             this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseForeColor = true;
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
+            // 
+            // barButtonItem7
+            // 
+            this.barButtonItem7.Caption = "大盘趋势预测";
+            this.barButtonItem7.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.Glyph")));
+            this.barButtonItem7.Id = 36;
+            this.barButtonItem7.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.LargeGlyph")));
+            this.barButtonItem7.Name = "barButtonItem7";
+            this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem7.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem7_ItemClick);
+            // 
+            // barButtonItem8
+            // 
+            this.barButtonItem8.Caption = "收盘个股分析";
+            this.barButtonItem8.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.Glyph")));
+            this.barButtonItem8.Id = 37;
+            this.barButtonItem8.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.LargeGlyph")));
+            this.barButtonItem8.Name = "barButtonItem8";
+            this.barButtonItem8.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick_1);
             // 
             // FrmMain
             // 
@@ -1040,6 +1066,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageInvestmentDecision;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem7;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem8;
     }
 }
 

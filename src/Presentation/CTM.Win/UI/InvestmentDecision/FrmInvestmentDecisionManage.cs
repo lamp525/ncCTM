@@ -140,12 +140,12 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void DisplayVoteResult(string formSerialNo)
         {
-            var form = EngineContext.Current.Resolve<_dialogIDVoteResult>();
-            form.Owner = this.ParentForm;
-            form.Text = "交易申请单投票结果";
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.SerialNo = formSerialNo;
-            form.Show();
+            var dialog = EngineContext.Current.Resolve<_dialogIDVoteResult>();
+            dialog.Owner = this.ParentForm;
+            dialog.Text = "交易申请单投票结果";
+            dialog.StartPosition = FormStartPosition.CenterScreen;
+            dialog.SerialNo = formSerialNo;
+            dialog.Show();
         }
 
         private void VoteButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)

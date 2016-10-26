@@ -7,7 +7,7 @@ namespace CTM.Services.InvestmentDecision
 {
     public partial interface IInvestmentDecisionService : IBaseService
     {
-        string GenerateSerialNo(DateTime applyDate);
+        string GenerateIDFSerialNo(DateTime applyDate);
 
         void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity);
 
@@ -18,5 +18,9 @@ namespace CTM.Services.InvestmentDecision
         void InvestmentDecisionVoteProcess(string investorCode, string formSerialNo, EnumLibrary.IDVoteFlag flag, string reason);
 
         IList<InvestmentDecisionVote> GetInvestmentDecisionVotes(string investorCode);
+
+        MarketTrendForecastDetail GetMTFDetail(string investorCode, string serialNo);
+
+        void UpdateMTFDetail(MarketTrendForecastDetail entity);
     }
 }

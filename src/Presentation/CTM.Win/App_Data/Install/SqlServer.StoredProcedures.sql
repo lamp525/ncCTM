@@ -572,3 +572,111 @@ BEGIN
  
 END
 GO
+
+
+/*
+/****** [sp_GenerateMarketTrendInfo] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
+(
+@ApplyUser varchar(20),
+@ApplyDate datetime,
+@SerialNo varchar(20) output
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	-- Status: 1-提交 2-进行中 3-完成 --
+	DECLARE @infoCount int = 0
+	SELECT @infoCount = COUNT(SerialNo) FROM MarketTrendForecastInfo WHERE ApplyDate = @ApplyDate
+
+	IF(@infoCount = 0)
+		BEGIN
+			SET @SerialNo = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6)
+
+			INSERT INTO MarketTrendForecastInfo (SerialNo,[Status],ApplyUser,ApplyDate,CreateTime)
+			VALUES(@serialNo,1,@ApplyUser ,@ApplyDate ,GETDATE())
+
+			INSERT INTO MarketTrendForecastDetail(SerialNo,InvestorCode,[Weight])
+			SELECT 
+				@SerialNo,
+				 C.Code,
+				 C.[Weight]
+			FROM InvestmentDecisionCommittee C
+
+		END
+	ELSE
+		SELECT @SerialNo = SerialNo FROM MarketTrendForecastInfo WHERE ApplyDate = @ApplyDate
+ 
+END
+GO
+
+
+/*
+/****** [sp_GetMarketTrendForecastDetail] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GetMarketTrendForecastDetail]
+GO
+CREATE PROCEDURE [dbo].[sp_GetMarketTrendForecastDetail]
+(
+@SerialNo varchar(50)
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT 
+		D.SerialNo,
+		U.Code InvestorCode,
+		U.Name InvestorName,
+		D.[Weight],
+		(CAST(CAST(D.[Weight] * 100 AS decimal(18,2)) AS varchar(20)) + '%') WeightPercentage,
+		D.AcquaintanceGraphDate,
+		D.Trend,
+		D.[Open],
+		D.Forenoon,
+		D.Afternoon,
+		D.[Close],
+		D.Reason,
+		D.Accuracy,
+		D.ForecastTime 
+	FROM MarketTrendForecastDetail D
+	LEFT JOIN UserInfo U 
+	ON D.InvestorCode = U.Code
+	WHERE D.SerialNo = @SerialNo	
+END
+GO
+
+
+/*
+/****** [sp_GetMarketTrendForecastInfo] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GetMarketTrendForecastInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GetMarketTrendForecastInfo]
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT 
+		I.Id,
+		I.SerialNo,
+		U.Code ApplyUser,
+		U.Name ApplyUserName,	
+		I.[Status],
+		'' StatusName,
+		I.CreateTime 
+	FROM MarketTrendForecastInfo I
+	LEFT JOIN UserInfo U 
+	ON I.ApplyUser = U.Code
+	ORDER BY I.SerialNo
+END
+GO
+
+

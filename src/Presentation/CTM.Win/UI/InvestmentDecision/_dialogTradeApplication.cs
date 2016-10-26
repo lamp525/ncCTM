@@ -266,7 +266,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private void deApply_EditValueChanged(object sender, EventArgs e)
         {
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
-            this.txtSerialNo.Text = _IDService.GenerateSerialNo(applyDate);
+            this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
         }
 
         private void chkBuy_CheckedChanged(object sender, EventArgs e)

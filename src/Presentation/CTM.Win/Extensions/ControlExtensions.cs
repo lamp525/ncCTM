@@ -130,12 +130,13 @@ namespace CTM.Win.Extensions
             bool editable = false,
             bool readOnly = true,
             bool setAlternateRowColor = true,
+            bool multiSelect = true,
             bool showCheckBoxRowSelect = true,
             int checkBoxSelectorColumnWidth = 30,
             int rowIndicatorWidth = 40)
         {
             gridView.OptionsBehavior.Editable = editable;
-
+            gridView.OptionsBehavior.EditorShowMode = EditorShowMode.MouseDown;
             gridView.OptionsBehavior.ReadOnly = readOnly;
 
             if (setAlternateRowColor)
@@ -148,7 +149,7 @@ namespace CTM.Win.Extensions
                 //gridView.Appearance.FocusedRow.BackColor = Color.DeepSkyBlue;
             }
 
-            gridView.OptionsSelection.MultiSelect = true;
+            gridView.OptionsSelection.MultiSelect = multiSelect;
             gridView.OptionsSelection.UseIndicatorForSelection = false;
 
             if (showCheckBoxRowSelect)
@@ -250,7 +251,6 @@ namespace CTM.Win.Extensions
 
                 if (DXMessage.ShowYesNoAndTips("导出成功,是否打开文件？") == DialogResult.Yes)
                     System.Diagnostics.Process.Start(saveFile.FileName);
-              
             }
         }
 

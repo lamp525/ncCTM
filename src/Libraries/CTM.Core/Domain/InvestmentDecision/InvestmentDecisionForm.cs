@@ -26,7 +26,7 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public decimal Price { get; set; }
 
-        public  decimal PriceBound { get; set; }
+        public decimal PriceBound { get; set; }
 
         public decimal Volume { get; set; }
 

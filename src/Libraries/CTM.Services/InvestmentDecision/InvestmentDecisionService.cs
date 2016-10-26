@@ -19,6 +19,9 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<InvestmentDecisionForm> _IDFRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVRepository;
 
+        private readonly IRepository<MarketTrendForecastInfo> _MTFInfoRepository;
+        private readonly IRepository<MarketTrendForecastDetail> _MTFDetailRepository;
+
         private readonly ICommonService _commonService;
 
         private readonly IDbContext _dbContext;
@@ -31,12 +34,16 @@ namespace CTM.Services.InvestmentDecision
         IRepository<InvestmentDecisionCommittee> IDCRepository,
         IRepository<InvestmentDecisionForm> IDFRepository,
         IRepository<InvestmentDecisionVote> IDVRepository,
+        IRepository<MarketTrendForecastInfo> MTFInfoRepository,
+        IRepository<MarketTrendForecastDetail> MTFDetailRepository,
         ICommonService commonService,
         IDbContext dbContext)
         {
             this._IDCRepository = IDCRepository;
             this._IDFRepository = IDFRepository;
             this._IDVRepository = IDVRepository;
+            this._MTFInfoRepository = MTFInfoRepository;
+            this._MTFDetailRepository = MTFDetailRepository;
 
             this._commonService = commonService;
             this._dbContext = dbContext;
@@ -46,7 +53,7 @@ namespace CTM.Services.InvestmentDecision
 
         #region Methods
 
-        public virtual string GenerateSerialNo(DateTime applyDate)
+        public virtual string GenerateIDFSerialNo(DateTime applyDate)
         {
             var serialNo = "SQ" + applyDate.ToString("yyMMdd");
 
@@ -59,10 +66,6 @@ namespace CTM.Services.InvestmentDecision
             {
                 var lastSuffix = info.SerialNo.Substring(info.SerialNo.Length - 3, 3);
                 suffix = (int.Parse(lastSuffix) + 1).ToString("00#");
-                //for (var i = 0; i < 3; i++)
-                //{
-                //    suffix = "0" + suffix;
-                //}
             }
 
             serialNo = serialNo + suffix;
@@ -210,6 +213,21 @@ namespace CTM.Services.InvestmentDecision
 		                                @Reason =N'{@reason}'";
 
             _dbContext.ExecuteSqlCommand(commanText);
+        }
+
+        public virtual MarketTrendForecastDetail GetMTFDetail(string investorCode, string serialNo)
+        {
+            var detail = _MTFDetailRepository.Table.SingleOrDefault(x => x.InvestorCode == investorCode && x.SerialNo == serialNo);
+
+            return detail;
+        }
+
+        public virtual void UpdateMTFDetail(MarketTrendForecastDetail entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _MTFDetailRepository.Update(entity);
         }
 
         #endregion Methods

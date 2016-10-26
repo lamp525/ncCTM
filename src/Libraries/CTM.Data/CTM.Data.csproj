@@ -70,6 +70,8 @@
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionFormMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionStockPoolMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionVoteMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\MarketTrendForecastDetailMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\MarketTrendForecastInfoMap.cs" />
     <Compile Include="Mapping\MarginTrading\MarginTradingInfoMap.cs" />
     <Compile Include="Mapping\Stock\StockPoolLogMap.cs" />
     <Compile Include="Mapping\Stock\StockTransferInfoMap.cs" />
@@ -126,6 +128,14 @@
     <Compile Include="Migrations\201610210850338_009.Designer.cs">
       <DependentUpon>201610210850338_009.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610260222139_010.cs" />
+    <Compile Include="Migrations\201610260222139_010.Designer.cs">
+      <DependentUpon>201610260222139_010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610260545116_011.cs" />
+    <Compile Include="Migrations\201610260545116_011.Designer.cs">
+      <DependentUpon>201610260545116_011.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -170,6 +180,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610210850338_009.resx">
       <DependentUpon>201610210850338_009.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610260222139_010.resx">
+      <DependentUpon>201610260222139_010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610260545116_011.resx">
+      <DependentUpon>201610260545116_011.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
