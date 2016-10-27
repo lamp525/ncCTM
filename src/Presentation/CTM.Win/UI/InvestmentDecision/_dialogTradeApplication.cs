@@ -205,10 +205,10 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 Amount = this.chkBuy.Checked ? amount : -amount,
                 ApplyDate = applyDate,
-                ApplyUser = investorInfo.Code ,
+                ApplyUser = investorInfo.Code,
                 CreateTime = now,
                 DealFlag = this.chkBuy.Checked ? true : false,
-                DepartmentId =investorInfo.DepartmentId,
+                DepartmentId = investorInfo.DepartmentId,
                 Price = price,
                 PriceBound = (decimal)priceBound / (int)EnumLibrary.NumericUnit.Hundred,
                 Reason = this.memoReason.Text.Trim(),
@@ -324,7 +324,5 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
-
-   
     }
 }

@@ -228,7 +228,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 AccessControl();
 
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridView1.SetLayout(showFilterPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
 
                 this.ActiveControl = this.btnSearch;
             }

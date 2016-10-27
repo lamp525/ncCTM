@@ -113,7 +113,6 @@ namespace CTM.Win.UI.Admin.DataManage
 
         private bool DataImportProcess(out int importRecordNumber)
         {
-        
             importRecordNumber = 0;
 
             var startDate = CommonHelper.StringToDateTime(this.deStart.EditValue.ToString());
@@ -135,7 +134,6 @@ namespace CTM.Win.UI.Admin.DataManage
             foreach (DataRow row in historyRecords.Rows)
             {
                 importRecordNumber++;
-      
 
                 var tradeRecord = new DailyRecord();
 
@@ -223,8 +221,6 @@ namespace CTM.Win.UI.Admin.DataManage
 
             if (DeleteExistedRecords(tradeDateFrom, tradeDateTo))
                 _tradeRecordService.BatchInsertDailyRecords(tradeRecords);
-
-    
 
             return true;
         }

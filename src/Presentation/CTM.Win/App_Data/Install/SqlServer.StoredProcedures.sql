@@ -478,7 +478,7 @@ BEGIN
 	ON IDF.ApplyUser = U.Code
 	LEFT JOIN DepartmentInfo D
 	ON IDF.DepartmentId = D.Id 	
-	ORDER BY IDF.SerialNo
+	ORDER BY IDF.SerialNo DESC
 END
 GO
 

@@ -41,12 +41,11 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 if (info.Value == true)
                     this.btnRevoke.Enabled = true;
 
-
                 int notSettledYear = info.Key / 100;
                 int notSettledMonth = info.Key % 100;
                 int settledYear = notSettledYear;
-                int settledMonth = notSettledMonth -1;
-          
+                int settledMonth = notSettledMonth - 1;
+
                 if (settledMonth == 0)
                 {
                     settledMonth = 12;
@@ -82,7 +81,6 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 _accountService.AccountFundRevokeProcess();
 
                 BindOperationInfo();
-
             }
             catch (Exception ex)
             {
@@ -103,7 +101,6 @@ namespace CTM.Win.UI.Accounting.AccountManage
                 _accountService.AccountFundSettleProcess();
 
                 BindOperationInfo();
-
             }
             catch (Exception ex)
             {
@@ -111,7 +108,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
             }
             finally
             {
-                this.btnSettle .Enabled = true;
+                this.btnSettle.Enabled = true;
             }
         }
 

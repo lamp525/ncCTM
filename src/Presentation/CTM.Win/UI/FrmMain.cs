@@ -635,8 +635,6 @@ namespace CTM.Win.UI
                 e.Cancel = true;
         }
 
-
-
         #endregion Application
 
         #endregion Events
@@ -654,7 +652,6 @@ namespace CTM.Win.UI
         private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmCloseStockAnalysis>("收盘个股分析");
-
         }
     }
 }

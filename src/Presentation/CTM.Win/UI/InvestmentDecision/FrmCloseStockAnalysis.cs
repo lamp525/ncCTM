@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CTM.Win.UI.InvestmentDecision
 {
@@ -19,7 +11,6 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void FrmCloseStockAnalysis_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

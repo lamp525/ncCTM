@@ -196,7 +196,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
 
                 //累计收益额
-                decimal initAccumulatedProfit = initActualAmount + initHoldingVolume *initClosePrice;
+                decimal initAccumulatedProfit = initActualAmount + initHoldingVolume * initClosePrice;
 
                 //目标累计收益额
                 var initTargetRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
@@ -227,7 +227,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
 
                 //累计收益额
-                decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume *currentClosePrice;
+                decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume * currentClosePrice;
 
                 //累计收益率
                 //decimal currentAccumulatedIncomeRate = 0.00M;
@@ -253,7 +253,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal targetPositionValue = Math.Abs(targetHoldingVolume) * currentClosePrice;
 
                 //目标累计收益额
-                decimal targetAccumulatedProfit = targetActualAmount + targetHoldingVolume *currentClosePrice;
+                decimal targetAccumulatedProfit = targetActualAmount + targetHoldingVolume * currentClosePrice;
 
                 //目标本期收益
                 decimal targetTotalProfit = targetAccumulatedProfit - initTargetAccumulatedProfit;
@@ -278,7 +278,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal bandPositionValue = Math.Abs(bandHoldingVolume) * currentClosePrice;
 
                 //波段累计收益额
-                decimal bandAccumulatedProfit = bandActualAmount + bandHoldingVolume *currentClosePrice;
+                decimal bandAccumulatedProfit = bandActualAmount + bandHoldingVolume * currentClosePrice;
 
                 //波段本期收益
                 decimal bandTotalProfit = bandAccumulatedProfit - initBandAccumulatedProfit;
@@ -303,7 +303,7 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 decimal dayPositionValue = Math.Abs(dayHoldingVolume) * currentClosePrice;
 
                 //日内累计收益额
-                decimal dayAccumulatedProfit = dayActualAmount + dayHoldingVolume *currentClosePrice;
+                decimal dayAccumulatedProfit = dayActualAmount + dayHoldingVolume * currentClosePrice;
 
                 //日内本期收益
                 decimal dayTotalProfit = dayAccumulatedProfit - initDayAccumulatedProfit;

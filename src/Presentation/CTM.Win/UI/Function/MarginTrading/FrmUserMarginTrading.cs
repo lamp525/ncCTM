@@ -174,7 +174,7 @@ namespace CTM.Win.UI.Function.MarginTrading
             try
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: true, showGroupPanel: true);
+                this.gridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: true, showGroupPanel: true);
 
                 BindSearchInfo();
 

@@ -124,7 +124,7 @@ namespace CTM.Win.UI.Accounting.AccountManage
             try
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: false, rowIndicatorWidth: 50);
+                this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
                 BindSearchInfo();
 
                 this.btnDelete.Enabled = false;

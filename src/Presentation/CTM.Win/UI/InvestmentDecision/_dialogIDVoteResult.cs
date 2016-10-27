@@ -65,6 +65,5 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
-
     }
 }
