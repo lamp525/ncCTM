@@ -66,7 +66,6 @@ namespace CTM.Win.UI.InvestmentDecision
                     column.OptionsColumn.AllowEdit = false;
             }
 
-
             this.gridViewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
             this.gridViewDetail.ViewCaption = "预测详情（点击相应单元格进行输入）";
         }
@@ -212,7 +211,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             foreach (GridColumn column in currentDetailView.Columns)
             {
-                if (column.Name == this.colInvestorCode.Name || column.Name == this.colSerialNo.Name || column.Name == this.colWeight.Name)
+                if (column.Name == this.colInvestorName.Name || column.Name == this.colSerialNoDetail.Name || column.Name == this.colWeightPercentage.Name)
                     column.OptionsColumn.AllowEdit = false;
                 else
                     column.OptionsColumn.AllowEdit = true;
@@ -288,8 +287,9 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void gridViewDetail_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var currentView = sender as GridView;
-            DataRow row = currentView.GetFocusedDataRow();
+            var currentDetailView = sender as GridView;
+
+            DataRow row = currentDetailView.GetFocusedDataRow();
             if (row == null) return;
 
             var investorCode = row[colInvestorCode.FieldName].ToString();
