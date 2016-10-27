@@ -34,7 +34,6 @@ namespace CTM.Win.UI.InvestmentDecision
 
             var source = ds.Tables[0];
             this.gridControl1.DataSource = source;
-
         }
 
         #endregion Utilities
@@ -65,13 +64,7 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
-
-
         #endregion Events
 
-        private void gridControl1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

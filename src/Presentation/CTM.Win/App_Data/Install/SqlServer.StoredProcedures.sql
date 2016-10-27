@@ -595,14 +595,14 @@ BEGIN
 
 	IF(@infoCount = 0)
 		BEGIN
-			DECLARE @SerialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6)
+			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),@ApplyDate,112),3,6)
 
 			INSERT INTO MarketTrendForecastInfo (SerialNo,[Status],ApplyUser,ApplyDate,CreateTime)
 			VALUES(@serialNo,1,@ApplyUser ,@ApplyDate ,GETDATE())
 
 			INSERT INTO MarketTrendForecastDetail(SerialNo,InvestorCode,[Weight])
 			SELECT 
-				@SerialNo,
+				@serialNo,
 				 C.Code,
 				 C.[Weight]
 			FROM InvestmentDecisionCommittee C

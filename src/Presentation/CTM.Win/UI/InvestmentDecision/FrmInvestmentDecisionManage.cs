@@ -522,34 +522,6 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
-        private void gridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
-        {
-        }
-
-        private void gridView1_ShownEditor(object sender, EventArgs e)
-        {
-            //GridView view = sender as GridView;
-            //ButtonEdit editor = (view.ActiveEditor as ButtonEdit);
-            //if (editor == null) return;
-            //ButtonEditViewInfo info = editor.GetViewInfo() as ButtonEditViewInfo;
-            //Point mousePoint = gridControl1.PointToClient(MousePosition);
-            //Point clickPoint = new Point(mousePoint.X - editor.Location.X, 1);
-            //for (int i = 0; i < info.LeftButtons.Count; i++)
-            //{
-            //    EditorButtonObjectInfoArgs btn = info.LeftButtons[i];
-            //    bool inBounds = info.LeftButtons[0].Bounds.Contains(clickPoint);
-            //    if (inBounds)
-            //        editor.PerformClick(btn.Button);
-            //}
-            //for (int i = 0; i < info.RightButtons.Count; i++)
-            //{
-            //    EditorButtonObjectInfoArgs btn = info.RightButtons[i];
-            //    bool inBounds = info.RightButtons[0].Bounds.Contains(clickPoint);
-            //    if (inBounds)
-            //        editor.PerformClick(btn.Button);
-            //}
-        }
-
         #endregion Events
     }
 }

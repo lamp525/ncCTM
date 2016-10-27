@@ -494,6 +494,7 @@
     <Compile Include="UI\Function\DataManage\FrmTradeDataManage.Designer.cs">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
     </Compile>
+    <Content Include="App_Data\Install\SqlServer.Views.sql" />
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
