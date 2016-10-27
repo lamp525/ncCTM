@@ -3,7 +3,7 @@ GO
 
 
 /*
-/****** [sp_GetStockDailyClosePrices] ******/
+/****** 1. [sp_GetStockDailyClosePrices] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
 GO
@@ -66,7 +66,7 @@ GO
 
 
 /*
-/****** [sp_GetAccountDetail] ******/
+/****** 2. [sp_GetAccountDetail] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetAccountDetail]
 GO
@@ -134,7 +134,7 @@ GO
 
 
 /*
-/****** [sp_GetDiffBetweenDeliveryAndDailyData] ******/
+/****** 3. [sp_GetDiffBetweenDeliveryAndDailyData] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
@@ -195,7 +195,7 @@ GO
 
 
 /*
-/****** [sp_DeliveryAccountInvestIncomeDetail] ******/
+/****** 4. [sp_DeliveryAccountInvestIncomeDetail] ******/
 */
 DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
 GO
@@ -273,7 +273,7 @@ GO
 
 
 /*
-/****** [sp_AccountInvestFundDetail] ******/
+/****** 5. [sp_AccountInvestFundDetail] ******/
 */
 DROP PROCEDURE [dbo].[sp_AccountInvestFundDetail]
 GO
@@ -351,7 +351,7 @@ GO
 
 
 /*
-/****** [sp_AccountFundSettleProcess] ******/
+/****** 6. [sp_AccountFundSettleProcess] ******/
 */
 DROP PROCEDURE [dbo].[sp_AccountFundSettleProcess]
 GO
@@ -401,7 +401,7 @@ GO
 
 
 /*
-/****** [sp_AccountFundRevokeProcess] ******/
+/****** 7. [sp_AccountFundRevokeProcess] ******/
 */
 DROP PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
 GO
@@ -427,7 +427,7 @@ GO
 
 
 /*
-/****** [sp_GetInvestmentDecisionForm] ******/
+/****** 8. [sp_GetInvestmentDecisionForm] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetInvestmentDecisionForm]
 GO
@@ -484,7 +484,7 @@ GO
 
 
 /*
-/****** [sp_InvestmentDecisionVoteProcess] ******/
+/****** 9. [sp_InvestmentDecisionVoteProcess] ******/
 */
 DROP PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
 GO
@@ -528,7 +528,7 @@ GO
 
 
 /*
-/****** [sp_GetIDVoteResult] ******/
+/****** 10. [sp_GetIDVoteResult] ******/
 */
 DROP PROCEDURE [dbo].[sp_GetIDVoteResult]
 GO
@@ -575,15 +575,14 @@ GO
 
 
 /*
-/****** [sp_GenerateMarketTrendInfo] ******/
+/****** 11. [sp_GenerateMarketTrendInfo] ******/
 */
 DROP PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
 GO
 CREATE PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
 (
-@ApplyUser varchar(20),
-@ApplyDate datetime,
-@SerialNo varchar(20) output
+	@ApplyUser varchar(20),
+	@ApplyDate datetime
 )
 AS
 BEGIN
@@ -596,7 +595,7 @@ BEGIN
 
 	IF(@infoCount = 0)
 		BEGIN
-			SET @SerialNo = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6)
+			DECLARE @SerialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6)
 
 			INSERT INTO MarketTrendForecastInfo (SerialNo,[Status],ApplyUser,ApplyDate,CreateTime)
 			VALUES(@serialNo,1,@ApplyUser ,@ApplyDate ,GETDATE())
@@ -609,74 +608,11 @@ BEGIN
 			FROM InvestmentDecisionCommittee C
 
 		END
-	ELSE
-		SELECT @SerialNo = SerialNo FROM MarketTrendForecastInfo WHERE ApplyDate = @ApplyDate
  
 END
 GO
 
 
-/*
-/****** [sp_GetMarketTrendForecastDetail] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetMarketTrendForecastDetail]
-GO
-CREATE PROCEDURE [dbo].[sp_GetMarketTrendForecastDetail]
-(
-@SerialNo varchar(50)
-)
-AS
-BEGIN
 
-	SET NOCOUNT ON
-
-	SELECT 
-		D.SerialNo,
-		U.Code InvestorCode,
-		U.Name InvestorName,
-		D.[Weight],
-		(CAST(CAST(D.[Weight] * 100 AS decimal(18,2)) AS varchar(20)) + '%') WeightPercentage,
-		D.AcquaintanceGraphDate,
-		D.Trend,
-		D.[Open],
-		D.Forenoon,
-		D.Afternoon,
-		D.[Close],
-		D.Reason,
-		D.Accuracy,
-		D.ForecastTime 
-	FROM MarketTrendForecastDetail D
-	LEFT JOIN UserInfo U 
-	ON D.InvestorCode = U.Code
-	WHERE D.SerialNo = @SerialNo	
-END
-GO
-
-
-/*
-/****** [sp_GetMarketTrendForecastInfo] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetMarketTrendForecastInfo]
-GO
-CREATE PROCEDURE [dbo].[sp_GetMarketTrendForecastInfo]
-AS
-BEGIN
-
-	SET NOCOUNT ON
-
-	SELECT 
-		I.Id,
-		I.SerialNo,
-		U.Code ApplyUser,
-		U.Name ApplyUserName,	
-		I.[Status],
-		'' StatusName,
-		I.CreateTime 
-	FROM MarketTrendForecastInfo I
-	LEFT JOIN UserInfo U 
-	ON I.ApplyUser = U.Code
-	ORDER BY I.SerialNo
-END
-GO
 
 
