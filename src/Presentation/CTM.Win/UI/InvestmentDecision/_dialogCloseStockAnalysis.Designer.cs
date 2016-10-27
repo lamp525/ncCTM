@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.UI.InvestmentDecision
 {
-    partial class FrmCloseStockAnalysis
+    partial class _dialogCloseStockAnalysis
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(875, 497);
+            this.layoutControl1.Size = new System.Drawing.Size(1004, 592);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -60,7 +60,7 @@
             this.layoutControlItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(875, 497);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1004, 592);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // gridControl1
@@ -68,7 +68,7 @@
             this.gridControl1.Location = new System.Drawing.Point(12, 29);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(851, 456);
+            this.gridControl1.Size = new System.Drawing.Size(980, 551);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -83,19 +83,19 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(855, 477);
+            this.layoutControlItem1.Size = new System.Drawing.Size(984, 572);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(105, 14);
             // 
-            // FrmCloseStockAnalysis
+            // _dialogCloseStockAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 497);
+            this.ClientSize = new System.Drawing.Size(1004, 592);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "FrmCloseStockAnalysis";
-            this.Text = "FrmCloseStockAnalysis";
-            this.Load += new System.EventHandler(this.FrmCloseStockAnalysis_Load);
+            this.Name = "_dialogCloseStockAnalysis";
+            this.Text = "_dialogCloseStockAnalysis";
+            this.Load += new System.EventHandler(this._dialogCloseStockAnalysis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
@@ -109,9 +109,9 @@
         #endregion
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
     }
 }

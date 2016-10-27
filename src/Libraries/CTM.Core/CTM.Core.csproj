@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Account\AccountInitialFund.cs" />
+    <Compile Include="Domain\InvestmentDecision\CloseStockAnalysisDetail.cs" />
+    <Compile Include="Domain\InvestmentDecision\CloseStockAnalysisInfo.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionCommittee.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionForm.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionStockPool.cs" />

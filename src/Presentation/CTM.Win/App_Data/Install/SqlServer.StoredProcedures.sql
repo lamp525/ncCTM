@@ -613,6 +613,52 @@ END
 GO
 
 
+/*
+/****** 12. [sp_GenerateCloseStockAnalysisInfo] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GenerateCloseStockAnalysisInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GenerateCloseStockAnalysisInfo]
+(
+	@InvestorCode varchar(20),
+	@JudgmentDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+	
+	DECLARE @infoCount int = 0
+	SELECT @infoCount = COUNT(SerialNo) FROM CloseStockAnalysisInfo WHERE JudgmentDate = @JudgmentDate AND InvestorCode = @InvestorCode
+
+	IF(@infoCount = 0)
+		BEGIN
+			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM CloseStockAnalysisInfo WHERE JudgmentDate = @JudgmentDate)			
+
+			DECLARE @suffix varchar(10)
+			IF( ISNULL(@maxSerialNo,'') = '')
+				SET @suffix = '001'
+			ELSE
+				SET @suffix =RIGHT('00000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 2,3) AS int) + 1) AS varchar),3)
+
+			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6) + @suffix
+
+			INSERT INTO CloseStockAnalysisInfo (SerialNo,InvestorCode,JudgmentDate,CreateTime,Result)
+			VALUES(@serialNo,@InvestorCode,@JudgmentDate, GETDATE(),NULL)
+
+			INSERT INTO CloseStockAnalysisDetail(SerialNo,StockCode,StockName)
+			SELECT 
+				@serialNo,
+				P.StockCode,
+				P.StockName 				 
+			FROM InvestmentDecisionStockPool P
+
+		END
+ 
+END
+GO
+
+
 
 
 
