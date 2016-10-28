@@ -65,6 +65,7 @@ AS
 		CASE D.TradeType
 			WHEN 1 THEN '目标'
 			WHEN 2 THEN '波段'
+			WHEN 3 THEN '日内'
 			ELSE ''
 		END TradeTypeName
 	FROM dbo.CloseStockAnalysisDetail AS D 	
