@@ -422,7 +422,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridView1.SaveLayout(_layoutXmlName);
         }
 
-        private void repositoryItemBtnVote_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void riButtonEditVote_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
@@ -460,7 +460,7 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
-        private void repositoryItemBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void riButtonEditOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {

@@ -218,7 +218,7 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
-        private void repositoryItembtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void riButtonEditOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {

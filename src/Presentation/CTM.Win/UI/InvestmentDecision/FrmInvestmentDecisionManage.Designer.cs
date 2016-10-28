@@ -72,10 +72,10 @@
             this.colRelateTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCreateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemBtnVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.riButtonEditVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemBtnOperate = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.riButtonEditOperate = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -112,8 +112,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBtnVote)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBtnOperate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
@@ -166,7 +166,7 @@
             // lblHint
             // 
             this.lblHint.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.lblHint.Location = new System.Drawing.Point(328, 210);
+            this.lblHint.Location = new System.Drawing.Point(328, 214);
             this.lblHint.Name = "lblHint";
             this.lblHint.Size = new System.Drawing.Size(408, 17);
             this.lblHint.StyleController = this.layoutControl1;
@@ -175,7 +175,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(212, 210);
+            this.btnRefresh.Location = new System.Drawing.Point(212, 214);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
@@ -185,7 +185,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(398, 115);
+            this.btnSearch.Location = new System.Drawing.Point(398, 117);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -195,7 +195,7 @@
             // 
             // lookUpEdit2
             // 
-            this.lookUpEdit2.Location = new System.Drawing.Point(75, 91);
+            this.lookUpEdit2.Location = new System.Drawing.Point(75, 93);
             this.lookUpEdit2.Name = "lookUpEdit2";
             this.lookUpEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -205,7 +205,7 @@
             // 
             // lookUpEdit1
             // 
-            this.lookUpEdit1.Location = new System.Drawing.Point(75, 67);
+            this.lookUpEdit1.Location = new System.Drawing.Point(75, 69);
             this.lookUpEdit1.Name = "lookUpEdit1";
             this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -216,7 +216,7 @@
             // dateEdit2
             // 
             this.dateEdit2.EditValue = null;
-            this.dateEdit2.Location = new System.Drawing.Point(273, 43);
+            this.dateEdit2.Location = new System.Drawing.Point(273, 45);
             this.dateEdit2.Name = "dateEdit2";
             this.dateEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -229,7 +229,7 @@
             // dateEdit1
             // 
             this.dateEdit1.EditValue = null;
-            this.dateEdit1.Location = new System.Drawing.Point(75, 43);
+            this.dateEdit1.Location = new System.Drawing.Point(75, 45);
             this.dateEdit1.Name = "dateEdit1";
             this.dateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -241,7 +241,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 184);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 188);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -251,7 +251,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(123, 210);
+            this.btnDelete.Location = new System.Drawing.Point(123, 214);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
@@ -261,7 +261,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(34, 210);
+            this.btnAdd.Location = new System.Drawing.Point(34, 214);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
@@ -271,7 +271,7 @@
             // 
             // comboBoxEdit1
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(75, 115);
+            this.comboBoxEdit1.Location = new System.Drawing.Point(75, 117);
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -281,13 +281,13 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 236);
+            this.gridControl1.Location = new System.Drawing.Point(24, 240);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemBtnVote,
-            this.repositoryItemBtnOperate});
-            this.gridControl1.Size = new System.Drawing.Size(1494, 499);
+            this.riButtonEditVote,
+            this.riButtonEditOperate});
+            this.gridControl1.Size = new System.Drawing.Size(1494, 495);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -336,7 +336,6 @@
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView1_CustomDrawCell);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
-
             // 
             // colId
             // 
@@ -545,24 +544,24 @@
             this.colVote.AppearanceHeader.Options.UseTextOptions = true;
             this.colVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colVote.Caption = "投票";
-            this.colVote.ColumnEdit = this.repositoryItemBtnVote;
+            this.colVote.ColumnEdit = this.riButtonEditVote;
             this.colVote.Name = "colVote";
             this.colVote.Visible = true;
             this.colVote.VisibleIndex = 14;
             this.colVote.Width = 150;
             // 
-            // repositoryItemBtnVote
+            // riButtonEditVote
             // 
-            this.repositoryItemBtnVote.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.riButtonEditVote.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "赞同", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Approval", null, true),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "反对", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Oppose", null, true),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "弃权", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", "Abstain", null, true),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "撤销", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", "Revoke", null, true),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", "View", null, true)});
-            this.repositoryItemBtnVote.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.repositoryItemBtnVote.Name = "repositoryItemBtnVote";
-            this.repositoryItemBtnVote.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            this.repositoryItemBtnVote.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemBtnVote_ButtonClick);
+            this.riButtonEditVote.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.riButtonEditVote.Name = "riButtonEditVote";
+            this.riButtonEditVote.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.riButtonEditVote.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.riButtonEditVote_ButtonClick);
             // 
             // colReason
             // 
@@ -577,21 +576,21 @@
             // colOperate
             // 
             this.colOperate.Caption = "操作";
-            this.colOperate.ColumnEdit = this.repositoryItemBtnOperate;
+            this.colOperate.ColumnEdit = this.riButtonEditOperate;
             this.colOperate.Name = "colOperate";
             this.colOperate.OptionsColumn.AllowEdit = false;
             this.colOperate.Visible = true;
             this.colOperate.VisibleIndex = 19;
             this.colOperate.Width = 40;
             // 
-            // repositoryItemBtnOperate
+            // riButtonEditOperate
             // 
-            this.repositoryItemBtnOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.riButtonEditOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", "Delete", null, true)});
-            this.repositoryItemBtnOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.repositoryItemBtnOperate.Name = "repositoryItemBtnOperate";
-            this.repositoryItemBtnOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            this.repositoryItemBtnOperate.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemBtnOperate_ButtonClick);
+            this.riButtonEditOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.riButtonEditOperate.Name = "riButtonEditOperate";
+            this.riButtonEditOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.riButtonEditOperate.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.riButtonEditOperate_ButtonClick);
             // 
             // layoutControlGroup1
             // 
@@ -622,9 +621,9 @@
             this.emptySpaceItem9,
             this.layoutControlItem12,
             this.emptySpaceItem10});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 141);
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 143);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1522, 598);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1522, 596);
             this.layoutControlGroup2.Text = "投资决策单信息";
             // 
             // emptySpaceItem2
@@ -640,7 +639,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 52);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1498, 503);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1498, 499);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -747,7 +746,7 @@
             this.layoutControlItem10});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1522, 141);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1522, 143);
             this.layoutControlGroup3.Text = "查询条件";
             // 
             // layoutControlItem2
@@ -856,8 +855,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBtnVote)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBtnOperate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
@@ -938,14 +937,14 @@
         private DevExpress.XtraGrid.Columns.GridColumn colRelateTradePlanNo;
         private DevExpress.XtraGrid.Columns.GridColumn colCreateTime;
         private DevExpress.XtraGrid.Columns.GridColumn colVote;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemBtnVote;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditVote;
         private DevExpress.XtraGrid.Columns.GridColumn colReason;
         private DevExpress.XtraGrid.Columns.GridColumn colStatusName;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyUserName;
         private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName;
         private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
         private DevExpress.XtraGrid.Columns.GridColumn colAmount;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemBtnOperate;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditOperate;
         private DevExpress.XtraGrid.Columns.GridColumn colOperate;
         private DevExpress.XtraGrid.Columns.GridColumn colPriceBoundPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
