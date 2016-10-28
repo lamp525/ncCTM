@@ -34,7 +34,7 @@ GO
 
 
 /*
-/****** [[v_MTFInfo]] ******/
+/****** [v_MTFInfo] ******/
 */
 DROP VIEW [dbo].[v_MTFInfo]
 GO

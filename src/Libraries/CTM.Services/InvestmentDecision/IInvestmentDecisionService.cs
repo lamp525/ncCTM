@@ -22,5 +22,9 @@ namespace CTM.Services.InvestmentDecision
         MarketTrendForecastDetail GetMTFDetail(string investorCode, string serialNo);
 
         void UpdateMTFDetail(MarketTrendForecastDetail entity);
+
+        void DeleteMTFInfo(string serialNo);
+
+        void DeleteCSAInfo(string serialNo);
     }
 }

@@ -641,16 +641,17 @@ BEGIN
 			ELSE
 				SET @suffix =RIGHT('00000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 2,3) AS int) + 1) AS varchar),3)
 
-			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),GETDATE(),112),3,6) + @suffix
+			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),@JudgmentDate,112),3,6) + @suffix
 
 			INSERT INTO CloseStockAnalysisInfo (SerialNo,InvestorCode,JudgmentDate,CreateTime,Result)
 			VALUES(@serialNo,@InvestorCode,@JudgmentDate, GETDATE(),NULL)
 
-			INSERT INTO CloseStockAnalysisDetail(SerialNo,StockCode,StockName)
+			INSERT INTO CloseStockAnalysisDetail(SerialNo,StockCode,StockName,TradeType)
 			SELECT 
 				@serialNo,
 				P.StockCode,
-				P.StockName 				 
+				P.StockName,
+				0 				 
 			FROM InvestmentDecisionStockPool P
 
 		END

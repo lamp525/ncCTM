@@ -15,6 +15,9 @@ namespace CTM.Services.InvestmentDecision
     {
         #region Fields
 
+        private readonly IRepository<CloseStockAnalysisInfo> _CSAInfoRepository;
+        private readonly IRepository<CloseStockAnalysisDetail> _CSADetailRepository;
+
         private readonly IRepository<InvestmentDecisionCommittee> _IDCRepository;
         private readonly IRepository<InvestmentDecisionForm> _IDFRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVRepository;
@@ -31,14 +34,18 @@ namespace CTM.Services.InvestmentDecision
         #region Constructors
 
         public InvestmentDecisionService(
-        IRepository<InvestmentDecisionCommittee> IDCRepository,
-        IRepository<InvestmentDecisionForm> IDFRepository,
-        IRepository<InvestmentDecisionVote> IDVRepository,
-        IRepository<MarketTrendForecastInfo> MTFInfoRepository,
-        IRepository<MarketTrendForecastDetail> MTFDetailRepository,
-        ICommonService commonService,
-        IDbContext dbContext)
+            IRepository<CloseStockAnalysisInfo> CSAInfoRepository,
+            IRepository<CloseStockAnalysisDetail> CSADetailRepository,
+            IRepository<InvestmentDecisionCommittee> IDCRepository,
+            IRepository<InvestmentDecisionForm> IDFRepository,
+            IRepository<InvestmentDecisionVote> IDVRepository,
+            IRepository<MarketTrendForecastInfo> MTFInfoRepository,
+            IRepository<MarketTrendForecastDetail> MTFDetailRepository,
+            ICommonService commonService,
+            IDbContext dbContext)
         {
+            this._CSAInfoRepository = CSAInfoRepository;
+            this._CSADetailRepository = CSADetailRepository;
             this._IDCRepository = IDCRepository;
             this._IDFRepository = IDFRepository;
             this._IDVRepository = IDVRepository;
@@ -228,6 +235,34 @@ namespace CTM.Services.InvestmentDecision
                 throw new ArgumentNullException(nameof(entity));
 
             _MTFDetailRepository.Update(entity);
+        }
+
+        public void DeleteMTFInfo(string serialNo)
+        {
+            if (string.IsNullOrEmpty(serialNo))
+                throw new NotImplementedException();
+
+            var info = _MTFInfoRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
+
+            _MTFInfoRepository.Delete(info);
+
+            var votes = _MTFDetailRepository.Table.Where(x => x.SerialNo == serialNo);
+
+            _MTFDetailRepository.Delete(votes.ToArray());
+        }
+
+        public void DeleteCSAInfo(string serialNo)
+        {
+            if (string.IsNullOrEmpty(serialNo))
+                throw new NotImplementedException();
+
+            var info = _CSAInfoRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
+
+            _CSAInfoRepository.Delete(info);
+
+            var votes = _CSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
+
+            _CSADetailRepository.Delete(votes.ToArray());
         }
 
         #endregion Methods

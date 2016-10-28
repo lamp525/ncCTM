@@ -240,7 +240,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 {
                     if (DXMessage.ShowYesNoAndWarning("确定删除该预测信息吗？") == DialogResult.Yes)
                     {
-                        this._IDService.DeleteInvestmentDecisionForm(serialNo);
+                        this._IDService.DeleteMTFInfo(serialNo);
 
                         BindMTFInfo();
                     }
