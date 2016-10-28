@@ -3,7 +3,7 @@ GO
 
 
 /*
-/****** [f_GetAccountOperatorNames] ******/
+/****** 1. [f_GetAccountOperatorNames] ******/
 */
 DROP FUNCTION [dbo].[f_GetAccountOperatorNames]
 GO
@@ -27,7 +27,7 @@ GO
 
 
 /*
-/****** [f_GetFirstDayOfMonth] ******/
+/****** 2. [f_GetFirstDayOfMonth] ******/
 */
 DROP FUNCTION [dbo].[f_GetFirstDayOfMonth]
 GO
@@ -43,7 +43,7 @@ GO
 
 
 /*
-/****** [f_GetLastDayOfMonth] ******/
+/****** 3. [f_GetLastDayOfMonth] ******/
 */
 DROP FUNCTION [dbo].[f_GetLastDayOfMonth]
 GO
@@ -59,7 +59,7 @@ GO
 
 
 /*
-/****** [f_GetIDFStatus] ******/
+/****** 4. [f_GetIDFStatus] ******/
 */
 DROP FUNCTION [dbo].[f_GetIDFStatus]
 GO
@@ -121,7 +121,7 @@ END
 GO
 
 /*
-/****** [f_GetIDVoteType] ******/
+/****** 5. [f_GetIDVoteType] ******/
 */
 DROP FUNCTION [dbo].[f_GetIDVoteType]
 GO

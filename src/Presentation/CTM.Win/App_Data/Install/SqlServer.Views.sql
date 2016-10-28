@@ -1,11 +1,9 @@
-
 USE [CTMDB]
 GO
 
 
-
 /*
-/****** [v_MTFDetail] ******/
+/****** 1. [v_MTFDetail] ******/
 */
 DROP VIEW [dbo].[v_MTFDetail]
 GO
@@ -34,7 +32,7 @@ GO
 
 
 /*
-/****** [v_MTFInfo] ******/
+/****** 2. [v_MTFInfo] ******/
 */
 DROP VIEW [dbo].[v_MTFInfo]
 GO
@@ -53,3 +51,43 @@ AS
 	LEFT JOIN UserInfo U 
 	ON I.ApplyUser = U.Code
 GO
+
+
+/*
+/****** 3. [v_CSADetail] ******/
+*/
+DROP VIEW [dbo].[v_CSADetail]
+GO
+CREATE VIEW [dbo].[v_CSADetail]
+AS
+	SELECT   
+		D.*,
+		CASE D.TradeType
+			WHEN 1 THEN 'Ä¿±ê'
+			WHEN 2 THEN '²¨¶Î'
+			ELSE ''
+		END TradeTypeName
+	FROM dbo.CloseStockAnalysisDetail AS D 	
+GO
+
+
+/*
+/****** 4. [v_CSAInfo] ******/
+*/
+DROP VIEW [dbo].[v_CSAInfo]
+GO
+CREATE VIEW [dbo].[v_CSAInfo]
+AS
+	SELECT 
+		I.Id,
+		I.SerialNo,
+		U.Code InvestorCode,
+		U.Name InvestorName,		
+		I.JudgmentDate,
+		I.CreateTime ,
+		I.Result
+	FROM [dbo].[CloseStockAnalysisInfo] I
+	LEFT JOIN UserInfo U 
+	ON I.InvestorCode = U.Code
+GO
+
