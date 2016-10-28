@@ -30,5 +30,11 @@ namespace CTM.Services.InvestmentDecision
         CloseStockAnalysisDetail GetCSADetailById(int id);
 
         void UpdateCSADetail(CloseStockAnalysisDetail entity);
+
+        IList<InvestmentDecisionStockPool> GetIDStockPool();
+
+        void DeleteIDStockPool(string stockCode);
+
+        void AddIDStockPool(string stockCode, string stockName);
     }
 }

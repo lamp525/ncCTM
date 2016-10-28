@@ -22,6 +22,8 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<InvestmentDecisionForm> _IDFRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVRepository;
 
+        private readonly IRepository<InvestmentDecisionStockPool> _IDStockPoolRepository;
+
         private readonly IRepository<MarketTrendForecastInfo> _MTFInfoRepository;
         private readonly IRepository<MarketTrendForecastDetail> _MTFDetailRepository;
 
@@ -39,6 +41,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<InvestmentDecisionCommittee> IDCRepository,
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
+            IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
             IRepository<MarketTrendForecastInfo> MTFInfoRepository,
             IRepository<MarketTrendForecastDetail> MTFDetailRepository,
             ICommonService commonService,
@@ -49,6 +52,7 @@ namespace CTM.Services.InvestmentDecision
             this._IDCRepository = IDCRepository;
             this._IDFRepository = IDFRepository;
             this._IDVRepository = IDVRepository;
+            this._IDStockPoolRepository = IDStockPoolRepository;
             this._MTFInfoRepository = MTFInfoRepository;
             this._MTFDetailRepository = MTFDetailRepository;
 
@@ -278,6 +282,32 @@ namespace CTM.Services.InvestmentDecision
                 throw new ArgumentNullException(nameof(entity));
 
             _CSADetailRepository.Update(entity);
+        }
+
+        public virtual IList<InvestmentDecisionStockPool> GetIDStockPool()
+        {
+            var query = _IDStockPoolRepository.Table;
+
+            return query.ToList();
+        }
+
+        public virtual void DeleteIDStockPool(string stockCode)
+        {
+            var info = _IDStockPoolRepository.Table.SingleOrDefault(x => x.StockCode == stockCode);
+
+            if (info != null)
+                _IDStockPoolRepository.Delete(info);
+        }
+
+        public virtual void AddIDStockPool(string stockCode, string stockName)
+        {
+            var info = new InvestmentDecisionStockPool
+            {
+                StockCode = stockCode,
+                StockName = stockName
+            };
+
+            _IDStockPoolRepository.Insert(info);
         }
 
         #endregion Methods

@@ -4,20 +4,23 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Domain.Stock;
 using CTM.Services.Common;
+using CTM.Services.InvestmentDecision;
 using CTM.Services.Stock;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.Admin.BaseData
+namespace CTM.Win.UI.InvestmentDecision
 {
-    public partial class FrmStockPool : BaseForm
+    public partial class FrmIDStockPool : BaseForm
     {
         #region Fields
 
         private readonly IStockService _stockService;
+        private readonly IInvestmentDecisionService _IDService;
         private readonly ICommonService _commonService;
 
         private IList<StockInfo> _stocks;
@@ -26,67 +29,34 @@ namespace CTM.Win.UI.Admin.BaseData
         private const string _PoolLogFormatEdit = @"[ {0} ] —— {1} 修改了股票 [{2}][{3}] 的股票池信息。【 目标负责人： {4}   波段负责人： {5} 】";
         private const string _PoolLogFormatDelete = @"[ {0} ] —— {1} 将股票 [{2}][{3}] 移出了股票池。";
 
-        private const string _layoutXmlName = "FrmStockPool";
-
         private const int _RecentLogNumber = 20;
 
         #endregion Fields
 
         #region Constructors
 
-        public FrmStockPool(IStockService stockService, ICommonService commonService)
+        public FrmIDStockPool(IStockService stockService, ICommonService commonService, IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
             this._stockService = stockService;
             this._commonService = commonService;
+            this._IDService = IDService;
         }
 
         #endregion Constructors
 
         #region Utilities
 
-        private void SetOperateButtonProperties()
-        {
-            this.btnEdit.Enabled = false;
-            this.btnDelete.Enabled = false;
-        }
-
         private void BindStockPool()
         {
-            var stockPoolInfos = new List<StockPoolInfoModel>();
+            var IDStockPoolInfos = _IDService.GetIDStockPool();
 
-            stockPoolInfos = _stockService.GetAllStockPoolDetail()
-                .Select(x => new StockPoolInfoModel
-                {
-                    BandPrincipal = x.BandPrincipal,
-                    BandPrincipalName = x.BandName,
-                    Id = x.Id,
-                    Remarks = x.Remarks,
-                    StockId = x.StockId,
-                    StockCode = x.StockInfo.Code,
-                    StockFullCode = x.StockInfo.FullCode,
-                    StockName = x.StockInfo.Name,
-                    TargetPrincipal = x.TargetPrincipal,
-                    TargetPrincipalName = x.TargetName,
-                }).ToList();
-
-            this.gridControl1.DataSource = stockPoolInfos;
-        }
-
-        private void DisplayPoolEditDialog(int stockId)
-        {
-            var dialog = this.CreateDialog<_dialogStockPoolEdit>();
-            dialog.RefreshEvent += new _dialogStockPoolEdit.RefreshParentForm(RefreshForm);
-            dialog.StockId = stockId;
-            dialog.Text = "股票池设置";
-            dialog.ShowDialog();
+            this.gridControl1.DataSource = IDStockPoolInfos;
         }
 
         private void RefreshForm()
         {
-            SetOperateButtonProperties();
-
             BindStockPool();
 
             BindStockInfoLeft();
@@ -98,7 +68,9 @@ namespace CTM.Win.UI.Admin.BaseData
         {
             _stocks = _stockService.GetAllStocks(showDeleted: true);
 
-            var stocksNotInPool = _stocks.Where(x => !x.IsInPool).OrderBy(x => x.FullCode).ToList();
+            var stockCodesInPool = (this.gridView1.DataSource as List<InvestmentDecisionStockPool>).Select(x => x.StockCode).ToArray();
+
+            var stocksNotInPool = _stocks.Where(x => !stockCodesInPool.Contains(x.FullCode)).OrderBy(x => x.FullCode).ToList();
 
             var source = stocksNotInPool.Select(x => new StockInfoModel
             {
@@ -145,10 +117,9 @@ namespace CTM.Win.UI.Admin.BaseData
 
         private void FrmStockPool_Load(object sender, EventArgs e)
         {
-            this.gridView1.LoadLayout(_layoutXmlName);
             this.gridView1.SetLayout();
 
-            SetOperateButtonProperties();
+            this.btnDelete.Enabled = false;
 
             BindStockPool();
 
@@ -166,40 +137,40 @@ namespace CTM.Win.UI.Admin.BaseData
 
         private void DisplayPoolHistory(int stockId, int logNumber)
         {
-            var logs = _stockService.GetStockPoolLogs(stockId, logNumber).OrderByDescending(x => x.OperatorTime).ToList();
+            //var logs = _stockService.GetStockPoolLogs(stockId, logNumber).OrderByDescending(x => x.OperatorTime).ToList();
 
-            var parsedLogs = new List<string>();
-            foreach (var log in logs)
-            {
-                var parsedLog = string.Empty;
-                parsedLogs.Add(parsedLog);
+            //var parsedLogs = new List<string>();
+            //foreach (var log in logs)
+            //{
+            //    var parsedLog = string.Empty;
+            //    parsedLogs.Add(parsedLog);
 
-                if (string.IsNullOrEmpty(log.BandPricipalName))
-                    log.BandPricipalName = " / ";
+            //    if (string.IsNullOrEmpty(log.BandPricipalName))
+            //        log.BandPricipalName = " / ";
 
-                if (string.IsNullOrEmpty(log.TargetPricipalName))
-                    log.TargetPricipalName = " / ";
+            //    if (string.IsNullOrEmpty(log.TargetPricipalName))
+            //        log.TargetPricipalName = " / ";
 
-                switch (log.Type)
-                {
-                    case (int)EnumLibrary.OperateType.Add:
-                        parsedLog = string.Format(_PoolLogFormatAdd, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
-                        break;
+            //    switch (log.Type)
+            //    {
+            //        case (int)EnumLibrary.OperateType.Add:
+            //            parsedLog = string.Format(_PoolLogFormatAdd, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
+            //            break;
 
-                    case (int)EnumLibrary.OperateType.Edit:
-                        parsedLog = string.Format(_PoolLogFormatEdit, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
-                        break;
+            //        case (int)EnumLibrary.OperateType.Edit:
+            //            parsedLog = string.Format(_PoolLogFormatEdit, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
+            //            break;
 
-                    case (int)EnumLibrary.OperateType.Delete:
-                        parsedLog = string.Format(_PoolLogFormatDelete, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode);
-                        break;
-                }
+            //        case (int)EnumLibrary.OperateType.Delete:
+            //            parsedLog = string.Format(_PoolLogFormatDelete, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode);
+            //            break;
+            //    }
 
-                parsedLogs.Add(parsedLog);
-            }
+            //    parsedLogs.Add(parsedLog);
+            //}
 
-            this.lbHistoryLog.Items.Clear();
-            this.lbHistoryLog.Items.AddRange(parsedLogs.ToArray());
+            //this.lbHistoryLog.Items.Clear();
+            //this.lbHistoryLog.Items.AddRange(parsedLogs.ToArray());
         }
 
         private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
@@ -211,21 +182,11 @@ namespace CTM.Win.UI.Admin.BaseData
 
             if (selectedHandles.Length == 0)
             {
-                this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
             }
-            else if (selectedHandles.Length > 0)
+            else
             {
                 btnDelete.Enabled = true;
-
-                if (selectedHandles.Length == 1)
-                {
-                    this.btnEdit.Enabled = true;
-                }
-                else
-                {
-                    this.btnEdit.Enabled = false;
-                }
             }
         }
 
@@ -246,19 +207,9 @@ namespace CTM.Win.UI.Admin.BaseData
 
                 if (DXMessage.ShowYesNoAndTips("确定将该股票移出股票池吗？") == DialogResult.Yes)
                 {
-                    var stockId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colStockId).ToString());
+                    var stockCode = myView.GetRowCellValue(selectedHandles[0], colStockCode).ToString();
 
-                    _stockService.DeleteStockPoolInfoByStockId(stockId);
-
-                    var logModel = new StockPoolLog
-                    {
-                        StockId = stockId,
-                        Type = (int)EnumLibrary.OperateType.Delete,
-                        OperatorCode = LoginInfo.CurrentUser.UserCode,
-                        OperatorTime = _commonService.GetCurrentServerTime(),
-                    };
-
-                    _stockService.AddStockPoolLog(logModel);
+                    _IDService.DeleteIDStockPool(stockCode);
 
                     RefreshForm();
                 }
@@ -270,37 +221,6 @@ namespace CTM.Win.UI.Admin.BaseData
             finally
             {
                 this.btnDelete.Enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// 修改股票池信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnEdit.Enabled = false;
-
-                var myView = this.gridView1;
-
-                var selectedHandles = myView.GetSelectedRows();
-                if (selectedHandles.Any())
-                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
-
-                var stockId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colStockId).ToString());
-
-                DisplayPoolEditDialog(stockId);
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnEdit.Enabled = true;
             }
         }
 
@@ -317,19 +237,13 @@ namespace CTM.Win.UI.Admin.BaseData
                 return;
             }
 
-            var stockId = int.Parse(luStockLeft.SelectedValue());
+            var stockInfo = luStockLeft.GetSelectedDataRow() as InvestmentDecisionStockPool;
 
-            DisplayPoolEditDialog(stockId);
-        }
+            if (stockInfo == null) return;
 
-        /// <summary>
-        /// 保存样式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSaveLayout_Click(object sender, EventArgs e)
-        {
-            this.gridView1.SaveLayout(_layoutXmlName);
+            _IDService.AddIDStockPool(stockInfo.StockCode, stockInfo.StockName);
+
+            RefreshForm();
         }
 
         private void chkRecent_CheckedChanged(object sender, EventArgs e)

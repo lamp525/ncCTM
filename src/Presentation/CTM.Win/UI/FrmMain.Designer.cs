@@ -92,6 +92,8 @@
             this.bbiAccountInvestFund = new DevExpress.XtraBars.BarButtonItem();
             this.bbiAccountFundMonthlyStatement = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFunction = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgStockPoolUser = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -118,8 +120,9 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroup14 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem20 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -192,9 +195,11 @@
             this.bbiAccountFundMonthlyStatement,
             this.barButtonItem6,
             this.barButtonItem7,
-            this.barButtonItem8});
+            this.barButtonItem8,
+            this.barButtonItem9,
+            this.barButtonItem20});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 38;
+            this.ribbonControl1.MaxItemId = 40;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFunction,
@@ -731,6 +736,26 @@
             this.barButtonItem6.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
             // 
+            // barButtonItem7
+            // 
+            this.barButtonItem7.Caption = "大盘趋势预测";
+            this.barButtonItem7.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.Glyph")));
+            this.barButtonItem7.Id = 36;
+            this.barButtonItem7.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.LargeGlyph")));
+            this.barButtonItem7.Name = "barButtonItem7";
+            this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem7.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem7_ItemClick);
+            // 
+            // barButtonItem8
+            // 
+            this.barButtonItem8.Caption = "收盘个股分析";
+            this.barButtonItem8.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.Glyph")));
+            this.barButtonItem8.Id = 37;
+            this.barButtonItem8.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.LargeGlyph")));
+            this.barButtonItem8.Name = "barButtonItem8";
+            this.barButtonItem8.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick_1);
+            // 
             // ribbonPageFunction
             // 
             this.ribbonPageFunction.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -817,6 +842,7 @@
             // ribbonPageInvestmentDecision
             // 
             this.ribbonPageInvestmentDecision.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup14,
             this.ribbonPageGroup1});
             this.ribbonPageInvestmentDecision.Name = "ribbonPageInvestmentDecision";
             this.ribbonPageInvestmentDecision.Text = "投资决策";
@@ -933,25 +959,30 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // barButtonItem7
+            // ribbonPageGroup14
             // 
-            this.barButtonItem7.Caption = "大盘趋势预测";
-            this.barButtonItem7.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.Glyph")));
-            this.barButtonItem7.Id = 36;
-            this.barButtonItem7.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.LargeGlyph")));
-            this.barButtonItem7.Name = "barButtonItem7";
-            this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonItem7.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem7_ItemClick);
+            this.ribbonPageGroup14.ItemLinks.Add(this.barButtonItem20);
+            this.ribbonPageGroup14.ItemLinks.Add(this.barButtonItem9);
+            this.ribbonPageGroup14.Name = "ribbonPageGroup14";
             // 
-            // barButtonItem8
+            // barButtonItem9
             // 
-            this.barButtonItem8.Caption = "收盘个股分析";
-            this.barButtonItem8.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.Glyph")));
-            this.barButtonItem8.Id = 37;
-            this.barButtonItem8.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.LargeGlyph")));
-            this.barButtonItem8.Name = "barButtonItem8";
-            this.barButtonItem8.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick_1);
+            this.barButtonItem9.Caption = "决策股票池";
+            this.barButtonItem9.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem9.Glyph")));
+            this.barButtonItem9.Id = 38;
+            this.barButtonItem9.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem9.LargeGlyph")));
+            this.barButtonItem9.Name = "barButtonItem9";
+            this.barButtonItem9.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem9.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem9_ItemClick_1);
+            // 
+            // barButtonItem20
+            // 
+            this.barButtonItem20.Caption = "决策委员会";
+            this.barButtonItem20.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem20.Glyph")));
+            this.barButtonItem20.Id = 39;
+            this.barButtonItem20.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem20.LargeGlyph")));
+            this.barButtonItem20.Name = "barButtonItem20";
+            this.barButtonItem20.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem20_ItemClick);
             // 
             // FrmMain
             // 
@@ -1068,6 +1099,9 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem7;
         private DevExpress.XtraBars.BarButtonItem barButtonItem8;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem9;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem20;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup14;
     }
 }
 

@@ -470,6 +470,35 @@ namespace CTM.Win.UI
 
         #endregion Accounting
 
+        #region Investment Decision
+
+        private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmIDCommittee>("决策委员会");
+        }
+
+        private void barButtonItem9_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmIDStockPool>("决策股票池");
+        }
+
+        private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
+        }
+
+        private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmMarketTrendForecastManage>("大盘趋势预测");
+        }
+
+        private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmCloseStockAnalysis>("收盘个股分析");
+        }
+
+        #endregion Investment Decision
+
         #region Admin
 
         /// <summary>
@@ -638,20 +667,5 @@ namespace CTM.Win.UI
         #endregion Application
 
         #endregion Events
-
-        private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
-        }
-
-        private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmMarketTrendForecastManage>("大盘趋势预测");
-        }
-
-        private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmCloseStockAnalysis>("收盘个股分析");
-        }
     }
 }
