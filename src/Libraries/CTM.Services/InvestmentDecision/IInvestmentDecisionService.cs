@@ -26,5 +26,9 @@ namespace CTM.Services.InvestmentDecision
         void DeleteMTFInfo(string serialNo);
 
         void DeleteCSAInfo(string serialNo);
+
+        CloseStockAnalysisDetail GetCSADetailById(int id);
+
+        void UpdateCSADetail(CloseStockAnalysisDetail entity);
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace CTM.Win.Models
+﻿
+namespace CTM.Win.Models
 {
     public class ComboBoxItemModel
     {

@@ -265,6 +265,21 @@ namespace CTM.Services.InvestmentDecision
             _CSADetailRepository.Delete(votes.ToArray());
         }
 
+        public CloseStockAnalysisDetail GetCSADetailById(int id)
+        {
+            var detail = _CSADetailRepository.GetById(id);
+
+            return detail;
+        }
+
+        public virtual void UpdateCSADetail(CloseStockAnalysisDetail entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _CSADetailRepository.Update(entity);
+        }
+
         #endregion Methods
     }
 }

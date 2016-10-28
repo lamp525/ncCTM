@@ -85,13 +85,15 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridControl1.DataSource = source;
         }
 
-        private void DisplayCSADetail(string serialNo)
+        private void DisplayCSADetail(DataRow dr)
         {
             var dialog = EngineContext.Current.Resolve<_dialogCloseStockAnalysis>();
             dialog.Owner = this.ParentForm;
             dialog.Text = "收盘个股分析详情";
             dialog.StartPosition = FormStartPosition.CenterScreen;
-            dialog.SerialNo = serialNo;
+            dialog.SerialNo = dr[colSerialNo.FieldName].ToString ();
+            dialog.JudgmentDate = dr[colJudgmentDate.FieldName].ToString();
+            dialog.InvestorName = dr[colInvestorName.FieldName].ToString();
             dialog.Show();
         }
 
@@ -210,7 +212,7 @@ namespace CTM.Win.UI.InvestmentDecision
                 }
                 else if (buttonTag == "Edit")
                 {
-                    DisplayCSADetail(serialNo);
+                    DisplayCSADetail(dr);
                 }
             }
             catch (Exception ex)

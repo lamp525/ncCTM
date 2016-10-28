@@ -258,6 +258,9 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void gridViewInfo_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
+
+            if (e.RowHandle < 0) return;
+
             var myView = sender as GridView;
 
             DataRow dr = myView.GetDataRow(e.RowHandle);
@@ -288,7 +291,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private void gridViewDetail_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var currentDetailView = sender as GridView;
-
+            
             DataRow row = currentDetailView.GetFocusedDataRow();
             if (row == null) return;
 

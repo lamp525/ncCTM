@@ -7,6 +7,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
 
@@ -61,8 +62,37 @@ namespace CTM.Win.Extensions
             comboBox.Properties.Items.AddRange(source);
             comboBox.Properties.NullText = "请选择...";
             comboBox.Properties.DropDownRows = count;
-            //comboBox.SelectedIndex = -1;
             comboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
+        }
+
+        /// <summary>
+        ///   Initialize RepositoryItemImageComboBox
+        /// </summary>
+        /// <param name="imageComboBox"></param>
+        /// <param name="source"></param>
+        /// <param name="displayAdditionalItem"></param>
+        /// <param name="additionalItemText"></param>
+        /// <param name="additionalItemValue"></param>
+        public static void Initialize(this ImageComboBoxEdit imageComboBox, List<ImageComboBoxItem> source, bool displayAdditionalItem = false, string additionalItemText = " 全部 ", string additionalItemValue = "0")
+        {
+            var count = source.Count;
+
+            if (displayAdditionalItem)
+            {
+                var allSelect = new ImageComboBoxItem
+                {
+                    Description = additionalItemText,
+                    ImageIndex = 0,
+                    Value = additionalItemValue,
+                };
+
+                imageComboBox.Properties.Items.Add(allSelect);
+                count += 1;
+            }
+            imageComboBox.Properties.Items.AddRange(source);
+            imageComboBox.Properties.NullText = "请选择...";
+            imageComboBox.Properties.DropDownRows = count;
+            imageComboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
         }
 
         /// <summary>
