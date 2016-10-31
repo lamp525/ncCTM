@@ -33,7 +33,7 @@ namespace CTM.Services.InvestmentDecision
 
         IList<InvestmentDecisionStockPool> GetIDStockPool();
 
-        void DeleteIDStockPool(string stockCode);
+        void DeleteIDStockPool(IList<string> stockCodes);
 
         void AddIDStockPool(string stockCode, string stockName);
     }

@@ -207,9 +207,13 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 if (DXMessage.ShowYesNoAndTips("确定将该股票移出股票池吗？") == DialogResult.Yes)
                 {
-                    var stockCode = myView.GetRowCellValue(selectedHandles[0], colStockCode).ToString();
+                    var stockCodes = new List<string>();
+                    for (int i = 0; i < selectedHandles.Length; i++)
+                    {
+                        stockCodes.Add(myView.GetRowCellValue(selectedHandles[i], colStockCode).ToString());
+                    }
 
-                    _IDService.DeleteIDStockPool(stockCode);
+                    _IDService.DeleteIDStockPool(stockCodes);
 
                     RefreshForm();
                 }
@@ -237,11 +241,11 @@ namespace CTM.Win.UI.InvestmentDecision
                 return;
             }
 
-            var stockInfo = luStockLeft.GetSelectedDataRow() as InvestmentDecisionStockPool;
+            var stockInfo = luStockLeft.GetSelectedDataRow() as StockInfoModel;
 
             if (stockInfo == null) return;
 
-            _IDService.AddIDStockPool(stockInfo.StockCode, stockInfo.StockName);
+            _IDService.AddIDStockPool(stockInfo.FullCode, stockInfo.Name);
 
             RefreshForm();
         }

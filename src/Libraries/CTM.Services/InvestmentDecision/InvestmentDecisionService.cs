@@ -291,12 +291,14 @@ namespace CTM.Services.InvestmentDecision
             return query.ToList();
         }
 
-        public virtual void DeleteIDStockPool(string stockCode)
+        public virtual void DeleteIDStockPool(IList<string> stockCodes)
         {
-            var info = _IDStockPoolRepository.Table.SingleOrDefault(x => x.StockCode == stockCode);
+            if (stockCodes == null)
+                throw new NullReferenceException(nameof(stockCodes));
 
-            if (info != null)
-                _IDStockPoolRepository.Delete(info);
+            var infos = _IDStockPoolRepository.Table.Where(x => stockCodes.Contains(x.StockCode)).ToList();
+
+            _IDStockPoolRepository.Delete(infos);
         }
 
         public virtual void AddIDStockPool(string stockCode, string stockName)
