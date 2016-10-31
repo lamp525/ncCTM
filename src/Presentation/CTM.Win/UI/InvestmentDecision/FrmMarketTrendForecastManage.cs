@@ -11,6 +11,7 @@ using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
+using DevExpress.Utils;
 using DevExpress.Utils.Drawing;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
@@ -57,7 +58,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.deForecast.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deForecast.EditValue = now.AddDays(1);
 
-            this.gridViewInfo.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.gridViewInfo.SetLayout(showCheckBoxRowSelect: false, editable: true,editorShowMode: EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
             this.gridViewInfo.ViewCaption = "点 + 号展开详情，点击 - 号收起";
             foreach (GridColumn column in this.gridViewInfo.Columns)
             {

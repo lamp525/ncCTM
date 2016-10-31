@@ -62,7 +62,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.btnDelete.Enabled = false;
 
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true,editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown , readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {

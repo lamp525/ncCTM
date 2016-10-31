@@ -7,7 +7,6 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
 
@@ -158,6 +157,7 @@ namespace CTM.Win.Extensions
             bool showAutoFilterRow = true,
             bool columnAutoWidth = false,
             bool editable = false,
+            EditorShowMode editorShowMode = EditorShowMode.MouseDown,
             bool readOnly = true,
             bool setAlternateRowColor = true,
             bool multiSelect = true,
@@ -166,7 +166,7 @@ namespace CTM.Win.Extensions
             int rowIndicatorWidth = 40)
         {
             gridView.OptionsBehavior.Editable = editable;
-            gridView.OptionsBehavior.EditorShowMode = EditorShowMode.MouseDown;
+            gridView.OptionsBehavior.EditorShowMode = editorShowMode;
             gridView.OptionsBehavior.ReadOnly = readOnly;
 
             if (setAlternateRowColor)

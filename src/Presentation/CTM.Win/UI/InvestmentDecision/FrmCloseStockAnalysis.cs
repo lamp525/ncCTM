@@ -49,7 +49,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.deTradeDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTradeDate.EditValue = now;
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
