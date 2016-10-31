@@ -166,7 +166,7 @@
             // lblHint
             // 
             this.lblHint.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.lblHint.Location = new System.Drawing.Point(328, 214);
+            this.lblHint.Location = new System.Drawing.Point(328, 210);
             this.lblHint.Name = "lblHint";
             this.lblHint.Size = new System.Drawing.Size(408, 17);
             this.lblHint.StyleController = this.layoutControl1;
@@ -175,7 +175,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(212, 214);
+            this.btnRefresh.Location = new System.Drawing.Point(212, 210);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
@@ -185,7 +185,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(398, 117);
+            this.btnSearch.Location = new System.Drawing.Point(398, 115);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -195,7 +195,7 @@
             // 
             // lookUpEdit2
             // 
-            this.lookUpEdit2.Location = new System.Drawing.Point(75, 93);
+            this.lookUpEdit2.Location = new System.Drawing.Point(75, 91);
             this.lookUpEdit2.Name = "lookUpEdit2";
             this.lookUpEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -205,7 +205,7 @@
             // 
             // lookUpEdit1
             // 
-            this.lookUpEdit1.Location = new System.Drawing.Point(75, 69);
+            this.lookUpEdit1.Location = new System.Drawing.Point(75, 67);
             this.lookUpEdit1.Name = "lookUpEdit1";
             this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -216,7 +216,7 @@
             // dateEdit2
             // 
             this.dateEdit2.EditValue = null;
-            this.dateEdit2.Location = new System.Drawing.Point(273, 45);
+            this.dateEdit2.Location = new System.Drawing.Point(273, 43);
             this.dateEdit2.Name = "dateEdit2";
             this.dateEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -229,7 +229,7 @@
             // dateEdit1
             // 
             this.dateEdit1.EditValue = null;
-            this.dateEdit1.Location = new System.Drawing.Point(75, 45);
+            this.dateEdit1.Location = new System.Drawing.Point(75, 43);
             this.dateEdit1.Name = "dateEdit1";
             this.dateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -241,7 +241,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 188);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 184);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -251,7 +251,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(123, 214);
+            this.btnDelete.Location = new System.Drawing.Point(123, 210);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
@@ -261,7 +261,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(34, 214);
+            this.btnAdd.Location = new System.Drawing.Point(34, 210);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
@@ -271,7 +271,7 @@
             // 
             // comboBoxEdit1
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(75, 117);
+            this.comboBoxEdit1.Location = new System.Drawing.Point(75, 115);
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -281,13 +281,13 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 240);
+            this.gridControl1.Location = new System.Drawing.Point(24, 236);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riButtonEditVote,
             this.riButtonEditOperate});
-            this.gridControl1.Size = new System.Drawing.Size(1494, 495);
+            this.gridControl1.Size = new System.Drawing.Size(1494, 499);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -324,15 +324,7 @@
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 50;
             this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
-            this.gridView1.OptionsSelection.MultiSelect = true;
-            this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.gridView1.OptionsSelection.UseIndicatorForSelection = false;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
-            this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
-            this.gridView1.OptionsView.EnableAppearanceOddRow = true;
-            this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
-            this.gridView1.OptionsView.ShowGroupedColumns = true;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView1_CustomDrawCell);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
@@ -350,7 +342,7 @@
             this.colSerialNo.Name = "colSerialNo";
             this.colSerialNo.OptionsColumn.AllowEdit = false;
             this.colSerialNo.Visible = true;
-            this.colSerialNo.VisibleIndex = 1;
+            this.colSerialNo.VisibleIndex = 0;
             this.colSerialNo.Width = 90;
             // 
             // colStatusName
@@ -360,7 +352,7 @@
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 15;
+            this.colStatusName.VisibleIndex = 14;
             // 
             // colStatus
             // 
@@ -375,7 +367,7 @@
             this.colPoint.Name = "colPoint";
             this.colPoint.OptionsColumn.AllowEdit = false;
             this.colPoint.Visible = true;
-            this.colPoint.VisibleIndex = 16;
+            this.colPoint.VisibleIndex = 15;
             this.colPoint.Width = 60;
             // 
             // colApplyDate
@@ -385,7 +377,7 @@
             this.colApplyDate.Name = "colApplyDate";
             this.colApplyDate.OptionsColumn.AllowEdit = false;
             this.colApplyDate.Visible = true;
-            this.colApplyDate.VisibleIndex = 2;
+            this.colApplyDate.VisibleIndex = 1;
             this.colApplyDate.Width = 85;
             // 
             // colApplyUserName
@@ -395,7 +387,7 @@
             this.colApplyUserName.Name = "colApplyUserName";
             this.colApplyUserName.OptionsColumn.AllowEdit = false;
             this.colApplyUserName.Visible = true;
-            this.colApplyUserName.VisibleIndex = 3;
+            this.colApplyUserName.VisibleIndex = 2;
             this.colApplyUserName.Width = 60;
             // 
             // colDepartmentId
@@ -412,7 +404,7 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.OptionsColumn.AllowEdit = false;
             this.colDepartmentName.Visible = true;
-            this.colDepartmentName.VisibleIndex = 4;
+            this.colDepartmentName.VisibleIndex = 3;
             // 
             // colApplyUser
             // 
@@ -427,7 +419,7 @@
             this.colStockFullCode.Name = "colStockFullCode";
             this.colStockFullCode.OptionsColumn.AllowEdit = false;
             this.colStockFullCode.Visible = true;
-            this.colStockFullCode.VisibleIndex = 5;
+            this.colStockFullCode.VisibleIndex = 4;
             // 
             // colStockName
             // 
@@ -436,7 +428,7 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 6;
+            this.colStockName.VisibleIndex = 5;
             // 
             // colTradeTypeName
             // 
@@ -445,7 +437,7 @@
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.OptionsColumn.AllowEdit = false;
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 7;
+            this.colTradeTypeName.VisibleIndex = 6;
             this.colTradeTypeName.Width = 60;
             // 
             // colTradeType
@@ -461,7 +453,7 @@
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.OptionsColumn.AllowEdit = false;
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 9;
+            this.colDealFlagName.VisibleIndex = 8;
             this.colDealFlagName.Width = 40;
             // 
             // colDealFlag
@@ -477,7 +469,7 @@
             this.colPrice.Name = "colPrice";
             this.colPrice.OptionsColumn.AllowEdit = false;
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 10;
+            this.colPrice.VisibleIndex = 9;
             this.colPrice.Width = 55;
             // 
             // colPriceBoundPercentage
@@ -487,7 +479,7 @@
             this.colPriceBoundPercentage.Name = "colPriceBoundPercentage";
             this.colPriceBoundPercentage.OptionsColumn.AllowEdit = false;
             this.colPriceBoundPercentage.Visible = true;
-            this.colPriceBoundPercentage.VisibleIndex = 11;
+            this.colPriceBoundPercentage.VisibleIndex = 10;
             this.colPriceBoundPercentage.Width = 135;
             // 
             // colVolume
@@ -497,7 +489,7 @@
             this.colVolume.Name = "colVolume";
             this.colVolume.OptionsColumn.AllowEdit = false;
             this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 12;
+            this.colVolume.VisibleIndex = 11;
             // 
             // colAmount
             // 
@@ -506,7 +498,7 @@
             this.colAmount.Name = "colAmount";
             this.colAmount.OptionsColumn.AllowEdit = false;
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 13;
+            this.colAmount.VisibleIndex = 12;
             this.colAmount.Width = 85;
             // 
             // colProfit
@@ -516,7 +508,7 @@
             this.colProfit.Name = "colProfit";
             this.colProfit.OptionsColumn.AllowEdit = false;
             this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 8;
+            this.colProfit.VisibleIndex = 7;
             this.colProfit.Width = 95;
             // 
             // colRelateTradePlanNo
@@ -526,7 +518,7 @@
             this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
             this.colRelateTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 18;
+            this.colRelateTradePlanNo.VisibleIndex = 17;
             this.colRelateTradePlanNo.Width = 100;
             // 
             // colCreateTime
@@ -547,7 +539,7 @@
             this.colVote.ColumnEdit = this.riButtonEditVote;
             this.colVote.Name = "colVote";
             this.colVote.Visible = true;
-            this.colVote.VisibleIndex = 14;
+            this.colVote.VisibleIndex = 13;
             this.colVote.Width = 150;
             // 
             // riButtonEditVote
@@ -570,7 +562,7 @@
             this.colReason.Name = "colReason";
             this.colReason.OptionsColumn.AllowEdit = false;
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 17;
+            this.colReason.VisibleIndex = 16;
             this.colReason.Width = 300;
             // 
             // colOperate
@@ -580,7 +572,7 @@
             this.colOperate.Name = "colOperate";
             this.colOperate.OptionsColumn.AllowEdit = false;
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 19;
+            this.colOperate.VisibleIndex = 18;
             this.colOperate.Width = 40;
             // 
             // riButtonEditOperate
@@ -621,9 +613,9 @@
             this.emptySpaceItem9,
             this.layoutControlItem12,
             this.emptySpaceItem10});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 143);
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 141);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1522, 596);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1522, 598);
             this.layoutControlGroup2.Text = "投资决策单信息";
             // 
             // emptySpaceItem2
@@ -639,7 +631,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 52);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1498, 499);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1498, 503);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -746,7 +738,7 @@
             this.layoutControlItem10});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1522, 143);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1522, 141);
             this.layoutControlGroup3.Text = "查询条件";
             // 
             // layoutControlItem2

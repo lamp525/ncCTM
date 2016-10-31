@@ -85,16 +85,60 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridControl1.DataSource = source;
         }
 
-        private void DisplayCSADetail(DataRow dr)
+        private void DisplayCSADetail(bool isReadOnly, DataRow dr)
         {
             var dialog = EngineContext.Current.Resolve<_dialogCloseStockAnalysis>();
             dialog.Owner = this.ParentForm;
             dialog.Text = "收盘个股分析详情";
             dialog.StartPosition = FormStartPosition.CenterScreen;
-            dialog.SerialNo = dr[colSerialNo.FieldName].ToString ();
-            dialog.JudgmentDate = dr[colJudgmentDate.FieldName].ToString();
+            dialog.SerialNo = dr[colSerialNo.FieldName].ToString();
+            dialog.JudgmentDate =CommonHelper.StringToDateTime( dr[colJudgmentDate.FieldName].ToString());
             dialog.InvestorName = dr[colInvestorName.FieldName].ToString();
+            dialog.IsReadOnly = isReadOnly;
             dialog.Show();
+        }
+
+        private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
+        {
+            var investorCode = dr[this.colInvestorCode.FieldName]?.ToString();
+
+            //当前用户为该记录分析人员
+            if (LoginInfo.CurrentUser.UserCode == investorCode)
+            {
+                buttonVI.RightButtons[0].Button.Enabled = true;
+                buttonVI.RightButtons[0].State = ObjectState.Normal;
+
+                buttonVI.RightButtons[1].Button.Enabled = true;
+                buttonVI.RightButtons[1].State = ObjectState.Normal;
+
+                buttonVI.RightButtons[2].Button.Enabled = true;
+                buttonVI.RightButtons[2].State = ObjectState.Normal;
+            }
+            else
+            {
+                if (LoginInfo.CurrentUser.IsAdmin)
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                    buttonVI.RightButtons[1].Button.Enabled = true;
+                    buttonVI.RightButtons[1].State = ObjectState.Normal;
+
+                    buttonVI.RightButtons[2].Button.Enabled = true;
+                    buttonVI.RightButtons[2].State = ObjectState.Normal;
+                }
+                else
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                    buttonVI.RightButtons[1].Button.Enabled = false;
+                    buttonVI.RightButtons[1].State = ObjectState.Disabled;
+
+                    buttonVI.RightButtons[2].Button.Enabled = true;
+                    buttonVI.RightButtons[2].State = ObjectState.Normal;
+                }
+            }
         }
 
         #endregion Utilities
@@ -178,8 +222,7 @@ namespace CTM.Win.UI.InvestmentDecision
             if (e.Column.Name == this.colOperate.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                buttonVI.RightButtons[0].Button.Enabled = true;
-                buttonVI.RightButtons[0].State = ObjectState.Normal;
+                OperateButtonStatusSetting(dr, buttonVI);
             }
         }
 
@@ -212,7 +255,11 @@ namespace CTM.Win.UI.InvestmentDecision
                 }
                 else if (buttonTag == "Edit")
                 {
-                    DisplayCSADetail(dr);
+                    DisplayCSADetail(false, dr);
+                }
+                else if (buttonTag == "View")
+                {
+                    DisplayCSADetail(true, dr);
                 }
             }
             catch (Exception ex)

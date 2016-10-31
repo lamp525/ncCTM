@@ -267,27 +267,17 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
-            if (LoginInfo.CurrentUser.IsAdmin)
+            var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
+
+            if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
             {
                 buttonVI.RightButtons[0].Button.Enabled = true;
                 buttonVI.RightButtons[0].State = ObjectState.Normal;
             }
             else
             {
-                var status = int.Parse(dr[colStatus.FieldName]?.ToString());
-                var applyUser = dr[colApplyUser.FieldName]?.ToString();
-
-                //申请单已提交且当前用户为申请者
-                if (status == (int)EnumLibrary.IDFormStatus.Submited && applyUser == LoginInfo.CurrentUser.UserCode)
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = true;
-                    buttonVI.RightButtons[0].State = ObjectState.Normal;
-                }
-                else
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = false;
-                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
-                }
+                buttonVI.RightButtons[0].Button.Enabled = false;
+                buttonVI.RightButtons[0].State = ObjectState.Disabled;
             }
         }
 

@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Common;
@@ -115,6 +116,22 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridControl1.DataSource = source.Tables["Info"];
         }
 
+        private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
+        {
+            var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
+
+            if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
+            {
+                buttonVI.RightButtons[0].Button.Enabled = true;
+                buttonVI.RightButtons[0].State = ObjectState.Normal;
+            }
+            else
+            {
+                buttonVI.RightButtons[0].Button.Enabled = false;
+                buttonVI.RightButtons[0].State = ObjectState.Disabled;
+            }
+        }
+
         #endregion Utilities
 
         #region Events
@@ -211,7 +228,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             foreach (GridColumn column in currentDetailView.Columns)
             {
-                if (column.Name == this.colInvestorName.Name || column.Name == this.colSerialNoDetail.Name || column.Name == this.colWeightPercentage.Name)
+                if (column.Name == this.colInvestorNameDetail.Name || column.Name == this.colSerialNoDetail.Name || column.Name == this.colWeightPercentageDetail.Name)
                     column.OptionsColumn.AllowEdit = false;
                 else
                     column.OptionsColumn.AllowEdit = true;
@@ -258,7 +275,6 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void gridViewInfo_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-
             if (e.RowHandle < 0) return;
 
             var myView = sender as GridView;
@@ -271,8 +287,7 @@ namespace CTM.Win.UI.InvestmentDecision
             if (e.Column.Name == this.colOperate.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                buttonVI.RightButtons[0].Button.Enabled = true;
-                buttonVI.RightButtons[0].State = ObjectState.Normal;
+                OperateButtonStatusSetting(dr, buttonVI);
             }
         }
 
@@ -291,11 +306,11 @@ namespace CTM.Win.UI.InvestmentDecision
         private void gridViewDetail_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var currentDetailView = sender as GridView;
-            
+
             DataRow row = currentDetailView.GetFocusedDataRow();
             if (row == null) return;
 
-            var investorCode = row[colInvestorCode.FieldName].ToString();
+            var investorCode = row[colInvestorCodeDetail.FieldName].ToString();
 
             if (investorCode != LoginInfo.CurrentUser.UserCode)
                 e.Cancel = true;
@@ -307,23 +322,23 @@ namespace CTM.Win.UI.InvestmentDecision
             DataRow row = drv.Row;
             if (row.RowState == DataRowState.Modified)
             {
-                var investorCode = row[colInvestorCode.FieldName].ToString();
+                var investorCode = row[colInvestorCodeDetail.FieldName].ToString();
                 var serialNo = row[colSerialNo.FieldName].ToString();
 
                 var detail = _IDService.GetMTFDetail(investorCode, serialNo);
 
                 if (detail == null) return;
 
-                detail.Accuracy = row[colAccuracy.FieldName].ToString().Trim();
-                var acquaintanceGraphDate = row[colAcquaintanceGraphDate.FieldName].ToString().Trim();
+                detail.Accuracy = row[colAccuracyDetail.FieldName].ToString().Trim();
+                var acquaintanceGraphDate = row[colAcquaintanceGraphDateDetail.FieldName].ToString().Trim();
                 if (!string.IsNullOrEmpty(acquaintanceGraphDate))
                     detail.AcquaintanceGraphDate = CommonHelper.StringToDateTime(acquaintanceGraphDate);
-                detail.Afternoon = row[colAfternoon.FieldName].ToString().Trim();
-                detail.Close = row[colClose.FieldName].ToString().Trim();
+                detail.Afternoon = row[colAfternoonDetail.FieldName].ToString().Trim();
+                detail.Close = row[colCloseDetail.FieldName].ToString().Trim();
                 detail.ForecastTime = _commonService.GetCurrentServerTime();
-                detail.Forenoon = row[colForenoon.FieldName].ToString().Trim();
-                detail.Reason = row[colReason.FieldName].ToString().Trim();
-                detail.Trend = row[colTrend.FieldName].ToString().Trim();
+                detail.Forenoon = row[colForenoonDetail.FieldName].ToString().Trim();
+                detail.Reason = row[colReasonDetail.FieldName].ToString().Trim();
+                detail.Trend = row[colTrendDetail.FieldName].ToString().Trim();
 
                 _IDService.UpdateMTFDetail(detail);
             }

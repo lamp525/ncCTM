@@ -474,7 +474,7 @@ namespace CTM.Win.UI
 
         private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmIDCommittee>("决策委员会");
+            this.DisplayForm<FrmIDCommittee>("决策委员会");
         }
 
         private void barButtonItem9_ItemClick_1(object sender, ItemClickEventArgs e)

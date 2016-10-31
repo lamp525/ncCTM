@@ -28,9 +28,11 @@ namespace CTM.Win.UI.InvestmentDecision
 
         public string SerialNo { get; set; }
 
-        public string JudgmentDate { get; set; }
+        public DateTime JudgmentDate { get; set; }
 
         public string InvestorName { get; set; }
+
+        public bool IsReadOnly { get; set; }
 
         #endregion Properties
 
@@ -54,11 +56,15 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void FormInit()
         {
-            this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
+            if (IsReadOnly)
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: false, readOnly: true, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
+            else
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
+
             this.bandedGridView1.OptionsView.ShowViewCaption = true;
             this.bandedGridView1.ViewCaption = $@"收盘个股分析 - {SerialNo}";
 
-            this.gridBand1.Caption = $@"评判日期： {JudgmentDate}   分析人员： {InvestorName}";
+            this.gridBand1.Caption = $@"评判日期： {JudgmentDate.ToShortDateString()}   分析人员： {InvestorName}";
 
             foreach (GridColumn column in this.bandedGridView1.Columns)
             {

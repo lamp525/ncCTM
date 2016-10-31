@@ -36,5 +36,11 @@ namespace CTM.Services.InvestmentDecision
         void DeleteIDStockPool(IList<string> stockCodes);
 
         void AddIDStockPool(string stockCode, string stockName);
+
+        IList<InvestmentDecisionCommittee> GetIDCommittees();
+
+        void AddIDCommittee(string code, string name);
+
+        void DeleteIDCommittee(IList<int> ids);
     }
 }

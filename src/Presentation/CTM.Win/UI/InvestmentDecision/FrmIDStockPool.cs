@@ -252,12 +252,12 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void chkRecent_CheckedChanged(object sender, EventArgs e)
         {
-            chkAll.Checked = chkRecent.Checked ? false : true;
+            chkAll.Checked = !chkRecent.Checked;
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
         {
-            chkRecent.Checked = chkAll.Checked ? false : true;
+            chkRecent.Checked = !chkAll.Checked;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

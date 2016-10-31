@@ -62,6 +62,24 @@ namespace CTM.Services.InvestmentDecision
 
         #endregion Constructors
 
+        #region Utilities
+
+        private void UpdateCommitteeWeight()
+        {
+            var committees = _IDCRepository.Table.ToList();
+
+            if (committees.Any())
+            {
+                foreach (var item in committees)
+                {
+                    item.Weight = CommonHelper.SetDecimalDigits(1.000000M / committees.Count, 4);
+                }
+                _IDCRepository.Update(committees);
+            }
+        }
+
+        #endregion Utilities
+
         #region Methods
 
         public virtual string GenerateIDFSerialNo(DateTime applyDate)
@@ -310,6 +328,37 @@ namespace CTM.Services.InvestmentDecision
             };
 
             _IDStockPoolRepository.Insert(info);
+        }
+
+        public virtual IList<InvestmentDecisionCommittee> GetIDCommittees()
+        {
+            var query = _IDCRepository.Table;
+
+            return query.ToList();
+        }
+
+        public virtual void AddIDCommittee(string code, string name)
+        {
+            var entity = new InvestmentDecisionCommittee
+            {
+                Code = code,
+                Name = name,
+            };
+
+            _IDCRepository.Insert(entity);
+
+            UpdateCommitteeWeight();
+        }
+
+        public virtual void DeleteIDCommittee(IList<int> ids)
+        {
+            if (ids == null)
+                throw new NullReferenceException(nameof(ids));
+
+            var committees = _IDCRepository.Table.Where(x => ids.Contains(x.Id)).ToList();
+            _IDCRepository.Delete(committees);
+
+            UpdateCommitteeWeight();
         }
 
         #endregion Methods
