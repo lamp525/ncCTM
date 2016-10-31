@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.gridViewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSerialNoDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorCodeDetail = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -245,10 +245,10 @@
             // 
             // gridControl1
             // 
-            gridLevelNode2.LevelTemplate = this.gridViewDetail;
-            gridLevelNode2.RelationName = "InfoDetail";
+            gridLevelNode1.LevelTemplate = this.gridViewDetail;
+            gridLevelNode1.RelationName = "InfoDetail";
             this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.gridControl1.Location = new System.Drawing.Point(24, 138);
             this.gridControl1.MainView = this.gridViewInfo;
             this.gridControl1.Name = "gridControl1";
@@ -352,9 +352,8 @@
             // 
             // riButtonEditOperate
             // 
-            this.riButtonEditOperate.AutoHeight = false;
             this.riButtonEditOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Delete", null, true)});
             this.riButtonEditOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riButtonEditOperate.Name = "riButtonEditOperate";
             this.riButtonEditOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;

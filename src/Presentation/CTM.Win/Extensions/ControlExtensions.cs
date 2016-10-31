@@ -180,7 +180,7 @@ namespace CTM.Win.Extensions
             }
 
             gridView.OptionsSelection.MultiSelect = multiSelect;
-            gridView.OptionsSelection.UseIndicatorForSelection = false;
+            gridView.OptionsSelection.UseIndicatorForSelection = true;
 
             if (showCheckBoxRowSelect)
             {

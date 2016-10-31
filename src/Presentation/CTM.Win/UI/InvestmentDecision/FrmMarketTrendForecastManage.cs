@@ -163,7 +163,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 DXMessage.ShowError(ex.Message);
             }
             finally
-
             {
                 this.btnSearch.Enabled = true;
             }
