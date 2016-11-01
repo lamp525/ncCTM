@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using CTM.Core;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Common;
-using CTM.Services.Dictionary;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
@@ -14,13 +14,12 @@ using DevExpress.XtraGrid.Columns;
 
 namespace CTM.Win.UI.InvestmentDecision
 {
-    public partial class _dialogCloseStockAnalysis : BaseForm
+    public partial class _dialogPSAEdit : BaseForm
     {
         #region Fields
 
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
-        private readonly IDictionaryService _dictionaryService;
 
         #endregion Fields
 
@@ -28,25 +27,19 @@ namespace CTM.Win.UI.InvestmentDecision
 
         public string SerialNo { get; set; }
 
-        public DateTime JudgmentDate { get; set; }
-
-        public string InvestorName { get; set; }
-
-        public bool IsReadOnly { get; set; }
+        public DateTime AnalysisDate { get; set; }
 
         #endregion Properties
 
         #region Constructors
 
-        public _dialogCloseStockAnalysis(
+        public _dialogPSAEdit(
             ICommonService commonService,
-            IDictionaryService dictionaryService,
             IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
             this._commonService = commonService;
-            this._dictionaryService = dictionaryService;
             this._IDService = IDService;
         }
 
@@ -56,15 +49,12 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void FormInit()
         {
-            if (IsReadOnly)
-                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: false, readOnly: true, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
-            else
-                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
+            this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
 
             this.bandedGridView1.OptionsView.ShowViewCaption = true;
             this.bandedGridView1.ViewCaption = $@"股票池操作建议 - {SerialNo}";
 
-            this.gridBand1.Caption = $@"评判日期： {JudgmentDate.ToShortDateString()}   分析人员： {InvestorName}";
+            this.gridBand1.Caption = $@"评判日期： {AnalysisDate.ToShortDateString()}   分析人员： {LoginInfo.CurrentUser.UserName }";
 
             foreach (GridColumn column in this.bandedGridView1.Columns)
             {
@@ -74,25 +64,66 @@ namespace CTM.Win.UI.InvestmentDecision
                     column.OptionsColumn.AllowEdit = true;
             }
 
-            //交易类别
-            var tradeTypes = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
-                .Select(x => new DevExpress.XtraEditors.Controls.ImageComboBoxItem
-                {
-                    Description = x.Name,
-                    Value = x.Code.ToString(),
-                }).ToList();
-            var imageComboBox = new ImageComboBoxEdit();
-            imageComboBox.Initialize(tradeTypes, displayAdditionalItem: false);
+            //操作类型
+            var tradeTypes = new List<ImageComboBoxItem>();
 
-            this.riImageComboBoxTradeType = imageComboBox.Properties;
+            var target = new ImageComboBoxItem
+            {
+                Description = "目标",
+                Value = 1,
+            };
+            tradeTypes.Add(target);
+            var band = new ImageComboBoxItem
+            {
+                Description = "波段",
+                Value = 2,
+            };
+            tradeTypes.Add(band);
+
+            var day = new ImageComboBoxItem
+            {
+                Description = "隔日短差",
+                Value = 3,
+            };
+            tradeTypes.Add(day);
+
+            var imageComboBoxTradeType = new ImageComboBoxEdit();
+            imageComboBoxTradeType.Initialize(tradeTypes, displayAdditionalItem: false);
+
+            this.riImageComboBoxTradeType = imageComboBoxTradeType.Properties;
+
+            //决策建议
+            var suggestion = new List<ImageComboBoxItem>();
+            var reserve = new ImageComboBoxItem
+            {
+                Description = "保留",
+                Value = 1,
+            };
+            suggestion.Add(reserve);
+            var buy = new ImageComboBoxItem
+            {
+                Description = "买",
+                Value = 2,
+            };
+            suggestion.Add(buy);
+
+            var sell = new ImageComboBoxItem
+            {
+                Description = "卖",
+                Value = 3,
+            };
+            suggestion.Add(sell);
+
+            var imageComboBoxSuggestion = new ImageComboBoxEdit();
+            imageComboBoxSuggestion.Initialize(suggestion, displayAdditionalItem: false);
+
+            this.riImageComboBoxDecision = imageComboBoxSuggestion.Properties;
         }
 
-        private void BindCSADetail()
+        private void BindPSADetail()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
-            var commandText = $@"  SELECT * FROM [dbo].[v_CSADetail] WHERE SerialNo ='{SerialNo}' ORDER BY StockCode";
-
+            var commandText = $@"EXEC [dbo].[sp_GeneratePSADetail] @InvestorCode = '{LoginInfo.CurrentUser.UserCode }', @AnalysisDate = '{AnalysisDate}'";
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
@@ -110,7 +141,7 @@ namespace CTM.Win.UI.InvestmentDecision
             try
             {
                 FormInit();
-                BindCSADetail();
+                BindPSADetail();
             }
             catch (Exception ex)
             {
@@ -130,12 +161,32 @@ namespace CTM.Win.UI.InvestmentDecision
         {
             if (e.RowHandle < 0) return;
 
+            //操作类型
             if (e.Column.Name == colTradeType.Name)
             {
                 var cellValue = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colTradeType.FieldName).ToString();
 
                 ImageComboBoxEdit imageComboBox = new ImageComboBoxEdit();
                 imageComboBox.Properties.Items.AddRange(this.riImageComboBoxTradeType.Items);
+                e.RepositoryItem = imageComboBox.Properties;
+
+                foreach (ImageComboBoxItem item in imageComboBox.Properties.Items)
+                {
+                    if (cellValue == item.Value.ToString())
+                    {
+                        imageComboBox.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+
+            //决策建议
+            if (e.Column.Name ==colDecision .Name)
+            {
+                var cellValue = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colTradeType.FieldName).ToString();
+
+                ImageComboBoxEdit imageComboBox = new ImageComboBoxEdit();
+                imageComboBox.Properties.Items.AddRange(this.riImageComboBoxDecision.Items);
                 e.RepositoryItem = imageComboBox.Properties;
 
                 foreach (ImageComboBoxItem item in imageComboBox.Properties.Items)
@@ -157,16 +208,17 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 var id = int.Parse(row[colId.FieldName].ToString());
 
-                var detail = _IDService.GetCSADetailById(id);
+                var detail = _IDService.GetPSADetailById(id);
 
                 detail.Accuracy = row[colAccuracy.FieldName].ToString();
-                detail.AnalysisTime = _commonService.GetCurrentServerTime();
+                detail.AnalysisDate =CommonHelper .StringToDateTime (row[colAnalysisDate.FieldName].ToString());
+                detail.CreateTime = _commonService.GetCurrentServerTime();
                 detail.Decision = row[colDecision.FieldName].ToString();
                 detail.PriceRange = row[colPriceRange.FieldName].ToString();
                 detail.Reason = row[colReason.FieldName].ToString();
                 detail.TradeType = int.Parse(row[colTradeType.FieldName].ToString());
 
-                _IDService.UpdateCSADetail(detail);
+                _IDService.UpdatePSADetail(detail);
             }
         }
 

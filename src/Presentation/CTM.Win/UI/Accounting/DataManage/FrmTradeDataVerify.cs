@@ -172,7 +172,10 @@ namespace CTM.Win.UI.Accounting.DataManage
         {
             var currentView = sender as DevExpress.XtraGrid.Views.BandedGrid.BandedGridView;
 
-            if (currentView != null && e.RowHandle == currentView.FocusedRowHandle) return;
+            if (currentView == null || e.RowHandle < 0) return;
+
+            var row = currentView.GetRow(e.RowHandle) as DataVerifyEntity;
+            if (row == null) return;
 
             //数量差额
             if (e.Column == this.colVolumeDiff)
@@ -184,9 +187,6 @@ namespace CTM.Win.UI.Accounting.DataManage
             //金额差额
             if (e.Column == this.colAmountDiff)
             {
-                var row = currentView.GetRow(e.RowHandle) as DataVerifyEntity;
-                if (row == null) return;
-
                 if (row.VolumeDiff != 0)
                     e.Appearance.ForeColor = Color.Red;
                 else

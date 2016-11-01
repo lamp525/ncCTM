@@ -490,8 +490,9 @@ namespace CTM.Win.UI
         }
 
         private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmCloseStockAnalysis>("收盘个股分析");
+        { 
+            this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
+            
         }
 
         #endregion Investment Decision

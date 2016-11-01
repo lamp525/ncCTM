@@ -373,6 +373,12 @@
     <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.Designer.cs">
+      <DependentUpon>FrmIDPositionStockAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,6 +409,12 @@
     <Compile Include="UI\InvestmentDecision\FrmIDStockPool.Designer.cs">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogPSAEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogPSAEdit.Designer.cs">
+      <DependentUpon>_dialogPSAEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogCloseStockAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -420,6 +432,12 @@
     </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogMarketTrendForecast.Designer.cs">
       <DependentUpon>_dialogMarketTrendForecast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogPSAResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvestmentDecision\_dialogPSAResult.Designer.cs">
+      <DependentUpon>_dialogPSAResult.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.cs">
       <SubType>Form</SubType>
@@ -637,6 +655,9 @@
     <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.resx">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.resx">
+      <DependentUpon>FrmIDPositionStockAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\FrmCloseStockAnalysis.resx">
       <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
@@ -652,6 +673,9 @@
     <EmbeddedResource Include="UI\InvestmentDecision\FrmIDStockPool.resx">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\_dialogPSAEdit.resx">
+      <DependentUpon>_dialogPSAEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogCloseStockAnalysis.resx">
       <DependentUpon>_dialogCloseStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
@@ -660,6 +684,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogMarketTrendForecast.resx">
       <DependentUpon>_dialogMarketTrendForecast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvestmentDecision\_dialogPSAResult.resx">
+      <DependentUpon>_dialogPSAResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogTradeApplication.resx">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>

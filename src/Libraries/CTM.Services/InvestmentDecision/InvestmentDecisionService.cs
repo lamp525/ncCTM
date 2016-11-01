@@ -27,6 +27,9 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<MarketTrendForecastInfo> _MTFInfoRepository;
         private readonly IRepository<MarketTrendForecastDetail> _MTFDetailRepository;
 
+        private readonly IRepository<PositionStockAnalysisInfo > _PSAInfoRepository;
+        private readonly IRepository<PositionStockAnalysisDetail> _PSADetailRepository;
+
         private readonly ICommonService _commonService;
 
         private readonly IDbContext _dbContext;
@@ -44,6 +47,8 @@ namespace CTM.Services.InvestmentDecision
             IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
             IRepository<MarketTrendForecastInfo> MTFInfoRepository,
             IRepository<MarketTrendForecastDetail> MTFDetailRepository,
+            IRepository<PositionStockAnalysisInfo> PSAInfoRepository,
+            IRepository<PositionStockAnalysisDetail> PSADetailRepository,
             ICommonService commonService,
             IDbContext dbContext)
         {
@@ -55,6 +60,8 @@ namespace CTM.Services.InvestmentDecision
             this._IDStockPoolRepository = IDStockPoolRepository;
             this._MTFInfoRepository = MTFInfoRepository;
             this._MTFDetailRepository = MTFDetailRepository;
+            this._PSADetailRepository = PSADetailRepository;
+            this._PSAInfoRepository = PSAInfoRepository;
 
             this._commonService = commonService;
             this._dbContext = dbContext;
@@ -282,9 +289,9 @@ namespace CTM.Services.InvestmentDecision
 
             _CSAInfoRepository.Delete(info);
 
-            var votes = _CSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
+            var details = _CSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
 
-            _CSADetailRepository.Delete(votes.ToArray());
+            _CSADetailRepository.Delete(details.ToArray());
         }
 
         public CloseStockAnalysisDetail GetCSADetailById(int id)
@@ -359,6 +366,36 @@ namespace CTM.Services.InvestmentDecision
             _IDCRepository.Delete(committees);
 
             UpdateCommitteeWeight();
+        }
+
+
+        public PositionStockAnalysisDetail GetPSADetailById(int id)
+        {
+            var detail = _PSADetailRepository.GetById(id);
+
+            return detail;
+        }
+
+        public void DeletePSAInfo(string serialNo)
+        {
+            if (string.IsNullOrEmpty(serialNo))
+                throw new NotImplementedException();
+
+            var info = _PSAInfoRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
+
+            _PSAInfoRepository.Delete(info);
+
+            var details = _PSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
+
+            _PSADetailRepository.Delete(details.ToArray());
+        }     
+
+        public virtual void UpdatePSADetail(PositionStockAnalysisDetail entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _PSADetailRepository.Update(entity);
         }
 
         #endregion Methods

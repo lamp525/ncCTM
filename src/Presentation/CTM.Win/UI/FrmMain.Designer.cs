@@ -766,7 +766,7 @@
             // 
             // barButtonItem8
             // 
-            this.barButtonItem8.Caption = "收盘个股分析";
+            this.barButtonItem8.Caption = "持仓股票投资决策";
             this.barButtonItem8.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.Glyph")));
             this.barButtonItem8.Id = 37;
             this.barButtonItem8.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.LargeGlyph")));

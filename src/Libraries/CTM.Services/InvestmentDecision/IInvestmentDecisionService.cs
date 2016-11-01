@@ -42,5 +42,11 @@ namespace CTM.Services.InvestmentDecision
         void AddIDCommittee(string code, string name);
 
         void DeleteIDCommittee(IList<int> ids);
+
+        PositionStockAnalysisDetail GetPSADetailById(int id);
+
+        void UpdatePSADetail(PositionStockAnalysisDetail detail);
+
+        void DeletePSAInfo(string serialNo);
     }
 }

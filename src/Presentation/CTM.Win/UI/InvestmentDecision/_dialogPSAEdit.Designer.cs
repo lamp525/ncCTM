@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.UI.InvestmentDecision
 {
-    partial class _dialogCloseStockAnalysis
+    partial class _dialogPSAEdit
     {
         /// <summary>
         /// Required designer variable.
@@ -40,17 +40,20 @@
             this.riImageComboBoxTradeType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colTradeTypeName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDecision = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.riImageComboBoxDecision = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colPriceRange = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colReason = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colAccuracy = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAnalysisTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colAnalysisDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colCreateTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxTradeType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxDecision)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +75,8 @@
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.riImageComboBoxTradeType});
+            this.riImageComboBoxTradeType,
+            this.riImageComboBoxDecision});
             this.gridControl1.Size = new System.Drawing.Size(980, 568);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -95,7 +99,8 @@
             this.colPriceRange,
             this.colReason,
             this.colAccuracy,
-            this.colAnalysisTime});
+            this.colAnalysisDate,
+            this.colCreateTime});
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.IndicatorWidth = 40;
             this.bandedGridView1.Name = "bandedGridView1";
@@ -129,7 +134,7 @@
             this.gridBand1.Columns.Add(this.colPriceRange);
             this.gridBand1.Columns.Add(this.colReason);
             this.gridBand1.Columns.Add(this.colAccuracy);
-            this.gridBand1.Columns.Add(this.colAnalysisTime);
+            this.gridBand1.Columns.Add(this.colAnalysisDate);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
             this.gridBand1.Width = 900;
@@ -186,11 +191,19 @@
             // 
             // colDecision
             // 
-            this.colDecision.Caption = "决策判断";
+            this.colDecision.Caption = "决策建议";
+            this.colDecision.ColumnEdit = this.riImageComboBoxDecision;
             this.colDecision.FieldName = "Decision";
             this.colDecision.Name = "colDecision";
             this.colDecision.Visible = true;
             this.colDecision.Width = 99;
+            // 
+            // riImageComboBoxDecision
+            // 
+            this.riImageComboBoxDecision.AutoHeight = false;
+            this.riImageComboBoxDecision.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.riImageComboBoxDecision.Name = "riImageComboBoxDecision";
             // 
             // colPriceRange
             // 
@@ -216,11 +229,11 @@
             this.colAccuracy.Visible = true;
             this.colAccuracy.Width = 129;
             // 
-            // colAnalysisTime
+            // colAnalysisDate
             // 
-            this.colAnalysisTime.FieldName = "AnalysisTime";
-            this.colAnalysisTime.Name = "colAnalysisTime";
-            this.colAnalysisTime.Width = 84;
+            this.colAnalysisDate.FieldName = "AnalysisDate";
+            this.colAnalysisDate.Name = "colAnalysisDate";
+            this.colAnalysisDate.Width = 84;
             // 
             // layoutControlGroup1
             // 
@@ -243,20 +256,26 @@
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // _dialogCloseStockAnalysis
+            // colCreateTime
+            // 
+            this.colCreateTime.FieldName = "CreateTime";
+            this.colCreateTime.Name = "colCreateTime";
+            // 
+            // _dialogPSAEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 592);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "_dialogCloseStockAnalysis";
-            this.Text = "_dialogCloseStockAnalysis";
+            this.Name = "_dialogPSAEdit";
+            this.Text = "_dialogPSAEdit";
             this.Load += new System.EventHandler(this._dialogCloseStockAnalysis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxTradeType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxDecision)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
@@ -280,8 +299,10 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPriceRange;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colReason;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccuracy;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnalysisTime;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnalysisDate;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox riImageComboBoxTradeType;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox riImageComboBoxDecision;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCreateTime;
     }
 }
