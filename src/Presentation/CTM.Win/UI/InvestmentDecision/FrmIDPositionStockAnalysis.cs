@@ -103,6 +103,7 @@ namespace CTM.Win.UI.InvestmentDecision
             dialog.Text = "股票池操作建议一览";
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.SerialNo = dr[colSerialNo.FieldName].ToString();
+            dialog.AnalysisDate = CommonHelper.StringToDateTime(dr[colAnalysisDate.FieldName].ToString());
             dialog.Show();
         }
 
