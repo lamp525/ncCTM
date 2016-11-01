@@ -79,9 +79,6 @@ namespace CTM.Win.UI
 
         private void DisplayMenu()
         {
-            //股票池管理（普通用户）
-            rpgStockPoolUser.Visible = false;
-
             //普通用户
             if (!_loginUserInfo.IsAdmin)
             {
@@ -97,7 +94,7 @@ namespace CTM.Win.UI
                 this.bbiAccountInvestIncomeFlow.Visibility = BarItemVisibility.Always;
 
                 //账户股票持仓查询
-                this.bbiAccountStockPosition.Visibility = BarItemVisibility.Never;
+                this.bbiAccountStockPosition.Visibility = BarItemVisibility.Always;
 
                 //个人账户投资收益查询
                 this.bbiUserInvestIncomeAccount.Visibility = BarItemVisibility.Always;
