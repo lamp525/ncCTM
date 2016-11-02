@@ -54,8 +54,9 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
-            this.tpDailyAnalysis = new DevExpress.XtraBars.Navigation.TabNavigationPage();
-            this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tpRecent = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tpMy = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tpSearch = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deTradeDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -71,7 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             this.tabPane1.SuspendLayout();
-            this.tpDailyAnalysis.SuspendLayout();
+            this.tpRecent.SuspendLayout();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -297,33 +298,41 @@
             // 
             // tabPane1
             // 
-            this.tabPane1.Controls.Add(this.tpDailyAnalysis);
-            this.tabPane1.Controls.Add(this.tabNavigationPage2);
+            this.tabPane1.Controls.Add(this.tpRecent);
+            this.tabPane1.Controls.Add(this.tpMy);
+            this.tabPane1.Controls.Add(this.tpSearch);
             this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabPane1.Location = new System.Drawing.Point(0, 0);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
-            this.tpDailyAnalysis,
-            this.tabNavigationPage2});
+            this.tpRecent,
+            this.tpMy,
+            this.tpSearch});
             this.tabPane1.RegularSize = new System.Drawing.Size(1553, 726);
-            this.tabPane1.SelectedPage = this.tabNavigationPage2;
+            this.tabPane1.SelectedPage = this.tpMy;
             this.tabPane1.SelectedPageIndex = 0;
             this.tabPane1.Size = new System.Drawing.Size(1553, 726);
             this.tabPane1.TabIndex = 1;
             this.tabPane1.Text = "tabPane1";
             // 
-            // tpDailyAnalysis
+            // tpRecent
             // 
-            this.tpDailyAnalysis.Caption = "股票池每日分析";
-            this.tpDailyAnalysis.Controls.Add(this.layoutControl1);
-            this.tpDailyAnalysis.Name = "tpDailyAnalysis";
-            this.tpDailyAnalysis.Size = new System.Drawing.Size(1535, 680);
+            this.tpRecent.Caption = "最新分析记录";
+            this.tpRecent.Controls.Add(this.layoutControl1);
+            this.tpRecent.Name = "tpRecent";
+            this.tpRecent.Size = new System.Drawing.Size(1535, 680);
             // 
-            // tabNavigationPage2
+            // tpMy
             // 
-            this.tabNavigationPage2.Caption = "tabNavigationPage2";
-            this.tabNavigationPage2.Name = "tabNavigationPage2";
-            this.tabNavigationPage2.Size = new System.Drawing.Size(1535, 680);
+            this.tpMy.Caption = "我的分析记录";
+            this.tpMy.Name = "tpMy";
+            this.tpMy.Size = new System.Drawing.Size(1535, 680);
+            // 
+            // tpSearch
+            // 
+            this.tpSearch.Caption = "记录查询";
+            this.tpSearch.Name = "tpSearch";
+            this.tpSearch.Size = new System.Drawing.Size(1535, 680);
             // 
             // FrmIDPositionStockAnalysis
             // 
@@ -349,7 +358,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             this.tabPane1.ResumeLayout(false);
-            this.tpDailyAnalysis.ResumeLayout(false);
+            this.tpRecent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -379,7 +388,8 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraBars.Navigation.TabPane tabPane1;
-        private DevExpress.XtraBars.Navigation.TabNavigationPage tpDailyAnalysis;
-        private DevExpress.XtraBars.Navigation.TabNavigationPage tabNavigationPage2;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tpRecent;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tpMy;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tpSearch;
     }
 }

@@ -29,6 +29,7 @@ namespace CTM.Services.InvestmentDecision
 
         private readonly IRepository<PositionStockAnalysisInfo> _PSAInfoRepository;
         private readonly IRepository<PositionStockAnalysisDetail> _PSADetailRepository;
+        private readonly IRepository<PositionStockAnalysisSummary> _PSASummaryRepository;
 
         private readonly ICommonService _commonService;
 
@@ -49,6 +50,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<MarketTrendForecastDetail> MTFDetailRepository,
             IRepository<PositionStockAnalysisInfo> PSAInfoRepository,
             IRepository<PositionStockAnalysisDetail> PSADetailRepository,
+            IRepository<PositionStockAnalysisSummary> PSASummaryRepository,
             ICommonService commonService,
             IDbContext dbContext)
         {
@@ -62,6 +64,7 @@ namespace CTM.Services.InvestmentDecision
             this._MTFDetailRepository = MTFDetailRepository;
             this._PSADetailRepository = PSADetailRepository;
             this._PSAInfoRepository = PSAInfoRepository;
+            this._PSASummaryRepository = PSASummaryRepository;
 
             this._commonService = commonService;
             this._dbContext = dbContext;
@@ -393,12 +396,13 @@ namespace CTM.Services.InvestmentDecision
                 throw new NotImplementedException();
 
             var info = _PSAInfoRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
-
             _PSAInfoRepository.Delete(info);
 
             var details = _PSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
-
             _PSADetailRepository.Delete(details.ToArray());
+
+            var summarys = _PSASummaryRepository.Table.Where(x => x.SerialNo == serialNo);
+            _PSASummaryRepository.Delete(summarys);
         }
 
         public virtual void UpdatePSADetail(PositionStockAnalysisDetail entity)
@@ -407,6 +411,21 @@ namespace CTM.Services.InvestmentDecision
                 throw new ArgumentNullException(nameof(entity));
 
             _PSADetailRepository.Update(entity);
+        }
+
+        public PositionStockAnalysisSummary GetPSASummaryById(int id)
+        {
+            var info = _PSASummaryRepository.GetById(id);
+
+            return info;
+        }
+
+        public void UpdatePSASummary(PositionStockAnalysisSummary entity)
+        {
+            if (entity == null)
+                throw new NullReferenceException(nameof(entity));
+
+            _PSASummaryRepository.Update(entity);
         }
 
         #endregion Methods

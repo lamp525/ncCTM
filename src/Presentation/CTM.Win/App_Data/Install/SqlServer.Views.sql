@@ -92,3 +92,67 @@ AS
 	ON I.InvestorCode = U.Code
 GO
 
+/*
+/****** 5. [v_IDStockPool] ******/
+*/
+DROP VIEW [dbo].[v_IDStockPool]
+GO
+CREATE VIEW [dbo].[v_IDStockPool]
+AS
+	SELECT   
+		P.*,
+		U.Name PrincipalName
+	FROM InvestmentDecisionStockPool P
+	LEFT JOIN UserInfo U
+	ON P.Principal = U.Code
+GO
+
+
+/*
+/****** 6. [v_PSADetail] ******/
+*/
+DROP VIEW [dbo].[v_PSADetail]
+GO
+CREATE VIEW [dbo].[v_PSADetail]
+AS
+	SELECT   
+		D.*,
+		U.Name InvestorName,
+		CASE D.TradeType
+			WHEN 1 THEN 'Ä¿±ê'
+			WHEN 2 THEN '²¨¶Î'
+			WHEN 3 THEN '¸ôÈÕ¶Ì²î'
+			ELSE ''
+		END TradeTypeName,
+		CASE D.Decision
+			WHEN '1' THEN '±£Áô'
+			WHEN '2' THEN 'Âò'
+			WHEN '3' THEN 'Âô'
+			ELSE ''
+		END DecisionName
+	FROM PositionStockAnalysisDetail D
+	LEFT JOIN UserInfo U
+	ON D.InvestorCode = U.Code
+GO
+
+
+/*
+/****** 7. [v_PSASummary] ******/
+*/
+DROP VIEW [dbo].[v_PSASummary]
+GO
+CREATE VIEW [dbo].[v_PSASummary]
+AS
+	SELECT   
+		S.*,
+		U.Name PrincipalName
+	FROM PositionStockAnalysisSummary S
+	LEFT JOIN UserInfo U
+	ON S.Principal = U.Code
+GO
+
+
+
+
+
+

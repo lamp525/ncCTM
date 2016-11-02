@@ -66,16 +66,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = string.Empty;
-
-            //if (_isSearch)
-            //{
-            //    var fromDate = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
-            //    var toDate = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-            //    infoCommandText = $@"SELECT * FROM [dbo].[v_MTFInfo] WHERE ApplyDate BETWEEN '{fromDate}' AND '{toDate}' ORDER BY SerialNo DESC";
-            //}
-            //else
-            commandText = $@"SELECT TOP 20 * FROM [dbo].[PositionStockAnalysisInfo] ORDER BY SerialNo DESC";
+            var commandText = $@"SELECT TOP 25 * FROM [dbo].[PositionStockAnalysisInfo] ORDER BY SerialNo DESC";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -85,7 +76,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.gridControl1.DataSource = source;
         }
 
-        private void DisplayCSAEdit( DataRow dr)
+        private void DisplayCSAEdit(DataRow dr)
         {
             var dialog = EngineContext.Current.Resolve<_dialogPSAEdit>();
             dialog.Owner = this.ParentForm;
@@ -233,11 +224,11 @@ namespace CTM.Win.UI.InvestmentDecision
                 }
                 else if (buttonTag == "Edit")
                 {
-                    DisplayCSAEdit( dr);
+                    DisplayCSAEdit(dr);
                 }
                 else if (buttonTag == "View")
                 {
-                    DisplayCSAResult( dr);
+                    DisplayCSAResult(dr);
                 }
             }
             catch (Exception ex)

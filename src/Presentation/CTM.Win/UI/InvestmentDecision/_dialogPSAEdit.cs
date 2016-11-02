@@ -181,9 +181,9 @@ namespace CTM.Win.UI.InvestmentDecision
             }
 
             //决策建议
-            if (e.Column.Name ==colDecision .Name)
+            if (e.Column.Name == colDecision.Name)
             {
-                var cellValue = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colTradeType.FieldName).ToString();
+                var cellValue = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colDecision.FieldName).ToString();
 
                 ImageComboBoxEdit imageComboBox = new ImageComboBoxEdit();
                 imageComboBox.Properties.Items.AddRange(this.riImageComboBoxDecision.Items);
@@ -210,9 +210,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 var detail = _IDService.GetPSADetailById(id);
 
-                detail.Accuracy = row[colAccuracy.FieldName].ToString();
-                detail.AnalysisDate =CommonHelper .StringToDateTime (row[colAnalysisDate.FieldName].ToString());
-                detail.CreateTime = _commonService.GetCurrentServerTime();
+                detail.Accuracy = row[colAccuracy.FieldName].ToString();          
                 detail.Decision = row[colDecision.FieldName].ToString();
                 detail.PriceRange = row[colPriceRange.FieldName].ToString();
                 detail.Reason = row[colReason.FieldName].ToString();

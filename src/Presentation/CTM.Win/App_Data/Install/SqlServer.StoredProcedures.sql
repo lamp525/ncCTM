@@ -660,6 +660,95 @@ END
 GO
 
 
+/*
+/****** 13. [sp_GeneratePSADetail] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GeneratePSADetail]
+GO
+CREATE PROCEDURE [dbo].[sp_GeneratePSADetail]
+(
+	@InvestorCode varchar(20),
+	@AnalysisDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+	
+	DECLARE @serialNo varchar(50) = (SELECT SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate)
+
+	IF(ISNULL(@serialNo,'') = '') RETURN
+	
+	DECLARE @detailCount int  = (SELECT COUNT(*) FROM PositionStockAnalysisDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
+
+	IF(@detailCount = 0)
+		BEGIN 
+			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision, CreateTime)
+			SELECT 
+				@serialNo,
+				@InvestorCode,
+				@AnalysisDate,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()			 
+			FROM InvestmentDecisionStockPool P
+		END
 
 
+	SELECT * FROM V_PSADetail WHERE AnalysisDate = @AnalysisDate AND InvestorCode = @InvestorCode
+
+ 
+END
+GO
+
+
+/*
+/****** 14. [sp_GeneratePSAInfo] ******/
+*/
+DROP PROCEDURE [dbo].[sp_GeneratePSAInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GeneratePSAInfo]
+(	
+	@AnalysisDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+	
+	DECLARE @serialNo varchar(50)
+	SELECT @serialNo =SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate
+
+	IF(ISNULL(@serialNo,'') = '')
+		BEGIN
+			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM PositionStockAnalysisInfo)			
+
+			DECLARE @suffix varchar(10)
+			IF( ISNULL(@maxSerialNo,'') = '')
+				SET @suffix = '000001'
+			ELSE
+				SET @suffix =RIGHT('000000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 5,6) AS int) + 1) AS varchar),6)
+
+			SET @serialNo = 'FX' + @suffix
+
+			INSERT INTO PositionStockAnalysisInfo (SerialNo,AnalysisDate,CreateTime,Result)
+			VALUES(@serialNo,@AnalysisDate, GETDATE(),NULL)		
+			
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			SELECT 
+				@serialNo,
+				@AnalysisDate,
+				P.Principal,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()
+			FROM InvestmentDecisionStockPool P
+		END
+ 
+END
+GO
 

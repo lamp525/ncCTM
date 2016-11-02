@@ -602,13 +602,12 @@ namespace CTM.Core.Util
         /// <returns>日期/时间格式</returns>
         public static string NumberStringToDate(string value)
         {
-            var result = new DateTime();
-            if (IsInt(value) || IsNumeric(value))
+            if (value.Length < 6 && (IsInt(value) || IsNumeric(value)))
             {
-                result = DateTime.FromOADate(double.Parse(value));
+                return DateTime.FromOADate(double.Parse(value)).ToShortDateString();
             }
 
-            return result.ToShortDateString();
+            return value;
         }
 
         /// <summary>
