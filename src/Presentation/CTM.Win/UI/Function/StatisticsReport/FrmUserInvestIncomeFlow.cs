@@ -1319,8 +1319,6 @@ namespace CTM.Win.UI.Function.StatisticsReport
                 {
                     if (_rankingFirstTime)
                     {
-                        _rankingFirstTime = false;
-
                         this.deRankingDate.Properties.AllowNullInput = DefaultBoolean.False;
 
                         this.deRankingDate.SetFormat("yyyy年MM月dd日");
@@ -1339,13 +1337,14 @@ namespace CTM.Win.UI.Function.StatisticsReport
                         // this.DisplayCurrentUserAccumulatedIncomeRate();
 
                         this.DisplayInvestIncomeRanking(rankingDate);
+
+                        _rankingFirstTime = false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-                this._rankingFirstTime = true;
             }
         }
 

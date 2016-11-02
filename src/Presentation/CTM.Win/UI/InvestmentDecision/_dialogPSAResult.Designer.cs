@@ -34,7 +34,7 @@
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDecisionName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRange = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccuracy = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -74,7 +74,7 @@
             this.colInvestorName,
             this.colTradeTypeName,
             this.colDecisionName,
-            this.colPriceBound,
+            this.colPriceRange,
             this.colReason,
             this.colAccuracy});
             this.gridViewDetail.GridControl = this.gridControl1;
@@ -89,7 +89,6 @@
             this.colInvestorCode.Name = "colInvestorCode";
             this.colInvestorCode.Visible = true;
             this.colInvestorCode.VisibleIndex = 0;
-            this.colInvestorCode.Width = 91;
             // 
             // colInvestorName
             // 
@@ -115,14 +114,14 @@
             this.colDecisionName.Visible = true;
             this.colDecisionName.VisibleIndex = 3;
             // 
-            // colPriceBound
+            // colPriceRange
             // 
-            this.colPriceBound.Caption = "价格区间";
-            this.colPriceBound.FieldName = "PriceBound";
-            this.colPriceBound.Name = "colPriceBound";
-            this.colPriceBound.Visible = true;
-            this.colPriceBound.VisibleIndex = 4;
-            this.colPriceBound.Width = 99;
+            this.colPriceRange.Caption = "价格区间";
+            this.colPriceRange.FieldName = "PriceRange";
+            this.colPriceRange.Name = "colPriceRange";
+            this.colPriceRange.Visible = true;
+            this.colPriceRange.VisibleIndex = 4;
+            this.colPriceRange.Width = 120;
             // 
             // colReason
             // 
@@ -131,7 +130,7 @@
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
             this.colReason.VisibleIndex = 5;
-            this.colReason.Width = 307;
+            this.colReason.Width = 450;
             // 
             // colAccuracy
             // 
@@ -140,7 +139,7 @@
             this.colAccuracy.Name = "colAccuracy";
             this.colAccuracy.Visible = true;
             this.colAccuracy.VisibleIndex = 6;
-            this.colAccuracy.Width = 122;
+            this.colAccuracy.Width = 130;
             // 
             // gridControl1
             // 
@@ -197,6 +196,7 @@
             this.colPrincipalName_S.Name = "colPrincipalName_S";
             this.colPrincipalName_S.Visible = true;
             this.colPrincipalName_S.VisibleIndex = 2;
+            this.colPrincipalName_S.Width = 100;
             // 
             // colStockCode_S
             // 
@@ -205,7 +205,7 @@
             this.colStockCode_S.Name = "colStockCode_S";
             this.colStockCode_S.Visible = true;
             this.colStockCode_S.VisibleIndex = 0;
-            this.colStockCode_S.Width = 114;
+            this.colStockCode_S.Width = 100;
             // 
             // colStockName_S
             // 
@@ -214,7 +214,7 @@
             this.colStockName_S.Name = "colStockName_S";
             this.colStockName_S.Visible = true;
             this.colStockName_S.VisibleIndex = 1;
-            this.colStockName_S.Width = 102;
+            this.colStockName_S.Width = 100;
             // 
             // colTradeType_S
             // 
@@ -240,7 +240,7 @@
             this.colDecision_S.Name = "colDecision_S";
             this.colDecision_S.Visible = true;
             this.colDecision_S.VisibleIndex = 4;
-            this.colDecision_S.Width = 78;
+            this.colDecision_S.Width = 100;
             // 
             // riImageComboBoxDecision
             // 
@@ -256,7 +256,7 @@
             this.colPriceRange_S.Name = "colPriceRange_S";
             this.colPriceRange_S.Visible = true;
             this.colPriceRange_S.VisibleIndex = 5;
-            this.colPriceRange_S.Width = 132;
+            this.colPriceRange_S.Width = 130;
             // 
             // colReason_S
             // 
@@ -265,7 +265,7 @@
             this.colReason_S.Name = "colReason_S";
             this.colReason_S.Visible = true;
             this.colReason_S.VisibleIndex = 6;
-            this.colReason_S.Width = 292;
+            this.colReason_S.Width = 450;
             // 
             // colAccuracy_S
             // 
@@ -274,7 +274,7 @@
             this.colAccuracy_S.Name = "colAccuracy_S";
             this.colAccuracy_S.Visible = true;
             this.colAccuracy_S.VisibleIndex = 7;
-            this.colAccuracy_S.Width = 114;
+            this.colAccuracy_S.Width = 130;
             // 
             // layoutControl1
             // 
@@ -367,7 +367,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colInvestorName;
         private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName;
         private DevExpress.XtraGrid.Columns.GridColumn colDecisionName;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRange;
         private DevExpress.XtraGrid.Columns.GridColumn colReason;
         private DevExpress.XtraGrid.Columns.GridColumn colAccuracy;
         private DevExpress.XtraGrid.Columns.GridColumn colId_S;

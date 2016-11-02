@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
+using CTM.Core.Domain.User;
 using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Data;
@@ -24,7 +26,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
 
-        private bool _isSearch = false;
+        private bool _firstTimeSearch = true;
 
         #endregion Fields
 
@@ -44,7 +46,11 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void FormInit()
         {
+            this.tabPane1.SelectedPage = this.tpRecent;
+
             var now = _commonService.GetCurrentServerTime().Date;
+
+            #region Page Recent
 
             this.deTradeDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTradeDate.EditValue = now;
@@ -58,6 +64,18 @@ namespace CTM.Win.UI.InvestmentDecision
                 else
                     column.OptionsColumn.AllowEdit = false;
             }
+
+            #endregion Page Recent
+
+            #region Page Search
+
+            this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deFrom.EditValue = now.AddMonths(-1);
+            this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deTo.EditValue = now;
+            this.gridView2.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
+
+            #endregion Page Search
         }
 
         private void BindPSAInfo()
@@ -128,6 +146,73 @@ namespace CTM.Win.UI.InvestmentDecision
             }
         }
 
+        private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
+        {
+            try
+            {
+                if (e.Page.Caption == tpSearch.Caption)
+                {
+                    var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+                    //股票信息
+                    var stockCommandText = $@"SELECT DISTINCT StockCode, StockName FROM [dbo].[v_PSADetail] ";
+
+                    var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, stockCommandText);
+
+                    if (dsStock == null || dsStock.Tables.Count == 0) return;
+
+                    var stocks = dsStock.Tables[0].AsEnumerable().Select(x => new StockInfoModel
+                    {
+                        FullCode = x.Field<string>("StockCode").Trim(),
+                        Name = x.Field<string>("StockName").Trim(),
+                        DisplayMember = x.Field<string>("StockCode").Trim() + " - " + x.Field<string>("StockName").Trim(),
+                    }
+                    ).ToList();
+
+                    var allStock = new StockInfoModel()
+                    {
+                        FullCode = string.Empty ,
+                        Name = "全部",
+                        DisplayMember = "全部",
+                    };
+                    stocks.Add(allStock);
+                    stocks = stocks.OrderBy(x => x.FullCode).ToList();
+
+                    this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
+
+                    //投资人员
+                    var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_PSADetail] ";
+
+                    var dsInvestor = SqlHelper.ExecuteDataset(connString, CommandType.Text, stockCommandText);
+
+                    if (dsInvestor == null || dsInvestor.Tables.Count == 0) return;
+
+                    var investors = dsInvestor.Tables[0].AsEnumerable().Select(x => new UserInfo
+                    {
+                        Code = x.Field<string>("InvestorCode").Trim(),
+                        Name = x.Field<string>("InvestorName").Trim(),
+                    }
+                    ).ToList();
+
+                    var allInvestor = new UserInfo
+                    {
+                        Code = string.Empty,
+                        Name = "全部",
+                    };
+                    investors.Add(allInvestor);
+                    investors = investors.OrderBy(x => x.Code).ToList();
+
+                    this.luInvestor.Initialize(investors,"Code","Name",enableSearch:true);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        #region Page Recent
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -140,7 +225,6 @@ namespace CTM.Win.UI.InvestmentDecision
                 var commandText = $@"EXEC [dbo].[sp_GeneratePSAInfo]  @AnalysisDate = '{analysisDate}'";
                 SqlHelper.ExecuteNonQuery(connString, CommandType.Text, commandText);
 
-                this._isSearch = true;
                 BindPSAInfo();
             }
             catch (Exception ex)
@@ -240,6 +324,36 @@ namespace CTM.Win.UI.InvestmentDecision
                 e.Button.Enabled = true;
             }
         }
+
+        #endregion Page Recent
+
+        #region Page Search
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnSearch.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnSearch.Enabled = true;
+            }
+        }
+
+        private void gridView2_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        #endregion Page Search
 
         #endregion Events
     }
