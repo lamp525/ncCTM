@@ -4,8 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Domain.Stock;
+using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Services.Stock;
@@ -13,7 +13,7 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.InvestmentDecision
+namespace CTM.Win.UI.Admin.BaseData
 {
     public partial class FrmIDStockPool : BaseForm
     {
@@ -50,9 +50,12 @@ namespace CTM.Win.UI.InvestmentDecision
 
         private void BindStockPool()
         {
-            var IDStockPoolInfos = _IDService.GetIDStockPool();
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+            var commandText = $@" SELECT *  FROM [dbo].[v_IDStockPool] ORDER BY Principal";
+            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            if (ds == null || ds.Tables.Count == 0) return;
 
-            this.gridControl1.DataSource = IDStockPoolInfos;
+            this.gridControl1.DataSource = ds.Tables[0];
         }
 
         private void RefreshForm()
@@ -68,7 +71,7 @@ namespace CTM.Win.UI.InvestmentDecision
         {
             _stocks = _stockService.GetAllStocks(showDeleted: true);
 
-            var stockCodesInPool = (this.gridView1.DataSource as List<InvestmentDecisionStockPool>).Select(x => x.StockCode).ToArray();
+            var stockCodesInPool = (this.gridView1.DataSource as DataView).Table.AsEnumerable().Select(x => x.Field<string>("StockCode")).ToArray();
 
             var stocksNotInPool = _stocks.Where(x => !stockCodesInPool.Contains(x.FullCode)).OrderBy(x => x.FullCode).ToList();
 
@@ -82,7 +85,7 @@ namespace CTM.Win.UI.InvestmentDecision
             }
             ).ToList();
 
-            this.luStockLeft.Initialize(source, "Id", "DisplayMember", enableSearch: true, searchColumnIndex: 1);
+            this.luStockLeft.Initialize(source, "FullCode", "DisplayMember", enableSearch: true, searchColumnIndex: 1);
         }
 
         private void BindStockInfo()
@@ -108,7 +111,16 @@ namespace CTM.Win.UI.InvestmentDecision
 
             source = source.OrderBy(x => x.FullCode).ToList();
 
-            this.luStock.Initialize(source, "Id", "DisplayMember", enableSearch: true, searchColumnIndex: 0);
+            this.luStock.Initialize(source, "FullCode", "DisplayMember", enableSearch: true, searchColumnIndex: 0);
+        }
+
+        private void DisplayPoolEditDialog(string stockCode)
+        {
+            var dialog = this.CreateDialog<_dialogIDStockPoolEdit>();
+            dialog.RefreshEvent += new _dialogIDStockPoolEdit.RefreshParentForm(RefreshForm);
+            dialog.StockCode = stockCode;
+            dialog.Text = "决策股票池设置";
+            dialog.ShowDialog();
         }
 
         #endregion Utilities
@@ -119,6 +131,7 @@ namespace CTM.Win.UI.InvestmentDecision
         {
             this.gridView1.SetLayout();
 
+            this.btnEdit.Enabled = false;
             this.btnDelete.Enabled = false;
 
             BindStockPool();
@@ -182,11 +195,21 @@ namespace CTM.Win.UI.InvestmentDecision
 
             if (selectedHandles.Length == 0)
             {
+                this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
             }
-            else
+            else if (selectedHandles.Length > 0)
             {
                 btnDelete.Enabled = true;
+
+                if (selectedHandles.Length == 1)
+                {
+                    this.btnEdit.Enabled = true;
+                }
+                else
+                {
+                    this.btnEdit.Enabled = false;
+                }
             }
         }
 
@@ -221,9 +244,6 @@ namespace CTM.Win.UI.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
                 this.btnDelete.Enabled = true;
             }
         }
@@ -235,19 +255,52 @@ namespace CTM.Win.UI.InvestmentDecision
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.luStockLeft.SelectedValue()))
+            try
             {
-                DXMessage.ShowTips("请选择要添加的股票信息！");
-                return;
+                this.btnAdd.Enabled = false;
+
+                if (string.IsNullOrEmpty(this.luStockLeft.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择要添加的股票信息！");
+                    return;
+                }
+
+                var stockCode = luStockLeft.SelectedValue();
+
+                DisplayPoolEditDialog(stockCode);
+                this.luStockLeft.EditValue = null;
             }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
+            }
+        }
 
-            var stockInfo = luStockLeft.GetSelectedDataRow() as StockInfoModel;
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnEdit.Enabled = false;
 
-            if (stockInfo == null) return;
+                var myView = this.gridView1;
 
-            _IDService.AddIDStockPool(stockInfo.FullCode, stockInfo.Name);
+                var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
-            RefreshForm();
+                var stockCode = myView.GetRowCellValue(selectedHandles[0], colStockCode).ToString();
+
+                DisplayPoolEditDialog(stockCode);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+                this.btnEdit.Enabled = true;
+            }
         }
 
         private void chkRecent_CheckedChanged(object sender, EventArgs e)

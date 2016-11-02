@@ -266,9 +266,6 @@ namespace CTM.Win.UI.Admin.BaseData
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
                 this.btnDelete.Enabled = true;
             }
         }
@@ -297,9 +294,6 @@ namespace CTM.Win.UI.Admin.BaseData
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
                 this.btnEdit.Enabled = true;
             }
         }
@@ -311,15 +305,30 @@ namespace CTM.Win.UI.Admin.BaseData
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.luStockLeft.SelectedValue()))
+            try
             {
-                DXMessage.ShowTips("请选择要添加的股票信息！");
-                return;
+                this.btnAdd.Enabled = false;
+
+                if (string.IsNullOrEmpty(this.luStockLeft.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择要添加的股票信息！");
+                    return;
+                }
+
+                var stockId = int.Parse(luStockLeft.SelectedValue());
+
+                DisplayPoolEditDialog(stockId);
+
+                this.luStockLeft.EditValue = null;
             }
-
-            var stockId = int.Parse(luStockLeft.SelectedValue());
-
-            DisplayPoolEditDialog(stockId);
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
+            }
         }
 
         /// <summary>

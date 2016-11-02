@@ -304,7 +304,7 @@ namespace CTM.Services.Stock
             if (string.IsNullOrEmpty(stockCode))
                 throw new ArgumentNullException(nameof(stockCode));
 
-            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code).FirstOrDefault();
+            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code || stockCode == x.FullCode ).FirstOrDefault();
 
             return info;
         }

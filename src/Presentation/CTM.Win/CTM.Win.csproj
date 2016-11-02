@@ -235,6 +235,12 @@
     <Compile Include="UI\Admin\BaseData\_dialogStockEdit.Designer.cs">
       <DependentUpon>_dialogStockEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.Designer.cs">
+      <DependentUpon>_dialogIDStockPoolEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Admin\BaseData\_dialogUserEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,10 +409,10 @@
     <Compile Include="UI\InvestmentDecision\FrmMarketTrendForecastManage.Designer.cs">
       <DependentUpon>FrmMarketTrendForecastManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDStockPool.cs">
+    <Compile Include="UI\Admin\BaseData\FrmIDStockPool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDStockPool.Designer.cs">
+    <Compile Include="UI\Admin\BaseData\FrmIDStockPool.Designer.cs">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InvestmentDecision\_dialogPSAEdit.cs">
@@ -558,6 +564,7 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundMonthlyStatements.resx">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </EmbeddedResource>
@@ -605,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\BaseData\_dialogStockEdit.resx">
       <DependentUpon>_dialogStockEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.resx">
+      <DependentUpon>_dialogIDStockPoolEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\BaseData\_dialogStockPoolEdit.resx">
       <DependentUpon>_dialogStockPoolEdit.cs</DependentUpon>
@@ -669,7 +679,7 @@
     <EmbeddedResource Include="UI\InvestmentDecision\FrmMarketTrendForecastManage.resx">
       <DependentUpon>FrmMarketTrendForecastManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmIDStockPool.resx">
+    <EmbeddedResource Include="UI\Admin\BaseData\FrmIDStockPool.resx">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\_dialogPSAEdit.resx">

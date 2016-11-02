@@ -33,9 +33,13 @@ namespace CTM.Services.InvestmentDecision
 
         IList<InvestmentDecisionStockPool> GetIDStockPool();
 
+        InvestmentDecisionStockPool GetIDStockPoolByCode( string stockCode);
+
         void DeleteIDStockPool(IList<string> stockCodes);
 
-        void AddIDStockPool(string stockCode, string stockName);
+        void AddIDStockPool(InvestmentDecisionStockPool entity);
+
+        void UpdateIDStockPool(InvestmentDecisionStockPool entity);
 
         IList<InvestmentDecisionCommittee> GetIDCommittees();
 
@@ -45,8 +49,9 @@ namespace CTM.Services.InvestmentDecision
 
         PositionStockAnalysisDetail GetPSADetailById(int id);
 
-        void UpdatePSADetail(PositionStockAnalysisDetail detail);
+        void UpdatePSADetail(PositionStockAnalysisDetail entity);
 
         void DeletePSAInfo(string serialNo);
+ 
     }
 }

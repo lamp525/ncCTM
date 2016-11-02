@@ -27,7 +27,7 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<MarketTrendForecastInfo> _MTFInfoRepository;
         private readonly IRepository<MarketTrendForecastDetail> _MTFDetailRepository;
 
-        private readonly IRepository<PositionStockAnalysisInfo > _PSAInfoRepository;
+        private readonly IRepository<PositionStockAnalysisInfo> _PSAInfoRepository;
         private readonly IRepository<PositionStockAnalysisDetail> _PSADetailRepository;
 
         private readonly ICommonService _commonService;
@@ -316,6 +316,21 @@ namespace CTM.Services.InvestmentDecision
             return query.ToList();
         }
 
+        public virtual InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode)
+        {
+            var info = _IDStockPoolRepository.Table.FirstOrDefault(x => x.StockCode == stockCode);
+
+            return info;
+        }
+
+        public virtual void UpdateIDStockPool(InvestmentDecisionStockPool entity)
+        {
+            if (entity == null)
+                throw new NullReferenceException(nameof(entity));
+
+            _IDStockPoolRepository.Update(entity);
+        }
+
         public virtual void DeleteIDStockPool(IList<string> stockCodes)
         {
             if (stockCodes == null)
@@ -326,15 +341,12 @@ namespace CTM.Services.InvestmentDecision
             _IDStockPoolRepository.Delete(infos);
         }
 
-        public virtual void AddIDStockPool(string stockCode, string stockName)
+        public virtual void AddIDStockPool(InvestmentDecisionStockPool entity)
         {
-            var info = new InvestmentDecisionStockPool
-            {
-                StockCode = stockCode,
-                StockName = stockName
-            };
+            if (entity == null)
+                throw new NullReferenceException(nameof(entity));
 
-            _IDStockPoolRepository.Insert(info);
+            _IDStockPoolRepository.Insert(entity);
         }
 
         public virtual IList<InvestmentDecisionCommittee> GetIDCommittees()
@@ -368,7 +380,6 @@ namespace CTM.Services.InvestmentDecision
             UpdateCommitteeWeight();
         }
 
-
         public PositionStockAnalysisDetail GetPSADetailById(int id)
         {
             var detail = _PSADetailRepository.GetById(id);
@@ -388,7 +399,7 @@ namespace CTM.Services.InvestmentDecision
             var details = _PSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
 
             _PSADetailRepository.Delete(details.ToArray());
-        }     
+        }
 
         public virtual void UpdatePSADetail(PositionStockAnalysisDetail entity)
         {
