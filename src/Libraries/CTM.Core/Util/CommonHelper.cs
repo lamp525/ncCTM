@@ -596,24 +596,40 @@ namespace CTM.Core.Util
         }
 
         /// <summary>
+        /// 数字转换日期格式
+        /// </summary>
+        /// <param name="numberString">数字</param>
+        /// <returns>日期/时间格式</returns>
+        public static string NumberStringToDate(string value)
+        {
+            var result = new DateTime();
+            if (IsInt(value) || IsNumeric(value))
+            {
+                result = DateTime.FromOADate(double.Parse(value));
+            }
+
+            return result.ToShortDateString();
+        }
+
+        /// <summary>
         /// 数字转换时间格式
         /// </summary>
-        /// <param name="numberString">数字,如:42095.7069444444/0.650694444444444</param>
+        /// <param name="value">数字,如:42095.7069444444/0.650694444444444</param>
         /// <returns>日期/时间格式</returns>
-        public static string FormatNumberString(string numberString)
+        public static string NumberStringToTime(string value)
         {
-            if (!string.IsNullOrWhiteSpace(numberString))
+            if (!string.IsNullOrWhiteSpace(value))
             {
                 decimal tempValue;
 
                 //判断是否为数字
-                if (decimal.TryParse(numberString, out tempValue))
+                if (decimal.TryParse(value, out tempValue))
                 {
                     if (Math.Truncate(tempValue) > 50000)
                     {
-                        if (numberString.Length == 8) numberString = "0" + numberString;
+                        if (value.Length == 8) value = "0" + value;
 
-                        var resultTime = numberString.Substring(0, 2) + ":" + numberString.Substring(2, 2) + ":" + numberString.Substring(4, 2);
+                        var resultTime = value.Substring(0, 2) + ":" + value.Substring(2, 2) + ":" + value.Substring(4, 2);
 
                         return resultTime;
                     }
@@ -653,7 +669,7 @@ namespace CTM.Core.Util
                         return resultTimes;
                 }
             }
-            return numberString;
+            return value;
         }
 
         /// <summary>

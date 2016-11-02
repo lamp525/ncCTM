@@ -269,6 +269,116 @@ namespace CTM.Services.TradeRecord
 
         #endregion 交割单--财通证券（普通）
 
+        #region 交割单--安信证券（普通）
+
+        /// <summary>
+        /// 交割单--安信证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportESSENCE_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            #region DataFormatCheck
+
+            var TemplateColumnNames = new List<string> { "发生日期", "证券代码", "证券名称", "业务名称", "成交价格", "成交数量", "成交金额", "手续费", "印花税", "过户费", "清算费", "清算金额", "资金本次余额", "委托编号", "委托价格", "委托数量", "成交时间", "股东代码", "资产账户","币种" };
+
+            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+
+            #endregion DataFormatCheck
+
+            #region DataProcess
+
+            var tradeRecords = new List<DeliveryRecord>();
+
+            foreach (DataRow row in importDataTable.Rows)
+            {
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
+
+                var tradeRecord = new DeliveryRecord();
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
+
+                tradeRecord.DealNo = row["委托编号"].ToString().Trim();
+
+                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
+
+                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                {
+                    //买入
+                    tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
+                //卖出
+                else
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
+
+                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
+
+                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
+
+                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
+
+                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
+
+                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["清算费"].ToString().Trim());
+
+                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
+
+                tradeRecords.Add(tradeRecord);
+            }
+
+            #endregion DataProcess
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--财通证券（普通）
+
         #region 交割单--方正证券（普通）
 
         /// <summary>
@@ -1937,6 +2047,11 @@ namespace CTM.Services.TradeRecord
                 //财通普通
                 case EnumLibrary.SecurityAccount.CaiTong_N:
                     records = DeliveryImportCaiTong_N(importOperation, importDataTable);
+                    break;
+
+                //安信普通
+                case EnumLibrary.SecurityAccount.ESSENCE_N:
+                    records = DeliveryImportESSENCE_N(importOperation,importDataTable );
                     break;
 
                 //方正普通

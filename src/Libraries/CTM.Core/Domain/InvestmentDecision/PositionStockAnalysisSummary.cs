@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CTM.Core.Domain.InvestmentDecision
 {
-   public  class PositionStockAnalysisDetail:BaseEntity
+   public  class PositionStockAnalysisSummary: BaseEntity
     {
         public string SerialNo { get; set; }
 
-        public string InvestorCode { get; set; }
+        public string Principal { get; set; }
 
         public DateTime AnalysisDate { get; set; }
 
@@ -31,6 +31,5 @@ namespace CTM.Core.Domain.InvestmentDecision
         public DateTime CreateTime { get; set; }
 
         public string Remarks { get; set; }
-
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionVote.cs" />
     <Compile Include="Domain\InvestmentDecision\MarketTrendForecastDetail.cs" />
     <Compile Include="Domain\InvestmentDecision\MarketTrendForecastInfo.cs" />
+    <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisSummary.cs" />
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisDetail.cs" />
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisInfo.cs" />
     <Compile Include="Util\AppConfigHelper.cs" />

@@ -23,7 +23,20 @@ namespace CTM.Services.TradeRecord
             foreach (DataRow row in source.Rows)
             {
                 foreach (DataColumn colTime in timeColumns)
-                    row[colTime] = CommonHelper.FormatNumberString(row[colTime].ToString().Trim());
+                    row[colTime] = CommonHelper.NumberStringToTime(row[colTime].ToString().Trim());
+            }
+
+            var dateColumns = new List<DataColumn>();
+            foreach (DataColumn column in source.Columns)
+            {
+                if (column.ColumnName.IndexOf("日期") > -1)
+                    dateColumns.Add(column);
+            }
+
+            foreach (DataRow row in source.Rows)
+            {
+                foreach (DataColumn colDate in dateColumns)
+                    row[colDate] = CommonHelper.NumberStringToDate(row[colDate].ToString().Trim());
             }
         }
 
@@ -95,6 +108,11 @@ namespace CTM.Services.TradeRecord
         public virtual EnumLibrary.SecurityAccount GetSelectedSecurityCompanyEnum(string securityCompanyName, string accountAttributeName)
         {
             var securityAccount = EnumLibrary.SecurityAccount.Unknown;
+
+            if (securityCompanyName == "安信证券" && accountAttributeName == "普通")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.ESSENCE_N ;
+            }
 
             if (securityCompanyName == "中银国际" && accountAttributeName == "信用")
             {

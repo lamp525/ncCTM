@@ -367,21 +367,23 @@ namespace CTM.Win.UI.Accounting.DataManage
                             e.Handled = true;
                             return;
                         }
-                        else
-                        {
-                            var rowHandles = this.gridViewAccount.GetSelectedRows();
+                        //else
+                        //{
+                        //    var rowHandles = this.gridViewAccount.GetSelectedRows();
 
-                            var operators = this.gridViewAccount.GetRowCellValue(rowHandles[0], colOperatorNames);
+                        //    var operators = this.gridViewAccount.GetRowCellValue(rowHandles[0], colOperatorNames);
 
-                            if (operators == null || string.IsNullOrEmpty(operators.ToString()))
-                            {
-                                DXMessage.ShowTips("该账号未设置操作人员，请联系管理员！");
-                                e.Handled = true;
-                                return;
-                            }
-                            else
-                                BindDataImportInfo();
-                        }
+                        //    if (operators == null || string.IsNullOrEmpty(operators.ToString()))
+                        //    {
+                        //        DXMessage.ShowTips("该账号未设置操作人员，请联系管理员！");
+                        //        e.Handled = true;
+                        //        return;
+                        //    }
+                        //    else
+                        //        BindDataImportInfo();
+                        //}
+
+                        BindDataImportInfo();
                         break;
 
                     case "PageImport":

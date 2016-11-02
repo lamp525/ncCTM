@@ -66,6 +66,7 @@
     <Compile Include="Mapping\Account\AccountInfoMap.cs" />
     <Compile Include="Mapping\Account\AccountInitialFundMap.cs" />
     <Compile Include="Mapping\Account\AccountOperatorMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisSummaryMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisDetailMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\CloseStockAnalysisDetailMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisInfoMap.cs" />
@@ -148,6 +149,10 @@
     <Compile Include="Migrations\201611010618503_013.Designer.cs">
       <DependentUpon>201611010618503_013.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611020221120_014.cs" />
+    <Compile Include="Migrations\201611020221120_014.Designer.cs">
+      <DependentUpon>201611020221120_014.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -204,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611010618503_013.resx">
       <DependentUpon>201611010618503_013.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611020221120_014.resx">
+      <DependentUpon>201611020221120_014.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -373,6 +373,16 @@ namespace CTM.Core
             CITIC_N,
 
             /// <summary>
+            /// 安信证券（普通）
+            /// </summary>
+            ESSENCE_N,
+
+            /// <summary>
+            /// 安信证券（信用）
+            /// </summary>
+            ESSENCE_C,
+
+            /// <summary>
             /// 方正证券（信用）
             /// </summary>
             Founder_C,
