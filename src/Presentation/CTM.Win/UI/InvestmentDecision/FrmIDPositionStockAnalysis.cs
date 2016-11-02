@@ -334,6 +334,22 @@ namespace CTM.Win.UI.InvestmentDecision
             try
             {
                 this.btnSearch.Enabled = false;
+
+                var dateFrom = CommonHelper.StringToDateTime ( this.deFrom.EditValue.ToString());
+                var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
+
+                var stockCode = this.luStock.SelectedValue();
+                var investorCode = this.luInvestor.SelectedValue();
+
+                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+     
+                var commandText = $@"SELECT *  FROM [dbo].[v_PSADetail]  WHERE";
+
+                var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+
+                if (dsStock == null || dsStock.Tables.Count == 0) return;
+
             }
             catch (Exception ex)
             {
