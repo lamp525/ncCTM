@@ -62,7 +62,7 @@ namespace CTM.Win.UI.InvestmentDecision
             this.btnDelete.Enabled = false;
 
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true,editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown , readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
@@ -179,6 +179,10 @@ namespace CTM.Win.UI.InvestmentDecision
                 //当前用户不为申请者
                 else
                 {
+                    //查看按钮
+                    buttonVI.RightButtons[4].Button.Enabled = true;
+                    buttonVI.RightButtons[4].State = ObjectState.Normal;
+
                     //未投票
                     if (myVoteinfo == null || myVoteinfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
                     {
@@ -194,9 +198,9 @@ namespace CTM.Win.UI.InvestmentDecision
                         buttonVI.RightButtons[3].Button.Enabled = false;
                         buttonVI.RightButtons[3].State = ObjectState.Disabled;
 
-                        //查看按钮
-                        buttonVI.RightButtons[4].Button.Enabled = false;
-                        buttonVI.RightButtons[4].State = ObjectState.Disabled;
+                        ////查看按钮
+                        //buttonVI.RightButtons[4].Button.Enabled = false;
+                        //buttonVI.RightButtons[4].State = ObjectState.Disabled;
                     }
                     //已投票
                     else
@@ -214,9 +218,9 @@ namespace CTM.Win.UI.InvestmentDecision
                         buttonVI.RightButtons[3].Button.Enabled = true;
                         buttonVI.RightButtons[3].State = ObjectState.Normal;
 
-                        //查看按钮
-                        buttonVI.RightButtons[4].Button.Enabled = true;
-                        buttonVI.RightButtons[4].State = ObjectState.Normal;
+                        ////查看按钮
+                        //buttonVI.RightButtons[4].Button.Enabled = true;
+                        //buttonVI.RightButtons[4].State = ObjectState.Normal;
 
                         //bool canRevoke = true;
                         //if (_commonService.GetCurrentServerTime() - myVoteinfo.VoteTime > new TimeSpan(0, 5, 0))
