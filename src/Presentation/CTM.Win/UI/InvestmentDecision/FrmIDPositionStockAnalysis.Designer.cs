@@ -77,6 +77,21 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colSerialNo2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvestorCode2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAnalysisDate2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockCode2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockName2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeType2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDecision2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRange2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReason2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracy2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCreateTime2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRemarks2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvestorName2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeTypeName2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDecisionName2 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deTradeDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -401,7 +416,7 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
             this.luInvestor.Size = new System.Drawing.Size(125, 20);
             this.luInvestor.StyleController = this.layoutControl2;
-            this.luInvestor.TabIndex = 9;
+            this.luInvestor.TabIndex = 4;
             // 
             // luStock
             // 
@@ -414,7 +429,7 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "股票名称")});
             this.luStock.Size = new System.Drawing.Size(125, 20);
             this.luStock.StyleController = this.layoutControl2;
-            this.luStock.TabIndex = 8;
+            this.luStock.TabIndex = 3;
             // 
             // gridControl2
             // 
@@ -422,14 +437,42 @@
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
             this.gridControl2.Size = new System.Drawing.Size(1511, 620);
-            this.gridControl2.TabIndex = 7;
+            this.gridControl2.TabIndex = 6;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
             // gridView2
             // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colSerialNo2,
+            this.colInvestorCode2,
+            this.colInvestorName2,
+            this.colAnalysisDate2,
+            this.colStockCode2,
+            this.colStockName2,
+            this.colTradeType2,
+            this.colTradeTypeName2,
+            this.colDecision2,
+            this.colDecisionName2,
+            this.colPriceRange2,
+            this.colReason2,
+            this.colAccuracy2,
+            this.colCreateTime2,
+            this.colRemarks2});
             this.gridView2.GridControl = this.gridControl2;
+            this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
+            this.gridView2.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gridView2.OptionsBehavior.ReadOnly = true;
+            this.gridView2.OptionsSelection.MultiSelect = true;
+            this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
+            this.gridView2.OptionsView.ColumnAutoWidth = false;
+            this.gridView2.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridView2.OptionsView.EnableAppearanceOddRow = true;
+            this.gridView2.OptionsView.ShowAutoFilterRow = true;
+            this.gridView2.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.gridView2.OptionsView.ShowGroupedColumns = true;
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
             // 
             // btnSearch
@@ -438,7 +481,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl2;
-            this.btnSearch.TabIndex = 6;
+            this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "    查  询    ";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -453,7 +496,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deTo.Size = new System.Drawing.Size(125, 20);
             this.deTo.StyleController = this.layoutControl2;
-            this.deTo.TabIndex = 5;
+            this.deTo.TabIndex = 2;
             // 
             // deFrom
             // 
@@ -466,7 +509,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deFrom.Size = new System.Drawing.Size(125, 20);
             this.deFrom.StyleController = this.layoutControl2;
-            this.deFrom.TabIndex = 4;
+            this.deFrom.TabIndex = 0;
             // 
             // layoutControlGroup2
             // 
@@ -593,6 +636,116 @@
             this.emptySpaceItem8.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // colSerialNo2
+            // 
+            this.colSerialNo2.FieldName = "SerialNo";
+            this.colSerialNo2.Name = "colSerialNo2";
+            // 
+            // colInvestorCode2
+            // 
+            this.colInvestorCode2.Caption = "编码";
+            this.colInvestorCode2.FieldName = "InvestorCode";
+            this.colInvestorCode2.Name = "colInvestorCode2";
+            this.colInvestorCode2.Visible = true;
+            this.colInvestorCode2.VisibleIndex = 1;
+            // 
+            // colAnalysisDate2
+            // 
+            this.colAnalysisDate2.Caption = "分析日期";
+            this.colAnalysisDate2.FieldName = "AnalysisDate";
+            this.colAnalysisDate2.Name = "colAnalysisDate2";
+            this.colAnalysisDate2.Visible = true;
+            this.colAnalysisDate2.VisibleIndex = 0;
+            // 
+            // colStockCode2
+            // 
+            this.colStockCode2.Caption = "股票代码";
+            this.colStockCode2.FieldName = "StockCode";
+            this.colStockCode2.Name = "colStockCode2";
+            this.colStockCode2.Visible = true;
+            this.colStockCode2.VisibleIndex = 3;
+            this.colStockCode2.Width = 85;
+            // 
+            // colStockName2
+            // 
+            this.colStockName2.Caption = "股票名称";
+            this.colStockName2.FieldName = "StockName";
+            this.colStockName2.Name = "colStockName2";
+            this.colStockName2.Visible = true;
+            this.colStockName2.VisibleIndex = 4;
+            this.colStockName2.Width = 85;
+            // 
+            // colTradeType2
+            // 
+            this.colTradeType2.FieldName = "TradeType";
+            this.colTradeType2.Name = "colTradeType2";
+            // 
+            // colDecision2
+            // 
+            this.colDecision2.FieldName = "Decision";
+            this.colDecision2.Name = "colDecision2";
+            // 
+            // colPriceRange2
+            // 
+            this.colPriceRange2.Caption = "价格区间";
+            this.colPriceRange2.FieldName = "PriceRange";
+            this.colPriceRange2.Name = "colPriceRange2";
+            this.colPriceRange2.Visible = true;
+            this.colPriceRange2.VisibleIndex = 7;
+            this.colPriceRange2.Width = 100;
+            // 
+            // colReason2
+            // 
+            this.colReason2.Caption = "判断及理由";
+            this.colReason2.FieldName = "Reason";
+            this.colReason2.Name = "colReason2";
+            this.colReason2.Visible = true;
+            this.colReason2.VisibleIndex = 8;
+            this.colReason2.Width = 450;
+            // 
+            // colAccuracy2
+            // 
+            this.colAccuracy2.Caption = "正确判断";
+            this.colAccuracy2.FieldName = "Accuracy";
+            this.colAccuracy2.Name = "colAccuracy2";
+            this.colAccuracy2.Visible = true;
+            this.colAccuracy2.VisibleIndex = 9;
+            this.colAccuracy2.Width = 150;
+            // 
+            // colCreateTime2
+            // 
+            this.colCreateTime2.FieldName = "CreateTime";
+            this.colCreateTime2.Name = "colCreateTime2";
+            // 
+            // colRemarks2
+            // 
+            this.colRemarks2.FieldName = "Remarks";
+            this.colRemarks2.Name = "colRemarks2";
+            // 
+            // colInvestorName2
+            // 
+            this.colInvestorName2.Caption = "姓名";
+            this.colInvestorName2.FieldName = "InvestorName";
+            this.colInvestorName2.Name = "colInvestorName2";
+            this.colInvestorName2.Visible = true;
+            this.colInvestorName2.VisibleIndex = 2;
+            // 
+            // colTradeTypeName2
+            // 
+            this.colTradeTypeName2.Caption = "操作类型";
+            this.colTradeTypeName2.FieldName = "TradeTypeName";
+            this.colTradeTypeName2.Name = "colTradeTypeName2";
+            this.colTradeTypeName2.Visible = true;
+            this.colTradeTypeName2.VisibleIndex = 5;
+            // 
+            // colDecisionName2
+            // 
+            this.colDecisionName2.Caption = "决策建议";
+            this.colDecisionName2.FieldName = "DecisionName";
+            this.colDecisionName2.Name = "colDecisionName2";
+            this.colDecisionName2.Visible = true;
+            this.colDecisionName2.VisibleIndex = 6;
+            // 
             // FrmIDPositionStockAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -694,5 +847,20 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
+        private DevExpress.XtraGrid.Columns.GridColumn colSerialNo2;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvestorCode2;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvestorName2;
+        private DevExpress.XtraGrid.Columns.GridColumn colAnalysisDate2;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockCode2;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockName2;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeType2;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName2;
+        private DevExpress.XtraGrid.Columns.GridColumn colDecision2;
+        private DevExpress.XtraGrid.Columns.GridColumn colDecisionName2;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRange2;
+        private DevExpress.XtraGrid.Columns.GridColumn colReason2;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccuracy2;
+        private DevExpress.XtraGrid.Columns.GridColumn colCreateTime2;
+        private DevExpress.XtraGrid.Columns.GridColumn colRemarks2;
     }
 }
