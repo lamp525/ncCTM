@@ -2,9 +2,7 @@ USE [CTMDB]
 GO
 
 
-/*
-/****** 1. [f_GetAccountOperatorNames] ******/
-*/
+/******  [f_GetAccountOperatorNames] ******/
 DROP FUNCTION [dbo].[f_GetAccountOperatorNames]
 GO
 CREATE FUNCTION [dbo].[f_GetAccountOperatorNames](@AccountId int)
@@ -26,9 +24,7 @@ END
 GO
 
 
-/*
-/****** 2. [f_GetFirstDayOfMonth] ******/
-*/
+/****** [f_GetFirstDayOfMonth] ******/
 DROP FUNCTION [dbo].[f_GetFirstDayOfMonth]
 GO
 CREATE FUNCTION [dbo].[f_GetFirstDayOfMonth](@CurrentDate datetime)
@@ -41,26 +37,7 @@ BEGIN
 END
 GO
 
-
-/*
-/****** 3. [f_GetLastDayOfMonth] ******/
-*/
-DROP FUNCTION [dbo].[f_GetLastDayOfMonth]
-GO
-CREATE FUNCTION [dbo].[f_GetLastDayOfMonth](@CurrentDate datetime)
-RETURNS datetime
-AS
-BEGIN    
-
-    RETURN DATEADD(d,-1,DATEADD(m,DATEDIFF(m,0,@CurrentDate)+1,0))	
-		
-END
-GO
-
-
-/*
-/****** 4. [f_GetIDFStatus] ******/
-*/
+/****** [f_GetIDFStatus] ******/
 DROP FUNCTION [dbo].[f_GetIDFStatus]
 GO
 CREATE FUNCTION [dbo].[f_GetIDFStatus](@SerialNo varchar(50))
@@ -119,9 +96,8 @@ BEGIN
 END
 GO
 
-/*
-/****** 5. [f_GetIDVoteType] ******/
-*/
+
+/****** [f_GetIDVoteType] ******/
 DROP FUNCTION [dbo].[f_GetIDVoteType]
 GO
 CREATE FUNCTION [dbo].[f_GetIDVoteType]
@@ -156,6 +132,20 @@ BEGIN
 		END
 
 	RETURN @voteType
+		
+END
+GO
+
+
+/****** [f_GetLastDayOfMonth] ******/
+DROP FUNCTION [dbo].[f_GetLastDayOfMonth]
+GO
+CREATE FUNCTION [dbo].[f_GetLastDayOfMonth](@CurrentDate datetime)
+RETURNS datetime
+AS
+BEGIN    
+
+    RETURN DATEADD(d,-1,DATEADD(m,DATEDIFF(m,0,@CurrentDate)+1,0))	
 		
 END
 GO

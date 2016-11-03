@@ -2,279 +2,79 @@ USE [CTMDB]
 GO
 
 
-/*
-/****** 1. [sp_GetStockDailyClosePrices] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
+/****** [dbo].[sp_AccountFundRevokeProcess] ******/
+DROP PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
 GO
-CREATE PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
+CREATE PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
 AS
 BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @loopDate datetime 
-	DECLARE @nowDate date =GETDATE()
+	DECLARE @currentSettleMonth int = 0
 
-	SELECT @loopDate = ISNULL(MAX([TradeDate]), '2015-12-31') FROM [dbo].[TKLineToday]
+	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
+
+	IF @currentSettleMonth = 0 	RETURN
+
+	DELETE 
+	FROM AccountInitialFund 
+	WHERE IsInitial = 0 AND [Month] = @currentSettleMonth
 	
-	WHILE(@loopDate < @nowDate)
-		BEGIN
-			SET @loopDate =DATEADD(DAY,1,@loopDate)
-			/* PRINT @loopDate */
-
-			INSERT [dbo].[TKLineToday]
-			SELECT [StockCode] 
-						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
-						,[Close] 
-			FROM
-					(
-					 SELECT [StockCode]
-								 ,[TradeDate] 
-								 ,[Close]  
-								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
-					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
-					)  AS t
-			WHERE t.RowNumber =1					
-		END
-
-	IF(@loopDate = @nowDate)
-		BEGIN
-			DELETE FROM [dbo].[TKLineToday] WHERE [TradeDate] = @nowDate
-			/* PRINT N'The Current Date Close Price Has Been Deleted !!!' */
-			
-			INSERT [dbo].[TKLineToday]
-			SELECT [StockCode] 
-						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
-						,[Close] 
-			FROM
-					(
-					 SELECT [StockCode]
-								 ,[TradeDate] 
-								 ,[Close]  
-								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
-					 WHERE [TradeDate] < DATEADD(DAY,1,@loopDate)
-					)  AS t
-			WHERE t.RowNumber =1
-			/* PRINT N'The Current Date Close Price Has Been Inserted !!!' */
-		END
-
+ 
 END
 GO
 
 
-/*
-/****** 2. [sp_GetAccountDetail] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetAccountDetail]
+/****** [sp_AccountFundSettleProcess] ******/
+DROP PROCEDURE [dbo].[sp_AccountFundSettleProcess]
 GO
-CREATE PROCEDURE  [dbo].[sp_GetAccountDetail]
-(
-@IndustyId int = 0,
-@AccountIds varchar(1000) = null,
-@SecurityCode int = 0,
-@AttributeCode int = 0,
-@PlanCode int = 0,
-@TypeCode int = 0,
-@OnlyNeedAccounting bit = 0,
-@ShowDisabled bit = 0
-)
+CREATE PROCEDURE [dbo].[sp_AccountFundSettleProcess]
 AS
 BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @commandText varchar(8000)
+	DECLARE @currentSettleMonth int = 0
 
-	SET @commandText = N'SELECT IndustryName =II.Name, OperatorNames =[dbo].[f_GetAccountOperatorNames](AI.Id), AI.*, DisplayMember = AI.Name + '' - '' + AI.SecurityCompanyName + '' - '' +AI.AttributeName + '' - '' +AI.TypeName
-											 FROM [dbo].[AccountInfo]  AS AI 
-											 LEFT JOIN [dbo].[IndustryInfo] AS II ON II.Id = AI.IndustryId
-											 WHERE '
+	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
 
-	IF( @IndustyId > 0 )
-		SET @commandText +=N'#AND AI.IndustryId = ' + CAST(@IndustyId AS varchar(8))
-	IF(LEN(@AccountIds)>0)
-		SET @commandText +=N'#AND AI.Id IN(' + @AccountIds +')'
-	IF( @SecurityCode > 0 )
-		SET @commandText +=N'#AND AI.SecurityCompanyCode = ' +  CAST(@SecurityCode AS varchar(8))  
-	IF( @AttributeCode > 0 )
-		SET @commandText +=N'#AND AI.AttributeCode = ' +  CAST(@AttributeCode AS varchar(8))  
-	IF( @PlanCode > 0 )
-		SET @commandText +=N'#AND AI.PlanCode = ' +  CAST(@PlanCode AS varchar(8))  
-	IF( @TypeCode > 0 )
-		SET @commandText +=N'#AND AI.TypeCode = ' +  CAST(@TypeCode AS varchar(8))  
-	IF( @OnlyNeedAccounting = 1 )
-		SET @commandText +=N'#AND AI.NeedAccounting = 1'  
-	IF( @ShowDisabled = 0 )
-		SET @commandText +=N'#AND AI.IsDisabled = 0' 
-
-	-- PRINT N'Before CommandText: ' + @commandText		
-
-	DECLARE @sharpIndex int 
-	SET @sharpIndex = CHARINDEX('#',@commandText)
-
-	IF(@sharpIndex > 0)
-		BEGIN
-			SET @commandText=SUBSTRING(@commandText,1,@sharpIndex - 1) + SUBSTRING(@commandText,@sharpIndex + 4,LEN(@commandText))
-			SET @commandText =REPLACE(@commandText,'#',' ')
-		END
-	ELSE
-		BEGIN
-			SET @commandText=REPLACE(@commandText,'WHERE',' ')			
-		END	
-		
-	 -- PRINT N'After CommandText: ' + @commandText	
-
-	EXEC( @commandText )
+	IF @currentSettleMonth = 0 
+	BEGIN
+		SELECT @currentSettleMonth = ISNULL(MIN([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 1
+	END
 	
-END
-GO
+	IF @currentSettleMonth = 0 	RETURN
 
+	DECLARE @firstDayOfSettleMonth varchar(10) = CAST(@currentSettleMonth AS varchar) + '01'
+	DECLARE @lastDayOfSettleMonth varchar(10) = [dbo].[f_GetLastDayOfMonth](@firstDayOfSettleMonth)
 
-/*
-/****** 3. [sp_GetDiffBetweenDeliveryAndDailyData] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
-GO
-CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
-(
-@AccountId int,
-@DateFrom datetime,
-@DateTo datetime
-)
-AS
-BEGIN	
+	DECLARE @initialMonth int = YEAR(DATEADD(M,1,@firstDayOfSettleMonth))*100 + MONTH(DATEADD(M,1,@firstDayOfSettleMonth))
 
-	SET NOCOUNT ON
-
-	SELECT	
-			Delivery.* 
-			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
-			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
-			,Daily.*
-	FROM
-	(
-		SELECT 
-			TradeDate DE_TradeDate,
-			StockCode DE_StockCode,
-			MAX(StockName) DE_StockName, 
-			DealFlag DE_DealFlag,
-			CASE DealFlag 
-				WHEN 1 THEN '买入'
-				WHEN 0 THEN '卖出'
-			END DE_DealName,
-			SUM(ActualAmount) DE_TotalActualAmount,
-			SUM(DealVolume) DE_TotalDealVolume
-		FROM DeliveryRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
-		GROUP BY TradeDate,StockCode,DealFlag 
-	) Delivery
-	FULL JOIN 
-	(
-		SELECT 
-			TradeDate DA_TradeDate,
-			StockCode DA_StockCode,
-			MAX(StockName) DA_StockName, 
-			DealFlag DA_DealFlag,
-			CASE DealFlag 
-				WHEN 1 THEN '买入'
-				WHEN 0 THEN '卖出'
-			END DA_DealName,
-			SUM(ActualAmount) DA_TotalActualAmount,
-			SUM(DealVolume) DA_TotalDealVolume
-		FROM DailyRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
-		GROUP BY TradeDate,StockCode,DealFlag 
-	) Daily 
-	ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
-
-END
-GO
-
-
-/*
-/****** 4. [sp_DeliveryAccountInvestIncomeDetail] ******/
-*/
-DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
-GO
-CREATE PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
-(
-@DateFrom datetime,
-@DateTo datetime
-)
-AS
-BEGIN	
-
-	SET NOCOUNT ON
-	
-	SELECT 	
-		MAX(DR.AccountId) AccId,
-		MAX(DR.StockCode) SCode, 
-		MAX(DR.StockName) SName, 
-		SUM(DR.ActualAmount) TotalActualAmount,
-		SUM(DR.DealVolume) HoldingVolume,
-		ISNULL(MAX(TT.[Close]),0) LatestPrice,
-		(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
-		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit	
-	INTO #TableEnd
-	FROM DeliveryRecord DR
-	LEFT JOIN TKLineToday TT
-	ON DR.StockCode = TT.StockCode AND TT.TradeDate = @DateTo
-	WHERE DR.TradeDate <= @DateTo
-	GROUP BY DR.AccountId, DR.StockCode
-
-	SELECT 	
-		MAX(DR.AccountId) AccId,
-		MAX(DR.StockCode) SCode, 
-		--SUM(DR.ActualAmount) TotalActualAmount,
-		--SUM(DR.DealVolume) HoldingVolume,
-		--ISNULL(MAX(TT.[Close]),0) LatestPrice,
-		--(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
-		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit
-	INTO #TableStart
-	FROM DeliveryRecord DR
-	LEFT JOIN TKLineToday TT
-	ON DR.StockCode = TT.StockCode AND TT.TradeDate = DATEADD(DAY,-1,@DateFrom)
-	WHERE DR.TradeDate < @DateFrom
-	GROUP BY DR.AccountId, DR.StockCode
-
-	--SELECT COUNT(*)START_NUM FROM #TableStart
-	--SELECT COUNT(*)END_NUM FROM #TableEnd 
-
+	INSERT INTO AccountInitialFund (AccountId,AccountCode,[Month],Amount,IsInitial)
 	SELECT 
-		(CONVERT(varchar(10),@DateFrom,111) + ' - ' +  CONVERT(varchar(10),@DateTo,111)) QueryPeriod,
-		(AI.Name + ' - ' + AI.SecurityCompanyName + ' - ' + AI.AttributeName + ' - ' + AI.TypeName) AccountDetail,
-		(E.SCode + ' - ' + E.SName) StockDetail,	
-		CAST(E.HoldingVolume AS decimal(18,0)) HoldingVolume,
-		E.LatestPrice,
-		E.PositionValue,		
-		(ISNULL(E.AccumulatedProfit,0) - ISNULL(S.AccumulatedProfit,0)) Profit,
-		E.AccumulatedProfit,	
-		E.SCode StockCode,
-		E.SName StockName,	
-		AI.Id AccountId,
-		AI.Name AccountName,
-		AI.SecurityCompanyName,
-		AI.AttributeName 	
-	FROM #TableStart S
-	FULL JOIN #TableEnd E
-	ON S.AccId = E.AccId AND S.SCode = E.SCode
-	LEFT JOIN AccountInfo AI
-	ON E.AccId = AI.Id
-	ORDER BY AccountDetail, StockDetail
-
-	DROP TABLE #TableStart
-	DROP TABLE #TableEnd
-
+		AIF.AccountId,
+		AIF.AccountCode,
+		@initialMonth,
+		AIF.Amount + ISNULL(T.TransferAmount,0),
+		0
+	FROM AccountInitialFund AIF
+	LEFT JOIN
+	(
+		SELECT 
+			MAX(AccountId) AccountId,
+			SUM(TransferAmount) TransferAmount
+		FROM AccountFundTransfer
+		WHERE TransferDate BETWEEN @firstDayOfSettleMonth AND @lastDayOfSettleMonth
+	) T
+	ON AIF.AccountId = t.AccountId 
+	WHERE AIF.[Month] = @currentSettleMonth
+ 
 END
 GO
 
 
-/*
-/****** 5. [sp_AccountInvestFundDetail] ******/
-*/
+/****** [sp_AccountInvestFundDetail] ******/
 DROP PROCEDURE [dbo].[sp_AccountInvestFundDetail]
 GO
 CREATE PROCEDURE [dbo].[sp_AccountInvestFundDetail]
@@ -350,85 +150,425 @@ END
 GO
 
 
-/*
-/****** 6. [sp_AccountFundSettleProcess] ******/
-*/
-DROP PROCEDURE [dbo].[sp_AccountFundSettleProcess]
+/****** [sp_DeliveryAccountInvestIncomeDetail] ******/
+DROP PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
 GO
-CREATE PROCEDURE [dbo].[sp_AccountFundSettleProcess]
+CREATE PROCEDURE [dbo].[sp_DeliveryAccountInvestIncomeDetail]
+(
+@DateFrom datetime,
+@DateTo datetime
+)
+AS
+BEGIN	
+
+	SET NOCOUNT ON
+	
+	SELECT 	
+		MAX(DR.AccountId) AccId,
+		MAX(DR.StockCode) SCode, 
+		MAX(DR.StockName) SName, 
+		SUM(DR.ActualAmount) TotalActualAmount,
+		SUM(DR.DealVolume) HoldingVolume,
+		ISNULL(MAX(TT.[Close]),0) LatestPrice,
+		(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
+		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit	
+	INTO #TableEnd
+	FROM DeliveryRecord DR
+	LEFT JOIN TKLineToday TT
+	ON DR.StockCode = TT.StockCode AND TT.TradeDate = @DateTo
+	WHERE DR.TradeDate <= @DateTo
+	GROUP BY DR.AccountId, DR.StockCode
+
+	SELECT 	
+		MAX(DR.AccountId) AccId,
+		MAX(DR.StockCode) SCode, 
+		--SUM(DR.ActualAmount) TotalActualAmount,
+		--SUM(DR.DealVolume) HoldingVolume,
+		--ISNULL(MAX(TT.[Close]),0) LatestPrice,
+		--(ABS(SUM(DR.DealVolume)) * ISNULL(MAX(TT.[Close]),0))PositionValue,
+		(SUM(DR.ActualAmount) + SUM(DR.DealVolume) * ISNULL(MAX(TT.[Close]),0))AccumulatedProfit
+	INTO #TableStart
+	FROM DeliveryRecord DR
+	LEFT JOIN TKLineToday TT
+	ON DR.StockCode = TT.StockCode AND TT.TradeDate = DATEADD(DAY,-1,@DateFrom)
+	WHERE DR.TradeDate < @DateFrom
+	GROUP BY DR.AccountId, DR.StockCode
+
+	--SELECT COUNT(*)START_NUM FROM #TableStart
+	--SELECT COUNT(*)END_NUM FROM #TableEnd 
+
+	SELECT 
+		(CONVERT(varchar(10),@DateFrom,111) + ' - ' +  CONVERT(varchar(10),@DateTo,111)) QueryPeriod,
+		(AI.Name + ' - ' + AI.SecurityCompanyName + ' - ' + AI.AttributeName + ' - ' + AI.TypeName) AccountDetail,
+		(E.SCode + ' - ' + E.SName) StockDetail,	
+		CAST(E.HoldingVolume AS decimal(18,0)) HoldingVolume,
+		E.LatestPrice,
+		E.PositionValue,
+		ISNULL((E.AccumulatedProfit - S.AccumulatedProfit),0) Profit,
+		E.AccumulatedProfit,	
+		E.SCode StockCode,
+		E.SName StockName,	
+		AI.Id AccountId,
+		AI.Name AccountName,
+		AI.SecurityCompanyName,
+		AI.AttributeName 	
+	FROM #TableStart S
+	FULL JOIN #TableEnd E
+	ON S.AccId = E.AccId AND S.SCode = E.SCode
+	LEFT JOIN AccountInfo AI
+	ON E.AccId = AI.Id
+	ORDER BY AccountDetail, StockDetail
+
+	DROP TABLE #TableStart
+	DROP TABLE #TableEnd
+
+END
+GO
+
+
+/****** [sp_GenerateMTFDetail] ******/
+DROP PROCEDURE [dbo].[sp_GenerateMTFDetail]
+GO
+CREATE PROCEDURE [dbo].[sp_GenerateMTFDetail]
+(
+	@InvestorCode varchar(20),
+	@ForecastDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+	
+	DECLARE @serialNo varchar(50) = (SELECT SerialNo FROM MarketTrendForecastInfo WHERE ForecastDate = @ForecastDate)
+
+	IF(ISNULL(@serialNo,'') = '') RETURN
+	
+	DECLARE @detailCount int  = (SELECT COUNT(*) FROM MarketTrendForecastDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
+
+	IF(@detailCount = 0)
+		BEGIN 
+
+			DECLARE @weight decimal(18,4)
+			SELECT @weight = [Weight] FROM InvestmentDecisionCommittee WHERE Code = @InvestorCode
+			IF(ISNULL(@weight,0) = 0)
+				SET @weight = 0.0000
+
+			INSERT INTO MarketTrendForecastDetail(SerialNo,ForecastDate,InvestorCode,[Weight],CreateTime)	
+			VALUES(@serialNo,@ForecastDate,@InvestorCode,@weight,GETDATE())					
+		END
+
+	SELECT * FROM [v_MTFDetail] WHERE ForecastDate = @ForecastDate ORDER BY InvestorCode
+	 
+END
+GO
+
+
+/******  [sp_GenerateMTFInfo] ******/
+DROP PROCEDURE [dbo].[sp_GenerateMTFInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GenerateMTFInfo]
+(
+	@ForecastDate datetime
+)
 AS
 BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @currentSettleMonth int = 0
+	DECLARE @serialNo varchar(50)
+	SELECT @serialNo =SerialNo FROM MarketTrendForecastInfo WHERE ForecastDate = @ForecastDate
 
-	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
+	IF(ISNULL(@serialNo,'') = '')
+		BEGIN
+			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM MarketTrendForecastInfo)			
 
-	IF @currentSettleMonth = 0 
-	BEGIN
-		SELECT @currentSettleMonth = ISNULL(MIN([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 1
-	END
+			DECLARE @suffix varchar(10)
+			IF( ISNULL(@maxSerialNo,'') = '')
+				SET @suffix = '000001'
+			ELSE
+				SET @suffix =RIGHT('000000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 5,6) AS int) + 1) AS varchar),6)
+
+			SET @serialNo = 'YC' + @suffix
+
+			INSERT INTO MarketTrendForecastInfo (SerialNo,ForecastDate,CreateTime,Result)
+			VALUES(@serialNo,@ForecastDate,GETDATE(),NULL)		
+
+		END
+ 
+END
+GO
+
+
+/****** [sp_GeneratePSADetail] ******/
+DROP PROCEDURE [dbo].[sp_GeneratePSADetail]
+GO
+CREATE PROCEDURE [dbo].[sp_GeneratePSADetail]
+(
+	@InvestorCode varchar(20),
+	@AnalysisDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
 	
-	IF @currentSettleMonth = 0 	RETURN
+	DECLARE @serialNo varchar(50) = (SELECT SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate)
 
-	DECLARE @firstDayOfSettleMonth varchar(10) = CAST(@currentSettleMonth AS varchar) + '01'
-	DECLARE @lastDayOfSettleMonth varchar(10) = [dbo].[f_GetLastDayOfMonth](@firstDayOfSettleMonth)
+	IF(ISNULL(@serialNo,'') = '') RETURN
+	
+	DECLARE @detailCount int  = (SELECT COUNT(*) FROM PositionStockAnalysisDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
 
-	DECLARE @initialMonth int = YEAR(DATEADD(M,1,@firstDayOfSettleMonth))*100 + MONTH(DATEADD(M,1,@firstDayOfSettleMonth))
+	IF(@detailCount = 0)
+		BEGIN 
+			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision, CreateTime)
+			SELECT 
+				@serialNo,
+				@InvestorCode,
+				@AnalysisDate,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()			 
+			FROM InvestmentDecisionStockPool P
 
-	INSERT INTO AccountInitialFund (AccountId,AccountCode,[Month],Amount,IsInitial)
-	SELECT 
-		AIF.AccountId,
-		AIF.AccountCode,
-		@initialMonth,
-		AIF.Amount + ISNULL(T.TransferAmount,0),
-		0
-	FROM AccountInitialFund AIF
-	LEFT JOIN
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			SELECT 
+				@serialNo,
+				@AnalysisDate,
+				P.Principal,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()
+			FROM InvestmentDecisionStockPool P
+			WHERE P.StockCode NOT IN (SELECT StockCode FROM PositionStockAnalysisSummary WHERE SerialNo = @serialNo )
+		END
+
+	SELECT * FROM V_PSADetail WHERE AnalysisDate = @AnalysisDate AND InvestorCode = @InvestorCode
+	 
+END
+GO
+
+
+/****** [sp_GeneratePSAInfo] ******/
+DROP PROCEDURE [dbo].[sp_GeneratePSAInfo]
+GO
+CREATE PROCEDURE [dbo].[sp_GeneratePSAInfo]
+(	
+	@AnalysisDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+	
+	DECLARE @serialNo varchar(50)
+	SELECT @serialNo =SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate
+
+	IF(ISNULL(@serialNo,'') = '')
+		BEGIN
+			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM PositionStockAnalysisInfo)			
+
+			DECLARE @suffix varchar(10)
+			IF( ISNULL(@maxSerialNo,'') = '')
+				SET @suffix = '000001'
+			ELSE
+				SET @suffix =RIGHT('000000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 5,6) AS int) + 1) AS varchar),6)
+
+			SET @serialNo = 'FX' + @suffix
+
+			INSERT INTO PositionStockAnalysisInfo (SerialNo,AnalysisDate,CreateTime,Result)
+			VALUES(@serialNo,@AnalysisDate, GETDATE(),NULL)		
+			
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			SELECT 
+				@serialNo,
+				@AnalysisDate,
+				P.Principal,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()
+			FROM InvestmentDecisionStockPool P
+		END
+ 
+END
+GO
+
+/****** [sp_GetAccountDetail] ******/
+DROP PROCEDURE [dbo].[sp_GetAccountDetail]
+GO
+CREATE PROCEDURE  [dbo].[sp_GetAccountDetail]
+(
+@IndustyId int = 0,
+@AccountIds varchar(1000) = null,
+@SecurityCode int = 0,
+@AttributeCode int = 0,
+@PlanCode int = 0,
+@TypeCode int = 0,
+@OnlyNeedAccounting bit = 0,
+@ShowDisabled bit = 0
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	DECLARE @commandText varchar(8000)
+
+	SET @commandText = N'SELECT IndustryName =II.Name, OperatorNames =[dbo].[f_GetAccountOperatorNames](AI.Id), AI.*, DisplayMember = AI.Name + '' - '' + AI.SecurityCompanyName + '' - '' +AI.AttributeName + '' - '' +AI.TypeName
+											 FROM [dbo].[AccountInfo]  AS AI 
+											 LEFT JOIN [dbo].[IndustryInfo] AS II ON II.Id = AI.IndustryId
+											 WHERE '
+
+	IF( @IndustyId > 0 )
+		SET @commandText +=N'#AND AI.IndustryId = ' + CAST(@IndustyId AS varchar(8))
+	IF(LEN(@AccountIds)>0)
+		SET @commandText +=N'#AND AI.Id IN(' + @AccountIds +')'
+	IF( @SecurityCode > 0 )
+		SET @commandText +=N'#AND AI.SecurityCompanyCode = ' +  CAST(@SecurityCode AS varchar(8))  
+	IF( @AttributeCode > 0 )
+		SET @commandText +=N'#AND AI.AttributeCode = ' +  CAST(@AttributeCode AS varchar(8))  
+	IF( @PlanCode > 0 )
+		SET @commandText +=N'#AND AI.PlanCode = ' +  CAST(@PlanCode AS varchar(8))  
+	IF( @TypeCode > 0 )
+		SET @commandText +=N'#AND AI.TypeCode = ' +  CAST(@TypeCode AS varchar(8))  
+	IF( @OnlyNeedAccounting = 1 )
+		SET @commandText +=N'#AND AI.NeedAccounting = 1'  
+	IF( @ShowDisabled = 0 )
+		SET @commandText +=N'#AND AI.IsDisabled = 0' 
+
+	-- PRINT N'Before CommandText: ' + @commandText		
+
+	DECLARE @sharpIndex int 
+	SET @sharpIndex = CHARINDEX('#',@commandText)
+
+	IF(@sharpIndex > 0)
+		BEGIN
+			SET @commandText=SUBSTRING(@commandText,1,@sharpIndex - 1) + SUBSTRING(@commandText,@sharpIndex + 4,LEN(@commandText))
+			SET @commandText =REPLACE(@commandText,'#',' ')
+		END
+	ELSE
+		BEGIN
+			SET @commandText=REPLACE(@commandText,'WHERE',' ')			
+		END	
+		
+	 -- PRINT N'After CommandText: ' + @commandText	
+
+	EXEC( @commandText )
+	
+END
+GO
+
+
+/****** [sp_GetDiffBetweenDeliveryAndDailyData] ******/
+DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
+GO
+CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
+(
+@AccountId int,
+@DateFrom datetime,
+@DateTo datetime
+)
+AS
+BEGIN	
+
+	SET NOCOUNT ON
+
+	SELECT	
+			Delivery.* 
+			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
+			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
+			,Daily.*
+	FROM
 	(
 		SELECT 
-			MAX(AccountId) AccountId,
-			SUM(TransferAmount) TransferAmount
-		FROM AccountFundTransfer
-		WHERE TransferDate BETWEEN @firstDayOfSettleMonth AND @lastDayOfSettleMonth
-	) T
-	ON AIF.AccountId = t.AccountId 
-	WHERE AIF.[Month] = @currentSettleMonth
- 
+			TradeDate DE_TradeDate,
+			StockCode DE_StockCode,
+			MAX(StockName) DE_StockName, 
+			DealFlag DE_DealFlag,
+			CASE DealFlag 
+				WHEN 1 THEN '买入'
+				WHEN 0 THEN '卖出'
+			END DE_DealName,
+			SUM(ActualAmount) DE_TotalActualAmount,
+			SUM(DealVolume) DE_TotalDealVolume
+		FROM DeliveryRecord 
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+		GROUP BY TradeDate,StockCode,DealFlag 
+	) Delivery
+	FULL JOIN 
+	(
+		SELECT 
+			TradeDate DA_TradeDate,
+			StockCode DA_StockCode,
+			MAX(StockName) DA_StockName, 
+			DealFlag DA_DealFlag,
+			CASE DealFlag 
+				WHEN 1 THEN '买入'
+				WHEN 0 THEN '卖出'
+			END DA_DealName,
+			SUM(ActualAmount) DA_TotalActualAmount,
+			SUM(DealVolume) DA_TotalDealVolume
+		FROM DailyRecord 
+		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+		GROUP BY TradeDate,StockCode,DealFlag 
+	) Daily 
+	ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+
 END
 GO
 
 
-/*
-/****** 7. [sp_AccountFundRevokeProcess] ******/
-*/
-DROP PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
+/****** [sp_GetIDVoteResult] ******/
+DROP PROCEDURE [dbo].[sp_GetIDVoteResult]
 GO
-CREATE PROCEDURE [dbo].[sp_AccountFundRevokeProcess]
+CREATE PROCEDURE [dbo].[sp_GetIDVoteResult]
+(
+@FormSerialNo varchar(50)
+)
 AS
 BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @currentSettleMonth int = 0
-
-	SELECT @currentSettleMonth = ISNULL(MAX([Month]),0)	FROM AccountInitialFund WHERE IsInitial = 0
-
-	IF @currentSettleMonth = 0 	RETURN
-
-	DELETE 
-	FROM AccountInitialFund 
-	WHERE IsInitial = 0 AND [Month] = @currentSettleMonth
-	
+	SELECT 
+		--ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
+		U.Code InvestorCode,
+		U.Name InvestorName,
+		CAST(CAST(V.[Weight]*100 AS numeric(18,2)) AS varchar ) + '%' WeightPercentage,
+		CASE V.Flag
+			WHEN 0 THEN '未投票'
+			WHEN 1 THEN '赞同'
+			WHEN 2 THEN '反对'
+			WHEN 3 THEN '弃权'
+		END	FlagName,
+		CASE V.[Type]
+			WHEN 1 THEN '申请人'
+			WHEN 2 THEN '决策委员会'
+			WHEN 3 THEN '其他交易员'
+			WHEN 99 THEN '一票否决'
+		END	TypeName,
+		V.Reason,
+		CASE V.Flag
+			WHEN 0 THEN NULL
+			ELSE V.VoteTime
+		END VoteTime,
+		''  ConfirmTime
+	FROM InvestmentDecisionVote V
+	LEFT JOIN UserInfo U
+	ON V.UserCode = U.Code	
+	WHERE V.FormSerialNo =@FormSerialNo AND((V.Flag != 0) OR (V.Flag = 0 AND V.[Type] != 3))
+	ORDER BY V.[Type], V.UserCode
  
 END
 GO
 
 
-/*
-/****** 8. [sp_GetInvestmentDecisionForm] ******/
-*/
+/****** [sp_GetInvestmentDecisionForm] ******/
 DROP PROCEDURE [dbo].[sp_GetInvestmentDecisionForm]
 GO
 CREATE PROCEDURE [dbo].[sp_GetInvestmentDecisionForm]
@@ -483,9 +623,68 @@ END
 GO
 
 
-/*
-/****** 9. [sp_InvestmentDecisionVoteProcess] ******/
-*/
+/****** [sp_GetStockDailyClosePrices] ******/
+DROP PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
+GO
+CREATE PROCEDURE [dbo].[sp_GetStockDailyClosePrices]
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	DECLARE @loopDate datetime 
+	DECLARE @nowDate date =GETDATE()
+
+	SELECT @loopDate = ISNULL(MAX([TradeDate]), '2015-12-31') FROM [dbo].[TKLineToday]
+	
+	WHILE(@loopDate < @nowDate)
+		BEGIN
+			SET @loopDate =DATEADD(DAY,1,@loopDate)
+			/* PRINT @loopDate */
+
+			INSERT [dbo].[TKLineToday]
+			SELECT [StockCode] 
+						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
+						,[Close] 
+			FROM
+					(
+					 SELECT [StockCode]
+								 ,[TradeDate] 
+								 ,[Close]  
+								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
+					 FROM [10.10.10.2\zb].[FinancialCenter].[dbo].[TKLine_Today] 
+					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
+					)  AS t
+			WHERE t.RowNumber =1					
+		END
+
+	IF(@loopDate = @nowDate)
+		BEGIN
+			DELETE FROM [dbo].[TKLineToday] WHERE [TradeDate] = @nowDate
+			/* PRINT N'The Current Date Close Price Has Been Deleted !!!' */
+			
+			INSERT [dbo].[TKLineToday]
+			SELECT [StockCode] 
+						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
+						,[Close] 
+			FROM
+					(
+					 SELECT [StockCode]
+								 ,[TradeDate] 
+								 ,[Close]  
+								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
+					 FROM [10.10.10.2\zb].[FinancialCenter].[dbo].[TKLine_Today] 
+					 WHERE [TradeDate] < DATEADD(DAY,1,@loopDate)
+					)  AS t
+			WHERE t.RowNumber =1
+			/* PRINT N'The Current Date Close Price Has Been Inserted !!!' */
+		END
+
+END
+GO
+
+
+/****** [sp_InvestmentDecisionVoteProcess] ******/
 DROP PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
 GO
 CREATE PROCEDURE [dbo].[sp_InvestmentDecisionVoteProcess]
@@ -525,241 +724,3 @@ BEGIN
  
 END
 GO
-
-
-/*
-/****** 10. [sp_GetIDVoteResult] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GetIDVoteResult]
-GO
-CREATE PROCEDURE [dbo].[sp_GetIDVoteResult]
-(
-@FormSerialNo varchar(50)
-)
-AS
-BEGIN
-
-	SET NOCOUNT ON
-
-	SELECT 
-		--ROW_NUMBER() OVER( ORDER BY V.UserCode) 编号,
-		U.Code InvestorCode,
-		U.Name InvestorName,
-		CAST(CAST(V.[Weight]*100 AS numeric(18,2)) AS varchar ) + '%' WeightPercentage,
-		CASE V.Flag
-			WHEN 0 THEN '未投票'
-			WHEN 1 THEN '赞同'
-			WHEN 2 THEN '反对'
-			WHEN 3 THEN '弃权'
-		END	FlagName,
-		CASE V.[Type]
-			WHEN 1 THEN '申请人'
-			WHEN 2 THEN '决策委员会'
-			WHEN 3 THEN '其他交易员'
-			WHEN 99 THEN '一票否决'
-		END	TypeName,
-		V.Reason,
-		CASE V.Flag
-			WHEN 0 THEN NULL
-			ELSE V.VoteTime
-		END VoteTime,
-		''  ConfirmTime
-	FROM InvestmentDecisionVote V
-	LEFT JOIN UserInfo U
-	ON V.UserCode = U.Code	
-	WHERE V.FormSerialNo =@FormSerialNo AND((V.Flag != 0) OR (V.Flag = 0 AND V.[Type] != 3))
-	ORDER BY V.[Type], V.UserCode
- 
-END
-GO
-
-
-/*
-/****** 11. [sp_GenerateMarketTrendInfo] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
-GO
-CREATE PROCEDURE [dbo].[sp_GenerateMarketTrendInfo]
-(
-	@ApplyUser varchar(20),
-	@ApplyDate datetime
-)
-AS
-BEGIN
-
-	SET NOCOUNT ON
-
-	-- Status: 1-提交 2-进行中 3-完成 --
-	DECLARE @infoCount int = 0
-	SELECT @infoCount = COUNT(SerialNo) FROM MarketTrendForecastInfo WHERE ApplyDate = @ApplyDate
-
-	IF(@infoCount = 0)
-		BEGIN
-			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),@ApplyDate,112),3,6)
-
-			INSERT INTO MarketTrendForecastInfo (SerialNo,[Status],ApplyUser,ApplyDate,CreateTime)
-			VALUES(@serialNo,1,@ApplyUser ,@ApplyDate ,GETDATE())
-
-			INSERT INTO MarketTrendForecastDetail(SerialNo,InvestorCode,[Weight])
-			SELECT 
-				@serialNo,
-				 C.Code,
-				 C.[Weight]
-			FROM InvestmentDecisionCommittee C
-
-		END
- 
-END
-GO
-
-
-/*
-/****** 12. [sp_GenerateCloseStockAnalysisInfo] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GenerateCloseStockAnalysisInfo]
-GO
-CREATE PROCEDURE [dbo].[sp_GenerateCloseStockAnalysisInfo]
-(
-	@InvestorCode varchar(20),
-	@JudgmentDate datetime
-)
-AS
-BEGIN
-
-	SET NOCOUNT ON
-	
-	DECLARE @infoCount int = 0
-	SELECT @infoCount = COUNT(SerialNo) FROM CloseStockAnalysisInfo WHERE JudgmentDate = @JudgmentDate AND InvestorCode = @InvestorCode
-
-	IF(@infoCount = 0)
-		BEGIN
-			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM CloseStockAnalysisInfo WHERE JudgmentDate = @JudgmentDate)			
-
-			DECLARE @suffix varchar(10)
-			IF( ISNULL(@maxSerialNo,'') = '')
-				SET @suffix = '001'
-			ELSE
-				SET @suffix =RIGHT('00000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 2,3) AS int) + 1) AS varchar),3)
-
-			DECLARE @serialNo varchar(50) = 'YC' + SUBSTRING(CONVERT(varchar(8),@JudgmentDate,112),3,6) + @suffix
-
-			INSERT INTO CloseStockAnalysisInfo (SerialNo,InvestorCode,JudgmentDate,CreateTime,Result)
-			VALUES(@serialNo,@InvestorCode,@JudgmentDate, GETDATE(),NULL)
-
-			INSERT INTO CloseStockAnalysisDetail(SerialNo,StockCode,StockName,TradeType)
-			SELECT 
-				@serialNo,
-				P.StockCode,
-				P.StockName,
-				0 				 
-			FROM InvestmentDecisionStockPool P
-
-		END
- 
-END
-GO
-
-
-/*
-/****** 13. [sp_GeneratePSADetail] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GeneratePSADetail]
-GO
-CREATE PROCEDURE [dbo].[sp_GeneratePSADetail]
-(
-	@InvestorCode varchar(20),
-	@AnalysisDate datetime
-)
-AS
-BEGIN
-
-	SET NOCOUNT ON
-	
-	DECLARE @serialNo varchar(50) = (SELECT SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate)
-
-	IF(ISNULL(@serialNo,'') = '') RETURN
-	
-	DECLARE @detailCount int  = (SELECT COUNT(*) FROM PositionStockAnalysisDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
-
-	IF(@detailCount = 0)
-		BEGIN 
-			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision, CreateTime)
-			SELECT 
-				@serialNo,
-				@InvestorCode,
-				@AnalysisDate,
-				P.StockCode,
-				P.StockName,
-				0,
-				'0',
-				GETDATE()			 
-			FROM InvestmentDecisionStockPool P
-
-			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
-			SELECT 
-				@serialNo,
-				@AnalysisDate,
-				P.Principal,
-				P.StockCode,
-				P.StockName,
-				0,
-				'0',
-				GETDATE()
-			FROM InvestmentDecisionStockPool P
-			WHERE P.StockCode NOT IN (SELECT StockCode FROM PositionStockAnalysisSummary WHERE SerialNo = @serialNo )
-		END
-
-	SELECT * FROM V_PSADetail WHERE AnalysisDate = @AnalysisDate AND InvestorCode = @InvestorCode
-	 
-END
-GO
-
-
-/*
-/****** 14. [sp_GeneratePSAInfo] ******/
-*/
-DROP PROCEDURE [dbo].[sp_GeneratePSAInfo]
-GO
-CREATE PROCEDURE [dbo].[sp_GeneratePSAInfo]
-(	
-	@AnalysisDate datetime
-)
-AS
-BEGIN
-
-	SET NOCOUNT ON
-	
-	DECLARE @serialNo varchar(50)
-	SELECT @serialNo =SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate
-
-	IF(ISNULL(@serialNo,'') = '')
-		BEGIN
-			DECLARE @maxSerialNo varchar(50) = (SELECT MAX(SerialNo) FROM PositionStockAnalysisInfo)			
-
-			DECLARE @suffix varchar(10)
-			IF( ISNULL(@maxSerialNo,'') = '')
-				SET @suffix = '000001'
-			ELSE
-				SET @suffix =RIGHT('000000'+ CAST((CAST(SUBSTRING(@maxSerialNo,LEN(@maxSerialNo) - 5,6) AS int) + 1) AS varchar),6)
-
-			SET @serialNo = 'FX' + @suffix
-
-			INSERT INTO PositionStockAnalysisInfo (SerialNo,AnalysisDate,CreateTime,Result)
-			VALUES(@serialNo,@AnalysisDate, GETDATE(),NULL)		
-			
-			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
-			SELECT 
-				@serialNo,
-				@AnalysisDate,
-				P.Principal,
-				P.StockCode,
-				P.StockName,
-				0,
-				'0',
-				GETDATE()
-			FROM InvestmentDecisionStockPool P
-		END
- 
-END
-GO
-
