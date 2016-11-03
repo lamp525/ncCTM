@@ -16,7 +16,7 @@ using CTM.Win.Util;
 using DevExpress.Utils;
 using DevExpress.XtraLayout.Utils;
 
-namespace CTM.Win.UI.Function.MarginTrading
+namespace CTM.Win.UI.MarginTrading
 {
     public partial class FrmUserMarginTrading : BaseForm
     {

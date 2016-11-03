@@ -301,16 +301,16 @@
     <Compile Include="UI\Function\DataManage\_dialogVirtualRecord.Designer.cs">
       <DependentUpon>_dialogVirtualRecord.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\MarginTrading\FrmUserMarginTrading.cs">
+    <Compile Include="UI\MarginTrading\FrmUserMarginTrading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\MarginTrading\FrmUserMarginTrading.Designer.cs">
+    <Compile Include="UI\MarginTrading\FrmUserMarginTrading.Designer.cs">
       <DependentUpon>FrmUserMarginTrading.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\MarginTrading\_dialogAddMarginTrading.cs">
+    <Compile Include="UI\MarginTrading\_dialogAddMarginTrading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\MarginTrading\_dialogAddMarginTrading.Designer.cs">
+    <Compile Include="UI\MarginTrading\_dialogAddMarginTrading.Designer.cs">
       <DependentUpon>_dialogAddMarginTrading.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Function\ReportExport\FrmInvestIncomeReportExport.cs">
@@ -391,10 +391,10 @@
     <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.Designer.cs">
       <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDCommittee.cs">
+    <Compile Include="UI\Admin\BaseData\FrmIDCommittee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDCommittee.Designer.cs">
+    <Compile Include="UI\Admin\BaseData\FrmIDCommittee.Designer.cs">
       <DependentUpon>FrmIDCommittee.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.cs">
@@ -646,10 +646,10 @@
     <EmbeddedResource Include="UI\Function\DataManage\_dialogVirtualRecord.resx">
       <DependentUpon>_dialogVirtualRecord.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\MarginTrading\FrmUserMarginTrading.resx">
+    <EmbeddedResource Include="UI\MarginTrading\FrmUserMarginTrading.resx">
       <DependentUpon>FrmUserMarginTrading.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\MarginTrading\_dialogAddMarginTrading.resx">
+    <EmbeddedResource Include="UI\MarginTrading\_dialogAddMarginTrading.resx">
       <DependentUpon>_dialogAddMarginTrading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Function\ReportExport\FrmInvestIncomeReportExport.resx">
@@ -670,7 +670,7 @@
     <EmbeddedResource Include="UI\InvestmentDecision\FrmCloseStockAnalysis.resx">
       <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmIDCommittee.resx">
+    <EmbeddedResource Include="UI\Admin\BaseData\FrmIDCommittee.resx">
       <DependentUpon>FrmIDCommittee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">

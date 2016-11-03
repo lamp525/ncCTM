@@ -10,7 +10,7 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
 
-namespace CTM.Win.UI.InvestmentDecision
+namespace CTM.Win.UI.Admin.BaseData
 {
     public partial class FrmIDCommittee : BaseForm
     {

@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.UI.InvestmentDecision
+﻿namespace CTM.Win.UI.Admin.BaseData
 {
     partial class FrmIDCommittee
     {

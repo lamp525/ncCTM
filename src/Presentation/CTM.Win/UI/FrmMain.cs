@@ -14,10 +14,10 @@ using CTM.Win.UI.Accounting.StatisticsReport;
 using CTM.Win.UI.Admin.BaseData;
 using CTM.Win.UI.Admin.DataManage;
 using CTM.Win.UI.Function.DataManage;
-using CTM.Win.UI.Function.MarginTrading;
 using CTM.Win.UI.Function.ReportExport;
 using CTM.Win.UI.Function.StatisticsReport;
 using CTM.Win.UI.InvestmentDecision;
+using CTM.Win.UI.MarginTrading;
 using CTM.Win.UI.Setting;
 using CTM.Win.Util;
 using DevExpress.XtraBars;
@@ -490,10 +490,10 @@ namespace CTM.Win.UI
         }
 
         private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
-        { 
+        {
             //this.DisplayTabbedForm<FrmCloseStockAnalysis>("持仓股票投资决策");
-            
-          this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
+
+            this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
         }
 
         #endregion Investment Decision

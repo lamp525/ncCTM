@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.UI.Function.MarginTrading
+﻿namespace CTM.Win.UI.MarginTrading
 {
     partial class _dialogAddMarginTrading
     {
