@@ -147,24 +147,24 @@
             this.colSerialNo.Caption = "申请编号";
             this.colSerialNo.FieldName = "SerialNo";
             this.colSerialNo.Name = "colSerialNo";
-            this.colSerialNo.Visible = true;
-            this.colSerialNo.VisibleIndex = 0;
             this.colSerialNo.Width = 71;
             // 
             // colInvestorCode
             // 
+            this.colInvestorCode.Caption = "编码";
             this.colInvestorCode.FieldName = "InvestorCode";
             this.colInvestorCode.Name = "colInvestorCode";
-            this.colInvestorCode.Width = 73;
+            this.colInvestorCode.Visible = true;
+            this.colInvestorCode.VisibleIndex = 0;
             // 
             // colInvestorName
             // 
-            this.colInvestorName.Caption = "姓名";
+            this.colInvestorName.Caption = "投资人员";
             this.colInvestorName.FieldName = "InvestorName";
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
             this.colInvestorName.VisibleIndex = 1;
-            this.colInvestorName.Width = 58;
+            this.colInvestorName.Width = 90;
             // 
             // colWeight
             // 
@@ -177,7 +177,8 @@
             this.colWeightPercentage.FieldName = "WeightPercentage";
             this.colWeightPercentage.Name = "colWeightPercentage";
             this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 3;
+            this.colWeightPercentage.VisibleIndex = 2;
+            this.colWeightPercentage.Width = 65;
             // 
             // colAcquaintanceGraphDate
             // 
@@ -186,8 +187,8 @@
             this.colAcquaintanceGraphDate.FieldName = "AcquaintanceGraphDate";
             this.colAcquaintanceGraphDate.Name = "colAcquaintanceGraphDate";
             this.colAcquaintanceGraphDate.Visible = true;
-            this.colAcquaintanceGraphDate.VisibleIndex = 2;
-            this.colAcquaintanceGraphDate.Width = 84;
+            this.colAcquaintanceGraphDate.VisibleIndex = 3;
+            this.colAcquaintanceGraphDate.Width = 100;
             // 
             // repositoryItemdeGraph
             // 
@@ -205,7 +206,7 @@
             this.colTrend.Name = "colTrend";
             this.colTrend.Visible = true;
             this.colTrend.VisibleIndex = 4;
-            this.colTrend.Width = 137;
+            this.colTrend.Width = 180;
             // 
             // colOpen
             // 
@@ -215,7 +216,7 @@
             this.colOpen.Name = "colOpen";
             this.colOpen.Visible = true;
             this.colOpen.VisibleIndex = 5;
-            this.colOpen.Width = 137;
+            this.colOpen.Width = 110;
             // 
             // repositoryItemtxtOpen
             // 
@@ -230,7 +231,7 @@
             this.colForenoon.Name = "colForenoon";
             this.colForenoon.Visible = true;
             this.colForenoon.VisibleIndex = 6;
-            this.colForenoon.Width = 137;
+            this.colForenoon.Width = 110;
             // 
             // repositoryItemtxtForenoon
             // 
@@ -245,7 +246,7 @@
             this.colAfternoon.Name = "colAfternoon";
             this.colAfternoon.Visible = true;
             this.colAfternoon.VisibleIndex = 7;
-            this.colAfternoon.Width = 137;
+            this.colAfternoon.Width = 110;
             // 
             // repositoryItemtxtAfternoon
             // 
@@ -260,7 +261,7 @@
             this.colClose.Name = "colClose";
             this.colClose.Visible = true;
             this.colClose.VisibleIndex = 8;
-            this.colClose.Width = 137;
+            this.colClose.Width = 110;
             // 
             // repositoryItemtxtClose
             // 
@@ -274,8 +275,8 @@
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 10;
-            this.colReason.Width = 117;
+            this.colReason.VisibleIndex = 9;
+            this.colReason.Width = 250;
             // 
             // repositoryItemtxtReason
             // 
@@ -289,8 +290,8 @@
             this.colAccuracy.FieldName = "Accuracy";
             this.colAccuracy.Name = "colAccuracy";
             this.colAccuracy.Visible = true;
-            this.colAccuracy.VisibleIndex = 9;
-            this.colAccuracy.Width = 201;
+            this.colAccuracy.VisibleIndex = 10;
+            this.colAccuracy.Width = 120;
             // 
             // repositoryItemtxtAccuracy
             // 
@@ -355,7 +356,7 @@
             this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // _dialogMarketTrendForecast
+            // _dialogMTFEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

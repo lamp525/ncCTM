@@ -52,7 +52,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     column.OptionsColumn.AllowEdit = true;
             }
 
-            this.lciMTF.Text = $@"大盘趋势预测 - {SerialNo}";
+            this.lciMTF.Text = $@"大盘趋势预测（{ SerialNo}） - { ForecastDate.ToShortDateString()}";
         }
 
         private void BindTrendDailyInfo()

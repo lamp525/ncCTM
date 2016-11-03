@@ -97,7 +97,7 @@
             // 
             // colInvestorName
             // 
-            this.colInvestorName.Caption = "姓名";
+            this.colInvestorName.Caption = "投资人员";
             this.colInvestorName.FieldName = "InvestorName";
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
