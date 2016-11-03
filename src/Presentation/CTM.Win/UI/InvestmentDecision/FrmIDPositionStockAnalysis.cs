@@ -351,9 +351,12 @@ namespace CTM.Win.UI.InvestmentDecision
                 if (!string.IsNullOrEmpty(investorCode))
                     commandText += $@" AND InvestorCode = '{investorCode}' ";
 
+                commandText += $@" ORDER BY StockCode, AnalysisDate DESC, InvestorName ";
+
                 var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
                 this.gridControl2.DataSource = dsStock?.Tables?[0];
+                this.gridView2.ExpandAllGroups();
             }
             catch (Exception ex)
             {
