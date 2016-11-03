@@ -56,25 +56,8 @@
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExpand = new DevExpress.XtraEditors.SimpleButton();
             this.luInvestor = new DevExpress.XtraEditors.LookUpEdit();
-            this.luStock = new DevExpress.XtraEditors.LookUpEdit();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colSerialNo2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvestorCode2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvestorName2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAnalysisDate2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockCode2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockName2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockInfo2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTradeType2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTradeTypeName2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDecision2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDecisionName2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceRange2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReason2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccuracy2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCreateTime2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRemarks2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.deFrom = new DevExpress.XtraEditors.DateEdit();
@@ -87,12 +70,23 @@
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colWeight = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAcquaintanceGraphDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTrend = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOpen = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colForenoon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAfternoon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colClose = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracy = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colForecastDate2 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deTradeDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -113,7 +107,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deTo.Properties.CalendarTimeProperties)).BeginInit();
@@ -129,9 +122,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
@@ -355,7 +346,7 @@
             this.tpSearch});
             this.tabPane1.RegularSize = new System.Drawing.Size(1553, 726);
             this.tabPane1.SelectedPage = this.tpSearch;
-            this.tabPane1.SelectedPageIndex = 0;
+            this.tabPane1.SelectedPageIndex = 1;
             this.tabPane1.Size = new System.Drawing.Size(1553, 726);
             this.tabPane1.TabIndex = 1;
             this.tabPane1.Text = "tabPane1";
@@ -381,7 +372,6 @@
             // 
             this.layoutControl2.Controls.Add(this.btnExpand);
             this.layoutControl2.Controls.Add(this.luInvestor);
-            this.layoutControl2.Controls.Add(this.luStock);
             this.layoutControl2.Controls.Add(this.gridControl2);
             this.layoutControl2.Controls.Add(this.btnSearch);
             this.layoutControl2.Controls.Add(this.deTo);
@@ -406,29 +396,16 @@
             // 
             // luInvestor
             // 
-            this.luInvestor.Location = new System.Drawing.Point(633, 12);
+            this.luInvestor.Location = new System.Drawing.Point(403, 12);
             this.luInvestor.Name = "luInvestor";
             this.luInvestor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luInvestor.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Code", "Code"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
-            this.luInvestor.Size = new System.Drawing.Size(125, 20);
+            this.luInvestor.Size = new System.Drawing.Size(145, 20);
             this.luInvestor.StyleController = this.layoutControl2;
             this.luInvestor.TabIndex = 4;
-            // 
-            // luStock
-            // 
-            this.luStock.Location = new System.Drawing.Point(403, 12);
-            this.luStock.Name = "luStock";
-            this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.luStock.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FullCode", "股票代码"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "股票名称")});
-            this.luStock.Size = new System.Drawing.Size(165, 20);
-            this.luStock.StyleController = this.layoutControl2;
-            this.luStock.TabIndex = 3;
             // 
             // gridControl2
             // 
@@ -443,162 +420,32 @@
             // gridView2
             // 
             this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colSerialNo2,
-            this.colInvestorCode2,
-            this.colInvestorName2,
-            this.colAnalysisDate2,
-            this.colStockCode2,
-            this.colStockName2,
-            this.colStockInfo2,
-            this.colTradeType2,
-            this.colTradeTypeName2,
-            this.colDecision2,
-            this.colDecisionName2,
-            this.colPriceRange2,
-            this.colReason2,
-            this.colAccuracy2,
-            this.colCreateTime2,
-            this.colRemarks2});
+            this.colForecastDate2,
+            this.colInvestorCode,
+            this.colInvestorName,
+            this.colWeight,
+            this.colWeightPercentage,
+            this.colAcquaintanceGraphDate,
+            this.colTrend,
+            this.colOpen,
+            this.colForenoon,
+            this.colAfternoon,
+            this.colClose,
+            this.colReason,
+            this.colAccuracy});
             this.gridView2.GridControl = this.gridControl2;
-            this.gridView2.GroupCount = 2;
-            this.gridView2.IndicatorWidth = 40;
+            this.gridView2.GroupCount = 1;
             this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsBehavior.Editable = false;
-            this.gridView2.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
-            this.gridView2.OptionsBehavior.ReadOnly = true;
-            this.gridView2.OptionsSelection.MultiSelect = true;
-            this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gridView2.OptionsView.ColumnAutoWidth = false;
-            this.gridView2.OptionsView.EnableAppearanceEvenRow = true;
-            this.gridView2.OptionsView.EnableAppearanceOddRow = true;
-            this.gridView2.OptionsView.ShowAutoFilterRow = true;
-            this.gridView2.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
-            this.gridView2.OptionsView.ShowGroupedColumns = true;
             this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colStockInfo2, DevExpress.Data.ColumnSortOrder.Ascending),
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colAnalysisDate2, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colForecastDate2, DevExpress.Data.ColumnSortOrder.Descending)});
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
-            // 
-            // colSerialNo2
-            // 
-            this.colSerialNo2.FieldName = "SerialNo";
-            this.colSerialNo2.Name = "colSerialNo2";
-            // 
-            // colInvestorCode2
-            // 
-            this.colInvestorCode2.Caption = "编码";
-            this.colInvestorCode2.FieldName = "InvestorCode";
-            this.colInvestorCode2.Name = "colInvestorCode2";
-            // 
-            // colInvestorName2
-            // 
-            this.colInvestorName2.Caption = "姓名";
-            this.colInvestorName2.FieldName = "InvestorName";
-            this.colInvestorName2.Name = "colInvestorName2";
-            this.colInvestorName2.Visible = true;
-            this.colInvestorName2.VisibleIndex = 2;
-            this.colInvestorName2.Width = 110;
-            // 
-            // colAnalysisDate2
-            // 
-            this.colAnalysisDate2.Caption = "分析日期";
-            this.colAnalysisDate2.FieldName = "AnalysisDate";
-            this.colAnalysisDate2.Name = "colAnalysisDate2";
-            this.colAnalysisDate2.Visible = true;
-            this.colAnalysisDate2.VisibleIndex = 1;
-            this.colAnalysisDate2.Width = 110;
-            // 
-            // colStockCode2
-            // 
-            this.colStockCode2.Caption = "股票代码";
-            this.colStockCode2.FieldName = "StockCode";
-            this.colStockCode2.Name = "colStockCode2";
-            this.colStockCode2.Width = 85;
-            // 
-            // colStockName2
-            // 
-            this.colStockName2.Caption = "股票名称";
-            this.colStockName2.FieldName = "StockName";
-            this.colStockName2.Name = "colStockName2";
-            this.colStockName2.Width = 85;
-            // 
-            // colStockInfo2
-            // 
-            this.colStockInfo2.Caption = "股票信息";
-            this.colStockInfo2.FieldName = "StockInfo";
-            this.colStockInfo2.Name = "colStockInfo2";
-            this.colStockInfo2.Visible = true;
-            this.colStockInfo2.VisibleIndex = 0;
-            this.colStockInfo2.Width = 150;
-            // 
-            // colTradeType2
-            // 
-            this.colTradeType2.FieldName = "TradeType";
-            this.colTradeType2.Name = "colTradeType2";
-            // 
-            // colTradeTypeName2
-            // 
-            this.colTradeTypeName2.Caption = "操作类型";
-            this.colTradeTypeName2.FieldName = "TradeTypeName";
-            this.colTradeTypeName2.Name = "colTradeTypeName2";
-            this.colTradeTypeName2.Visible = true;
-            this.colTradeTypeName2.VisibleIndex = 3;
-            // 
-            // colDecision2
-            // 
-            this.colDecision2.FieldName = "Decision";
-            this.colDecision2.Name = "colDecision2";
-            // 
-            // colDecisionName2
-            // 
-            this.colDecisionName2.Caption = "决策建议";
-            this.colDecisionName2.FieldName = "DecisionName";
-            this.colDecisionName2.Name = "colDecisionName2";
-            this.colDecisionName2.Visible = true;
-            this.colDecisionName2.VisibleIndex = 4;
-            // 
-            // colPriceRange2
-            // 
-            this.colPriceRange2.Caption = "价格区间";
-            this.colPriceRange2.FieldName = "PriceRange";
-            this.colPriceRange2.Name = "colPriceRange2";
-            this.colPriceRange2.Visible = true;
-            this.colPriceRange2.VisibleIndex = 5;
-            this.colPriceRange2.Width = 110;
-            // 
-            // colReason2
-            // 
-            this.colReason2.Caption = "判断及理由";
-            this.colReason2.FieldName = "Reason";
-            this.colReason2.Name = "colReason2";
-            this.colReason2.Visible = true;
-            this.colReason2.VisibleIndex = 6;
-            this.colReason2.Width = 600;
-            // 
-            // colAccuracy2
-            // 
-            this.colAccuracy2.Caption = "正确判断";
-            this.colAccuracy2.FieldName = "Accuracy";
-            this.colAccuracy2.Name = "colAccuracy2";
-            this.colAccuracy2.Visible = true;
-            this.colAccuracy2.VisibleIndex = 7;
-            this.colAccuracy2.Width = 200;
-            // 
-            // colCreateTime2
-            // 
-            this.colCreateTime2.FieldName = "CreateTime";
-            this.colCreateTime2.Name = "colCreateTime2";
-            // 
-            // colRemarks2
-            // 
-            this.colRemarks2.FieldName = "Remarks";
-            this.colRemarks2.Name = "colRemarks2";
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(772, 12);
+            this.btnSearch.Location = new System.Drawing.Point(562, 12);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 22);
+            this.btnSearch.Size = new System.Drawing.Size(73, 22);
             this.btnSearch.StyleController = this.layoutControl2;
             this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "    查  询    ";
@@ -643,9 +490,7 @@
             this.layoutControlItem7,
             this.layoutControlItem6,
             this.emptySpaceItem7,
-            this.layoutControlItem8,
             this.layoutControlItem9,
-            this.emptySpaceItem3,
             this.emptySpaceItem8,
             this.layoutControlItem10,
             this.emptySpaceItem9});
@@ -675,9 +520,9 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(839, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(627, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(676, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(888, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem5
@@ -699,9 +544,9 @@
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.btnSearch;
-            this.layoutControlItem7.Location = new System.Drawing.Point(760, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(550, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(79, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(77, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -723,36 +568,19 @@
             this.emptySpaceItem7.Size = new System.Drawing.Size(1515, 10);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem8
-            // 
-            this.layoutControlItem8.Control = this.luStock;
-            this.layoutControlItem8.Location = new System.Drawing.Point(340, 0);
-            this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(220, 26);
-            this.layoutControlItem8.Text = "股票信息";
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(48, 14);
-            // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.luInvestor;
-            this.layoutControlItem9.Location = new System.Drawing.Point(570, 0);
+            this.layoutControlItem9.Location = new System.Drawing.Point(340, 0);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(180, 26);
+            this.layoutControlItem9.Size = new System.Drawing.Size(200, 26);
             this.layoutControlItem9.Text = "投资人员";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(48, 14);
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(560, 0);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem8
             // 
             this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(750, 0);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(540, 0);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
             this.emptySpaceItem8.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
@@ -773,6 +601,116 @@
             this.emptySpaceItem9.Name = "emptySpaceItem9";
             this.emptySpaceItem9.Size = new System.Drawing.Size(1424, 26);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // colInvestorCode
+            // 
+            this.colInvestorCode.Caption = "编码";
+            this.colInvestorCode.FieldName = "InvestorCode";
+            this.colInvestorCode.Name = "colInvestorCode";
+            // 
+            // colInvestorName
+            // 
+            this.colInvestorName.Caption = "投资人员";
+            this.colInvestorName.FieldName = "InvestorName";
+            this.colInvestorName.Name = "colInvestorName";
+            this.colInvestorName.Visible = true;
+            this.colInvestorName.VisibleIndex = 0;
+            this.colInvestorName.Width = 90;
+            // 
+            // colWeight
+            // 
+            this.colWeight.FieldName = "Weight";
+            this.colWeight.Name = "colWeight";
+            // 
+            // colWeightPercentage
+            // 
+            this.colWeightPercentage.Caption = "权重";
+            this.colWeightPercentage.FieldName = "WeightPercentage";
+            this.colWeightPercentage.Name = "colWeightPercentage";
+            this.colWeightPercentage.Visible = true;
+            this.colWeightPercentage.VisibleIndex = 1;
+            this.colWeightPercentage.Width = 65;
+            // 
+            // colAcquaintanceGraphDate
+            // 
+            this.colAcquaintanceGraphDate.Caption = "相似图形日期";
+            this.colAcquaintanceGraphDate.FieldName = "AcquaintanceGraphDate";
+            this.colAcquaintanceGraphDate.Name = "colAcquaintanceGraphDate";
+            this.colAcquaintanceGraphDate.Visible = true;
+            this.colAcquaintanceGraphDate.VisibleIndex = 2;
+            this.colAcquaintanceGraphDate.Width = 100;
+            // 
+            // colTrend
+            // 
+            this.colTrend.Caption = "走势判断";
+            this.colTrend.FieldName = "Trend";
+            this.colTrend.Name = "colTrend";
+            this.colTrend.Visible = true;
+            this.colTrend.VisibleIndex = 3;
+            this.colTrend.Width = 180;
+            // 
+            // colOpen
+            // 
+            this.colOpen.Caption = "开盘";
+            this.colOpen.FieldName = "Open";
+            this.colOpen.Name = "colOpen";
+            this.colOpen.Visible = true;
+            this.colOpen.VisibleIndex = 4;
+            this.colOpen.Width = 110;
+            // 
+            // colForenoon
+            // 
+            this.colForenoon.Caption = "上午盘";
+            this.colForenoon.FieldName = "Forenoon";
+            this.colForenoon.Name = "colForenoon";
+            this.colForenoon.Visible = true;
+            this.colForenoon.VisibleIndex = 5;
+            this.colForenoon.Width = 110;
+            // 
+            // colAfternoon
+            // 
+            this.colAfternoon.Caption = "下午盘";
+            this.colAfternoon.FieldName = "Afternoon";
+            this.colAfternoon.Name = "colAfternoon";
+            this.colAfternoon.Visible = true;
+            this.colAfternoon.VisibleIndex = 6;
+            this.colAfternoon.Width = 110;
+            // 
+            // colClose
+            // 
+            this.colClose.Caption = "收盘";
+            this.colClose.FieldName = "Close";
+            this.colClose.Name = "colClose";
+            this.colClose.Visible = true;
+            this.colClose.VisibleIndex = 7;
+            this.colClose.Width = 110;
+            // 
+            // colReason
+            // 
+            this.colReason.Caption = "理由及判断";
+            this.colReason.FieldName = "Reason";
+            this.colReason.Name = "colReason";
+            this.colReason.Visible = true;
+            this.colReason.VisibleIndex = 8;
+            this.colReason.Width = 250;
+            // 
+            // colAccuracy
+            // 
+            this.colAccuracy.Caption = "正确性判断";
+            this.colAccuracy.FieldName = "Accuracy";
+            this.colAccuracy.Name = "colAccuracy";
+            this.colAccuracy.Visible = true;
+            this.colAccuracy.VisibleIndex = 9;
+            this.colAccuracy.Width = 120;
+            // 
+            // colForecastDate2
+            // 
+            this.colForecastDate2.Caption = "预测日期";
+            this.colForecastDate2.FieldName = "ForecastDate";
+            this.colForecastDate2.Name = "colForecastDate2";
+            this.colForecastDate2.Visible = true;
+            this.colForecastDate2.VisibleIndex = 0;
+            this.colForecastDate2.Width = 84;
             // 
             // FrmMarketTrendForecast
             // 
@@ -803,7 +741,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deTo.Properties.CalendarTimeProperties)).EndInit();
@@ -819,9 +756,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
@@ -863,7 +798,6 @@
         private DevExpress.XtraEditors.DateEdit deFrom;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem lciDateTo;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
@@ -871,28 +805,23 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraEditors.LookUpEdit luInvestor;
-        private DevExpress.XtraEditors.LookUpEdit luStock;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
-        private DevExpress.XtraGrid.Columns.GridColumn colSerialNo2;
-        private DevExpress.XtraGrid.Columns.GridColumn colInvestorCode2;
-        private DevExpress.XtraGrid.Columns.GridColumn colInvestorName2;
-        private DevExpress.XtraGrid.Columns.GridColumn colAnalysisDate2;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockCode2;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockName2;
-        private DevExpress.XtraGrid.Columns.GridColumn colTradeType2;
-        private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName2;
-        private DevExpress.XtraGrid.Columns.GridColumn colDecision2;
-        private DevExpress.XtraGrid.Columns.GridColumn colDecisionName2;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceRange2;
-        private DevExpress.XtraGrid.Columns.GridColumn colReason2;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccuracy2;
-        private DevExpress.XtraGrid.Columns.GridColumn colCreateTime2;
-        private DevExpress.XtraGrid.Columns.GridColumn colRemarks2;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockInfo2;
         private DevExpress.XtraEditors.SimpleButton btnExpand;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
+        private DevExpress.XtraGrid.Columns.GridColumn colForecastDate2;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvestorCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvestorName;
+        private DevExpress.XtraGrid.Columns.GridColumn colWeight;
+        private DevExpress.XtraGrid.Columns.GridColumn colWeightPercentage;
+        private DevExpress.XtraGrid.Columns.GridColumn colAcquaintanceGraphDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colTrend;
+        private DevExpress.XtraGrid.Columns.GridColumn colOpen;
+        private DevExpress.XtraGrid.Columns.GridColumn colForenoon;
+        private DevExpress.XtraGrid.Columns.GridColumn colAfternoon;
+        private DevExpress.XtraGrid.Columns.GridColumn colClose;
+        private DevExpress.XtraGrid.Columns.GridColumn colReason;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccuracy;
     }
 }

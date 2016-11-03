@@ -72,7 +72,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deFrom.EditValue = now.AddMonths(-1);
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deTo.EditValue = now;
+            this.deTo.EditValue = now.AddDays(1);
             this.gridView2.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
 
             this.btnExpand.Enabled = false;

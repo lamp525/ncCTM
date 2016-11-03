@@ -72,7 +72,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deFrom.EditValue = now.AddMonths(-1);
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deTo.EditValue = now;
+            this.deTo.EditValue = now.AddDays(1);
             this.gridView2.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
 
             this.btnExpand.Enabled = false;
@@ -153,34 +153,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 {
                     var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-                    //股票信息
-                    var stockCommandText = $@"SELECT DISTINCT StockCode, StockName FROM [dbo].[v_PSADetail] ";
-
-                    var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, stockCommandText);
-
-                    if (dsStock == null || dsStock.Tables.Count == 0) return;
-
-                    var stocks = dsStock.Tables[0].AsEnumerable().Select(x => new StockInfoModel
-                    {
-                        FullCode = x.Field<string>("StockCode").Trim(),
-                        Name = x.Field<string>("StockName").Trim(),
-                        DisplayMember = x.Field<string>("StockCode").Trim() + " - " + x.Field<string>("StockName").Trim(),
-                    }
-                    ).ToList();
-
-                    var allStock = new StockInfoModel()
-                    {
-                        FullCode = string.Empty,
-                        Name = "全部",
-                        DisplayMember = "全部",
-                    };
-                    stocks.Add(allStock);
-                    stocks = stocks.OrderBy(x => x.FullCode).ToList();
-
-                    this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
-
                     //投资人员
-                    var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_PSADetail] ";
+                    var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_MTFDetail] ";
 
                     var dsInvestor = SqlHelper.ExecuteDataset(connString, CommandType.Text, investorCommandText);
 
@@ -332,21 +306,18 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
                 var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-
-                var stockCode = this.luStock.SelectedValue();
+     
                 var investorCode = this.luInvestor.SelectedValue();
 
                 var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-                var commandText = $@" SELECT *  FROM [dbo].[v_PSADetail]  WHERE AnalysisDate BETWEEN '{dateFrom}' AND '{dateTo}' ";
-
-                if (!string.IsNullOrEmpty(stockCode))
-                    commandText += $@" AND StockCode = '{stockCode}' ";
+                var commandText = $@" SELECT *  FROM [dbo].[v_MTFDetail]  WHERE ForeCastDate BETWEEN '{dateFrom}' AND '{dateTo}' ";
+            
 
                 if (!string.IsNullOrEmpty(investorCode))
                     commandText += $@" AND InvestorCode = '{investorCode}' ";
 
-                commandText += $@" ORDER BY StockCode, AnalysisDate DESC, InvestorName ";
+                commandText += $@" ORDER BY ForeCastDate DESC, InvestorName ";
 
                 var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
