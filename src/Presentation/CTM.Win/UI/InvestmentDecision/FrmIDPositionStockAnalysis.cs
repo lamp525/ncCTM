@@ -171,7 +171,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
                     var allStock = new StockInfoModel()
                     {
-                        FullCode = string.Empty ,
+                        FullCode = string.Empty,
                         Name = "全部",
                         DisplayMember = "全部",
                     };
@@ -183,7 +183,7 @@ namespace CTM.Win.UI.InvestmentDecision
                     //投资人员
                     var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_PSADetail] ";
 
-                    var dsInvestor = SqlHelper.ExecuteDataset(connString, CommandType.Text, stockCommandText);
+                    var dsInvestor = SqlHelper.ExecuteDataset(connString, CommandType.Text, investorCommandText);
 
                     if (dsInvestor == null || dsInvestor.Tables.Count == 0) return;
 
@@ -202,7 +202,7 @@ namespace CTM.Win.UI.InvestmentDecision
                     investors.Add(allInvestor);
                     investors = investors.OrderBy(x => x.Code).ToList();
 
-                    this.luInvestor.Initialize(investors,"Code","Name",enableSearch:true);
+                    this.luInvestor.Initialize(investors, "Code", "Name", enableSearch: true);
                 }
             }
             catch (Exception ex)
@@ -335,7 +335,7 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 this.btnSearch.Enabled = false;
 
-                var dateFrom = CommonHelper.StringToDateTime ( this.deFrom.EditValue.ToString());
+                var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
                 var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
 
                 var stockCode = this.luStock.SelectedValue();
@@ -343,13 +343,17 @@ namespace CTM.Win.UI.InvestmentDecision
 
                 var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-     
-                var commandText = $@"SELECT *  FROM [dbo].[v_PSADetail]  WHERE";
+                var commandText = $@" SELECT *  FROM [dbo].[v_PSADetail]  WHERE AnalysisDate BETWEEN '{dateFrom}' AND '{dateTo}' ";
+
+                if (!string.IsNullOrEmpty(stockCode))
+                    commandText += $@" AND StockCode = '{stockCode}' ";
+
+                if (!string.IsNullOrEmpty(investorCode))
+                    commandText += $@" AND InvestorCode = '{investorCode}' ";
 
                 var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
-                if (dsStock == null || dsStock.Tables.Count == 0) return;
-
+                this.gridControl2.DataSource = dsStock?.Tables?[0];
             }
             catch (Exception ex)
             {

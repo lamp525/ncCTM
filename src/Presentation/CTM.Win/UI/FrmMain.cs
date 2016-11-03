@@ -493,7 +493,7 @@ namespace CTM.Win.UI
         { 
             //this.DisplayTabbedForm<FrmCloseStockAnalysis>("持仓股票投资决策");
             
-           this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
+          this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
         }
 
         #endregion Investment Decision
