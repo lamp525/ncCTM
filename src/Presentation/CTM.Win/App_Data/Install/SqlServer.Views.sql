@@ -115,9 +115,10 @@ DROP VIEW [dbo].[v_PSADetail]
 GO
 CREATE VIEW [dbo].[v_PSADetail]
 AS
-	SELECT   
-		D.*,
+	SELECT   		
 		U.Name InvestorName,
+		D.*,
+		(D.StockCode + ' - ' + D.StockName) StockInfo,
 		CASE D.TradeType
 			WHEN 1 THEN 'Ä¿±ê'
 			WHEN 2 THEN '²¨¶Î'
@@ -134,7 +135,6 @@ AS
 	LEFT JOIN UserInfo U
 	ON D.InvestorCode = U.Code
 GO
-
 
 /*
 /****** 7. [v_PSASummary] ******/
