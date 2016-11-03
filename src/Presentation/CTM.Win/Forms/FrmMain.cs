@@ -183,7 +183,7 @@ namespace CTM.Win.Forms
 
         #endregion Form Load
 
-        #region Function
+        #region DailyTrading
 
         /// <summary>
         /// 用户融资融券信息
@@ -377,7 +377,7 @@ namespace CTM.Win.Forms
 
         #endregion Reports
 
-        #endregion Function
+        #endregion DailyTrading
 
         #region Accounting
 
@@ -482,18 +482,18 @@ namespace CTM.Win.Forms
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
+
         }
 
         private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmMarketTrendForecastManage>("大盘趋势预测");
+            //this.DisplayTabbedForm<FrmMarketTrendForecastManage>("大盘趋势预测");
+            this.DisplayTabbedForm<FrmMarketTrendForecast>("大盘趋势预测");
         }
 
         private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            //this.DisplayTabbedForm<FrmCloseStockAnalysis>("持仓股票投资决策");
-
-            this.DisplayTabbedForm<FrmIDPositionStockAnalysis>("持仓股票投资决策");
+            this.DisplayTabbedForm<FrmPositionStockAnalysis>("持仓股票投资决策");
         }
 
         #endregion Investment Decision

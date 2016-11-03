@@ -35,9 +35,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Constructors
 
-        public _dialogPSAResult(
-            ICommonService commonService,
-            IInvestmentDecisionService IDService)
+        public _dialogPSAResult(ICommonService commonService, IInvestmentDecisionService IDService)
         {
             InitializeComponent();
             this._commonService = commonService;
@@ -172,6 +170,23 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+
+                this.gridViewSummary.SetAllRowsExpanded(!_isExpanded);
+
+                this._isExpanded = !_isExpanded;
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
+            }
+        }
+
         private void gridViewSummary_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
@@ -252,22 +267,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
-
-        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnExpandOrCollapse.Enabled = false;
-
-                this.gridViewSummary.SetAllRowsExpanded(!_isExpanded);
-
-                this._isExpanded = !_isExpanded;
-                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
-            }
-            finally
-            {
-                this.btnExpandOrCollapse.Enabled = true;
-            }
-        }
     }
 }

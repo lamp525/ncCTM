@@ -6,6 +6,8 @@ namespace CTM.Core.Domain.InvestmentDecision
     {
         public string SerialNo { get; set; }
 
+        public DateTime ForecastDate { get; set; }
+
         public string InvestorCode { get; set; }
 
         public decimal Weight { get; set; }
@@ -26,6 +28,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string Accuracy { get; set; }
 
-        public DateTime? ForecastTime { get; set; }
+        public DateTime CreateTime { get; set; }
+
+        public string Remarks { get; set; }
     }
 }

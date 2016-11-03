@@ -269,7 +269,7 @@
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogPSAEdit";
             this.Text = "_dialogPSAEdit";
-            this.Load += new System.EventHandler(this._dialogCloseStockAnalysis_Load);
+            this.Load += new System.EventHandler(this._dialogPSAEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();

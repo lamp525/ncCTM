@@ -32,9 +32,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Constructors
 
-        public _dialogPSAEdit(
-            ICommonService commonService,
-            IInvestmentDecisionService IDService)
+        public _dialogPSAEdit(ICommonService commonService, IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
@@ -135,7 +133,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Events
 
-        private void _dialogCloseStockAnalysis_Load(object sender, EventArgs e)
+        private void _dialogPSAEdit_Load(object sender, EventArgs e)
         {
             try
             {

@@ -6,12 +6,10 @@ namespace CTM.Core.Domain.InvestmentDecision
     {
         public string SerialNo { get; set; }
 
-        public int Status { get; set; }
-
-        public string ApplyUser { get; set; }
-
-        public DateTime ApplyDate { get; set; }
+        public DateTime ForecastDate { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public string Result { get; set; }
     }
 }
