@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using CTM.Core.Infrastructure;
 using CTM.Core.Util;
-using CTM.Win.UI;
+using CTM.Win.Forms;
 using CTM.Win.Util;
 using DevExpress.Skins;
 using DevExpress.UserSkins;

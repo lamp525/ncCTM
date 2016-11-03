@@ -163,298 +163,298 @@
     <Compile Include="Models\StockPositionModel.cs" />
     <Compile Include="Models\StockInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
-    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundMonthlyStatements.cs">
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountFundMonthlyStatements.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundMonthlyStatements.Designer.cs">
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountFundMonthlyStatements.Designer.cs">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.cs">
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountFundTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.Designer.cs">
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountFundTransfer.Designer.cs">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.cs">
+    <Compile Include="Forms\Accounting\AccountManage\_dialogAccountFundTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.Designer.cs">
+    <Compile Include="Forms\Accounting\AccountManage\_dialogAccountFundTransfer.Designer.cs">
       <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmDeliveryManage.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmDeliveryManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmDeliveryManage.Designer.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmDeliveryManage.Designer.cs">
       <DependentUpon>FrmDeliveryManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmTradeDataVerify.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmTradeDataVerify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmTradeDataVerify.Designer.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmTradeDataVerify.Designer.cs">
       <DependentUpon>FrmTradeDataVerify.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmAccountInvestFundDetail.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmAccountInvestFundDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmAccountInvestFundDetail.Designer.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmAccountInvestFundDetail.Designer.cs">
       <DependentUpon>FrmAccountInvestFundDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDayIncomeBrief.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDayIncomeBrief.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDayIncomeBrief.Designer.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDayIncomeBrief.Designer.cs">
       <DependentUpon>FrmDayIncomeBrief.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.Designer.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.Designer.cs">
       <DependentUpon>FrmDeliveryAccountInvestIncomeFlow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.Designer.cs">
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.Designer.cs">
       <DependentUpon>FrmDeliveryAccountInvestIncomeDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmStock.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmStock.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmStock.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmStock.Designer.cs">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmUser.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmUser.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmUser.Designer.cs">
       <DependentUpon>FrmUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogStockEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogStockEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogStockEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogStockEdit.Designer.cs">
       <DependentUpon>_dialogStockEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogIDStockPoolEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogIDStockPoolEdit.Designer.cs">
       <DependentUpon>_dialogIDStockPoolEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogUserEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogUserEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogUserEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogUserEdit.Designer.cs">
       <DependentUpon>_dialogUserEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\FrmHistoryTradeDataImport.cs">
+    <Compile Include="Forms\Admin\DataManage\FrmHistoryTradeDataImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\FrmHistoryTradeDataImport.Designer.cs">
+    <Compile Include="Forms\Admin\DataManage\FrmHistoryTradeDataImport.Designer.cs">
       <DependentUpon>FrmHistoryTradeDataImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\FrmStockTransfer.cs">
+    <Compile Include="Forms\Admin\DataManage\FrmStockTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\FrmStockTransfer.Designer.cs">
+    <Compile Include="Forms\Admin\DataManage\FrmStockTransfer.Designer.cs">
       <DependentUpon>FrmStockTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\_dialogStockTransfer.cs">
+    <Compile Include="Forms\Admin\DataManage\_dialogStockTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\DataManage\_dialogStockTransfer.Designer.cs">
+    <Compile Include="Forms\Admin\DataManage\_dialogStockTransfer.Designer.cs">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmDeliveryImport.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmDeliveryImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Accounting\DataManage\FrmDeliveryImport.Designer.cs">
+    <Compile Include="Forms\Accounting\DataManage\FrmDeliveryImport.Designer.cs">
       <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\_dialogImportDataTemplate.cs">
+    <Compile Include="Forms\Common\_dialogImportDataTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Common\_dialogImportDataTemplate.Designer.cs">
+    <Compile Include="Forms\Common\_dialogImportDataTemplate.Designer.cs">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\_dialogInputContent.cs">
+    <Compile Include="Forms\Common\_dialogInputContent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Common\_dialogInputContent.Designer.cs">
+    <Compile Include="Forms\Common\_dialogInputContent.Designer.cs">
       <DependentUpon>_dialogInputContent.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogDailyRecordEdit.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogDailyRecordEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogDailyRecordEdit.Designer.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogDailyRecordEdit.Designer.cs">
       <DependentUpon>_dialogDailyRecordEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogDailyRecordSplit.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogDailyRecordSplit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogDailyRecordSplit.Designer.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogDailyRecordSplit.Designer.cs">
       <DependentUpon>_dialogDailyRecordSplit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogVirtualRecord.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogVirtualRecord.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataManage\_dialogVirtualRecord.Designer.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\_dialogVirtualRecord.Designer.cs">
       <DependentUpon>_dialogVirtualRecord.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MarginTrading\FrmUserMarginTrading.cs">
+    <Compile Include="Forms\MarginTrading\FrmUserMarginTrading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MarginTrading\FrmUserMarginTrading.Designer.cs">
+    <Compile Include="Forms\MarginTrading\FrmUserMarginTrading.Designer.cs">
       <DependentUpon>FrmUserMarginTrading.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MarginTrading\_dialogAddMarginTrading.cs">
+    <Compile Include="Forms\MarginTrading\_dialogAddMarginTrading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MarginTrading\_dialogAddMarginTrading.Designer.cs">
+    <Compile Include="Forms\MarginTrading\_dialogAddMarginTrading.Designer.cs">
       <DependentUpon>_dialogAddMarginTrading.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\ReportExport\FrmInvestIncomeReportExport.cs">
+    <Compile Include="Forms\DailyTrading\ReportExport\FrmInvestIncomeReportExport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\ReportExport\FrmInvestIncomeReportExport.Designer.cs">
+    <Compile Include="Forms\DailyTrading\ReportExport\FrmInvestIncomeReportExport.Designer.cs">
       <DependentUpon>FrmInvestIncomeReportExport.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmAccountInvestIncomeFlow.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmAccountInvestIncomeFlow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmAccountInvestIncomeFlow.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmAccountInvestIncomeFlow.Designer.cs">
       <DependentUpon>FrmAccountInvestIncomeFlow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmAccountStockPosition.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmAccountStockPosition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmAccountStockPosition.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmAccountStockPosition.Designer.cs">
       <DependentUpon>FrmAccountStockPosition.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmStockInvestIncomeSummary.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockInvestIncomeSummary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmStockInvestIncomeSummary.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockInvestIncomeSummary.Designer.cs">
       <DependentUpon>FrmStockInvestIncomeSummary.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmStockPosition.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPosition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmStockPosition.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPosition.Designer.cs">
       <DependentUpon>FrmStockPosition.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeAccount.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeAccount.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeAccount.Designer.cs">
       <DependentUpon>FrmUserInvestIncomeAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeMonthly.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeMonthly.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeMonthly.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeMonthly.Designer.cs">
       <DependentUpon>FrmUserInvestIncomeMonthly.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeDaily.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeDaily.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeDaily.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeDaily.Designer.cs">
       <DependentUpon>FrmUserInvestIncomeDaily.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeFlow.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeFlow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeFlow.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeFlow.Designer.cs">
       <DependentUpon>FrmUserInvestIncomeFlow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeSummary.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeSummary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomeSummary.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeSummary.Designer.cs">
       <DependentUpon>FrmUserInvestIncomeSummary.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomRetracement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomRetracement.Designer.cs">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmIDPositionStockAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmIDPositionStockAnalysis.Designer.cs">
       <DependentUpon>FrmIDPositionStockAnalysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmCloseStockAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmCloseStockAnalysis.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmCloseStockAnalysis.Designer.cs">
       <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmIDCommittee.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmIDCommittee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmIDCommittee.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmIDCommittee.Designer.cs">
       <DependentUpon>FrmIDCommittee.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmInvestmentDecisionManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmInvestmentDecisionManage.Designer.cs">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmMarketTrendForecastManage.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecastManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\FrmMarketTrendForecastManage.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecastManage.Designer.cs">
       <DependentUpon>FrmMarketTrendForecastManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmIDStockPool.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmIDStockPool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmIDStockPool.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmIDStockPool.Designer.cs">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogPSAEdit.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogPSAEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogPSAEdit.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogPSAEdit.Designer.cs">
       <DependentUpon>_dialogPSAEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogCloseStockAnalysis.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogCloseStockAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogCloseStockAnalysis.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogCloseStockAnalysis.Designer.cs">
       <DependentUpon>_dialogCloseStockAnalysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogIDVoteResult.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogIDVoteResult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogIDVoteResult.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogIDVoteResult.Designer.cs">
       <DependentUpon>_dialogIDVoteResult.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogMarketTrendForecast.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogMarketTrendForecast.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogMarketTrendForecast.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogMarketTrendForecast.Designer.cs">
       <DependentUpon>_dialogMarketTrendForecast.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogPSAResult.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogPSAResult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogPSAResult.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogPSAResult.Designer.cs">
       <DependentUpon>_dialogPSAResult.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogTradeApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\InvestmentDecision\_dialogTradeApplication.Designer.cs">
+    <Compile Include="Forms\InvestmentDecision\_dialogTradeApplication.Designer.cs">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Setting\_dialogChangePwd.cs">
+    <Compile Include="Forms\Setting\_dialogChangePwd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Setting\_dialogChangePwd.Designer.cs">
+    <Compile Include="Forms\Setting\_dialogChangePwd.Designer.cs">
       <DependentUpon>_dialogChangePwd.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\CTMHelper.cs" />
@@ -468,72 +468,72 @@
     <Compile Include="Models\DictionaryInfoModel.cs" />
     <Compile Include="Models\StockPoolInfoModel.cs" />
     <Compile Include="Util\AppSettingHelper.cs" />
-    <Compile Include="UI\Admin\BaseData\FrmAccount.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmAccount.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmAccount.Designer.cs">
       <DependentUpon>FrmAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmStockPool.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmStockPool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmStockPool.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmStockPool.Designer.cs">
       <DependentUpon>FrmStockPool.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogAccountEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogAccountEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogAccountEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogAccountEdit.Designer.cs">
       <DependentUpon>_dialogAccountEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogDepartmentEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogDepartmentEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogDepartmentEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogDepartmentEdit.Designer.cs">
       <DependentUpon>_dialogDepartmentEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogStockPoolEdit.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogStockPoolEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\_dialogStockPoolEdit.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\_dialogStockPoolEdit.Designer.cs">
       <DependentUpon>_dialogStockPoolEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\_dialogLogin.cs">
+    <Compile Include="Forms\_dialogLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\_dialogLogin.Designer.cs">
+    <Compile Include="Forms\_dialogLogin.Designer.cs">
       <DependentUpon>_dialogLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmMain.cs">
+    <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmMain.Designer.cs">
+    <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Admin\BaseData\FrmDictionary.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmDictionary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmDictionary.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmDictionary.Designer.cs">
       <DependentUpon>FrmDictionary.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmDepartment.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmDepartment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\BaseData\FrmDepartment.Designer.cs">
+    <Compile Include="Forms\Admin\BaseData\FrmDepartment.Designer.cs">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataManage\FrmTradeDataImportWizard.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataManage\FrmTradeDataImportWizard.Designer.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.Designer.cs">
       <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Function\DataManage\FrmTradeDataManage.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Function\DataManage\FrmTradeDataManage.Designer.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.Designer.cs">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
     </Compile>
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
@@ -565,145 +565,145 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundMonthlyStatements.resx">
+    <EmbeddedResource Include="Forms\Accounting\AccountManage\FrmAccountFundMonthlyStatements.resx">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundTransfer.resx">
+    <EmbeddedResource Include="Forms\Accounting\AccountManage\FrmAccountFundTransfer.resx">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\AccountManage\_dialogAccountFundTransfer.resx">
+    <EmbeddedResource Include="Forms\Accounting\AccountManage\_dialogAccountFundTransfer.resx">
       <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryManage.resx">
+    <EmbeddedResource Include="Forms\Accounting\DataManage\FrmDeliveryManage.resx">
       <DependentUpon>FrmDeliveryManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\DataManage\FrmTradeDataVerify.resx">
+    <EmbeddedResource Include="Forms\Accounting\DataManage\FrmTradeDataVerify.resx">
       <DependentUpon>FrmTradeDataVerify.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmAccountInvestFundDetail.resx">
+    <EmbeddedResource Include="Forms\Accounting\StatisticsReport\FrmAccountInvestFundDetail.resx">
       <DependentUpon>FrmAccountInvestFundDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmDayIncomeBrief.resx">
+    <EmbeddedResource Include="Forms\Accounting\StatisticsReport\FrmDayIncomeBrief.resx">
       <DependentUpon>FrmDayIncomeBrief.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.resx">
+    <EmbeddedResource Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeFlow.resx">
       <DependentUpon>FrmDeliveryAccountInvestIncomeFlow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.resx">
+    <EmbeddedResource Include="Forms\Accounting\StatisticsReport\FrmDeliveryAccountInvestIncomeDetail.resx">
       <DependentUpon>FrmDeliveryAccountInvestIncomeDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmAccount.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmAccount.resx">
       <DependentUpon>FrmAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmStock.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmStock.resx">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmStockPool.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmStockPool.resx">
       <DependentUpon>FrmStockPool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmUser.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmUser.resx">
       <DependentUpon>FrmUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogAccountEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogAccountEdit.resx">
       <DependentUpon>_dialogAccountEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogDepartmentEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogDepartmentEdit.resx">
       <DependentUpon>_dialogDepartmentEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogStockEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogStockEdit.resx">
       <DependentUpon>_dialogStockEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogIDStockPoolEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogIDStockPoolEdit.resx">
       <DependentUpon>_dialogIDStockPoolEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogStockPoolEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogStockPoolEdit.resx">
       <DependentUpon>_dialogStockPoolEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\_dialogUserEdit.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\_dialogUserEdit.resx">
       <DependentUpon>_dialogUserEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\DataManage\FrmHistoryTradeDataImport.resx">
+    <EmbeddedResource Include="Forms\Admin\DataManage\FrmHistoryTradeDataImport.resx">
       <DependentUpon>FrmHistoryTradeDataImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\DataManage\FrmStockTransfer.resx">
+    <EmbeddedResource Include="Forms\Admin\DataManage\FrmStockTransfer.resx">
       <DependentUpon>FrmStockTransfer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\DataManage\_dialogStockTransfer.resx">
+    <EmbeddedResource Include="Forms\Admin\DataManage\_dialogStockTransfer.resx">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Accounting\DataManage\FrmDeliveryImport.resx">
+    <EmbeddedResource Include="Forms\Accounting\DataManage\FrmDeliveryImport.resx">
       <DependentUpon>FrmDeliveryImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\_dialogImportDataTemplate.resx">
+    <EmbeddedResource Include="Forms\Common\_dialogImportDataTemplate.resx">
       <DependentUpon>_dialogImportDataTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Common\_dialogInputContent.resx">
+    <EmbeddedResource Include="Forms\Common\_dialogInputContent.resx">
       <DependentUpon>_dialogInputContent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataManage\_dialogDailyRecordSplit.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\_dialogDailyRecordSplit.resx">
       <DependentUpon>_dialogDailyRecordSplit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataManage\_dialogVirtualRecord.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\_dialogVirtualRecord.resx">
       <DependentUpon>_dialogVirtualRecord.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MarginTrading\FrmUserMarginTrading.resx">
+    <EmbeddedResource Include="Forms\MarginTrading\FrmUserMarginTrading.resx">
       <DependentUpon>FrmUserMarginTrading.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MarginTrading\_dialogAddMarginTrading.resx">
+    <EmbeddedResource Include="Forms\MarginTrading\_dialogAddMarginTrading.resx">
       <DependentUpon>_dialogAddMarginTrading.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\ReportExport\FrmInvestIncomeReportExport.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\ReportExport\FrmInvestIncomeReportExport.resx">
       <DependentUpon>FrmInvestIncomeReportExport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmStockInvestIncomeSummary.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockInvestIncomeSummary.resx">
       <DependentUpon>FrmStockInvestIncomeSummary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomeAccount.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeAccount.resx">
       <DependentUpon>FrmUserInvestIncomeAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomRetracement.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomRetracement.resx">
       <DependentUpon>FrmUserInvestIncomRetracement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmIDPositionStockAnalysis.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmIDPositionStockAnalysis.resx">
       <DependentUpon>FrmIDPositionStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmCloseStockAnalysis.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmCloseStockAnalysis.resx">
       <DependentUpon>FrmCloseStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmIDCommittee.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmIDCommittee.resx">
       <DependentUpon>FrmIDCommittee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmInvestmentDecisionManage.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentDecisionManage.resx">
       <DependentUpon>FrmInvestmentDecisionManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\FrmMarketTrendForecastManage.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmMarketTrendForecastManage.resx">
       <DependentUpon>FrmMarketTrendForecastManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmIDStockPool.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmIDStockPool.resx">
       <DependentUpon>FrmIDStockPool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogPSAEdit.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogPSAEdit.resx">
       <DependentUpon>_dialogPSAEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogCloseStockAnalysis.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogCloseStockAnalysis.resx">
       <DependentUpon>_dialogCloseStockAnalysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogIDVoteResult.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDVoteResult.resx">
       <DependentUpon>_dialogIDVoteResult.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogMarketTrendForecast.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogMarketTrendForecast.resx">
       <DependentUpon>_dialogMarketTrendForecast.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogPSAResult.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogPSAResult.resx">
       <DependentUpon>_dialogPSAResult.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\InvestmentDecision\_dialogTradeApplication.resx">
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogTradeApplication.resx">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\_dialogLogin.resx">
+    <EmbeddedResource Include="Forms\_dialogLogin.resx">
       <DependentUpon>_dialogLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmMain.resx">
+    <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -716,43 +716,43 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmDictionary.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmDictionary.resx">
       <DependentUpon>FrmDictionary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\BaseData\FrmDepartment.resx">
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmDepartment.resx">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataManage\FrmTradeDataImportWizard.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.resx">
       <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataManage\FrmTradeDataManage.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.resx">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\DataManage\_dialogDailyRecordEdit.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\_dialogDailyRecordEdit.resx">
       <DependentUpon>_dialogDailyRecordEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmAccountInvestIncomeFlow.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmAccountInvestIncomeFlow.resx">
       <DependentUpon>FrmAccountInvestIncomeFlow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmAccountStockPosition.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmAccountStockPosition.resx">
       <DependentUpon>FrmAccountStockPosition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmStockPosition.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPosition.resx">
       <DependentUpon>FrmStockPosition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomeMonthly.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeMonthly.resx">
       <DependentUpon>FrmUserInvestIncomeMonthly.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomeDaily.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeDaily.resx">
       <DependentUpon>FrmUserInvestIncomeDaily.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomeFlow.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeFlow.resx">
       <DependentUpon>FrmUserInvestIncomeFlow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Function\StatisticsReport\FrmUserInvestIncomeSummary.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserInvestIncomeSummary.resx">
       <DependentUpon>FrmUserInvestIncomeSummary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Setting\_dialogChangePwd.resx">
+    <EmbeddedResource Include="Forms\Setting\_dialogChangePwd.resx">
       <DependentUpon>_dialogChangePwd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
