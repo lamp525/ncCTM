@@ -564,7 +564,6 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="UI\Accounting\AccountManage\FrmAccountFundMonthlyStatements.resx">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </EmbeddedResource>

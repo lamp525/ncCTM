@@ -26,7 +26,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
 
-        private bool _firstTimeSearch = true;
+        private bool _isExpanded = true;
 
         #endregion Fields
 
@@ -74,6 +74,8 @@ namespace CTM.Win.UI.InvestmentDecision
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now;
             this.gridView2.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
+
+            this.btnExpand.Enabled = false;
 
             #endregion Page Search
         }
@@ -126,6 +128,17 @@ namespace CTM.Win.UI.InvestmentDecision
 
             buttonVI.RightButtons[2].Button.Enabled = true;
             buttonVI.RightButtons[2].State = ObjectState.Normal;
+        }
+
+        private void ExpandOrCollapse()
+        {
+            if (_isExpanded)
+                this.gridView2.CollapseAllGroups();
+            else
+                this.gridView2.ExpandAllGroups();
+
+            _isExpanded = !_isExpanded;
+            this.btnExpand.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
         }
 
         #endregion Utilities
@@ -356,7 +369,10 @@ namespace CTM.Win.UI.InvestmentDecision
                 var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
                 this.gridControl2.DataSource = dsStock?.Tables?[0];
-                this.gridView2.ExpandAllGroups();
+
+                _isExpanded = false;
+                this.btnExpand.Enabled = true;
+                ExpandOrCollapse();
             }
             catch (Exception ex)
             {
@@ -373,6 +389,20 @@ namespace CTM.Win.UI.InvestmentDecision
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void btnExpand_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpand.Enabled = false;
+
+                ExpandOrCollapse();
+            }
+            finally
+            {
+                this.btnExpand.Enabled = true;
             }
         }
 

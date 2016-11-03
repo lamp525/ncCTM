@@ -297,7 +297,7 @@
             // 
             this.btnExpandOrCollapse.Location = new System.Drawing.Point(12, 39);
             this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
-            this.btnExpandOrCollapse.Size = new System.Drawing.Size(87, 22);
+            this.btnExpandOrCollapse.Size = new System.Drawing.Size(86, 22);
             this.btnExpandOrCollapse.StyleController = this.layoutControl1;
             this.btnExpandOrCollapse.TabIndex = 5;
             this.btnExpandOrCollapse.Text = "全部展开/收起";
@@ -334,9 +334,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(91, 27);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(90, 27);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1179, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1180, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem1
@@ -344,7 +344,7 @@
             this.layoutControlItem1.Control = this.btnExpandOrCollapse;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 27);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(91, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(90, 26);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 

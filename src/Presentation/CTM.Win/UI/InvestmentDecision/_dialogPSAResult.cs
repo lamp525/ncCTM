@@ -21,7 +21,7 @@ namespace CTM.Win.UI.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
 
-        private bool _isExpand = true;
+        private bool _isExpanded = true;
 
         #endregion Fields
 
@@ -77,7 +77,7 @@ namespace CTM.Win.UI.InvestmentDecision
 
             this.gridControl1.DataSource = source.Tables["Summary"];
 
-            this.btnExpandOrCollapse.Text = _isExpand ? " 全部收起 " : " 全部展开 ";
+            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             this.gridViewSummary.SetAllRowsExpanded(true);
         }
 
@@ -259,10 +259,10 @@ namespace CTM.Win.UI.InvestmentDecision
             {
                 this.btnExpandOrCollapse.Enabled = false;
 
-                this.gridViewSummary.SetAllRowsExpanded(!_isExpand);
+                this.gridViewSummary.SetAllRowsExpanded(!_isExpanded);
 
-                this._isExpand = !_isExpand;
-                this.btnExpandOrCollapse.Text = _isExpand ? " 全部收起 " : " 全部展开 ";
+                this._isExpanded = !_isExpanded;
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             }
             finally
             {
