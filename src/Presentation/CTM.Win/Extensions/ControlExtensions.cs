@@ -135,6 +135,62 @@ namespace CTM.Win.Extensions
         #region GridControl/GridView
 
         /// <summary>
+        /// Expand a master row recursively
+        /// </summary>
+        /// <param name="masterView"></param>
+        /// <param name="masterRowHandle"></param>
+        public static void RecursExpand(this GridView masterView, int masterRowHandle)
+        {
+            // Prevent excessive visual updates.
+            masterView.BeginUpdate();
+            try
+            {
+                // Get the number of master-detail relationships.
+                int relationCount = masterView.GetRelationCount(masterRowHandle);
+                // Iterate through relationships.
+                for (int index = relationCount - 1; index >= 0; index--)
+                {
+                    // Open the detail View for the current relationship.
+                    masterView.ExpandMasterRow(masterRowHandle, index);
+                    // Get the detail View.
+                    GridView childView = masterView.GetDetailView(masterRowHandle, index) as GridView;
+                    if (childView != null)
+                    {
+                        // Get the number of rows in the detail View.
+                        int childRowCount = childView.DataRowCount;
+                        // Expand child rows recursively.
+                        for (int handle = 0; handle < childRowCount; handle++)
+                            RecursExpand(childView, handle);
+                    }
+                }
+            }
+            finally
+            {
+                // Enable visual updates.
+                masterView.EndUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Expand / Collapse all rows of the view
+        /// </summary>
+        /// <param name="view"></param>
+        public static void SetAllRowsExpanded(this GridView view, bool expand)
+        {
+            view.BeginUpdate();
+            try
+            {
+                int dataRowCount = view.DataRowCount;
+                for (int rHandle = 0; rHandle < dataRowCount; rHandle++)
+                    view.SetMasterRowExpanded(rHandle, expand);
+            }
+            finally
+            {
+                view.EndUpdate();
+            }
+        }
+
+        /// <summary>
         /// Set GridView Layout
         /// </summary>
         /// <param name="gridView"></param>

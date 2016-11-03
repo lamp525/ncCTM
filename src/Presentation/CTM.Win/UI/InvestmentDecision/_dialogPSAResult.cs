@@ -21,6 +21,8 @@ namespace CTM.Win.UI.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
 
+        private bool _isExpand = true;
+
         #endregion Fields
 
         #region Properties
@@ -74,11 +76,14 @@ namespace CTM.Win.UI.InvestmentDecision
             source.Relations.Add("SummaryDetail", keyColumn, foreignKeyColumn);
 
             this.gridControl1.DataSource = source.Tables["Summary"];
+
+            this.btnExpandOrCollapse.Text = _isExpand ? " 全部收起 " : " 全部展开 ";
+            this.gridViewSummary.SetAllRowsExpanded(true);
         }
 
         private void FormInit()
         {
-            this.lciResult.Text = $@"股票池操作建议（{SerialNo}） - {AnalysisDate.ToShortDateString()}";
+            this.esiTitle.Text = $@"股票池操作建议（{SerialNo}） - {AnalysisDate.ToShortDateString()}";
 
             this.gridViewSummary.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
@@ -247,5 +252,22 @@ namespace CTM.Win.UI.InvestmentDecision
         }
 
         #endregion Events
+
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+
+                this.gridViewSummary.SetAllRowsExpanded(!_isExpand);
+
+                this._isExpand = !_isExpand;
+                this.btnExpandOrCollapse.Text = _isExpand ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
+            }
+        }
     }
 }

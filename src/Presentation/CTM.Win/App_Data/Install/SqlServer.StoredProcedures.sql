@@ -694,12 +694,23 @@ BEGIN
 				'0',
 				GETDATE()			 
 			FROM InvestmentDecisionStockPool P
+
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			SELECT 
+				@serialNo,
+				@AnalysisDate,
+				P.Principal,
+				P.StockCode,
+				P.StockName,
+				0,
+				'0',
+				GETDATE()
+			FROM InvestmentDecisionStockPool P
+			WHERE P.StockCode NOT IN (SELECT StockCode FROM PositionStockAnalysisSummary WHERE SerialNo = @serialNo )
 		END
 
-
 	SELECT * FROM V_PSADetail WHERE AnalysisDate = @AnalysisDate AND InvestorCode = @InvestorCode
-
- 
+	 
 END
 GO
 
