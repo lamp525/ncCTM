@@ -41,7 +41,7 @@ namespace CTM.Win.Util
         }
 
         /// <summary>
-        /// 取得交易类别名称
+        /// 取得报表类别名称
         /// </summary>
         /// <param name="tradeType"></param>
         /// <returns></returns>

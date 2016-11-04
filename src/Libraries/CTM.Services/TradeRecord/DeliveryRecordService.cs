@@ -722,6 +722,107 @@ namespace CTM.Services.TradeRecord
         {
             #region DataFormatCheck
 
+            var TemplateColumnNames = new List<string> { "成交日期", "业务名称", "证券代码", "证券名称", "成交价格", "成交数量", "剩余数量", "成交金额", "清算金额", "剩余金额", "净佣金", "规费", "印花税", "过户费", "结算费", "附加费", "成交编号", "股东代码" };
+
+            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+
+            #endregion DataFormatCheck
+
+            #region DataProcess
+
+            var tradeRecords = new List<DeliveryRecord>();
+
+            foreach (DataRow row in importDataTable.Rows)
+            {
+                //过滤交易记录
+                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
+
+                var tradeRecord = new DeliveryRecord();
+
+                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+                var stockName = row["证券名称"].ToString().Trim();
+
+                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+                if (stockInfo == null) continue;
+
+                tradeRecord.StockCode = stockInfo.FullCode;
+
+                tradeRecord.StockName = stockName;
+
+                tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
+
+                tradeRecord.TradeTime = string.Empty;
+
+                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
+
+                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
+
+                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
+
+                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
+                {
+                    //买入
+                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
+                        tradeRecord.DealFlag = true;
+                    //卖出
+                    else
+                        tradeRecord.DealFlag = false;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
+                {
+                    //买入
+                    tradeRecord.DealFlag = true;
+                }
+                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
+                {
+                    //卖出
+                    tradeRecord.DealFlag = false;
+                }
+
+                //买入
+                if (tradeRecord.DealFlag)
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
+                //卖出
+                else
+                {
+                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
+
+                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
+                }
+
+                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
+
+                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
+
+                tradeRecord.Commission = decimal.Parse(row["净佣金"].ToString().Trim());
+
+                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
+
+                tradeRecord.Incidentals = decimal.Parse(row["规费"].ToString().Trim()) + decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim()) + decimal.Parse(row["附加费"].ToString().Trim());
+
+                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
+
+                tradeRecords.Add(tradeRecord);
+            }
+
+            #endregion DataProcess
+
+            return tradeRecords;
+        }
+        #region deleted
+        /***
+        private IList<DeliveryRecord> DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            #region DataFormatCheck
+
             var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "市场名称", "股东帐户" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
@@ -816,7 +917,9 @@ namespace CTM.Services.TradeRecord
             #endregion DataProcess
 
             return tradeRecords;
-        }
+        } 
+        ***/
+        #endregion
 
         #endregion 交割单--国泰证券（普通）
 

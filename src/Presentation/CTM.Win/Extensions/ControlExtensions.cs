@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using CTM.Core;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
+using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
 
@@ -341,6 +343,22 @@ namespace CTM.Win.Extensions
         }
 
         #endregion GridControl/GridView
+
+        #region  Column
+
+        /// <summary>
+        /// Set GridColumn's display format to Boolean format
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="trueString"></param>
+        /// <param name="falseString"></param>
+        public static void SetDisplayFormatToBoolean(this GridColumn column, string trueString, string falseString)
+        {
+            column.ColumnEdit = column.View.GridControl.RepositoryItems.Add("TextEdit");
+            column.DisplayFormat.FormatType = FormatType.Custom;
+            column.DisplayFormat.Format = new BooleanFormatter(trueString,falseString );
+        }
+        #endregion
 
         #region LookUpEdit
 

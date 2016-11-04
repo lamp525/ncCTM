@@ -834,7 +834,7 @@
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmInvestmentDecisionManage";
             this.Text = "FrmInvestmentDecisionManage";
-            this.Load += new System.EventHandler(this.FrmInvestmentDecisionMange_Load);
+            this.Load += new System.EventHandler(this.FrmInvestmentDecisionManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).EndInit();

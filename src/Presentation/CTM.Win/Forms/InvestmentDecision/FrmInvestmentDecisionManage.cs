@@ -289,7 +289,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Events
 
-        private void FrmInvestmentDecisionMange_Load(object sender, EventArgs e)
+        private void FrmInvestmentDecisionManage_Load(object sender, EventArgs e)
         {
             try
             {

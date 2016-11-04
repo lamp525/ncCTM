@@ -38,7 +38,6 @@
             this.colAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealPrice = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -183,10 +182,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 212);
+            this.gridControl1.Location = new System.Drawing.Point(24, 216);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1537, 610);
+            this.gridControl1.Size = new System.Drawing.Size(1537, 606);
             this.gridControl1.TabIndex = 20;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -201,7 +200,6 @@
             this.colAccountId,
             this.colStockCode,
             this.colStockName,
-            this.colDealFlagName,
             this.colDealFlag,
             this.colDealNo,
             this.colDealPrice,
@@ -238,7 +236,6 @@
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
-            this.gridView1.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView1_CustomColumnDisplayText);
             // 
             // colRecordId
             // 
@@ -295,18 +292,16 @@
             this.colStockName.VisibleIndex = 5;
             this.colStockName.Width = 68;
             // 
-            // colDealFlagName
-            // 
-            this.colDealFlagName.Caption = "买卖标志";
-            this.colDealFlagName.Name = "colDealFlagName";
-            this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 7;
-            // 
             // colDealFlag
             // 
+            this.colDealFlag.AppearanceCell.Options.UseTextOptions = true;
+            this.colDealFlag.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colDealFlag.Caption = "买卖标志";
             this.colDealFlag.FieldName = "DealFlag";
             this.colDealFlag.Name = "colDealFlag";
+            this.colDealFlag.Visible = true;
+            this.colDealFlag.VisibleIndex = 6;
+            this.colDealFlag.Width = 64;
             // 
             // colDealNo
             // 
@@ -331,7 +326,7 @@
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 6;
+            this.colDealVolume.VisibleIndex = 7;
             // 
             // colDealAmount
             // 
@@ -464,7 +459,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(125, 186);
+            this.btnImport.Location = new System.Drawing.Point(125, 190);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(79, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -474,7 +469,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(36, 186);
+            this.btnDelete.Location = new System.Drawing.Point(36, 190);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
@@ -484,7 +479,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1492, 160);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1492, 164);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(69, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -495,7 +490,7 @@
             // labelControl1
             // 
             this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Horizontal;
-            this.labelControl1.Location = new System.Drawing.Point(364, 91);
+            this.labelControl1.Location = new System.Drawing.Point(364, 93);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(48, 14);
             this.labelControl1.StyleController = this.layoutControl1;
@@ -505,7 +500,7 @@
             // chkSell
             // 
             this.chkSell.AutoSizeInLayoutControl = true;
-            this.chkSell.Location = new System.Drawing.Point(484, 91);
+            this.chkSell.Location = new System.Drawing.Point(484, 93);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖  出";
             this.chkSell.Size = new System.Drawing.Size(54, 19);
@@ -516,7 +511,7 @@
             // chkBuy
             // 
             this.chkBuy.AutoSizeInLayoutControl = true;
-            this.chkBuy.Location = new System.Drawing.Point(426, 91);
+            this.chkBuy.Location = new System.Drawing.Point(426, 93);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买  入";
             this.chkBuy.Size = new System.Drawing.Size(54, 19);
@@ -526,7 +521,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(87, 67);
+            this.luStock.Location = new System.Drawing.Point(87, 69);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -539,7 +534,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(945, 91);
+            this.btnClear.Location = new System.Drawing.Point(945, 93);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 22);
             this.btnClear.StyleController = this.layoutControl1;
@@ -549,7 +544,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(856, 91);
+            this.btnSearch.Location = new System.Drawing.Point(856, 93);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -559,7 +554,7 @@
             // 
             // luAccount
             // 
-            this.luAccount.Location = new System.Drawing.Point(87, 43);
+            this.luAccount.Location = new System.Drawing.Point(87, 45);
             this.luAccount.Name = "luAccount";
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -575,7 +570,7 @@
             // deImportTo
             // 
             this.deImportTo.EditValue = null;
-            this.deImportTo.Location = new System.Drawing.Point(767, 67);
+            this.deImportTo.Location = new System.Drawing.Point(767, 69);
             this.deImportTo.Name = "deImportTo";
             this.deImportTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -587,7 +582,7 @@
             // 
             // luImport
             // 
-            this.luImport.Location = new System.Drawing.Point(87, 91);
+            this.luImport.Location = new System.Drawing.Point(87, 93);
             this.luImport.Name = "luImport";
             this.luImport.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -601,7 +596,7 @@
             // deImportFrom
             // 
             this.deImportFrom.EditValue = null;
-            this.deImportFrom.Location = new System.Drawing.Point(427, 67);
+            this.deImportFrom.Location = new System.Drawing.Point(427, 69);
             this.deImportFrom.Name = "deImportFrom";
             this.deImportFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -614,7 +609,7 @@
             // deTradeTo
             // 
             this.deTradeTo.EditValue = null;
-            this.deTradeTo.Location = new System.Drawing.Point(767, 43);
+            this.deTradeTo.Location = new System.Drawing.Point(767, 45);
             this.deTradeTo.Name = "deTradeTo";
             this.deTradeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -627,7 +622,7 @@
             // deTradeFrom
             // 
             this.deTradeFrom.EditValue = null;
-            this.deTradeFrom.Location = new System.Drawing.Point(427, 43);
+            this.deTradeFrom.Location = new System.Drawing.Point(427, 45);
             this.deTradeFrom.Name = "deTradeFrom";
             this.deTradeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -676,7 +671,7 @@
             this.emptySpaceItem13});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1565, 117);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1565, 119);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // layoutControlItem12
@@ -865,9 +860,9 @@
             this.lciImport,
             this.layoutControlItem23,
             this.emptySpaceItem1});
-            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 117);
+            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 119);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(1565, 709);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(1565, 707);
             this.layoutControlGroup5.Text = "交割单记录详情";
             // 
             // layoutControlItem22
@@ -884,7 +879,7 @@
             this.layoutControlItem7.Control = this.gridControl1;
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 52);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(1541, 614);
+            this.layoutControlItem7.Size = new System.Drawing.Size(1541, 610);
             this.layoutControlItem7.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
@@ -946,7 +941,7 @@
             this.ClientSize = new System.Drawing.Size(1585, 846);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmDeliveryManage";
-            this.Text = "FrmTradeDataManage";
+            this.Text = "FrmDeliveryManage";
             this.Load += new System.EventHandler(this.FrmTradeDataManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -1078,6 +1073,5 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraGrid.Columns.GridColumn colAccountCode;
-        private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
     }
 }
