@@ -269,7 +269,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
         }
 
-        private void chkBuy_CheckedChanged(object sender, EventArgs e)
+        private void chkBuy_CheckedChanged(object sender, EventArgs e) 
         {
             this.chkSell.Checked = !this.chkBuy.Checked;
         }
