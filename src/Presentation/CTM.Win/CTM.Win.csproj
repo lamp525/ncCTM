@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>47</ApplicationRevision>
+    <ApplicationRevision>48</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -154,6 +154,12 @@
   <ItemGroup>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\BaseData\FrmIDReason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\BaseData\FrmIDReason.Designer.cs">
+      <DependentUpon>FrmIDReason.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecast.cs">
       <SubType>Form</SubType>
@@ -552,6 +558,9 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Forms\Admin\BaseData\FrmIDReason.resx">
+      <DependentUpon>FrmIDReason.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmMarketTrendForecast.resx">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
     </EmbeddedResource>

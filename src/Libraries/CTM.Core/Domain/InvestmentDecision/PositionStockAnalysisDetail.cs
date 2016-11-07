@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTM.Core.Domain.InvestmentDecision
 {
-   public  class PositionStockAnalysisDetail:BaseEntity
+    public class PositionStockAnalysisDetail : BaseEntity
     {
         public string SerialNo { get; set; }
 
@@ -31,6 +27,5 @@ namespace CTM.Core.Domain.InvestmentDecision
         public DateTime CreateTime { get; set; }
 
         public string Remarks { get; set; }
-
     }
 }

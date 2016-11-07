@@ -178,11 +178,7 @@ namespace CTM.Services.TradeRecord
             {
                 securityAccount = EnumLibrary.SecurityAccount.HuaTai_C;
             }
-
-            if (securityCompanyName == "安信证券" && accountAttributeName == "普通")
-            {
-                // return true;
-            }
+       
             if (securityCompanyName == "海通证券" && accountAttributeName == "普通")
             {
                 // return true;

@@ -479,6 +479,11 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmIDStockPool>("决策股票池");
         }
 
+        private void barButtonItem24_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmIDReason>("决策理由");
+        }
+
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
@@ -666,5 +671,7 @@ namespace CTM.Win.Forms
         #endregion Application
 
         #endregion Events
+
+ 
     }
 }

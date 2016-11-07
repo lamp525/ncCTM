@@ -18,7 +18,7 @@ namespace CTM.Core.Domain.Account
 
         public int TargetAccountId { get; set; }
 
-        public string TargetAccountCode { get; set; } 
+        public string TargetAccountCode { get; set; }
 
         public DateTime OperateTime { get; set; }
 

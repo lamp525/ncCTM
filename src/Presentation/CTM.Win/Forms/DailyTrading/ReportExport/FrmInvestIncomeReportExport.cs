@@ -144,7 +144,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                     break;
             }
 
-            var fileName = $"证券投资部收益报表({typeName})" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var fileName = $"证券投资部收益报表({typeName})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
 
             return Path.Combine(directoryName, fileName);
         }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTM.Core.Domain.InvestmentDecision
 {
-   public  class PositionStockAnalysisSummary: BaseEntity
+    public class PositionStockAnalysisSummary : BaseEntity
     {
         public string SerialNo { get; set; }
 

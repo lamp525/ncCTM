@@ -123,6 +123,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.barButtonItem24 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -196,9 +197,10 @@
             this.barButtonItem7,
             this.barButtonItem8,
             this.barButtonItem9,
-            this.barButtonItem20});
+            this.barButtonItem20,
+            this.barButtonItem24});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 40;
+            this.ribbonControl1.MaxItemId = 41;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -921,6 +923,7 @@
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem22);
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem20);
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem9);
+            this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem24);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             this.ribbonPageGroup5.Text = "基础数据";
             // 
@@ -1004,6 +1007,16 @@
             this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseForeColor = true;
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
+            // 
+            // barButtonItem24
+            // 
+            this.barButtonItem24.Caption = "决策理由";
+            this.barButtonItem24.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.Glyph")));
+            this.barButtonItem24.Id = 40;
+            this.barButtonItem24.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.LargeGlyph")));
+            this.barButtonItem24.Name = "barButtonItem24";
+            this.barButtonItem24.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.barButtonItem24.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem24_ItemClick);
             // 
             // FrmMain
             // 
@@ -1123,6 +1136,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup15;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageLoan;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem24;
     }
 }
 
