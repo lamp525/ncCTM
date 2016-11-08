@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Win.Models;
@@ -11,6 +12,7 @@ using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Handler;
 
 namespace CTM.Win.Extensions
 {
@@ -528,6 +530,21 @@ namespace CTM.Win.Extensions
         {
             var node = treeList.FindNodeByKeyID(keyId);
             treeList.SetFocusedNode(node);
+        }
+
+        /// <summary>
+        /// Get TreeList DragInsertPosition
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <returns></returns>
+        public static DragInsertPosition GetDragInsertPosition(this TreeList tree)
+        {
+            PropertyInfo pi = typeof(TreeList).GetProperty("Handler", BindingFlags.Instance | BindingFlags.NonPublic);
+            TreeListHandler handler = (TreeListHandler)pi.GetValue(tree, null);
+            FieldInfo fi2 = typeof(TreeListHandler).GetField("fStateData", BindingFlags.Instance | BindingFlags.NonPublic);
+            StateData stateData = (StateData)fi2.GetValue(handler);
+            FieldInfo fi = typeof(DragScrollInfo).GetField("dragInsertPosition", BindingFlags.Instance | BindingFlags.NonPublic);
+            return (DragInsertPosition)fi.GetValue(stateData.DragInfo);
         }
 
         #endregion TreeList
