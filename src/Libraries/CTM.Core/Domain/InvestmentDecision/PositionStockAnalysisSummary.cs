@@ -18,6 +18,10 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string Decision { get; set; }
 
+        public decimal DealRange { get; set; }
+
+        public decimal DealAmount { get; set; }
+
         public string PriceRange { get; set; }
 
         public string Reason { get; set; }

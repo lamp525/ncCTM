@@ -42,12 +42,16 @@
             this.colDecision = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.riImageComboBoxDecision = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colPriceRange = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealRange = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colReason = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colAccuracy = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colAnalysisDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colCreateTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colCreateTime = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -56,6 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxDecision)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -65,7 +71,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1004, 592);
+            this.layoutControl1.Size = new System.Drawing.Size(1161, 592);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -76,8 +82,10 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riImageComboBoxTradeType,
-            this.riImageComboBoxDecision});
-            this.gridControl1.Size = new System.Drawing.Size(980, 568);
+            this.riImageComboBoxDecision,
+            this.repositoryItemTextEdit1,
+            this.repositoryItemTextEdit2});
+            this.gridControl1.Size = new System.Drawing.Size(1137, 568);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bandedGridView1});
@@ -96,6 +104,8 @@
             this.colTradeType,
             this.colTradeTypeName,
             this.colDecision,
+            this.colDealRange,
+            this.colDealAmount,
             this.colPriceRange,
             this.colReason,
             this.colAccuracy,
@@ -132,12 +142,14 @@
             this.gridBand1.Columns.Add(this.colTradeTypeName);
             this.gridBand1.Columns.Add(this.colDecision);
             this.gridBand1.Columns.Add(this.colPriceRange);
+            this.gridBand1.Columns.Add(this.colDealRange);
+            this.gridBand1.Columns.Add(this.colDealAmount);
             this.gridBand1.Columns.Add(this.colReason);
             this.gridBand1.Columns.Add(this.colAccuracy);
             this.gridBand1.Columns.Add(this.colAnalysisDate);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 900;
+            this.gridBand1.Width = 1071;
             // 
             // colId
             // 
@@ -213,6 +225,27 @@
             this.colPriceRange.Visible = true;
             this.colPriceRange.Width = 128;
             // 
+            // colDealRange
+            // 
+            this.colDealRange.Caption = "幅度（%）";
+            this.colDealRange.ColumnEdit = this.repositoryItemTextEdit1;
+            this.colDealRange.DisplayFormat.FormatString = "###################################0";
+            this.colDealRange.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealRange.FieldName = "DealRange";
+            this.colDealRange.Name = "colDealRange";
+            this.colDealRange.Visible = true;
+            // 
+            // colDealAmount
+            // 
+            this.colDealAmount.Caption = "金额（万元）";
+            this.colDealAmount.ColumnEdit = this.repositoryItemTextEdit2;
+            this.colDealAmount.DisplayFormat.FormatString = "###################################0";
+            this.colDealAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealAmount.FieldName = "DealAmount";
+            this.colDealAmount.Name = "colDealAmount";
+            this.colDealAmount.Visible = true;
+            this.colDealAmount.Width = 96;
+            // 
             // colReason
             // 
             this.colReason.Caption = "判断及理由";
@@ -235,6 +268,11 @@
             this.colAnalysisDate.Name = "colAnalysisDate";
             this.colAnalysisDate.Width = 84;
             // 
+            // colCreateTime
+            // 
+            this.colCreateTime.FieldName = "CreateTime";
+            this.colCreateTime.Name = "colCreateTime";
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -243,7 +281,7 @@
             this.layoutControlItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1004, 592);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1161, 592);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -251,21 +289,34 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(984, 572);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1141, 572);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // colCreateTime
+            // repositoryItemTextEdit1
             // 
-            this.colCreateTime.FieldName = "CreateTime";
-            this.colCreateTime.Name = "colCreateTime";
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit1.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // repositoryItemTextEdit2
+            // 
+            this.repositoryItemTextEdit2.AutoHeight = false;
+            this.repositoryItemTextEdit2.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit2.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit2.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
             // 
             // _dialogPSAEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1004, 592);
+            this.ClientSize = new System.Drawing.Size(1161, 592);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogPSAEdit";
             this.Text = "_dialogPSAEdit";
@@ -278,6 +329,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.riImageComboBoxDecision)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -301,8 +354,12 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccuracy;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnalysisDate;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox riImageComboBoxTradeType;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox riImageComboBoxDecision;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCreateTime;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealRange;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealAmount;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
     }
 }

@@ -58,6 +58,19 @@
             this.luInvestor = new DevExpress.XtraEditors.LookUpEdit();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colForecastDate2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colWeight = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAcquaintanceGraphDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTrend = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOpen = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colForenoon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAfternoon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colClose = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracy = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.deFrom = new DevExpress.XtraEditors.DateEdit();
@@ -74,19 +87,6 @@
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colWeight = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAcquaintanceGraphDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTrend = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOpen = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colForenoon = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAfternoon = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colClose = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccuracy = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colForecastDate2 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deTradeDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -441,6 +441,116 @@
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colForecastDate2, DevExpress.Data.ColumnSortOrder.Descending)});
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
             // 
+            // colForecastDate2
+            // 
+            this.colForecastDate2.Caption = "预测日期";
+            this.colForecastDate2.FieldName = "ForecastDate";
+            this.colForecastDate2.Name = "colForecastDate2";
+            this.colForecastDate2.Visible = true;
+            this.colForecastDate2.VisibleIndex = 0;
+            this.colForecastDate2.Width = 84;
+            // 
+            // colInvestorCode
+            // 
+            this.colInvestorCode.Caption = "编码";
+            this.colInvestorCode.FieldName = "InvestorCode";
+            this.colInvestorCode.Name = "colInvestorCode";
+            // 
+            // colInvestorName
+            // 
+            this.colInvestorName.Caption = "投资人员";
+            this.colInvestorName.FieldName = "InvestorName";
+            this.colInvestorName.Name = "colInvestorName";
+            this.colInvestorName.Visible = true;
+            this.colInvestorName.VisibleIndex = 0;
+            this.colInvestorName.Width = 90;
+            // 
+            // colWeight
+            // 
+            this.colWeight.FieldName = "Weight";
+            this.colWeight.Name = "colWeight";
+            // 
+            // colWeightPercentage
+            // 
+            this.colWeightPercentage.Caption = "权重";
+            this.colWeightPercentage.FieldName = "WeightPercentage";
+            this.colWeightPercentage.Name = "colWeightPercentage";
+            this.colWeightPercentage.Visible = true;
+            this.colWeightPercentage.VisibleIndex = 1;
+            this.colWeightPercentage.Width = 65;
+            // 
+            // colAcquaintanceGraphDate
+            // 
+            this.colAcquaintanceGraphDate.Caption = "相似图形日期";
+            this.colAcquaintanceGraphDate.FieldName = "AcquaintanceGraphDate";
+            this.colAcquaintanceGraphDate.Name = "colAcquaintanceGraphDate";
+            this.colAcquaintanceGraphDate.Visible = true;
+            this.colAcquaintanceGraphDate.VisibleIndex = 2;
+            this.colAcquaintanceGraphDate.Width = 100;
+            // 
+            // colTrend
+            // 
+            this.colTrend.Caption = "走势判断";
+            this.colTrend.FieldName = "Trend";
+            this.colTrend.Name = "colTrend";
+            this.colTrend.Visible = true;
+            this.colTrend.VisibleIndex = 3;
+            this.colTrend.Width = 180;
+            // 
+            // colOpen
+            // 
+            this.colOpen.Caption = "开盘";
+            this.colOpen.FieldName = "Open";
+            this.colOpen.Name = "colOpen";
+            this.colOpen.Visible = true;
+            this.colOpen.VisibleIndex = 4;
+            this.colOpen.Width = 110;
+            // 
+            // colForenoon
+            // 
+            this.colForenoon.Caption = "上午盘";
+            this.colForenoon.FieldName = "Forenoon";
+            this.colForenoon.Name = "colForenoon";
+            this.colForenoon.Visible = true;
+            this.colForenoon.VisibleIndex = 5;
+            this.colForenoon.Width = 110;
+            // 
+            // colAfternoon
+            // 
+            this.colAfternoon.Caption = "下午盘";
+            this.colAfternoon.FieldName = "Afternoon";
+            this.colAfternoon.Name = "colAfternoon";
+            this.colAfternoon.Visible = true;
+            this.colAfternoon.VisibleIndex = 6;
+            this.colAfternoon.Width = 110;
+            // 
+            // colClose
+            // 
+            this.colClose.Caption = "收盘";
+            this.colClose.FieldName = "Close";
+            this.colClose.Name = "colClose";
+            this.colClose.Visible = true;
+            this.colClose.VisibleIndex = 7;
+            this.colClose.Width = 110;
+            // 
+            // colReason
+            // 
+            this.colReason.Caption = "理由及判断";
+            this.colReason.FieldName = "Reason";
+            this.colReason.Name = "colReason";
+            this.colReason.Visible = true;
+            this.colReason.VisibleIndex = 8;
+            this.colReason.Width = 250;
+            // 
+            // colAccuracy
+            // 
+            this.colAccuracy.Caption = "正确性判断";
+            this.colAccuracy.FieldName = "Accuracy";
+            this.colAccuracy.Name = "colAccuracy";
+            this.colAccuracy.Visible = true;
+            this.colAccuracy.VisibleIndex = 9;
+            this.colAccuracy.Width = 120;
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(562, 12);
@@ -601,116 +711,6 @@
             this.emptySpaceItem9.Name = "emptySpaceItem9";
             this.emptySpaceItem9.Size = new System.Drawing.Size(1424, 26);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // colInvestorCode
-            // 
-            this.colInvestorCode.Caption = "编码";
-            this.colInvestorCode.FieldName = "InvestorCode";
-            this.colInvestorCode.Name = "colInvestorCode";
-            // 
-            // colInvestorName
-            // 
-            this.colInvestorName.Caption = "投资人员";
-            this.colInvestorName.FieldName = "InvestorName";
-            this.colInvestorName.Name = "colInvestorName";
-            this.colInvestorName.Visible = true;
-            this.colInvestorName.VisibleIndex = 0;
-            this.colInvestorName.Width = 90;
-            // 
-            // colWeight
-            // 
-            this.colWeight.FieldName = "Weight";
-            this.colWeight.Name = "colWeight";
-            // 
-            // colWeightPercentage
-            // 
-            this.colWeightPercentage.Caption = "权重";
-            this.colWeightPercentage.FieldName = "WeightPercentage";
-            this.colWeightPercentage.Name = "colWeightPercentage";
-            this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 1;
-            this.colWeightPercentage.Width = 65;
-            // 
-            // colAcquaintanceGraphDate
-            // 
-            this.colAcquaintanceGraphDate.Caption = "相似图形日期";
-            this.colAcquaintanceGraphDate.FieldName = "AcquaintanceGraphDate";
-            this.colAcquaintanceGraphDate.Name = "colAcquaintanceGraphDate";
-            this.colAcquaintanceGraphDate.Visible = true;
-            this.colAcquaintanceGraphDate.VisibleIndex = 2;
-            this.colAcquaintanceGraphDate.Width = 100;
-            // 
-            // colTrend
-            // 
-            this.colTrend.Caption = "走势判断";
-            this.colTrend.FieldName = "Trend";
-            this.colTrend.Name = "colTrend";
-            this.colTrend.Visible = true;
-            this.colTrend.VisibleIndex = 3;
-            this.colTrend.Width = 180;
-            // 
-            // colOpen
-            // 
-            this.colOpen.Caption = "开盘";
-            this.colOpen.FieldName = "Open";
-            this.colOpen.Name = "colOpen";
-            this.colOpen.Visible = true;
-            this.colOpen.VisibleIndex = 4;
-            this.colOpen.Width = 110;
-            // 
-            // colForenoon
-            // 
-            this.colForenoon.Caption = "上午盘";
-            this.colForenoon.FieldName = "Forenoon";
-            this.colForenoon.Name = "colForenoon";
-            this.colForenoon.Visible = true;
-            this.colForenoon.VisibleIndex = 5;
-            this.colForenoon.Width = 110;
-            // 
-            // colAfternoon
-            // 
-            this.colAfternoon.Caption = "下午盘";
-            this.colAfternoon.FieldName = "Afternoon";
-            this.colAfternoon.Name = "colAfternoon";
-            this.colAfternoon.Visible = true;
-            this.colAfternoon.VisibleIndex = 6;
-            this.colAfternoon.Width = 110;
-            // 
-            // colClose
-            // 
-            this.colClose.Caption = "收盘";
-            this.colClose.FieldName = "Close";
-            this.colClose.Name = "colClose";
-            this.colClose.Visible = true;
-            this.colClose.VisibleIndex = 7;
-            this.colClose.Width = 110;
-            // 
-            // colReason
-            // 
-            this.colReason.Caption = "理由及判断";
-            this.colReason.FieldName = "Reason";
-            this.colReason.Name = "colReason";
-            this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 8;
-            this.colReason.Width = 250;
-            // 
-            // colAccuracy
-            // 
-            this.colAccuracy.Caption = "正确性判断";
-            this.colAccuracy.FieldName = "Accuracy";
-            this.colAccuracy.Name = "colAccuracy";
-            this.colAccuracy.Visible = true;
-            this.colAccuracy.VisibleIndex = 9;
-            this.colAccuracy.Width = 120;
-            // 
-            // colForecastDate2
-            // 
-            this.colForecastDate2.Caption = "预测日期";
-            this.colForecastDate2.FieldName = "ForecastDate";
-            this.colForecastDate2.Name = "colForecastDate2";
-            this.colForecastDate2.Visible = true;
-            this.colForecastDate2.VisibleIndex = 0;
-            this.colForecastDate2.Width = 84;
             // 
             // FrmMarketTrendForecast
             // 

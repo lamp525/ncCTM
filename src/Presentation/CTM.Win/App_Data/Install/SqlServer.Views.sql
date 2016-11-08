@@ -48,15 +48,15 @@ AS
 		END TradeTypeName,
 		CASE D.Decision
 			WHEN '1' THEN '±£Áô'
-			WHEN '2' THEN 'Âò'
-			WHEN '3' THEN 'Âô'
+			WHEN '2' THEN '¼Ó²Ö'
+			WHEN '3' THEN '¼õ²Ö'
+			WHEN '4' THEN 'ÈÚÈ¯Âô³ö'
 			ELSE ''
 		END DecisionName
 	FROM PositionStockAnalysisDetail D
 	LEFT JOIN UserInfo U
 	ON D.InvestorCode = U.Code
 GO
-
 
 /******  [v_PSASummary] ******/
 DROP VIEW [dbo].[v_PSASummary]

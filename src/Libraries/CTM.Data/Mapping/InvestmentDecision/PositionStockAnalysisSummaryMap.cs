@@ -9,6 +9,9 @@ namespace CTM.Data.Mapping.InvestmentDecision
         {
             this.ToTable(nameof(PositionStockAnalysisSummary));
             this.HasKey(p => p.Id);
+
+            this.Property(p => p.DealAmount).HasPrecision(24, 4);
+            this.Property(p => p.DealRange).HasPrecision(18, 4);
         }
     }
 }

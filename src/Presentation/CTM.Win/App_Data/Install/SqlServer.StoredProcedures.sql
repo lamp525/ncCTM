@@ -320,7 +320,7 @@ BEGIN
 
 	IF(@detailCount = 0)
 		BEGIN 
-			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision, CreateTime)
+			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision,DealAmount,DealRange,CreateTime)
 			SELECT 
 				@serialNo,
 				@InvestorCode,
@@ -329,10 +329,12 @@ BEGIN
 				P.StockName,
 				0,
 				'0',
+				0,
+				0,
 				GETDATE()			 
 			FROM InvestmentDecisionStockPool P
 
-			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,DealAmount,DealRange,CreateTime)
 			SELECT 
 				@serialNo,
 				@AnalysisDate,
@@ -341,6 +343,8 @@ BEGIN
 				P.StockName,
 				0,
 				'0',
+				0,
+				0,
 				GETDATE()
 			FROM InvestmentDecisionStockPool P
 			WHERE P.StockCode NOT IN (SELECT StockCode FROM PositionStockAnalysisSummary WHERE SerialNo = @serialNo )
@@ -350,7 +354,6 @@ BEGIN
 	 
 END
 GO
-
 
 /****** [sp_GeneratePSAInfo] ******/
 DROP PROCEDURE [dbo].[sp_GeneratePSAInfo]
@@ -382,7 +385,7 @@ BEGIN
 			INSERT INTO PositionStockAnalysisInfo (SerialNo,AnalysisDate,CreateTime,Result)
 			VALUES(@serialNo,@AnalysisDate, GETDATE(),NULL)		
 			
-			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,CreateTime)
+			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,DealAmount ,DealRange,CreateTime)
 			SELECT 
 				@serialNo,
 				@AnalysisDate,
@@ -391,6 +394,8 @@ BEGIN
 				P.StockName,
 				0,
 				'0',
+				0,
+				0,
 				GETDATE()
 			FROM InvestmentDecisionStockPool P
 		END
@@ -652,7 +657,7 @@ BEGIN
 								 ,[TradeDate] 
 								 ,[Close]  
 								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [10.10.10.2\zb].[FinancialCenter].[dbo].[TKLine_Today] 
+					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
 					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
 					)  AS t
 			WHERE t.RowNumber =1					
@@ -673,7 +678,7 @@ BEGIN
 								 ,[TradeDate] 
 								 ,[Close]  
 								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [10.10.10.2\zb].[FinancialCenter].[dbo].[TKLine_Today] 
+					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
 					 WHERE [TradeDate] < DATEADD(DAY,1,@loopDate)
 					)  AS t
 			WHERE t.RowNumber =1

@@ -112,8 +112,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             buttonVI.RightButtons[0].Button.Enabled = true;
             buttonVI.RightButtons[0].State = ObjectState.Normal;
 
-            buttonVI.RightButtons[1].Button.Enabled = LoginInfo.CurrentUser.IsAdmin;
-            buttonVI.RightButtons[1].State = ObjectState.Normal;       
+            buttonVI.RightButtons[1].Button.Enabled = false;// LoginInfo.CurrentUser.IsAdmin;
+            buttonVI.RightButtons[1].State = ObjectState.Disabled;       
         }
 
         private void ExpandOrCollapse()

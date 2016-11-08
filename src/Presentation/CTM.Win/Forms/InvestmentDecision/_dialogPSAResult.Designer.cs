@@ -35,6 +35,8 @@
             this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDecisionName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceRange = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealRange = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccuracy = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -46,6 +48,8 @@
             this.colStockName_S = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeType_S = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riImageComboBoxTradeType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
+            this.colDealRange_S = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealAmount_S = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDecision_S = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riImageComboBoxDecision = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colPriceRange_S = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,6 +62,10 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiTitle = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTextEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSummary)).BeginInit();
@@ -70,6 +78,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiTitle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).BeginInit();
             this.SuspendLayout();
             // 
             // gridViewDetail
@@ -80,6 +92,8 @@
             this.colTradeTypeName,
             this.colDecisionName,
             this.colPriceRange,
+            this.colDealRange,
+            this.colDealAmount,
             this.colReason,
             this.colAccuracy});
             this.gridViewDetail.GridControl = this.gridControl1;
@@ -117,7 +131,7 @@
             this.colDecisionName.FieldName = "DecisionName";
             this.colDecisionName.Name = "colDecisionName";
             this.colDecisionName.Visible = true;
-            this.colDecisionName.VisibleIndex = 3;
+            this.colDecisionName.VisibleIndex = 5;
             // 
             // colPriceRange
             // 
@@ -125,8 +139,31 @@
             this.colPriceRange.FieldName = "PriceRange";
             this.colPriceRange.Name = "colPriceRange";
             this.colPriceRange.Visible = true;
-            this.colPriceRange.VisibleIndex = 4;
+            this.colPriceRange.VisibleIndex = 6;
             this.colPriceRange.Width = 120;
+            // 
+            // colDealRange
+            // 
+            this.colDealRange.Caption = "幅度（%）";
+            this.colDealRange.ColumnEdit = this.repositoryItemTextEdit4;
+            this.colDealRange.DisplayFormat.FormatString = "###################################0";
+            this.colDealRange.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealRange.FieldName = "DealRange";
+            this.colDealRange.Name = "colDealRange";
+            this.colDealRange.Visible = true;
+            this.colDealRange.VisibleIndex = 3;
+            // 
+            // colDealAmount
+            // 
+            this.colDealAmount.Caption = "金额（万元）";
+            this.colDealAmount.ColumnEdit = this.repositoryItemTextEdit3;
+            this.colDealAmount.DisplayFormat.FormatString = "###################################0";
+            this.colDealAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealAmount.FieldName = "DealAmount";
+            this.colDealAmount.Name = "colDealAmount";
+            this.colDealAmount.Visible = true;
+            this.colDealAmount.VisibleIndex = 4;
+            this.colDealAmount.Width = 95;
             // 
             // colReason
             // 
@@ -134,7 +171,7 @@
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 5;
+            this.colReason.VisibleIndex = 7;
             this.colReason.Width = 450;
             // 
             // colAccuracy
@@ -143,7 +180,7 @@
             this.colAccuracy.FieldName = "Accuracy";
             this.colAccuracy.Name = "colAccuracy";
             this.colAccuracy.Visible = true;
-            this.colAccuracy.VisibleIndex = 6;
+            this.colAccuracy.VisibleIndex = 8;
             this.colAccuracy.Width = 130;
             // 
             // gridControl1
@@ -157,8 +194,12 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riImageComboBoxTradeType,
-            this.riImageComboBoxDecision});
-            this.gridControl1.Size = new System.Drawing.Size(1266, 631);
+            this.riImageComboBoxDecision,
+            this.repositoryItemTextEdit1,
+            this.repositoryItemTextEdit2,
+            this.repositoryItemTextEdit3,
+            this.repositoryItemTextEdit4});
+            this.gridControl1.Size = new System.Drawing.Size(1413, 631);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSummary,
@@ -173,6 +214,8 @@
             this.colStockCode_S,
             this.colStockName_S,
             this.colTradeType_S,
+            this.colDealRange_S,
+            this.colDealAmount_S,
             this.colDecision_S,
             this.colPriceRange_S,
             this.colReason_S,
@@ -237,6 +280,29 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.riImageComboBoxTradeType.Name = "riImageComboBoxTradeType";
             // 
+            // colDealRange_S
+            // 
+            this.colDealRange_S.Caption = "幅度（%）";
+            this.colDealRange_S.ColumnEdit = this.repositoryItemTextEdit1;
+            this.colDealRange_S.DisplayFormat.FormatString = "###################################0";
+            this.colDealRange_S.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealRange_S.FieldName = "DealRange";
+            this.colDealRange_S.Name = "colDealRange_S";
+            this.colDealRange_S.Visible = true;
+            this.colDealRange_S.VisibleIndex = 6;
+            // 
+            // colDealAmount_S
+            // 
+            this.colDealAmount_S.Caption = "金额（万元）";
+            this.colDealAmount_S.ColumnEdit = this.repositoryItemTextEdit2;
+            this.colDealAmount_S.DisplayFormat.FormatString = "###################################0";
+            this.colDealAmount_S.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealAmount_S.FieldName = "DealAmount";
+            this.colDealAmount_S.Name = "colDealAmount_S";
+            this.colDealAmount_S.Visible = true;
+            this.colDealAmount_S.VisibleIndex = 7;
+            this.colDealAmount_S.Width = 101;
+            // 
             // colDecision_S
             // 
             this.colDecision_S.Caption = "决策建议";
@@ -269,7 +335,7 @@
             this.colReason_S.FieldName = "Reason";
             this.colReason_S.Name = "colReason_S";
             this.colReason_S.Visible = true;
-            this.colReason_S.VisibleIndex = 6;
+            this.colReason_S.VisibleIndex = 8;
             this.colReason_S.Width = 450;
             // 
             // colAccuracy_S
@@ -278,7 +344,7 @@
             this.colAccuracy_S.FieldName = "Accuracy";
             this.colAccuracy_S.Name = "colAccuracy_S";
             this.colAccuracy_S.Visible = true;
-            this.colAccuracy_S.VisibleIndex = 7;
+            this.colAccuracy_S.VisibleIndex = 9;
             this.colAccuracy_S.Width = 130;
             // 
             // layoutControl1
@@ -289,7 +355,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1290, 708);
+            this.layoutControl1.Size = new System.Drawing.Size(1437, 708);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -297,7 +363,7 @@
             // 
             this.btnExpandOrCollapse.Location = new System.Drawing.Point(12, 39);
             this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
-            this.btnExpandOrCollapse.Size = new System.Drawing.Size(86, 22);
+            this.btnExpandOrCollapse.Size = new System.Drawing.Size(99, 22);
             this.btnExpandOrCollapse.StyleController = this.layoutControl1;
             this.btnExpandOrCollapse.TabIndex = 5;
             this.btnExpandOrCollapse.Text = "全部展开/收起";
@@ -314,7 +380,7 @@
             this.esiTitle});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1290, 708);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1437, 708);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lciResult
@@ -326,7 +392,7 @@
             this.lciResult.Control = this.gridControl1;
             this.lciResult.Location = new System.Drawing.Point(0, 53);
             this.lciResult.Name = "lciResult";
-            this.lciResult.Size = new System.Drawing.Size(1270, 635);
+            this.lciResult.Size = new System.Drawing.Size(1417, 635);
             this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciResult.TextSize = new System.Drawing.Size(0, 0);
             this.lciResult.TextVisible = false;
@@ -334,9 +400,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(90, 27);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(103, 27);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1180, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1314, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem1
@@ -344,7 +410,7 @@
             this.layoutControlItem1.Control = this.btnExpandOrCollapse;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 27);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(90, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(103, 26);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -357,15 +423,51 @@
             this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
-            this.esiTitle.Size = new System.Drawing.Size(1270, 27);
+            this.esiTitle.Size = new System.Drawing.Size(1417, 27);
             this.esiTitle.TextSize = new System.Drawing.Size(0, 0);
             this.esiTitle.TextVisible = true;
+            // 
+            // repositoryItemTextEdit1
+            // 
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit1.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit1.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // repositoryItemTextEdit2
+            // 
+            this.repositoryItemTextEdit2.AutoHeight = false;
+            this.repositoryItemTextEdit2.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit2.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit2.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
+            // 
+            // repositoryItemTextEdit3
+            // 
+            this.repositoryItemTextEdit3.AutoHeight = false;
+            this.repositoryItemTextEdit3.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit3.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit3.Name = "repositoryItemTextEdit3";
+            // 
+            // repositoryItemTextEdit4
+            // 
+            this.repositoryItemTextEdit4.AutoHeight = false;
+            this.repositoryItemTextEdit4.DisplayFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit4.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit4.EditFormat.FormatString = "###################################0";
+            this.repositoryItemTextEdit4.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEdit4.Name = "repositoryItemTextEdit4";
             // 
             // _dialogPSAResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1290, 708);
+            this.ClientSize = new System.Drawing.Size(1437, 708);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogPSAResult";
             this.Text = "_dialogPSAResult";
@@ -382,6 +484,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiTitle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -417,5 +523,13 @@
         private DevExpress.XtraEditors.SimpleButton btnExpandOrCollapse;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.EmptySpaceItem esiTitle;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealRange_S;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealAmount_S;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealRange;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealAmount;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit4;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit3;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
     }
 }

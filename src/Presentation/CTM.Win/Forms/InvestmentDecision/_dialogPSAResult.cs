@@ -131,17 +131,24 @@ namespace CTM.Win.Forms.InvestmentDecision
             suggestion.Add(reserve);
             var buy = new ImageComboBoxItem
             {
-                Description = "买",
+                Description = "加仓",
                 Value = 2,
             };
             suggestion.Add(buy);
 
             var sell = new ImageComboBoxItem
             {
-                Description = "卖",
+                Description = "减仓",
                 Value = 3,
             };
             suggestion.Add(sell);
+
+            var marginSell = new ImageComboBoxItem
+            {
+                Description = "融券卖出",
+                Value = 4,
+            };
+            suggestion.Add(marginSell);
 
             var imageComboBoxSuggestion = new ImageComboBoxEdit();
             imageComboBoxSuggestion.Initialize(suggestion, displayAdditionalItem: false);
@@ -249,6 +256,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 var summary = _IDService.GetPSASummaryById(id);
 
                 summary.Accuracy = row[colAccuracy_S.FieldName].ToString();
+                summary.DealAmount = Convert.ToDecimal(row[colDealAmount_S.FieldName]);
+                summary.DealRange = Convert.ToDecimal(row[colDealRange_S.FieldName]);
                 summary.Decision = row[colDecision_S.FieldName].ToString();
                 summary.PriceRange = row[colPriceRange_S.FieldName].ToString();
                 summary.Reason = row[colReason_S.FieldName].ToString();
