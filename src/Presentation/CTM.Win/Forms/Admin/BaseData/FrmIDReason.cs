@@ -65,6 +65,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             }
         }
 
+        #region Category
         private void tlCategory_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
             e.Node.ExpandAll();
@@ -121,8 +122,18 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.tlCategory.ExpandAll();
 
             //BindCategory();
-        }
+        } 
+        #endregion
 
+
+        #region Content
+        private void gvContent_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+
+        } 
+        #endregion
         #endregion Events
+
+
     }
 }

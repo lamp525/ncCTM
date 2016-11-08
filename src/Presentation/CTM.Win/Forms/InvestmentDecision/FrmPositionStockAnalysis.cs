@@ -86,7 +86,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"SELECT TOP 25 * FROM [dbo].[PositionStockAnalysisInfo] ORDER BY SerialNo DESC";
+            var commandText = $@"SELECT TOP 25 * FROM [dbo].[PositionStockAnalysisInfo] ORDER BY AnalysisDate DESC";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -100,7 +100,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var dialog = EngineContext.Current.Resolve<_dialogPSAEdit>();
             dialog.Owner = this.ParentForm;
-            dialog.Text = "股票池操作建议";
+            dialog.Text = "股票池股票操作建议单";
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.SerialNo = dr[colSerialNo.FieldName].ToString();
             dialog.AnalysisDate = CommonHelper.StringToDateTime(dr[colAnalysisDate.FieldName].ToString());

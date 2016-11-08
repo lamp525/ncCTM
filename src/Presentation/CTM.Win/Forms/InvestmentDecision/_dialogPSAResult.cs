@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
@@ -76,12 +77,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.gridControl1.DataSource = source.Tables["Summary"];
 
             this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
-            this.gridViewSummary.SetAllRowsExpanded(true);
+            this.gridViewSummary.SetAllRowsExpanded(_isExpanded);
         }
 
         private void FormInit()
         {
-            this.esiTitle.Text = $@"股票池操作建议（{SerialNo}） - {AnalysisDate.ToShortDateString()}";
+            this.esiTitle.Text = $@"{this.Text.Trim()}（{SerialNo}） - {AnalysisDate.ToShortDateString()}";
 
             this.gridViewSummary.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
@@ -156,7 +157,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.riImageComboBoxDecision = imageComboBoxSuggestion.Properties;
 
             this.gridViewDetail.SetLayout(showCheckBoxRowSelect: false, editable: false, readOnly: true, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
-            this.gridViewDetail.ViewCaption = "分析详情一览";
+            this.gridViewDetail.ViewCaption = "各人员建议详情";
         }
 
         #endregion Utilities
@@ -191,6 +192,23 @@ namespace CTM.Win.Forms.InvestmentDecision
             finally
             {
                 this.btnExpandOrCollapse.Enabled = true;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnRefresh.Enabled = false;
+                BindPSASummaryAndDetail();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnRefresh.Enabled = true;
             }
         }
 
@@ -243,6 +261,19 @@ namespace CTM.Win.Forms.InvestmentDecision
                     }
                 }
             }
+        }
+
+        private void gridViewSummary_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var summaryView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            DataRow row = summaryView.GetFocusedDataRow();
+            if (row == null) return;
+
+            var principalCode = row[colPrincipal_S.FieldName].ToString();
+
+            if (principalCode != LoginInfo.CurrentUser.UserCode)
+                e.Cancel = true;
         }
 
         private void gridViewSummary_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)

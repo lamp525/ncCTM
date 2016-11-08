@@ -66,10 +66,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(536, 29);
+            this.gridControl1.Location = new System.Drawing.Point(501, 29);
             this.gridControl1.MainView = this.gvContent;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(908, 634);
+            this.gridControl1.Size = new System.Drawing.Size(943, 656);
             this.gridControl1.TabIndex = 5;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvContent});
@@ -78,6 +78,7 @@
             // 
             this.gvContent.GridControl = this.gridControl1;
             this.gvContent.Name = "gvContent";
+            this.gvContent.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvContent_CustomDrawRowIndicator);
             // 
             // tlCategory
             // 
@@ -93,7 +94,7 @@
             this.tlCategory.OptionsClipboard.AllowCopy = DevExpress.Utils.DefaultBoolean.True;
             this.tlCategory.OptionsClipboard.CopyNodeHierarchy = DevExpress.Utils.DefaultBoolean.True;
             this.tlCategory.OptionsView.AutoWidth = false;
-            this.tlCategory.Size = new System.Drawing.Size(520, 634);
+            this.tlCategory.Size = new System.Drawing.Size(475, 656);
             this.tlCategory.TabIndex = 4;
             this.tlCategory.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tlCategory_FocusedNodeChanged);
             this.tlCategory.DragDrop += new System.Windows.Forms.DragEventHandler(this.tlCategory_DragDrop);
@@ -141,8 +142,8 @@
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
-            this.emptySpaceItem1,
-            this.layoutControlItem2});
+            this.layoutControlItem2,
+            this.emptySpaceItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1456, 697);
@@ -153,24 +154,24 @@
             this.layoutControlItem1.Control = this.tlCategory;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(524, 655);
+            this.layoutControlItem1.Size = new System.Drawing.Size(479, 677);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(105, 14);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 655);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(479, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1436, 22);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 677);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.gridControl1;
-            this.layoutControlItem2.Location = new System.Drawing.Point(524, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(489, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(912, 655);
+            this.layoutControlItem2.Size = new System.Drawing.Size(947, 677);
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(105, 14);
             // 

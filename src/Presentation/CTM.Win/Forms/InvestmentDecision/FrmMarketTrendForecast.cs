@@ -86,7 +86,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"SELECT TOP 25 * FROM [dbo].[MarketTrendForecastInfo] ORDER BY SerialNo DESC";
+            var commandText = $@"SELECT TOP 25 * FROM [dbo].[MarketTrendForecastInfo] ORDER BY ForecastDate DESC";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 

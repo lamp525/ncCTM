@@ -46,10 +46,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            this.esiTitle.Text = $@"{this.Text.Trim()} - {SerialNo}";
             this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, editable: true, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 40);
-
-            this.bandedGridView1.OptionsView.ShowViewCaption = true;
-            this.bandedGridView1.ViewCaption = $@"股票池操作建议 - {SerialNo}";
 
             this.gridBand1.Caption = $@"评判日期： {AnalysisDate.ToShortDateString()}   分析人员： {LoginInfo.CurrentUser.UserName }";
 
@@ -153,6 +151,24 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnRefresh.Enabled = false;
+
+                BindPSADetail();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnRefresh.Enabled = true;
+            }
+        }
+
         private void bandedGridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
@@ -215,7 +231,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 var detail = _IDService.GetPSADetailById(id);
 
                 detail.Accuracy = row[colAccuracy.FieldName].ToString();
-                detail.DealAmount =Convert .ToDecimal ( row[colDealAmount.FieldName]);
+                detail.DealAmount = Convert.ToDecimal(row[colDealAmount.FieldName]);
                 detail.DealRange = Convert.ToDecimal(row[colDealRange.FieldName]);
                 detail.Decision = row[colDecision.FieldName].ToString();
                 detail.PriceRange = row[colPriceRange.FieldName].ToString();
@@ -227,5 +243,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
+
+    
     }
 }

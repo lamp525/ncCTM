@@ -87,7 +87,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
             this.luAccount.Initialize(_accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
 
-            var date = DateTime.Now.Date.AddMonths (-1);
+            var date = DateTime.Now.Date.AddMonths(-1);
 
             //开始时间
             this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -114,6 +114,18 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.luAccount.Properties.DataSource = source;
                 this.luAccount.Properties.DropDownRows = source.Count;
             }
+        }
+
+        private void BindDiffInfo()
+        {
+            var displayType = this.rgDisplayType.SelectedIndex;
+            var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
+            var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
+            var accountId = int.Parse(this.luAccount.SelectedValue());
+
+            var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(displayType, accountId, dateFrom, dateTo);
+
+            this.gridControl1.DataSource = diffInfos;
         }
 
         #endregion Utilities
@@ -171,18 +183,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 this.btnSearch.Enabled = true;
             }
-        }
-
-        private void BindDiffInfo()
-        {
-            var displayType = this.rgDisplayType.SelectedIndex;
-            var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
-            var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-            var accountId = int.Parse(this.luAccount.SelectedValue());
-
-            var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(displayType, accountId, dateFrom, dateTo);
-
-            this.gridControl1.DataSource = diffInfos;
         }
 
         private void btnSaveLayout_Click(object sender, EventArgs e)

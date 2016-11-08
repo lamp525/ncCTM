@@ -315,10 +315,8 @@ BEGIN
 	DECLARE @serialNo varchar(50) = (SELECT SerialNo FROM PositionStockAnalysisInfo WHERE AnalysisDate = @AnalysisDate)
 
 	IF(ISNULL(@serialNo,'') = '') RETURN
-	
-	DECLARE @detailCount int  = (SELECT COUNT(*) FROM PositionStockAnalysisDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
 
-	IF(@detailCount = 0)
+	IF(@AnalysisDate > DATEADD(D,-1, GETDATE()))
 		BEGIN 
 			INSERT INTO PositionStockAnalysisDetail(SerialNo, InvestorCode,AnalysisDate, StockCode,StockName,TradeType,Decision,DealAmount,DealRange,CreateTime)
 			SELECT 
@@ -333,6 +331,7 @@ BEGIN
 				0,
 				GETDATE()			 
 			FROM InvestmentDecisionStockPool P
+			WHERE P.StockCode NOT IN (SELECT StockCode FROM PositionStockAnalysisDetail WHERE SerialNo = @serialNo AND InvestorCode = @InvestorCode )
 
 			INSERT INTO PositionStockAnalysisSummary(SerialNo,AnalysisDate,Principal,StockCode,StockName,TradeType,Decision,DealAmount,DealRange,CreateTime)
 			SELECT 
@@ -668,7 +667,7 @@ BEGIN
 	ON IDF.ApplyUser = U.Code
 	LEFT JOIN DepartmentInfo D
 	ON IDF.DepartmentId = D.Id 	
-	ORDER BY IDF.SerialNo DESC
+	ORDER BY IDF.ApplyDate DESC,IDF.SerialNo DESC
 END
 GO
 
