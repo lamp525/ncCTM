@@ -474,6 +474,7 @@ DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
 CREATE PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 (
+@DisplayType int, -- 0:Detail 1:Summary --
 @AccountId int,
 @DateFrom datetime,
 @DateTo datetime
@@ -483,50 +484,94 @@ BEGIN
 
 	SET NOCOUNT ON
 
-	SELECT	
+	IF(@DisplayType = 0)
+		SELECT	
 			Delivery.* 
 			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
 			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
 			,Daily.*
-	FROM
-	(
-		SELECT 
-			TradeDate DE_TradeDate,
-			StockCode DE_StockCode,
-			MAX(StockName) DE_StockName, 
-			DealFlag DE_DealFlag,
-			CASE DealFlag 
-				WHEN 1 THEN '买入'
-				WHEN 0 THEN '卖出'
-			END DE_DealName,
-			SUM(ActualAmount) DE_TotalActualAmount,
-			SUM(DealVolume) DE_TotalDealVolume
-		FROM DeliveryRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
-		GROUP BY TradeDate,StockCode,DealFlag 
-	) Delivery
-	FULL JOIN 
-	(
-		SELECT 
-			TradeDate DA_TradeDate,
-			StockCode DA_StockCode,
-			MAX(StockName) DA_StockName, 
-			DealFlag DA_DealFlag,
-			CASE DealFlag 
-				WHEN 1 THEN '买入'
-				WHEN 0 THEN '卖出'
-			END DA_DealName,
-			SUM(ActualAmount) DA_TotalActualAmount,
-			SUM(DealVolume) DA_TotalDealVolume
-		FROM DailyRecord 
-		WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
-		GROUP BY TradeDate,StockCode,DealFlag 
-	) Daily 
-	ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+		FROM
+		(
+			SELECT 
+				TradeDate DE_TradeDate,
+				StockCode DE_StockCode,
+				MAX(StockName) DE_StockName, 
+				DealFlag DE_DealFlag,
+				CASE DealFlag 
+					WHEN 1 THEN '买入'
+					WHEN 0 THEN '卖出'
+				END DE_DealName,
+				SUM(ActualAmount) DE_TotalActualAmount,
+				SUM(DealVolume) DE_TotalDealVolume
+			FROM DeliveryRecord 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+			GROUP BY TradeDate,StockCode,DealFlag 
+		) Delivery
+		FULL JOIN 
+		(
+			SELECT 
+				TradeDate DA_TradeDate,
+				StockCode DA_StockCode,
+				MAX(StockName) DA_StockName, 
+				DealFlag DA_DealFlag,
+				CASE DealFlag 
+					WHEN 1 THEN '买入'
+					WHEN 0 THEN '卖出'
+				END DA_DealName,
+				SUM(ActualAmount) DA_TotalActualAmount,
+				SUM(DealVolume) DA_TotalDealVolume
+			FROM DailyRecord 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+			GROUP BY TradeDate,StockCode,DealFlag 
+		) Daily 
+		ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+		ORDER BY Delivery.DE_StockCode, Delivery.DE_TradeDate
 
+	ELSE
+
+		SELECT	
+			Delivery.* 
+			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
+			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
+			,Daily.*
+		FROM
+		(
+			SELECT 
+				NULL DE_TradeDate,
+				StockCode DE_StockCode,
+				MAX(StockName) DE_StockName, 
+				DealFlag DE_DealFlag,
+				CASE DealFlag 
+					WHEN 1 THEN '买入'
+					WHEN 0 THEN '卖出'
+				END DE_DealName,
+				SUM(ActualAmount) DE_TotalActualAmount,
+				SUM(DealVolume) DE_TotalDealVolume
+			FROM DeliveryRecord 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+			GROUP BY StockCode,DealFlag 
+		) Delivery
+		FULL JOIN 
+		(
+			SELECT 
+				NULL DA_TradeDate,
+				StockCode DA_StockCode,
+				MAX(StockName) DA_StockName, 
+				DealFlag DA_DealFlag,
+				CASE DealFlag 
+					WHEN 1 THEN '买入'
+					WHEN 0 THEN '卖出'
+				END DA_DealName,
+				SUM(ActualAmount) DA_TotalActualAmount,
+				SUM(DealVolume) DA_TotalDealVolume
+			FROM DailyRecord 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+			GROUP BY StockCode,DealFlag 
+		) Daily 
+		ON Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+		ORDER BY Delivery.DE_StockCode
 END
 GO
-
 
 /****** [sp_GetIDVoteResult] ******/
 DROP PROCEDURE [dbo].[sp_GetIDVoteResult]

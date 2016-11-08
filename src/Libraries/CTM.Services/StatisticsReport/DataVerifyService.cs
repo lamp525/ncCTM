@@ -24,13 +24,9 @@ namespace CTM.Services.StatisticsReport
 
         #region Methods
 
-        public virtual IList<DataVerifyEntity> GetDiffBetweenDeliveryAndDailyData(int accountId, DateTime dateFrom, DateTime dateTo)
+        public virtual IList<DataVerifyEntity> GetDiffBetweenDeliveryAndDailyData(int displayType, int accountId, DateTime dateFrom, DateTime dateTo)
         {
-            var commanText = $@"EXEC [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
-                                                @AccountId = {accountId},
-                                                @DateFrom = '{dateFrom}',
-                                                @DateTo = '{dateTo}'";
-
+            var commanText = $@"EXEC [dbo].[sp_GetDiffBetweenDeliveryAndDailyData] @DisplayType= {displayType}, @AccountId = {accountId}, @DateFrom = '{dateFrom}', @DateTo = '{dateTo}'";
             var result = _dbContext.SqlQuery<DataVerifyEntity>(commanText).ToList();
 
             return result;

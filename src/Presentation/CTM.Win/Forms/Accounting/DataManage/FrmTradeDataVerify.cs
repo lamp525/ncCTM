@@ -26,7 +26,19 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private const string _layoutXmlName = "FrmTradeDataVerify";
 
+        private bool _isSearched = false;
+
         #endregion Fields
+
+        #region Enums
+
+        private enum ResultDisplayType
+        {
+            Detail = 0,
+            Summary = 1
+        }
+
+        #endregion Enums
 
         #region Constructors
 
@@ -75,15 +87,15 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
             this.luAccount.Initialize(_accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
 
-            var now = DateTime.Now.Date;
+            var date = DateTime.Now.Date.AddMonths (-1);
 
             //开始时间
             this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deFrom.EditValue = CommonHelper.GetFirstDayOfMonth(now);
+            this.deFrom.EditValue = CommonHelper.GetFirstDayOfMonth(date);
 
             //结束时间
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deTo.EditValue = CommonHelper.GetLastDayOfMonth(now);
+            this.deTo.EditValue = CommonHelper.GetLastDayOfMonth(date);
         }
 
         private void AccountFilter()
@@ -113,9 +125,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
             try
             {
                 this.bandedGridView1.LoadLayout(_layoutXmlName);
-                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showGroupPanel: true,showAutoFilterRow: true, rowIndicatorWidth: 50);
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showGroupPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
 
                 BindSearchInfo();
+
+                this.rgDisplayType.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -137,6 +151,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             try
             {
+                this._isSearched = true;
                 this.btnSearch.Enabled = false;
 
                 if (string.IsNullOrEmpty(this.luAccount.SelectedValue()))
@@ -145,22 +160,29 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     return;
                 }
 
-                var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
-                var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-                var accountId = int.Parse(this.luAccount.SelectedValue());
-
-                var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(accountId, dateFrom, dateTo);
-
-                this.gridControl1.DataSource = diffInfos;
+                BindDiffInfo();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+                this.gridControl1.DataSource = null;
             }
             finally
             {
                 this.btnSearch.Enabled = true;
             }
+        }
+
+        private void BindDiffInfo()
+        {
+            var displayType = this.rgDisplayType.SelectedIndex;
+            var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
+            var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
+            var accountId = int.Parse(this.luAccount.SelectedValue());
+
+            var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(displayType, accountId, dateFrom, dateTo);
+
+            this.gridControl1.DataSource = diffInfos;
         }
 
         private void btnSaveLayout_Click(object sender, EventArgs e)
@@ -204,6 +226,26 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void rgDisplayType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_isSearched) return;
+
+            try
+            {
+                this.rgDisplayType.Enabled = false;
+
+                BindDiffInfo();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.rgDisplayType.Enabled = true;
             }
         }
 
