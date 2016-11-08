@@ -113,7 +113,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             try
             {
                 this.bandedGridView1.LoadLayout(_layoutXmlName);
-                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
+                this.bandedGridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showGroupPanel: true,showAutoFilterRow: true, rowIndicatorWidth: 50);
 
                 BindSearchInfo();
             }

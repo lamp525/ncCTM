@@ -78,15 +78,15 @@ namespace CTM.Services.TradeRecord
         /// <param name="importOperation"></param>
         private void ImportRecordsCheck(DataTable importDataTable, RecordImportOperationEntity importOperation)
         {
-            //判断短差部的日内交易股票是否设置了融券信息
-            //var operatorInfo = this.luOperator.GetSelectedDataRow() as UserInfo;
-            //if (operatorInfo.DepartmentId == 2)
-            //{
-            //    var today = _commonService.GetCurrentServerTime().Date;
-            //    var loanInfos = _securitiesLoanService.GetSecuritiesLoanInfos(loanDate: today, operatorCode: operatorInfo.Code);
-
-            //    var dayRecords = _importDataTable.AsEnumerable().Where(x => x.Field<string>("交易类别").Trim() == "日内");
-            //}
+            //验证交易类别列的值
+            string[] tradeTypeNames = new string[] { "短差", "日内", "波段", "目标" };
+            foreach (DataRow row in importDataTable.Rows)
+            {
+                if (!tradeTypeNames.Contains(row["交易类别"].ToString().Trim()))
+                {
+                    throw new Exception(@"交易类别列中的值设置有误！只能为【日内/波段/目标】之一。");
+                }
+            }
 
             //判断是否需要设置波段收益人
             var bandRecordCount = importDataTable.AsEnumerable().Count(x => x.Field<string>("交易类别").Trim() == "波段");
@@ -4517,7 +4517,7 @@ namespace CTM.Services.TradeRecord
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "委托日期", "股东帐户", "证券代码", "证券名称", "合同编号", "操作", "成交数量", "可用余额", "成交均价", "成交金额", "印花税", "过户费", "其他杂费", "佣金", "发生金额", "可用金额",  "交易类别" };
+            var TemplateColumnNames = new List<string> { "委托日期", "股东帐户", "证券代码", "证券名称", "合同编号", "操作", "成交数量", "可用余额", "成交均价", "成交金额", "印花税", "过户费", "其他杂费", "佣金", "发生金额", "可用金额", "交易类别" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -4597,7 +4597,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
 
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim()); 
+                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim());
 
                 tradeRecord.Remarks = row["操作"].ToString().Trim();
 

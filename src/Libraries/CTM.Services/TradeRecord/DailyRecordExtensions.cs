@@ -204,6 +204,7 @@ namespace CTM.Services.TradeRecord
 
             switch (tradeType)
             {
+                case "短差":
                 case "日内":
                     dailyRecord.TradeType = (int)EnumLibrary.TradeType.Day;
                     break;
