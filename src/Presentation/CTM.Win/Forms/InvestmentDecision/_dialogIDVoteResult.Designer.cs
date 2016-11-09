@@ -58,7 +58,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1321, 622);
+            this.layoutControl1.Size = new System.Drawing.Size(1331, 631);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -67,7 +67,7 @@
             this.gridControl1.Location = new System.Drawing.Point(12, 32);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1287, 578);
+            this.gridControl1.Size = new System.Drawing.Size(1297, 587);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -173,7 +173,7 @@
             this.emptySpaceItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1321, 622);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1331, 631);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lciResult
@@ -185,7 +185,7 @@
             this.lciResult.Control = this.gridControl1;
             this.lciResult.Location = new System.Drawing.Point(0, 0);
             this.lciResult.Name = "lciResult";
-            this.lciResult.Size = new System.Drawing.Size(1291, 602);
+            this.lciResult.Size = new System.Drawing.Size(1301, 611);
             this.lciResult.Text = "交易单投票结果";
             this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciResult.TextSize = new System.Drawing.Size(105, 17);
@@ -193,16 +193,16 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(1291, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(1301, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 602);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 611);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // _dialogIDVoteResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1321, 622);
+            this.ClientSize = new System.Drawing.Size(1331, 631);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogIDVoteResult";
             this.Text = "_dialogIDVoteResult";

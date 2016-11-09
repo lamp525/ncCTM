@@ -54,9 +54,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lblHint.Text = string.Empty;
 
-            if (LoginInfo.CurrentUser.IsAdmin)
-                this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-            else
+            //if (LoginInfo.CurrentUser.IsAdmin)
+            //    this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            //else
                 this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
             this.btnDelete.Enabled = false;

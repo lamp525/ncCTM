@@ -223,7 +223,7 @@
             this.repositoryItemTextEdit2,
             this.repositoryItemTextEdit3,
             this.repositoryItemTextEdit4});
-            this.gridControl1.Size = new System.Drawing.Size(1413, 628);
+            this.gridControl1.Size = new System.Drawing.Size(1419, 628);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSummary,
@@ -405,7 +405,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1437, 708);
+            this.layoutControl1.Size = new System.Drawing.Size(1443, 708);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -442,7 +442,7 @@
             this.emptySpaceItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1437, 708);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1443, 708);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lciResult
@@ -454,7 +454,7 @@
             this.lciResult.Control = this.gridControl1;
             this.lciResult.Location = new System.Drawing.Point(0, 56);
             this.lciResult.Name = "lciResult";
-            this.lciResult.Size = new System.Drawing.Size(1417, 632);
+            this.lciResult.Size = new System.Drawing.Size(1423, 632);
             this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciResult.TextSize = new System.Drawing.Size(0, 0);
             this.lciResult.TextVisible = false;
@@ -466,7 +466,7 @@
             this.emptySpaceItem3.AppearanceItemCaption.Options.UseFont = true;
             this.emptySpaceItem3.Location = new System.Drawing.Point(192, 30);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1225, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1231, 26);
             this.emptySpaceItem3.Text = "（各股票负责人请填写汇总操作建议。）";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             this.emptySpaceItem3.TextVisible = true;
@@ -489,7 +489,7 @@
             this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
-            this.esiTitle.Size = new System.Drawing.Size(1417, 30);
+            this.esiTitle.Size = new System.Drawing.Size(1423, 30);
             this.esiTitle.TextSize = new System.Drawing.Size(0, 0);
             this.esiTitle.TextVisible = true;
             // 
@@ -514,7 +514,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1437, 708);
+            this.ClientSize = new System.Drawing.Size(1443, 708);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogPSAResult";
             this.Text = "_dialogPSAResult";

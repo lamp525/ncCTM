@@ -86,15 +86,15 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1378, 609);
+            this.layoutControl1.Size = new System.Drawing.Size(1405, 635);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(1291, 575);
+            this.btnClose.Location = new System.Drawing.Point(1316, 601);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(65, 22);
+            this.btnClose.Size = new System.Drawing.Size(67, 22);
             this.btnClose.StyleController = this.layoutControl1;
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "    关  闭  ";
@@ -114,7 +114,7 @@
             this.repositoryItemtxtClose,
             this.repositoryItemtxtReason,
             this.repositoryItemtxtAccuracy});
-            this.gridControl1.Size = new System.Drawing.Size(1354, 533);
+            this.gridControl1.Size = new System.Drawing.Size(1381, 559);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -314,7 +314,7 @@
             this.emptySpaceItem2});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1378, 609);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1405, 635);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lciMTF
@@ -326,7 +326,7 @@
             this.lciMTF.Control = this.gridControl1;
             this.lciMTF.Location = new System.Drawing.Point(0, 0);
             this.lciMTF.Name = "lciMTF";
-            this.lciMTF.Size = new System.Drawing.Size(1358, 563);
+            this.lciMTF.Size = new System.Drawing.Size(1385, 589);
             this.lciMTF.Text = "大盘趋势预测";
             this.lciMTF.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciMTF.TextSize = new System.Drawing.Size(120, 23);
@@ -334,24 +334,24 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 563);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 589);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1279, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(1304, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnClose;
-            this.layoutControlItem3.Location = new System.Drawing.Point(1279, 563);
+            this.layoutControlItem3.Location = new System.Drawing.Point(1304, 589);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(69, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(71, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(1348, 563);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(1375, 589);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -360,7 +360,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1378, 609);
+            this.ClientSize = new System.Drawing.Size(1405, 635);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogMTFEdit";
             this.Text = "_dialogMTFEdit";
