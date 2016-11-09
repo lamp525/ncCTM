@@ -105,6 +105,11 @@ namespace CTM.Win.Forms.InvestmentDecision
                     Text ="波段",
                     Value ="2",
                 },
+                       new ComboBoxItemModel
+                {
+                    Text ="隔日短差",
+                    Value ="3",
+                },
             };
 
             this.cbOperateType.Initialize(operateTypes);

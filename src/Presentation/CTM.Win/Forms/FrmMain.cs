@@ -302,7 +302,9 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem37_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmStockPosition>("股票持仓查询");
+            // this.DisplayTabbedForm<FrmStockPosition>("股票持仓查询");
+
+            this.DisplayTabbedForm<FrmStockPositionQuery>("股票持仓查询");
         }
 
         /// <summary>

@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>54</ApplicationRevision>
+    <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -160,6 +160,18 @@
     </Compile>
     <Compile Include="Forms\Admin\BaseData\FrmIDReason.Designer.cs">
       <DependentUpon>FrmIDReason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
+      <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\FrmStockInvestmentDecision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\FrmStockInvestmentDecision.Designer.cs">
+      <DependentUpon>FrmStockInvestmentDecision.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecast.cs">
       <SubType>Form</SubType>
@@ -560,6 +572,12 @@
     </Content>
     <EmbeddedResource Include="Forms\Admin\BaseData\FrmIDReason.resx">
       <DependentUpon>FrmIDReason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
+      <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmStockInvestmentDecision.resx">
+      <DependentUpon>FrmStockInvestmentDecision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmMarketTrendForecast.resx">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>

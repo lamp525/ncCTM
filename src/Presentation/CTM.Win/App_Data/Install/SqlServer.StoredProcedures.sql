@@ -773,3 +773,39 @@ BEGIN
  
 END
 GO
+
+
+/****** [sp_StockPositionQuery] ******/
+DROP PROCEDURE [dbo].[sp_StockPositionQuery]
+GO
+CREATE PROCEDURE [dbo].[sp_StockPositionQuery]
+(
+	@EndDate datetime
+)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT * FROM
+	(
+		SELECT 
+			DR.AccountId,			
+			(MAX(C.Name) + ' - ' + MAX(C.SecurityCompanyName) + ' - ' + MAX(C.AttributeName)) AccountInfo,
+			DR.Beneficiary InvestorCode,
+			MAX(U.Name) InvestorName,
+			DR.StockCode,
+			MAX(DR.StockName) StockName,
+			SUM(DR.DealVolume) PositionVolume	
+		FROM DailyRecord DR
+		LEFT JOIN UserInfo U
+		ON DR.Beneficiary = U.Code
+		LEFT JOIN AccountInfo C
+		ON DR.AccountId = C.Id
+		WHERE DR.TradeDate < = '2016-11-01'
+		GROUP BY DR.AccountId,DR.Beneficiary,DR.StockCode 
+	) T
+	WHERE T.PositionVolume !=0
+
+END
+GO

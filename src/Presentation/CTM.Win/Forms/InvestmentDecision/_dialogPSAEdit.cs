@@ -60,27 +60,24 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
 
             //操作类型
-            var tradeTypes = new List<ImageComboBoxItem>();
-
-            var target = new ImageComboBoxItem
+            var tradeTypes = new List<ImageComboBoxItem>
             {
-                Description = "目标",
-                Value = 1,
+                new ImageComboBoxItem
+                {
+                    Description ="目标",
+                    Value ="1",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="波段",
+                    Value ="2",
+                },
+                       new ImageComboBoxItem
+                {
+                    Description ="隔日短差",
+                    Value ="3",
+                },
             };
-            tradeTypes.Add(target);
-            var band = new ImageComboBoxItem
-            {
-                Description = "波段",
-                Value = 2,
-            };
-            tradeTypes.Add(band);
-
-            var day = new ImageComboBoxItem
-            {
-                Description = "隔日短差",
-                Value = 3,
-            };
-            tradeTypes.Add(day);
 
             var imageComboBoxTradeType = new ImageComboBoxEdit();
             imageComboBoxTradeType.Initialize(tradeTypes, displayAdditionalItem: false);
@@ -88,33 +85,29 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.riImageComboBoxTradeType = imageComboBoxTradeType.Properties;
 
             //决策建议
-            var suggestion = new List<ImageComboBoxItem>();
-            var reserve = new ImageComboBoxItem
+            var suggestion = new List<ImageComboBoxItem>
             {
-                Description = "保留",
-                Value = 1,
+                new ImageComboBoxItem
+                {
+                    Description = "保留",
+                    Value = 1,
+                },
+                new ImageComboBoxItem
+                {
+                   Description = "加仓",
+                   Value = 2,
+               },
+                new ImageComboBoxItem
+                {
+                    Description = "减仓",
+                    Value = 3,
+                },
+                new ImageComboBoxItem
+                {
+                    Description = "融券卖出",
+                    Value = 4,
+                },
             };
-            suggestion.Add(reserve);
-            var buy = new ImageComboBoxItem
-            {
-                Description = "加仓",
-                Value = 2,
-            };
-            suggestion.Add(buy);
-
-            var sell = new ImageComboBoxItem
-            {
-                Description = "减仓",
-                Value = 3,
-            };
-            suggestion.Add(sell);
-
-            var marginSell = new ImageComboBoxItem
-            {
-                Description = "融券卖出",
-                Value = 4,
-            };
-            suggestion.Add(marginSell);
 
             var imageComboBoxSuggestion = new ImageComboBoxEdit();
             imageComboBoxSuggestion.Initialize(suggestion, displayAdditionalItem: false);
@@ -243,7 +236,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
-
-    
     }
 }
