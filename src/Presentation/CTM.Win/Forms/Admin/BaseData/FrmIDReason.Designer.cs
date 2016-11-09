@@ -35,12 +35,12 @@
             this.tcId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tcParentName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.tcRemarks = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.tcOperate = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.riButtonEditOperate = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -48,8 +48,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tlCategory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -66,10 +67,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(501, 29);
+            this.gridControl1.Location = new System.Drawing.Point(283, 29);
             this.gridControl1.MainView = this.gvContent;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(943, 656);
+            this.gridControl1.Size = new System.Drawing.Size(1161, 656);
             this.gridControl1.TabIndex = 5;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvContent});
@@ -86,17 +87,20 @@
             this.tcId,
             this.tcParentId,
             this.tcName,
-            this.tcParentName,
-            this.tcRemarks});
+            this.tcOperate});
             this.tlCategory.Location = new System.Drawing.Point(12, 29);
             this.tlCategory.Name = "tlCategory";
             this.tlCategory.OptionsBehavior.PopulateServiceColumns = true;
             this.tlCategory.OptionsClipboard.AllowCopy = DevExpress.Utils.DefaultBoolean.True;
             this.tlCategory.OptionsClipboard.CopyNodeHierarchy = DevExpress.Utils.DefaultBoolean.True;
             this.tlCategory.OptionsView.AutoWidth = false;
-            this.tlCategory.Size = new System.Drawing.Size(475, 656);
+            this.tlCategory.OptionsView.ShowColumns = false;
+            this.tlCategory.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.riButtonEditOperate});
+            this.tlCategory.Size = new System.Drawing.Size(257, 656);
             this.tlCategory.TabIndex = 4;
             this.tlCategory.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tlCategory_FocusedNodeChanged);
+            this.tlCategory.CellValueChanged += new DevExpress.XtraTreeList.CellValueChangedEventHandler(this.tlCategory_CellValueChanged);
             this.tlCategory.DragDrop += new System.Windows.Forms.DragEventHandler(this.tlCategory_DragDrop);
             // 
             // tcId
@@ -118,24 +122,6 @@
             this.tcName.VisibleIndex = 0;
             this.tcName.Width = 118;
             // 
-            // tcParentName
-            // 
-            this.tcParentName.Caption = "上级类别名称";
-            this.tcParentName.FieldName = "ParentName";
-            this.tcParentName.Name = "tcParentName";
-            this.tcParentName.Visible = true;
-            this.tcParentName.VisibleIndex = 1;
-            this.tcParentName.Width = 127;
-            // 
-            // tcRemarks
-            // 
-            this.tcRemarks.Caption = "备注";
-            this.tcRemarks.FieldName = "Remarks";
-            this.tcRemarks.Name = "tcRemarks";
-            this.tcRemarks.Visible = true;
-            this.tcRemarks.VisibleIndex = 2;
-            this.tcRemarks.Width = 196;
-            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -154,26 +140,44 @@
             this.layoutControlItem1.Control = this.tlCategory;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(479, 677);
+            this.layoutControlItem1.Size = new System.Drawing.Size(261, 677);
+            this.layoutControlItem1.Text = "理由分类";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(105, 14);
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(479, 0);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 677);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.gridControl1;
-            this.layoutControlItem2.Location = new System.Drawing.Point(489, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(271, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(947, 677);
+            this.layoutControlItem2.Size = new System.Drawing.Size(1165, 677);
+            this.layoutControlItem2.Text = "理由详情";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(105, 14);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(48, 14);
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(261, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 677);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // tcOperate
+            // 
+            this.tcOperate.Caption = "treeListColumn1";
+            this.tcOperate.ColumnEdit = this.riButtonEditOperate;
+            this.tcOperate.FieldName = "treeListColumn1";
+            this.tcOperate.Name = "tcOperate";
+            this.tcOperate.Visible = true;
+            this.tcOperate.VisibleIndex = 1;
+            // 
+            // riButtonEditOperate
+            // 
+            this.riButtonEditOperate.AutoHeight = false;
+            this.riButtonEditOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.riButtonEditOperate.Name = "riButtonEditOperate";
             // 
             // FrmIDReason
             // 
@@ -191,8 +195,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tlCategory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -210,7 +215,7 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcId;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcParentId;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcName;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn tcParentName;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn tcRemarks;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tcOperate;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditOperate;
     }
 }

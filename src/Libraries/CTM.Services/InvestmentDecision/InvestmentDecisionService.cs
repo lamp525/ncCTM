@@ -14,6 +14,7 @@ namespace CTM.Services.InvestmentDecision
     public partial class InvestmentDecisionService : IInvestmentDecisionService
     {
         #region Fields
+
         private readonly IRepository<InvestmentDecisionCommittee> _IDCRepository;
         private readonly IRepository<InvestmentDecisionForm> _IDFRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVRepository;
@@ -27,6 +28,9 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<PositionStockAnalysisDetail> _PSADetailRepository;
         private readonly IRepository<PositionStockAnalysisSummary> _PSASummaryRepository;
 
+        private readonly IRepository<DecisionReasonCategory> _DRCategoryRepository;
+        private readonly IRepository<DecisionReasonContent> _DRContentRepository;
+
         private readonly ICommonService _commonService;
 
         private readonly IDbContext _dbContext;
@@ -35,7 +39,7 @@ namespace CTM.Services.InvestmentDecision
 
         #region Constructors
 
-        public InvestmentDecisionService(   
+        public InvestmentDecisionService(
             IRepository<InvestmentDecisionCommittee> IDCRepository,
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
@@ -45,6 +49,8 @@ namespace CTM.Services.InvestmentDecision
             IRepository<PositionStockAnalysisInfo> PSAInfoRepository,
             IRepository<PositionStockAnalysisDetail> PSADetailRepository,
             IRepository<PositionStockAnalysisSummary> PSASummaryRepository,
+            IRepository<DecisionReasonCategory> DRCategoryRepository,
+            IRepository<DecisionReasonContent> DRContentRepository,
             ICommonService commonService,
             IDbContext dbContext)
         {
@@ -57,6 +63,8 @@ namespace CTM.Services.InvestmentDecision
             this._PSADetailRepository = PSADetailRepository;
             this._PSAInfoRepository = PSAInfoRepository;
             this._PSASummaryRepository = PSASummaryRepository;
+            this._DRCategoryRepository = DRCategoryRepository;
+            this._DRContentRepository = DRContentRepository;
 
             this._commonService = commonService;
             this._dbContext = dbContext;
@@ -275,7 +283,6 @@ namespace CTM.Services.InvestmentDecision
             _MTFDetailRepository.Delete(votes.ToArray());
         }
 
-
         public virtual IList<InvestmentDecisionStockPool> GetIDStockPool()
         {
             var query = _IDStockPoolRepository.Table;
@@ -347,14 +354,14 @@ namespace CTM.Services.InvestmentDecision
             UpdateCommitteeWeight();
         }
 
-        public PositionStockAnalysisDetail GetPSADetailById(int id)
+        public virtual PositionStockAnalysisDetail GetPSADetailById(int id)
         {
             var detail = _PSADetailRepository.GetById(id);
 
             return detail;
         }
 
-        public void DeletePSAInfo(string serialNo)
+        public virtual void DeletePSAInfo(string serialNo)
         {
             if (string.IsNullOrEmpty(serialNo))
                 throw new NotImplementedException();
@@ -377,19 +384,37 @@ namespace CTM.Services.InvestmentDecision
             _PSADetailRepository.Update(entity);
         }
 
-        public PositionStockAnalysisSummary GetPSASummaryById(int id)
+        public virtual PositionStockAnalysisSummary GetPSASummaryById(int id)
         {
             var info = _PSASummaryRepository.GetById(id);
 
             return info;
         }
 
-        public void UpdatePSASummary(PositionStockAnalysisSummary entity)
+        public virtual void UpdatePSASummary(PositionStockAnalysisSummary entity)
         {
             if (entity == null)
                 throw new NullReferenceException(nameof(entity));
 
             _PSASummaryRepository.Update(entity);
+        }
+
+        public virtual void UpdateIDReasonCategory(int id, string name)
+        {
+            var category = _DRCategoryRepository.GetById(id);
+
+            category.Name = name;
+
+            _DRCategoryRepository.Update(category);
+        }
+
+        public virtual void DeleteIDReasonCategory(int id)
+        {
+            var childrenCount = _DRCategoryRepository.Table.Where(x => x.ParentId == id).Count();
+            if (childrenCount > 0)
+                throw new Exception("该分类下存在子分类，无法删除！");
+
+            _DRCategoryRepository.Delete(_DRCategoryRepository.GetById(id));
         }
 
         #endregion Methods

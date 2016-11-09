@@ -50,5 +50,9 @@ namespace CTM.Services.InvestmentDecision
         PositionStockAnalysisSummary GetPSASummaryById(int id);
 
         void UpdatePSASummary(PositionStockAnalysisSummary entity);
+
+        void UpdateIDReasonCategory(int id, string name);
+
+        void DeleteIDReasonCategory(int id);
     }
 }

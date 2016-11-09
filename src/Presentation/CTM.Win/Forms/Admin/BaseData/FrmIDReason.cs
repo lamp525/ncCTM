@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using CTM.Data;
+using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
 using DevExpress.XtraTreeList;
@@ -12,19 +13,34 @@ namespace CTM.Win.Forms.Admin.BaseData
 {
     public partial class FrmIDReason : BaseForm
     {
-        public FrmIDReason()
+        #region Fields
+
+        private readonly IInvestmentDecisionService _IDService;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public FrmIDReason(IInvestmentDecisionService IDService)
         {
             InitializeComponent();
+            this._IDService = IDService;
         }
+
+        #endregion Constructors
 
         #region Utilities
 
         private void FormInit()
         {
+            this.tlCategory.AllowDrop = false;
             this.tlCategory.OptionsBehavior.Editable = true;
             this.tlCategory.OptionsDragAndDrop.DragNodesMode = DevExpress.XtraTreeList.DragNodesMode.Single;
             this.tlCategory.OptionsSelection.MultiSelect = false;
             this.tlCategory.OptionsSelection.UseIndicatorForSelection = true;
+            this.tlCategory.OptionsView.ShowColumns = false;
+            this.tlCategory.OptionsView.ShowVertLines = false;
+            this.tlCategory.OptionsView.ShowHorzLines = false;
         }
 
         private void BindCategory()
@@ -66,6 +82,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         }
 
         #region Category
+
         private void tlCategory_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
         {
             e.Node.ExpandAll();
@@ -122,18 +139,35 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.tlCategory.ExpandAll();
 
             //BindCategory();
-        } 
-        #endregion
+        }
 
+        private void tlCategory_CellValueChanged(object sender, CellValueChangedEventArgs e)
+        {
+            if (e.Column == this.tcName)
+            {
+                if (string.IsNullOrEmpty(e.Value.ToString().Trim()))
+                {
+                    DXMessage.ShowTips("类别名称不能为空！");
+                    return;
+                }
+                var id = Convert.ToInt32(e.Node.GetValue(tcId));
+                var name = e.Value.ToString().Trim();
+                _IDService.UpdateIDReasonCategory(id, name);
+            }
+        }
+
+        #endregion Category
 
         #region Content
+
         private void gvContent_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+        }
 
-        } 
-        #endregion
+        #endregion Content
+
         #endregion Events
-
-
     }
 }
