@@ -62,28 +62,54 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private void BindSearchInfo()
         {
-            //账户属性信息
-            var accountAttributes = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.AccountAttribute)
+            if (LoginInfo.CurrentUser.IsAdmin)
+            {
+                //账户属性信息
+                var accountAttributes = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.AccountAttribute)
                 .Select(x => new ComboBoxItemModel
                 {
                     Value = x.Code.ToString(),
                     Text = x.Name
                 }).ToList();
-            this.cbAccountAttribute.Initialize(accountAttributes);
+                this.cbAccountAttribute.Initialize(accountAttributes);
 
-            //证券公司信息
-            var securityCompanys = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.SecurityCompay)
+                //证券公司信息
+                var securityCompanys = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.SecurityCompay)
 
-                        .Select(x => new ComboBoxItemModel
-                        {
-                            Value = x.Code.ToString(),
-                            Text = x.Name
-                        }).OrderBy(x => x.Text).ToList();
+                            .Select(x => new ComboBoxItemModel
+                            {
+                                Value = x.Code.ToString(),
+                                Text = x.Name
+                            }).OrderBy(x => x.Text).ToList();
 
-            this.cbSecurity.Initialize(securityCompanys);
+                this.cbSecurity.Initialize(securityCompanys);
+
+                this.lciAttribute.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciSecurity.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
+            else
+            {
+                this.lciAttribute.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lciSecurity.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
 
             //账户信息
             _accounts = _accountService.GetAccountDetails(onlyNeedAccounting: true, showDisabled: true).OrderBy(x => x.Name).ToList();
+
+            if (!LoginInfo.CurrentUser.IsAdmin)
+            {
+                var currentUserAccountIds = _accountService.GetAccountIdByOperatorId(LoginInfo.CurrentUser.UserId);
+
+                if (currentUserAccountIds.Any())
+                {
+                    _accounts = _accounts.Where(x => currentUserAccountIds.Contains(x.Id)).ToList();
+
+                    if (!_accounts.Any())
+                    {
+                        throw new Exception("抱歉！没有您可操作的账户信息！");
+                    }
+                }
+            }
 
             this.luAccount.Initialize(_accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
 

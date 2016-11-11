@@ -161,49 +161,203 @@ namespace CTM.Win.Forms
 
         #region Events
 
-        #region Form Load
-
-        private void FrmMain_Load(object sender, System.EventArgs e)
-        {
-            try
-            {
-                this.defaultLookAndFeelMainForm.LookAndFeel.SkinName = AppConfigHelper.DefaultSkinName;
-
-                DisplayStatusBarInfo();
-
-                DisplayMenu();
-
-                DisplayStartupPage();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
-        #endregion Form Load
-
-        #region DailyTrading
+        #region Accounting
 
         /// <summary>
-        /// 用户融资融券信息
+        /// 交割单数据导入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiUserDayMarginTrading_ItemClick(object sender, ItemClickEventArgs e)
+        private void bbiDeliveryDataImport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmUserMarginTrading>("用户融资融券信息");
+            this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
         }
 
         /// <summary>
-        /// 股票池管理（一般用户）
+        /// 交割单与每日交易记录核对
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiStockPoolUser_ItemClick(object sender, ItemClickEventArgs e)
+        private void bbiDataVerify_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmTradeDataVerify>("交易数据核对");
+        }
+
+        /// <summary>
+        /// 交割单数据管理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryManage_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
+        }
+
+        /// <summary>
+        /// 账户资金调拨
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountFundTransfer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountFundTransfer>("账户资金调拨");
+        }
+
+        /// <summary>
+        /// 账户资金月结
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountFundMonthlyStatement_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmAccountFundMonthlyStatements>("账户资金月结");
+        }
+
+        #region Report
+
+        /// <summary>
+        /// 交割单账户投资收益流水查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryAccountInvestIncomeFlow_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeFlow>("交割单账户投资收益流水查询");
+        }
+
+        /// <summary>
+        /// 交割单账户投资收益明细查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiDeliveryAccountInvestIncomeDetail_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeDetail>("交割单账户投资收益明细查询");
+        }
+
+        /// <summary>
+        /// 账户投资资金查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountInvestFund_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountInvestFundDetail>("账户投资资金查询");
+        }
+
+        #endregion Report
+
+        #endregion Accounting
+
+        #region Admin
+
+        /// <summary>
+        /// 数据字典
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem28_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDictionary>("数据字典");
+        }
+
+        /// <summary>
+        /// 部门
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmDepartment>("部门管理");
+        }
+
+        /// <summary>
+        /// 账户管理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiAccountManage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccount>("账户管理");
+        }
+
+        /// <summary>
+        /// 股票池
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem22_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmStockPool>("股票池管理");
         }
+
+        /// <summary>
+        /// 股票信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem21_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmStock>("股票信息管理");
+        }
+
+        /// <summary>
+        /// 历史交易数据导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem41_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            // if (this.ActiveOpenedForm(typeof(FrmHistoryTradeDataImport).Name, false)) return;
+
+            var dialog = this.CreateDialog<FrmHistoryTradeDataImport>();
+            dialog.Text = "历史交易数据导入";
+            dialog.ShowDialog();
+        }
+
+        /// <summary>
+        /// 股票转移
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiStockTransfer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmStockTransfer>("股票转移");
+        }
+
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem23_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmUser>("用户管理");
+        }
+
+        #endregion Admin
+
+        #region Application
+
+        /// <summary>
+        /// 窗体关闭X按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmMain_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            if (DXMessage.ShowYesNoAndTips("确认退出吗？") == DialogResult.Yes)
+            {
+                Dispose();
+                Application.Exit();
+            }
+            else
+                e.Cancel = true;
+        }
+
+        #endregion Application
+
+        #region DailyTrading
 
         /// <summary>
         /// 交易数据导入
@@ -213,6 +367,16 @@ namespace CTM.Win.Forms
         private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.DisplayForm<FrmTradeDataImportWizard>("交易数据导入");
+        }
+
+        /// <summary>
+        /// 交易数据核对
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem35_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmTradeDataVerify>("交易数据核对");
         }
 
         /// <summary>
@@ -381,95 +545,29 @@ namespace CTM.Win.Forms
 
         #endregion DailyTrading
 
-        #region Accounting
+        #region Form Load
 
-        /// <summary>
-        /// 交割单数据导入
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiDeliveryDataImport_ItemClick(object sender, ItemClickEventArgs e)
+        private void FrmMain_Load(object sender, System.EventArgs e)
         {
-            this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
+            try
+            {
+                this.defaultLookAndFeelMainForm.LookAndFeel.SkinName = AppConfigHelper.DefaultSkinName;
+
+                DisplayStatusBarInfo();
+
+                DisplayMenu();
+
+                DisplayStartupPage();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
-        /// <summary>
-        /// 交割单与每日交易记录核对
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiDataVerify_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmTradeDataVerify>("交易数据核对");
-        }
+        #endregion Form Load
 
-        /// <summary>
-        /// 交割单数据管理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiDeliveryManage_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
-        }
-
-        /// <summary>
-        /// 账户资金调拨
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiAccountFundTransfer_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmAccountFundTransfer>("账户资金调拨");
-        }
-
-        /// <summary>
-        /// 账户资金月结
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiAccountFundMonthlyStatement_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayForm<FrmAccountFundMonthlyStatements>("账户资金月结");
-        }
-
-        #region Report
-
-        /// <summary>
-        /// 交割单账户投资收益流水查询
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiDeliveryAccountInvestIncomeFlow_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeFlow>("交割单账户投资收益流水查询");
-        }
-
-        /// <summary>
-        /// 交割单账户投资收益明细查询
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiDeliveryAccountInvestIncomeDetail_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmDeliveryAccountInvestIncomeDetail>("交割单账户投资收益明细查询");
-        }
-
-        /// <summary>
-        /// 账户投资资金查询
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiAccountInvestFund_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmAccountInvestFundDetail>("账户投资资金查询");
-        }
-
-        #endregion Report
-
-        #endregion Accounting
-
-        #region Investment Decision
+        #region InvestmentDecision
 
         private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -489,7 +587,6 @@ namespace CTM.Win.Forms
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
-
         }
 
         private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
@@ -503,95 +600,21 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmPositionStockAnalysis>("持仓股票投资决策");
         }
 
-        #endregion Investment Decision
+        #endregion InvestmentDecision
 
-        #region Admin
+        #region MarginTrading
 
         /// <summary>
-        /// 数据字典
+        /// 用户融资融券信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void barButtonItem28_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiUserDayMarginTrading_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmDictionary>("数据字典");
+            this.DisplayTabbedForm<FrmUserMarginTrading>("用户融资融券信息");
         }
 
-        /// <summary>
-        /// 部门
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmDepartment>("部门管理");
-        }
-
-        /// <summary>
-        /// 账户管理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiAccountManage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmAccount>("账户管理");
-        }
-
-        /// <summary>
-        /// 股票池
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem22_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmStockPool>("股票池管理");
-        }
-
-        /// <summary>
-        /// 股票信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem21_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmStock>("股票信息管理");
-        }
-
-        /// <summary>
-        /// 历史交易数据导入
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem41_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            // if (this.ActiveOpenedForm(typeof(FrmHistoryTradeDataImport).Name, false)) return;
-
-            var dialog = this.CreateDialog<FrmHistoryTradeDataImport>();
-            dialog.Text = "历史交易数据导入";
-            dialog.ShowDialog();
-        }
-
-        /// <summary>
-        /// 股票转移
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiStockTransfer_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmStockTransfer>("股票转移");
-        }
-
-        /// <summary>
-        /// 用户信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem23_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmUser>("用户管理");
-        }
-
-        #endregion Admin
+        #endregion MarginTrading
 
         #region Setting
 
@@ -652,28 +675,6 @@ namespace CTM.Win.Forms
 
         #endregion SystemMenu
 
-        #region Application
-
-        /// <summary>
-        /// 窗体关闭X按钮事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FrmMain_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
-        {
-            if (DXMessage.ShowYesNoAndTips("确认退出吗？") == DialogResult.Yes)
-            {
-                Dispose();
-                Application.Exit();
-            }
-            else
-                e.Cancel = true;
-        }
-
-        #endregion Application
-
         #endregion Events
-
- 
     }
 }

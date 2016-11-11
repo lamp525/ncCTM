@@ -73,8 +73,7 @@
             this.bbiUserInvestIncomSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStockInvestIncomeSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bsiSystemInfo = new DevExpress.XtraBars.BarStaticItem();
-            this.bsiCurrentUserInfo = new DevExpress.XtraBars.BarStaticItem();
-            this.bbiStockPoolUser = new DevExpress.XtraBars.BarButtonItem();
+            this.bsiCurrentUserInfo = new DevExpress.XtraBars.BarStaticItem();   
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStockTransfer = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserDayMarginTrading = new DevExpress.XtraBars.BarButtonItem();
@@ -95,6 +94,8 @@
             this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem20 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem24 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem35 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -123,7 +124,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.barButtonItem24 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -176,8 +176,7 @@
             this.bbiUserInvestIncomSummary,
             this.bbiStockInvestIncomeSummary,
             this.bsiSystemInfo,
-            this.bsiCurrentUserInfo,
-            this.bbiStockPoolUser,
+            this.bsiCurrentUserInfo, 
             this.barButtonItem5,
             this.bbiStockTransfer,
             this.bbiUserDayMarginTrading,
@@ -198,9 +197,10 @@
             this.barButtonItem8,
             this.barButtonItem9,
             this.barButtonItem20,
-            this.barButtonItem24});
+            this.barButtonItem24,
+            this.barButtonItem35});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 41;
+            this.ribbonControl1.MaxItemId = 42;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -601,16 +601,6 @@
             this.bsiCurrentUserInfo.Name = "bsiCurrentUserInfo";
             this.bsiCurrentUserInfo.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
-            // bbiStockPoolUser
-            // 
-            this.bbiStockPoolUser.Caption = "股票池管理";
-            this.bbiStockPoolUser.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiStockPoolUser.Glyph")));
-            this.bbiStockPoolUser.Id = 12;
-            this.bbiStockPoolUser.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiStockPoolUser.LargeGlyph")));
-            this.bbiStockPoolUser.Name = "bbiStockPoolUser";
-            this.bbiStockPoolUser.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.bbiStockPoolUser.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStockPoolUser_ItemClick);
-            // 
             // barButtonItem5
             // 
             this.barButtonItem5.Caption = "barButtonItem5";
@@ -796,6 +786,26 @@
             this.barButtonItem20.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.barButtonItem20.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem20_ItemClick);
             // 
+            // barButtonItem24
+            // 
+            this.barButtonItem24.Caption = "决策理由";
+            this.barButtonItem24.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.Glyph")));
+            this.barButtonItem24.Id = 40;
+            this.barButtonItem24.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.LargeGlyph")));
+            this.barButtonItem24.Name = "barButtonItem24";
+            this.barButtonItem24.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.barButtonItem24.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem24_ItemClick);
+            // 
+            // barButtonItem35
+            // 
+            this.barButtonItem35.Caption = "数据核对";
+            this.barButtonItem35.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem35.Glyph")));
+            this.barButtonItem35.Id = 41;
+            this.barButtonItem35.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem35.LargeGlyph")));
+            this.barButtonItem35.Name = "barButtonItem35";
+            this.barButtonItem35.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem35.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem35_ItemClick_1);
+            // 
             // ribbonPageTrade
             // 
             this.ribbonPageTrade.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -811,6 +821,7 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem4);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem35);
             this.ribbonPageGroup2.ItemLinks.Add(this.bbiTradeDataManage);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             // 
@@ -1008,16 +1019,6 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // barButtonItem24
-            // 
-            this.barButtonItem24.Caption = "决策理由";
-            this.barButtonItem24.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.Glyph")));
-            this.barButtonItem24.Id = 40;
-            this.barButtonItem24.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem24.LargeGlyph")));
-            this.barButtonItem24.Name = "barButtonItem24";
-            this.barButtonItem24.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.barButtonItem24.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem24_ItemClick);
-            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
@@ -1103,8 +1104,7 @@
         private DevExpress.XtraBars.BarButtonItem bbiStockInvestIncomeSummary;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;
         private DevExpress.XtraBars.BarStaticItem bsiSystemInfo;
-        private DevExpress.XtraBars.BarStaticItem bsiCurrentUserInfo;
-        private DevExpress.XtraBars.BarButtonItem bbiStockPoolUser;
+        private DevExpress.XtraBars.BarStaticItem bsiCurrentUserInfo;     
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem bbiStockTransfer;
         private DevExpress.XtraBars.BarButtonItem bbiUserDayMarginTrading;
@@ -1137,6 +1137,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageLoan;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
         private DevExpress.XtraBars.BarButtonItem barButtonItem24;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem35;
     }
 }
 

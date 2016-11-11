@@ -148,7 +148,7 @@
             // 
             // txtPriceBound
             // 
-            this.txtPriceBound.Location = new System.Drawing.Point(215, 215);
+            this.txtPriceBound.Location = new System.Drawing.Point(215, 213);
             this.txtPriceBound.Name = "txtPriceBound";
             this.txtPriceBound.Size = new System.Drawing.Size(21, 20);
             this.txtPriceBound.TabIndex = 23;
@@ -156,7 +156,7 @@
             // 
             // lblPriceBound
             // 
-            this.lblPriceBound.Location = new System.Drawing.Point(240, 215);
+            this.lblPriceBound.Location = new System.Drawing.Point(240, 213);
             this.lblPriceBound.Name = "lblPriceBound";
             this.lblPriceBound.Size = new System.Drawing.Size(111, 14);
             this.lblPriceBound.StyleController = this.layoutControl1;
@@ -164,7 +164,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(165, 215);
+            this.labelControl1.Location = new System.Drawing.Point(165, 213);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(46, 14);
             this.labelControl1.StyleController = this.layoutControl1;
@@ -173,7 +173,7 @@
             // 
             // luInvestor
             // 
-            this.luInvestor.Location = new System.Drawing.Point(111, 95);
+            this.luInvestor.Location = new System.Drawing.Point(111, 93);
             this.luInvestor.Name = "luInvestor";
             this.luInvestor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -187,15 +187,15 @@
             // 
             // memoReason
             // 
-            this.memoReason.Location = new System.Drawing.Point(111, 287);
+            this.memoReason.Location = new System.Drawing.Point(111, 285);
             this.memoReason.Name = "memoReason";
-            this.memoReason.Size = new System.Drawing.Size(447, 101);
+            this.memoReason.Size = new System.Drawing.Size(447, 103);
             this.memoReason.StyleController = this.layoutControl1;
             this.memoReason.TabIndex = 17;
             // 
             // txtPlanNo
             // 
-            this.txtPlanNo.Location = new System.Drawing.Point(111, 71);
+            this.txtPlanNo.Location = new System.Drawing.Point(111, 69);
             this.txtPlanNo.Name = "txtPlanNo";
             this.txtPlanNo.Size = new System.Drawing.Size(240, 20);
             this.txtPlanNo.StyleController = this.layoutControl1;
@@ -223,7 +223,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(449, 45);
+            this.btnImport.Location = new System.Drawing.Point(449, 43);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(99, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -232,7 +232,7 @@
             // 
             // txtVolume
             // 
-            this.txtVolume.Location = new System.Drawing.Point(111, 239);
+            this.txtVolume.Location = new System.Drawing.Point(111, 237);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(240, 20);
             this.txtVolume.StyleController = this.layoutControl1;
@@ -241,7 +241,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(111, 215);
+            this.txtPrice.Location = new System.Drawing.Point(111, 213);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(50, 20);
             this.txtPrice.StyleController = this.layoutControl1;
@@ -250,7 +250,7 @@
             // 
             // cbOperateType
             // 
-            this.cbOperateType.Location = new System.Drawing.Point(111, 191);
+            this.cbOperateType.Location = new System.Drawing.Point(111, 189);
             this.cbOperateType.Name = "cbOperateType";
             this.cbOperateType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -260,7 +260,7 @@
             // 
             // chkSell
             // 
-            this.chkSell.Location = new System.Drawing.Point(241, 191);
+            this.chkSell.Location = new System.Drawing.Point(241, 189);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖";
             this.chkSell.Size = new System.Drawing.Size(110, 19);
@@ -271,7 +271,7 @@
             // chkBuy
             // 
             this.chkBuy.EditValue = true;
-            this.chkBuy.Location = new System.Drawing.Point(203, 191);
+            this.chkBuy.Location = new System.Drawing.Point(203, 189);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买";
             this.chkBuy.Size = new System.Drawing.Size(34, 19);
@@ -281,7 +281,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(111, 167);
+            this.luStock.Location = new System.Drawing.Point(111, 165);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -295,7 +295,7 @@
             // 
             // txtSerialNo
             // 
-            this.txtSerialNo.Location = new System.Drawing.Point(111, 143);
+            this.txtSerialNo.Location = new System.Drawing.Point(111, 141);
             this.txtSerialNo.Name = "txtSerialNo";
             this.txtSerialNo.Properties.ReadOnly = true;
             this.txtSerialNo.Size = new System.Drawing.Size(240, 20);
@@ -305,7 +305,7 @@
             // deApply
             // 
             this.deApply.EditValue = null;
-            this.deApply.Location = new System.Drawing.Point(111, 119);
+            this.deApply.Location = new System.Drawing.Point(111, 117);
             this.deApply.Name = "deApply";
             this.deApply.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -318,7 +318,7 @@
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(111, 263);
+            this.txtAmount.Location = new System.Drawing.Point(111, 261);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Properties.ReadOnly = true;
             this.txtAmount.Size = new System.Drawing.Size(240, 20);
@@ -447,7 +447,7 @@
             // emptySpaceItem10
             // 
             this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 347);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 349);
             this.emptySpaceItem10.MaxSize = new System.Drawing.Size(0, 10);
             this.emptySpaceItem10.MinSize = new System.Drawing.Size(10, 10);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
@@ -458,7 +458,7 @@
             // emptySpaceItem12
             // 
             this.emptySpaceItem12.AllowHotTrack = false;
-            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 357);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 359);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
             this.emptySpaceItem12.Size = new System.Drawing.Size(140, 26);
             this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
@@ -466,7 +466,7 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.btnCancel;
-            this.layoutControlItem10.Location = new System.Drawing.Point(295, 357);
+            this.layoutControlItem10.Location = new System.Drawing.Point(295, 359);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Size = new System.Drawing.Size(119, 26);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
@@ -475,7 +475,7 @@
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.btnSubmit;
-            this.layoutControlItem11.Location = new System.Drawing.Point(140, 357);
+            this.layoutControlItem11.Location = new System.Drawing.Point(140, 359);
             this.layoutControlItem11.Name = "layoutControlItem11";
             this.layoutControlItem11.Size = new System.Drawing.Size(118, 26);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
@@ -484,7 +484,7 @@
             // emptySpaceItem13
             // 
             this.emptySpaceItem13.AllowHotTrack = false;
-            this.emptySpaceItem13.Location = new System.Drawing.Point(414, 357);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(414, 359);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
             this.emptySpaceItem13.Size = new System.Drawing.Size(124, 26);
             this.emptySpaceItem13.TextSize = new System.Drawing.Size(0, 0);
@@ -492,7 +492,7 @@
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(258, 357);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(258, 359);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
             this.emptySpaceItem14.Size = new System.Drawing.Size(37, 26);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
@@ -521,7 +521,7 @@
             this.layoutControlItem15.Control = this.memoReason;
             this.layoutControlItem15.Location = new System.Drawing.Point(0, 242);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(538, 105);
+            this.layoutControlItem15.Size = new System.Drawing.Size(538, 107);
             this.layoutControlItem15.Text = "申请理由:";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(84, 14);
             // 
