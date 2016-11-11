@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Dictionary;
@@ -27,6 +29,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private const string _layoutXmlName = "FrmTradeDataVerify";
 
         private bool _isSearched = false;
+        private string _currentAccountInfo = null;
+        private int _currentAccountId = -1;
 
         #endregion Fields
 
@@ -154,6 +158,20 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this.gridControl1.DataSource = diffInfos;
         }
 
+        private void DisplayDataContrast(DataVerifyEntity entity)
+        {
+            var dialog = EngineContext.Current.Resolve<_dialogTradeDataContrast>();
+            dialog.Owner = this.ParentForm;
+            dialog.Text = "交易数据对照";
+            dialog.StartPosition = FormStartPosition.CenterScreen;
+            dialog.AccountInfo = _currentAccountInfo;
+            dialog.AccountId = _currentAccountId;
+            dialog.StockCode = string.IsNullOrEmpty(entity.DE_StockCode) ? entity.DA_StockCode : entity.DE_StockCode;
+            dialog.StockName = string.IsNullOrEmpty(entity.DE_StockName) ? entity.DA_StockName : entity.DE_StockName;
+            dialog.TradeDate = entity.DE_TradeDate.Value;
+            dialog.Show();
+        }
+
         #endregion Utilities
 
         #region Events
@@ -197,7 +215,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     DXMessage.ShowTips("请选择账号信息！");
                     return;
                 }
-
+                _currentAccountInfo = this.luAccount.Text.Trim();
+                _currentAccountId = int.Parse(this.luAccount.SelectedValue());
                 BindDiffInfo();
             }
             catch (Exception ex)
@@ -272,6 +291,23 @@ namespace CTM.Win.Forms.Accounting.DataManage
             finally
             {
                 this.rgDisplayType.Enabled = true;
+            }
+        }
+
+        private void bandedGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            Point pt = bandedGridView1.GridControl.PointToClient(Control.MousePosition);
+
+            var ghi = this.bandedGridView1.CalcHitInfo(pt);
+
+            if (ghi.InRow)
+            {
+                var row = this.bandedGridView1.GetRow(ghi.RowHandle) as DataVerifyEntity;
+
+                if (row != null)
+                {
+                    DisplayDataContrast(row);
+                }
             }
         }
 

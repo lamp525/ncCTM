@@ -14,10 +14,12 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #endregion Properties
 
+        #region Constructors
         public _dialogIDVoteResult()
         {
             InitializeComponent();
-        }
+        } 
+        #endregion
 
         #region Utilities
 

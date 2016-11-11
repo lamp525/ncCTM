@@ -468,6 +468,72 @@ END
 GO
 
 
+/****** [sp_GetDeliveryAndDailyContrastData] ******/
+DROP PROCEDURE  [dbo].[sp_GetDeliveryAndDailyContrastData]
+GO 
+CREATE PROCEDURE [dbo].[sp_GetDeliveryAndDailyContrastData]
+(
+	@AccountId int,
+	@StockCode varchar(20),
+	@TradeDate datetime
+)
+AS
+BEGIN 
+	SET NOCOUNT ON
+
+		
+	SELECT	
+		StockCode,
+		StockName,	
+		TradeTime,
+		CASE DealFlag
+			WHEN 1 THEN '买入'
+			WHEN 0 THEN '卖出'
+			ELSE ''
+		END DealFlagName,
+		DealPrice,
+		DealVolume,
+		ActualAmount
+	FROM DeliveryRecord
+	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode
+	ORDER BY TradeTime
+
+
+	SELECT 
+		StockCode,
+		StockName,	
+		TradeTime,		
+		CASE DealFlag
+			WHEN 1 THEN '买入'
+			WHEN 0 THEN '卖出'
+			ELSE ''
+		END DealFlagName,
+		DealPrice,
+		DealVolume,
+		ActualAmount,
+		CASE DataType
+			WHEN 1 THEN '当日委托'
+			WHEN 2 THEN '交割单'
+			WHEN 3 THEN '当日成交'
+			WHEN 77 THEN '虚拟交易'
+			WHEN 88 THEN '股票转移'
+			WHEN 99 THEN '旧系统'
+			ELSE ''
+		END DataTypeName,
+		CASE TradeType
+			WHEN 1 THEN '目标'
+			WHEN 2 THEN '波段'
+			WHEN 3 THEN '日内'
+			ELSE ''
+		END TradeTypeName
+	FROM DailyRecord
+	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode
+	ORDER BY TradeTime
+
+END
+GO
+
+
 /****** [sp_GetDiffBetweenDeliveryAndDailyData] ******/
 DROP PROCEDURE [dbo].[sp_GetDiffBetweenDeliveryAndDailyData]
 GO
