@@ -73,6 +73,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             var now = _commonService.GetCurrentServerTime();
 
             //申请编号
+            this.lciSerialNo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.txtSerialNo.Text = string.Empty;
 
             //申请日期

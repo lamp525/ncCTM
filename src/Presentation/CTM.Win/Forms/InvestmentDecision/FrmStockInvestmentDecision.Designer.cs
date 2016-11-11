@@ -34,6 +34,10 @@
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.lblHint = new DevExpress.XtraEditors.LabelControl();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
@@ -65,26 +69,28 @@
             this.colProfit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRelateTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCreateTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colVote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIDVote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riButtonEditVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riButtonEditOperate = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
-            this.tpRecent = new DevExpress.XtraBars.Navigation.TabNavigationPage();
-            this.tpSearch = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciDelete = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
+            this.tpRecent = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tpSearch = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.colAccuracyVote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.riButtonEditAccuracyVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -92,19 +98,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            this.tabPane1.SuspendLayout();
-            this.tpRecent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDelete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            this.tabPane1.SuspendLayout();
+            this.tpRecent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditAccuracyVote)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -180,7 +187,8 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riButtonEditVote,
-            this.riButtonEditOperate});
+            this.riButtonEditOperate,
+            this.riButtonEditAccuracyVote});
             this.gridControl1.Size = new System.Drawing.Size(1500, 663);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -212,9 +220,10 @@
             this.colProfit,
             this.colRelateTradePlanNo,
             this.colCreateTime,
-            this.colVote,
+            this.colIDVote,
             this.colReason,
-            this.colOperate});
+            this.colOperate,
+            this.colAccuracyVote});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 50;
             this.gridView1.Name = "gridView1";
@@ -261,7 +270,7 @@
             this.colPoint.Name = "colPoint";
             this.colPoint.OptionsColumn.AllowEdit = false;
             this.colPoint.Visible = true;
-            this.colPoint.VisibleIndex = 15;
+            this.colPoint.VisibleIndex = 13;
             this.colPoint.Width = 60;
             // 
             // colApplyDate
@@ -347,7 +356,7 @@
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.OptionsColumn.AllowEdit = false;
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 8;
+            this.colDealFlagName.VisibleIndex = 7;
             this.colDealFlagName.Width = 40;
             // 
             // colDealFlag
@@ -363,7 +372,7 @@
             this.colPrice.Name = "colPrice";
             this.colPrice.OptionsColumn.AllowEdit = false;
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 9;
+            this.colPrice.VisibleIndex = 8;
             this.colPrice.Width = 55;
             // 
             // colPriceBoundPercentage
@@ -373,7 +382,7 @@
             this.colPriceBoundPercentage.Name = "colPriceBoundPercentage";
             this.colPriceBoundPercentage.OptionsColumn.AllowEdit = false;
             this.colPriceBoundPercentage.Visible = true;
-            this.colPriceBoundPercentage.VisibleIndex = 10;
+            this.colPriceBoundPercentage.VisibleIndex = 9;
             this.colPriceBoundPercentage.Width = 135;
             // 
             // colVolume
@@ -383,7 +392,7 @@
             this.colVolume.Name = "colVolume";
             this.colVolume.OptionsColumn.AllowEdit = false;
             this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 11;
+            this.colVolume.VisibleIndex = 10;
             // 
             // colAmount
             // 
@@ -392,7 +401,7 @@
             this.colAmount.Name = "colAmount";
             this.colAmount.OptionsColumn.AllowEdit = false;
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 12;
+            this.colAmount.VisibleIndex = 11;
             this.colAmount.Width = 85;
             // 
             // colProfit
@@ -401,8 +410,6 @@
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
             this.colProfit.OptionsColumn.AllowEdit = false;
-            this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 7;
             this.colProfit.Width = 95;
             // 
             // colRelateTradePlanNo
@@ -412,7 +419,7 @@
             this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
             this.colRelateTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 17;
+            this.colRelateTradePlanNo.VisibleIndex = 16;
             this.colRelateTradePlanNo.Width = 100;
             // 
             // colCreateTime
@@ -425,16 +432,16 @@
             this.colCreateTime.OptionsColumn.AllowEdit = false;
             this.colCreateTime.Width = 142;
             // 
-            // colVote
+            // colIDVote
             // 
-            this.colVote.AppearanceHeader.Options.UseTextOptions = true;
-            this.colVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colVote.Caption = "投票";
-            this.colVote.ColumnEdit = this.riButtonEditVote;
-            this.colVote.Name = "colVote";
-            this.colVote.Visible = true;
-            this.colVote.VisibleIndex = 13;
-            this.colVote.Width = 150;
+            this.colIDVote.AppearanceHeader.Options.UseTextOptions = true;
+            this.colIDVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colIDVote.Caption = "决策投票";
+            this.colIDVote.ColumnEdit = this.riButtonEditVote;
+            this.colIDVote.Name = "colIDVote";
+            this.colIDVote.Visible = true;
+            this.colIDVote.VisibleIndex = 12;
+            this.colIDVote.Width = 150;
             // 
             // riButtonEditVote
             // 
@@ -456,7 +463,7 @@
             this.colReason.Name = "colReason";
             this.colReason.OptionsColumn.AllowEdit = false;
             this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 16;
+            this.colReason.VisibleIndex = 15;
             this.colReason.Width = 300;
             // 
             // colOperate
@@ -465,7 +472,7 @@
             this.colOperate.ColumnEdit = this.riButtonEditOperate;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 18;
+            this.colOperate.VisibleIndex = 17;
             this.colOperate.Width = 40;
             // 
             // riButtonEditOperate
@@ -497,35 +504,6 @@
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1524, 713);
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // tabPane1
-            // 
-            this.tabPane1.Controls.Add(this.tpRecent);
-            this.tabPane1.Controls.Add(this.tpSearch);
-            this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabPane1.Location = new System.Drawing.Point(0, 0);
-            this.tabPane1.Name = "tabPane1";
-            this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
-            this.tpRecent,
-            this.tpSearch});
-            this.tabPane1.RegularSize = new System.Drawing.Size(1542, 759);
-            this.tabPane1.SelectedPage = this.tpSearch;
-            this.tabPane1.SelectedPageIndex = 0;
-            this.tabPane1.Size = new System.Drawing.Size(1542, 759);
-            this.tabPane1.TabIndex = 1;
-            // 
-            // tpRecent
-            // 
-            this.tpRecent.Caption = "最新股票投资决策单";
-            this.tpRecent.Controls.Add(this.layoutControl1);
-            this.tpRecent.Name = "tpRecent";
-            this.tpRecent.Size = new System.Drawing.Size(1524, 713);
-            // 
-            // tpSearch
-            // 
-            this.tpSearch.Caption = "记录查询";
-            this.tpSearch.Name = "tpSearch";
-            this.tpSearch.Size = new System.Drawing.Size(1524, 713);
             // 
             // emptySpaceItem2
             // 
@@ -579,15 +557,6 @@
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.btnSaveLayout;
-            this.layoutControlItem5.Location = new System.Drawing.Point(1433, 0);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(71, 26);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
-            // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.btnRefresh;
@@ -622,6 +591,65 @@
             this.emptySpaceItem10.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.btnSaveLayout;
+            this.layoutControlItem5.Location = new System.Drawing.Point(1433, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(71, 26);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // tabPane1
+            // 
+            this.tabPane1.Controls.Add(this.tpRecent);
+            this.tabPane1.Controls.Add(this.tpSearch);
+            this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabPane1.Location = new System.Drawing.Point(0, 0);
+            this.tabPane1.Name = "tabPane1";
+            this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
+            this.tpRecent,
+            this.tpSearch});
+            this.tabPane1.RegularSize = new System.Drawing.Size(1542, 759);
+            this.tabPane1.SelectedPage = this.tpSearch;
+            this.tabPane1.SelectedPageIndex = 0;
+            this.tabPane1.Size = new System.Drawing.Size(1542, 759);
+            this.tabPane1.TabIndex = 1;
+            // 
+            // tpRecent
+            // 
+            this.tpRecent.Caption = "最新股票投资决策单";
+            this.tpRecent.Controls.Add(this.layoutControl1);
+            this.tpRecent.Name = "tpRecent";
+            this.tpRecent.Size = new System.Drawing.Size(1524, 713);
+            // 
+            // tpSearch
+            // 
+            this.tpSearch.Caption = "记录查询";
+            this.tpSearch.Name = "tpSearch";
+            this.tpSearch.Size = new System.Drawing.Size(1524, 713);
+            // 
+            // colAccuracyVote
+            // 
+            this.colAccuracyVote.AppearanceHeader.Options.UseTextOptions = true;
+            this.colAccuracyVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colAccuracyVote.Caption = "准确度投票";
+            this.colAccuracyVote.ColumnEdit = this.riButtonEditAccuracyVote;
+            this.colAccuracyVote.Name = "colAccuracyVote";
+            this.colAccuracyVote.Visible = true;
+            this.colAccuracyVote.VisibleIndex = 18;
+            // 
+            // riButtonEditAccuracyVote
+            // 
+            this.riButtonEditAccuracyVote.AutoHeight = false;
+            this.riButtonEditAccuracyVote.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "Accuracy", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "不准确", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", "Inaccuracy", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "撤销", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", "Revoke", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject10, "", "View", null, true)});
+            this.riButtonEditAccuracyVote.Name = "riButtonEditAccuracyVote";
+            this.riButtonEditAccuracyVote.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            // 
             // FrmStockInvestmentDecision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -638,19 +666,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            this.tabPane1.ResumeLayout(false);
-            this.tpRecent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDelete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            this.tabPane1.ResumeLayout(false);
+            this.tpRecent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditAccuracyVote)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -679,7 +708,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colProfit;
         private DevExpress.XtraGrid.Columns.GridColumn colRelateTradePlanNo;
         private DevExpress.XtraGrid.Columns.GridColumn colCreateTime;
-        private DevExpress.XtraGrid.Columns.GridColumn colVote;
+        private DevExpress.XtraGrid.Columns.GridColumn colIDVote;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditVote;
         private DevExpress.XtraGrid.Columns.GridColumn colReason;
         private DevExpress.XtraGrid.Columns.GridColumn colStatusName;
@@ -708,5 +737,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyVote;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditAccuracyVote;
     }
 }

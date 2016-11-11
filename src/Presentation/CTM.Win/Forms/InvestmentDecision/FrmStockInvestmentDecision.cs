@@ -57,7 +57,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             //if (LoginInfo.CurrentUser.IsAdmin)
             //    this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             //else
-                this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
             this.btnDelete.Enabled = false;
 
@@ -66,7 +66,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
-                if (column.Name == this.colVote.Name || column.Name == this.colOperate.Name)
+                if (column.Name == this.colIDVote.Name || column.Name == this.colOperate.Name)
                     column.OptionsColumn.AllowEdit = true;
                 else
                     column.OptionsColumn.AllowEdit = false;
@@ -395,7 +395,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.btnDelete.Enabled = false;
         }
 
-          private void btnSaveLayout_Click(object sender, EventArgs e)
+        private void btnSaveLayout_Click(object sender, EventArgs e)
         {
             this.gridView1.SaveLayout(_layoutXmlName);
         }
@@ -485,7 +485,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (dr == null) return;
 
             //投票
-            if (e.Column.Name == colVote.Name)
+            if (e.Column.Name == colIDVote.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 

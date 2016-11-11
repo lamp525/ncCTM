@@ -39,7 +39,6 @@ namespace CTM.Core
             Abstain =3,
         }
 
-
         /// <summary>
         /// 投资决策单状态
         /// </summary>
