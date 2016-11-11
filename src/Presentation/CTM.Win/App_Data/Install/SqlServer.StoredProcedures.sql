@@ -483,12 +483,24 @@ BEGIN
 
 	SET NOCOUNT ON
 
-	IF(@DisplayType = 0)
-		SELECT	
-			Delivery.* 
+	IF(@DisplayType = 0)	
+		SELECT
+			ISNULL(Delivery.DE_TradeDate,Daily.DA_TradeDate)DE_TradeDate
+			,Delivery.DE_StockCode
+			,Delivery.DE_StockName
+			,Delivery.DE_DealFlag
+			,Delivery.DE_DealName
+			,Delivery.DE_TotalActualAmount
+			,Delivery.DE_TotalDealVolume	
 			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
 			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
-			,Daily.*
+			,ISNULL(Daily.DA_TradeDate,Delivery.DE_TradeDate)DA_TradeDate
+			,Daily.DA_StockCode
+			,Daily.DA_StockName
+			,Daily.DA_DealFlag
+			,Daily.DA_DealName
+			,Daily.DA_TotalActualAmount
+			,Daily.DA_TotalDealVolume
 		FROM
 		(
 			SELECT 
@@ -524,7 +536,7 @@ BEGIN
 			GROUP BY TradeDate,StockCode,DealFlag 
 		) Daily 
 		ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
-		ORDER BY Delivery.DE_StockCode, Delivery.DE_TradeDate
+		ORDER BY DE_TradeDate,DE_StockCode    
 
 	ELSE
 
@@ -571,6 +583,7 @@ BEGIN
 		ORDER BY Delivery.DE_StockCode
 END
 GO
+
 
 /****** [sp_GetIDVoteResult] ******/
 DROP PROCEDURE [dbo].[sp_GetIDVoteResult]
@@ -802,7 +815,7 @@ BEGIN
 		ON DR.Beneficiary = U.Code
 		LEFT JOIN AccountInfo C
 		ON DR.AccountId = C.Id
-		WHERE DR.TradeDate < = '2016-11-01'
+		WHERE DR.TradeDate < = @EndDate
 		GROUP BY DR.AccountId,DR.Beneficiary,DR.StockCode 
 	) T
 	WHERE T.PositionVolume !=0

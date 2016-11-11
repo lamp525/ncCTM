@@ -139,6 +139,7 @@ namespace CTM.Services.InvestmentDecision
             }
 
             entity.Point = (int)(applyUserWeight * 100);
+            entity.SerialNo = GenerateIDFSerialNo(entity.ApplyDate);
             _IDFRepository.Insert(entity);
 
             var defaultVoteInfos = new List<InvestmentDecisionVote>();
