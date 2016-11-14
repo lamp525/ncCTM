@@ -281,7 +281,7 @@ namespace CTM.Services.TradeRecord
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "发生日期", "证券代码", "证券名称", "业务名称", "成交价格", "成交数量", "成交金额", "手续费", "印花税", "深市过户费(含在手续费中收取)", "沪市过户费", "清算费", "清算金额", "资金本次余额", "委托编号", "委托价格", "委托数量", "成交时间", "股东代码", "资产账户","币种" };
+            var TemplateColumnNames = new List<string> { "发生日期", "证券代码", "证券名称", "业务名称", "成交价格", "成交数量", "成交金额", "手续费", "印花税", "深市过户费(含在手续费中收取)", "沪市过户费", "清算费", "清算金额", "资金本次余额", "委托编号", "委托价格", "委托数量", "成交时间", "股东代码", "资金账户","币种" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
