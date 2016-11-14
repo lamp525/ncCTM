@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using CTM.Data;
+using CTM.Services.StatisticsReport;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
 
@@ -19,6 +20,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         public string StockCode { get; set; }
 
         public string StockName { get; set; }
+
+       public bool DealFlag { get; set; }
 
         #endregion Properties
 
@@ -45,7 +48,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @TradeDate = '{TradeDate}'";
+            var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @TradeDate = '{TradeDate}' , @DealFlag = {DealFlag}";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 

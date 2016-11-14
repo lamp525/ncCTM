@@ -495,7 +495,7 @@ BEGIN
 		DealVolume,
 		ActualAmount
 	FROM DeliveryRecord
-	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode
+	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode AND DealFlag = @DealFlag
 	ORDER BY TradeTime
 
 
@@ -527,7 +527,7 @@ BEGIN
 			ELSE ''
 		END TradeTypeName
 	FROM DailyRecord
-	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode
+	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode AND DealFlag = @DealFlag
 	ORDER BY TradeTime
 
 END
