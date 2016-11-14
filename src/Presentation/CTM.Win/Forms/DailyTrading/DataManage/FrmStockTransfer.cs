@@ -72,7 +72,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             if(!LoginInfo.CurrentUser .IsAdmin )
             {
-                luDealer.ReadOnly = true;
+                luDealer.ReadOnly = true;             
                 luDealer.EditValue = LoginInfo.CurrentUser.UserCode;
             }
         }
@@ -123,7 +123,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                         AttributeName = currentAccount.AttributeName,
                         CurrentPrice = closePrice,
                         DealerCode = dealerCode,
-                        DealerName = this.luDealer.SelectedText,
+                        DealerName = this.luDealer.Text.Trim(),
                         PositionValue = positionValue,
                         StockFullCode = stockGroup.Key,
                         StockHoldingVolume = holdingVolume,
