@@ -119,19 +119,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             //账户
-            var accounts = _accountService.GetAccountDetails(showDisabled: true).ToList();
-
-            var allAccountModel = new AccountEntity
-            {
-                Id = 0,
-                Name = "  全部  ",
-                AttributeName = "  全部  ",
-                SecurityCompanyName = "  全部  ",
-                DisplayMember = "  全部  ",
-            };
-            accounts.Add(allAccountModel);
-            accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ToList();
-            luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
+            BindAccount();
 
             //数据类型
             var dataTypes = new List<ComboBoxItemModel>();
@@ -214,8 +202,35 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             //导入人
             luImport.Initialize(importors, "Code", "Name", showHeader: true, enableSearch: true);
+        }
 
-            SetDefaultSearchInfo();
+        private void BindAccount()
+        {
+            IList<AccountEntity> accounts = null;
+
+            if (LoginInfo.CurrentUser.IsAdmin || this.radioGroup1.SelectedIndex == 0)
+            {
+                //账户
+                accounts = _accountService.GetAccountDetails(showDisabled: true).ToList();
+
+                var allAccountModel = new AccountEntity
+                {
+                    Id = 0,
+                    Name = "  全部  ",
+                    AttributeName = "  全部  ",
+                    SecurityCompanyName = "  全部  ",
+                    DisplayMember = "  全部  ",
+                };
+                accounts.Add(allAccountModel);
+                accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ToList();
+            }
+            else if (this.radioGroup1.SelectedIndex == 1)
+            {
+                var operateAccountIds = _accountService.GetAccountIdByOperatorId(LoginInfo.CurrentUser.UserId);
+                accounts = _accountService.GetAccountDetails(accountIds: operateAccountIds.ToArray());
+            }
+
+            luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
         }
 
         private void SetDefaultSearchInfo()
@@ -246,13 +261,16 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             luBeneficiary.EditValue = null;
 
-            if (LoginInfo.CurrentUser.IsAdmin)
+            if (LoginInfo.CurrentUser.IsAdmin || this.radioGroup1.SelectedIndex == 1)
             {
                 luOperator.EditValue = null;
-                luImport.EditValue = null;
+                luOperator.ReadOnly = false;
                 luBeneficiary.EditValue = null;
+                luBeneficiary.ReadOnly = false;
+                luImport.EditValue = null;
+                luImport.ReadOnly = false;
             }
-            else
+            else if (this.radioGroup1.SelectedIndex == 0)
             {
                 luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
                 luOperator.ReadOnly = true;
@@ -399,11 +417,20 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnDelete.Enabled = false;
                 this.btnSplit.Enabled = false;
 
+                this.btnAddVirtualRecord.Enabled = LoginInfo.CurrentUser.IsAdmin;
+
+                if (LoginInfo.CurrentUser.IsAdmin)
+                    this.lciQueryMode.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                else
+                    this.lciQueryMode.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
                 this.gridView1.LoadLayout(_layoutXmlName);
 
                 this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, rowIndicatorWidth: 70, showCheckBoxRowSelect: true);
 
                 BindSearchInfo();
+
+                SetDefaultSearchInfo();
 
                 this.ActiveControl = this.btnSearch;
 
@@ -672,6 +699,25 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                     this.btnSplit.Enabled = true;
                 else
                     this.btnSplit.Enabled = false;
+            }
+        }
+
+        private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.radioGroup1.Enabled = false;
+
+                BindAccount();
+                SetDefaultSearchInfo();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.radioGroup1.Enabled = true;
             }
         }
 

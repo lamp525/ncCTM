@@ -135,7 +135,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                     AllotFund = firstRecord.AllotFund,
                     AccumulatedProfit = subTotalAccumulatedProfit,
-                    AccumulatedIncomeRate = subTotalAccumulatedProfit / firstRecord.AllotFund,
+                    AccumulatedIncomeRate = CommonHelper.CalculateRate(subTotalAccumulatedProfit, firstRecord.AllotFund),
 
                     InitAsset = subTotalInitProfit + firstRecord.AllotFund,
                     InitHoldingVolume = 0,
@@ -147,7 +147,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     CurrentPositionValue = investorGroup.Sum(x => x.CurrentPositionValue),
                     CurrentPrice = 0,
                     CurrentProfit = subTotalCurrentProfit,
-                    CurrentIncomeRate = subTotalCurrentProfit / firstRecord.AllotFund,
+                    CurrentIncomeRate = CommonHelper.CalculateRate(subTotalCurrentProfit, firstRecord.AllotFund),
 
                     TradeType = 0,
                 };
@@ -168,7 +168,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             totalModel.AllotFund = allSubTotalRecords.Sum(x => x.AllotFund);
             totalModel.AccumulatedProfit = allSubTotalRecords.Sum(x => x.AccumulatedProfit);
-            totalModel.AccumulatedIncomeRate = totalModel.AccumulatedProfit / totalModel.AllotFund;
+            totalModel.AccumulatedIncomeRate = CommonHelper.CalculateRate(totalModel.AccumulatedProfit, totalModel.AllotFund);
 
             totalModel.InitAsset = allSubTotalRecords.Sum(x => x.InitAsset);
             totalModel.InitHoldingVolume = 0;
@@ -180,7 +180,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             totalModel.CurrentPositionValue = allSubTotalRecords.Sum(x => x.CurrentPositionValue);
             totalModel.CurrentPrice = 0;
             totalModel.CurrentProfit = allSubTotalRecords.Sum(x => x.CurrentProfit);
-            totalModel.CurrentIncomeRate = totalModel.CurrentProfit / totalModel.AllotFund;
+            totalModel.CurrentIncomeRate = CommonHelper.CalculateRate(totalModel.CurrentProfit, totalModel.AllotFund);
 
             totalModel.TradeType = 0;
 
@@ -290,13 +290,13 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                         if (tradeType == (int)EnumLibrary.TradeType.Day)
                         {
-                            currentIncomeRate = currentPositionValue > allotFund ? currentProfit / currentPositionValue : currentProfit / allotFund;
-                            currentAccumulatedIncomeRate = currentPositionValue > allotFund ? currentAccumulatedProfit / currentPositionValue : currentAccumulatedProfit / allotFund;
+                            currentIncomeRate = CommonHelper.CalculateRate(currentProfit, currentPositionValue > allotFund ? currentPositionValue : allotFund);
+                            currentAccumulatedIncomeRate = CommonHelper.CalculateRate(currentAccumulatedProfit, currentPositionValue > allotFund ? currentPositionValue : allotFund);
                         }
                         else
                         {
-                            currentIncomeRate = currentProfit / allotFund;
-                            currentAccumulatedIncomeRate = currentAccumulatedProfit / allotFund;
+                            currentIncomeRate = CommonHelper.CalculateRate(currentProfit, allotFund);
+                            currentAccumulatedIncomeRate = CommonHelper.CalculateRate(currentAccumulatedProfit, allotFund);
                         }
 
                         #endregion 期末处理
@@ -356,6 +356,17 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.deTo.EditValue = now.Date.AddDays(-1);
             else
                 this.deTo.EditValue = now.Date;
+
+            if (LoginInfo.CurrentUser.IsAdmin)
+            {
+                this.lciCheckAll.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciCheckOnWorking.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
+            else
+            {
+                this.lciCheckAll.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lciCheckOnWorking.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
 
             this.bandedGridView1.LoadLayout(_layoutXmlName);
             this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: true, showGroupPanel: true);

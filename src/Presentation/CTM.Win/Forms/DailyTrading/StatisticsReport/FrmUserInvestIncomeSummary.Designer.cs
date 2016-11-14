@@ -61,10 +61,9 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciCheckOnWorking = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciCheckAll = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -86,10 +85,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckOnWorking)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
@@ -117,7 +115,7 @@
             // 
             // chkAll
             // 
-            this.chkAll.Location = new System.Drawing.Point(130, 116);
+            this.chkAll.Location = new System.Drawing.Point(108, 116);
             this.chkAll.Name = "chkAll";
             this.chkAll.Properties.Caption = "全部";
             this.chkAll.Size = new System.Drawing.Size(46, 19);
@@ -131,7 +129,7 @@
             this.chkOnWorking.Location = new System.Drawing.Point(34, 116);
             this.chkOnWorking.Name = "chkOnWorking";
             this.chkOnWorking.Properties.Caption = "在职人员";
-            this.chkOnWorking.Size = new System.Drawing.Size(82, 19);
+            this.chkOnWorking.Size = new System.Drawing.Size(70, 19);
             this.chkOnWorking.StyleController = this.layoutControl2;
             this.chkOnWorking.TabIndex = 7;
             this.chkOnWorking.CheckedChanged += new System.EventHandler(this.chkOnWorking_CheckedChanged);
@@ -461,10 +459,9 @@
             this.emptySpaceItem1,
             this.layoutControlItem1,
             this.layoutControlItem5,
-            this.layoutControlItem2,
-            this.layoutControlItem3,
+            this.lciCheckOnWorking,
             this.emptySpaceItem2,
-            this.emptySpaceItem3});
+            this.lciCheckAll});
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
             this.layoutControlGroup4.Size = new System.Drawing.Size(1526, 710);
@@ -473,9 +470,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(156, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(134, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1275, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(1297, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem1
@@ -497,23 +494,23 @@
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
-            // layoutControlItem2
+            // lciCheckOnWorking
             // 
-            this.layoutControlItem2.Control = this.chkOnWorking;
-            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(86, 26);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
+            this.lciCheckOnWorking.Control = this.chkOnWorking;
+            this.lciCheckOnWorking.Location = new System.Drawing.Point(10, 0);
+            this.lciCheckOnWorking.Name = "lciCheckOnWorking";
+            this.lciCheckOnWorking.Size = new System.Drawing.Size(74, 26);
+            this.lciCheckOnWorking.TextSize = new System.Drawing.Size(0, 0);
+            this.lciCheckOnWorking.TextVisible = false;
             // 
-            // layoutControlItem3
+            // lciCheckAll
             // 
-            this.layoutControlItem3.Control = this.chkAll;
-            this.layoutControlItem3.Location = new System.Drawing.Point(106, 0);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(50, 26);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
+            this.lciCheckAll.Control = this.chkAll;
+            this.lciCheckAll.Location = new System.Drawing.Point(84, 0);
+            this.lciCheckAll.Name = "lciCheckAll";
+            this.lciCheckAll.Size = new System.Drawing.Size(50, 26);
+            this.lciCheckAll.TextSize = new System.Drawing.Size(0, 0);
+            this.lciCheckAll.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
@@ -522,14 +519,6 @@
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(96, 0);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup6
             // 
@@ -622,10 +611,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckOnWorking)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
@@ -676,9 +664,8 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraEditors.CheckEdit chkAll;
         private DevExpress.XtraEditors.CheckEdit chkOnWorking;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem lciCheckOnWorking;
+        private DevExpress.XtraLayout.LayoutControlItem lciCheckAll;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
     }
 }
