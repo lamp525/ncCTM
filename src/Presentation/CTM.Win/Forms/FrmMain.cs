@@ -316,16 +316,6 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// 股票转移
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiStockTransfer_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmStockTransfer>("股票转移");
-        }
-
-        /// <summary>
         /// 用户信息
         /// </summary>
         /// <param name="sender"></param>

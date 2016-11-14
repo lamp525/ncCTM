@@ -73,9 +73,8 @@
             this.bbiUserInvestIncomSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStockInvestIncomeSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bsiSystemInfo = new DevExpress.XtraBars.BarStaticItem();
-            this.bsiCurrentUserInfo = new DevExpress.XtraBars.BarStaticItem();   
+            this.bsiCurrentUserInfo = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
-            this.bbiStockTransfer = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserDayMarginTrading = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserInvestIncomeRetracement = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserInvestIncomeAccount = new DevExpress.XtraBars.BarButtonItem();
@@ -176,9 +175,8 @@
             this.bbiUserInvestIncomSummary,
             this.bbiStockInvestIncomeSummary,
             this.bsiSystemInfo,
-            this.bsiCurrentUserInfo, 
+            this.bsiCurrentUserInfo,
             this.barButtonItem5,
-            this.bbiStockTransfer,
             this.bbiUserDayMarginTrading,
             this.bbiUserInvestIncomeRetracement,
             this.bbiUserInvestIncomeAccount,
@@ -607,16 +605,6 @@
             this.barButtonItem5.Id = 13;
             this.barButtonItem5.Name = "barButtonItem5";
             // 
-            // bbiStockTransfer
-            // 
-            this.bbiStockTransfer.Caption = "股票转移";
-            this.bbiStockTransfer.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiStockTransfer.Glyph")));
-            this.bbiStockTransfer.Id = 14;
-            this.bbiStockTransfer.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiStockTransfer.LargeGlyph")));
-            this.bbiStockTransfer.Name = "bbiStockTransfer";
-            this.bbiStockTransfer.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.bbiStockTransfer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStockTransfer_ItemClick);
-            // 
             // bbiUserDayMarginTrading
             // 
             this.bbiUserDayMarginTrading.Caption = "融券信息";
@@ -942,7 +930,6 @@
             // 
             this.ribbonPageGroup8.ItemLinks.Add(this.barButtonItem29);
             this.ribbonPageGroup8.ItemLinks.Add(this.barButtonItem30);
-            this.ribbonPageGroup8.ItemLinks.Add(this.bbiStockTransfer);
             this.ribbonPageGroup8.ItemLinks.Add(this.bbiHistoryTradeRecordImport);
             this.ribbonPageGroup8.Name = "ribbonPageGroup8";
             this.ribbonPageGroup8.Text = "数据管理";
@@ -1106,7 +1093,6 @@
         private DevExpress.XtraBars.BarStaticItem bsiSystemInfo;
         private DevExpress.XtraBars.BarStaticItem bsiCurrentUserInfo;     
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
-        private DevExpress.XtraBars.BarButtonItem bbiStockTransfer;
         private DevExpress.XtraBars.BarButtonItem bbiUserDayMarginTrading;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.BarButtonItem bbiUserInvestIncomeRetracement;

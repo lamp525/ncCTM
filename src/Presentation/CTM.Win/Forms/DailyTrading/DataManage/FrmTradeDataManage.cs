@@ -393,6 +393,12 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             dialog.ShowDialog();
         }
 
+        private void DispalyStockTransferForm()
+        {
+            this.DisplayForm<FrmStockTransfer>("股票持仓转移");
+        }
+
+
         private void RefreshForm()
         {
             try
@@ -416,8 +422,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
                 this.btnSplit.Enabled = false;
-
-                this.btnAddVirtualRecord.Enabled = LoginInfo.CurrentUser.IsAdmin;
+                this.btnAddVirtualRecord.Enabled = LoginInfo.CurrentUser.IsAdmin;          
 
                 if (LoginInfo.CurrentUser.IsAdmin)
                     this.lciQueryMode.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -664,6 +669,30 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
         }
 
+        /// <summary>
+        /// 股票移仓
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnStockTransfer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnStockTransfer.Enabled = false;
+
+                DispalyStockTransferForm();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnStockTransfer.Enabled = true;
+            }
+        }
+
+
         private void chkSell_CheckedChanged(object sender, EventArgs e)
         {
             if (chkSell.Checked)
@@ -711,9 +740,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 BindAccount();
                 SetDefaultSearchInfo();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                DXMessage.ShowError(ex.Message);
             }
             finally
             {
@@ -735,5 +764,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         }
 
         #endregion Events
+
+
     }
 }
