@@ -212,7 +212,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 StockCode = stockInfo.FullCode,
                 StockName = stockInfo.Name,
                 TradeDate = tradeTime.Date,
-                TradeTime = tradeTime.ToLongTimeString (),
+                TradeTime = tradeTime.ToLongTimeString(),
                 TradeType = int.Parse(this.cbTradeType.SelectedValue()),
                 UpdateTime = now,
                 UpdateUser = LoginInfo.CurrentUser.UserCode,
@@ -451,11 +451,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnDelete.Enabled = false;
             else
                 this.btnDelete.Enabled = true;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void _dialogVirtualRecord_FormClosing(object sender, FormClosingEventArgs e)
