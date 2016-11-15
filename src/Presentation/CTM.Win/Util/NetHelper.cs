@@ -71,6 +71,10 @@ namespace CTM.Win.Util
             return localIp;
         }
 
+        /// <summary>
+        /// Get local mac address
+        /// </summary>
+        /// <returns></returns>
         public static string GetLocalMacAddress()
         {
             var macAddress = "?";
@@ -102,7 +106,7 @@ namespace CTM.Win.Util
 
             int index = mip.FindIndex(x => x.IpAddress == ip);
 
-            if (index > 0)
+            if (index >= 0)
                 macAddress = mip[index].MacAddress.ToString();
 
             return macAddress;
