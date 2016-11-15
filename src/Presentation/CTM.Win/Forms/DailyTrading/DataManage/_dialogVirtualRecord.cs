@@ -89,8 +89,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this.txtActualAmount.EditValue = 0;
 
             //交易日期
+            this.deTradeDate.SetFormat("yyyy-MM-dd HH:mm:ss");
             this.deTradeDate.Properties.AllowNullInput = DefaultBoolean.False;
-            this.deTradeDate.EditValue = this._commonService.GetCurrentServerTime().Date.ToString("yyyy-MM-dd");
+            this.deTradeDate.EditValue = this._commonService.GetCurrentServerTime();
 
             //交易类别
             var tradeTypes = this._dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
@@ -192,6 +193,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             var now = this._commonService.GetCurrentServerTime();
             var stockInfo = this.luStock.GetSelectedDataRow() as StockInfoModel;
             var dealVolume = int.Parse(this.txtDealVolume.Text.Trim());
+
+            var tradeTime = CommonHelper.StringToDateTime(this.deTradeDate.Text.Trim());
             var virtualRecord = new DailyRecord
             {
                 AccountId = int.Parse(this.luAccount.SelectedValue()),
@@ -208,8 +211,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 OperatorCode = this.luInvestor.SelectedValue(),
                 StockCode = stockInfo.FullCode,
                 StockName = stockInfo.Name,
-                TradeDate = CommonHelper.StringToDateTime(this.deTradeDate.Text.Trim()),
-                TradeTime = "14:00:00",
+                TradeDate = tradeTime.Date,
+                TradeTime = tradeTime.ToLongTimeString (),
                 TradeType = int.Parse(this.cbTradeType.SelectedValue()),
                 UpdateTime = now,
                 UpdateUser = LoginInfo.CurrentUser.UserCode,

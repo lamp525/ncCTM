@@ -352,7 +352,7 @@
             // colTradeDate
             // 
             this.colTradeDate.Caption = "交易日期";
-            this.colTradeDate.DisplayFormat.FormatString = "yyyy-MM-dd";
+            this.colTradeDate.DisplayFormat.FormatString = "d";
             this.colTradeDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colTradeDate.FieldName = "TradeDate";
             this.colTradeDate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
@@ -501,7 +501,7 @@
             // colImportTime
             // 
             this.colImportTime.Caption = "导入时间";
-            this.colImportTime.DisplayFormat.FormatString = "yyyy-MM-dd HH:mm:ss";
+            this.colImportTime.DisplayFormat.FormatString = "yyyy/MM/dd HH:mm:ss";
             this.colImportTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colImportTime.FieldName = "ImportTime";
             this.colImportTime.Name = "colImportTime";
@@ -517,7 +517,7 @@
             // colUpdateTime
             // 
             this.colUpdateTime.Caption = "更新时间";
-            this.colUpdateTime.DisplayFormat.FormatString = "yyyy-MM-dd HH:mm:ss";
+            this.colUpdateTime.DisplayFormat.FormatString = "yyyy/MM/dd HH:mm:ss";
             this.colUpdateTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colUpdateTime.FieldName = "UpdateTime";
             this.colUpdateTime.Name = "colUpdateTime";

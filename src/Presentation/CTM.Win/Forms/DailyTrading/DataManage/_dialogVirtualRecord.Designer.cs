@@ -510,8 +510,11 @@
             this.deTradeDate.Name = "deTradeDate";
             this.deTradeDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.deTradeDate.Properties.CalendarTimeEditing = DevExpress.Utils.DefaultBoolean.True;
             this.deTradeDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.deTradeDate.Properties.CalendarView = DevExpress.XtraEditors.Repository.CalendarView.Vista;
+            this.deTradeDate.Properties.VistaDisplayMode = DevExpress.Utils.DefaultBoolean.True;
             this.deTradeDate.Size = new System.Drawing.Size(251, 20);
             this.deTradeDate.StyleController = this.layoutControl1;
             this.deTradeDate.TabIndex = 102;
