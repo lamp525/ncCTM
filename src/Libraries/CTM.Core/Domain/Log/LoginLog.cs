@@ -6,14 +6,14 @@ namespace CTM.Core.Domain.Log
     {
         public string UserCode { get; set; }
 
-        public DateTime Date { get; set; }
-
-        public string Time { get; set; }
+        public string UserName { get; set; }
 
         public string IP { get; set; }
 
-        public string MACAddress { get; set; }
+        public string MAC { get; set; }
 
-        public bool IsSuccced { get; set; }
+        public DateTime Time { get; set; }     
+
+        public string Remark { get; set; }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using CTM.Core.Domain.Log;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Common;
 using CTM.Services.Department;
+using CTM.Services.Log;
 using CTM.Services.User;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -17,6 +19,7 @@ namespace CTM.Win.Forms
         private readonly IUserService _userService;
         private readonly IDepartmentService _deptService;
         private readonly ICommonService _commonService;
+        private readonly ILogService _logService;
 
         private bool _reLogin = false;
 
@@ -42,13 +45,18 @@ namespace CTM.Win.Forms
 
         #region Constructors
 
-        public _dialogLogin(IUserService userService, IDepartmentService deptService, ICommonService commonService)
+        public _dialogLogin(
+            IUserService userService,
+            IDepartmentService deptService,
+            ICommonService commonService,
+            ILogService logService)
         {
             InitializeComponent();
 
             this._userService = userService;
             this._deptService = deptService;
             this._commonService = commonService;
+            this._logService = logService;
         }
 
         #endregion Constructors
@@ -62,6 +70,17 @@ namespace CTM.Win.Forms
 
         private void SaveLoginLog(UserInfo info)
         {
+            var log = new LoginLog
+            {
+                IP = NetHelper.GetLocalIpAddress(),
+                MAC = NetHelper.GetLocalMacAddress(),
+                Remark = string.Empty,
+                Time = _commonService.GetCurrentServerTime(),
+                UserCode = info.Code,
+                UserName = info.Name,
+            };
+
+            _logService.SaveLoginLog(log);
         }
 
         private void SaveLoginInfo(UserInfo info)
@@ -158,18 +177,14 @@ namespace CTM.Win.Forms
                 if (txtAccount.Text.Length == 0)
                 {
                     DXMessage.ShowTips("请输入账号！");
-
                     txtAccount.Focus();
-
                     return;
                 }
 
                 if (txtPassword.Text.Length == 0)
                 {
                     DXMessage.ShowTips("请输入密码！");
-
                     txtPassword.Focus();
-
                     return;
                 }
 
@@ -181,7 +196,6 @@ namespace CTM.Win.Forms
                 {
                     DXMessage.ShowTips("账号不存在，请重新输入！");
                     txtAccount.Focus();
-
                     return;
                 }
 
@@ -189,7 +203,6 @@ namespace CTM.Win.Forms
                 {
                     DXMessage.ShowTips("该账号已被禁用，请联系管理员！");
                     txtAccount.Focus();
-
                     return;
                 }
 
@@ -198,7 +211,6 @@ namespace CTM.Win.Forms
                     DXMessage.ShowTips("密码不正确，请重新输入!");
                     txtPassword.Text = string.Empty;
                     txtPassword.Focus();
-
                     return;
                 }
 
