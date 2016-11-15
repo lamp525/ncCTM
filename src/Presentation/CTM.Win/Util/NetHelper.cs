@@ -56,7 +56,6 @@ namespace CTM.Win.Util
         public static string GetLocalIpAddress()
         {
             var localIp = "?";
-
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
 
             foreach (IPAddress ip in host.AddressList)
@@ -101,9 +100,7 @@ namespace CTM.Win.Util
         public static string GetMacAddressFromLocalIp(string ip)
         {
             var macAddress = "?";
-
             var mip = GetAllMacAddressAndIpPairs();
-
             int index = mip.FindIndex(x => x.IpAddress == ip);
 
             if (index >= 0)
