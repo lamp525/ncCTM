@@ -80,7 +80,7 @@ namespace CTM.Win.Util
 
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces ())
             {
-                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet) continue;
+                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet && nic.NetworkInterfaceType != NetworkInterfaceType.Wireless80211) continue;
 
                 if(nic.OperationalStatus  == OperationalStatus.Up )
                 {
