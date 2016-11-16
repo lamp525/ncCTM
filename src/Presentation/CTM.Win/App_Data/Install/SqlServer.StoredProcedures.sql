@@ -354,6 +354,7 @@ BEGIN
 END
 GO
 
+
 /****** [sp_GeneratePSAInfo] ******/
 DROP PROCEDURE [dbo].[sp_GeneratePSAInfo]
 GO
@@ -401,6 +402,7 @@ BEGIN
  
 END
 GO
+
 
 /****** [sp_GetAccountDetail] ******/
 DROP PROCEDURE [dbo].[sp_GetAccountDetail]
@@ -710,23 +712,22 @@ BEGIN
 		CASE IDF.[Status]
 			WHEN 1 THEN '已提交'
 			WHEN 2 THEN '进行中'
-			WHEN 3 THEN '申请通过'
-			WHEN 4 THEN '申请不通过'
+			WHEN 3 THEN '通过'
+			WHEN 4 THEN '不通过'
+			ELSE ''
 		END StatusName,
 		CASE IDF.TradeType
 			WHEN 1 THEN '目标'
 			WHEN 2 THEN '波段'
+			WHEN 3 THEN '隔日短差'
+			ELSE ''
 		END TradeTypeName,
 		CASE IDF.DealFlag 
 			WHEN 1 THEN '买入'
 			WHEN 0 THEN '卖出'
+			ELSE ''
 		END DealFlagName,
-		U.Name ApplyUserName,
-		CASE IDF.[Status]
-			WHEN 3 THEN CAST(IDF.Point AS decimal(18,0)) 
-			WHEN 4 THEN CAST(IDF.Point AS decimal(18,0)) 
-			ELSE CAST(IDF.Point AS decimal(18,0)) 
-		END Point,
+	    CAST(IDF.Point AS decimal(18,0)) Point,
 		PriceBoundPercentage = CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '% ' + '(' + CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar) + ')',
 		IDF.SerialNo,
 		IDF.ApplyUser,
