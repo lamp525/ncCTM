@@ -78,14 +78,15 @@ namespace CTM.Win.Util
         {
             var macAddress = "?";
 
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces ())
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet && nic.NetworkInterfaceType != NetworkInterfaceType.Wireless80211) continue;
-
-                if(nic.OperationalStatus  == OperationalStatus.Up )
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet || nic.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
                 {
-                    macAddress = nic.GetPhysicalAddress().ToString();
-                    break;
+                    if (nic.OperationalStatus == OperationalStatus.Up)
+                    {
+                        macAddress = nic.GetPhysicalAddress().ToString();
+                        break;
+                    }
                 }
             }
 

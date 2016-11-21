@@ -37,7 +37,7 @@ namespace CTM.Core.Util
         {
             try
             {
-                Process myprocess = new Process();
+                Process pProcess = new Process();
                 var startInfo = new ProcessStartInfo();
                 startInfo.FileName = fileName;
                 startInfo.Arguments = args;
@@ -45,9 +45,9 @@ namespace CTM.Core.Util
                 startInfo.WorkingDirectory = workDirectory;
                 startInfo.UseShellExecute = true;
 
-                myprocess.StartInfo = startInfo;
-                myprocess.Start();
-                RepetitionStartManage(myprocess);
+                pProcess.StartInfo = startInfo;
+                pProcess.Start();
+                RepetitionStartManage(pProcess);
             }
             catch (Exception ex)
             {
