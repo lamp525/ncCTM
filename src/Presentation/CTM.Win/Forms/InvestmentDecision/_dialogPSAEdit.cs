@@ -102,6 +102,11 @@ namespace CTM.Win.Forms.InvestmentDecision
                     Description = "减仓",
                     Value = 3,
                 },
+               new ImageComboBoxItem
+                {
+                    Description = "清仓",
+                    Value = 5,
+                },
                 new ImageComboBoxItem
                 {
                     Description = "融券卖出",

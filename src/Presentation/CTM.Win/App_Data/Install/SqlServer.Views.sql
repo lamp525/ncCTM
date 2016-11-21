@@ -51,6 +51,7 @@ AS
 			WHEN '2' THEN '¼Ó²Ö'
 			WHEN '3' THEN '¼õ²Ö'
 			WHEN '4' THEN 'ÈÚÈ¯Âô³ö'
+			WHEN '5' THEN 'Çå²Ö'
 			ELSE ''
 		END DecisionName
 	FROM PositionStockAnalysisDetail D
