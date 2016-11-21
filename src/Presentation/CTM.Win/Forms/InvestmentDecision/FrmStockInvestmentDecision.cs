@@ -154,8 +154,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             var serialNo = dr[colSerialNo.FieldName]?.ToString();
             var applyUser = dr[colApplyUser.FieldName]?.ToString();
 
-            var myVoteinfo = _myVotes.FirstOrDefault(x => x.FormSerialNo == serialNo && x.UserCode == LoginInfo.CurrentUser.UserCode);
-
             //申请单已提交或投票进行中
             if (status == (int)EnumLibrary.IDFormStatus.Submited || status == (int)EnumLibrary.IDFormStatus.Proceed)
             {
@@ -183,8 +181,10 @@ namespace CTM.Win.Forms.InvestmentDecision
                     buttonVI.RightButtons[4].Button.Enabled = true;
                     buttonVI.RightButtons[4].State = ObjectState.Normal;
 
+                    var myVoteInfo = _myVotes.FirstOrDefault(x => x.FormSerialNo == serialNo && x.UserCode == LoginInfo.CurrentUser.UserCode);
+
                     //未投票
-                    if (myVoteinfo == null || myVoteinfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                    if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
                     {
                         buttonVI.RightButtons[0].Button.Enabled = true;
                         buttonVI.RightButtons[0].State = ObjectState.Normal;

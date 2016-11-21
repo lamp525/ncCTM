@@ -477,7 +477,8 @@ CREATE PROCEDURE [dbo].[sp_GetDeliveryAndDailyContrastData]
 (
 	@AccountId int,
 	@StockCode varchar(20),
-	@TradeDate datetime
+	@TradeDate datetime,
+	@DealFlag bit
 )
 AS
 BEGIN 
@@ -527,8 +528,14 @@ BEGIN
 			WHEN 2 THEN '²¨¶Î'
 			WHEN 3 THEN 'ÈÕÄÚ'
 			ELSE ''
-		END TradeTypeName
+		END TradeTypeName,
+		B.Name BeneficiaryName,
+		I.Name ImportUserName
 	FROM DailyRecord
+	LEFT JOIN UserInfo B
+	ON Beneficiary = B.Code
+	LEFT JOIN UserInfo I
+	ON ImportUser = I.Code
 	WHERE TradeDate = @TradeDate AND  AccountId = @AccountId AND StockCode = @StockCode AND DealFlag = @DealFlag
 	ORDER BY TradeTime
 
@@ -560,8 +567,8 @@ BEGIN
 			,Delivery.DE_DealName
 			,Delivery.DE_TotalActualAmount
 			,Delivery.DE_TotalDealVolume	
-			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
-			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
+			,(ISNULL(Delivery.DE_TotalActualAmount,0) - ISNULL(Daily.DA_TotalActualAmount,0))AmountDiff
+			,(ISNULL(Delivery.DE_TotalDealVolume,0) - ISNULL(Daily.DA_TotalDealVolume,0)) VolumeDiff
 			,ISNULL(Daily.DA_TradeDate,Delivery.DE_TradeDate)DA_TradeDate
 			,Daily.DA_StockCode
 			,Daily.DA_StockName
@@ -594,24 +601,39 @@ BEGIN
 				MAX(StockName) DA_StockName, 
 				DealFlag DA_DealFlag,
 				CASE DealFlag 
+					WHEN 1 THEN 'ÂòÈë(ÐéÄâ)'
+					WHEN 0 THEN 'Âô³ö(ÐéÄâ)'
+				END DA_DealName,
+				SUM(ActualAmount) DA_TotalActualAmount,
+				SUM(DealVolume) DA_TotalDealVolume
+			FROM DailyRecord 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo AND DataType = 77
+			GROUP BY TradeDate,StockCode,DealFlag 
+			UNION ALL
+			SELECT 
+				TradeDate DA_TradeDate,
+				StockCode DA_StockCode,
+				MAX(StockName) DA_StockName, 
+				DealFlag DA_DealFlag,
+				CASE DealFlag 
 					WHEN 1 THEN 'ÂòÈë'
 					WHEN 0 THEN 'Âô³ö'
 				END DA_DealName,
 				SUM(ActualAmount) DA_TotalActualAmount,
 				SUM(DealVolume) DA_TotalDealVolume
 			FROM DailyRecord 
-			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo 
+			WHERE AccountId = @AccountId AND TradeDate >= @DateFrom  AND TradeDate <= @DateTo AND DataType != 77
 			GROUP BY TradeDate,StockCode,DealFlag 
 		) Daily 
-		ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealFlag = Delivery.DE_DealFlag
+		ON Daily.DA_TradeDate=Delivery.DE_TradeDate AND Daily.DA_StockCode=Delivery.DE_StockCode AND Daily.DA_DealName = Delivery.DE_DealName
 		ORDER BY DE_TradeDate,DE_StockCode    
 
 	ELSE
 
 		SELECT	
 			Delivery.* 
-			,(ABS(ISNULL(Delivery.DE_TotalActualAmount,0)) - ABS(ISNULL(Daily.DA_TotalActualAmount,0)))AmountDiff
-			,(ABS(ISNULL(Delivery.DE_TotalDealVolume,0)) - ABS(ISNULL(Daily.DA_TotalDealVolume,0))) VolumeDiff
+			,(ISNULL(Delivery.DE_TotalActualAmount,0) - ISNULL(Daily.DA_TotalActualAmount,0))AmountDiff
+			,(ISNULL(Delivery.DE_TotalDealVolume,0) - ISNULL(Daily.DA_TotalDealVolume,0)) VolumeDiff
 			,Daily.*
 		FROM
 		(
@@ -727,6 +749,7 @@ BEGIN
 			WHEN 0 THEN 'Âô³ö'
 			ELSE ''
 		END DealFlagName,
+		U.Name ApplyUserName,
 	    CAST(IDF.Point AS decimal(18,0)) Point,
 		PriceBoundPercentage = CAST(CAST(IDF.PriceBound * 100 AS numeric(10,0)) AS varchar) + '% ' + '(' + CAST(CAST((1 - IDF.PriceBound) * IDF.Price AS decimal(18,2)) AS varchar) + ' - ' + CAST(CAST((1 + IDF.PriceBound) * IDF.Price AS numeric(18,2)) AS varchar) + ')',
 		IDF.SerialNo,
@@ -772,19 +795,14 @@ BEGIN
 			/* PRINT @loopDate */
 
 			INSERT [dbo].[TKLineToday]
-			SELECT [StockCode] 
-						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
-						,[Close] 
+			SELECT [StockCode], [TradeDate]= CONVERT(datetime,@loopDate,120)	, [Close] 
 			FROM
-					(
-					 SELECT [StockCode]
-								 ,[TradeDate] 
-								 ,[Close]  
-								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
-					 WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
-					)  AS t
-			WHERE t.RowNumber =1					
+				(
+					SELECT [StockCode], [TradeDate], [Close], ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
+					FROM [FinancialCenter].[dbo].[TKLine_Today] 
+					WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
+				)  AS T
+			WHERE T.RowNumber =1					
 		END
 
 	IF(@loopDate = @nowDate)
@@ -793,19 +811,14 @@ BEGIN
 			/* PRINT N'The Current Date Close Price Has Been Deleted !!!' */
 			
 			INSERT [dbo].[TKLineToday]
-			SELECT [StockCode] 
-						,[TradeDate]= CONVERT(datetime,@loopDate,120) 
-						,[Close] 
+			SELECT [StockCode], [TradeDate]= CONVERT(datetime,@loopDate,120)	, [Close] 
 			FROM
-					(
-					 SELECT [StockCode]
-								 ,[TradeDate] 
-								 ,[Close]  
-								 ,ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
-					 FROM [FinancialCenter].[dbo].[TKLine_Today] 
-					 WHERE [TradeDate] < DATEADD(DAY,1,@loopDate)
-					)  AS t
-			WHERE t.RowNumber =1
+				(
+					SELECT [StockCode], [TradeDate], [Close], ROW_NUMBER() OVER(PARTITION BY StockCode ORDER BY TradeDate DESC) RowNumber 
+					FROM [FinancialCenter].[dbo].[TKLine_Today] 
+					WHERE   [TradeDate] < DATEADD(DAY,1,@loopDate)
+				)  AS T
+			WHERE T.RowNumber =1					
 			/* PRINT N'The Current Date Close Price Has Been Inserted !!!' */
 		END
 
@@ -828,11 +841,7 @@ BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @voteNumber int = 0
-
-	SELECT @voteNumber = COUNT(UserCode) FROM InvestmentDecisionVote WHERE UserCode = @InvestorCode AND FormSerialNo = @FormSerialNo
-
-	IF(@voteNumber = 0)
+	IF NOT EXISTS( SELECT 1 FROM InvestmentDecisionVote WHERE UserCode = @InvestorCode AND FormSerialNo = @FormSerialNo)
 		BEGIN
 			INSERT INTO InvestmentDecisionVote (AuthorityLevel,Flag,FormSerialNo,Reason,[Type], UserCode,VoteTime,[Weight])
 			VALUES(0,@VoteFlag,@FormSerialNo,@Reason,[dbo].[f_GetIDVoteType](@FormSerialNo,@InvestorCode),@InvestorCode,GETDATE(),0)

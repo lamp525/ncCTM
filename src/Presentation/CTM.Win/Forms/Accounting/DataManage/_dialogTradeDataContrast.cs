@@ -40,8 +40,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             this.esiTitle.Text = $@"{TradeDate.ToShortDateString()} - [{AccountInfo}] - [{StockCode} - {StockName}] ";
 
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false,rowIndicatorWidth:35);
+            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35);
         }
 
         private void BindTradeDate()
@@ -93,5 +93,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         }
 
         #endregion Events
+
+ 
     }
 }
