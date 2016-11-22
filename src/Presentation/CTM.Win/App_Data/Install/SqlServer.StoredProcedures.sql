@@ -204,7 +204,7 @@ BEGIN
 		CAST(E.HoldingVolume AS decimal(18,0)) HoldingVolume,
 		E.LatestPrice,
 		E.PositionValue,
-		ISNULL((E.AccumulatedProfit - S.AccumulatedProfit),0) Profit,
+		(ISNULL(E.AccumulatedProfit,0) - ISNULL(S.AccumulatedProfit,0)) Profit,
 		E.AccumulatedProfit,	
 		E.SCode StockCode,
 		E.SName StockName,	
