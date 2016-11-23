@@ -60,7 +60,6 @@
             this.barButtonItem29 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem30 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem31 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem32 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem33 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem34 = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserInvestIncomFlow = new DevExpress.XtraBars.BarButtonItem();
@@ -69,7 +68,6 @@
             this.bbiAccountStockPosition = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserDailyInvestIncome = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserMonthInvestIncome = new DevExpress.XtraBars.BarButtonItem();
-            this.bbiHistoryTradeRecordImport = new DevExpress.XtraBars.BarButtonItem();
             this.bbiUserInvestIncomSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStockInvestIncomeSummary = new DevExpress.XtraBars.BarButtonItem();
             this.bsiSystemInfo = new DevExpress.XtraBars.BarStaticItem();
@@ -112,10 +110,6 @@
             this.rpgAccountingReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSetting = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -162,7 +156,6 @@
             this.barButtonItem29,
             this.barButtonItem30,
             this.barButtonItem31,
-            this.barButtonItem32,
             this.barButtonItem33,
             this.barButtonItem34,
             this.bbiUserInvestIncomFlow,
@@ -171,7 +164,6 @@
             this.bbiAccountStockPosition,
             this.bbiUserDailyInvestIncome,
             this.bbiUserMonthInvestIncome,
-            this.bbiHistoryTradeRecordImport,
             this.bbiUserInvestIncomSummary,
             this.bbiStockInvestIncomeSummary,
             this.bsiSystemInfo,
@@ -468,15 +460,6 @@
             this.barButtonItem31.Name = "barButtonItem31";
             this.barButtonItem31.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             // 
-            // barButtonItem32
-            // 
-            this.barButtonItem32.Caption = "黑名单";
-            this.barButtonItem32.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem32.Glyph")));
-            this.barButtonItem32.Id = 50;
-            this.barButtonItem32.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem32.LargeGlyph")));
-            this.barButtonItem32.Name = "barButtonItem32";
-            this.barButtonItem32.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
             // barButtonItem33
             // 
             this.barButtonItem33.Caption = "登录日志";
@@ -552,17 +535,6 @@
             this.bbiUserMonthInvestIncome.Name = "bbiUserMonthInvestIncome";
             this.bbiUserMonthInvestIncome.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.bbiUserMonthInvestIncome.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem40_ItemClick);
-            // 
-            // bbiHistoryTradeRecordImport
-            // 
-            this.bbiHistoryTradeRecordImport.Caption = "历史交易数据导入";
-            this.bbiHistoryTradeRecordImport.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiHistoryTradeRecordImport.Glyph")));
-            this.bbiHistoryTradeRecordImport.Id = 11;
-            this.bbiHistoryTradeRecordImport.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiHistoryTradeRecordImport.LargeGlyph")));
-            this.bbiHistoryTradeRecordImport.Name = "bbiHistoryTradeRecordImport";
-            this.bbiHistoryTradeRecordImport.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.bbiHistoryTradeRecordImport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.bbiHistoryTradeRecordImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem41_ItemClick);
             // 
             // bbiUserInvestIncomSummary
             // 
@@ -904,10 +876,6 @@
             // 
             this.ribbonPageAdmin.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup5,
-            this.ribbonPageGroup8,
-            this.ribbonPageGroup6,
-            this.ribbonPageGroup7,
-            this.ribbonPageGroup9,
             this.ribbonPageGroup10});
             this.ribbonPageAdmin.Name = "ribbonPageAdmin";
             this.ribbonPageAdmin.Text = "系统管理";
@@ -925,35 +893,6 @@
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem24);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             this.ribbonPageGroup5.Text = "基础数据";
-            // 
-            // ribbonPageGroup8
-            // 
-            this.ribbonPageGroup8.ItemLinks.Add(this.barButtonItem29);
-            this.ribbonPageGroup8.ItemLinks.Add(this.barButtonItem30);
-            this.ribbonPageGroup8.ItemLinks.Add(this.bbiHistoryTradeRecordImport);
-            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
-            this.ribbonPageGroup8.Text = "数据管理";
-            // 
-            // ribbonPageGroup6
-            // 
-            this.ribbonPageGroup6.ItemLinks.Add(this.barButtonItem19);
-            this.ribbonPageGroup6.ItemLinks.Add(this.barButtonItem25);
-            this.ribbonPageGroup6.Name = "ribbonPageGroup6";
-            this.ribbonPageGroup6.Text = "权限管理";
-            // 
-            // ribbonPageGroup7
-            // 
-            this.ribbonPageGroup7.ItemLinks.Add(this.barButtonItem26);
-            this.ribbonPageGroup7.ItemLinks.Add(this.barButtonItem27);
-            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
-            this.ribbonPageGroup7.Text = "流程管理";
-            // 
-            // ribbonPageGroup9
-            // 
-            this.ribbonPageGroup9.ItemLinks.Add(this.barButtonItem31);
-            this.ribbonPageGroup9.ItemLinks.Add(this.barButtonItem32);
-            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
-            this.ribbonPageGroup9.Text = "安全管理";
             // 
             // ribbonPageGroup10
             // 
@@ -1045,13 +984,9 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageAdmin;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageSetting;
         private DevExpress.XtraBars.BarButtonItem barButtonItem15;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
         private DevExpress.XtraBars.BarButtonItem barButtonItem16;
         private DevExpress.XtraBars.BarButtonItem barButtonItem17;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup11;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
@@ -1076,7 +1011,6 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem29;
         private DevExpress.XtraBars.BarButtonItem barButtonItem30;
         private DevExpress.XtraBars.BarButtonItem barButtonItem31;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem32;
         private DevExpress.XtraBars.BarButtonItem barButtonItem33;
         private DevExpress.XtraBars.BarButtonItem barButtonItem34;
         private DevExpress.XtraBars.BarButtonItem bbiUserInvestIncomFlow;
@@ -1086,7 +1020,6 @@
         private DevExpress.XtraBars.BarButtonItem bbiAccountStockPosition;
         private DevExpress.XtraBars.BarButtonItem bbiUserDailyInvestIncome;
         private DevExpress.XtraBars.BarButtonItem bbiUserMonthInvestIncome;
-        private DevExpress.XtraBars.BarButtonItem bbiHistoryTradeRecordImport;
         private DevExpress.XtraBars.BarButtonItem bbiUserInvestIncomSummary;
         private DevExpress.XtraBars.BarButtonItem bbiStockInvestIncomeSummary;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;

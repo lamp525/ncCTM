@@ -120,8 +120,6 @@ namespace CTM.Win.Forms
                 this.bbiUserInvestIncomeAccount.Visibility = BarItemVisibility.Always;
             }
 
-            //历史交易记录导入
-            this.bbiHistoryTradeRecordImport.Enabled = false;
         }
 
         private void RefreshForm()
@@ -666,5 +664,7 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
+
+
     }
 }
