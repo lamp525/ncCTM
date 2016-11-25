@@ -171,7 +171,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     PeriodProfit = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentProfit)),
                     PeriodAverageMarginAmount = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.CalculatePeriodAverageMarginAmount()),
                     PeriodInterest = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentInterest)),
-                    PeriodActualProfit = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentInterest)),
+                    PeriodActualProfit = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentActualProfit)),
                     PeriodMaxRetracementAmount = CommonHelper.SetDecimalDigits(periodMaxRetracementAmount),
                     AccumulatedProfit = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AccumulatedProfit),
                     AverageMarginAmount = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AverageMarginAmount),
