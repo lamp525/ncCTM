@@ -61,7 +61,6 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// </summary>
         public bool ExecuteFlag { get; set; }
 
-
         /// <summary>
         /// 交易记录关联标志
         /// true：已关联
@@ -78,7 +77,7 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// </summary>
         public int AccuracyStatus { get; set; }
 
-        public int AccuracyPoint { get; set; }  
+        public int AccuracyPoint { get; set; }
 
         public DateTime CreateTime { get; set; }
 
