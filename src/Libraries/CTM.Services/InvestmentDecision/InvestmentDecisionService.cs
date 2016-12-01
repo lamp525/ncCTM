@@ -418,6 +418,32 @@ namespace CTM.Services.InvestmentDecision
             _DRCategoryRepository.Delete(_DRCategoryRepository.GetById(id));
         }
 
+        public virtual IList<DecisionReasonCategory> GetIDReasonCategories()
+        {
+            var query = _DRCategoryRepository.Table;
+
+            return query.ToList();
+        }
+
+        public virtual int AddIDReasonCategory(DecisionReasonCategory entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _DRCategoryRepository.Insert(entity);
+
+            return entity.Id;
+        }
+
+        public virtual void DeleteIDReasonContent(int[] contentIds)
+        {
+            if (contentIds == null)
+                throw new NullReferenceException(nameof(contentIds));
+
+            var contents = _DRContentRepository.Table.Where(x => contentIds.Contains(x.Id));
+            _DRContentRepository.Delete(contents);
+        }
+
         #endregion Methods
     }
 }

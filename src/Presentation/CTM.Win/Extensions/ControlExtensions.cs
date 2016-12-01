@@ -503,7 +503,20 @@ namespace CTM.Win.Extensions
         /// <param name="keyFieldName"></param>
         /// <param name="parentFieldName"></param>
         /// <param name="expandAll"></param>
-        public static void Initialize<T>(this TreeList treeList, IList<T> source, string keyFieldName, string parentFieldName, bool expandAll = true, bool editable = false, bool showCheckBox = false, bool multiSelect = false)
+        public static void Initialize<T>
+            (
+            this TreeList treeList, IList<T> source,
+            string keyFieldName,
+            string parentFieldName,
+            bool expandAll = true,
+            bool editable = false,
+            bool showCheckBox = false,
+            bool multiSelect = false,
+            bool autoWidth = false ,
+            bool showColumns = true,
+            bool showVertLines = true ,
+            bool showHorzLines = true
+            )
         {
             treeList.DataSource = source;
             treeList.KeyFieldName = keyFieldName;
@@ -514,11 +527,16 @@ namespace CTM.Win.Extensions
 
             treeList.OptionsBehavior.Editable = editable;
 
+            treeList.OptionsView.AutoWidth = autoWidth;
             treeList.OptionsView.ShowCheckBoxes = showCheckBox;
+            treeList.OptionsView.ShowColumns = showColumns;
+            treeList.OptionsView.ShowVertLines = showVertLines;
+            treeList.OptionsView.ShowHorzLines = showHorzLines;
 
             treeList.OptionsSelection.MultiSelectMode = TreeListMultiSelectMode.RowSelect;
             treeList.OptionsSelection.MultiSelect = multiSelect;
             treeList.OptionsSelection.UseIndicatorForSelection = !showCheckBox;
+
         }
 
         /// <summary>

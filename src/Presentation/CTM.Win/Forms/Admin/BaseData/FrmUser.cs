@@ -118,54 +118,92 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var myView = this.gridView1;
-
-            var selectedHandles = myView.GetSelectedRows();
-            if (selectedHandles.Any())
-                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
-
-            if (selectedHandles.Length != 1)
+            try
             {
-                DXMessage.ShowTips("请选择一个要编辑的用户！");
-                return;
+                this.btnEdit.Enabled = false;
+
+                var myView = this.gridView1;
+
+                var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                if (selectedHandles.Length != 1)
+                {
+                    DXMessage.ShowTips("请选择一个要编辑的用户！");
+                    return;
+                }
+
+                //用户ID
+                var userId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colId).ToString());
+
+                DisplayEditDialog(userId);
             }
-
-            //用户ID
-            var userId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colId).ToString());
-
-            DisplayEditDialog(userId);
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnEdit.Enabled = true;
+            }
         }
 
         private void btnDisable_Click(object sender, EventArgs e)
         {
-            var myView = this.gridView1;
-
-            var selectedHandles = myView.GetSelectedRows();
-
-            if (selectedHandles.Length == 0)
+            try
             {
-                DXMessage.ShowTips("请选择要禁用的账户！");
-                return;
-            }
+                this.btnDisable.Enabled = false;
 
-            if (DXMessage.ShowYesNoAndWarning("确定禁用选择的账户吗？") == DialogResult.Yes)
-            {
-                var userIds = new List<int>();
+                var myView = this.gridView1;
 
-                for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                var selectedHandles = myView.GetSelectedRows();
+
+                if (selectedHandles.Length == 0)
                 {
-                    userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                    DXMessage.ShowTips("请选择要禁用的账户！");
+                    return;
                 }
 
-                this._userService.DisableUser(userIds.ToArray());
+                if (DXMessage.ShowYesNoAndWarning("确定禁用选择的账户吗？") == DialogResult.Yes)
+                {
+                    var userIds = new List<int>();
 
-                RefreshForm(this._departmentId);
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                    {
+                        userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                    }
+
+                    this._userService.DisableUser(userIds.ToArray());
+
+                    RefreshForm(this._departmentId);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnDisable.Enabled = true;
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DisplayEditDialog(0);
+            try
+            {
+                this.btnAdd.Enabled = false;
+                DisplayEditDialog(0);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
+            }
         }
 
         private void treeList1_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)

@@ -51,8 +51,14 @@ namespace CTM.Services.InvestmentDecision
 
         void UpdatePSASummary(PositionStockAnalysisSummary entity);
 
+        IList<DecisionReasonCategory> GetIDReasonCategories();
+
+        int AddIDReasonCategory(DecisionReasonCategory entity);
+
         void UpdateIDReasonCategory(int id, string name);
 
         void DeleteIDReasonCategory(int id);
+
+        void DeleteIDReasonContent(int[] contentIds);
     }
 }
