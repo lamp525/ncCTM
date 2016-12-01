@@ -139,11 +139,18 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void _dialogDepartmentEdit_Load(object sender, EventArgs e)
         {
-            this._currentDeptInfo = this._departmentService.GetDepartmentInfoById(this._currentDeptId);
+            try
+            {
+                this._currentDeptInfo = this._departmentService.GetDepartmentInfoById(this._currentDeptId)?? new DepartmentInfo();
 
-            BindDepartment();
+                BindDepartment();
 
-            this.AcceptButton = this.btnSubmit;
+                this.AcceptButton = this.btnSubmit;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -158,16 +165,29 @@ namespace CTM.Win.Forms.Admin.BaseData
         /// <param name="e"></param>
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (InputCheck())
+            try
             {
-                if (this._currentDeptId == 0)
-                    AddDepartmentInfo();
-                else
-                    UpdateDepartmentInfo();
+                this.btnSubmit.Enabled = false;
 
-                RefreshEvent?.Invoke();
+                if (InputCheck())
+                {
+                    if (this._currentDeptId == 0)
+                        AddDepartmentInfo();
+                    else
+                        UpdateDepartmentInfo();
 
-                this.Close();
+                    RefreshEvent?.Invoke();
+
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnSubmit.Enabled = true;
             }
         }
 
