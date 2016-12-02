@@ -139,7 +139,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 this.txtName.Text = userInfo.Name;
 
                 this.txtCode.Text = userInfo.Code;
-                
+
                 this.chkAdmin.Checked = userInfo.IsAdmin ? true : false;
 
                 this.chkDealer.Checked = userInfo.IsDealer ? true : false;
@@ -197,87 +197,85 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             try
             {
-                this.btnOk.Enabled = false ;
-
+                this.btnOk.Enabled = false;
 
                 if (!InputCheck()) return;
 
-            //添加用户
-            if (!this._isEdit)
-            {
-                var newUser = new UserInfo();
-
-                newUser.AllotFund = string.IsNullOrEmpty(txtAllotFund.Text.Trim()) ? 0 : decimal.Parse(txtAllotFund.Text.Trim());
-                newUser.Code = txtCode.Text.Trim();
-                newUser.CooperatorCode = luCooperator.SelectedValue();
-                newUser.DepartmentId = int.Parse(luDepartment.SelectedValue());
-                newUser.IsAdmin = chkAdmin.Checked ? true : false;
-                newUser.IsDealer = chkDealer.Checked ? true : false;
-                newUser.IsDeleted = false;
-                newUser.IsManager = chkManager.Checked ? true : false;
-                newUser.Name = txtName.Text.Trim();
-                newUser.Password = txtCode.Text.Trim();
-                newUser.PositionCode = int.Parse(cbPosition.SelectedValue());
-                newUser.Remarks = memoRemarks.Text.Trim();
-                newUser.RandomKey = null;
-                newUser.Superior = luSuperior.SelectedValue();
-                newUser.TypeCode = 1;
-
-                var isExisted = _userService.IsExistedUser(newUser.Code);
-
-                if (!isExisted)
+                //添加用户
+                if (!this._isEdit)
                 {
-                    _userService.AddUserInfo(newUser);
+                    var newUser = new UserInfo();
 
-                    this._userId = newUser.Id;
+                    newUser.AllotFund = string.IsNullOrEmpty(txtAllotFund.Text.Trim()) ? 0 : decimal.Parse(txtAllotFund.Text.Trim());
+                    newUser.Code = txtCode.Text.Trim();
+                    newUser.CooperatorCode = luCooperator.SelectedValue();
+                    newUser.DepartmentId = int.Parse(luDepartment.SelectedValue());
+                    newUser.IsAdmin = chkAdmin.Checked ? true : false;
+                    newUser.IsDealer = chkDealer.Checked ? true : false;
+                    newUser.IsDeleted = false;
+                    newUser.IsManager = chkManager.Checked ? true : false;
+                    newUser.Name = txtName.Text.Trim();
+                    newUser.Password = txtCode.Text.Trim();
+                    newUser.PositionCode = int.Parse(cbPosition.SelectedValue());
+                    newUser.Remarks = memoRemarks.Text.Trim();
+                    newUser.RandomKey = null;
+                    newUser.Superior = luSuperior.SelectedValue();
+                    newUser.TypeCode = 1;
+
+                    var isExisted = _userService.IsExistedUser(newUser.Code);
+
+                    if (!isExisted)
+                    {
+                        _userService.AddUserInfo(newUser);
+
+                        this._userId = newUser.Id;
+                    }
+                    else
+                    {
+                        DXMessage.ShowTips("系统已经存在该用户编号，无法添加！");
+                        this.txtCode.Focus();
+                        return;
+                    }
                 }
+                //修改用户
                 else
                 {
-                    DXMessage.ShowTips("系统已经存在该用户编号，无法添加！");
-                    this.txtCode.Focus();
-                    return;
+                    var user = _userService.GetUserInfoById(_userId);
+
+                    user.AllotFund = string.IsNullOrEmpty(txtAllotFund.Text.Trim()) ? 0 : decimal.Parse(txtAllotFund.Text.Trim());
+                    user.Code = txtCode.Text.Trim();
+                    user.CooperatorCode = luCooperator.SelectedValue();
+                    user.DepartmentId = int.Parse(luDepartment.SelectedValue());
+                    user.IsAdmin = chkAdmin.Checked ? true : false;
+                    user.IsDealer = chkDealer.Checked ? true : false;
+                    user.IsManager = chkManager.Checked ? true : false;
+                    user.Name = txtName.Text.Trim();
+                    user.PositionCode = int.Parse(cbPosition.SelectedValue());
+                    user.Remarks = memoRemarks.Text.Trim();
+                    user.Superior = luSuperior.SelectedValue();
+
+                    var isExisted = _userService.IsExistedUser(user.Code, user.Id);
+
+                    if (!isExisted)
+                    {
+                        _userService.UpdateUserInfo(user);
+                    }
+                    else
+                    {
+                        DXMessage.ShowTips("系统已经存在该用户编号，无法修改！");
+                        this.txtCode.Focus();
+                        return;
+                    }
                 }
-            }
-            //修改用户
-            else
-            {
-                var user = _userService.GetUserInfoById(_userId);
 
-                user.AllotFund = string.IsNullOrEmpty(txtAllotFund.Text.Trim()) ? 0 : decimal.Parse(txtAllotFund.Text.Trim());
-                user.Code = txtCode.Text.Trim();
-                user.CooperatorCode = luCooperator.SelectedValue();
-                user.DepartmentId = int.Parse(luDepartment.SelectedValue());
-                user.IsAdmin = chkAdmin.Checked ? true : false;
-                user.IsDealer = chkDealer.Checked ? true : false;
-                user.IsManager = chkManager.Checked ? true : false;
-                user.Name = txtName.Text.Trim();
-                user.PositionCode = int.Parse(cbPosition.SelectedValue());
-                user.Remarks = memoRemarks.Text.Trim();
-                user.Superior = luSuperior.SelectedValue();
+                var departmentId = int.Parse(luDepartment.SelectedValue());
 
-                var isExisted = _userService.IsExistedUser(user.Code, user.Id);
+                RefreshEvent?.Invoke(departmentId);
 
-                if (!isExisted)
-                {
-                    _userService.UpdateUserInfo(user);
-                }
-                else
-                {
-                    DXMessage.ShowTips("系统已经存在该用户编号，无法修改！");
-                    this.txtCode.Focus();
-                    return;
-                }
-            }
-
-            var departmentId = int.Parse(luDepartment.SelectedValue());
-
-            RefreshEvent?.Invoke(departmentId);
-
-            this.Close();
+                this.Close();
             }
             catch (Exception ex)
             {
-
                 DXMessage.ShowError(ex.Message);
             }
             finally
