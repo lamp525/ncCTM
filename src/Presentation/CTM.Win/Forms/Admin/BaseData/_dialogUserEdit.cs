@@ -139,7 +139,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 this.txtName.Text = userInfo.Name;
 
                 this.txtCode.Text = userInfo.Code;
-
+                
                 this.chkAdmin.Checked = userInfo.IsAdmin ? true : false;
 
                 this.chkDealer.Checked = userInfo.IsDealer ? true : false;
@@ -195,7 +195,12 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (!InputCheck()) return;
+            try
+            {
+                this.btnOk.Enabled = false ;
+
+
+                if (!InputCheck()) return;
 
             //添加用户
             if (!this._isEdit)
@@ -266,9 +271,19 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             var departmentId = int.Parse(luDepartment.SelectedValue());
 
-            RefreshEvent.Invoke(departmentId);
+            RefreshEvent?.Invoke(departmentId);
 
             this.Close();
+            }
+            catch (Exception ex)
+            {
+
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnOk.Enabled = true;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

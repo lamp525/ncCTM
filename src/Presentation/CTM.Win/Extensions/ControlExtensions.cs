@@ -346,7 +346,7 @@ namespace CTM.Win.Extensions
 
         #endregion GridControl/GridView
 
-        #region  Column
+        #region Column
 
         /// <summary>
         /// Set GridColumn's display format to Boolean format
@@ -358,9 +358,10 @@ namespace CTM.Win.Extensions
         {
             column.ColumnEdit = column.View.GridControl.RepositoryItems.Add("TextEdit");
             column.DisplayFormat.FormatType = FormatType.Custom;
-            column.DisplayFormat.Format = new BooleanFormatter(trueString,falseString );
+            column.DisplayFormat.Format = new BooleanFormatter(trueString, falseString);
         }
-        #endregion
+
+        #endregion Column
 
         #region LookUpEdit
 
@@ -420,6 +421,27 @@ namespace CTM.Win.Extensions
         }
 
         #endregion LookUpEdit
+
+        #region TreeListLookUpEdit
+
+        /// <summary>
+        /// Get TreeListLookUpEdit Selected Value
+        /// </summary>
+        /// <param name="tlLookUpEdit"></param>
+        /// <returns></returns>
+        public static string SelectedValue(this TreeListLookUpEdit tlLookUpEdit)
+        {
+            string value = null;
+
+            if (tlLookUpEdit.EditValue != null && tlLookUpEdit.EditValue.ToString() != "nullText")
+            {
+                value = tlLookUpEdit.EditValue.ToString();
+            }
+
+            return value;
+        }
+
+        #endregion TreeListLookUpEdit
 
         #region TextEdit
 
@@ -512,9 +534,9 @@ namespace CTM.Win.Extensions
             bool editable = false,
             bool showCheckBox = false,
             bool multiSelect = false,
-            bool autoWidth = false ,
+            bool autoWidth = false,
             bool showColumns = true,
-            bool showVertLines = true ,
+            bool showVertLines = true,
             bool showHorzLines = true
             )
         {
@@ -536,7 +558,6 @@ namespace CTM.Win.Extensions
             treeList.OptionsSelection.MultiSelectMode = TreeListMultiSelectMode.RowSelect;
             treeList.OptionsSelection.MultiSelect = multiSelect;
             treeList.OptionsSelection.UseIndicatorForSelection = !showCheckBox;
-
         }
 
         /// <summary>

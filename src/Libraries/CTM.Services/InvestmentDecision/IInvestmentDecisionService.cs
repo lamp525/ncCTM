@@ -60,5 +60,11 @@ namespace CTM.Services.InvestmentDecision
         void DeleteIDReasonCategory(int id);
 
         void DeleteIDReasonContent(int[] contentIds);
+
+        void AddIDReasonContent(DecisionReasonContent entity);
+
+        void UpdateIDReasonContent(DecisionReasonContent entity);
+
+        DecisionReasonContent GetIDReasonContent(int contentId);
     }
 }

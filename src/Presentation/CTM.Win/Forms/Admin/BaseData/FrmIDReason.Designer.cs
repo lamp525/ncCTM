@@ -35,6 +35,11 @@
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gvContent = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colContent = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tlCategory = new DevExpress.XtraTreeList.TreeList();
             this.tcId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
@@ -61,11 +66,6 @@
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colContent = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -155,6 +155,43 @@
             this.gvContent.OptionsView.ColumnAutoWidth = false;
             this.gvContent.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvContent_CustomDrawRowIndicator);
             this.gvContent.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gvContent_SelectionChanged);
+            // 
+            // colId
+            // 
+            this.colId.FieldName = "Id";
+            this.colId.Name = "colId";
+            // 
+            // colCategoryId
+            // 
+            this.colCategoryId.FieldName = "CategoryId";
+            this.colCategoryId.Name = "colCategoryId";
+            // 
+            // colTitle
+            // 
+            this.colTitle.Caption = "标题";
+            this.colTitle.FieldName = "Title";
+            this.colTitle.Name = "colTitle";
+            this.colTitle.Visible = true;
+            this.colTitle.VisibleIndex = 0;
+            this.colTitle.Width = 275;
+            // 
+            // colContent
+            // 
+            this.colContent.Caption = "内容";
+            this.colContent.FieldName = "Content";
+            this.colContent.Name = "colContent";
+            this.colContent.Visible = true;
+            this.colContent.VisibleIndex = 1;
+            this.colContent.Width = 535;
+            // 
+            // colRemarks
+            // 
+            this.colRemarks.Caption = "备注";
+            this.colRemarks.FieldName = "Remarks";
+            this.colRemarks.Name = "colRemarks";
+            this.colRemarks.Visible = true;
+            this.colRemarks.VisibleIndex = 2;
+            this.colRemarks.Width = 200;
             // 
             // tlCategory
             // 
@@ -384,43 +421,6 @@
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(1456, 0);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 697);
-            // 
-            // colId
-            // 
-            this.colId.FieldName = "Id";
-            this.colId.Name = "colId";
-            // 
-            // colCategoryId
-            // 
-            this.colCategoryId.FieldName = "CategoryId";
-            this.colCategoryId.Name = "colCategoryId";
-            // 
-            // colTitle
-            // 
-            this.colTitle.Caption = "标题";
-            this.colTitle.FieldName = "Title";
-            this.colTitle.Name = "colTitle";
-            this.colTitle.Visible = true;
-            this.colTitle.VisibleIndex = 0;
-            this.colTitle.Width = 179;
-            // 
-            // colContent
-            // 
-            this.colContent.Caption = "内容";
-            this.colContent.FieldName = "Content";
-            this.colContent.Name = "colContent";
-            this.colContent.Visible = true;
-            this.colContent.VisibleIndex = 1;
-            this.colContent.Width = 535;
-            // 
-            // colRemarks
-            // 
-            this.colRemarks.Caption = "备注";
-            this.colRemarks.FieldName = "Remarks";
-            this.colRemarks.Name = "colRemarks";
-            this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 2;
-            this.colRemarks.Width = 438;
             // 
             // FrmIDReason
             // 

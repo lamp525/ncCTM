@@ -444,6 +444,29 @@ namespace CTM.Services.InvestmentDecision
             _DRContentRepository.Delete(contents);
         }
 
+        public virtual void AddIDReasonContent(DecisionReasonContent entity)
+        {
+            if (entity == null)
+                throw new NullReferenceException(nameof(entity));
+
+            _DRContentRepository.Insert(entity);
+        }
+
+        public virtual void UpdateIDReasonContent(DecisionReasonContent entity)
+        {
+            if (entity == null)
+                throw new NullReferenceException(nameof(entity));
+
+            _DRContentRepository.Update (entity);
+        }
+
+        public virtual DecisionReasonContent  GetIDReasonContent(int contentId)
+        {
+            var content = _DRContentRepository.GetById(contentId);
+
+            return content;
+        }
+
         #endregion Methods
     }
 }
