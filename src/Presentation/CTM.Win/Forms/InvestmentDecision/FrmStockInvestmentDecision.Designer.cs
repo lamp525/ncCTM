@@ -30,14 +30,6 @@
         {
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.lblHint = new DevExpress.XtraEditors.LabelControl();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
@@ -47,35 +39,22 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSerialNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colApplyNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPoint = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDepartmentName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyUser = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockFullCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDealFlag = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceBoundPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colVolume = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProfit = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRelateTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCreateTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIDVote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.riButtonEditVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riButtonEditOperate = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.colAccuracyVote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.riButtonEditAccuracyVote = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -91,13 +70,16 @@
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
             this.tpRecent = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.tpSearch = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.colStopProfitPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStopProfitBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStopLossBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStopLossPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUpdateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditAccuracyVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -186,9 +168,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.riButtonEditVote,
-            this.riButtonEditOperate,
-            this.riButtonEditAccuracyVote});
+            this.riButtonEditOperate});
             this.gridControl1.Size = new System.Drawing.Size(1500, 663);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -198,32 +178,26 @@
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
-            this.colSerialNo,
-            this.colStatusName,
-            this.colStatus,
-            this.colPoint,
-            this.colApplyDate,
+            this.colTradePlanNo,
+            this.colApplyNo,
+            this.colApplyUser,
             this.colApplyUserName,
             this.colDepartmentId,
             this.colDepartmentName,
-            this.colApplyUser,
-            this.colStockFullCode,
+            this.colApplyDate,
+            this.colStockCode,
             this.colStockName,
-            this.colTradeTypeName,
             this.colTradeType,
-            this.colDealFlagName,
-            this.colDealFlag,
-            this.colPrice,
-            this.colPriceBoundPercentage,
-            this.colVolume,
-            this.colAmount,
-            this.colProfit,
-            this.colRelateTradePlanNo,
-            this.colCreateTime,
-            this.colIDVote,
-            this.colReason,
+            this.colTradeTypeName,
+            this.colStopProfitPrice,
+            this.colStopProfitBound,
+            this.colStopLossPrice,
+            this.colStopLossBound,
+            this.colStatusName,
+            this.colStatus,
             this.colOperate,
-            this.colAccuracyVote});
+            this.colCreateTime,
+            this.colUpdateTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 50;
             this.gridView1.Name = "gridView1";
@@ -238,15 +212,15 @@
             this.colId.Name = "colId";
             this.colId.OptionsColumn.AllowEdit = false;
             // 
-            // colSerialNo
+            // colApplyNo
             // 
-            this.colSerialNo.Caption = "申请编号";
-            this.colSerialNo.FieldName = "SerialNo";
-            this.colSerialNo.Name = "colSerialNo";
-            this.colSerialNo.OptionsColumn.AllowEdit = false;
-            this.colSerialNo.Visible = true;
-            this.colSerialNo.VisibleIndex = 0;
-            this.colSerialNo.Width = 90;
+            this.colApplyNo.Caption = "申请编号";
+            this.colApplyNo.FieldName = "ApplyNo";
+            this.colApplyNo.Name = "colApplyNo";
+            this.colApplyNo.OptionsColumn.AllowEdit = false;
+            this.colApplyNo.Visible = true;
+            this.colApplyNo.VisibleIndex = 0;
+            this.colApplyNo.Width = 90;
             // 
             // colStatusName
             // 
@@ -255,23 +229,14 @@
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 14;
+            this.colStatusName.VisibleIndex = 11;
+            this.colStatusName.Width = 56;
             // 
             // colStatus
             // 
             this.colStatus.FieldName = "Status";
             this.colStatus.Name = "colStatus";
             this.colStatus.OptionsColumn.AllowEdit = false;
-            // 
-            // colPoint
-            // 
-            this.colPoint.Caption = "投票分数";
-            this.colPoint.FieldName = "Point";
-            this.colPoint.Name = "colPoint";
-            this.colPoint.OptionsColumn.AllowEdit = false;
-            this.colPoint.Visible = true;
-            this.colPoint.VisibleIndex = 13;
-            this.colPoint.Width = 60;
             // 
             // colApplyDate
             // 
@@ -315,14 +280,14 @@
             this.colApplyUser.Name = "colApplyUser";
             this.colApplyUser.OptionsColumn.AllowEdit = false;
             // 
-            // colStockFullCode
+            // colStockCode
             // 
-            this.colStockFullCode.Caption = "股票代码";
-            this.colStockFullCode.FieldName = "StockFullCode";
-            this.colStockFullCode.Name = "colStockFullCode";
-            this.colStockFullCode.OptionsColumn.AllowEdit = false;
-            this.colStockFullCode.Visible = true;
-            this.colStockFullCode.VisibleIndex = 4;
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.OptionsColumn.AllowEdit = false;
+            this.colStockCode.Visible = true;
+            this.colStockCode.VisibleIndex = 4;
             // 
             // colStockName
             // 
@@ -335,7 +300,7 @@
             // 
             // colTradeTypeName
             // 
-            this.colTradeTypeName.Caption = "交易类型";
+            this.colTradeTypeName.Caption = "交易类别";
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.OptionsColumn.AllowEdit = false;
@@ -349,78 +314,15 @@
             this.colTradeType.Name = "colTradeType";
             this.colTradeType.OptionsColumn.AllowEdit = false;
             // 
-            // colDealFlagName
+            // colTradePlanNo
             // 
-            this.colDealFlagName.Caption = "买卖";
-            this.colDealFlagName.FieldName = "DealFlagName";
-            this.colDealFlagName.Name = "colDealFlagName";
-            this.colDealFlagName.OptionsColumn.AllowEdit = false;
-            this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 7;
-            this.colDealFlagName.Width = 40;
-            // 
-            // colDealFlag
-            // 
-            this.colDealFlag.FieldName = "DealFlag";
-            this.colDealFlag.Name = "colDealFlag";
-            this.colDealFlag.OptionsColumn.AllowEdit = false;
-            // 
-            // colPrice
-            // 
-            this.colPrice.Caption = "单价(元)";
-            this.colPrice.FieldName = "Price";
-            this.colPrice.Name = "colPrice";
-            this.colPrice.OptionsColumn.AllowEdit = false;
-            this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 8;
-            this.colPrice.Width = 55;
-            // 
-            // colPriceBoundPercentage
-            // 
-            this.colPriceBoundPercentage.Caption = "上下限";
-            this.colPriceBoundPercentage.FieldName = "PriceBoundPercentage";
-            this.colPriceBoundPercentage.Name = "colPriceBoundPercentage";
-            this.colPriceBoundPercentage.OptionsColumn.AllowEdit = false;
-            this.colPriceBoundPercentage.Visible = true;
-            this.colPriceBoundPercentage.VisibleIndex = 9;
-            this.colPriceBoundPercentage.Width = 135;
-            // 
-            // colVolume
-            // 
-            this.colVolume.Caption = "数量";
-            this.colVolume.FieldName = "Volume";
-            this.colVolume.Name = "colVolume";
-            this.colVolume.OptionsColumn.AllowEdit = false;
-            this.colVolume.Visible = true;
-            this.colVolume.VisibleIndex = 10;
-            // 
-            // colAmount
-            // 
-            this.colAmount.Caption = "金额(万元)";
-            this.colAmount.FieldName = "Amount";
-            this.colAmount.Name = "colAmount";
-            this.colAmount.OptionsColumn.AllowEdit = false;
-            this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 11;
-            this.colAmount.Width = 85;
-            // 
-            // colProfit
-            // 
-            this.colProfit.Caption = "本次盈亏(万元)";
-            this.colProfit.FieldName = "Profit";
-            this.colProfit.Name = "colProfit";
-            this.colProfit.OptionsColumn.AllowEdit = false;
-            this.colProfit.Width = 95;
-            // 
-            // colRelateTradePlanNo
-            // 
-            this.colRelateTradePlanNo.Caption = "关联计划单号";
-            this.colRelateTradePlanNo.FieldName = "RelateTradePlanNo";
-            this.colRelateTradePlanNo.Name = "colRelateTradePlanNo";
-            this.colRelateTradePlanNo.OptionsColumn.AllowEdit = false;
-            this.colRelateTradePlanNo.Visible = true;
-            this.colRelateTradePlanNo.VisibleIndex = 16;
-            this.colRelateTradePlanNo.Width = 100;
+            this.colTradePlanNo.Caption = "关联计划单号";
+            this.colTradePlanNo.FieldName = "TradePlanNo";
+            this.colTradePlanNo.Name = "colTradePlanNo";
+            this.colTradePlanNo.OptionsColumn.AllowEdit = false;
+            this.colTradePlanNo.Visible = true;
+            this.colTradePlanNo.VisibleIndex = 15;
+            this.colTradePlanNo.Width = 86;
             // 
             // colCreateTime
             // 
@@ -430,41 +332,9 @@
             this.colCreateTime.FieldName = "CreateTime";
             this.colCreateTime.Name = "colCreateTime";
             this.colCreateTime.OptionsColumn.AllowEdit = false;
-            this.colCreateTime.Width = 142;
-            // 
-            // colIDVote
-            // 
-            this.colIDVote.AppearanceHeader.Options.UseTextOptions = true;
-            this.colIDVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colIDVote.Caption = "决策投票";
-            this.colIDVote.ColumnEdit = this.riButtonEditVote;
-            this.colIDVote.Name = "colIDVote";
-            this.colIDVote.Visible = true;
-            this.colIDVote.VisibleIndex = 12;
-            this.colIDVote.Width = 150;
-            // 
-            // riButtonEditVote
-            // 
-            this.riButtonEditVote.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "赞同", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Approval", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "反对", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Oppose", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "弃权", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", "Abstain", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "撤销", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", "Revoke", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", "View", null, true)});
-            this.riButtonEditVote.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.riButtonEditVote.Name = "riButtonEditVote";
-            this.riButtonEditVote.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            this.riButtonEditVote.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.riButtonEditVote_ButtonClick);
-            // 
-            // colReason
-            // 
-            this.colReason.Caption = "申请理由";
-            this.colReason.FieldName = "Reason";
-            this.colReason.Name = "colReason";
-            this.colReason.OptionsColumn.AllowEdit = false;
-            this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 15;
-            this.colReason.Width = 300;
+            this.colCreateTime.Visible = true;
+            this.colCreateTime.VisibleIndex = 14;
+            this.colCreateTime.Width = 90;
             // 
             // colOperate
             // 
@@ -472,38 +342,18 @@
             this.colOperate.ColumnEdit = this.riButtonEditOperate;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 17;
-            this.colOperate.Width = 40;
+            this.colOperate.VisibleIndex = 12;
+            this.colOperate.Width = 118;
             // 
             // riButtonEditOperate
             // 
             this.riButtonEditOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "买卖申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Apply", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Delete", null, true)});
             this.riButtonEditOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riButtonEditOperate.Name = "riButtonEditOperate";
             this.riButtonEditOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.riButtonEditOperate.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.riButtonEditOperate_ButtonClick);
-            // 
-            // colAccuracyVote
-            // 
-            this.colAccuracyVote.AppearanceHeader.Options.UseTextOptions = true;
-            this.colAccuracyVote.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colAccuracyVote.Caption = "准确度投票";
-            this.colAccuracyVote.ColumnEdit = this.riButtonEditAccuracyVote;
-            this.colAccuracyVote.Name = "colAccuracyVote";
-            this.colAccuracyVote.Visible = true;
-            this.colAccuracyVote.VisibleIndex = 18;
-            // 
-            // riButtonEditAccuracyVote
-            // 
-            this.riButtonEditAccuracyVote.AutoHeight = false;
-            this.riButtonEditAccuracyVote.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "Accuracy", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "不准确", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", "Inaccuracy", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "撤销", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", "Revoke", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject10, "", "View", null, true)});
-            this.riButtonEditAccuracyVote.Name = "riButtonEditAccuracyVote";
-            this.riButtonEditAccuracyVote.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // layoutControlGroup1
             // 
@@ -650,6 +500,46 @@
             this.tpSearch.Name = "tpSearch";
             this.tpSearch.Size = new System.Drawing.Size(1524, 713);
             // 
+            // colStopProfitPrice
+            // 
+            this.colStopProfitPrice.Caption = "止盈价格";
+            this.colStopProfitPrice.FieldName = "StopProfitPrice";
+            this.colStopProfitPrice.Name = "colStopProfitPrice";
+            this.colStopProfitPrice.Visible = true;
+            this.colStopProfitPrice.VisibleIndex = 7;
+            // 
+            // colStopProfitBound
+            // 
+            this.colStopProfitBound.Caption = "止盈上下限";
+            this.colStopProfitBound.FieldName = "StopProfitBound";
+            this.colStopProfitBound.Name = "colStopProfitBound";
+            this.colStopProfitBound.Visible = true;
+            this.colStopProfitBound.VisibleIndex = 8;
+            // 
+            // colStopLossBound
+            // 
+            this.colStopLossBound.Caption = "止损上下限";
+            this.colStopLossBound.FieldName = "StopLossBound";
+            this.colStopLossBound.Name = "colStopLossBound";
+            this.colStopLossBound.Visible = true;
+            this.colStopLossBound.VisibleIndex = 10;
+            // 
+            // colStopLossPrice
+            // 
+            this.colStopLossPrice.Caption = "止损价格";
+            this.colStopLossPrice.FieldName = "StopLossPrice";
+            this.colStopLossPrice.Name = "colStopLossPrice";
+            this.colStopLossPrice.Visible = true;
+            this.colStopLossPrice.VisibleIndex = 9;
+            // 
+            // colUpdateTime
+            // 
+            this.colUpdateTime.Caption = "更新时间";
+            this.colUpdateTime.FieldName = "UpdateTime";
+            this.colUpdateTime.Name = "colUpdateTime";
+            this.colUpdateTime.Visible = true;
+            this.colUpdateTime.VisibleIndex = 13;
+            // 
             // FrmStockInvestmentDecision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -663,9 +553,7 @@
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riButtonEditOperate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riButtonEditAccuracyVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -694,31 +582,20 @@
         private DevExpress.XtraEditors.SimpleButton btnAdd;
         private DevExpress.XtraEditors.SimpleButton btnSaveLayout;
         private DevExpress.XtraGrid.Columns.GridColumn colId;
-        private DevExpress.XtraGrid.Columns.GridColumn colSerialNo;
+        private DevExpress.XtraGrid.Columns.GridColumn colApplyNo;
         private DevExpress.XtraGrid.Columns.GridColumn colStatus;
-        private DevExpress.XtraGrid.Columns.GridColumn colPoint;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyDate;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyUser;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockFullCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockCode;
         private DevExpress.XtraGrid.Columns.GridColumn colStockName;
         private DevExpress.XtraGrid.Columns.GridColumn colTradeType;
-        private DevExpress.XtraGrid.Columns.GridColumn colDealFlag;
-        private DevExpress.XtraGrid.Columns.GridColumn colPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colVolume;
-        private DevExpress.XtraGrid.Columns.GridColumn colProfit;
-        private DevExpress.XtraGrid.Columns.GridColumn colRelateTradePlanNo;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradePlanNo;
         private DevExpress.XtraGrid.Columns.GridColumn colCreateTime;
-        private DevExpress.XtraGrid.Columns.GridColumn colIDVote;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditVote;
-        private DevExpress.XtraGrid.Columns.GridColumn colReason;
         private DevExpress.XtraGrid.Columns.GridColumn colStatusName;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyUserName;
         private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName;
-        private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
-        private DevExpress.XtraGrid.Columns.GridColumn colAmount;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditOperate;
         private DevExpress.XtraGrid.Columns.GridColumn colOperate;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceBoundPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentName;
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
@@ -737,7 +614,10 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyVote;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riButtonEditAccuracyVote;
+        private DevExpress.XtraGrid.Columns.GridColumn colStopProfitPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colStopProfitBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colStopLossPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colStopLossBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
     }
 }

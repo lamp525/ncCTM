@@ -9,7 +9,7 @@ namespace CTM.Win.CustomControl
 {
     public class TreeListComboBox
     {
-        public static PopupContainerControl CreatePopupIDCategoryTree(IList<DecisionReasonCategory> categories, int width = 300, int height = 300)
+        public static PopupContainerControl CreatePopupIDReasonCategoryTree(IList<DecisionReasonCategory> categories, int width = 300, int height = 300)
         {
             TreeList tl = new TreeList();
             TreeListColumn tcId = new TreeListColumn();

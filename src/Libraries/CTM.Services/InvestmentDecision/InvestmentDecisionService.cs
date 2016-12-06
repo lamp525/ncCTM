@@ -372,7 +372,7 @@ namespace CTM.Services.InvestmentDecision
 
             var details = _PSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
             _PSADetailRepository.Delete(details.ToArray());
-
+            
             var summarys = _PSASummaryRepository.Table.Where(x => x.SerialNo == serialNo);
             _PSASummaryRepository.Delete(summarys);
         }

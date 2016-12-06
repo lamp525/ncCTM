@@ -66,7 +66,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             foreach (GridColumn column in this.gridView1.Columns)
             {
-                if (column.Name == this.colIDVote.Name || column.Name == this.colOperate.Name)
+                if (column.Name == this.colOperate.Name)
                     column.OptionsColumn.AllowEdit = true;
                 else
                     column.OptionsColumn.AllowEdit = false;
@@ -151,7 +151,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void VoteButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var status = int.Parse(dr[colStatus.FieldName]?.ToString());
-            var serialNo = dr[colSerialNo.FieldName]?.ToString();
+            var serialNo = dr[colApplyNo.FieldName]?.ToString();
             var applyUser = dr[colApplyUser.FieldName]?.ToString();
 
             //申请单已提交或投票进行中
@@ -360,7 +360,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                     for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
-                        serialNos.Add(myView.GetRowCellValue(selectedHandles[rowhandle], colSerialNo).ToString());
+                        serialNos.Add(myView.GetRowCellValue(selectedHandles[rowhandle], colApplyNo).ToString());
                     }
 
                     this._IDService.DeleteInvestmentDecisionForm(serialNos.ToArray());
@@ -400,44 +400,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.gridView1.SaveLayout(_layoutXmlName);
         }
 
-        private void riButtonEditVote_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            try
-            {
-                e.Button.Enabled = false;
-
-                var myView = this.gridView1;
-                DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
-
-                var formSerialNo = dr?[colSerialNo.FieldName]?.ToString();
-
-                if (string.IsNullOrEmpty(formSerialNo)) return;
-
-                var buttonTag = e.Button.Tag.ToString().Trim();
-
-                if (string.IsNullOrEmpty(buttonTag)) return;
-
-                if (buttonTag == "View")
-                {
-                    DisplayVoteResult(formSerialNo);
-                }
-                else
-                {
-                    if (VoteProcess(formSerialNo, buttonTag))
-                        BindApplicationInfo();
-                }
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                e.Button.Enabled = true;
-                _voteReason = null;
-            }
-        }
-
         private void riButtonEditOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
@@ -448,7 +410,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
-                var serialNo = dr?[colSerialNo.FieldName]?.ToString();
+                var serialNo = dr?[colApplyNo.FieldName]?.ToString();
 
                 if (string.IsNullOrEmpty(serialNo)) return;
 
@@ -464,6 +426,9 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                         BindApplicationInfo();
                     }
+                }
+                else if (buttonTag == "Apply")
+                {
                 }
             }
             catch (Exception ex)
@@ -483,16 +448,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             DataRow dr = myView.GetDataRow(e.RowHandle);
 
             if (dr == null) return;
-
-            //投票
-            if (e.Column.Name == colIDVote.Name)
-            {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                VoteButtonStatusSetting(dr, buttonVI);
-            }
-            //操作
-            else if (e.Column.Name == colOperate.Name)
+            if (e.Column.Name == colOperate.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
