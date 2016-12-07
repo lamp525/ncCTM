@@ -20,7 +20,7 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public decimal StopProfitPrice { get; set; }
 
-        public decimal StockProfitBound { get; set; }
+        public decimal StopProfitBound { get; set; }
 
         public decimal StopLossPrice { get; set; }
 

@@ -68,6 +68,11 @@
     <Compile Include="Mapping\Account\AccountOperatorMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\DecisionReasonCategoryMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\DecisionReasonContentMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionAccuracyMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionApplicationMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionOperationMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionOperationVoteMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionTradeRecordMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisSummaryMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisDetailMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisInfoMap.cs" />

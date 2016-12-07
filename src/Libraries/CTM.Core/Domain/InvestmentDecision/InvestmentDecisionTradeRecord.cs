@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CTM.Core.Domain.InvestmentDecision
+﻿namespace CTM.Core.Domain.InvestmentDecision
 {
-  public   class InvestmentDecisionTradeRecord:BaseEntity
+    public class InvestmentDecisionTradeRecord : BaseEntity
     {
-     public string ApplyNo { get; set; }
+        public string ApplyNo { get; set; }
 
         public string OperateNo { get; set; }
 

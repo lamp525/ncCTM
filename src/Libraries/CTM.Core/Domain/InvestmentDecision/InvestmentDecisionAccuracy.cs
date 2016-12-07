@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTM.Core.Domain.InvestmentDecision
 {
-  public   class InvestmentDecisionAccuracy :BaseEntity     
+    public class InvestmentDecisionAccuracy : BaseEntity
     {
         public string ApplyNo { get; set; }
 
@@ -26,7 +22,6 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string Reason { get; set; }
 
-        public  DateTime? JudgeTime { get; set; }
-
+        public DateTime? JudgeTime { get; set; }
     }
 }
