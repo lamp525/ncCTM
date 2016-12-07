@@ -573,6 +573,7 @@
     <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.Designer.cs">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\DataSourceHelper.cs" />
     <Compile Include="Util\NetHelper.cs" />
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
     <Content Include="External\DailyTradeIdentification\Client.exe">

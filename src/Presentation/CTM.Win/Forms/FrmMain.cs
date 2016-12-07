@@ -661,10 +661,14 @@ namespace CTM.Win.Forms
             this.Close();
         }
 
+
         #endregion SystemMenu
 
         #endregion Events
 
-
+        private void barButtonItem34_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmStockInvestmentDecision>("Test");
+        }
     }
 }

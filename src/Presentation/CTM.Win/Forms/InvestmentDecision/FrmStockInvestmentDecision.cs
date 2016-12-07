@@ -52,7 +52,20 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.lblHint.Text = string.Empty;
+            this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+            this.btnDelete.Enabled = false;
+
+            this.viewMyApplyMaster.LoadLayout(_layoutXmlName);
+            this.viewMyApplyMaster.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+
+            foreach (GridColumn column in this.viewMyApplyMaster.Columns)
+            {
+                if (column.Name == this.colOperate.Name)
+                    column.OptionsColumn.AllowEdit = true;
+                else
+                    column.OptionsColumn.AllowEdit = false;
+            }
 
             //if (LoginInfo.CurrentUser.IsAdmin)
             //    this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
@@ -61,10 +74,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             this.btnDelete.Enabled = false;
 
-            this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.viewMyApplyMaster.LoadLayout(_layoutXmlName);
+            this.viewMyApplyMaster.SetLayout(showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
-            foreach (GridColumn column in this.gridView1.Columns)
+            foreach (GridColumn column in this.viewMyApplyMaster.Columns)
             {
                 if (column.Name == this.colOperate.Name)
                     column.OptionsColumn.AllowEdit = true;
@@ -73,16 +86,20 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void BindApplicationInfo()
+        private void BindMyApplicationInfo()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.StoredProcedure, "[sp_GetInvestmentDecisionForm]");
+            var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @ApplyUser = '{LoginInfo.CurrentUser.UserCode}' ";
+
+            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
+            ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
+
             var source = ds.Tables[0];
-            this.gridControl1.DataSource = source;
+            this.gridMyApply.DataSource = source;
 
             _myVotes = _IDService.GetInvestmentDecisionVotes(LoginInfo.CurrentUser.UserCode);
         }
@@ -269,6 +286,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        #region Page MyApply
+
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
@@ -285,6 +304,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        #endregion Page MyApply
+
         #endregion Utilities
 
         #region Events
@@ -295,7 +316,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 FormInit();
 
-                BindApplicationInfo();
+                BindMyApplicationInfo();
             }
             catch (Exception ex)
             {
@@ -303,13 +324,19 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void tabPane1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
+        {
+        }
+
+        #region Page MyApply
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {
                 this.btnRefresh.Enabled = false;
 
-                BindApplicationInfo();
+                BindMyApplicationInfo();
             }
             catch (Exception ex)
             {
@@ -327,7 +354,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnAdd.Enabled = false;
                 var dialog = this.CreateDialog<_dialogTradeApplication>();
-                dialog.RefreshEvent += new _dialogTradeApplication.RefreshParentForm(BindApplicationInfo);
+                dialog.RefreshEvent += new _dialogTradeApplication.RefreshParentForm(BindMyApplicationInfo);
                 dialog.Text = "股票投资交易申请";
 
                 dialog.ShowDialog();
@@ -346,7 +373,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                var myView = this.gridView1;
+                var myView = this.viewMyApplyMaster;
 
                 var selectedHandles = myView.GetSelectedRows();
 
@@ -365,7 +392,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                     this._IDService.DeleteInvestmentDecisionForm(serialNos.ToArray());
 
-                    BindApplicationInfo();
+                    BindMyApplicationInfo();
                 }
             }
             catch (Exception ex)
@@ -374,7 +401,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        private void viewMyApplyMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
@@ -382,9 +409,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        private void viewMyApplyMaster_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
         {
-            var myView = this.gridView1;
+            var myView = this.viewMyApplyMaster;
             var selectedHandles = myView.GetSelectedRows();
             if (selectedHandles.Any())
                 selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
@@ -395,9 +422,19 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.btnDelete.Enabled = false;
         }
 
-        private void btnSaveLayout_Click(object sender, EventArgs e)
+        private void viewMyApplyMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            this.gridView1.SaveLayout(_layoutXmlName);
+            var myView = sender as GridView;
+
+            DataRow dr = myView.GetDataRow(e.RowHandle);
+
+            if (dr == null) return;
+            if (e.Column.Name == colOperate.Name)
+            {
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                OperateButtonStatusSetting(dr, buttonVI);
+            }
         }
 
         private void riButtonEditOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
@@ -406,7 +443,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 e.Button.Enabled = false;
 
-                var myView = this.gridView1;
+                var myView = this.viewMyApplyMaster;
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
@@ -424,7 +461,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     {
                         this._IDService.DeleteInvestmentDecisionForm(serialNo);
 
-                        BindApplicationInfo();
+                        BindMyApplicationInfo();
                     }
                 }
                 else if (buttonTag == "Apply")
@@ -441,20 +478,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        private void btnSaveLayout_Click(object sender, EventArgs e)
         {
-            var myView = sender as GridView;
-
-            DataRow dr = myView.GetDataRow(e.RowHandle);
-
-            if (dr == null) return;
-            if (e.Column.Name == colOperate.Name)
-            {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                OperateButtonStatusSetting(dr, buttonVI);
-            }
+            this.viewMyApplyMaster.SaveLayout(_layoutXmlName);
         }
+
+        #endregion Page MyApply
 
         #endregion Events
     }

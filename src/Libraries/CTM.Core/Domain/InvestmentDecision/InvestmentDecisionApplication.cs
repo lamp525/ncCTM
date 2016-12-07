@@ -10,6 +10,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string ApplyUser { get; set; }
 
+        public int DepartmentId { get; set; }
+
         public DateTime ApplyDate { get; set; }
 
         public string StockCode { get; set; }
