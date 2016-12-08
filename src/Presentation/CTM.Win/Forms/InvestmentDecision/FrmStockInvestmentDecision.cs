@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using CTM.Core.Infrastructure;
+using CTM.Win.Extensions;
 using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestmentDecision
@@ -33,8 +34,19 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             embedForm.FormBorderStyle = FormBorderStyle.None;
             embedForm.TopLevel = false;
+            embedForm.AutoSize = true;
+            embedForm.AutoScroll = true;
             currentPage.Controls.Add(embedForm);
+            currentPage.AutoSize = true;
+            currentPage.AutoScroll = true;
             embedForm.Show();
+        }
+
+        private void RefreshProgressingPage()
+        {
+            this.tabPane1.SelectedPage = this.tpProgressing;
+
+            _progressingEmbedForm.BindMyApplicationInfo();
         }
 
         #endregion Utilities
@@ -50,6 +62,27 @@ namespace CTM.Win.Forms.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnAdd.Enabled = false;
+                var dialog = this.CreateDialog<_dialogIDApplication>();
+                dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(RefreshProgressingPage);
+                dialog.Text = "股票投资交易申请";
+
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
             }
         }
 
