@@ -9,6 +9,13 @@ namespace CTM.Core.Domain.InvestmentDecision
         public string OperateNo { get; set; }
 
         /// <summary>
+        /// 操作人员
+        /// </summary>
+        public string OperateUser { get; set; }
+
+        public DateTime OperateTime { get; set; }
+
+        /// <summary>
         /// 初始操作标志
         /// true：初始操作
         /// false：对应操作
@@ -25,11 +32,6 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// false：卖出
         /// </summary>
         public bool DealFlag { get; set; }
-
-        /// <summary>
-        /// 操作名称：买入/卖出/融券卖出/加仓/减仓/清仓
-        /// </summary>
-        public string OperateName { get; set; }
 
         public decimal DealPrice { get; set; }
 

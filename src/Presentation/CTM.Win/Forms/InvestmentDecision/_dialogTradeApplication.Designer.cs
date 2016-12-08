@@ -44,7 +44,6 @@
             this.chkSell = new DevExpress.XtraEditors.CheckEdit();
             this.chkBuy = new DevExpress.XtraEditors.CheckEdit();
             this.luStock = new DevExpress.XtraEditors.LookUpEdit();
-            this.txtSerialNo = new DevExpress.XtraEditors.TextEdit();
             this.deApply = new DevExpress.XtraEditors.DateEdit();
             this.txtAmount = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -55,7 +54,6 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.lciSerialNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -63,7 +61,6 @@
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem14 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciInvestor = new DevExpress.XtraLayout.LayoutControlItem();
@@ -74,6 +71,7 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).BeginInit();
@@ -85,7 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkSell.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkBuy.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerialNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deApply.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deApply.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAmount.Properties)).BeginInit();
@@ -97,7 +94,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciSerialNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
@@ -105,7 +101,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciInvestor)).BeginInit();
@@ -116,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -135,7 +131,6 @@
             this.layoutControl1.Controls.Add(this.chkSell);
             this.layoutControl1.Controls.Add(this.chkBuy);
             this.layoutControl1.Controls.Add(this.luStock);
-            this.layoutControl1.Controls.Add(this.txtSerialNo);
             this.layoutControl1.Controls.Add(this.deApply);
             this.layoutControl1.Controls.Add(this.txtAmount);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -148,7 +143,7 @@
             // 
             // txtPriceBound
             // 
-            this.txtPriceBound.Location = new System.Drawing.Point(215, 213);
+            this.txtPriceBound.Location = new System.Drawing.Point(215, 191);
             this.txtPriceBound.Name = "txtPriceBound";
             this.txtPriceBound.Size = new System.Drawing.Size(21, 20);
             this.txtPriceBound.TabIndex = 23;
@@ -156,7 +151,7 @@
             // 
             // lblPriceBound
             // 
-            this.lblPriceBound.Location = new System.Drawing.Point(240, 213);
+            this.lblPriceBound.Location = new System.Drawing.Point(240, 191);
             this.lblPriceBound.Name = "lblPriceBound";
             this.lblPriceBound.Size = new System.Drawing.Size(111, 14);
             this.lblPriceBound.StyleController = this.layoutControl1;
@@ -164,7 +159,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(165, 213);
+            this.labelControl1.Location = new System.Drawing.Point(165, 191);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(46, 14);
             this.labelControl1.StyleController = this.layoutControl1;
@@ -173,7 +168,7 @@
             // 
             // luInvestor
             // 
-            this.luInvestor.Location = new System.Drawing.Point(111, 93);
+            this.luInvestor.Location = new System.Drawing.Point(111, 95);
             this.luInvestor.Name = "luInvestor";
             this.luInvestor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -187,15 +182,15 @@
             // 
             // memoReason
             // 
-            this.memoReason.Location = new System.Drawing.Point(111, 285);
+            this.memoReason.Location = new System.Drawing.Point(111, 263);
             this.memoReason.Name = "memoReason";
-            this.memoReason.Size = new System.Drawing.Size(447, 103);
+            this.memoReason.Size = new System.Drawing.Size(447, 125);
             this.memoReason.StyleController = this.layoutControl1;
             this.memoReason.TabIndex = 17;
             // 
             // txtPlanNo
             // 
-            this.txtPlanNo.Location = new System.Drawing.Point(111, 69);
+            this.txtPlanNo.Location = new System.Drawing.Point(111, 71);
             this.txtPlanNo.Name = "txtPlanNo";
             this.txtPlanNo.Size = new System.Drawing.Size(240, 20);
             this.txtPlanNo.StyleController = this.layoutControl1;
@@ -223,7 +218,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(449, 43);
+            this.btnImport.Location = new System.Drawing.Point(449, 45);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(99, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -232,7 +227,7 @@
             // 
             // txtVolume
             // 
-            this.txtVolume.Location = new System.Drawing.Point(111, 237);
+            this.txtVolume.Location = new System.Drawing.Point(111, 215);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(240, 20);
             this.txtVolume.StyleController = this.layoutControl1;
@@ -241,7 +236,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(111, 213);
+            this.txtPrice.Location = new System.Drawing.Point(111, 191);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(50, 20);
             this.txtPrice.StyleController = this.layoutControl1;
@@ -250,7 +245,7 @@
             // 
             // cbOperateType
             // 
-            this.cbOperateType.Location = new System.Drawing.Point(111, 189);
+            this.cbOperateType.Location = new System.Drawing.Point(111, 167);
             this.cbOperateType.Name = "cbOperateType";
             this.cbOperateType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -260,7 +255,7 @@
             // 
             // chkSell
             // 
-            this.chkSell.Location = new System.Drawing.Point(241, 189);
+            this.chkSell.Location = new System.Drawing.Point(241, 167);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖";
             this.chkSell.Size = new System.Drawing.Size(110, 19);
@@ -271,7 +266,7 @@
             // chkBuy
             // 
             this.chkBuy.EditValue = true;
-            this.chkBuy.Location = new System.Drawing.Point(203, 189);
+            this.chkBuy.Location = new System.Drawing.Point(203, 167);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买";
             this.chkBuy.Size = new System.Drawing.Size(34, 19);
@@ -281,7 +276,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(111, 165);
+            this.luStock.Location = new System.Drawing.Point(111, 143);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -293,19 +288,10 @@
             this.luStock.StyleController = this.layoutControl1;
             this.luStock.TabIndex = 6;
             // 
-            // txtSerialNo
-            // 
-            this.txtSerialNo.Location = new System.Drawing.Point(111, 141);
-            this.txtSerialNo.Name = "txtSerialNo";
-            this.txtSerialNo.Properties.ReadOnly = true;
-            this.txtSerialNo.Size = new System.Drawing.Size(240, 20);
-            this.txtSerialNo.StyleController = this.layoutControl1;
-            this.txtSerialNo.TabIndex = 5;
-            // 
             // deApply
             // 
             this.deApply.EditValue = null;
-            this.deApply.Location = new System.Drawing.Point(111, 117);
+            this.deApply.Location = new System.Drawing.Point(111, 119);
             this.deApply.Name = "deApply";
             this.deApply.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -314,11 +300,10 @@
             this.deApply.Size = new System.Drawing.Size(240, 20);
             this.deApply.StyleController = this.layoutControl1;
             this.deApply.TabIndex = 4;
-            this.deApply.EditValueChanged += new System.EventHandler(this.deApply_EditValueChanged);
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(111, 261);
+            this.txtAmount.Location = new System.Drawing.Point(111, 239);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Properties.ReadOnly = true;
             this.txtAmount.Size = new System.Drawing.Size(240, 20);
@@ -349,7 +334,6 @@
             this.layoutControlItem3,
             this.layoutControlItem5,
             this.layoutControlItem4,
-            this.lciSerialNo,
             this.emptySpaceItem11,
             this.emptySpaceItem10,
             this.emptySpaceItem12,
@@ -376,7 +360,7 @@
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.txtVolume;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 194);
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 170);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(331, 24);
             this.layoutControlItem8.Text = "数量:";
@@ -385,7 +369,7 @@
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.txtPrice;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 170);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 146);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(141, 24);
             this.layoutControlItem7.Text = "单价(元):";
@@ -394,7 +378,7 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.cbOperateType;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 146);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 122);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(179, 24);
             this.layoutControlItem6.Text = "操作类型：";
@@ -403,7 +387,7 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.luStock;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 122);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 98);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(331, 24);
             this.layoutControlItem3.Text = "股票信息：";
@@ -412,7 +396,7 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.chkSell;
-            this.layoutControlItem5.Location = new System.Drawing.Point(217, 146);
+            this.layoutControlItem5.Location = new System.Drawing.Point(217, 122);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(114, 24);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -421,20 +405,11 @@
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.chkBuy;
-            this.layoutControlItem4.Location = new System.Drawing.Point(179, 146);
+            this.layoutControlItem4.Location = new System.Drawing.Point(179, 122);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(38, 24);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // lciSerialNo
-            // 
-            this.lciSerialNo.Control = this.txtSerialNo;
-            this.lciSerialNo.Location = new System.Drawing.Point(0, 98);
-            this.lciSerialNo.Name = "lciSerialNo";
-            this.lciSerialNo.Size = new System.Drawing.Size(331, 24);
-            this.lciSerialNo.Text = "申请编号：";
-            this.lciSerialNo.TextSize = new System.Drawing.Size(84, 14);
             // 
             // emptySpaceItem11
             // 
@@ -447,7 +422,7 @@
             // emptySpaceItem10
             // 
             this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 349);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 347);
             this.emptySpaceItem10.MaxSize = new System.Drawing.Size(0, 10);
             this.emptySpaceItem10.MinSize = new System.Drawing.Size(10, 10);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
@@ -458,7 +433,7 @@
             // emptySpaceItem12
             // 
             this.emptySpaceItem12.AllowHotTrack = false;
-            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 359);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 357);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
             this.emptySpaceItem12.Size = new System.Drawing.Size(140, 26);
             this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
@@ -466,7 +441,7 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.btnCancel;
-            this.layoutControlItem10.Location = new System.Drawing.Point(295, 359);
+            this.layoutControlItem10.Location = new System.Drawing.Point(295, 357);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Size = new System.Drawing.Size(119, 26);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
@@ -475,7 +450,7 @@
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.btnSubmit;
-            this.layoutControlItem11.Location = new System.Drawing.Point(140, 359);
+            this.layoutControlItem11.Location = new System.Drawing.Point(140, 357);
             this.layoutControlItem11.Name = "layoutControlItem11";
             this.layoutControlItem11.Size = new System.Drawing.Size(118, 26);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
@@ -484,7 +459,7 @@
             // emptySpaceItem13
             // 
             this.emptySpaceItem13.AllowHotTrack = false;
-            this.emptySpaceItem13.Location = new System.Drawing.Point(414, 359);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(414, 357);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
             this.emptySpaceItem13.Size = new System.Drawing.Size(124, 26);
             this.emptySpaceItem13.TextSize = new System.Drawing.Size(0, 0);
@@ -492,25 +467,16 @@
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(258, 359);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(258, 357);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
             this.emptySpaceItem14.Size = new System.Drawing.Size(37, 26);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // layoutControlItem12
-            // 
-            this.layoutControlItem12.Control = this.txtPlanNo;
-            this.layoutControlItem12.Location = new System.Drawing.Point(0, 26);
-            this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(331, 24);
-            this.layoutControlItem12.Text = "关联计划单号：";
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlItem14
             // 
             this.layoutControlItem14.Control = this.txtAmount;
             this.layoutControlItem14.CustomizationFormText = "投资人发起人：";
-            this.layoutControlItem14.Location = new System.Drawing.Point(0, 218);
+            this.layoutControlItem14.Location = new System.Drawing.Point(0, 194);
             this.layoutControlItem14.Name = "layoutControlItem14";
             this.layoutControlItem14.Size = new System.Drawing.Size(331, 24);
             this.layoutControlItem14.Text = "金额(万元):";
@@ -519,9 +485,9 @@
             // layoutControlItem15
             // 
             this.layoutControlItem15.Control = this.memoReason;
-            this.layoutControlItem15.Location = new System.Drawing.Point(0, 242);
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 218);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(538, 107);
+            this.layoutControlItem15.Size = new System.Drawing.Size(538, 129);
             this.layoutControlItem15.Text = "申请理由:";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(84, 14);
             // 
@@ -566,13 +532,13 @@
             this.emptySpaceItem17.AllowHotTrack = false;
             this.emptySpaceItem17.Location = new System.Drawing.Point(331, 26);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(207, 216);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(207, 192);
             this.emptySpaceItem17.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem13
             // 
             this.layoutControlItem13.Control = this.labelControl1;
-            this.layoutControlItem13.Location = new System.Drawing.Point(141, 170);
+            this.layoutControlItem13.Location = new System.Drawing.Point(141, 146);
             this.layoutControlItem13.Name = "layoutControlItem13";
             this.layoutControlItem13.Size = new System.Drawing.Size(50, 24);
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
@@ -581,7 +547,7 @@
             // layoutControlItem16
             // 
             this.layoutControlItem16.Control = this.lblPriceBound;
-            this.layoutControlItem16.Location = new System.Drawing.Point(216, 170);
+            this.layoutControlItem16.Location = new System.Drawing.Point(216, 146);
             this.layoutControlItem16.Name = "layoutControlItem16";
             this.layoutControlItem16.Size = new System.Drawing.Size(115, 24);
             this.layoutControlItem16.TextSize = new System.Drawing.Size(0, 0);
@@ -590,11 +556,20 @@
             // layoutControlItem17
             // 
             this.layoutControlItem17.Control = this.txtPriceBound;
-            this.layoutControlItem17.Location = new System.Drawing.Point(191, 170);
+            this.layoutControlItem17.Location = new System.Drawing.Point(191, 146);
             this.layoutControlItem17.Name = "layoutControlItem17";
             this.layoutControlItem17.Size = new System.Drawing.Size(25, 24);
             this.layoutControlItem17.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem17.TextVisible = false;
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.txtPlanNo;
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 26);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(331, 24);
+            this.layoutControlItem12.Text = "关联计划单号：";
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(84, 14);
             // 
             // _dialogTradeApplication
             // 
@@ -616,7 +591,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkSell.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkBuy.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerialNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deApply.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deApply.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAmount.Properties)).EndInit();
@@ -628,7 +602,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciSerialNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
@@ -636,7 +609,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciInvestor)).EndInit();
@@ -647,6 +619,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -661,10 +634,8 @@
         private DevExpress.XtraEditors.CheckEdit chkSell;
         private DevExpress.XtraEditors.CheckEdit chkBuy;
         private DevExpress.XtraEditors.LookUpEdit luStock;
-        private DevExpress.XtraEditors.TextEdit txtSerialNo;
         private DevExpress.XtraEditors.DateEdit deApply;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraLayout.LayoutControlItem lciSerialNo;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;

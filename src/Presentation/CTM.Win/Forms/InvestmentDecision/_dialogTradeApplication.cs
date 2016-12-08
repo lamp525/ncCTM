@@ -72,10 +72,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var now = _commonService.GetCurrentServerTime();
 
-            //申请编号
-            this.lciSerialNo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            this.txtSerialNo.Text = string.Empty;
-
+  
             //申请日期
             this.deApply.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deApply.EditValue = now.Date;
@@ -219,7 +216,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 PriceBound = (decimal)priceBound / (int)EnumLibrary.NumericUnit.Hundred,
                 Reason = this.memoReason.Text.Trim(),
                 RelateTradePlanNo = txtPlanNo.Text.Trim(),
-                SerialNo = this.txtSerialNo.Text.Trim(),
+                SerialNo = string.Empty ,
                 Status = (int)EnumLibrary.IDFormStatus.Submited,
                 StockFullCode = stock.FullCode,
                 StockName = stock.Name,
@@ -267,12 +264,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowError(ex.Message);
             }
-        }
-
-        private void deApply_EditValueChanged(object sender, EventArgs e)
-        {
-            var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
-            this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
         }
 
         private void chkBuy_CheckedChanged(object sender, EventArgs e) 

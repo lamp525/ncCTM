@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
-using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
@@ -24,6 +23,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IInvestmentDecisionService _IDService;
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
+        private bool _initialFlag = true;
 
         #endregion Fields
 
@@ -57,22 +57,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            //发起人
-            var investors = _userService.GetAllOperators(true).OrderBy(x => x.Code).ToList();
-            this.luInvestor.Initialize(investors, "Code", "Name", enableSearch: true);
-            this.luInvestor.EditValue = LoginInfo.CurrentUser.UserCode;
-
-            if (investors != null && investors.Any())
-            {
-                if (investors.Exists(x => x.Code == LoginInfo.CurrentUser.UserCode))
-                    this.luInvestor.EditValue = LoginInfo.CurrentUser.UserCode;
-                else
-                    this.luInvestor.EditValue = string.Empty;
-            }
-
             var now = _commonService.GetCurrentServerTime();
 
-         
+            //申请人员
+            this.txtApplyUser.Text = LoginInfo.CurrentUser.UserName;
 
             //申请日期
             this.deApply.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -111,30 +99,72 @@ namespace CTM.Win.Forms.InvestmentDecision
                 },
             };
 
+            this.txtOperateUser.Text = LoginInfo.CurrentUser.UserName;
             this.cbOperateType.Initialize(operateTypes);
             this.cbOperateType.DefaultSelected("1");
+            this.txtProfitPrice.SetNumericMask(2);
+            this.txtProfitPrice.Text = string.Empty;
+            this.spinProfitBound.SetProperties();
+            this.txtLossPrice.SetNumericMask(2);
+            this.txtLossPrice.Text = string.Empty;
+            this.spinLossBound.SetProperties();
+
+            //操作人员
+            this.txtOperateUser.Text = LoginInfo.CurrentUser.UserName;
+
+            //操作日期
+            this.deOperate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deOperate.EditValue = now.Date;
 
             this.txtPrice.SetNumericMask(2);
             this.txtPrice.Text = string.Empty;
-            this.txtPriceBound.MaxLength = 2;
-            this.txtPriceBound.Text = "1";
+            this.spinPriceBound.SetProperties();
             this.txtVolume.SetNumberMask();
             this.txtVolume.Text = string.Empty;
+
+            //理由类别
+            var categories = _IDService.GetIDReasonCategories();
+
+            this.treeListLookUpEdit1.Properties.DisplayMember = "Name";
+            this.treeListLookUpEdit1.Properties.ValueMember = "Id";
+            this.treeListLookUpEdit1TreeList.Initialize(categories, "Id", "ParentId", editable: false, autoWidth: true, showColumns: false, showVertLines: false, showHorzLines: false, multiSelect: true);
+            categories = null;
         }
 
         private bool SubmitProcess()
         {
-            if (string.IsNullOrEmpty(this.luInvestor.SelectedValue()))
-            {
-                DXMessage.ShowTips("请选择投资发起人！");
-                this.luInvestor.Focus();
-                return false;
-            }
-
             if (string.IsNullOrEmpty(this.luStock.SelectedValue()))
             {
                 DXMessage.ShowTips("请选择股票信息！");
                 this.luStock.Focus();
+                return false;
+            }
+
+            if (this.txtProfitPrice.Text.Trim().Length == 0)
+            {
+                DXMessage.ShowTips("请输入止盈价格！");
+                this.txtProfitPrice.Focus();
+                return false;
+            }
+
+            if (decimal.Parse(this.txtProfitPrice.Text.Trim()) <= 0)
+            {
+                DXMessage.ShowTips("止盈价格应该大于0！");
+                this.txtProfitPrice.Focus();
+                return false;
+            }
+
+            if (this.txtLossPrice.Text.Trim().Length == 0)
+            {
+                DXMessage.ShowTips("请输入止损价格！");
+                this.txtLossPrice.Focus();
+                return false;
+            }
+
+            if (decimal.Parse(this.txtLossPrice.Text.Trim()) <= 0)
+            {
+                DXMessage.ShowTips("止损价格应该大于0！");
+                this.txtLossPrice.Focus();
                 return false;
             }
 
@@ -149,28 +179,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowTips("单价应该大于0！");
                 this.txtPrice.Focus();
-                return false;
-            }
-
-            if (this.txtPriceBound.Text.Trim().Length == 0)
-            {
-                DXMessage.ShowTips("请输入单价上下限！");
-                this.txtPriceBound.Focus();
-                return false;
-            }
-
-            int priceBound;
-            if (!int.TryParse(txtPriceBound.Text.Trim(), out priceBound))
-            {
-                DXMessage.ShowTips("单价上下限应该输入数字！");
-                this.txtPriceBound.Focus();
-                return false;
-            }
-
-            if (int.Parse(this.txtPriceBound.Text.Trim()) <= 0)
-            {
-                DXMessage.ShowTips("单价上下限应该大于0！");
-                this.txtPriceBound.Focus();
                 return false;
             }
 
@@ -195,38 +203,65 @@ namespace CTM.Win.Forms.InvestmentDecision
                 return false;
             }
 
-            var investorInfo = this.luInvestor.GetSelectedDataRow() as UserInfo;
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
             var tradeType = int.Parse(this.cbOperateType.SelectedValue());
+            var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
+            var now = _commonService.GetCurrentServerTime();
+            var stopProfitPrice = decimal.Parse(this.txtProfitPrice.Text.Trim());
+            var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString());
+            var stopLossPrice = decimal.Parse(this.txtLossPrice.Text.Trim());
+            var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString());
+
+            var application = new InvestmentDecisionApplication
+            {
+                ApplyNo = string.Empty,
+                ApplyDate = applyDate,
+                ApplyUser = LoginInfo.CurrentUser.UserCode,
+                CreateTime = now,
+                DepartmentId = LoginInfo.CurrentUser.DepartmentId,
+                Status = (int)EnumLibrary.IDApplicationStatus.Proceed,
+                StockCode = stock.FullCode,
+                StockName = stock.Name,
+                StopLossBound = stopLossBound,
+                StopLossPrice = stopLossPrice,
+                StopProfitBound = stopProfitBound,
+                StopProfitPrice = stopProfitPrice,
+                TradePlanNo = txtPlanNo.Text.Trim(),
+                TradeType = tradeType,
+                UpdateTime = now,
+            };
+
             var price = decimal.Parse(this.txtPrice.Text.Trim());
+            var priceBound = decimal.Parse(this.spinPriceBound.EditValue.ToString());
             var volume = decimal.Parse(this.txtVolume.Text.Trim());
             var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
 
-            var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
-            var now = _commonService.GetCurrentServerTime();
-
-            var form = new InvestmentDecisionForm
+            var operation = new InvestmentDecisionOperation
             {
-                Amount = this.chkBuy.Checked ? amount : -amount,
-                ApplyDate = applyDate,
-                ApplyUser = investorInfo.Code,
+                AccuracyPoint = 0,
+                AccuracyStatus = (int)EnumLibrary.IDOperationAccuracyStatus.None,
+                ApplyNo = string.Empty,
                 CreateTime = now,
-                DealFlag = this.chkBuy.Checked ? true : false,
-                DepartmentId = investorInfo.DepartmentId,
-                Price = price,
-                PriceBound = (decimal)priceBound / (int)EnumLibrary.NumericUnit.Hundred,
-                Reason = this.memoReason.Text.Trim(),
-                RelateTradePlanNo = txtPlanNo.Text.Trim(),
-               // SerialNo = this.txtSerialNo.Text.Trim(),
-                Status = (int)EnumLibrary.IDFormStatus.Submited,
-                StockFullCode = stock.FullCode,
+                DealAmount = amount,
+                DealFlag = chkBuy.Checked ? true : false,
+                DealPrice = price,
+                DealVolume = volume,
+                ExecuteFlag = false,
+                InitialFlag = _initialFlag,
+                OperateUser = LoginInfo.CurrentUser.UserCode,
+                OperateNo = string.Empty,
+                PriceBound = priceBound,
+                ReasonCategoryId = int.Parse(this.treeListLookUpEdit1.SelectedValue()),
+                ReasonContent = memoReason.Text.Trim(),
+                StockCode = stock.FullCode,
                 StockName = stock.Name,
-                TradeType = tradeType,
+                TradeRecordRelateFlag = false,
                 UpdateTime = now,
-                Volume = volume,
+                VotePoint = 0,
+                VoteStatus = (int)EnumLibrary.IDOperationVoteStatus.None,
             };
 
-            _IDService.SubmitInvestmentDecisionApplication(form);
+            _IDService.IDApplicationApplyProcess(application, operation);
 
             return true;
         }
@@ -243,10 +278,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void CalculatePriceBound()
         {
-            if (!string.IsNullOrEmpty(this.txtPriceBound.Text.Trim()) && !string.IsNullOrEmpty(this.txtPrice.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.spinPriceBound.EditValue.ToString()) && !string.IsNullOrEmpty(this.txtPrice.Text.Trim()))
             {
-                decimal dealUpBound = CommonHelper.SetDecimalDigits((1 + decimal.Parse(this.txtPriceBound.Text.Trim()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
-                decimal dealDownBound = CommonHelper.SetDecimalDigits((1 - decimal.Parse(this.txtPriceBound.Text.Trim()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
+                decimal dealUpBound = CommonHelper.SetDecimalDigits((1 + decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
+                decimal dealDownBound = CommonHelper.SetDecimalDigits((1 - decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
                 this.lblPriceBound.Text = dealDownBound.ToString() + " ~ " + dealUpBound.ToString();
             }
         }
@@ -270,10 +305,10 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void deApply_EditValueChanged(object sender, EventArgs e)
         {
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
-           // this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
+            // this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
         }
 
-        private void chkBuy_CheckedChanged(object sender, EventArgs e) 
+        private void chkBuy_CheckedChanged(object sender, EventArgs e)
         {
             this.chkSell.Checked = !this.chkBuy.Checked;
         }
@@ -322,7 +357,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             CalculateAmount();
         }
 
-        private void txtPriceBound_TextChanged(object sender, EventArgs e)
+        private void spinPriceBound_EditValueChanged(object sender, EventArgs e)
         {
             CalculatePriceBound();
         }

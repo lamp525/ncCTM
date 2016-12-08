@@ -422,6 +422,32 @@ namespace CTM.Win.Extensions
 
         #endregion LookUpEdit
 
+        #region SpinEdit
+
+        /// <summary>
+        /// Set SpinEdit Properties
+        /// </summary>
+        /// <param name="spinEdit"></param>
+        /// <param name="isFloatValue"></param>
+        /// <param name="increment"></param>
+        /// <param name="minValue"></param>
+        /// <param name="maxValue"></param>
+        /// <param name="initValue"></param>
+        public static void SetProperties(this SpinEdit spinEdit, bool isFloatValue = false, decimal increment = 1, decimal minValue = 1, decimal maxValue = 99, decimal initValue = 1)
+        {
+            spinEdit.Properties.IsFloatValue = false;
+            spinEdit.Properties.Increment = 1;
+            spinEdit.Properties.MinValue = 1;
+            spinEdit.Properties.MaxValue = 99;
+            spinEdit.Properties.Mask.MaskType = MaskType.RegEx;
+            spinEdit.Properties.Mask.EditMask = @"\d{1,2}?";
+            spinEdit.Value = 1;
+        }
+
+        #endregion SpinEdit
+
+
+
         #region TreeListLookUpEdit
 
         /// <summary>

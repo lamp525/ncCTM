@@ -21,22 +21,72 @@ namespace CTM.Core
             [Description("一票否决")]
             OneVoteVeto = 99,
         }
+
         /// <summary>
         /// 投资决策单投票标志
         /// </summary>
         public enum IDVoteFlag
         {
             [Description("未投票")]
-            None =0,
+            None = 0,
 
             [Description("赞同")]
             Approval = 1,
 
             [Description("反对")]
-            Oppose =2,
+            Oppose = 2,
 
             [Description("弃权")]
-            Abstain =3,
+            Abstain = 3,
+        }
+
+        /// <summary>
+        /// 投资决策单状态
+        /// </summary>
+        public enum IDApplicationStatus
+        {
+            [Description("进行中")]
+            Proceed = 0,
+
+            [Description("已完成")]
+            Done = 99,
+        }
+
+        /// <summary>
+        /// 决策操作记录投票状态
+        /// </summary>
+        public enum IDOperationVoteStatus
+        {
+            [Description("未投票")]
+            None = 1,
+
+            [Description("进行中")]
+            Proceed = 2,
+
+            [Description("申请通过")]
+            Passed = 3,
+
+            [Description("申请不通过")]
+            Denied = 4,
+        }
+
+
+        /// <summary>
+        /// 决策操作记录准确度状态
+        /// </summary>
+       public enum IDOperationAccuracyStatus
+        {
+            [Description("未投票")]
+            None = 1,
+
+            [Description("投票中")]
+            Proceed = 2,
+
+            [Description("准确")]
+            Accurate = 3,
+
+            [Description("不准确")]
+            Inaccurate = 4,
         }
 
         /// <summary>

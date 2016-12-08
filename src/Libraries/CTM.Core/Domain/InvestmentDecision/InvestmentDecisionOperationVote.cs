@@ -32,7 +32,7 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// </summary>
         public int Flag { get; set; }
 
-        public string ReasonCategoryId { get; set; }
+        public int ReasonCategoryId { get; set; }
 
         public string ReasonContent { get; set; }
 

@@ -15,9 +15,14 @@ namespace CTM.Services.InvestmentDecision
     {
         #region Fields
 
-        private readonly IRepository<InvestmentDecisionCommittee> _IDCRepository;
-        private readonly IRepository<InvestmentDecisionForm> _IDFRepository;
-        private readonly IRepository<InvestmentDecisionVote> _IDVRepository;
+        private readonly IRepository<InvestmentDecisionCommittee> _IDCommitteeRepository;
+        private readonly IRepository<InvestmentDecisionApplication> _IDApplicationRepository;
+        private readonly IRepository<InvestmentDecisionOperation> _IDOperationRepository;
+        private readonly IRepository<InvestmentDecisionOperationVote> _IDOperationVoteRepository;
+        private readonly IRepository<InvestmentDecisionAccuracy> _IDAccuracyRepository;
+
+        private readonly IRepository<InvestmentDecisionForm> _IDFormRepository;
+        private readonly IRepository<InvestmentDecisionVote> _IDVoteRepository;
 
         private readonly IRepository<InvestmentDecisionStockPool> _IDStockPoolRepository;
 
@@ -41,6 +46,10 @@ namespace CTM.Services.InvestmentDecision
 
         public InvestmentDecisionService(
             IRepository<InvestmentDecisionCommittee> IDCRepository,
+            IRepository<InvestmentDecisionApplication> IDApplicationRepository,
+            IRepository<InvestmentDecisionOperation> IDOperationRepository,
+            IRepository<InvestmentDecisionOperationVote> IDOperationVoteRepository,
+            IRepository<InvestmentDecisionAccuracy> IDAccuracyRepository,
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
             IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
@@ -54,9 +63,13 @@ namespace CTM.Services.InvestmentDecision
             ICommonService commonService,
             IDbContext dbContext)
         {
-            this._IDCRepository = IDCRepository;
-            this._IDFRepository = IDFRepository;
-            this._IDVRepository = IDVRepository;
+            this._IDCommitteeRepository = IDCRepository;
+            this._IDApplicationRepository = IDApplicationRepository;
+            this._IDOperationRepository = IDOperationRepository;
+            this._IDOperationVoteRepository = IDOperationVoteRepository;
+            this._IDAccuracyRepository = IDAccuracyRepository;
+            this._IDFormRepository = IDFRepository;
+            this._IDVoteRepository = IDVRepository;
             this._IDStockPoolRepository = IDStockPoolRepository;
             this._MTFInfoRepository = MTFInfoRepository;
             this._MTFDetailRepository = MTFDetailRepository;
@@ -76,7 +89,7 @@ namespace CTM.Services.InvestmentDecision
 
         private void UpdateCommitteeWeight()
         {
-            var committees = _IDCRepository.Table.ToList();
+            var committees = _IDCommitteeRepository.Table.ToList();
 
             if (committees.Any())
             {
@@ -84,19 +97,15 @@ namespace CTM.Services.InvestmentDecision
                 {
                     item.Weight = CommonHelper.SetDecimalDigits(1.000000M / committees.Count, 4);
                 }
-                _IDCRepository.Update(committees);
+                _IDCommitteeRepository.Update(committees);
             }
         }
 
-        #endregion Utilities
-
-        #region Methods
-
-        public virtual string GenerateIDFSerialNo(DateTime applyDate)
+        private string GenerateIDFSerialNo(DateTime applyDate)
         {
             var serialNo = "SQ" + applyDate.ToString("yyMMdd");
 
-            var info = _IDFRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).ToList().LastOrDefault();
+            var info = _IDFormRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).ToList().LastOrDefault();
 
             var suffix = string.Empty;
             if (info == null)
@@ -111,19 +120,62 @@ namespace CTM.Services.InvestmentDecision
             return serialNo;
         }
 
+        private string GenerateIDApplicationApplyNo(DateTime applyDate)
+        {
+            var applyNo = "SQ" + applyDate.ToString("yyMMdd");
+
+            var info = _IDApplicationRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).LastOrDefault();
+
+            var suffix = string.Empty;
+            if (info == null)
+                suffix = "001";
+            else
+            {
+                var lastSuffix = info.ApplyNo.Substring(info.ApplyNo.Length - 3, 3);
+                suffix = (int.Parse(lastSuffix) + 1).ToString("00#");
+            }
+
+            applyNo = applyNo + suffix;
+            return applyNo;
+        }
+
+        private string GenerateIDOperationNo()
+        {
+            var operateNo = "CZ";
+
+            var info = _IDOperationRepository.Table.OrderBy(x => x.CreateTime).LastOrDefault();
+
+            var suffix = string.Empty;
+            if (info == null)
+                suffix = "000001";
+            else
+            {
+                var lastSuffix = info.ApplyNo.Substring(info.ApplyNo.Length - 6, 6);
+                suffix = (int.Parse(lastSuffix) + 1).ToString("00000#");
+            }
+
+            operateNo = operateNo + suffix;
+
+            return operateNo;
+        }
+
+        #endregion Utilities
+
+        #region Methods
+
         public virtual void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            if (_IDCRepository.Table.Count() == 0)
+            if (_IDCommitteeRepository.Table.Count() == 0)
                 throw new Exception("请设置投资决策委员会成员！");
 
             decimal totalWeight = 1;
             decimal applyUserWeight = 0;
             decimal otherWeight = 0;
 
-            var committeeCodes = _IDCRepository.Table.Select(x => x.Code).ToList();
+            var committeeCodes = _IDCommitteeRepository.Table.Select(x => x.Code).ToList();
 
             if (committeeCodes.Contains(entity.ApplyUser))
             {
@@ -140,7 +192,7 @@ namespace CTM.Services.InvestmentDecision
 
             entity.Point = (int)(applyUserWeight * 100);
             entity.SerialNo = GenerateIDFSerialNo(entity.ApplyDate);
-            _IDFRepository.Insert(entity);
+            _IDFormRepository.Insert(entity);
 
             var defaultVoteInfos = new List<InvestmentDecisionVote>();
             foreach (var code in committeeCodes)
@@ -159,7 +211,73 @@ namespace CTM.Services.InvestmentDecision
 
                 defaultVoteInfos.Add(info);
             }
-            _IDVRepository.Insert(defaultVoteInfos);
+            _IDVoteRepository.Insert(defaultVoteInfos);
+        }
+
+        public void IDApplicationApplyProcess(InvestmentDecisionApplication applicationEntity, InvestmentDecisionOperation operationEntity)
+        {
+            if (applicationEntity == null)
+                throw new ArgumentNullException(nameof(applicationEntity));
+
+            if (operationEntity == null)
+                throw new ArgumentNullException(nameof(operationEntity));
+
+            if (_IDCommitteeRepository.Table.Count() == 0)
+                throw new Exception("请设置投资决策委员会成员！");
+
+            if (string.IsNullOrEmpty(applicationEntity.ApplyNo))
+            {
+                applicationEntity.ApplyNo = GenerateIDApplicationApplyNo(applicationEntity.ApplyDate);
+
+                this._IDApplicationRepository.Insert(applicationEntity);
+            }
+
+            operationEntity.ApplyNo = applicationEntity.ApplyNo;
+
+            decimal totalWeight = 1;
+            decimal applyUserWeight = 0;
+            decimal otherWeight = 0;
+
+            var committeeCodes = _IDCommitteeRepository.Table.Select(x => x.Code).ToList();
+
+            if (committeeCodes.Contains(operationEntity.OperateUser))
+            {
+                applyUserWeight = 0.35M;
+                otherWeight = CommonHelper.SetDecimalDigits((totalWeight - applyUserWeight), 4) / (committeeCodes.Count - 1);
+            }
+            else
+            {
+                applyUserWeight = 0;
+                otherWeight = CommonHelper.SetDecimalDigits(totalWeight, 4) / committeeCodes.Count;
+
+                committeeCodes.Add(operationEntity.OperateUser);
+            }
+
+            operationEntity.VotePoint = (int)(applyUserWeight * 100);
+            operationEntity.OperateNo = GenerateIDOperationNo();
+
+            _IDOperationRepository.Insert(operationEntity);
+
+            var defaultVoteInfos = new List<InvestmentDecisionOperationVote>();
+            foreach (var code in committeeCodes)
+            {
+                var info = new InvestmentDecisionOperationVote
+                {
+                    ApplyNo = operationEntity.ApplyNo,
+                    AuthorityLevel = 0,
+                    Flag = operationEntity.OperateUser == code ? (int)EnumLibrary.IDVoteFlag.Approval : (int)EnumLibrary.IDVoteFlag.None,
+                    OperateNo = operationEntity.OperateNo,
+                    ReasonCategoryId = operationEntity.OperateUser == code ? operationEntity.ReasonCategoryId : 0,
+                    ReasonContent = operationEntity.OperateUser == code ? operationEntity.ReasonContent : string.Empty,
+                    Type = operationEntity.OperateUser == code ? (int)EnumLibrary.IDVoteType.Applicant : (int)EnumLibrary.IDVoteType.Committee,
+                    UserCode = code,
+                    VoteTime = _commonService.GetCurrentServerTime(),
+                    Weight = operationEntity.OperateUser == code ? applyUserWeight : otherWeight,
+                };
+
+                defaultVoteInfos.Add(info);
+            }
+            _IDOperationVoteRepository.Insert(defaultVoteInfos);
         }
 
         public virtual void DeleteInvestmentDecisionForm(string serialNo)
@@ -167,13 +285,13 @@ namespace CTM.Services.InvestmentDecision
             if (string.IsNullOrEmpty(serialNo))
                 throw new NotImplementedException();
 
-            var info = _IDFRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
+            var info = _IDFormRepository.Table.SingleOrDefault(x => x.SerialNo == serialNo);
 
-            _IDFRepository.Delete(info);
+            _IDFormRepository.Delete(info);
 
-            var votes = _IDVRepository.Table.Where(x => x.FormSerialNo == serialNo);
+            var votes = _IDVoteRepository.Table.Where(x => x.FormSerialNo == serialNo);
 
-            _IDVRepository.Delete(votes.ToArray());
+            _IDVoteRepository.Delete(votes.ToArray());
         }
 
         public virtual void DeleteInvestmentDecisionForm(IList<string> serialNos)
@@ -181,13 +299,13 @@ namespace CTM.Services.InvestmentDecision
             if (serialNos == null)
                 throw new ArgumentNullException(nameof(serialNos));
 
-            var forms = _IDFRepository.Table.Where(x => serialNos.Contains(x.SerialNo));
+            var forms = _IDFormRepository.Table.Where(x => serialNos.Contains(x.SerialNo));
 
-            _IDFRepository.Delete(forms.ToArray());
+            _IDFormRepository.Delete(forms.ToArray());
 
-            var votes = _IDVRepository.Table.Where(x => serialNos.Contains(x.FormSerialNo));
+            var votes = _IDVoteRepository.Table.Where(x => serialNos.Contains(x.FormSerialNo));
 
-            _IDVRepository.Delete(votes.ToArray());
+            _IDVoteRepository.Delete(votes.ToArray());
         }
 
         public virtual InvestmentDecisionVote GetInvestmentDecisionVote(string investorCode, string formSerialNo)
@@ -198,7 +316,7 @@ namespace CTM.Services.InvestmentDecision
             if (formSerialNo == null)
                 throw new ArgumentNullException(nameof(formSerialNo));
 
-            var info = _IDVRepository.Table.SingleOrDefault(x => x.UserCode == investorCode && x.FormSerialNo == formSerialNo);
+            var info = _IDVoteRepository.Table.SingleOrDefault(x => x.UserCode == investorCode && x.FormSerialNo == formSerialNo);
 
             return info;
         }
@@ -208,7 +326,7 @@ namespace CTM.Services.InvestmentDecision
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _IDVRepository.Insert(entity);
+            _IDVoteRepository.Insert(entity);
         }
 
         public virtual void DeleteInvestmentDecisionVote(string investorCode, string formSerialNo)
@@ -219,9 +337,9 @@ namespace CTM.Services.InvestmentDecision
             if (formSerialNo == null)
                 throw new ArgumentNullException(nameof(formSerialNo));
 
-            var info = _IDVRepository.Table.SingleOrDefault(x => x.UserCode == investorCode && x.FormSerialNo == formSerialNo);
+            var info = _IDVoteRepository.Table.SingleOrDefault(x => x.UserCode == investorCode && x.FormSerialNo == formSerialNo);
 
-            _IDVRepository.Delete(info);
+            _IDVoteRepository.Delete(info);
         }
 
         public virtual void UpdateInvestmentDecisionVote(InvestmentDecisionVote entity)
@@ -229,12 +347,12 @@ namespace CTM.Services.InvestmentDecision
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _IDVRepository.Update(entity);
+            _IDVoteRepository.Update(entity);
         }
 
         public virtual IList<InvestmentDecisionVote> GetInvestmentDecisionVotes(string investorCode)
         {
-            var query = _IDVRepository.TableNoTracking.Where(x => x.UserCode == investorCode && x.Flag != (int)EnumLibrary.IDVoteFlag.None);
+            var query = _IDVoteRepository.TableNoTracking.Where(x => x.UserCode == investorCode && x.Flag != (int)EnumLibrary.IDVoteFlag.None);
 
             return query.ToList();
         }
@@ -326,7 +444,7 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual IList<InvestmentDecisionCommittee> GetIDCommittees()
         {
-            var query = _IDCRepository.Table;
+            var query = _IDCommitteeRepository.Table;
 
             return query.ToList();
         }
@@ -339,7 +457,7 @@ namespace CTM.Services.InvestmentDecision
                 Name = name,
             };
 
-            _IDCRepository.Insert(entity);
+            _IDCommitteeRepository.Insert(entity);
 
             UpdateCommitteeWeight();
         }
@@ -349,8 +467,8 @@ namespace CTM.Services.InvestmentDecision
             if (ids == null)
                 throw new NullReferenceException(nameof(ids));
 
-            var committees = _IDCRepository.Table.Where(x => ids.Contains(x.Id)).ToList();
-            _IDCRepository.Delete(committees);
+            var committees = _IDCommitteeRepository.Table.Where(x => ids.Contains(x.Id)).ToList();
+            _IDCommitteeRepository.Delete(committees);
 
             UpdateCommitteeWeight();
         }
@@ -372,7 +490,7 @@ namespace CTM.Services.InvestmentDecision
 
             var details = _PSADetailRepository.Table.Where(x => x.SerialNo == serialNo);
             _PSADetailRepository.Delete(details.ToArray());
-            
+
             var summarys = _PSASummaryRepository.Table.Where(x => x.SerialNo == serialNo);
             _PSASummaryRepository.Delete(summarys);
         }
@@ -457,10 +575,10 @@ namespace CTM.Services.InvestmentDecision
             if (entity == null)
                 throw new NullReferenceException(nameof(entity));
 
-            _DRContentRepository.Update (entity);
+            _DRContentRepository.Update(entity);
         }
 
-        public virtual DecisionReasonContent  GetIDReasonContent(int contentId)
+        public virtual DecisionReasonContent GetIDReasonContent(int contentId)
         {
             var content = _DRContentRepository.GetById(contentId);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 
@@ -7,9 +6,9 @@ namespace CTM.Services.InvestmentDecision
 {
     public partial interface IInvestmentDecisionService : IBaseService
     {
-        string GenerateIDFSerialNo(DateTime applyDate);
-
         void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity);
+
+        void IDApplicationApplyProcess(InvestmentDecisionApplication applicationEntity, InvestmentDecisionOperation operationEntity);
 
         void DeleteInvestmentDecisionForm(string serialNo);
 
