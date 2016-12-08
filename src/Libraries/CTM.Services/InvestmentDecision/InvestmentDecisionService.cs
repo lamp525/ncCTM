@@ -124,7 +124,7 @@ namespace CTM.Services.InvestmentDecision
         {
             var applyNo = "SQ" + applyDate.ToString("yyMMdd");
 
-            var info = _IDApplicationRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).LastOrDefault();
+            var info = _IDApplicationRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).ToList().LastOrDefault();
 
             var suffix = string.Empty;
             if (info == null)
@@ -143,7 +143,7 @@ namespace CTM.Services.InvestmentDecision
         {
             var operateNo = "CZ";
 
-            var info = _IDOperationRepository.Table.OrderBy(x => x.CreateTime).LastOrDefault();
+            var info = _IDOperationRepository.Table.OrderBy(x => x.CreateTime).ToList().LastOrDefault();
 
             var suffix = string.Empty;
             if (info == null)
@@ -583,6 +583,14 @@ namespace CTM.Services.InvestmentDecision
             var content = _DRContentRepository.GetById(contentId);
 
             return content;
+        }
+
+        public string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "->")
+        {
+            var commanText = $@"SELECT [dbo].[f_GetReasonCategoryNameWithParent]({categoryId},'{jointMark}')  NameWithParent";
+            var query = _dbContext.SqlQuery<string>(commanText);
+
+            return query.FirstOrDefault();
         }
 
         #endregion Methods

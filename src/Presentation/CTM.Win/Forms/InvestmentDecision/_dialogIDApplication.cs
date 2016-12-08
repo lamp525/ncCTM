@@ -196,9 +196,16 @@ namespace CTM.Win.Forms.InvestmentDecision
                 return false;
             }
 
+            if (string.IsNullOrEmpty(this.treeListLookUpEdit1.SelectedValue()))
+            {
+                DXMessage.ShowTips("请选择理由分类！");
+                this.treeListLookUpEdit1.Focus();
+                return false;
+            }
+
             if (string.IsNullOrEmpty(this.memoReason.Text.Trim()))
             {
-                DXMessage.ShowTips("请输入申请理由！");
+                DXMessage.ShowTips("请输入理由内容！");
                 this.memoReason.Focus();
                 return false;
             }
@@ -208,9 +215,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
             var now = _commonService.GetCurrentServerTime();
             var stopProfitPrice = decimal.Parse(this.txtProfitPrice.Text.Trim());
-            var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString());
+            var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
             var stopLossPrice = decimal.Parse(this.txtLossPrice.Text.Trim());
-            var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString());
+            var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
 
             var application = new InvestmentDecisionApplication
             {
@@ -232,9 +239,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             };
 
             var price = decimal.Parse(this.txtPrice.Text.Trim());
-            var priceBound = decimal.Parse(this.spinPriceBound.EditValue.ToString());
+            var priceBound = decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred;
             var volume = decimal.Parse(this.txtVolume.Text.Trim());
             var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
+            var operateDate = CommonHelper.StringToDateTime(this.deOperate.EditValue.ToString());
 
             var operation = new InvestmentDecisionOperation
             {
@@ -248,6 +256,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 DealVolume = volume,
                 ExecuteFlag = false,
                 InitialFlag = _initialFlag,
+                OperateDate = operateDate,
                 OperateUser = LoginInfo.CurrentUser.UserCode,
                 OperateNo = string.Empty,
                 PriceBound = priceBound,

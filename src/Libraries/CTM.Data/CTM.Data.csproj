@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201612080519422_022.Designer.cs">
       <DependentUpon>201612080519422_022.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612080621550_023.cs" />
+    <Compile Include="Migrations\201612080621550_023.Designer.cs">
+      <DependentUpon>201612080621550_023.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -274,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612080519422_022.resx">
       <DependentUpon>201612080519422_022.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612080621550_023.resx">
+      <DependentUpon>201612080621550_023.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -65,5 +65,7 @@ namespace CTM.Services.InvestmentDecision
         void UpdateIDReasonContent(DecisionReasonContent entity);
 
         DecisionReasonContent GetIDReasonContent(int contentId);
+
+        string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "-");
     }
 }

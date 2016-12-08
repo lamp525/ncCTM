@@ -13,7 +13,7 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// </summary>
         public string OperateUser { get; set; }
 
-        public DateTime OperateTime { get; set; }
+        public DateTime OperateDate { get; set; }
 
         /// <summary>
         /// 初始操作标志
