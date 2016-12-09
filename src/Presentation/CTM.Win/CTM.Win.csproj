@@ -191,6 +191,12 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedAppointedStockApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedAppointedStockApplication.Designer.cs">
+      <DependentUpon>_embedAppointedStockApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InvestmentDecision\_embedIDApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,12 @@
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_dialogIDApplication.Designer.cs">
       <DependentUpon>_dialogIDApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIDOperationDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIDOperationDetail.Designer.cs">
+      <DependentUpon>_dialogIDOperationDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\StatisticsReport\UserInvestIncomeAccountModel.cs" />
     <Compile Include="Models\StatisticsReport\StockInvestIncomeSummaryModel.cs" />
@@ -632,6 +644,9 @@
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_embedAppointedStockApplication.resx">
+      <DependentUpon>_embedAppointedStockApplication.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDApplication.resx">
       <DependentUpon>_embedIDApplication.cs</DependentUpon>
     </EmbeddedResource>
@@ -730,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDApplication.resx">
       <DependentUpon>_dialogIDApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDOperationDetail.resx">
+      <DependentUpon>_dialogIDOperationDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MarginTrading\FrmUserMarginTrading.resx">
       <DependentUpon>FrmUserMarginTrading.cs</DependentUpon>

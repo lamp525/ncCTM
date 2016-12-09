@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
+using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
@@ -12,6 +13,7 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
+using System.Windows.Forms;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
@@ -24,6 +26,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
         private bool _initialFlag = true;
+
+        private _embedAppointedStockApplication _appointedStockEmbedForm = null;
 
         #endregion Fields
 
@@ -295,6 +299,22 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+
+        private void DisplayTargetEmbedForm(_embedAppointedStockApplication embedForm)
+        {
+            if (embedForm == null)
+                embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+
+            embedForm.FormBorderStyle = FormBorderStyle.None;
+            embedForm.TopLevel = false;
+            embedForm.Parent = this.splitContainerControl1.Panel2;
+            embedForm.Dock = DockStyle.Fill;
+            this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+
+            embedForm.Show();
+        }
+
+
         #endregion Utilities
 
         #region Events
@@ -304,6 +324,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 FormInit();
+
+                DisplayTargetEmbedForm(_appointedStockEmbedForm);
             }
             catch (Exception ex)
             {
@@ -311,6 +333,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+     
         private void deApply_EditValueChanged(object sender, EventArgs e)
         {
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
