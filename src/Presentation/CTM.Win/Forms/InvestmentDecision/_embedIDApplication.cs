@@ -364,7 +364,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
-                var applyNo = dr?[colApplyNo.FieldName]?.ToString();
+                var applyNo = dr?["ApplyNo"]?.ToString();
 
                 if (string.IsNullOrEmpty(applyNo)) return;
 
@@ -410,9 +410,9 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
-                var serialNo = dr?[colApplyNo.FieldName]?.ToString();
+                var applyNo = dr?["ApplyNo"]?.ToString();
 
-                if (string.IsNullOrEmpty(serialNo)) return;
+                if (string.IsNullOrEmpty(applyNo)) return;
 
                 var buttonTag = e.Button.Tag.ToString().Trim();
 
@@ -422,7 +422,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 {
                     if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
                     {
-                        this._IDService.DeleteInvestmentDecisionForm(serialNo);
+                        this._IDService.DeleteInvestmentDecisionForm(applyNo);
 
                         BindMyApplicationInfo();
                     }
@@ -440,8 +440,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 e.Button.Enabled = true;
             }
         }
-        #endregion
 
+        #endregion
 
         #endregion Events     
 

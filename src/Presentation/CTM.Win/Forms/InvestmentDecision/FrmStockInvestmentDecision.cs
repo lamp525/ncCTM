@@ -34,11 +34,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             embedForm.FormBorderStyle = FormBorderStyle.None;
             embedForm.TopLevel = false;
-            embedForm.AutoSize = true;
-            embedForm.AutoScroll = true;
+            embedForm.Parent = currentPage;
+            embedForm.Dock = DockStyle.Fill;
             currentPage.Controls.Add(embedForm);
-            currentPage.AutoSize = true;
-            currentPage.AutoScroll = true;
+         
             embedForm.Show();
         }
 

@@ -29,33 +29,34 @@
         private void InitializeComponent()
         {
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
-            this.tpAll = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.tpDone = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tpAll = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.tpProgressing = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabPane1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPane1
             // 
-            this.tabPane1.Controls.Add(this.tpAll);
             this.tabPane1.Controls.Add(this.tpDone);
+            this.tabPane1.Controls.Add(this.tpAll);
             this.tabPane1.Controls.Add(this.tpProgressing);
+            this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabPane1.Location = new System.Drawing.Point(12, 48);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
@@ -63,34 +64,35 @@
             this.tpDone,
             this.tpAll});
             this.tabPane1.RegularSize = new System.Drawing.Size(1518, 699);
-            this.tabPane1.SelectedPage = null;
-            this.tabPane1.SelectedPageIndex = -1;
+            this.tabPane1.SelectedPage = this.tpProgressing;
+            this.tabPane1.SelectedPageIndex = 0;
             this.tabPane1.Size = new System.Drawing.Size(1518, 699);
             this.tabPane1.TabIndex = 1;
             this.tabPane1.SelectedPageChanged += new DevExpress.XtraBars.Navigation.SelectedPageChangedEventHandler(this.tabPane1_SelectedPageChanged);
-            // 
-            // tpAll
-            // 
-            this.tpAll.Caption = "全部决策单";
-            this.tpAll.Name = "tpAll";
-            this.tpAll.Size = new System.Drawing.Size(0, 1518);
             // 
             // tpDone
             // 
             this.tpDone.Caption = "已完成决策单";
             this.tpDone.Name = "tpDone";
-            this.tpDone.Size = new System.Drawing.Size(0, 1518);
+            this.tpDone.Size = new System.Drawing.Size(1500, 653);
+            // 
+            // tpAll
+            // 
+            this.tpAll.Caption = "全部决策单";
+            this.tpAll.Name = "tpAll";
+            this.tpAll.Size = new System.Drawing.Size(1500, 653);
             // 
             // tpProgressing
             // 
             this.tpProgressing.Caption = "进行中决策单";
             this.tpProgressing.Name = "tpProgressing";
-            this.tpProgressing.Size = new System.Drawing.Size(0, 1518);
+            this.tpProgressing.Size = new System.Drawing.Size(1500, 653);
             // 
             // layoutControl1
             // 
             this.layoutControl1.Controls.Add(this.btnAdd);
             this.layoutControl1.Controls.Add(this.tabPane1);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
@@ -123,6 +125,16 @@
             this.layoutControlGroup1.Size = new System.Drawing.Size(1542, 759);
             this.layoutControlGroup1.TextVisible = false;
             // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.tabPane1;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 36);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(1522, 703);
+            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
@@ -130,6 +142,15 @@
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(1429, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.btnAdd;
+            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(83, 26);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
@@ -147,25 +168,6 @@
             this.emptySpaceItem3.Size = new System.Drawing.Size(1522, 10);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.btnAdd;
-            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(83, 26);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.tabPane1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 36);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1522, 703);
-            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
             // FrmStockInvestmentDecision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -179,11 +181,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
