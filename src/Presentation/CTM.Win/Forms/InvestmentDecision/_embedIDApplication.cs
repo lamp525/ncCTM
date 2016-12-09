@@ -268,6 +268,19 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #endregion Page MyApply
 
+        #region Detail
+        private void OperationDeleteProcess(string applyNo)
+        {
+            if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
+            {
+               // this._IDService.DeleteInvestmentDecisionForm(applyNo);
+
+                BindMyApplicationInfo();
+            }
+        }
+        #endregion
+
+
         #endregion Utilities
 
         #region Methods
@@ -418,14 +431,28 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 if (string.IsNullOrEmpty(buttonTag)) return;
 
+
+                switch (buttonTag)
+                {
+                    case "IDVote":
+                        OperationIDVoteProcess();
+                        break;
+                    case "Execute":
+                        break;
+                    case "AccucaryVote":
+                        break;
+                    case "View":
+                        break;
+                    case "Delete":
+                        OperationDeleteProcess(applyNo );
+                        break;
+                    default:
+                        break;
+                }
+
                 if (buttonTag == "Delete")
                 {
-                    if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
-                    {
-                        this._IDService.DeleteInvestmentDecisionForm(applyNo);
-
-                        BindMyApplicationInfo();
-                    }
+          
                 }
                 else if (buttonTag == "Apply")
                 {
@@ -440,6 +467,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 e.Button.Enabled = true;
             }
         }
+
+
 
         #endregion
 
