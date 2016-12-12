@@ -45,7 +45,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.tabPane1.SelectedPage = this.tpProgressing;
 
-           // _progressingEmbedForm.BindApplicationInfo();
+           _progressingEmbedForm.BindApplicationInfo();
         }
 
         #endregion Utilities

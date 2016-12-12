@@ -11,7 +11,7 @@ using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
-    public partial class _dialogIDAccuracyVoteResult : BaseForm
+    public partial class _embedIDOperationAccuracy : BaseForm
     {
 
         #region Fields
@@ -20,7 +20,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion
 
         #region Constructors
-        public _dialogIDAccuracyVoteResult()
+        public _embedIDOperationAccuracy()
         {
             InitializeComponent();
         }

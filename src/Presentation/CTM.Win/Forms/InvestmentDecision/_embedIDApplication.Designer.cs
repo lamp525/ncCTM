@@ -36,7 +36,7 @@
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            this.viewMyApplyDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.viewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ribtnOperate_D = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -65,8 +65,8 @@
             this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVoteStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccuracyStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridMyApply = new DevExpress.XtraGrid.GridControl();
-            this.viewMyApplyMaster = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridApplication = new DevExpress.XtraGrid.GridControl();
+            this.viewMaster = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -98,10 +98,10 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            ((System.ComponentModel.ISupportInitialize)(this.viewMyApplyDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridMyApply)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewMyApplyMaster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewMaster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riBtnOperate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -113,9 +113,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             this.SuspendLayout();
             // 
-            // viewMyApplyDetail
+            // viewDetail
             // 
-            this.viewMyApplyDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.viewDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn7,
             this.gridColumn1,
             this.gridColumn2,
@@ -143,9 +143,9 @@
             this.colDealFlagName,
             this.colVoteStatusName,
             this.colAccuracyStatusName});
-            this.viewMyApplyDetail.GridControl = this.gridMyApply;
-            this.viewMyApplyDetail.Name = "viewMyApplyDetail";
-            this.viewMyApplyDetail.OptionsView.ColumnAutoWidth = false;
+            this.viewDetail.GridControl = this.gridApplication;
+            this.viewDetail.Name = "viewDetail";
+            this.viewDetail.OptionsView.ColumnAutoWidth = false;
             // 
             // gridColumn7
             // 
@@ -354,27 +354,27 @@
             this.colAccuracyStatusName.VisibleIndex = 10;
             this.colAccuracyStatusName.Width = 79;
             // 
-            // gridMyApply
+            // gridApplication
             // 
-            gridLevelNode1.LevelTemplate = this.viewMyApplyDetail;
+            gridLevelNode1.LevelTemplate = this.viewDetail;
             gridLevelNode1.RelationName = "MD";
-            this.gridMyApply.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.gridMyApply.Location = new System.Drawing.Point(12, 38);
-            this.gridMyApply.MainView = this.viewMyApplyMaster;
-            this.gridMyApply.Name = "gridMyApply";
-            this.gridMyApply.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.gridApplication.Location = new System.Drawing.Point(12, 38);
+            this.gridApplication.MainView = this.viewMaster;
+            this.gridApplication.Name = "gridApplication";
+            this.gridApplication.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riBtnOperate,
             this.ribtnOperate_D});
-            this.gridMyApply.Size = new System.Drawing.Size(1444, 709);
-            this.gridMyApply.TabIndex = 4;
-            this.gridMyApply.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.viewMyApplyMaster,
-            this.viewMyApplyDetail});
+            this.gridApplication.Size = new System.Drawing.Size(1444, 709);
+            this.gridApplication.TabIndex = 4;
+            this.gridApplication.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.viewMaster,
+            this.viewDetail});
             // 
-            // viewMyApplyMaster
+            // viewMaster
             // 
-            this.viewMyApplyMaster.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.viewMaster.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
             this.colTradePlanNo,
             this.colApplyNo,
@@ -396,12 +396,12 @@
             this.colOperate,
             this.colCreateTime,
             this.colUpdateTime});
-            this.viewMyApplyMaster.GridControl = this.gridMyApply;
-            this.viewMyApplyMaster.IndicatorWidth = 40;
-            this.viewMyApplyMaster.Name = "viewMyApplyMaster";
-            this.viewMyApplyMaster.OptionsView.ColumnAutoWidth = false;
-            this.viewMyApplyMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMyApplyMaster_CustomDrawRowIndicator);
-            this.viewMyApplyMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMyApplyMaster_CustomDrawCell);
+            this.viewMaster.GridControl = this.gridApplication;
+            this.viewMaster.IndicatorWidth = 40;
+            this.viewMaster.Name = "viewMaster";
+            this.viewMaster.OptionsView.ColumnAutoWidth = false;
+            this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
+            this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
             // 
             // colId
             // 
@@ -606,7 +606,7 @@
             // 
             this.layoutControl1.Controls.Add(this.btnRefresh);
             this.layoutControl1.Controls.Add(this.btnSaveLayout);
-            this.layoutControl1.Controls.Add(this.gridMyApply);
+            this.layoutControl1.Controls.Add(this.gridApplication);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -660,7 +660,7 @@
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.gridMyApply;
+            this.layoutControlItem1.Control = this.gridApplication;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(1448, 713);
@@ -703,10 +703,10 @@
             this.Name = "_embedIDApplication";
             this.Text = "_embedIDApplication";
             this.Load += new System.EventHandler(this.FrmStockInvestmentDecision_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.viewMyApplyDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridMyApply)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewMyApplyMaster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewMaster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riBtnOperate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -724,8 +724,8 @@
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private DevExpress.XtraGrid.GridControl gridMyApply;
-        private DevExpress.XtraGrid.Views.Grid.GridView viewMyApplyMaster;
+        private DevExpress.XtraGrid.GridControl gridApplication;
+        private DevExpress.XtraGrid.Views.Grid.GridView viewMaster;
         private DevExpress.XtraEditors.SimpleButton btnSaveLayout;
         private DevExpress.XtraGrid.Columns.GridColumn colId;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyNo;
@@ -755,7 +755,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStopLossPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colStopLossBound;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
-        private DevExpress.XtraGrid.Views.Grid.GridView viewMyApplyDetail;
+        private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn colOperateNo;

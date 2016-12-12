@@ -221,11 +221,11 @@
     <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecast.Designer.cs">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InvestmentDecision\_dialogIDAccuracyVoteResult.cs">
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\InvestmentDecision\_dialogIDAccuracyVoteResult.Designer.cs">
-      <DependentUpon>_dialogIDAccuracyVoteResult.cs</DependentUpon>
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.Designer.cs">
+      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_dialogMTFEdit.cs">
       <SubType>Form</SubType>
@@ -244,6 +244,12 @@
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_embedIDOperationDetail.Designer.cs">
       <DependentUpon>_embedIDOperationDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationExecute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationExecute.Designer.cs">
+      <DependentUpon>_embedIDOperationExecute.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\StatisticsReport\UserInvestIncomeAccountModel.cs" />
     <Compile Include="Models\StatisticsReport\StockInvestIncomeSummaryModel.cs" />
@@ -665,8 +671,8 @@
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmMarketTrendForecast.resx">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDAccuracyVoteResult.resx">
-      <DependentUpon>_dialogIDAccuracyVoteResult.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.resx">
+      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogMTFEdit.resx">
       <DependentUpon>_dialogMTFEdit.cs</DependentUpon>

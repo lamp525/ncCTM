@@ -52,10 +52,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.viewMyApplyMaster.LoadLayout(_layoutXmlName);
-            this.viewMyApplyMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.viewMaster.LoadLayout(_layoutXmlName);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
-            foreach (GridColumn column in this.viewMyApplyMaster.Columns)
+            foreach (GridColumn column in this.viewMaster.Columns)
             {
                 if (column.Name == this.colOperate.Name)
                     column.OptionsColumn.AllowEdit = true;
@@ -63,7 +63,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     column.OptionsColumn.AllowEdit = false;
             }
 
-            this.viewMyApplyDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25);
         }
 
         private void GetVoteReason(string content)
@@ -248,7 +248,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        #region Page MyApply
+        #region Master
 
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
@@ -266,13 +266,59 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        #endregion Page MyApply
+        #endregion Master
+
+        #region Detail
+
+        private void DisplayOperationDetail(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ViewDetail;
+            dialog.Text = "操作记录详情";
+            dialog.ShowDialog();
+        }
+
+        private void OperationAccuracyVoteProcess(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.AccuracyDetermination;
+            dialog.Text = "操作记录准确度评定";
+            dialog.ShowDialog();
+        }
+
+        private void OperationExecuteProcess(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm ;
+            dialog.Text = "操作记录决策投票";
+            dialog.ShowDialog();
+        }
+
+        private void OperationIDVoteProcess(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.OperationVote;
+            dialog.Text = "操作记录执行确认";
+            dialog.ShowDialog();
+        }
+
+        private void OperationDeleteProcess(string applyNo, string operateNo)
+        {
+            if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
+            {
+                //  this._IDService.DeleteInvestmentDecisionForm(serialNo);
+
+                BindApplicationInfo();
+            }
+        }
+
+        #endregion Detail
 
         #endregion Utilities
 
         #region Methods
 
-        public void BindMyApplicationInfo()
+        public void BindApplicationInfo()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -283,8 +329,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (ds == null || ds.Tables.Count == 0) return;
 
             ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
-               
-            this.gridMyApply.DataSource = ds.Tables[0];        
+
+            this.gridApplication.DataSource = ds.Tables[0];
 
             _myVotes = _IDService.GetInvestmentDecisionVotes(LoginInfo.CurrentUser.UserCode);
         }
@@ -299,13 +345,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 FormInit();
 
-                BindMyApplicationInfo();
+                BindApplicationInfo();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
             }
-        }   
+        }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -313,7 +359,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnRefresh.Enabled = false;
 
-                BindMyApplicationInfo();
+                BindApplicationInfo();
             }
             catch (Exception ex)
             {
@@ -327,11 +373,12 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
-            this.viewMyApplyMaster.SaveLayout(_layoutXmlName);
+            this.viewMaster.SaveLayout(_layoutXmlName);
         }
 
         #region MasterView
-        private void viewMyApplyMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+
+        private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
@@ -339,7 +386,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void viewMyApplyMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
             var myView = sender as GridView;
 
@@ -360,7 +407,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 e.Button.Enabled = false;
 
-                var myView = this.viewMyApplyMaster;
+                var myView = this.viewMaster;
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
@@ -378,7 +425,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     {
                         this._IDService.DeleteInvestmentDecisionForm(applyNo);
 
-                        BindMyApplicationInfo();
+                        BindApplicationInfo();
                     }
                 }
                 else if (buttonTag == "Apply")
@@ -395,8 +442,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-
-        #endregion
+        #endregion MasterView
 
         #region DetailView
 
@@ -406,29 +452,46 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 e.Button.Enabled = false;
 
-                var myView = this.viewMyApplyMaster;
+                var masterRowHandle = this.viewMaster.FocusedRowHandle;
+                var relationIndex = this.viewMaster.GetRelationIndex(masterRowHandle, "MD");
+                var myView = this.viewMaster.GetDetailView(masterRowHandle, relationIndex) as DevExpress.XtraGrid.Views.Grid.GridView;
 
                 DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
 
-                var serialNo = dr?[colApplyNo.FieldName]?.ToString();
+                var applyNo = dr?["ApplyNo"]?.ToString();
 
-                if (string.IsNullOrEmpty(serialNo)) return;
+                var operateNo = dr?["OperateNo"]?.ToString();
+
+                if (string.IsNullOrEmpty(applyNo) || string.IsNullOrEmpty(operateNo)) return;
 
                 var buttonTag = e.Button.Tag.ToString().Trim();
 
                 if (string.IsNullOrEmpty(buttonTag)) return;
 
-                if (buttonTag == "Delete")
+                switch (buttonTag)
                 {
-                    if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
-                    {
-                        this._IDService.DeleteInvestmentDecisionForm(serialNo);
+                    case "IDVote":
+                        OperationIDVoteProcess(applyNo, operateNo);
+                        break;
 
-                        BindMyApplicationInfo();
-                    }
-                }
-                else if (buttonTag == "Apply")
-                {
+                    case "Execute":
+                        OperationExecuteProcess(applyNo, operateNo);
+                        break;
+
+                    case "AccuracyVote":
+                        OperationAccuracyVoteProcess(applyNo, operateNo);
+                        break;
+
+                    case "View":
+                        DisplayOperationDetail(applyNo, operateNo);
+                        break;
+
+                    case "Delete":
+                        OperationDeleteProcess(applyNo, operateNo);
+                        break;
+
+                    default:
+                        break;
                 }
             }
             catch (Exception ex)
@@ -440,10 +503,10 @@ namespace CTM.Win.Forms.InvestmentDecision
                 e.Button.Enabled = true;
             }
         }
-        #endregion
 
+        #endregion DetailView
 
-        #endregion Events     
+        #endregion Events
 
     }
 }

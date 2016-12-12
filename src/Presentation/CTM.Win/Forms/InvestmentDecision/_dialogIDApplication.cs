@@ -344,11 +344,13 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void DisplayTargetEmbedForm()
         {
+            BaseForm embedForm = null;
+
             switch (CurrentPageMode)
             {
                 case PageMode.NewApplication:
                 case PageMode.NewOperation:
-                    var embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+                     embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
                     embedForm.FormBorderStyle = FormBorderStyle.None;
                     embedForm.TopLevel = false;
                     embedForm.Parent = this.splitContainerControl1.Panel2;
@@ -359,15 +361,47 @@ namespace CTM.Win.Forms.InvestmentDecision
                     break;
 
                 case PageMode.ViewDetail:
+                     embedForm = EngineContext.Current.Resolve<_embedIDOperationDetail>();
+                    embedForm.FormBorderStyle = FormBorderStyle.None;
+                    embedForm.TopLevel = false;
+                    embedForm.Parent = this.splitContainerControl1.Panel2;
+                    embedForm.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+
+                    embedForm.Show();
                     break;
 
                 case PageMode.OperationVote:
+                    embedForm = EngineContext.Current.Resolve<_embedIDOperationVote>();
+                    embedForm.FormBorderStyle = FormBorderStyle.None;
+                    embedForm.TopLevel = false;
+                    embedForm.Parent = this.splitContainerControl1.Panel2;
+                    embedForm.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+
+                    embedForm.Show();
                     break;
 
                 case PageMode.AccuracyDetermination:
+                    embedForm = EngineContext.Current.Resolve<_embedIDOperationAccuracy>();
+                    embedForm.FormBorderStyle = FormBorderStyle.None;
+                    embedForm.TopLevel = false;
+                    embedForm.Parent = this.splitContainerControl1.Panel2;
+                    embedForm.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+
+                    embedForm.Show();
                     break;
 
                 case PageMode.ExecutionConfirm:
+                    embedForm = EngineContext.Current.Resolve<_embedIDOperationExecute>();
+                    embedForm.FormBorderStyle = FormBorderStyle.None;
+                    embedForm.TopLevel = false;
+                    embedForm.Parent = this.splitContainerControl1.Panel2;
+                    embedForm.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+
+                    embedForm.Show();
                     break;
 
                 default:

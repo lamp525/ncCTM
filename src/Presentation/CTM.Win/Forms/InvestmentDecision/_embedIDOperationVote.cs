@@ -27,7 +27,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDVoteResult] @FormSerialNo = '{SerialNo}'";
+            var commandText = $@"EXEC [dbo].[sp_GetIDVoteResult] @FormSerialNo = 'SQ161024002'";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 

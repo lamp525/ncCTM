@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.Forms.InvestmentDecision
 {
-    partial class _dialogIDAccuracyVoteResult
+    partial class _embedIDOperationExecute
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // _dialogIDAccuracyVoteResult
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 375);
-            this.Name = "_dialogIDAccuracyVoteResult";
-            this.Text = "_dialogIDAccuracyVoteResult";
-            this.Load += new System.EventHandler(this._dialogIDAccuracyVoteResult_Load);
-            this.ResumeLayout(false);
-
+            this.Text = "_embedIDOperationExecute";
         }
 
         #endregion
