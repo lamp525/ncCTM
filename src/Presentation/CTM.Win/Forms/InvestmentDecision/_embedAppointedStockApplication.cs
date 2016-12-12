@@ -26,7 +26,20 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
         }
 
-        private void BindStockApplication()
+
+
+        private void DisplayOperationDetail(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_embedIDOperationDetail>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
+            dialog.Text = "决策操作记录详情";
+
+            dialog.ShowDialog();
+        }
+
+        #endregion Utilities
+
+        #region Methods
+        public void BindStockApplication( string stockCode)
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -40,16 +53,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             this.gridApplication.DataSource = ds.Tables[0];
         }
-
-        private void DisplayOperationDetail(string applyNo, string operateNo)
-        {
-            var dialog = this.CreateDialog<_embedIDOperationDetail>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
-            dialog.Text = "决策操作记录详情";
-
-            dialog.ShowDialog();
-        }
-
-        #endregion Utilities
+        #endregion
 
         #region Events
 
@@ -57,8 +61,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                FormInit();
-                BindStockApplication();
+                FormInit(); 
             }
             catch (Exception ex)
             {

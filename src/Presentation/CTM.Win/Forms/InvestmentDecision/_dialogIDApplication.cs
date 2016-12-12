@@ -26,7 +26,14 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IInvestmentDecisionService _IDService;
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
+
         private bool _initialFlag = true;
+
+        private _embedAppointedStockApplication _embedASA = null;
+        private _embedIDOperationDetail _embedIDOD = null;
+        private _embedIDOperationVote _embedIDOV = null;
+        private _embedIDOperationAccuracy _embedIDOA = null;
+        private _embedIDOperationExecute _embedIDOE = null;
 
         #endregion Fields
 
@@ -429,64 +436,62 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void DisplayTargetEmbedForm()
         {
-            BaseForm embedForm = null;
-
             switch (CurrentPageMode)
             {
                 case PageMode.NewApplication:
                 case PageMode.NewOperation:
-                    embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
-                    embedForm.FormBorderStyle = FormBorderStyle.None;
-                    embedForm.TopLevel = false;
-                    embedForm.Parent = this.splitContainerControl1.Panel2;
-                    embedForm.Dock = DockStyle.Fill;
-                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    _embedASA = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+                    _embedASA.FormBorderStyle = FormBorderStyle.None;
+                    _embedASA.TopLevel = false;
+                    _embedASA.Parent = this.splitContainerControl1.Panel2;
+                    _embedASA.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(_embedASA);
 
-                    embedForm.Show();
+                    _embedASA.Show();
                     break;
 
                 case PageMode.ViewDetail:
-                    embedForm = EngineContext.Current.Resolve<_embedIDOperationDetail>();
-                    embedForm.FormBorderStyle = FormBorderStyle.None;
-                    embedForm.TopLevel = false;
-                    embedForm.Parent = this.splitContainerControl1.Panel2;
-                    embedForm.Dock = DockStyle.Fill;
-                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    _embedIDOD = EngineContext.Current.Resolve<_embedIDOperationDetail>();
+                    _embedIDOD.FormBorderStyle = FormBorderStyle.None;
+                    _embedIDOD.TopLevel = false;
+                    _embedIDOD.Parent = this.splitContainerControl1.Panel2;
+                    _embedIDOD.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(_embedIDOD);
 
-                    embedForm.Show();
+                    _embedIDOD.Show();
                     break;
 
                 case PageMode.OperationVote:
-                    embedForm = EngineContext.Current.Resolve<_embedIDOperationVote>();
-                    embedForm.FormBorderStyle = FormBorderStyle.None;
-                    embedForm.TopLevel = false;
-                    embedForm.Parent = this.splitContainerControl1.Panel2;
-                    embedForm.Dock = DockStyle.Fill;
-                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    _embedIDOV = EngineContext.Current.Resolve<_embedIDOperationVote>();
+                    _embedIDOV.FormBorderStyle = FormBorderStyle.None;
+                    _embedIDOV.TopLevel = false;
+                    _embedIDOV.Parent = this.splitContainerControl1.Panel2;
+                    _embedIDOV.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(_embedIDOV);
 
-                    embedForm.Show();
+                    _embedIDOV.Show();
                     break;
 
                 case PageMode.AccuracyDetermination:
-                    embedForm = EngineContext.Current.Resolve<_embedIDOperationAccuracy>();
-                    embedForm.FormBorderStyle = FormBorderStyle.None;
-                    embedForm.TopLevel = false;
-                    embedForm.Parent = this.splitContainerControl1.Panel2;
-                    embedForm.Dock = DockStyle.Fill;
-                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    _embedIDOA = EngineContext.Current.Resolve<_embedIDOperationAccuracy>();
+                    _embedIDOA.FormBorderStyle = FormBorderStyle.None;
+                    _embedIDOA.TopLevel = false;
+                    _embedIDOA.Parent = this.splitContainerControl1.Panel2;
+                    _embedIDOA.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(_embedIDOA);
 
-                    embedForm.Show();
+                    _embedIDOA.Show();
                     break;
 
                 case PageMode.ExecutionConfirm:
-                    embedForm = EngineContext.Current.Resolve<_embedIDOperationExecute>();
-                    embedForm.FormBorderStyle = FormBorderStyle.None;
-                    embedForm.TopLevel = false;
-                    embedForm.Parent = this.splitContainerControl1.Panel2;
-                    embedForm.Dock = DockStyle.Fill;
-                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    _embedIDOE = EngineContext.Current.Resolve<_embedIDOperationExecute>();
+                    _embedIDOE.FormBorderStyle = FormBorderStyle.None;
+                    _embedIDOE.TopLevel = false;
+                    _embedIDOE.Parent = this.splitContainerControl1.Panel2;
+                    _embedIDOE.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(_embedIDOE);
 
-                    embedForm.Show();
+                    _embedIDOE.Show();
                     break;
 
                 default:
@@ -512,10 +517,19 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void deApply_EditValueChanged(object sender, EventArgs e)
+        private void luStock_EditValueChanged(object sender, EventArgs e)
         {
-            var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
-            // this.txtSerialNo.Text = _IDService.GenerateIDFSerialNo(applyDate);
+            try
+            {
+                if (!string.IsNullOrEmpty(this.luStock.SelectedValue()))
+                {
+                    this._embedASA.BindStockApplication(this.luStock.SelectedValue());
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void chkBuy_CheckedChanged(object sender, EventArgs e)

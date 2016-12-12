@@ -80,20 +80,20 @@
             this.layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.lciImportTradePlan = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lcgReason = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcgImport = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciImportTradePlan = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lcgApply = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciSubmit = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem14 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciCancel = new DevExpress.XtraLayout.LayoutControlItem();
-            this.lcgReason = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.lcgImport = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lcgApply = new DevExpress.XtraLayout.LayoutControlGroup();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deOperate.Properties.CalendarTimeProperties)).BeginInit();
@@ -141,21 +141,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciImportTradePlan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgImport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciImportTradePlan)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgApply)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lcgImport)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcgApply)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -455,6 +455,7 @@
             this.luStock.Size = new System.Drawing.Size(169, 20);
             this.luStock.StyleController = this.layoutControl1;
             this.luStock.TabIndex = 6;
+            this.luStock.EditValueChanged += new System.EventHandler(this.luStock_EditValueChanged);
             // 
             // deApply
             // 
@@ -468,7 +469,6 @@
             this.deApply.Size = new System.Drawing.Size(169, 20);
             this.deApply.StyleController = this.layoutControl1;
             this.deApply.TabIndex = 4;
-            this.deApply.EditValueChanged += new System.EventHandler(this.deApply_EditValueChanged);
             // 
             // txtAmount
             // 
@@ -710,23 +710,6 @@
             this.emptySpaceItem7.Size = new System.Drawing.Size(68, 24);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // emptySpaceItem6
-            // 
-            this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(111, 0);
-            this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(357, 26);
-            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // lciImportTradePlan
-            // 
-            this.lciImportTradePlan.Control = this.btnImport;
-            this.lciImportTradePlan.Location = new System.Drawing.Point(0, 0);
-            this.lciImportTradePlan.Name = "lciImportTradePlan";
-            this.lciImportTradePlan.Size = new System.Drawing.Size(111, 26);
-            this.lciImportTradePlan.TextSize = new System.Drawing.Size(0, 0);
-            this.lciImportTradePlan.TextVisible = false;
-            // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
@@ -740,6 +723,75 @@
             this.emptySpaceItem2.Text = "股票投资交易申请单";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(58, 0);
             this.emptySpaceItem2.TextVisible = true;
+            // 
+            // lcgReason
+            // 
+            this.lcgReason.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem15,
+            this.layoutControlItem13});
+            this.lcgReason.Location = new System.Drawing.Point(0, 330);
+            this.lcgReason.Name = "lcgReason";
+            this.lcgReason.Size = new System.Drawing.Size(492, 295);
+            this.lcgReason.Text = "操作理由";
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.Control = this.memoReason;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(468, 228);
+            this.layoutControlItem15.Text = "内容";
+            this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(58, 14);
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.Control = this.treeListLookUpEdit1;
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(468, 24);
+            this.layoutControlItem13.Text = "类别";
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(58, 14);
+            // 
+            // lcgImport
+            // 
+            this.lcgImport.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciImportTradePlan,
+            this.emptySpaceItem6});
+            this.lcgImport.Location = new System.Drawing.Point(0, 26);
+            this.lcgImport.Name = "lcgImport";
+            this.lcgImport.Size = new System.Drawing.Size(492, 50);
+            this.lcgImport.TextVisible = false;
+            // 
+            // lciImportTradePlan
+            // 
+            this.lciImportTradePlan.Control = this.btnImport;
+            this.lciImportTradePlan.Location = new System.Drawing.Point(0, 0);
+            this.lciImportTradePlan.Name = "lciImportTradePlan";
+            this.lciImportTradePlan.Size = new System.Drawing.Size(111, 26);
+            this.lciImportTradePlan.TextSize = new System.Drawing.Size(0, 0);
+            this.lciImportTradePlan.TextVisible = false;
+            // 
+            // emptySpaceItem6
+            // 
+            this.emptySpaceItem6.AllowHotTrack = false;
+            this.emptySpaceItem6.Location = new System.Drawing.Point(111, 0);
+            this.emptySpaceItem6.Name = "emptySpaceItem6";
+            this.emptySpaceItem6.Size = new System.Drawing.Size(357, 26);
+            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // lcgApply
+            // 
+            this.lcgApply.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.emptySpaceItem12,
+            this.lciSubmit,
+            this.emptySpaceItem14,
+            this.lciCancel,
+            this.emptySpaceItem1});
+            this.lcgApply.Location = new System.Drawing.Point(0, 625);
+            this.lcgApply.Name = "lcgApply";
+            this.lcgApply.Size = new System.Drawing.Size(492, 50);
+            this.lcgApply.TextVisible = false;
             // 
             // emptySpaceItem12
             // 
@@ -775,35 +827,6 @@
             this.lciCancel.TextSize = new System.Drawing.Size(0, 0);
             this.lciCancel.TextVisible = false;
             // 
-            // lcgReason
-            // 
-            this.lcgReason.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem15,
-            this.layoutControlItem13});
-            this.lcgReason.Location = new System.Drawing.Point(0, 330);
-            this.lcgReason.Name = "lcgReason";
-            this.lcgReason.Size = new System.Drawing.Size(492, 295);
-            this.lcgReason.Text = "操作理由";
-            // 
-            // layoutControlItem15
-            // 
-            this.layoutControlItem15.Control = this.memoReason;
-            this.layoutControlItem15.Location = new System.Drawing.Point(0, 24);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(468, 228);
-            this.layoutControlItem15.Text = "内容";
-            this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(58, 14);
-            // 
-            // layoutControlItem13
-            // 
-            this.layoutControlItem13.Control = this.treeListLookUpEdit1;
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(468, 24);
-            this.layoutControlItem13.Text = "类别";
-            this.layoutControlItem13.TextSize = new System.Drawing.Size(58, 14);
-            // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
@@ -824,29 +847,6 @@
             this.splitContainerControl1.SplitterPosition = 512;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
-            // 
-            // lcgImport
-            // 
-            this.lcgImport.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lciImportTradePlan,
-            this.emptySpaceItem6});
-            this.lcgImport.Location = new System.Drawing.Point(0, 26);
-            this.lcgImport.Name = "lcgImport";
-            this.lcgImport.Size = new System.Drawing.Size(492, 50);
-            this.lcgImport.TextVisible = false;
-            // 
-            // lcgApply
-            // 
-            this.lcgApply.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem12,
-            this.lciSubmit,
-            this.emptySpaceItem14,
-            this.lciCancel,
-            this.emptySpaceItem1});
-            this.lcgApply.Location = new System.Drawing.Point(0, 625);
-            this.lcgApply.Name = "lcgApply";
-            this.lcgApply.Size = new System.Drawing.Size(492, 50);
-            this.lcgApply.TextVisible = false;
             // 
             // _dialogIDApplication
             // 
@@ -904,21 +904,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciImportTradePlan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgImport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciImportTradePlan)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgApply)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lcgImport)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcgApply)).EndInit();
             this.ResumeLayout(false);
 
         }
