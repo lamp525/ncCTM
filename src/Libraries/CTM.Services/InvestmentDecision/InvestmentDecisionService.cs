@@ -536,11 +536,13 @@ namespace CTM.Services.InvestmentDecision
             _DRCategoryRepository.Delete(_DRCategoryRepository.GetById(id));
         }
 
-        public virtual IList<DecisionReasonCategory> GetIDReasonCategories()
+        public virtual IList<DecisionReasonCategoryEntity> GetIDReasonCategories(string jointMark = "->")
         {
-            var query = _DRCategoryRepository.Table;
+            var commandText = $@"SELECT *,[dbo].[f_GetReasonCategoryNameWithParent](Id,'{jointMark}') FullName FROM DecisionReasonCategory ";
 
-            return query.ToList();
+            var categories = _dbContext.SqlQuery<DecisionReasonCategoryEntity>(commandText);
+
+            return categories.ToList();
         }
 
         public virtual int AddIDReasonCategory(DecisionReasonCategory entity)

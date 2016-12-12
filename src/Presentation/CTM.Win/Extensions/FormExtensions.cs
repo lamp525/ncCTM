@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using CTM.Core;
 using CTM.Core.Infrastructure;
 
 namespace CTM.Win.Extensions
@@ -55,7 +54,7 @@ namespace CTM.Win.Extensions
             if (parentForm.ActiveOpenedForm(type.Name, true)) return;
 
             var form = EngineContext.Current.Resolve<T>();
-            form.Text = title;      
+            form.Text = title;
             form.MdiParent = parentForm;
             form.StartPosition = FormStartPosition.CenterParent;
             form.Show();

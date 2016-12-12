@@ -70,11 +70,10 @@ namespace CTM.Core
             Denied = 4,
         }
 
-
         /// <summary>
         /// 决策操作记录准确度状态
         /// </summary>
-       public enum IDOperationAccuracyStatus
+        public enum IDOperationAccuracyStatus
         {
             [Description("未投票")]
             None = 1,

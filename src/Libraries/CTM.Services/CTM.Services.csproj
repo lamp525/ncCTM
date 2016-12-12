@@ -67,6 +67,7 @@
     <Compile Include="IBaseService.cs" />
     <Compile Include="Industry\IIndustryService.cs" />
     <Compile Include="Industry\IndustryService.cs" />
+    <Compile Include="InvestmentDecision\DecisionReasonCategoryEntity.cs" />
     <Compile Include="InvestmentDecision\IInvestmentDecisionService.cs" />
     <Compile Include="InvestmentDecision\InvestmentDecisionService.cs" />
     <Compile Include="Log\ILogService.cs" />

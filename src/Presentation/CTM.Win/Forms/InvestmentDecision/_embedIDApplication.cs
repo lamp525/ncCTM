@@ -274,6 +274,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ViewDetail;
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
             dialog.Text = "操作记录详情";
             dialog.ShowDialog();
         }
@@ -282,6 +284,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.AccuracyDetermination;
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
             dialog.Text = "操作记录准确度评定";
             dialog.ShowDialog();
         }
@@ -289,8 +293,10 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperationExecuteProcess(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
-            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm ;
-            dialog.Text = "操作记录决策投票";
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
+            dialog.Text = "操作记录执行确认";
             dialog.ShowDialog();
         }
 
@@ -298,7 +304,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.OperationVote;
-            dialog.Text = "操作记录执行确认";
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
+            dialog.Text = "操作记录决策投票";
             dialog.ShowDialog();
         }
 
@@ -430,6 +438,12 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
                 else if (buttonTag == "Apply")
                 {
+                    var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+                    dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewOperation;
+                    dialog.ApplyNo = applyNo;
+                    dialog.OperateNo = string.Empty;
+                    dialog.Text = "投资决策操作申请";
+                    dialog.ShowDialog();
                 }
             }
             catch (Exception ex)
@@ -507,6 +521,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
-
     }
 }

@@ -7,6 +7,7 @@ using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Infrastructure;
 using CTM.Core.Util;
+using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Services.Stock;
@@ -27,11 +28,17 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IUserService _userService;
         private bool _initialFlag = true;
 
-        private _embedAppointedStockApplication _appointedStockEmbedForm = null;
-
         #endregion Fields
 
-        #region
+        #region Properties
+
+        public string ApplyNo { get; set; }
+
+        public string OperateNo { get; set; }
+
+        #endregion Properties
+
+        #region Enums
 
         public enum PageMode
         {
@@ -66,13 +73,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             ExecutionConfirm
         }
 
-        #endregion
+        #endregion Enums
 
         #region Properties
 
         public PageMode CurrentPageMode { get; set; }
 
-        #endregion
+        #endregion Properties
 
         #region Delegates
 
@@ -172,10 +179,88 @@ namespace CTM.Win.Forms.InvestmentDecision
             //理由类别
             var categories = _IDService.GetIDReasonCategories();
 
-            this.treeListLookUpEdit1.Properties.DisplayMember = "Name";
+            this.treeListLookUpEdit1.Properties.DisplayMember = "FullName";
             this.treeListLookUpEdit1.Properties.ValueMember = "Id";
             this.treeListLookUpEdit1TreeList.Initialize(categories, "Id", "ParentId", editable: false, autoWidth: true, showColumns: false, showVertLines: false, showHorzLines: false, multiSelect: true);
             categories = null;
+
+            if (!string.IsNullOrEmpty(ApplyNo))
+            {
+                this.lcgImport.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+                SetApplicationInfo(ApplyNo);
+            }
+
+            if (!string.IsNullOrEmpty(OperateNo))
+            {
+                this.lcgApply.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+                SetOperationInfo(OperateNo);
+            }
+        }
+
+        private void SetOperationInfo(string operateNo)
+        {
+            this.txtOperateUser.ReadOnly = true;
+            this.deOperate.ReadOnly = true;
+            this.chkBuy.ReadOnly = true;
+            this.chkSell.ReadOnly = true;
+            this.txtPrice.ReadOnly = true;
+            this.spinPriceBound.ReadOnly = true;
+            this.txtVolume.ReadOnly = true;
+            this.txtAmount.ReadOnly = true;
+            this.treeListLookUpEdit1.ReadOnly = true;
+            this.memoReason.ReadOnly = true;
+
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+            var commandText = $@" SELECT * FROM [dbo].[v_IDOperation] WHERE OperateNo = '{operateNo}' ";
+            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+
+            var operationInfo = ds?.Tables?[0].Rows?[0];
+
+            if (operationInfo == null) return;
+
+            this.txtOperateUser.Text = operationInfo["OperateUserName"].ToString();
+            this.deOperate.EditValue = operationInfo["OperateDate"];
+            this.chkBuy.Checked = bool.Parse(operationInfo["DealFlag"].ToString()) ? true : false;
+            this.txtPrice.Text = operationInfo["DealPrice"].ToString();
+            this.spinPriceBound.EditValue = decimal.Parse(operationInfo["PriceBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
+            this.txtAmount.Text = (decimal.Parse(operationInfo["DealAmount"].ToString()) / (int)EnumLibrary.NumericUnit.TenThousand).ToString();
+            this.txtVolume.Text = operationInfo["DealVolume"].ToString();
+            this.treeListLookUpEdit1.EditValue = operationInfo["ReasonCategoryId"];
+            this.memoReason.Text = operationInfo["ReasonContent"].ToString();
+        }
+
+        private void SetApplicationInfo(object applyNo)
+        {
+            this.txtPlanNo.ReadOnly = true;
+            this.txtApplyUser.ReadOnly = true;
+            this.deApply.ReadOnly = true;
+            this.luStock.ReadOnly = true;
+            this.cbOperateType.ReadOnly = true;
+            this.txtProfitPrice.ReadOnly = true;
+            this.spinProfitBound.ReadOnly = true;
+            this.txtLossPrice.ReadOnly = true;
+            this.spinLossBound.ReadOnly = true;
+
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+            var commandText = $@" SELECT * FROM [dbo].[v_IDApplication] WHERE ApplyNo = '{applyNo}' ";
+
+            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+
+            var applicationInfo = ds?.Tables?[0].Rows?[0];
+
+            if (applicationInfo == null) return;
+
+            this.txtPlanNo.Text = applicationInfo["TradePlanNo"].ToString();
+            this.txtApplyUser.Text = applicationInfo["ApplyUserName"].ToString();
+            this.deApply.EditValue = applicationInfo["ApplyDate"];
+            this.luStock.EditValue = applicationInfo["StockCode"];
+            this.cbOperateType.DefaultSelected(applicationInfo["TradeType"].ToString());
+            this.txtProfitPrice.Text = applicationInfo["StopProfitPrice"].ToString();
+            this.spinProfitBound.EditValue = decimal.Parse(applicationInfo["StopProfitBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
+            this.txtLossPrice.Text = applicationInfo["StopLossPrice"].ToString();
+            this.spinLossBound.EditValue = decimal.Parse(applicationInfo["StopLossBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
         }
 
         private bool SubmitProcess()
@@ -350,7 +435,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 case PageMode.NewApplication:
                 case PageMode.NewOperation:
-                     embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+                    embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
                     embedForm.FormBorderStyle = FormBorderStyle.None;
                     embedForm.TopLevel = false;
                     embedForm.Parent = this.splitContainerControl1.Panel2;
@@ -361,7 +446,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     break;
 
                 case PageMode.ViewDetail:
-                     embedForm = EngineContext.Current.Resolve<_embedIDOperationDetail>();
+                    embedForm = EngineContext.Current.Resolve<_embedIDOperationDetail>();
                     embedForm.FormBorderStyle = FormBorderStyle.None;
                     embedForm.TopLevel = false;
                     embedForm.Parent = this.splitContainerControl1.Panel2;

@@ -56,7 +56,6 @@
             this.tabPane1.Controls.Add(this.tpDone);
             this.tabPane1.Controls.Add(this.tpAll);
             this.tabPane1.Controls.Add(this.tpProgressing);
-            this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabPane1.Location = new System.Drawing.Point(12, 48);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
@@ -64,8 +63,8 @@
             this.tpDone,
             this.tpAll});
             this.tabPane1.RegularSize = new System.Drawing.Size(1518, 699);
-            this.tabPane1.SelectedPage = this.tpProgressing;
-            this.tabPane1.SelectedPageIndex = 0;
+            this.tabPane1.SelectedPage = null;
+            this.tabPane1.SelectedPageIndex = -1;
             this.tabPane1.Size = new System.Drawing.Size(1518, 699);
             this.tabPane1.TabIndex = 1;
             this.tabPane1.SelectedPageChanged += new DevExpress.XtraBars.Navigation.SelectedPageChangedEventHandler(this.tabPane1_SelectedPageChanged);
@@ -74,19 +73,19 @@
             // 
             this.tpDone.Caption = "已完成决策单";
             this.tpDone.Name = "tpDone";
-            this.tpDone.Size = new System.Drawing.Size(1500, 653);
+            this.tpDone.Size = new System.Drawing.Size(0, 1518);
             // 
             // tpAll
             // 
             this.tpAll.Caption = "全部决策单";
             this.tpAll.Name = "tpAll";
-            this.tpAll.Size = new System.Drawing.Size(1500, 653);
+            this.tpAll.Size = new System.Drawing.Size(0, 1518);
             // 
             // tpProgressing
             // 
             this.tpProgressing.Caption = "进行中决策单";
             this.tpProgressing.Name = "tpProgressing";
-            this.tpProgressing.Size = new System.Drawing.Size(1500, 653);
+            this.tpProgressing.Size = new System.Drawing.Size(0, 1518);
             // 
             // layoutControl1
             // 

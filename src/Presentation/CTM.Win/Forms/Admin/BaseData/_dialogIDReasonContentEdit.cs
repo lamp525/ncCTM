@@ -80,7 +80,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 //类别
                 var categories = _IDService.GetIDReasonCategories();
 
-                this.treeListLookUpEdit1.Properties.DisplayMember = "Name";
+                this.treeListLookUpEdit1.Properties.DisplayMember = "FullName";
                 this.treeListLookUpEdit1.Properties.ValueMember = "Id";
                 this.treeListLookUpEdit1TreeList.Initialize(categories, "Id", "ParentId", editable: false, autoWidth: true, showColumns: false, showVertLines: false, showHorzLines: false);
 

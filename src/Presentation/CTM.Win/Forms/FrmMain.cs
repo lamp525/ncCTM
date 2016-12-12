@@ -119,7 +119,6 @@ namespace CTM.Win.Forms
                 //个人账户投资收益查询
                 this.bbiUserInvestIncomeAccount.Visibility = BarItemVisibility.Always;
             }
-
         }
 
         private void RefreshForm()
@@ -660,7 +659,6 @@ namespace CTM.Win.Forms
         {
             this.Close();
         }
-
 
         #endregion SystemMenu
 

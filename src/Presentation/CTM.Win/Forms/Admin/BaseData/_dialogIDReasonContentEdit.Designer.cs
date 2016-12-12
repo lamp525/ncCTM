@@ -36,6 +36,7 @@
             this.tcId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tcFullName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.memoContent = new DevExpress.XtraEditors.MemoEdit();
             this.txtTitle = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -115,7 +116,8 @@
             this.treeListLookUpEdit1TreeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.tcId,
             this.tcParentId,
-            this.tcName});
+            this.tcName,
+            this.tcFullName});
             this.treeListLookUpEdit1TreeList.Location = new System.Drawing.Point(0, 0);
             this.treeListLookUpEdit1TreeList.Name = "treeListLookUpEdit1TreeList";
             this.treeListLookUpEdit1TreeList.OptionsBehavior.EnableFiltering = true;
@@ -146,7 +148,13 @@
             this.tcName.Name = "tcName";
             this.tcName.Visible = true;
             this.tcName.VisibleIndex = 0;
-            this.tcName.Width = 384;
+            // 
+            // tcFullName
+            // 
+            this.tcFullName.Caption = "treeListColumn1";
+            this.tcFullName.FieldName = "FullName";
+            this.tcFullName.Name = "tcFullName";
+            this.tcFullName.Width = 36;
             // 
             // memoContent
             // 
@@ -300,5 +308,6 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcId;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcParentId;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tcFullName;
     }
 }

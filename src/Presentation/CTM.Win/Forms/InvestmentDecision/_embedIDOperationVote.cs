@@ -15,11 +15,13 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion Properties
 
         #region Constructors
+
         public _embedIDOperationVote()
         {
             InitializeComponent();
-        } 
-        #endregion
+        }
+
+        #endregion Constructors
 
         #region Utilities
 
@@ -46,7 +48,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 50);
-
+                this.gridView1.OptionsView.RowAutoHeight = true;
                 this.lciResult.Text = $@"交易单 [{SerialNo}] 投票结果";
 
                 DisplayResult();

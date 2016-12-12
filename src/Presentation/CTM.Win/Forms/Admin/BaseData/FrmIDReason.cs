@@ -40,10 +40,11 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             var categories = _IDService.GetIDReasonCategories();
 
-            var root = new DecisionReasonCategory()
+            var root = new DecisionReasonCategoryEntity()
             {
                 Id = 0,
                 Name = "全部",
+                FullName = string.Empty,
                 ParentId = -1,
                 Remarks = null,
             };
@@ -383,9 +384,9 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             try
             {
-                this.btnDelete .Enabled = false;
+                this.btnDelete.Enabled = false;
 
-                var myView = this.gvContent ;
+                var myView = this.gvContent;
 
                 var selectedHandles = myView.GetSelectedRows();
 
@@ -425,6 +426,5 @@ namespace CTM.Win.Forms.Admin.BaseData
         #endregion Content
 
         #endregion Events
-             
     }
 }

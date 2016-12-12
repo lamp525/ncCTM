@@ -183,19 +183,6 @@ namespace CTM.Data
         }
 
         /// <summary>
-        /// Get Db Server Current Time
-        /// </summary>
-        /// <returns></returns>
-        public DateTime GetCurrentServerTime()
-        {
-            string sql = "select getdate() as CurrentTime";
-            var query = SqlQuery<DateTime>(sql);
-
-            DateTime result = query.FirstOrDefault();
-            return result;
-        }
-
-        /// <summary>
         /// Detach an entity
         /// </summary>
         /// <param name="entity">Entity</param>

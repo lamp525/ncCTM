@@ -37,20 +37,20 @@
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.riRTxtReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit();
             this.colVoteTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colConfirmTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciResult = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.riMemoReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riRTxtReasonContent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -70,7 +70,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.riRTxtReasonContent});
+            this.riMemoReasonContent});
             this.gridControl1.Size = new System.Drawing.Size(1297, 587);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -144,18 +144,12 @@
             this.colReason.AppearanceCell.Options.UseTextOptions = true;
             this.colReason.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.colReason.Caption = "理由";
-            this.colReason.ColumnEdit = this.riRTxtReasonContent;
+            this.colReason.ColumnEdit = this.riMemoReasonContent;
             this.colReason.FieldName = "Reason";
             this.colReason.Name = "colReason";
             this.colReason.Visible = true;
             this.colReason.VisibleIndex = 5;
             this.colReason.Width = 550;
-            // 
-            // riRTxtReasonContent
-            // 
-            this.riRTxtReasonContent.Name = "riRTxtReasonContent";
-            this.riRTxtReasonContent.OptionsExport.PlainText.ExportFinalParagraphMark = DevExpress.XtraRichEdit.Export.PlainText.ExportFinalParagraphMark.Never;
-            this.riRTxtReasonContent.ShowCaretInReadOnly = false;
             // 
             // colVoteTime
             // 
@@ -209,6 +203,10 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 611);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // riMemoReasonContent
+            // 
+            this.riMemoReasonContent.Name = "riMemoReasonContent";
+            // 
             // _embedIDOperationVote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -222,10 +220,10 @@
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.riRTxtReasonContent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -246,6 +244,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colConfirmTime;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraGrid.Columns.GridColumn colTypeName;
-        private DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit riRTxtReasonContent;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit riMemoReasonContent;
     }
 }

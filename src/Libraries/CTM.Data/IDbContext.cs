@@ -63,13 +63,7 @@ namespace CTM.Data
         /// <summary>
         /// Gets or sets a value indicating whether auto detect changes setting is enabled (used in EF)
         /// </summary>
-        bool AutoDetectChangesEnabled { get; set; }
-
-        /// <summary>
-        /// Get Db Server Current Time
-        /// </summary>
-        /// <returns></returns>
-        DateTime GetCurrentServerTime();
+        bool AutoDetectChangesEnabled { get; set; } 
 
         /// <summary>
         ///  Batch Insert

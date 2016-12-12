@@ -37,7 +37,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             embedForm.Parent = currentPage;
             embedForm.Dock = DockStyle.Fill;
             currentPage.Controls.Add(embedForm);
-         
+
             embedForm.Show();
         }
 
@@ -45,7 +45,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.tabPane1.SelectedPage = this.tpProgressing;
 
-           _progressingEmbedForm.BindApplicationInfo();
+            _progressingEmbedForm.BindApplicationInfo();
         }
 
         #endregion Utilities
@@ -71,9 +71,12 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.btnAdd.Enabled = false;
                 var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
                 dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(RefreshProgressingPage);
+                dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewApplication;
+                dialog.ApplyNo = string.Empty;
+                dialog.OperateNo = string.Empty;
                 dialog.Text = "股票投资交易申请";
 
-                dialog.ShowDialog ();
+                dialog.ShowDialog();
             }
             catch (Exception ex)
             {

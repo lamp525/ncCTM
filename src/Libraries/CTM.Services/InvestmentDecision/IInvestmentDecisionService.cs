@@ -50,7 +50,7 @@ namespace CTM.Services.InvestmentDecision
 
         void UpdatePSASummary(PositionStockAnalysisSummary entity);
 
-        IList<DecisionReasonCategory> GetIDReasonCategories();
+        IList<DecisionReasonCategoryEntity> GetIDReasonCategories(string jointMark = "->");
 
         int AddIDReasonCategory(DecisionReasonCategory entity);
 
