@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.Forms.InvestmentDecision
 {
-    partial class _dialogIDOperationDetail
+    partial class _embedIDOperationDetail
     {
         /// <summary>
         /// Required designer variable.
@@ -242,8 +242,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1203, 864);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "_dialogIDOperationDetail";
-            this.Text = "_dialogIDOperationDetail";
+            this.Name = "_embedIDOperationDetail";
+            this.Text = "_embedIDOperationDetail";
             this.Load += new System.EventHandler(this._embedIDOperationDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

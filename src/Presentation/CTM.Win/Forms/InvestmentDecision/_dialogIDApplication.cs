@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Infrastructure;
@@ -13,7 +14,6 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
-using System.Windows.Forms;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
@@ -30,6 +30,49 @@ namespace CTM.Win.Forms.InvestmentDecision
         private _embedAppointedStockApplication _appointedStockEmbedForm = null;
 
         #endregion Fields
+
+        #region
+
+        public enum PageMode
+        {
+            /// <summary>
+            /// 新建投资决策申请
+            /// </summary>
+            NewApplication,
+
+            /// <summary>
+            /// 新建投资决策操作
+            /// </summary>
+            NewOperation,
+
+            /// <summary>
+            /// 查看详情
+            /// </summary>
+            ViewDetail,
+
+            /// <summary>
+            /// 决策投票
+            /// </summary>
+            OperationVote,
+
+            /// <summary>
+            /// 准确度判定
+            /// </summary>
+            AccuracyDetermination,
+
+            /// <summary>
+            /// 执行确认
+            /// </summary>
+            ExecutionConfirm
+        }
+
+        #endregion
+
+        #region Properties
+
+        public PageMode CurrentPageMode { get; set; }
+
+        #endregion
 
         #region Delegates
 
@@ -299,21 +342,38 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-
-        private void DisplayTargetEmbedForm(_embedAppointedStockApplication embedForm)
+        private void DisplayTargetEmbedForm()
         {
-            if (embedForm == null)
-                embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+            switch (CurrentPageMode)
+            {
+                case PageMode.NewApplication:
+                case PageMode.NewOperation:
+                    var embedForm = EngineContext.Current.Resolve<_embedAppointedStockApplication>();
+                    embedForm.FormBorderStyle = FormBorderStyle.None;
+                    embedForm.TopLevel = false;
+                    embedForm.Parent = this.splitContainerControl1.Panel2;
+                    embedForm.Dock = DockStyle.Fill;
+                    this.splitContainerControl1.Panel2.Controls.Add(embedForm);
 
-            embedForm.FormBorderStyle = FormBorderStyle.None;
-            embedForm.TopLevel = false;
-            embedForm.Parent = this.splitContainerControl1.Panel2;
-            embedForm.Dock = DockStyle.Fill;
-            this.splitContainerControl1.Panel2.Controls.Add(embedForm);
+                    embedForm.Show();
+                    break;
 
-            embedForm.Show();
+                case PageMode.ViewDetail:
+                    break;
+
+                case PageMode.OperationVote:
+                    break;
+
+                case PageMode.AccuracyDetermination:
+                    break;
+
+                case PageMode.ExecutionConfirm:
+                    break;
+
+                default:
+                    break;
+            }
         }
-
 
         #endregion Utilities
 
@@ -325,7 +385,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 FormInit();
 
-                DisplayTargetEmbedForm(_appointedStockEmbedForm);
+                DisplayTargetEmbedForm();
             }
             catch (Exception ex)
             {
@@ -333,7 +393,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-     
         private void deApply_EditValueChanged(object sender, EventArgs e)
         {
             var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());

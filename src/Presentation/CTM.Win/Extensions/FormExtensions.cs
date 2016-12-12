@@ -48,15 +48,14 @@ namespace CTM.Win.Extensions
         /// <param name="parentForm"></param>
         /// <param name="title"></param>
         /// <param name="pageMode"></param>
-        public static void DisplayTabbedForm<T>(this Form parentForm, string title = "", EnumLibrary.PageMode pageMode = EnumLibrary.PageMode.Default) where T : BaseForm
+        public static void DisplayTabbedForm<T>(this Form parentForm, string title = "") where T : BaseForm
         {
             var type = typeof(T);
 
             if (parentForm.ActiveOpenedForm(type.Name, true)) return;
 
             var form = EngineContext.Current.Resolve<T>();
-            form.Text = title;
-            form.PageMode = pageMode;
+            form.Text = title;      
             form.MdiParent = parentForm;
             form.StartPosition = FormStartPosition.CenterParent;
             form.Show();

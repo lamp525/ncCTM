@@ -43,7 +43,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void DisplayOperationDetail(string applyNo, string operateNo)
         {
-            var dialog = this.CreateDialog<_dialogIDOperationDetail>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
+            var dialog = this.CreateDialog<_embedIDOperationDetail>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
             dialog.Text = "决策操作记录详情";
 
             dialog.ShowDialog();

@@ -22,7 +22,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
-    public partial class _dialogIDOperationDetail : BaseForm
+    public partial class _embedIDOperationDetail : BaseForm
     {
 
         #region Fields
@@ -33,7 +33,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion Fields
 
         #region Constructors
-        public _dialogIDOperationDetail(IInvestmentDecisionService IDService)
+        public _embedIDOperationDetail(IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
