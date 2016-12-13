@@ -9,6 +9,7 @@ using CTM.Core.Infrastructure;
 using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
+using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Forms.Common;
 using CTM.Win.Models;
@@ -28,6 +29,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private readonly IInvestmentDecisionService _IDService;
         private readonly ICommonService _commonService;
+        private readonly IUserService _userService;
 
         private IList<InvestmentDecisionVote> _myVotes = null;
         private string _voteReason = null;
@@ -36,14 +38,46 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #endregion Fields
 
+        #region Enums
+
+        public enum QueryMode
+        {
+            /// <summary>
+            /// 进行中
+            /// </summary>
+            Proceed,
+
+            /// <summary>
+            /// 完成
+            /// </summary>
+            Done,
+
+            /// <summary>
+            /// 全部
+            /// </summary>
+            All
+        }
+
+        #endregion Enums
+
+        #region Properties
+
+        public QueryMode CurrentQueryMode { get; set; }
+
+        #endregion Properties
+
         #region Constructors
 
-        public _embedIDApplication(IInvestmentDecisionService IDService, ICommonService commonService)
+        public _embedIDApplication(
+            IInvestmentDecisionService IDService, 
+            ICommonService commonService, 
+            IUserService userService)
         {
             InitializeComponent();
 
             this._IDService = IDService;
             this._commonService = commonService;
+            this._userService = userService;
         }
 
         #endregion Constructors
@@ -52,18 +86,29 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            var now = _commonService.GetCurrentServerTime().Date;
+
+            this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deFrom.EditValue = now.AddMonths(-1);
+            this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deTo.EditValue = now;
+
+            var operators = _userService.GetAllOperators(true);
+
             this.viewMaster.LoadLayout(_layoutXmlName);
             this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 40);
 
             foreach (GridColumn column in this.viewMaster.Columns)
             {
-                if (column.Name == this.colOperate.Name)
-                    column.OptionsColumn.AllowEdit = true;
-                else
-                    column.OptionsColumn.AllowEdit = false;
+                column.OptionsColumn.AllowEdit = column == this.colOperate ? true : false;
             }
 
             this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25);
+
+            foreach (GridColumn column in this.viewDetail.Columns)
+            {
+                column.OptionsColumn.AllowEdit = column == this.colOperate_D ? true : false;
+            }
         }
 
         private void GetVoteReason(string content)
@@ -328,9 +373,26 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         public void BindApplicationInfo()
         {
+            string commandText = string.Empty;
+
+            switch (CurrentQueryMode)
+            {
+                case QueryMode.Proceed:
+                    break;
+
+                case QueryMode.Done:
+                    break;
+
+                case QueryMode.All:
+                    break;
+
+                default:
+                    break;
+            }
+
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @ApplyUser = '{LoginInfo.CurrentUser.UserCode}' ";
+            commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @Status = {(int)EnumLibrary.IDApplicationStatus.Proceed} ";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -359,6 +421,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowError(ex.Message);
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

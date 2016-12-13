@@ -507,9 +507,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                FormInit();
-
                 DisplayTargetEmbedForm();
+                FormInit();
             }
             catch (Exception ex)
             {
@@ -521,14 +520,16 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                if (!string.IsNullOrEmpty(this.luStock.SelectedValue()))
+                var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
+
+                if (stock != null)
                 {
-                    this._embedASA.BindStockApplication(this.luStock.SelectedValue());
+                    this._embedASA.BindStockApplication(stock.FullCode, stock.Name);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                DXMessage.ShowError(ex.Message);
             }
         }
 

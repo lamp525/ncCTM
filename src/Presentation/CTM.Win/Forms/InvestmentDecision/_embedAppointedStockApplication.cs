@@ -39,11 +39,13 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion Utilities
 
         #region Methods
-        public void BindStockApplication( string stockCode)
+        public void BindStockApplication( string stockCode,string stockName)
         {
+            this.lciIDApplicationList.Text = $@"股票【{stockCode} - {stockName}】 决策申请单一览";
+
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @ApplyUser = '{LoginInfo.CurrentUser.UserCode}' ";
+            var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @StockCode = '{stockCode}' ";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 

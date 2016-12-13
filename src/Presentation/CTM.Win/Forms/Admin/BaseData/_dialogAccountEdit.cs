@@ -109,7 +109,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void BindAccountOperator()
         {
-            var dealers = _userService.GetAllDealer();
+            var dealers = _userService.GetAllOperators();
             this.luOperator.Initialize(dealers, "Id", "Name", true);
 
             var operators = _accountService.GetAccountOperatorsByAccountId(_accountId).ToList();

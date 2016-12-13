@@ -62,7 +62,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.txtCode.Text = stock.FullCode;
             this.txtName.Text = stock.Name;
 
-            var managers = _userService.GetAllManager();
+            var managers = _userService.GetAllOperators();
             this.luBand.Initialize(managers, "Code", "Name", showHeader: true, enableSearch: true);
             this.luTarget.Initialize(managers, "Code", "Name", showHeader: true, enableSearch: true);
 

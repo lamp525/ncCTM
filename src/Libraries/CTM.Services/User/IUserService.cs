@@ -5,11 +5,7 @@ namespace CTM.Services.User
 {
     public partial interface IUserService : IBaseService
     {
-        IList<UserInfo> GetAllDealer(bool showDeleted = false);
-
-        IList<UserInfo> GetAllManager(bool showDeleted = false);
-
-        IList<UserInfo> GetAllOperators(bool isOnWorking);
+        IList<UserInfo> GetAllOperators(bool showDeleted = false);
 
         IList<UserInfo> GetAllAdmins(bool showDeleted = false);
 

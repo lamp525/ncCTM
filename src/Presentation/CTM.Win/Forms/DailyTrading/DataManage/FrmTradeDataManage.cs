@@ -183,7 +183,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 Name = "全部",
             };
 
-            var dealers = _userService.GetAllDealer(showDeleted: true);
+            var dealers = _userService.GetAllOperators(showDeleted: true);
             dealers.Add(allUserModel);
             dealers = dealers.OrderBy(x => x.Code).ToList();
 

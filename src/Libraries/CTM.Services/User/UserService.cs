@@ -50,45 +50,16 @@ namespace CTM.Services.User
             return result;
         }
 
-        public virtual IList<UserInfo> GetAllDealer(bool showDeleted = false)
-        {
-            var result = new List<UserInfo>();
-
-            var query = _userInfoRepository.Table.Where(x => x.IsDealer);
-
-            if (!showDeleted)
-                query = query.Where(x => !x.IsDeleted);
-
-            query = query.OrderBy(x => x.Name);
-
-            result = query.ToList();
-
-            return result;
-        }
-
-        public virtual IList<UserInfo> GetAllManager(bool showDeleted = false)
-        {
-            var result = new List<UserInfo>();
-
-            var query = _userInfoRepository.Table.Where(x => x.IsManager);
-
-            if (!showDeleted)
-                query = query.Where(x => !x.IsDeleted);
-
-            query = query.OrderBy(x => x.Name);
-
-            result = query.ToList();
-
-            return result;
-        }
-
-        public virtual IList<UserInfo> GetAllOperators(bool isOnWorking)
+        public virtual IList<UserInfo> GetAllOperators(bool showDeleted = false)
         {
             var result = new List<UserInfo>();
 
             var tradeDeptIds = new int[] { 2, 3, 4, 5 };
 
-            var query = _userInfoRepository.Table.Where(x => (x.IsDealer || x.IsManager) && x.IsDeleted != isOnWorking && tradeDeptIds.Contains(x.DepartmentId));
+            var query = _userInfoRepository.Table.Where(x => tradeDeptIds.Contains(x.DepartmentId));
+
+            if (!showDeleted)
+                query = query.Where(x => !x.IsDeleted);
 
             query = query.OrderBy(x => x.Name);
 

@@ -66,7 +66,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             };
 
             //交易员
-            var dealers = _userService.GetAllDealer(showDeleted: true);
+            var dealers = _userService.GetAllOperators(showDeleted: true);
             dealers = dealers.OrderBy(x => x.Code).ToList();
             luDealer.Initialize(dealers, "Code", "Name", showHeader: false, enableSearch: true);
 

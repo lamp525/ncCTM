@@ -63,7 +63,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.txtCode.Text = stock.FullCode;
             this.txtName.Text = stock.Name;
 
-            var investors = _userService.GetAllOperators(true);
+            var investors = _userService.GetAllOperators();
             this.luPrincipal.Initialize(investors, "Code", "Name", showHeader: true, enableSearch: true);
 
             var stockPool = _IDService.GetIDStockPoolByCode(StockCode);

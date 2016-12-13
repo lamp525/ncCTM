@@ -85,7 +85,7 @@
             this.colUpdateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciIDApplicationList = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riBtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -93,7 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciIDApplicationList)).BeginInit();
             this.SuspendLayout();
             // 
             // viewDetail
@@ -582,23 +582,23 @@
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
+            this.lciIDApplicationList});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1573, 660);
             this.layoutControlGroup1.TextVisible = false;
             // 
-            // layoutControlItem1
+            // lciIDApplicationList
             // 
-            this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem1.Control = this.gridApplication;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1553, 640);
-            this.layoutControlItem1.Text = "股票{0} - 决策申请单一览";
-            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(186, 18);
+            this.lciIDApplicationList.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.lciIDApplicationList.AppearanceItemCaption.Options.UseFont = true;
+            this.lciIDApplicationList.Control = this.gridApplication;
+            this.lciIDApplicationList.Location = new System.Drawing.Point(0, 0);
+            this.lciIDApplicationList.Name = "lciIDApplicationList";
+            this.lciIDApplicationList.Size = new System.Drawing.Size(1553, 640);
+            this.lciIDApplicationList.Text = "股票{0} - 决策申请单一览";
+            this.lciIDApplicationList.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciIDApplicationList.TextSize = new System.Drawing.Size(186, 18);
             // 
             // _embedAppointedStockApplication
             // 
@@ -616,7 +616,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciIDApplicationList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -627,7 +627,7 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraGrid.GridControl gridApplication;
         private DevExpress.XtraGrid.Views.Grid.GridView viewMaster;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem lciIDApplicationList;
         private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
