@@ -25,13 +25,24 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             if (string.IsNullOrEmpty(StockCode))
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 30);
+
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: 30);
+
+            foreach (DevExpress.XtraGrid.Columns.GridColumn column in this.viewDetail.Columns)
+            {
+                column.OptionsColumn.AllowEdit = column == this.colOperate_D ? true : false;
+            }
         }
 
         private void DisplayOperationDetail(string applyNo, string operateNo)
         {
-            var dialog = this.CreateDialog<_embedIDOperationDetail>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
-            dialog.Text = "决策操作记录详情";
-
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: System.Windows.Forms.FormBorderStyle.Sizable);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ViewDetail;
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
+            dialog.Text = "操作记录详情";
             dialog.ShowDialog();
         }
 
@@ -116,6 +127,22 @@ namespace CTM.Win.Forms.InvestmentDecision
             finally
             {
                 e.Button.Enabled = true;
+            }
+        }
+
+        private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void viewDetail_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
 

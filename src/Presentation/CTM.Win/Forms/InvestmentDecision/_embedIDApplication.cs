@@ -474,7 +474,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
-            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
@@ -546,6 +546,14 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region DetailView
 
+        private void viewDetail_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
         private void ribtnOperate_D_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
@@ -607,5 +615,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
+
+
     }
 }

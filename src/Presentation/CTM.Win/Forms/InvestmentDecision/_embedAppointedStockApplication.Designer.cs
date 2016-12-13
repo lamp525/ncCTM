@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             this.viewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperate_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riBtnOperate_D = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -99,7 +99,7 @@
             // viewDetail
             // 
             this.viewDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn7,
+            this.colOperate_D,
             this.gridColumn1,
             this.gridColumn2,
             this.colOperateNo,
@@ -130,23 +130,24 @@
             this.viewDetail.GridControl = this.gridApplication;
             this.viewDetail.Name = "viewDetail";
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
+            this.viewDetail.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewDetail_CustomDrawRowIndicator);
             // 
-            // gridColumn7
+            // colOperate_D
             // 
-            this.gridColumn7.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn7.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn7.Caption = "操作";
-            this.gridColumn7.ColumnEdit = this.riBtnOperate_D;
-            this.gridColumn7.Name = "gridColumn7";
-            this.gridColumn7.Visible = true;
-            this.gridColumn7.VisibleIndex = 13;
-            this.gridColumn7.Width = 87;
+            this.colOperate_D.AppearanceHeader.Options.UseTextOptions = true;
+            this.colOperate_D.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colOperate_D.Caption = "操作";
+            this.colOperate_D.ColumnEdit = this.riBtnOperate_D;
+            this.colOperate_D.Name = "colOperate_D";
+            this.colOperate_D.Visible = true;
+            this.colOperate_D.VisibleIndex = 13;
+            this.colOperate_D.Width = 87;
             // 
             // riBtnOperate_D
             // 
             this.riBtnOperate_D.AutoHeight = false;
             this.riBtnOperate_D.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "View", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "View", null, true)});
             this.riBtnOperate_D.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riBtnOperate_D.Name = "riBtnOperate_D";
             this.riBtnOperate_D.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -347,10 +348,10 @@
             // 
             // gridApplication
             // 
-            gridLevelNode1.LevelTemplate = this.viewDetail;
-            gridLevelNode1.RelationName = "MD";
+            gridLevelNode2.LevelTemplate = this.viewDetail;
+            gridLevelNode2.RelationName = "MD";
             this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.gridApplication.Location = new System.Drawing.Point(12, 33);
             this.gridApplication.MainView = this.viewMaster;
             this.gridApplication.Name = "gridApplication";
@@ -387,9 +388,10 @@
             this.colCreateTime,
             this.colUpdateTime});
             this.viewMaster.GridControl = this.gridApplication;
-            this.viewMaster.IndicatorWidth = 40;
+            this.viewMaster.IndicatorWidth = 30;
             this.viewMaster.Name = "viewMaster";
             this.viewMaster.OptionsView.ColumnAutoWidth = false;
+            this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             // 
             // colId
             // 
@@ -629,7 +631,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView viewMaster;
         private DevExpress.XtraLayout.LayoutControlItem lciIDApplicationList;
         private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperate_D;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn colOperateNo;
