@@ -272,142 +272,154 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private bool SubmitProcess()
         {
-            if (string.IsNullOrEmpty(this.luStock.SelectedValue()))
-            {
-                DXMessage.ShowTips("请选择股票信息！");
-                this.luStock.Focus();
-                return false;
-            }
+            InvestmentDecisionApplication application = null;
+            InvestmentDecisionOperation operation = null;
 
-            if (this.txtProfitPrice.Text.Trim().Length == 0)
-            {
-                DXMessage.ShowTips("请输入止盈价格！");
-                this.txtProfitPrice.Focus();
-                return false;
-            }
-
-            if (decimal.Parse(this.txtProfitPrice.Text.Trim()) <= 0)
-            {
-                DXMessage.ShowTips("止盈价格应该大于0！");
-                this.txtProfitPrice.Focus();
-                return false;
-            }
-
-            if (this.txtLossPrice.Text.Trim().Length == 0)
-            {
-                DXMessage.ShowTips("请输入止损价格！");
-                this.txtLossPrice.Focus();
-                return false;
-            }
-
-            if (decimal.Parse(this.txtLossPrice.Text.Trim()) <= 0)
-            {
-                DXMessage.ShowTips("止损价格应该大于0！");
-                this.txtLossPrice.Focus();
-                return false;
-            }
-
-            if (this.txtPrice.Text.Trim().Length == 0)
-            {
-                DXMessage.ShowTips("请输入单价！");
-                this.txtPrice.Focus();
-                return false;
-            }
-
-            if (decimal.Parse(this.txtPrice.Text.Trim()) <= 0)
-            {
-                DXMessage.ShowTips("单价应该大于0！");
-                this.txtPrice.Focus();
-                return false;
-            }
-
-            if (this.txtVolume.Text.Trim().Length == 0)
-            {
-                DXMessage.ShowTips("请输入数量！");
-                this.txtVolume.Focus();
-                return false;
-            }
-
-            if (decimal.Parse(this.txtVolume.Text.Trim()) <= 0)
-            {
-                DXMessage.ShowTips("数量应该大于0！");
-                this.txtVolume.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(this.treeListLookUpEdit1.SelectedValue()))
-            {
-                DXMessage.ShowTips("请选择理由分类！");
-                this.treeListLookUpEdit1.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(this.memoReason.Text.Trim()))
-            {
-                DXMessage.ShowTips("请输入理由内容！");
-                this.memoReason.Focus();
-                return false;
-            }
-
-            var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
-            var tradeType = int.Parse(this.cbOperateType.SelectedValue());
-            var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
             var now = _commonService.GetCurrentServerTime();
-            var stopProfitPrice = decimal.Parse(this.txtProfitPrice.Text.Trim());
-            var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
-            var stopLossPrice = decimal.Parse(this.txtLossPrice.Text.Trim());
-            var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
 
-            var application = new InvestmentDecisionApplication
+            if (string.IsNullOrEmpty(ApplyNo))
             {
-                ApplyNo = string.Empty,
-                ApplyDate = applyDate,
-                ApplyUser = LoginInfo.CurrentUser.UserCode,
-                CreateTime = now,
-                DepartmentId = LoginInfo.CurrentUser.DepartmentId,
-                Status = (int)EnumLibrary.IDApplicationStatus.Proceed,
-                StockCode = stock.FullCode,
-                StockName = stock.Name,
-                StopLossBound = stopLossBound,
-                StopLossPrice = stopLossPrice,
-                StopProfitBound = stopProfitBound,
-                StopProfitPrice = stopProfitPrice,
-                TradePlanNo = txtPlanNo.Text.Trim(),
-                TradeType = tradeType,
-                UpdateTime = now,
-            };
+                if (string.IsNullOrEmpty(this.luStock.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择股票信息！");
+                    this.luStock.Focus();
+                    return false;
+                }
 
-            var price = decimal.Parse(this.txtPrice.Text.Trim());
-            var priceBound = decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred;
-            var volume = decimal.Parse(this.txtVolume.Text.Trim());
-            var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
-            var operateDate = CommonHelper.StringToDateTime(this.deOperate.EditValue.ToString());
+                if (this.txtProfitPrice.Text.Trim().Length == 0)
+                {
+                    DXMessage.ShowTips("请输入止盈价格！");
+                    this.txtProfitPrice.Focus();
+                    return false;
+                }
 
-            var operation = new InvestmentDecisionOperation
+                if (decimal.Parse(this.txtProfitPrice.Text.Trim()) <= 0)
+                {
+                    DXMessage.ShowTips("止盈价格应该大于0！");
+                    this.txtProfitPrice.Focus();
+                    return false;
+                }
+
+                if (this.txtLossPrice.Text.Trim().Length == 0)
+                {
+                    DXMessage.ShowTips("请输入止损价格！");
+                    this.txtLossPrice.Focus();
+                    return false;
+                }
+
+                if (decimal.Parse(this.txtLossPrice.Text.Trim()) <= 0)
+                {
+                    DXMessage.ShowTips("止损价格应该大于0！");
+                    this.txtLossPrice.Focus();
+                    return false;
+                }
+
+                var applyDate = CommonHelper.StringToDateTime(this.deApply.EditValue.ToString());
+                var tradeType = int.Parse(this.cbOperateType.SelectedValue());
+                var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
+
+                var stopProfitPrice = decimal.Parse(this.txtProfitPrice.Text.Trim());
+                var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
+                var stopLossPrice = decimal.Parse(this.txtLossPrice.Text.Trim());
+                var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
+
+                application = new InvestmentDecisionApplication
+                {
+                    ApplyNo = string.Empty,
+                    ApplyDate = applyDate,
+                    ApplyUser = LoginInfo.CurrentUser.UserCode,
+                    CreateTime = now,
+                    DepartmentId = LoginInfo.CurrentUser.DepartmentId,
+                    Status = (int)EnumLibrary.IDApplicationStatus.Proceed,
+                    StockCode = stock.FullCode,
+                    StockName = stock.Name,
+                    StopLossBound = stopLossBound,
+                    StopLossPrice = stopLossPrice,
+                    StopProfitBound = stopProfitBound,
+                    StopProfitPrice = stopProfitPrice,
+                    TradePlanNo = txtPlanNo.Text.Trim(),
+                    TradeType = tradeType,
+                    UpdateTime = now,
+                };
+            }
+
+            if (string.IsNullOrEmpty(OperateNo))
             {
-                AccuracyPoint = 0,
-                AccuracyStatus = (int)EnumLibrary.IDOperationAccuracyStatus.None,
-                ApplyNo = string.Empty,
-                CreateTime = now,
-                DealAmount = amount,
-                DealFlag = chkBuy.Checked ? true : false,
-                DealPrice = price,
-                DealVolume = volume,
-                ExecuteFlag = false,
-                InitialFlag = _initialFlag,
-                OperateDate = operateDate,
-                OperateUser = LoginInfo.CurrentUser.UserCode,
-                OperateNo = string.Empty,
-                PriceBound = priceBound,
-                ReasonCategoryId = int.Parse(this.treeListLookUpEdit1.SelectedValue()),
-                ReasonContent = memoReason.Text.Trim(),
-                StockCode = stock.FullCode,
-                StockName = stock.Name,
-                TradeRecordRelateFlag = false,
-                UpdateTime = now,
-                VotePoint = 0,
-                VoteStatus = (int)EnumLibrary.IDOperationVoteStatus.None,
-            };
+                if (this.txtPrice.Text.Trim().Length == 0)
+                {
+                    DXMessage.ShowTips("请输入单价！");
+                    this.txtPrice.Focus();
+                    return false;
+                }
+
+                if (decimal.Parse(this.txtPrice.Text.Trim()) <= 0)
+                {
+                    DXMessage.ShowTips("单价应该大于0！");
+                    this.txtPrice.Focus();
+                    return false;
+                }
+
+                if (this.txtVolume.Text.Trim().Length == 0)
+                {
+                    DXMessage.ShowTips("请输入数量！");
+                    this.txtVolume.Focus();
+                    return false;
+                }
+
+                if (decimal.Parse(this.txtVolume.Text.Trim()) <= 0)
+                {
+                    DXMessage.ShowTips("数量应该大于0！");
+                    this.txtVolume.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.treeListLookUpEdit1.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择理由分类！");
+                    this.treeListLookUpEdit1.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.memoReason.Text.Trim()))
+                {
+                    DXMessage.ShowTips("请输入理由内容！");
+                    this.memoReason.Focus();
+                    return false;
+                }
+
+                var price = decimal.Parse(this.txtPrice.Text.Trim());
+                var priceBound = decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred;
+                var volume = decimal.Parse(this.txtVolume.Text.Trim());
+                var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
+                var operateDate = CommonHelper.StringToDateTime(this.deOperate.EditValue.ToString());
+                var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
+
+                operation = new InvestmentDecisionOperation
+                {
+                    AccuracyPoint = 0,
+                    AccuracyStatus = (int)EnumLibrary.IDOperationAccuracyStatus.None,
+                    ApplyNo = ApplyNo,
+                    CreateTime = now,
+                    DealAmount = amount,
+                    DealFlag = chkBuy.Checked ? true : false,
+                    DealPrice = price,
+                    DealVolume = volume,
+                    ExecuteFlag = false,
+                    InitialFlag = _initialFlag,
+                    OperateDate = operateDate,
+                    OperateUser = LoginInfo.CurrentUser.UserCode,
+                    OperateNo = string.Empty,
+                    PriceBound = priceBound,
+                    ReasonCategoryId = int.Parse(this.treeListLookUpEdit1.SelectedValue()),
+                    ReasonContent = memoReason.Text.Trim(),
+                    StockCode = stock.FullCode,
+                    StockName = stock.Name,
+                    TradeRecordRelateFlag = false,
+                    UpdateTime = now,
+                    VotePoint = 0,
+                    VoteStatus = (int)EnumLibrary.IDOperationVoteStatus.None,
+                };
+            }
 
             _IDService.IDApplicationApplyProcess(application, operation);
 

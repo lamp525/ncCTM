@@ -216,23 +216,20 @@ namespace CTM.Services.InvestmentDecision
 
         public void IDApplicationApplyProcess(InvestmentDecisionApplication applicationEntity, InvestmentDecisionOperation operationEntity)
         {
-            if (applicationEntity == null)
-                throw new ArgumentNullException(nameof(applicationEntity));
-
             if (operationEntity == null)
                 throw new ArgumentNullException(nameof(operationEntity));
 
             if (_IDCommitteeRepository.Table.Count() == 0)
                 throw new Exception("请设置投资决策委员会成员！");
 
-            if (string.IsNullOrEmpty(applicationEntity.ApplyNo))
+            if (applicationEntity != null && string.IsNullOrEmpty(applicationEntity.ApplyNo))
             {
                 applicationEntity.ApplyNo = GenerateIDApplicationApplyNo(applicationEntity.ApplyDate);
 
                 this._IDApplicationRepository.Insert(applicationEntity);
-            }
 
-            operationEntity.ApplyNo = applicationEntity.ApplyNo;
+                operationEntity.ApplyNo = applicationEntity.ApplyNo;
+            }
 
             decimal totalWeight = 1;
             decimal applyUserWeight = 0;

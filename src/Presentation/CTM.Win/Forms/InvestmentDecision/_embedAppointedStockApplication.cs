@@ -2,7 +2,6 @@
 using System.Data;
 using CTM.Data;
 using CTM.Win.Extensions;
-using CTM.Win.Models;
 using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestmentDecision
@@ -24,9 +23,9 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            if (string.IsNullOrEmpty(StockCode))
+                this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
         }
-
-
 
         private void DisplayOperationDetail(string applyNo, string operateNo)
         {
@@ -39,23 +38,35 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion Utilities
 
         #region Methods
-        public void BindStockApplication( string stockCode,string stockName)
+
+        public void BindStockApplication(string stockCode, string stockName)
         {
-            this.lciIDApplicationList.Text = $@"股票【{stockCode} - {stockName}】 决策申请单一览";
+            try
+            {
+                if (string.IsNullOrEmpty(stockCode) || string.IsNullOrEmpty(stockName)) return;
 
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+                this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciIDApplicationList.Text = $@"股票【{stockCode} - {stockName}】 决策申请单一览";
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @StockCode = '{stockCode}' ";
+                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+                var commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @StockCode = '{stockCode}' ";
 
-            if (ds == null || ds.Tables.Count == 0) return;
+                var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
-            ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
+                if (ds == null || ds.Tables.Count == 0) return;
 
-            this.gridApplication.DataSource = ds.Tables[0];
+                ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
+
+                this.gridApplication.DataSource = ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
-        #endregion
+
+        #endregion Methods
 
         #region Events
 
@@ -63,7 +74,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                FormInit(); 
+                FormInit();
             }
             catch (Exception ex)
             {
