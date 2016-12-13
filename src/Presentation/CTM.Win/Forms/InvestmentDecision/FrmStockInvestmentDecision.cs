@@ -42,9 +42,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             embedForm.Show();
         }
 
-        private void RefreshProgressingPage()
+        private void RefreshProceedPanel()
         {
-            this.tabPane1.SelectedPage = this.tpProgressing;
+            if (this.tabPane1.SelectedPage != this.tpProgressing)
+                this.tabPane1.SelectedPage = this.tpProgressing;
 
             _progressingEmbedForm.BindApplicationInfo();
         }
@@ -62,30 +63,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnAdd.Enabled = false;
-                var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
-                dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(RefreshProgressingPage);
-                dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewApplication;
-                dialog.ApplyNo = string.Empty;
-                dialog.OperateNo = string.Empty;
-                dialog.Text = "股票投资交易申请";
-
-                dialog.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnAdd.Enabled = true;
             }
         }
 
@@ -111,6 +88,30 @@ namespace CTM.Win.Forms.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnAdd.Enabled = false;
+                var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+                dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(RefreshProceedPanel);
+                dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewApplication;
+                dialog.ApplyNo = string.Empty;
+                dialog.OperateNo = string.Empty;
+                dialog.Text = "股票投资交易申请";
+
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
             }
         }
 

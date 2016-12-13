@@ -9,6 +9,7 @@ using CTM.Core.Infrastructure;
 using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
+using CTM.Services.Stock;
 using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Forms.Common;
@@ -30,6 +31,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IInvestmentDecisionService _IDService;
         private readonly ICommonService _commonService;
         private readonly IUserService _userService;
+        private readonly IStockService _stockService;
 
         private IList<InvestmentDecisionVote> _myVotes = null;
         private string _voteReason = null;
@@ -69,15 +71,17 @@ namespace CTM.Win.Forms.InvestmentDecision
         #region Constructors
 
         public _embedIDApplication(
-            IInvestmentDecisionService IDService, 
-            ICommonService commonService, 
-            IUserService userService)
+            IInvestmentDecisionService IDService,
+            ICommonService commonService,
+            IUserService userService,
+            IStockService stockService)
         {
             InitializeComponent();
 
             this._IDService = IDService;
             this._commonService = commonService;
             this._userService = userService;
+            this._stockService = stockService;
         }
 
         #endregion Constructors
@@ -93,10 +97,25 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now;
 
-            var operators = _userService.GetAllOperators(true);
+            //申请人
+            var applyUsers = _userService.GetAllOperators(true);
+            this.luApplyUser.Initialize(applyUsers, "Id", "Name", true);
+
+            //股票
+            var stocks = _stockService.GetAllStocks(showDeleted: true)
+                .Select(x => new StockInfoModel
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    FullCode = x.FullCode,
+                    Name = x.Name,
+                    DisplayMember = x.FullCode + " - " + x.Name,
+                }
+           ).OrderBy(x => x.FullCode).ToList();
+            this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             this.viewMaster.LoadLayout(_layoutXmlName);
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 40);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 30);
 
             foreach (GridColumn column in this.viewMaster.Columns)
             {
@@ -445,6 +464,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+          
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
             this.viewMaster.SaveLayout(_layoutXmlName);
