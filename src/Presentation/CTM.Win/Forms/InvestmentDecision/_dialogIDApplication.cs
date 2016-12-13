@@ -119,6 +119,13 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            var title = "股票投资交易申请单";
+
+            if (!string.IsNullOrEmpty(ApplyNo))
+                title += $@" - {ApplyNo}";
+
+            this.esiTitle.Text = title;
+
             var now = _commonService.GetCurrentServerTime();
 
             //申请人员
@@ -232,7 +239,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deOperate.EditValue = operationInfo["OperateDate"];
             this.chkBuy.Checked = bool.Parse(operationInfo["DealFlag"].ToString()) ? true : false;
             this.txtPrice.Text = operationInfo["DealPrice"].ToString();
-            this.spinPriceBound.EditValue = decimal.Parse(operationInfo["PriceBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
+            this.spinPriceBound.EditValue = CommonHelper.SetDecimalDigits(decimal.Parse(operationInfo["PriceBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred, 0);
             this.txtAmount.Text = (decimal.Parse(operationInfo["DealAmount"].ToString()) / (int)EnumLibrary.NumericUnit.TenThousand).ToString();
             this.txtVolume.Text = operationInfo["DealVolume"].ToString();
             this.treeListLookUpEdit1.EditValue = operationInfo["ReasonCategoryId"];
@@ -266,9 +273,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.luStock.EditValue = applicationInfo["StockCode"];
             this.cbOperateType.DefaultSelected(applicationInfo["TradeType"].ToString());
             this.txtProfitPrice.Text = applicationInfo["StopProfitPrice"].ToString();
-            this.spinProfitBound.EditValue = decimal.Parse(applicationInfo["StopProfitBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
+            this.spinProfitBound.EditValue = CommonHelper.SetDecimalDigits(decimal.Parse(applicationInfo["StopProfitBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred, 0);
             this.txtLossPrice.Text = applicationInfo["StopLossPrice"].ToString();
-            this.spinLossBound.EditValue = decimal.Parse(applicationInfo["StopLossBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred;
+            this.spinLossBound.EditValue = CommonHelper.SetDecimalDigits(decimal.Parse(applicationInfo["StopLossBound"].ToString()) * (int)EnumLibrary.NumericUnit.Hundred, 0);
         }
 
         private bool SubmitProcess()

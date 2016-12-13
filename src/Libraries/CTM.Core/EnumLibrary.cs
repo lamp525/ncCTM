@@ -57,16 +57,16 @@ namespace CTM.Core
         /// </summary>
         public enum IDOperationVoteStatus
         {
-            [Description("未投票")]
+            [Description("已提交")]
             None = 1,
 
-            [Description("进行中")]
+            [Description("投票中")]
             Proceed = 2,
 
-            [Description("申请通过")]
+            [Description("通过")]
             Passed = 3,
 
-            [Description("申请不通过")]
+            [Description("不通过")]
             Denied = 4,
         }
 
@@ -75,10 +75,10 @@ namespace CTM.Core
         /// </summary>
         public enum IDOperationAccuracyStatus
         {
-            [Description("未投票")]
+            [Description("未评定")]
             None = 1,
 
-            [Description("投票中")]
+            [Description("评定中")]
             Proceed = 2,
 
             [Description("准确")]

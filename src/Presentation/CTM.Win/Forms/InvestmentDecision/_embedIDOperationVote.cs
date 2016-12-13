@@ -49,24 +49,69 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Utilities
 
+        private void FormInit()
+        {
+            this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
+
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 50);
+            this.gridView1.OptionsView.RowAutoHeight = true;
+        }
+
+        private void SetVoteButtonStatus()
+        {
+            var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
+
+            if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+            {
+                this.btnAbstain.Enabled = true;
+                this.btnApproval.Enabled = true;
+                this.btnOppose.Enabled = true;
+                this.btnRevoke.Enabled = false;
+            }
+            else
+            {
+                this.btnAbstain.Enabled = false;
+                this.btnApproval.Enabled = false;
+                this.btnOppose.Enabled = false;
+                this.btnRevoke.Enabled = true;
+            }
+        }
+
         private void DisplayResult()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
+            var voteStatusCommandText = $@"SELECT * FROM [dbo].[v_IDOperation] WHERE OperateNo = '{OperateNo}'";
 
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            var dsStatus = SqlHelper.ExecuteDataset(connString, CommandType.Text, voteStatusCommandText);
 
-            if (ds == null || ds.Tables.Count == 0) return;
+            var drVoteStatusInfo = dsStatus?.Tables?[0].Rows?[0];
 
-            var source = ds.Tables[0];
+            if (drVoteStatusInfo != null)
+            {
+                this.esiVoteStatusInfo.Text = $@"投票状态：{drVoteStatusInfo["VoteStatusName"]}    投票分数：{drVoteStatusInfo["VotePoint"]}";
+            }
+
+            var resultCommandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
+
+            var dsResult = SqlHelper.ExecuteDataset(connString, CommandType.Text, resultCommandText);
+
+            if (dsResult == null || dsResult.Tables.Count == 0) return;
+
+            var source = dsResult.Tables[0];
             this.gridControl1.DataSource = source;
+        }
+
+        private void RefreshForm()
+        {
+            SetVoteButtonStatus();
+            DisplayResult();
         }
 
         private void GetVoteReason(int categoryId, string content)
         {
             this._reasonCategoryId = categoryId;
-            this._reasonContent = content.Replace("'", "''");
+            this._reasonContent = content?.Replace("'", "''");
         }
 
         private void VoteProcess(EnumLibrary.IDVoteFlag voteFlag)
@@ -74,7 +119,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (voteFlag == EnumLibrary.IDVoteFlag.None)
             {
                 if (DXMessage.ShowYesNoAndTips("确定撤销上次投票结果么？") == System.Windows.Forms.DialogResult.No)
+                {
                     this._voteSucceedFlag = false;
+                    return;
+                }
             }
             else
             {
@@ -82,12 +130,17 @@ namespace CTM.Win.Forms.InvestmentDecision
                 dialog.ReturnEvent += new _dialogInputVoteReason.ReturnContentToParentForm(GetVoteReason);
                 dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
                 if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                {
                     this._voteSucceedFlag = false;
+                    return;
+                }
             }
 
             _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent);
 
             this._voteSucceedFlag = true;
+
+            RefreshForm();
         }
 
         #endregion Utilities
@@ -98,10 +151,11 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 50);
-                this.gridView1.OptionsView.RowAutoHeight = true;
+                FormInit();
 
                 DisplayResult();
+
+                SetVoteButtonStatus();
             }
             catch (Exception ex)
             {

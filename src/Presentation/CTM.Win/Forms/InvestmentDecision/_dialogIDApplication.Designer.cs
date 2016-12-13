@@ -80,7 +80,7 @@
             this.layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.esiTitle = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcgReason = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -141,7 +141,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
@@ -194,7 +194,7 @@
             // deOperate
             // 
             this.deOperate.EditValue = null;
-            this.deOperate.Location = new System.Drawing.Point(319, 258);
+            this.deOperate.Location = new System.Drawing.Point(319, 262);
             this.deOperate.Name = "deOperate";
             this.deOperate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -211,7 +211,7 @@
             0,
             0,
             0});
-            this.spinPriceBound.Location = new System.Drawing.Point(319, 282);
+            this.spinPriceBound.Location = new System.Drawing.Point(319, 286);
             this.spinPriceBound.Name = "spinPriceBound";
             this.spinPriceBound.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -227,7 +227,7 @@
             0,
             0,
             0});
-            this.spinLossBound.Location = new System.Drawing.Point(436, 191);
+            this.spinLossBound.Location = new System.Drawing.Point(436, 195);
             this.spinLossBound.Name = "spinLossBound";
             this.spinLossBound.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -242,7 +242,7 @@
             0,
             0,
             0});
-            this.spinProfitBound.Location = new System.Drawing.Point(202, 191);
+            this.spinProfitBound.Location = new System.Drawing.Point(202, 195);
             this.spinProfitBound.Name = "spinProfitBound";
             this.spinProfitBound.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -252,7 +252,7 @@
             // 
             // txtOperateUser
             // 
-            this.txtOperateUser.Location = new System.Drawing.Point(85, 258);
+            this.txtOperateUser.Location = new System.Drawing.Point(85, 262);
             this.txtOperateUser.Name = "txtOperateUser";
             this.txtOperateUser.Properties.ReadOnly = true;
             this.txtOperateUser.Size = new System.Drawing.Size(169, 20);
@@ -261,7 +261,7 @@
             // 
             // txtApplyUser
             // 
-            this.txtApplyUser.Location = new System.Drawing.Point(85, 143);
+            this.txtApplyUser.Location = new System.Drawing.Point(85, 147);
             this.txtApplyUser.Name = "txtApplyUser";
             this.txtApplyUser.Properties.ReadOnly = true;
             this.txtApplyUser.Size = new System.Drawing.Size(169, 20);
@@ -270,7 +270,7 @@
             // 
             // lblPriceBound
             // 
-            this.lblPriceBound.Location = new System.Drawing.Point(375, 282);
+            this.lblPriceBound.Location = new System.Drawing.Point(375, 286);
             this.lblPriceBound.Name = "lblPriceBound";
             this.lblPriceBound.Size = new System.Drawing.Size(45, 14);
             this.lblPriceBound.StyleController = this.layoutControl1;
@@ -278,7 +278,7 @@
             // 
             // treeListLookUpEdit1
             // 
-            this.treeListLookUpEdit1.Location = new System.Drawing.Point(85, 373);
+            this.treeListLookUpEdit1.Location = new System.Drawing.Point(85, 377);
             this.treeListLookUpEdit1.Name = "treeListLookUpEdit1";
             this.treeListLookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -334,7 +334,7 @@
             // 
             // txtLossPrice
             // 
-            this.txtLossPrice.Location = new System.Drawing.Point(319, 191);
+            this.txtLossPrice.Location = new System.Drawing.Point(319, 195);
             this.txtLossPrice.Name = "txtLossPrice";
             this.txtLossPrice.Size = new System.Drawing.Size(52, 20);
             this.txtLossPrice.StyleController = this.layoutControl1;
@@ -342,7 +342,7 @@
             // 
             // txtProfitPrice
             // 
-            this.txtProfitPrice.Location = new System.Drawing.Point(85, 191);
+            this.txtProfitPrice.Location = new System.Drawing.Point(85, 195);
             this.txtProfitPrice.Name = "txtProfitPrice";
             this.txtProfitPrice.Size = new System.Drawing.Size(52, 20);
             this.txtProfitPrice.StyleController = this.layoutControl1;
@@ -350,15 +350,15 @@
             // 
             // memoReason
             // 
-            this.memoReason.Location = new System.Drawing.Point(24, 414);
+            this.memoReason.Location = new System.Drawing.Point(24, 418);
             this.memoReason.Name = "memoReason";
-            this.memoReason.Size = new System.Drawing.Size(464, 207);
+            this.memoReason.Size = new System.Drawing.Size(464, 203);
             this.memoReason.StyleController = this.layoutControl1;
             this.memoReason.TabIndex = 17;
             // 
             // txtPlanNo
             // 
-            this.txtPlanNo.Location = new System.Drawing.Point(85, 119);
+            this.txtPlanNo.Location = new System.Drawing.Point(85, 123);
             this.txtPlanNo.Name = "txtPlanNo";
             this.txtPlanNo.Size = new System.Drawing.Size(169, 20);
             this.txtPlanNo.StyleController = this.layoutControl1;
@@ -386,7 +386,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(24, 50);
+            this.btnImport.Location = new System.Drawing.Point(24, 54);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(107, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -395,7 +395,7 @@
             // 
             // txtVolume
             // 
-            this.txtVolume.Location = new System.Drawing.Point(85, 306);
+            this.txtVolume.Location = new System.Drawing.Point(85, 310);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(169, 20);
             this.txtVolume.StyleController = this.layoutControl1;
@@ -404,7 +404,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(187, 282);
+            this.txtPrice.Location = new System.Drawing.Point(187, 286);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(67, 20);
             this.txtPrice.StyleController = this.layoutControl1;
@@ -413,7 +413,7 @@
             // 
             // cbOperateType
             // 
-            this.cbOperateType.Location = new System.Drawing.Point(319, 167);
+            this.cbOperateType.Location = new System.Drawing.Point(319, 171);
             this.cbOperateType.Name = "cbOperateType";
             this.cbOperateType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -423,7 +423,7 @@
             // 
             // chkSell
             // 
-            this.chkSell.Location = new System.Drawing.Point(75, 282);
+            this.chkSell.Location = new System.Drawing.Point(75, 286);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖出";
             this.chkSell.Size = new System.Drawing.Size(47, 19);
@@ -434,7 +434,7 @@
             // chkBuy
             // 
             this.chkBuy.EditValue = true;
-            this.chkBuy.Location = new System.Drawing.Point(24, 282);
+            this.chkBuy.Location = new System.Drawing.Point(24, 286);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买入";
             this.chkBuy.Size = new System.Drawing.Size(47, 19);
@@ -444,7 +444,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(85, 167);
+            this.luStock.Location = new System.Drawing.Point(85, 171);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -460,7 +460,7 @@
             // deApply
             // 
             this.deApply.EditValue = null;
-            this.deApply.Location = new System.Drawing.Point(319, 143);
+            this.deApply.Location = new System.Drawing.Point(319, 147);
             this.deApply.Name = "deApply";
             this.deApply.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -472,7 +472,7 @@
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(319, 306);
+            this.txtAmount.Location = new System.Drawing.Point(319, 310);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Properties.ReadOnly = true;
             this.txtAmount.Size = new System.Drawing.Size(169, 20);
@@ -486,7 +486,7 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcgBasic,
             this.lcgOperation,
-            this.emptySpaceItem2,
+            this.esiTitle,
             this.lcgReason,
             this.lcgImport,
             this.lcgApply});
@@ -510,7 +510,7 @@
             this.layoutControlItem23,
             this.layoutControlItem22,
             this.止损价格});
-            this.lcgBasic.Location = new System.Drawing.Point(0, 76);
+            this.lcgBasic.Location = new System.Drawing.Point(0, 80);
             this.lcgBasic.Name = "lcgBasic";
             this.lcgBasic.Size = new System.Drawing.Size(492, 139);
             this.lcgBasic.Text = "基本信息";
@@ -615,7 +615,7 @@
             this.layoutControlItem24,
             this.layoutControlItem17,
             this.emptySpaceItem7});
-            this.lcgOperation.Location = new System.Drawing.Point(0, 215);
+            this.lcgOperation.Location = new System.Drawing.Point(0, 219);
             this.lcgOperation.Name = "lcgOperation";
             this.lcgOperation.Size = new System.Drawing.Size(492, 115);
             this.lcgOperation.Text = "操作信息";
@@ -710,28 +710,28 @@
             this.emptySpaceItem7.Size = new System.Drawing.Size(68, 24);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // emptySpaceItem2
+            // esiTitle
             // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.emptySpaceItem2.AppearanceItemCaption.Options.UseFont = true;
-            this.emptySpaceItem2.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.emptySpaceItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(492, 26);
-            this.emptySpaceItem2.Text = "股票投资交易申请单";
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(58, 0);
-            this.emptySpaceItem2.TextVisible = true;
+            this.esiTitle.AllowHotTrack = false;
+            this.esiTitle.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.esiTitle.AppearanceItemCaption.Options.UseFont = true;
+            this.esiTitle.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.esiTitle.Location = new System.Drawing.Point(0, 0);
+            this.esiTitle.Name = "esiTitle";
+            this.esiTitle.Size = new System.Drawing.Size(492, 30);
+            this.esiTitle.Text = "股票投资交易申请单";
+            this.esiTitle.TextSize = new System.Drawing.Size(58, 0);
+            this.esiTitle.TextVisible = true;
             // 
             // lcgReason
             // 
             this.lcgReason.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem15,
             this.layoutControlItem13});
-            this.lcgReason.Location = new System.Drawing.Point(0, 330);
+            this.lcgReason.Location = new System.Drawing.Point(0, 334);
             this.lcgReason.Name = "lcgReason";
-            this.lcgReason.Size = new System.Drawing.Size(492, 295);
+            this.lcgReason.Size = new System.Drawing.Size(492, 291);
             this.lcgReason.Text = "操作理由";
             // 
             // layoutControlItem15
@@ -739,7 +739,7 @@
             this.layoutControlItem15.Control = this.memoReason;
             this.layoutControlItem15.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(468, 228);
+            this.layoutControlItem15.Size = new System.Drawing.Size(468, 224);
             this.layoutControlItem15.Text = "内容";
             this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(58, 14);
@@ -758,7 +758,7 @@
             this.lcgImport.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciImportTradePlan,
             this.emptySpaceItem6});
-            this.lcgImport.Location = new System.Drawing.Point(0, 26);
+            this.lcgImport.Location = new System.Drawing.Point(0, 30);
             this.lcgImport.Name = "lcgImport";
             this.lcgImport.Size = new System.Drawing.Size(492, 50);
             this.lcgImport.TextVisible = false;
@@ -905,7 +905,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgReason)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
@@ -963,7 +963,7 @@
         private DevExpress.XtraEditors.TextEdit txtProfitPrice;
         private DevExpress.XtraLayout.LayoutControlItem 止盈价格;
         private DevExpress.XtraLayout.LayoutControlItem 止损价格;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraLayout.EmptySpaceItem esiTitle;
         private DevExpress.XtraEditors.TreeListLookUpEdit treeListLookUpEdit1;
         private DevExpress.XtraTreeList.TreeList treeListLookUpEdit1TreeList;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;

@@ -68,6 +68,8 @@ namespace CTM.Win.Forms.Common
         {
             try
             {
+                this.Text = ContentTitle;
+
                 //类别
                 var categories = _IDService.GetIDReasonCategories();
 

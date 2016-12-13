@@ -40,13 +40,16 @@
             this.colTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReasonCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riMemoReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colVoteTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colConfirmTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcgResult = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciResult = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcgVote = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -56,9 +59,7 @@
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lciResult = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colReasonCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.esiVoteStatusInfo = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -66,7 +67,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
@@ -76,8 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiVoteStatusInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -137,12 +139,12 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 43);
+            this.gridControl1.Location = new System.Drawing.Point(24, 68);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riMemoReasonContent});
-            this.gridControl1.Size = new System.Drawing.Size(941, 495);
+            this.gridControl1.Size = new System.Drawing.Size(941, 470);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -161,7 +163,6 @@
             this.colConfirmTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
             // colInvestorCode
@@ -173,7 +174,7 @@
             // 
             // colInvestorName
             // 
-            this.colInvestorName.Caption = "姓名";
+            this.colInvestorName.Caption = "投票人员";
             this.colInvestorName.FieldName = "InvestorName";
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
@@ -181,12 +182,11 @@
             // 
             // colTypeName
             // 
-            this.colTypeName.Caption = "投票人员类别";
+            this.colTypeName.Caption = "人员类别";
             this.colTypeName.FieldName = "TypeName";
             this.colTypeName.Name = "colTypeName";
             this.colTypeName.Visible = true;
             this.colTypeName.VisibleIndex = 1;
-            this.colTypeName.Width = 92;
             // 
             // colWeightPercentage
             // 
@@ -207,6 +207,15 @@
             this.colFlagName.Visible = true;
             this.colFlagName.VisibleIndex = 3;
             this.colFlagName.Width = 65;
+            // 
+            // colReasonCategoryName
+            // 
+            this.colReasonCategoryName.Caption = "理由类别";
+            this.colReasonCategoryName.FieldName = "ReasonCategoryName";
+            this.colReasonCategoryName.Name = "colReasonCategoryName";
+            this.colReasonCategoryName.Visible = true;
+            this.colReasonCategoryName.VisibleIndex = 4;
+            this.colReasonCategoryName.Width = 120;
             // 
             // colReasonContent
             // 
@@ -246,7 +255,7 @@
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem1,
-            this.layoutControlGroup3});
+            this.lcgResult});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(999, 631);
@@ -260,9 +269,36 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 611);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlGroup2
+            // lcgResult
             // 
-            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcgResult.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lcgResult.AppearanceGroup.Options.UseFont = true;
+            this.lcgResult.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciResult,
+            this.lcgVote,
+            this.esiVoteStatusInfo});
+            this.lcgResult.Location = new System.Drawing.Point(0, 0);
+            this.lcgResult.Name = "lcgResult";
+            this.lcgResult.Size = new System.Drawing.Size(969, 611);
+            this.lcgResult.Text = "决策投票结果";
+            // 
+            // lciResult
+            // 
+            this.lciResult.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lciResult.AppearanceItemCaption.Options.UseFont = true;
+            this.lciResult.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.lciResult.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lciResult.Control = this.gridControl1;
+            this.lciResult.Location = new System.Drawing.Point(0, 25);
+            this.lciResult.Name = "lciResult";
+            this.lciResult.Size = new System.Drawing.Size(945, 474);
+            this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciResult.TextSize = new System.Drawing.Size(0, 0);
+            this.lciResult.TextVisible = false;
+            // 
+            // lcgVote
+            // 
+            this.lcgVote.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem2,
             this.layoutControlItem4,
             this.layoutControlItem5,
@@ -272,10 +308,10 @@
             this.emptySpaceItem4,
             this.emptySpaceItem5,
             this.emptySpaceItem6});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 499);
-            this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(945, 69);
-            this.layoutControlGroup2.Text = "投票操作";
+            this.lcgVote.Location = new System.Drawing.Point(0, 499);
+            this.lcgVote.Name = "lcgVote";
+            this.lcgVote.Size = new System.Drawing.Size(945, 69);
+            this.lcgVote.Text = "投票操作";
             // 
             // emptySpaceItem2
             // 
@@ -353,38 +389,15 @@
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlGroup3
+            // esiVoteStatusInfo
             // 
-            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lciResult,
-            this.layoutControlGroup2});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(969, 611);
-            this.layoutControlGroup3.Text = "决策投票结果";
-            // 
-            // lciResult
-            // 
-            this.lciResult.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.lciResult.AppearanceItemCaption.Options.UseFont = true;
-            this.lciResult.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.lciResult.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lciResult.Control = this.gridControl1;
-            this.lciResult.Location = new System.Drawing.Point(0, 0);
-            this.lciResult.Name = "lciResult";
-            this.lciResult.Size = new System.Drawing.Size(945, 499);
-            this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
-            this.lciResult.TextSize = new System.Drawing.Size(0, 0);
-            this.lciResult.TextVisible = false;
-            // 
-            // colReasonCategoryName
-            // 
-            this.colReasonCategoryName.Caption = "理由类别";
-            this.colReasonCategoryName.FieldName = "ReasonCategoryName";
-            this.colReasonCategoryName.Name = "colReasonCategoryName";
-            this.colReasonCategoryName.Visible = true;
-            this.colReasonCategoryName.VisibleIndex = 4;
-            this.colReasonCategoryName.Width = 150;
+            this.esiVoteStatusInfo.AllowHotTrack = false;
+            this.esiVoteStatusInfo.Location = new System.Drawing.Point(0, 0);
+            this.esiVoteStatusInfo.Name = "esiVoteStatusInfo";
+            this.esiVoteStatusInfo.Size = new System.Drawing.Size(945, 25);
+            this.esiVoteStatusInfo.Text = "投票状态：     投票分数：";
+            this.esiVoteStatusInfo.TextSize = new System.Drawing.Size(0, 0);
+            this.esiVoteStatusInfo.TextVisible = true;
             // 
             // _embedIDOperationVote
             // 
@@ -402,7 +415,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
@@ -412,8 +427,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiVoteStatusInfo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -439,17 +453,18 @@
         private DevExpress.XtraEditors.SimpleButton btnAbstain;
         private DevExpress.XtraEditors.SimpleButton btnOppose;
         private DevExpress.XtraEditors.SimpleButton btnApproval;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlGroup lcgVote;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraLayout.LayoutControlGroup lcgResult;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonCategoryName;
+        private DevExpress.XtraLayout.EmptySpaceItem esiVoteStatusInfo;
     }
 }

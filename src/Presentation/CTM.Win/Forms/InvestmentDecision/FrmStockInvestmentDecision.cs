@@ -27,7 +27,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Utilities
 
-        private void ShowEmbedIDApplication(DevExpress.XtraBars.Navigation.TabNavigationPage currentPage, _embedIDApplication embedForm, _embedIDApplication.QueryMode queryMode)
+        private void ShowEmbedIDApplication(DevExpress.XtraBars.Navigation.TabNavigationPage currentPage, _embedIDApplication.QueryMode queryMode, ref _embedIDApplication embedForm)
         {
             if (embedForm == null)
                 embedForm = EngineContext.Current.Resolve<_embedIDApplication>();
@@ -74,15 +74,15 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 if (currentPage == this.tpProgressing)
                 {
-                    ShowEmbedIDApplication(currentPage, _progressingEmbedForm, _embedIDApplication.QueryMode.Proceed);
+                    ShowEmbedIDApplication(currentPage, _embedIDApplication.QueryMode.Proceed, ref _progressingEmbedForm);
                 }
                 else if (currentPage == this.tpDone)
                 {
-                    ShowEmbedIDApplication(currentPage, _doneEmbedForm, _embedIDApplication.QueryMode.Done);
+                    ShowEmbedIDApplication(currentPage, _embedIDApplication.QueryMode.Done, ref _doneEmbedForm);
                 }
                 else if (currentPage == this.tpAll)
                 {
-                    ShowEmbedIDApplication(currentPage, _allEmbedForm, _embedIDApplication.QueryMode.All);
+                    ShowEmbedIDApplication(currentPage, _embedIDApplication.QueryMode.All, ref _allEmbedForm);
                 }
             }
             catch (Exception ex)

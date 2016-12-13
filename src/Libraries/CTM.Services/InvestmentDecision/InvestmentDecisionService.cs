@@ -600,10 +600,17 @@ namespace CTM.Services.InvestmentDecision
             return content;
         }
 
-        public string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "->")
+        public virtual string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "->")
         {
             var commanText = $@"SELECT [dbo].[f_GetReasonCategoryNameWithParent]({categoryId},'{jointMark}')  NameWithParent";
             var query = _dbContext.SqlQuery<string>(commanText);
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual InvestmentDecisionOperationVote GetIDOperationVoteInfo(string userCode, string operateNo)
+        {
+            var query = _IDOperationVoteRepository.Table.Where(x => x.UserCode == userCode && x.OperateNo == operateNo);
 
             return query.FirstOrDefault();
         }
