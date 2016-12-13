@@ -8,9 +8,21 @@ namespace CTM.Win.Forms.InvestmentDecision
 {
     public partial class _embedIDOperationVote : BaseForm
     {
+        #region Fields
+
+        private bool _voteSucceedFlag = false;
+
+        #endregion Fields
+
         #region Properties
 
-        public string SerialNo { get; set; }
+        public string OperateNo { get; set; }
+
+        public bool VoteSucceedFlag
+        {
+            get { return _voteSucceedFlag; }
+            set { _voteSucceedFlag = value; }
+        }
 
         #endregion Properties
 
@@ -29,7 +41,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetIDVoteResult] @FormSerialNo = 'SQ161024002'";
+            var commandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -49,7 +61,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 50);
                 this.gridView1.OptionsView.RowAutoHeight = true;
-                this.lciResult.Text = $@"交易单 [{SerialNo}] 投票结果";
 
                 DisplayResult();
             }
@@ -65,6 +76,26 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
+        }
+
+        private void btnApproval_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnOppose_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnAbstain_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnRevoke_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
         }
 
         #endregion Events

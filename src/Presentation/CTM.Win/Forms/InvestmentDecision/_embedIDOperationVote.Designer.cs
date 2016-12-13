@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnRevoke = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAbstain = new DevExpress.XtraEditors.SimpleButton();
+            this.btnOppose = new DevExpress.XtraEditors.SimpleButton();
+            this.btnApproval = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -36,42 +40,109 @@
             this.colTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riMemoReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colVoteTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colConfirmTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lciResult = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciResult = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colReasonCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.btnRevoke);
+            this.layoutControl1.Controls.Add(this.btnAbstain);
+            this.layoutControl1.Controls.Add(this.btnOppose);
+            this.layoutControl1.Controls.Add(this.btnApproval);
             this.layoutControl1.Controls.Add(this.gridControl1);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1331, 631);
+            this.layoutControl1.Size = new System.Drawing.Size(999, 631);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // btnRevoke
+            // 
+            this.btnRevoke.Location = new System.Drawing.Point(596, 573);
+            this.btnRevoke.Name = "btnRevoke";
+            this.btnRevoke.Size = new System.Drawing.Size(73, 22);
+            this.btnRevoke.StyleController = this.layoutControl1;
+            this.btnRevoke.TabIndex = 10;
+            this.btnRevoke.Text = "    撤  销    ";
+            this.btnRevoke.Click += new System.EventHandler(this.btnRevoke_Click);
+            // 
+            // btnAbstain
+            // 
+            this.btnAbstain.Location = new System.Drawing.Point(509, 573);
+            this.btnAbstain.Name = "btnAbstain";
+            this.btnAbstain.Size = new System.Drawing.Size(73, 22);
+            this.btnAbstain.StyleController = this.layoutControl1;
+            this.btnAbstain.TabIndex = 9;
+            this.btnAbstain.Text = "    弃  权    ";
+            this.btnAbstain.Click += new System.EventHandler(this.btnAbstain_Click);
+            // 
+            // btnOppose
+            // 
+            this.btnOppose.Location = new System.Drawing.Point(422, 573);
+            this.btnOppose.Name = "btnOppose";
+            this.btnOppose.Size = new System.Drawing.Size(73, 22);
+            this.btnOppose.StyleController = this.layoutControl1;
+            this.btnOppose.TabIndex = 8;
+            this.btnOppose.Text = "    反  对    ";
+            this.btnOppose.Click += new System.EventHandler(this.btnOppose_Click);
+            // 
+            // btnApproval
+            // 
+            this.btnApproval.Location = new System.Drawing.Point(331, 573);
+            this.btnApproval.Name = "btnApproval";
+            this.btnApproval.Size = new System.Drawing.Size(77, 22);
+            this.btnApproval.StyleController = this.layoutControl1;
+            this.btnApproval.TabIndex = 7;
+            this.btnApproval.Text = "    赞  同     ";
+            this.btnApproval.Click += new System.EventHandler(this.btnApproval_Click);
+            // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(12, 32);
+            this.gridControl1.Location = new System.Drawing.Point(24, 43);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riMemoReasonContent});
-            this.gridControl1.Size = new System.Drawing.Size(1297, 587);
+            this.gridControl1.Size = new System.Drawing.Size(941, 495);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -84,7 +155,8 @@
             this.colTypeName,
             this.colWeightPercentage,
             this.colFlagName,
-            this.colReason,
+            this.colReasonCategoryName,
+            this.colReasonContent,
             this.colVoteTime,
             this.colConfirmTime});
             this.gridView1.GridControl = this.gridControl1;
@@ -97,9 +169,7 @@
             this.colInvestorCode.Caption = "人员编号";
             this.colInvestorCode.FieldName = "InvestorCode";
             this.colInvestorCode.Name = "colInvestorCode";
-            this.colInvestorCode.Visible = true;
-            this.colInvestorCode.VisibleIndex = 0;
-            this.colInvestorCode.Width = 100;
+            this.colInvestorCode.Width = 65;
             // 
             // colInvestorName
             // 
@@ -107,17 +177,16 @@
             this.colInvestorName.FieldName = "InvestorName";
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
-            this.colInvestorName.VisibleIndex = 1;
-            this.colInvestorName.Width = 100;
+            this.colInvestorName.VisibleIndex = 0;
             // 
             // colTypeName
             // 
-            this.colTypeName.Caption = "类别";
+            this.colTypeName.Caption = "投票人员类别";
             this.colTypeName.FieldName = "TypeName";
             this.colTypeName.Name = "colTypeName";
             this.colTypeName.Visible = true;
-            this.colTypeName.VisibleIndex = 2;
-            this.colTypeName.Width = 140;
+            this.colTypeName.VisibleIndex = 1;
+            this.colTypeName.Width = 92;
             // 
             // colWeightPercentage
             // 
@@ -127,8 +196,8 @@
             this.colWeightPercentage.FieldName = "WeightPercentage";
             this.colWeightPercentage.Name = "colWeightPercentage";
             this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 3;
-            this.colWeightPercentage.Width = 80;
+            this.colWeightPercentage.VisibleIndex = 2;
+            this.colWeightPercentage.Width = 65;
             // 
             // colFlagName
             // 
@@ -136,20 +205,20 @@
             this.colFlagName.FieldName = "FlagName";
             this.colFlagName.Name = "colFlagName";
             this.colFlagName.Visible = true;
-            this.colFlagName.VisibleIndex = 4;
-            this.colFlagName.Width = 80;
+            this.colFlagName.VisibleIndex = 3;
+            this.colFlagName.Width = 65;
             // 
-            // colReason
+            // colReasonContent
             // 
-            this.colReason.AppearanceCell.Options.UseTextOptions = true;
-            this.colReason.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.colReason.Caption = "理由";
-            this.colReason.ColumnEdit = this.riMemoReasonContent;
-            this.colReason.FieldName = "Reason";
-            this.colReason.Name = "colReason";
-            this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 5;
-            this.colReason.Width = 550;
+            this.colReasonContent.AppearanceCell.Options.UseTextOptions = true;
+            this.colReasonContent.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.colReasonContent.Caption = "理由";
+            this.colReasonContent.ColumnEdit = this.riMemoReasonContent;
+            this.colReasonContent.FieldName = "ReasonContent";
+            this.colReasonContent.Name = "colReasonContent";
+            this.colReasonContent.Visible = true;
+            this.colReasonContent.VisibleIndex = 5;
+            this.colReasonContent.Width = 350;
             // 
             // riMemoReasonContent
             // 
@@ -169,8 +238,6 @@
             this.colConfirmTime.Caption = "确定日期";
             this.colConfirmTime.FieldName = "ConfirmTime";
             this.colConfirmTime.Name = "colConfirmTime";
-            this.colConfirmTime.Visible = true;
-            this.colConfirmTime.VisibleIndex = 7;
             this.colConfirmTime.Width = 100;
             // 
             // layoutControlGroup1
@@ -178,12 +245,123 @@
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lciResult,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1331, 631);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(999, 631);
             this.layoutControlGroup1.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(969, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 611);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlGroup2
+            // 
+            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.emptySpaceItem2,
+            this.layoutControlItem4,
+            this.layoutControlItem5,
+            this.layoutControlItem3,
+            this.layoutControlItem6,
+            this.emptySpaceItem3,
+            this.emptySpaceItem4,
+            this.emptySpaceItem5,
+            this.emptySpaceItem6});
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 499);
+            this.layoutControlGroup2.Name = "layoutControlGroup2";
+            this.layoutControlGroup2.Size = new System.Drawing.Size(945, 69);
+            this.layoutControlGroup2.Text = "投票操作";
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(637, 0);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(284, 26);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.btnOppose;
+            this.layoutControlItem4.Location = new System.Drawing.Point(386, 0);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.btnAbstain;
+            this.layoutControlItem5.Location = new System.Drawing.Point(473, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.btnApproval;
+            this.layoutControlItem3.Location = new System.Drawing.Point(295, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(81, 26);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.btnRevoke;
+            this.layoutControlItem6.Location = new System.Drawing.Point(560, 0);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // emptySpaceItem3
+            // 
+            this.emptySpaceItem3.AllowHotTrack = false;
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem3.Name = "emptySpaceItem3";
+            this.emptySpaceItem3.Size = new System.Drawing.Size(295, 26);
+            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem4
+            // 
+            this.emptySpaceItem4.AllowHotTrack = false;
+            this.emptySpaceItem4.Location = new System.Drawing.Point(376, 0);
+            this.emptySpaceItem4.Name = "emptySpaceItem4";
+            this.emptySpaceItem4.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem5
+            // 
+            this.emptySpaceItem5.AllowHotTrack = false;
+            this.emptySpaceItem5.Location = new System.Drawing.Point(463, 0);
+            this.emptySpaceItem5.Name = "emptySpaceItem5";
+            this.emptySpaceItem5.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem6
+            // 
+            this.emptySpaceItem6.AllowHotTrack = false;
+            this.emptySpaceItem6.Location = new System.Drawing.Point(550, 0);
+            this.emptySpaceItem6.Name = "emptySpaceItem6";
+            this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlGroup3
+            // 
+            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciResult,
+            this.layoutControlGroup2});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.Size = new System.Drawing.Size(969, 611);
+            this.layoutControlGroup3.Text = "决策投票结果";
             // 
             // lciResult
             // 
@@ -194,24 +372,25 @@
             this.lciResult.Control = this.gridControl1;
             this.lciResult.Location = new System.Drawing.Point(0, 0);
             this.lciResult.Name = "lciResult";
-            this.lciResult.Size = new System.Drawing.Size(1301, 611);
-            this.lciResult.Text = "交易单投票结果";
+            this.lciResult.Size = new System.Drawing.Size(945, 499);
             this.lciResult.TextLocation = DevExpress.Utils.Locations.Top;
-            this.lciResult.TextSize = new System.Drawing.Size(105, 17);
+            this.lciResult.TextSize = new System.Drawing.Size(0, 0);
+            this.lciResult.TextVisible = false;
             // 
-            // emptySpaceItem1
+            // colReasonCategoryName
             // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(1301, 0);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 611);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.colReasonCategoryName.Caption = "理由类别";
+            this.colReasonCategoryName.FieldName = "ReasonCategoryName";
+            this.colReasonCategoryName.Name = "colReasonCategoryName";
+            this.colReasonCategoryName.Visible = true;
+            this.colReasonCategoryName.VisibleIndex = 4;
+            this.colReasonCategoryName.Width = 150;
             // 
             // _embedIDOperationVote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 631);
+            this.ClientSize = new System.Drawing.Size(999, 631);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_embedIDOperationVote";
             this.Text = "_embedIDOperationVote";
@@ -222,8 +401,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riMemoReasonContent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciResult)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,11 +429,27 @@
         private DevExpress.XtraGrid.Columns.GridColumn colInvestorName;
         private DevExpress.XtraGrid.Columns.GridColumn colWeightPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colFlagName;
-        private DevExpress.XtraGrid.Columns.GridColumn colReason;
+        private DevExpress.XtraGrid.Columns.GridColumn colReasonContent;
         private DevExpress.XtraGrid.Columns.GridColumn colVoteTime;
         private DevExpress.XtraGrid.Columns.GridColumn colConfirmTime;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraGrid.Columns.GridColumn colTypeName;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit riMemoReasonContent;
+        private DevExpress.XtraEditors.SimpleButton btnRevoke;
+        private DevExpress.XtraEditors.SimpleButton btnAbstain;
+        private DevExpress.XtraEditors.SimpleButton btnOppose;
+        private DevExpress.XtraEditors.SimpleButton btnApproval;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
+        private DevExpress.XtraGrid.Columns.GridColumn colReasonCategoryName;
     }
 }

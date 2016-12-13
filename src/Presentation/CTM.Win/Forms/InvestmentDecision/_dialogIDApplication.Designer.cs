@@ -856,6 +856,7 @@
             this.Controls.Add(this.splitContainerControl1);
             this.Name = "_dialogIDApplication";
             this.Text = "_dialogIDApplication";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._dialogIDApplication_FormClosing);
             this.Load += new System.EventHandler(this._dialogTradeApplication_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

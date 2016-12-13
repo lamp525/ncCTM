@@ -28,6 +28,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IUserService _userService;
 
         private bool _initialFlag = true;
+        private bool _submitSucceedFlag = false;
 
         private _embedAppointedStockApplication _embedASA = null;
         private _embedIDOperationDetail _embedIDOD = null;
@@ -475,6 +476,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 case PageMode.OperationVote:
                     _embedIDOV = EngineContext.Current.Resolve<_embedIDOperationVote>();
+                    _embedIDOV.OperateNo = OperateNo;
                     _embedIDOV.FormBorderStyle = FormBorderStyle.None;
                     _embedIDOV.TopLevel = false;
                     _embedIDOV.Parent = this.splitContainerControl1.Panel2;
@@ -534,7 +536,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
 
-                if (stock != null)
+                if (_embedASA != null && stock != null)
                 {
                     this._embedASA.BindStockApplication(stock.FullCode, stock.Name);
                 }
@@ -561,12 +563,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnSubmit.Enabled = false;
 
-                if (SubmitProcess())
-                {
-                    RefreshEvent?.Invoke();
+                _submitSucceedFlag = SubmitProcess();
 
-                    this.Close();
-                }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -597,6 +596,14 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void spinPriceBound_EditValueChanged(object sender, EventArgs e)
         {
             CalculatePriceBound();
+        }
+
+        private void _dialogIDApplication_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_submitSucceedFlag || (this._embedIDOV != null && this._embedIDOV.VoteSucceedFlag))
+            {
+                RefreshEvent?.Invoke();
+            }
         }
 
         #endregion Events
