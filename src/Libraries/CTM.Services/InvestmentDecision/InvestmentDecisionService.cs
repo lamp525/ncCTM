@@ -370,6 +370,22 @@ namespace CTM.Services.InvestmentDecision
             _dbContext.ExecuteSqlCommand(commanText);
         }
 
+        public virtual void IDOperationVoteProcess(string investorCode, string applyNo,string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent)
+        {
+            if (string.IsNullOrEmpty(reasonContent))
+                reasonContent = @"";
+
+            var commanText = $@"EXEC [dbo].[sp_IDOperationVoteProcess]
+                                        @InvestorCode = '{investorCode}',
+		                                @ApplyNo = '{applyNo}',
+                                        @OperateNo='{operateNo}',
+		                                @VoteFlag = {(int)flag},
+                                        @ReasonCategoryId ={reasonCategoryId },
+		                                @ReasonContent =N'{reasonContent}'";
+
+            _dbContext.ExecuteSqlCommand(commanText);
+        }
+
         public virtual MarketTrendForecastDetail GetMTFDetail(string investorCode, string serialNo)
         {
             var detail = _MTFDetailRepository.Table.SingleOrDefault(x => x.InvestorCode == investorCode && x.SerialNo == serialNo);

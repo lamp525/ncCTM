@@ -7,7 +7,6 @@ using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Infrastructure;
 using CTM.Data;
-using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
 using CTM.Win.Forms.Common;
@@ -27,7 +26,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         #region Fields
 
         private readonly IInvestmentDecisionService _IDService;
-        private readonly ICommonService _commonService;
 
         private IList<InvestmentDecisionVote> _myVotes = null;
         private string _voteReason = null;
@@ -38,12 +36,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Constructors
 
-        public FrmInvestmentDecisionManage(IInvestmentDecisionService IDService, ICommonService commonService)
+        public FrmInvestmentDecisionManage(IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
             this._IDService = IDService;
-            this._commonService = commonService;
         }
 
         #endregion Constructors
@@ -57,7 +54,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             //if (LoginInfo.CurrentUser.IsAdmin)
             //    this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             //else
-                this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.lciDelete.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
             this.btnDelete.Enabled = false;
 

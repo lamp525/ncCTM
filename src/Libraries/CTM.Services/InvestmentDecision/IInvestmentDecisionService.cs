@@ -67,5 +67,7 @@ namespace CTM.Services.InvestmentDecision
         DecisionReasonContent GetIDReasonContent(int contentId);
 
         string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "-");
+
+        void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent)
     }
 }

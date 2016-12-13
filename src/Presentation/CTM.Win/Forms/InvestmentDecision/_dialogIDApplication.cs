@@ -476,6 +476,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 case PageMode.OperationVote:
                     _embedIDOV = EngineContext.Current.Resolve<_embedIDOperationVote>();
+                    _embedIDOV.ApplyNo = ApplyNo;
                     _embedIDOV.OperateNo = OperateNo;
                     _embedIDOV.FormBorderStyle = FormBorderStyle.None;
                     _embedIDOV.TopLevel = false;
