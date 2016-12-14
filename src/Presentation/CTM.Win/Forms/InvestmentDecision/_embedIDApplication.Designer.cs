@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
             this.viewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOperate_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ribtnOperate_D = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
@@ -60,7 +60,8 @@
             this.colAccuracyPoint = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOperateUser = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperateUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperateDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVoteStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -173,7 +174,8 @@
             this.colAccuracyPoint,
             this.gridColumn5,
             this.gridColumn6,
-            this.colOperateUser,
+            this.gridColumn7,
+            this.colOperateUserName,
             this.colOperateDate,
             this.colDealFlagName,
             this.colVoteStatusName,
@@ -199,11 +201,11 @@
             // 
             this.ribtnOperate_D.AutoHeight = false;
             this.ribtnOperate_D.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", "IDVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "是否执行", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", "Execute", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject10, "", "AccuracyVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject11, "", "View", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject12, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "IDVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "是否执行", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Execute", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", "AccuracyVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", "View", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", "Delete", null, true)});
             this.ribtnOperate_D.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.ribtnOperate_D.Name = "ribtnOperate_D";
             this.ribtnOperate_D.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -345,18 +347,24 @@
             this.gridColumn6.FieldName = "UpdateTime";
             this.gridColumn6.Name = "gridColumn6";
             // 
-            // colOperateUser
+            // gridColumn7
             // 
-            this.colOperateUser.Caption = "操作人员";
-            this.colOperateUser.FieldName = "OperateUser";
-            this.colOperateUser.Name = "colOperateUser";
-            this.colOperateUser.Visible = true;
-            this.colOperateUser.VisibleIndex = 0;
-            this.colOperateUser.Width = 103;
+            this.gridColumn7.Caption = "gridColumn7";
+            this.gridColumn7.FieldName = "OperateUser";
+            this.gridColumn7.Name = "gridColumn7";
+            // 
+            // colOperateUserName
+            // 
+            this.colOperateUserName.Caption = "操作人员";
+            this.colOperateUserName.FieldName = "OperateUserName";
+            this.colOperateUserName.Name = "colOperateUserName";
+            this.colOperateUserName.Visible = true;
+            this.colOperateUserName.VisibleIndex = 0;
+            this.colOperateUserName.Width = 103;
             // 
             // colOperateDate
             // 
-            this.colOperateDate.Caption = "操纵日期";
+            this.colOperateDate.Caption = "操作日期";
             this.colOperateDate.FieldName = "OperateDate";
             this.colOperateDate.Name = "colOperateDate";
             this.colOperateDate.Visible = true;
@@ -392,17 +400,17 @@
             // 
             // gridApplication
             // 
-            gridLevelNode2.LevelTemplate = this.viewDetail;
-            gridLevelNode2.RelationName = "MD";
+            gridLevelNode1.LevelTemplate = this.viewDetail;
+            gridLevelNode1.RelationName = "MD";
             this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
-            this.gridApplication.Location = new System.Drawing.Point(24, 119);
+            gridLevelNode1});
+            this.gridApplication.Location = new System.Drawing.Point(24, 121);
             this.gridApplication.MainView = this.viewMaster;
             this.gridApplication.Name = "gridApplication";
             this.gridApplication.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riBtnOperate,
             this.ribtnOperate_D});
-            this.gridApplication.Size = new System.Drawing.Size(1420, 616);
+            this.gridApplication.Size = new System.Drawing.Size(1420, 614);
             this.gridApplication.TabIndex = 4;
             this.gridApplication.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.viewMaster,
@@ -452,7 +460,7 @@
             this.colTradePlanNo.Name = "colTradePlanNo";
             this.colTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colTradePlanNo.Visible = true;
-            this.colTradePlanNo.VisibleIndex = 12;
+            this.colTradePlanNo.VisibleIndex = 13;
             this.colTradePlanNo.Width = 100;
             // 
             // colApplyNo
@@ -479,7 +487,7 @@
             this.colApplyUserName.Name = "colApplyUserName";
             this.colApplyUserName.OptionsColumn.AllowEdit = false;
             this.colApplyUserName.Visible = true;
-            this.colApplyUserName.VisibleIndex = 2;
+            this.colApplyUserName.VisibleIndex = 3;
             this.colApplyUserName.Width = 80;
             // 
             // colDepartmentId
@@ -496,7 +504,7 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.OptionsColumn.AllowEdit = false;
             this.colDepartmentName.Visible = true;
-            this.colDepartmentName.VisibleIndex = 3;
+            this.colDepartmentName.VisibleIndex = 4;
             this.colDepartmentName.Width = 80;
             // 
             // colApplyDate
@@ -506,7 +514,7 @@
             this.colApplyDate.Name = "colApplyDate";
             this.colApplyDate.OptionsColumn.AllowEdit = false;
             this.colApplyDate.Visible = true;
-            this.colApplyDate.VisibleIndex = 1;
+            this.colApplyDate.VisibleIndex = 2;
             this.colApplyDate.Width = 81;
             // 
             // colStockCode
@@ -516,7 +524,7 @@
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.OptionsColumn.AllowEdit = false;
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 4;
+            this.colStockCode.VisibleIndex = 5;
             this.colStockCode.Width = 80;
             // 
             // colStockName
@@ -526,7 +534,7 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 5;
+            this.colStockName.VisibleIndex = 6;
             this.colStockName.Width = 80;
             // 
             // colTradeType
@@ -542,7 +550,7 @@
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.OptionsColumn.AllowEdit = false;
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 6;
+            this.colTradeTypeName.VisibleIndex = 7;
             this.colTradeTypeName.Width = 60;
             // 
             // colStopProfitPrice
@@ -551,7 +559,7 @@
             this.colStopProfitPrice.FieldName = "StopProfitPrice";
             this.colStopProfitPrice.Name = "colStopProfitPrice";
             this.colStopProfitPrice.Visible = true;
-            this.colStopProfitPrice.VisibleIndex = 7;
+            this.colStopProfitPrice.VisibleIndex = 8;
             // 
             // colStopProfitBound
             // 
@@ -559,7 +567,7 @@
             this.colStopProfitBound.FieldName = "StopProfitBound";
             this.colStopProfitBound.Name = "colStopProfitBound";
             this.colStopProfitBound.Visible = true;
-            this.colStopProfitBound.VisibleIndex = 8;
+            this.colStopProfitBound.VisibleIndex = 9;
             // 
             // colStopLossPrice
             // 
@@ -567,7 +575,7 @@
             this.colStopLossPrice.FieldName = "StopLossPrice";
             this.colStopLossPrice.Name = "colStopLossPrice";
             this.colStopLossPrice.Visible = true;
-            this.colStopLossPrice.VisibleIndex = 9;
+            this.colStopLossPrice.VisibleIndex = 10;
             // 
             // colStopLossBound
             // 
@@ -575,7 +583,7 @@
             this.colStopLossBound.FieldName = "StopLossBound";
             this.colStopLossBound.Name = "colStopLossBound";
             this.colStopLossBound.Visible = true;
-            this.colStopLossBound.VisibleIndex = 10;
+            this.colStopLossBound.VisibleIndex = 11;
             // 
             // colStatusName
             // 
@@ -584,7 +592,7 @@
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 11;
+            this.colStatusName.VisibleIndex = 12;
             this.colStatusName.Width = 56;
             // 
             // colStatus
@@ -599,17 +607,17 @@
             this.colOperate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colOperate.Caption = "操作";
             this.colOperate.ColumnEdit = this.riBtnOperate;
-            this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
+            this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 13;
+            this.colOperate.VisibleIndex = 1;
             this.colOperate.Width = 118;
             // 
             // riBtnOperate
             // 
             this.riBtnOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "买卖申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, "", "Apply", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject14, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "买卖申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", "Apply", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "Delete", null, true)});
             this.riBtnOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riBtnOperate.Name = "riBtnOperate";
             this.riBtnOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -654,9 +662,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(784, 43);
+            this.btnSearch.Location = new System.Drawing.Point(784, 45);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(73, 22);
+            this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
             this.btnSearch.TabIndex = 19;
             this.btnSearch.Text = "    查  询    ";
@@ -664,7 +672,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(605, 43);
+            this.luStock.Location = new System.Drawing.Point(605, 45);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -678,7 +686,7 @@
             // 
             // luApplyUser
             // 
-            this.luApplyUser.Location = new System.Drawing.Point(415, 43);
+            this.luApplyUser.Location = new System.Drawing.Point(415, 45);
             this.luApplyUser.Name = "luApplyUser";
             this.luApplyUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -693,7 +701,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(245, 43);
+            this.deTo.Location = new System.Drawing.Point(245, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -706,7 +714,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(85, 43);
+            this.deFrom.Location = new System.Drawing.Point(85, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -718,9 +726,9 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(34, 93);
+            this.btnRefresh.Location = new System.Drawing.Point(34, 95);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(73, 22);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
             this.btnRefresh.TabIndex = 14;
             this.btnRefresh.Text = "    刷  新    ";
@@ -728,9 +736,9 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1379, 93);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1377, 95);
             this.btnSaveLayout.Name = "btnSaveLayout";
-            this.btnSaveLayout.Size = new System.Drawing.Size(65, 22);
+            this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
             this.btnSaveLayout.TabIndex = 8;
             this.btnSaveLayout.Text = " 保存样式 ";
@@ -765,7 +773,7 @@
             this.layoutControlItem7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1448, 69);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1448, 71);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // emptySpaceItem2
@@ -841,9 +849,9 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(837, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(839, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(587, 26);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(585, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
@@ -851,7 +859,7 @@
             this.layoutControlItem7.Control = this.btnSearch;
             this.layoutControlItem7.Location = new System.Drawing.Point(760, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -863,9 +871,9 @@
             this.layoutControlItem11,
             this.emptySpaceItem1,
             this.layoutControlItem5});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 670);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 668);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem1
@@ -873,7 +881,7 @@
             this.layoutControlItem1.Control = this.gridApplication;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 620);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 618);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -891,24 +899,24 @@
             this.layoutControlItem11.Control = this.btnRefresh;
             this.layoutControlItem11.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem11.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(87, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(89, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1268, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(1264, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnSaveLayout;
-            this.layoutControlItem5.Location = new System.Drawing.Point(1355, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(1353, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(69, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(71, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -1009,7 +1017,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colAccuracyPoint;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
-        private DevExpress.XtraGrid.Columns.GridColumn colOperateUser;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperateUserName;
         private DevExpress.XtraGrid.Columns.GridColumn colOperateDate;
         private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
         private DevExpress.XtraGrid.Columns.GridColumn colVoteStatusName;
@@ -1037,5 +1045,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
     }
 }

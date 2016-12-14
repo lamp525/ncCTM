@@ -53,7 +53,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false,columnAutoWidth:true, rowIndicatorWidth: 50);
             this.gridView1.OptionsView.RowAutoHeight = true;
         }
 
@@ -61,6 +61,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
 
+            //未投票
             if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
             {
                 this.btnAbstain.Enabled = true;
@@ -68,12 +69,17 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.btnOppose.Enabled = true;
                 this.btnRevoke.Enabled = false;
             }
+            //已投票
             else
             {
                 this.btnAbstain.Enabled = false;
                 this.btnApproval.Enabled = false;
                 this.btnOppose.Enabled = false;
-                this.btnRevoke.Enabled = true;
+                //决策交易操作记录操作者
+                if (myVoteInfo.Type == (int)EnumLibrary.IDVoteType.Applicant)
+                    this.btnRevoke.Enabled = false;
+                else
+                    this.btnRevoke.Enabled = true;
             }
         }
 
