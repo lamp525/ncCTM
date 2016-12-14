@@ -30,7 +30,10 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void FormInit()
         {
             if (string.IsNullOrEmpty(StockCode))
+            {
+                this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
 
             this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 
@@ -60,10 +63,12 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
+                this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
                 if (string.IsNullOrEmpty(stockCode) || string.IsNullOrEmpty(stockName)) return;
 
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                this.lciIDApplicationList.Text = $@"股票[{stockCode} - {stockName}] 决策申请单一览";
+                this.lcgApplicationList.Text = $@"股票[{stockCode} - {stockName}] 决策申请单一览";
 
                 var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -77,6 +82,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 this.gridApplication.DataSource = ds.Tables[0];
 
+                this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
                 this.viewMaster.SetAllRowsExpanded(_isExpanded);
             }

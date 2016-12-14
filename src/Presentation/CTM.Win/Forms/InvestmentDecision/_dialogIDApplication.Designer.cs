@@ -368,7 +368,7 @@
             // 
             this.btnSubmit.Location = new System.Drawing.Point(161, 649);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(89, 22);
+            this.btnSubmit.Size = new System.Drawing.Size(91, 22);
             this.btnSubmit.StyleController = this.layoutControl1;
             this.btnSubmit.TabIndex = 14;
             this.btnSubmit.Text = "    提交申请    ";
@@ -376,9 +376,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(264, 649);
+            this.btnCancel.Location = new System.Drawing.Point(266, 649);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(89, 22);
+            this.btnCancel.Size = new System.Drawing.Size(91, 22);
             this.btnCancel.StyleController = this.layoutControl1;
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "     取    消     ";
@@ -806,14 +806,14 @@
             this.lciSubmit.Control = this.btnSubmit;
             this.lciSubmit.Location = new System.Drawing.Point(137, 0);
             this.lciSubmit.Name = "lciSubmit";
-            this.lciSubmit.Size = new System.Drawing.Size(93, 26);
+            this.lciSubmit.Size = new System.Drawing.Size(95, 26);
             this.lciSubmit.TextSize = new System.Drawing.Size(0, 0);
             this.lciSubmit.TextVisible = false;
             // 
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(230, 0);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(232, 0);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
             this.emptySpaceItem14.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
@@ -821,18 +821,18 @@
             // lciCancel
             // 
             this.lciCancel.Control = this.btnCancel;
-            this.lciCancel.Location = new System.Drawing.Point(240, 0);
+            this.lciCancel.Location = new System.Drawing.Point(242, 0);
             this.lciCancel.Name = "lciCancel";
-            this.lciCancel.Size = new System.Drawing.Size(93, 26);
+            this.lciCancel.Size = new System.Drawing.Size(95, 26);
             this.lciCancel.TextSize = new System.Drawing.Size(0, 0);
             this.lciCancel.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(333, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(337, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(135, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(131, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // splitContainerControl1

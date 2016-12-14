@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
             this.viewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOperate_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ribtnOperate_D = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
@@ -46,13 +46,14 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBoundDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealVolume = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDealAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFormattedDealAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVoteStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVotePoint = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colExecuteFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeRecordRelateFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccuracyStatus = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -80,9 +81,9 @@
             this.colTradeType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStopProfitPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStopProfitBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProfitBoundDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStopLossPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStopLossBound = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLossBoundDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -90,6 +91,7 @@
             this.colCreateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUpdateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.luStock = new DevExpress.XtraEditors.LookUpEdit();
             this.luApplyUser = new DevExpress.XtraEditors.LookUpEdit();
@@ -112,11 +114,10 @@
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciRefresh = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciExpand = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -145,10 +146,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciExpand)).BeginInit();
             this.SuspendLayout();
             // 
             // viewDetail
@@ -163,13 +164,14 @@
             this.gridColumn4,
             this.colDealFlag,
             this.colDealPrice,
-            this.colPriceBound,
+            this.colBoundDetail,
             this.colDealVolume,
-            this.colDealAmount,
+            this.colFormattedDealAmount,
             this.colReasonCategoryId,
             this.colReasonContent,
             this.colVoteStatus,
             this.colVotePoint,
+            this.gridColumn8,
             this.colExecuteFlag,
             this.colTradeRecordRelateFlag,
             this.colAccuracyStatus,
@@ -196,18 +198,18 @@
             this.colOperate_D.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.colOperate_D.Name = "colOperate_D";
             this.colOperate_D.Visible = true;
-            this.colOperate_D.VisibleIndex = 11;
-            this.colOperate_D.Width = 327;
+            this.colOperate_D.VisibleIndex = 13;
+            this.colOperate_D.Width = 320;
             // 
             // ribtnOperate_D
             // 
             this.ribtnOperate_D.AutoHeight = false;
             this.ribtnOperate_D.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "IDVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "是否执行", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", "Execute", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", "AccuracyVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject10, "", "View", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject11, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "IDVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "是否执行", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Execute", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", "AccuracyVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", "View", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", "Delete", null, true)});
             this.ribtnOperate_D.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.ribtnOperate_D.Name = "ribtnOperate_D";
             this.ribtnOperate_D.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -225,8 +227,13 @@
             // 
             // colOperateNo
             // 
+            this.colOperateNo.Caption = "操作编号";
             this.colOperateNo.FieldName = "OperateNo";
+            this.colOperateNo.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperateNo.Name = "colOperateNo";
+            this.colOperateNo.Visible = true;
+            this.colOperateNo.VisibleIndex = 0;
+            this.colOperateNo.Width = 85;
             // 
             // colInitialFlag
             // 
@@ -253,20 +260,22 @@
             // colDealPrice
             // 
             this.colDealPrice.Caption = "单价(元)";
+            this.colDealPrice.DisplayFormat.FormatString = "0.0#";
+            this.colDealPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colDealPrice.FieldName = "DealPrice";
             this.colDealPrice.Name = "colDealPrice";
             this.colDealPrice.Visible = true;
-            this.colDealPrice.VisibleIndex = 3;
-            this.colDealPrice.Width = 64;
+            this.colDealPrice.VisibleIndex = 4;
+            this.colDealPrice.Width = 70;
             // 
-            // colPriceBound
+            // colBoundDetail
             // 
-            this.colPriceBound.Caption = "上下限";
-            this.colPriceBound.FieldName = "PriceBound";
-            this.colPriceBound.Name = "colPriceBound";
-            this.colPriceBound.Visible = true;
-            this.colPriceBound.VisibleIndex = 4;
-            this.colPriceBound.Width = 172;
+            this.colBoundDetail.Caption = "上下限";
+            this.colBoundDetail.FieldName = "BoundDetail";
+            this.colBoundDetail.Name = "colBoundDetail";
+            this.colBoundDetail.Visible = true;
+            this.colBoundDetail.VisibleIndex = 5;
+            this.colBoundDetail.Width = 120;
             // 
             // colDealVolume
             // 
@@ -274,17 +283,15 @@
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 5;
-            this.colDealVolume.Width = 105;
+            this.colDealVolume.VisibleIndex = 6;
             // 
-            // colDealAmount
+            // colFormattedDealAmount
             // 
-            this.colDealAmount.Caption = "金额(元)";
-            this.colDealAmount.FieldName = "DealAmount";
-            this.colDealAmount.Name = "colDealAmount";
-            this.colDealAmount.Visible = true;
-            this.colDealAmount.VisibleIndex = 6;
-            this.colDealAmount.Width = 105;
+            this.colFormattedDealAmount.Caption = "金额(万元)";
+            this.colFormattedDealAmount.FieldName = "FormattedDealAmount";
+            this.colFormattedDealAmount.Name = "colFormattedDealAmount";
+            this.colFormattedDealAmount.Visible = true;
+            this.colFormattedDealAmount.VisibleIndex = 7;
             // 
             // colReasonCategoryId
             // 
@@ -305,11 +312,22 @@
             // colVotePoint
             // 
             this.colVotePoint.Caption = "决策分数";
+            this.colVotePoint.DisplayFormat.FormatString = "0";
+            this.colVotePoint.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colVotePoint.FieldName = "VotePoint";
             this.colVotePoint.Name = "colVotePoint";
             this.colVotePoint.Visible = true;
-            this.colVotePoint.VisibleIndex = 8;
-            this.colVotePoint.Width = 67;
+            this.colVotePoint.VisibleIndex = 9;
+            this.colVotePoint.Width = 70;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "执行状态";
+            this.gridColumn8.FieldName = "ExecuteFlagName";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 10;
+            this.gridColumn8.Width = 70;
             // 
             // colExecuteFlag
             // 
@@ -329,11 +347,13 @@
             // colAccuracyPoint
             // 
             this.colAccuracyPoint.Caption = "准确度分数";
+            this.colAccuracyPoint.DisplayFormat.FormatString = "0";
+            this.colAccuracyPoint.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colAccuracyPoint.FieldName = "AccuracyPoint";
             this.colAccuracyPoint.Name = "colAccuracyPoint";
             this.colAccuracyPoint.Visible = true;
-            this.colAccuracyPoint.VisibleIndex = 10;
-            this.colAccuracyPoint.Width = 72;
+            this.colAccuracyPoint.VisibleIndex = 12;
+            this.colAccuracyPoint.Width = 70;
             // 
             // gridColumn5
             // 
@@ -361,8 +381,8 @@
             this.colOperateUserName.FieldName = "OperateUserName";
             this.colOperateUserName.Name = "colOperateUserName";
             this.colOperateUserName.Visible = true;
-            this.colOperateUserName.VisibleIndex = 0;
-            this.colOperateUserName.Width = 103;
+            this.colOperateUserName.VisibleIndex = 1;
+            this.colOperateUserName.Width = 85;
             // 
             // colOperateDate
             // 
@@ -370,8 +390,8 @@
             this.colOperateDate.FieldName = "OperateDate";
             this.colOperateDate.Name = "colOperateDate";
             this.colOperateDate.Visible = true;
-            this.colOperateDate.VisibleIndex = 1;
-            this.colOperateDate.Width = 103;
+            this.colOperateDate.VisibleIndex = 2;
+            this.colOperateDate.Width = 85;
             // 
             // colDealFlagName
             // 
@@ -379,8 +399,8 @@
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 2;
-            this.colDealFlagName.Width = 50;
+            this.colDealFlagName.VisibleIndex = 3;
+            this.colDealFlagName.Width = 60;
             // 
             // colVoteStatusName
             // 
@@ -388,31 +408,31 @@
             this.colVoteStatusName.FieldName = "VoteStatusName";
             this.colVoteStatusName.Name = "colVoteStatusName";
             this.colVoteStatusName.Visible = true;
-            this.colVoteStatusName.VisibleIndex = 7;
-            this.colVoteStatusName.Width = 67;
+            this.colVoteStatusName.VisibleIndex = 8;
+            this.colVoteStatusName.Width = 70;
             // 
             // colAccuracyStatusName
             // 
-            this.colAccuracyStatusName.Caption = "准确度状态";
+            this.colAccuracyStatusName.Caption = "准确度评定";
             this.colAccuracyStatusName.FieldName = "AccuracyStatusName";
             this.colAccuracyStatusName.Name = "colAccuracyStatusName";
             this.colAccuracyStatusName.Visible = true;
-            this.colAccuracyStatusName.VisibleIndex = 9;
-            this.colAccuracyStatusName.Width = 79;
+            this.colAccuracyStatusName.VisibleIndex = 11;
+            this.colAccuracyStatusName.Width = 70;
             // 
             // gridApplication
             // 
-            gridLevelNode2.LevelTemplate = this.viewDetail;
-            gridLevelNode2.RelationName = "MD";
+            gridLevelNode1.LevelTemplate = this.viewDetail;
+            gridLevelNode1.RelationName = "MD";
             this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
-            this.gridApplication.Location = new System.Drawing.Point(24, 121);
+            gridLevelNode1});
+            this.gridApplication.Location = new System.Drawing.Point(24, 119);
             this.gridApplication.MainView = this.viewMaster;
             this.gridApplication.Name = "gridApplication";
             this.gridApplication.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riBtnOperate,
             this.ribtnOperate_D});
-            this.gridApplication.Size = new System.Drawing.Size(1420, 614);
+            this.gridApplication.Size = new System.Drawing.Size(1420, 616);
             this.gridApplication.TabIndex = 4;
             this.gridApplication.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.viewMaster,
@@ -434,9 +454,9 @@
             this.colTradeType,
             this.colTradeTypeName,
             this.colStopProfitPrice,
-            this.colStopProfitBound,
+            this.colProfitBoundDetail,
             this.colStopLossPrice,
-            this.colStopLossBound,
+            this.colLossBoundDetail,
             this.colStatusName,
             this.colStatus,
             this.colOperate,
@@ -473,8 +493,8 @@
             this.colApplyNo.Name = "colApplyNo";
             this.colApplyNo.OptionsColumn.AllowEdit = false;
             this.colApplyNo.Visible = true;
-            this.colApplyNo.VisibleIndex = 0;
-            this.colApplyNo.Width = 104;
+            this.colApplyNo.VisibleIndex = 1;
+            this.colApplyNo.Width = 100;
             // 
             // colApplyUser
             // 
@@ -490,7 +510,7 @@
             this.colApplyUserName.OptionsColumn.AllowEdit = false;
             this.colApplyUserName.Visible = true;
             this.colApplyUserName.VisibleIndex = 3;
-            this.colApplyUserName.Width = 80;
+            this.colApplyUserName.Width = 85;
             // 
             // colDepartmentId
             // 
@@ -507,7 +527,7 @@
             this.colDepartmentName.OptionsColumn.AllowEdit = false;
             this.colDepartmentName.Visible = true;
             this.colDepartmentName.VisibleIndex = 4;
-            this.colDepartmentName.Width = 80;
+            this.colDepartmentName.Width = 85;
             // 
             // colApplyDate
             // 
@@ -517,7 +537,7 @@
             this.colApplyDate.OptionsColumn.AllowEdit = false;
             this.colApplyDate.Visible = true;
             this.colApplyDate.VisibleIndex = 2;
-            this.colApplyDate.Width = 81;
+            this.colApplyDate.Width = 85;
             // 
             // colStockCode
             // 
@@ -527,7 +547,7 @@
             this.colStockCode.OptionsColumn.AllowEdit = false;
             this.colStockCode.Visible = true;
             this.colStockCode.VisibleIndex = 5;
-            this.colStockCode.Width = 80;
+            this.colStockCode.Width = 85;
             // 
             // colStockName
             // 
@@ -537,7 +557,7 @@
             this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.Visible = true;
             this.colStockName.VisibleIndex = 6;
-            this.colStockName.Width = 80;
+            this.colStockName.Width = 85;
             // 
             // colTradeType
             // 
@@ -553,39 +573,47 @@
             this.colTradeTypeName.OptionsColumn.AllowEdit = false;
             this.colTradeTypeName.Visible = true;
             this.colTradeTypeName.VisibleIndex = 7;
-            this.colTradeTypeName.Width = 60;
+            this.colTradeTypeName.Width = 65;
             // 
             // colStopProfitPrice
             // 
-            this.colStopProfitPrice.Caption = "止盈价格";
+            this.colStopProfitPrice.Caption = "止盈价格(元)";
+            this.colStopProfitPrice.DisplayFormat.FormatString = "0.#0";
+            this.colStopProfitPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colStopProfitPrice.FieldName = "StopProfitPrice";
             this.colStopProfitPrice.Name = "colStopProfitPrice";
             this.colStopProfitPrice.Visible = true;
             this.colStopProfitPrice.VisibleIndex = 8;
+            this.colStopProfitPrice.Width = 85;
             // 
-            // colStopProfitBound
+            // colProfitBoundDetail
             // 
-            this.colStopProfitBound.Caption = "止盈上下限";
-            this.colStopProfitBound.FieldName = "StopProfitBound";
-            this.colStopProfitBound.Name = "colStopProfitBound";
-            this.colStopProfitBound.Visible = true;
-            this.colStopProfitBound.VisibleIndex = 9;
+            this.colProfitBoundDetail.Caption = "止盈上下限";
+            this.colProfitBoundDetail.FieldName = "ProfitBoundDetail";
+            this.colProfitBoundDetail.Name = "colProfitBoundDetail";
+            this.colProfitBoundDetail.Visible = true;
+            this.colProfitBoundDetail.VisibleIndex = 9;
+            this.colProfitBoundDetail.Width = 120;
             // 
             // colStopLossPrice
             // 
-            this.colStopLossPrice.Caption = "止损价格";
+            this.colStopLossPrice.Caption = "止损价格(元)";
+            this.colStopLossPrice.DisplayFormat.FormatString = "0.#0";
+            this.colStopLossPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colStopLossPrice.FieldName = "StopLossPrice";
             this.colStopLossPrice.Name = "colStopLossPrice";
             this.colStopLossPrice.Visible = true;
             this.colStopLossPrice.VisibleIndex = 10;
+            this.colStopLossPrice.Width = 85;
             // 
-            // colStopLossBound
+            // colLossBoundDetail
             // 
-            this.colStopLossBound.Caption = "止损上下限";
-            this.colStopLossBound.FieldName = "StopLossBound";
-            this.colStopLossBound.Name = "colStopLossBound";
-            this.colStopLossBound.Visible = true;
-            this.colStopLossBound.VisibleIndex = 11;
+            this.colLossBoundDetail.Caption = "止损上下限";
+            this.colLossBoundDetail.FieldName = "LossBoundDetail";
+            this.colLossBoundDetail.Name = "colLossBoundDetail";
+            this.colLossBoundDetail.Visible = true;
+            this.colLossBoundDetail.VisibleIndex = 11;
+            this.colLossBoundDetail.Width = 120;
             // 
             // colStatusName
             // 
@@ -595,7 +623,7 @@
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
             this.colStatusName.VisibleIndex = 12;
-            this.colStatusName.Width = 56;
+            this.colStatusName.Width = 65;
             // 
             // colStatus
             // 
@@ -612,13 +640,13 @@
             this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 1;
-            this.colOperate.Width = 72;
+            this.colOperate.VisibleIndex = 0;
+            this.colOperate.Width = 100;
             // 
             // riBtnOperate
             // 
             this.riBtnOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "交易申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject12, "", "Apply", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "交易申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", "Apply", null, true)});
             this.riBtnOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riBtnOperate.Name = "riBtnOperate";
             this.riBtnOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -662,9 +690,19 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // btnExpandOrCollapse
+            // 
+            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 93);
+            this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
+            this.btnExpandOrCollapse.Size = new System.Drawing.Size(89, 22);
+            this.btnExpandOrCollapse.StyleController = this.layoutControl1;
+            this.btnExpandOrCollapse.TabIndex = 20;
+            this.btnExpandOrCollapse.Text = "全部收起/展开";
+            this.btnExpandOrCollapse.Click += new System.EventHandler(this.btnExpandOrCollapse_Click);
+            // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(784, 45);
+            this.btnSearch.Location = new System.Drawing.Point(784, 43);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -674,7 +712,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(605, 45);
+            this.luStock.Location = new System.Drawing.Point(605, 43);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -688,7 +726,7 @@
             // 
             // luApplyUser
             // 
-            this.luApplyUser.Location = new System.Drawing.Point(415, 45);
+            this.luApplyUser.Location = new System.Drawing.Point(415, 43);
             this.luApplyUser.Name = "luApplyUser";
             this.luApplyUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -703,7 +741,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(245, 45);
+            this.deTo.Location = new System.Drawing.Point(245, 43);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -716,7 +754,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(85, 45);
+            this.deFrom.Location = new System.Drawing.Point(85, 43);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -728,7 +766,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(127, 95);
+            this.btnRefresh.Location = new System.Drawing.Point(127, 93);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
@@ -738,7 +776,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1377, 95);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1377, 93);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -775,7 +813,7 @@
             this.layoutControlItem7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1448, 71);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1448, 69);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // emptySpaceItem2
@@ -870,13 +908,13 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.emptySpaceItem7,
-            this.layoutControlItem11,
+            this.lciRefresh,
             this.emptySpaceItem1,
             this.layoutControlItem5,
-            this.layoutControlItem8});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
+            this.lciExpand});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 668);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 670);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem1
@@ -884,7 +922,7 @@
             this.layoutControlItem1.Control = this.gridApplication;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 618);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 620);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -897,14 +935,14 @@
             this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem11
+            // lciRefresh
             // 
-            this.layoutControlItem11.Control = this.btnRefresh;
-            this.layoutControlItem11.Location = new System.Drawing.Point(103, 0);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem11.TextVisible = false;
+            this.lciRefresh.Control = this.btnRefresh;
+            this.lciRefresh.Location = new System.Drawing.Point(103, 0);
+            this.lciRefresh.Name = "lciRefresh";
+            this.lciRefresh.Size = new System.Drawing.Size(79, 26);
+            this.lciRefresh.TextSize = new System.Drawing.Size(0, 0);
+            this.lciRefresh.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
@@ -923,24 +961,14 @@
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
-            // btnExpandOrCollapse
+            // lciExpand
             // 
-            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 95);
-            this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
-            this.btnExpandOrCollapse.Size = new System.Drawing.Size(89, 22);
-            this.btnExpandOrCollapse.StyleController = this.layoutControl1;
-            this.btnExpandOrCollapse.TabIndex = 20;
-            this.btnExpandOrCollapse.Text = "全部收起/展开";
-            this.btnExpandOrCollapse.Click += new System.EventHandler(this.btnExpandOrCollapse_Click);
-            // 
-            // layoutControlItem8
-            // 
-            this.layoutControlItem8.Control = this.btnExpandOrCollapse;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(93, 26);
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem8.TextVisible = false;
+            this.lciExpand.Control = this.btnExpandOrCollapse;
+            this.lciExpand.Location = new System.Drawing.Point(0, 0);
+            this.lciExpand.Name = "lciExpand";
+            this.lciExpand.Size = new System.Drawing.Size(93, 26);
+            this.lciExpand.TextSize = new System.Drawing.Size(0, 0);
+            this.lciExpand.TextVisible = false;
             // 
             // _embedIDApplication
             // 
@@ -979,10 +1007,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciExpand)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1014,9 +1042,9 @@
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraGrid.Columns.GridColumn colStopProfitPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colStopProfitBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colProfitBoundDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colStopLossPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colStopLossBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colLossBoundDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
         private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
@@ -1027,9 +1055,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn colDealFlag;
         private DevExpress.XtraGrid.Columns.GridColumn colDealPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceBound;
+        private DevExpress.XtraGrid.Columns.GridColumn colBoundDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colDealVolume;
-        private DevExpress.XtraGrid.Columns.GridColumn colDealAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colFormattedDealAmount;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonCategoryId;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonContent;
         private DevExpress.XtraGrid.Columns.GridColumn colVoteStatus;
@@ -1065,11 +1093,12 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraLayout.LayoutControlItem lciRefresh;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraEditors.SimpleButton btnExpandOrCollapse;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraLayout.LayoutControlItem lciExpand;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
     }
 }

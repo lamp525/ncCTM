@@ -54,7 +54,7 @@
             this.colAccuracyPoint = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOperateUser = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperateUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperateDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVoteStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -84,12 +84,12 @@
             this.colCreateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUpdateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcgApplicationList = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciIDApplicationList = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciExpand = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riBtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -97,10 +97,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgApplicationList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciIDApplicationList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciExpand)).BeginInit();
             this.SuspendLayout();
             // 
             // viewDetail
@@ -128,7 +128,7 @@
             this.colAccuracyPoint,
             this.gridColumn5,
             this.gridColumn6,
-            this.colOperateUser,
+            this.colOperateUserName,
             this.colOperateDate,
             this.colDealFlagName,
             this.colVoteStatusName,
@@ -300,18 +300,18 @@
             this.gridColumn6.FieldName = "UpdateTime";
             this.gridColumn6.Name = "gridColumn6";
             // 
-            // colOperateUser
+            // colOperateUserName
             // 
-            this.colOperateUser.Caption = "操作人员";
-            this.colOperateUser.FieldName = "OperateUser";
-            this.colOperateUser.Name = "colOperateUser";
-            this.colOperateUser.Visible = true;
-            this.colOperateUser.VisibleIndex = 2;
-            this.colOperateUser.Width = 103;
+            this.colOperateUserName.Caption = "操作人员";
+            this.colOperateUserName.FieldName = "OperateUserName";
+            this.colOperateUserName.Name = "colOperateUserName";
+            this.colOperateUserName.Visible = true;
+            this.colOperateUserName.VisibleIndex = 2;
+            this.colOperateUserName.Width = 103;
             // 
             // colOperateDate
             // 
-            this.colOperateDate.Caption = "操纵日期";
+            this.colOperateDate.Caption = "操作日期";
             this.colOperateDate.FieldName = "OperateDate";
             this.colOperateDate.Name = "colOperateDate";
             this.colOperateDate.Visible = true;
@@ -585,16 +585,39 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // btnExpandOrCollapse
+            // 
+            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 43);
+            this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
+            this.btnExpandOrCollapse.Size = new System.Drawing.Size(89, 22);
+            this.btnExpandOrCollapse.StyleController = this.layoutControl1;
+            this.btnExpandOrCollapse.TabIndex = 5;
+            this.btnExpandOrCollapse.Text = "全部收起/展开";
+            this.btnExpandOrCollapse.Click += new System.EventHandler(this.btnExpandOrCollapse_Click);
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlGroup2});
+            this.lcgApplicationList});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1229, 660);
             this.layoutControlGroup1.TextVisible = false;
+            // 
+            // lcgApplicationList
+            // 
+            this.lcgApplicationList.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lcgApplicationList.AppearanceGroup.Options.UseFont = true;
+            this.lcgApplicationList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciIDApplicationList,
+            this.emptySpaceItem1,
+            this.lciExpand});
+            this.lcgApplicationList.Location = new System.Drawing.Point(0, 0);
+            this.lcgApplicationList.Name = "lcgApplicationList";
+            this.lcgApplicationList.Size = new System.Drawing.Size(1209, 640);
+            this.lcgApplicationList.Text = "股票{0} - 决策申请单一览";
             // 
             // lciIDApplicationList
             // 
@@ -617,35 +640,14 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(1092, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlGroup2
+            // lciExpand
             // 
-            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lciIDApplicationList,
-            this.emptySpaceItem1,
-            this.layoutControlItem1});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1209, 640);
-            this.layoutControlGroup2.Text = "股票{0} - 决策申请单一览";
-            // 
-            // btnExpandOrCollapse
-            // 
-            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 43);
-            this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
-            this.btnExpandOrCollapse.Size = new System.Drawing.Size(89, 22);
-            this.btnExpandOrCollapse.StyleController = this.layoutControl1;
-            this.btnExpandOrCollapse.TabIndex = 5;
-            this.btnExpandOrCollapse.Text = "全部收起/展开";
-            this.btnExpandOrCollapse.Click += new System.EventHandler(this.btnExpandOrCollapse_Click);
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.btnExpandOrCollapse;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(93, 26);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
+            this.lciExpand.Control = this.btnExpandOrCollapse;
+            this.lciExpand.Location = new System.Drawing.Point(0, 0);
+            this.lciExpand.Name = "lciExpand";
+            this.lciExpand.Size = new System.Drawing.Size(93, 26);
+            this.lciExpand.TextSize = new System.Drawing.Size(0, 0);
+            this.lciExpand.TextVisible = false;
             // 
             // _embedAppointedStockApplication
             // 
@@ -663,10 +665,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgApplicationList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciIDApplicationList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciExpand)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -701,7 +703,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colAccuracyPoint;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
-        private DevExpress.XtraGrid.Columns.GridColumn colOperateUser;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperateUserName;
         private DevExpress.XtraGrid.Columns.GridColumn colOperateDate;
         private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
         private DevExpress.XtraGrid.Columns.GridColumn colVoteStatusName;
@@ -730,8 +732,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit riBtnOperate_D;
         private DevExpress.XtraEditors.SimpleButton btnExpandOrCollapse;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlGroup lcgApplicationList;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem lciExpand;
     }
 }

@@ -662,11 +662,11 @@ namespace CTM.Win.Forms
 
         #endregion SystemMenu
 
-        #endregion Events
+        #endregion Events     
 
-        private void barButtonItem34_ItemClick(object sender, ItemClickEventArgs e)
+        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmStockInvestmentDecision>("Test");
+            this.DisplayTabbedForm<FrmStockInvestmentDecision>("股票投资决策管理");
         }
     }
 }

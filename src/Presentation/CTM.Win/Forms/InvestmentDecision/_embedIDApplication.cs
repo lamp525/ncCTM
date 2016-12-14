@@ -110,7 +110,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             this.viewMaster.LoadLayout(_layoutXmlName_Master);
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 30);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 30, columnAutoWidth: false);
 
             foreach (GridColumn column in this.viewMaster.Columns)
             {
@@ -118,7 +118,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
 
             this.viewDetail.LoadLayout(_layoutXmlName_Detail);
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25, columnAutoWidth: false);
 
             foreach (GridColumn column in this.viewDetail.Columns)
             {
@@ -209,6 +209,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         public void BindApplicationInfo()
         {
+            this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+   
             string commandText = string.Empty;
 
             switch (CurrentQueryMode)
@@ -238,6 +240,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             this.gridApplication.DataSource = ds.Tables[0];
 
+            this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             this.viewMaster.SetAllRowsExpanded(_isExpanded);
         }
