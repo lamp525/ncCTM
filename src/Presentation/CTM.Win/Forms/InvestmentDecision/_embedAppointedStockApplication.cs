@@ -8,6 +8,12 @@ namespace CTM.Win.Forms.InvestmentDecision
 {
     public partial class _embedAppointedStockApplication : BaseForm
     {
+        #region Fields
+
+        private bool _isExpanded = true;
+
+        #endregion Fields
+
         #region Properties
 
         public string StockCode { get; set; }
@@ -26,9 +32,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (string.IsNullOrEmpty(StockCode))
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 30);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: 30);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn column in this.viewDetail.Columns)
             {
@@ -57,7 +63,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 if (string.IsNullOrEmpty(stockCode) || string.IsNullOrEmpty(stockName)) return;
 
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                this.lciIDApplicationList.Text = $@"股票【{stockCode} - {stockName}】 决策申请单一览";
+                this.lciIDApplicationList.Text = $@"股票[{stockCode} - {stockName}] 决策申请单一览";
 
                 var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -70,6 +76,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                 ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
 
                 this.gridApplication.DataSource = ds.Tables[0];
+
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+                this.viewMaster.SetAllRowsExpanded(_isExpanded);
             }
             catch (Exception ex)
             {
@@ -90,6 +99,23 @@ namespace CTM.Win.Forms.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+
+                this.viewMaster.SetAllRowsExpanded(!_isExpanded);
+
+                this._isExpanded = !_isExpanded;
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
             }
         }
 

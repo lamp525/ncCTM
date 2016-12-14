@@ -28,6 +28,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
 
+        private bool _isExpanded = true;
+
         private const string _layoutXmlName_Master = "_embedIDApplication_Master";
         private const string _layoutXmlName_Detail = "_embedIDApplication_Detail";
 
@@ -235,6 +237,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
 
             this.gridApplication.DataSource = ds.Tables[0];
+
+            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            this.viewMaster.SetAllRowsExpanded(_isExpanded);
         }
 
         #endregion Methods
@@ -274,6 +279,23 @@ namespace CTM.Win.Forms.InvestmentDecision
             finally
             {
                 this.btnRefresh.Enabled = true;
+            }
+        }
+
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+
+                this.viewMaster.SetAllRowsExpanded(!_isExpanded);
+
+                this._isExpanded = !_isExpanded;
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
             }
         }
 
@@ -420,5 +442,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
+
+
     }
 }
