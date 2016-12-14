@@ -11,8 +11,6 @@ namespace CTM.Win.Forms.Common
 
         private readonly IInvestmentDecisionService _IDService;
 
-        private bool _isEdit;
-
         #endregion Fields
 
         #region Properties

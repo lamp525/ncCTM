@@ -120,19 +120,19 @@ namespace CTM.Services.InvestmentDecision
             return serialNo;
         }
 
-        private string GenerateIDApplicationApplyNo(DateTime applyDate)
+        private string GenerateIDApplicationApplyNo()
         {
-            var applyNo = "SQ" + applyDate.ToString("yyMMdd");
+            var applyNo = "SQ";
 
-            var info = _IDApplicationRepository.Table.Where(x => x.ApplyDate == applyDate).OrderBy(x => x.CreateTime).ToList().LastOrDefault();
+            var info = _IDApplicationRepository.Table.OrderBy(x => x.CreateTime).ToList().LastOrDefault();
 
             var suffix = string.Empty;
             if (info == null)
-                suffix = "001";
+                suffix = "000001";
             else
             {
-                var lastSuffix = info.ApplyNo.Substring(info.ApplyNo.Length - 3, 3);
-                suffix = (int.Parse(lastSuffix) + 1).ToString("00#");
+                var lastSuffix = info.ApplyNo.Substring(info.ApplyNo.Length - 6, 6);
+                suffix = (int.Parse(lastSuffix) + 1).ToString("00000#");
             }
 
             applyNo = applyNo + suffix;
@@ -150,7 +150,7 @@ namespace CTM.Services.InvestmentDecision
                 suffix = "000001";
             else
             {
-                var lastSuffix = info.ApplyNo.Substring(info.ApplyNo.Length - 6, 6);
+                var lastSuffix = info.OperateNo.Substring(info.ApplyNo.Length - 6, 6);
                 suffix = (int.Parse(lastSuffix) + 1).ToString("00000#");
             }
 
@@ -224,7 +224,7 @@ namespace CTM.Services.InvestmentDecision
 
             if (applicationEntity != null && string.IsNullOrEmpty(applicationEntity.ApplyNo))
             {
-                applicationEntity.ApplyNo = GenerateIDApplicationApplyNo(applicationEntity.ApplyDate);
+                applicationEntity.ApplyNo = GenerateIDApplicationApplyNo();
 
                 this._IDApplicationRepository.Insert(applicationEntity);
 
@@ -370,7 +370,7 @@ namespace CTM.Services.InvestmentDecision
             _dbContext.ExecuteSqlCommand(commanText);
         }
 
-        public virtual void IDOperationVoteProcess(string investorCode, string applyNo,string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent)
+        public virtual void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent)
         {
             if (string.IsNullOrEmpty(reasonContent))
                 reasonContent = @"";
