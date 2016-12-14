@@ -159,6 +159,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperationAccuracyVoteProcess(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.AccuracyDetermination;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
@@ -169,6 +170,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperationExecuteProcess(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
@@ -179,6 +181,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperationIDVoteProcess(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.OperationVote;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
@@ -326,6 +329,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 if (buttonTag == "Apply")
                 {
                     var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+                    dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
                     dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewOperation;
                     dialog.ApplyNo = applyNo;
                     dialog.OperateNo = string.Empty;

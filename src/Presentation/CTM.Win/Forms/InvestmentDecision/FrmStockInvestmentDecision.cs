@@ -14,6 +14,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private _embedIDApplication _doneEmbedForm = null;
         private _embedIDApplication _allEmbedForm = null;
 
+
+
         #endregion Fields
 
         #region Constructors
@@ -47,7 +49,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (this.tabPane1.SelectedPage != this.tpProgressing)
                 this.tabPane1.SelectedPage = this.tpProgressing;
 
-            _progressingEmbedForm.BindApplicationInfo();
+            _progressingEmbedForm = null;
+
+            ShowEmbedIDApplication(this.tpProgressing, _embedIDApplication.QueryMode.Proceed, ref _progressingEmbedForm);
         }
 
         #endregion Utilities

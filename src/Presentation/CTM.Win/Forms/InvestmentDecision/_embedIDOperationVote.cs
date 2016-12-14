@@ -53,7 +53,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false,columnAutoWidth:true, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 50);
             this.gridView1.OptionsView.RowAutoHeight = true;
         }
 
@@ -195,10 +195,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowError(ex.Message);
             }
-            finally
-            {
-                currentButton.Enabled = true;
-            }
         }
 
         /// <summary>
@@ -219,10 +215,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowError(ex.Message);
             }
-            finally
-            {
-                currentButton.Enabled = true;
-            }
         }
 
         /// <summary>
@@ -242,10 +234,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 DXMessage.ShowError(ex.Message);
             }
-            finally
-            {
-                currentButton.Enabled = true;
-            }
         }
 
         /// <summary>
@@ -264,10 +252,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                currentButton.Enabled = true;
             }
         }
 

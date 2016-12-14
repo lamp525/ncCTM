@@ -610,7 +610,7 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual InvestmentDecisionOperationVote GetIDOperationVoteInfo(string userCode, string operateNo)
         {
-            var query = _IDOperationVoteRepository.Table.Where(x => x.UserCode == userCode && x.OperateNo == operateNo);
+            var query = _IDOperationVoteRepository.TableNoTracking.Where(x => x.UserCode == userCode && x.OperateNo == operateNo);
 
             return query.FirstOrDefault();
         }
