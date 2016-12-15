@@ -80,10 +80,6 @@
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStopProfitPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProfitBoundDetail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStopLossPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLossBoundDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -118,6 +114,15 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciExpand = new DevExpress.XtraLayout.LayoutControlItem();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -167,15 +172,17 @@
             this.colBoundDetail,
             this.colDealVolume,
             this.colFormattedDealAmount,
+            this.gridColumn14,
+            this.gridColumn15,
+            this.gridColumn16,
+            this.gridColumn17,
             this.colReasonCategoryId,
             this.colReasonContent,
             this.colVoteStatus,
-            this.colVotePoint,
             this.gridColumn8,
             this.colExecuteFlag,
             this.colTradeRecordRelateFlag,
             this.colAccuracyStatus,
-            this.colAccuracyPoint,
             this.gridColumn5,
             this.gridColumn6,
             this.gridColumn7,
@@ -183,7 +190,10 @@
             this.colOperateDate,
             this.colDealFlagName,
             this.colVoteStatusName,
-            this.colAccuracyStatusName});
+            this.colVotePoint,
+            this.colAccuracyPoint,
+            this.colAccuracyStatusName,
+            this.gridColumn13});
             this.viewDetail.GridControl = this.gridApplication;
             this.viewDetail.Name = "viewDetail";
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
@@ -198,7 +208,7 @@
             this.colOperate_D.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.colOperate_D.Name = "colOperate_D";
             this.colOperate_D.Visible = true;
-            this.colOperate_D.VisibleIndex = 13;
+            this.colOperate_D.VisibleIndex = 16;
             this.colOperate_D.Width = 320;
             // 
             // ribtnOperate_D
@@ -233,7 +243,6 @@
             this.colOperateNo.Name = "colOperateNo";
             this.colOperateNo.Visible = true;
             this.colOperateNo.VisibleIndex = 0;
-            this.colOperateNo.Width = 85;
             // 
             // colInitialFlag
             // 
@@ -266,7 +275,7 @@
             this.colDealPrice.Name = "colDealPrice";
             this.colDealPrice.Visible = true;
             this.colDealPrice.VisibleIndex = 4;
-            this.colDealPrice.Width = 70;
+            this.colDealPrice.Width = 65;
             // 
             // colBoundDetail
             // 
@@ -275,7 +284,7 @@
             this.colBoundDetail.Name = "colBoundDetail";
             this.colBoundDetail.Visible = true;
             this.colBoundDetail.VisibleIndex = 5;
-            this.colBoundDetail.Width = 120;
+            this.colBoundDetail.Width = 100;
             // 
             // colDealVolume
             // 
@@ -284,6 +293,7 @@
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
             this.colDealVolume.VisibleIndex = 6;
+            this.colDealVolume.Width = 65;
             // 
             // colFormattedDealAmount
             // 
@@ -292,6 +302,7 @@
             this.colFormattedDealAmount.Name = "colFormattedDealAmount";
             this.colFormattedDealAmount.Visible = true;
             this.colFormattedDealAmount.VisibleIndex = 7;
+            this.colFormattedDealAmount.Width = 70;
             // 
             // colReasonCategoryId
             // 
@@ -316,8 +327,6 @@
             this.colVotePoint.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colVotePoint.FieldName = "VotePoint";
             this.colVotePoint.Name = "colVotePoint";
-            this.colVotePoint.Visible = true;
-            this.colVotePoint.VisibleIndex = 9;
             this.colVotePoint.Width = 70;
             // 
             // gridColumn8
@@ -326,7 +335,7 @@
             this.gridColumn8.FieldName = "ExecuteFlagName";
             this.gridColumn8.Name = "gridColumn8";
             this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 10;
+            this.gridColumn8.VisibleIndex = 9;
             this.gridColumn8.Width = 70;
             // 
             // colExecuteFlag
@@ -351,8 +360,6 @@
             this.colAccuracyPoint.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colAccuracyPoint.FieldName = "AccuracyPoint";
             this.colAccuracyPoint.Name = "colAccuracyPoint";
-            this.colAccuracyPoint.Visible = true;
-            this.colAccuracyPoint.VisibleIndex = 12;
             this.colAccuracyPoint.Width = 70;
             // 
             // gridColumn5
@@ -371,7 +378,6 @@
             // 
             // gridColumn7
             // 
-            this.gridColumn7.Caption = "gridColumn7";
             this.gridColumn7.FieldName = "OperateUser";
             this.gridColumn7.Name = "gridColumn7";
             // 
@@ -382,7 +388,6 @@
             this.colOperateUserName.Name = "colOperateUserName";
             this.colOperateUserName.Visible = true;
             this.colOperateUserName.VisibleIndex = 1;
-            this.colOperateUserName.Width = 85;
             // 
             // colOperateDate
             // 
@@ -391,7 +396,6 @@
             this.colOperateDate.Name = "colOperateDate";
             this.colOperateDate.Visible = true;
             this.colOperateDate.VisibleIndex = 2;
-            this.colOperateDate.Width = 85;
             // 
             // colDealFlagName
             // 
@@ -400,7 +404,7 @@
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
             this.colDealFlagName.VisibleIndex = 3;
-            this.colDealFlagName.Width = 60;
+            this.colDealFlagName.Width = 50;
             // 
             // colVoteStatusName
             // 
@@ -417,7 +421,7 @@
             this.colAccuracyStatusName.FieldName = "AccuracyStatusName";
             this.colAccuracyStatusName.Name = "colAccuracyStatusName";
             this.colAccuracyStatusName.Visible = true;
-            this.colAccuracyStatusName.VisibleIndex = 11;
+            this.colAccuracyStatusName.VisibleIndex = 10;
             this.colAccuracyStatusName.Width = 70;
             // 
             // gridApplication
@@ -453,15 +457,15 @@
             this.colStockName,
             this.colTradeType,
             this.colTradeTypeName,
-            this.colStopProfitPrice,
-            this.colProfitBoundDetail,
-            this.colStopLossPrice,
-            this.colLossBoundDetail,
             this.colStatusName,
             this.colStatus,
             this.colOperate,
             this.colCreateTime,
-            this.colUpdateTime});
+            this.colUpdateTime,
+            this.gridColumn9,
+            this.gridColumn10,
+            this.gridColumn11,
+            this.gridColumn12});
             this.viewMaster.GridControl = this.gridApplication;
             this.viewMaster.IndicatorWidth = 30;
             this.viewMaster.Name = "viewMaster";
@@ -482,7 +486,7 @@
             this.colTradePlanNo.Name = "colTradePlanNo";
             this.colTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colTradePlanNo.Visible = true;
-            this.colTradePlanNo.VisibleIndex = 13;
+            this.colTradePlanNo.VisibleIndex = 9;
             this.colTradePlanNo.Width = 100;
             // 
             // colApplyNo
@@ -575,46 +579,6 @@
             this.colTradeTypeName.VisibleIndex = 7;
             this.colTradeTypeName.Width = 65;
             // 
-            // colStopProfitPrice
-            // 
-            this.colStopProfitPrice.Caption = "止盈价格(元)";
-            this.colStopProfitPrice.DisplayFormat.FormatString = "0.#0";
-            this.colStopProfitPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colStopProfitPrice.FieldName = "StopProfitPrice";
-            this.colStopProfitPrice.Name = "colStopProfitPrice";
-            this.colStopProfitPrice.Visible = true;
-            this.colStopProfitPrice.VisibleIndex = 8;
-            this.colStopProfitPrice.Width = 85;
-            // 
-            // colProfitBoundDetail
-            // 
-            this.colProfitBoundDetail.Caption = "止盈上下限";
-            this.colProfitBoundDetail.FieldName = "ProfitBoundDetail";
-            this.colProfitBoundDetail.Name = "colProfitBoundDetail";
-            this.colProfitBoundDetail.Visible = true;
-            this.colProfitBoundDetail.VisibleIndex = 9;
-            this.colProfitBoundDetail.Width = 120;
-            // 
-            // colStopLossPrice
-            // 
-            this.colStopLossPrice.Caption = "止损价格(元)";
-            this.colStopLossPrice.DisplayFormat.FormatString = "0.#0";
-            this.colStopLossPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colStopLossPrice.FieldName = "StopLossPrice";
-            this.colStopLossPrice.Name = "colStopLossPrice";
-            this.colStopLossPrice.Visible = true;
-            this.colStopLossPrice.VisibleIndex = 10;
-            this.colStopLossPrice.Width = 85;
-            // 
-            // colLossBoundDetail
-            // 
-            this.colLossBoundDetail.Caption = "止损上下限";
-            this.colLossBoundDetail.FieldName = "LossBoundDetail";
-            this.colLossBoundDetail.Name = "colLossBoundDetail";
-            this.colLossBoundDetail.Visible = true;
-            this.colLossBoundDetail.VisibleIndex = 11;
-            this.colLossBoundDetail.Width = 120;
-            // 
             // colStatusName
             // 
             this.colStatusName.Caption = "状态";
@@ -622,7 +586,7 @@
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 12;
+            this.colStatusName.VisibleIndex = 8;
             this.colStatusName.Width = 65;
             // 
             // colStatus
@@ -970,6 +934,77 @@
             this.lciExpand.TextSize = new System.Drawing.Size(0, 0);
             this.lciExpand.TextVisible = false;
             // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "持仓";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 10;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "平均成本";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 11;
+            // 
+            // gridColumn11
+            // 
+            this.gridColumn11.Caption = "收益";
+            this.gridColumn11.Name = "gridColumn11";
+            this.gridColumn11.Visible = true;
+            this.gridColumn11.VisibleIndex = 12;
+            // 
+            // gridColumn12
+            // 
+            this.gridColumn12.Caption = "最新收盘价";
+            this.gridColumn12.Name = "gridColumn12";
+            this.gridColumn12.Visible = true;
+            this.gridColumn12.VisibleIndex = 13;
+            // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "收益(万元)";
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 15;
+            // 
+            // gridColumn14
+            // 
+            this.gridColumn14.Caption = "止盈价格(元)";
+            this.gridColumn14.FieldName = "StopProfitPrice";
+            this.gridColumn14.Name = "gridColumn14";
+            this.gridColumn14.Visible = true;
+            this.gridColumn14.VisibleIndex = 11;
+            this.gridColumn14.Width = 85;
+            // 
+            // gridColumn15
+            // 
+            this.gridColumn15.Caption = "止盈上下限";
+            this.gridColumn15.FieldName = "ProfitBoundDetail";
+            this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.Visible = true;
+            this.gridColumn15.VisibleIndex = 12;
+            this.gridColumn15.Width = 100;
+            // 
+            // gridColumn16
+            // 
+            this.gridColumn16.Caption = "止损价格(元)";
+            this.gridColumn16.FieldName = "StopLossPrice";
+            this.gridColumn16.Name = "gridColumn16";
+            this.gridColumn16.Visible = true;
+            this.gridColumn16.VisibleIndex = 13;
+            this.gridColumn16.Width = 83;
+            // 
+            // gridColumn17
+            // 
+            this.gridColumn17.Caption = "止损上下限";
+            this.gridColumn17.FieldName = "LossBoundDetail";
+            this.gridColumn17.Name = "gridColumn17";
+            this.gridColumn17.Visible = true;
+            this.gridColumn17.VisibleIndex = 14;
+            this.gridColumn17.Width = 100;
+            // 
             // _embedIDApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1041,10 +1076,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentName;
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private DevExpress.XtraGrid.Columns.GridColumn colStopProfitPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colProfitBoundDetail;
-        private DevExpress.XtraGrid.Columns.GridColumn colStopLossPrice;
-        private DevExpress.XtraGrid.Columns.GridColumn colLossBoundDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
         private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
@@ -1100,5 +1131,14 @@
         private DevExpress.XtraEditors.SimpleButton btnExpandOrCollapse;
         private DevExpress.XtraLayout.LayoutControlItem lciExpand;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn17;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
     }
 }
