@@ -203,6 +203,12 @@
     <Compile Include="Forms\InvestmentDecision\_embedIDApplication.Designer.cs">
       <DependentUpon>_embedIDApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.Designer.cs">
+      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InvestmentDecision\_embedIDOperationVote.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,12 +232,6 @@
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmMarketTrendForecast.Designer.cs">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.Designer.cs">
-      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_dialogMTFEdit.cs">
       <SubType>Form</SubType>
@@ -668,6 +668,9 @@
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDApplication.resx">
       <DependentUpon>_embedIDApplication.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.resx">
+      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationVote.resx">
       <DependentUpon>_embedIDOperationVote.cs</DependentUpon>
     </EmbeddedResource>
@@ -679,9 +682,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmMarketTrendForecast.resx">
       <DependentUpon>FrmMarketTrendForecast.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.resx">
-      <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogMTFEdit.resx">
       <DependentUpon>_dialogMTFEdit.cs</DependentUpon>

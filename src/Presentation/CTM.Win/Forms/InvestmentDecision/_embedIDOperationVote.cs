@@ -59,6 +59,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void SetVoteButtonStatus()
         {
+            if (this.lcgVote.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Never) return;
+
             var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
 
             //未投票
@@ -96,6 +98,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (drVoteStatusInfo != null)
             {
                 this.esiVoteStatusInfo.Text = $@"投票状态：{drVoteStatusInfo["VoteStatusName"]}    投票分数：{drVoteStatusInfo["VotePoint"]}";
+
+                var voteStatus = int.Parse(drVoteStatusInfo["VoteStatus"].ToString());
+                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied)
+                    this.lcgVote.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                else
+                    this.lcgVote.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             }
 
             var resultCommandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
@@ -188,7 +196,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-
                 VoteProcess(EnumLibrary.IDVoteFlag.Approval);
             }
             catch (Exception ex)
@@ -208,7 +215,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-
                 VoteProcess(EnumLibrary.IDVoteFlag.Oppose);
             }
             catch (Exception ex)

@@ -496,6 +496,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 case PageMode.AccuracyDetermination:
                     _embedIDOA = EngineContext.Current.Resolve<_embedIDOperationAccuracy>();
+                    _embedIDOA.ApplyNo = ApplyNo;
+                    _embedIDOA.OperateNo = OperateNo;
                     _embedIDOA.FormBorderStyle = FormBorderStyle.None;
                     _embedIDOA.TopLevel = false;
                     _embedIDOA.Parent = this.splitContainerControl1.Panel2;

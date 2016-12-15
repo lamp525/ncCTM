@@ -99,7 +99,7 @@
             // 
             // btnRevoke
             // 
-            this.btnRevoke.Location = new System.Drawing.Point(596, 573);
+            this.btnRevoke.Location = new System.Drawing.Point(590, 573);
             this.btnRevoke.Name = "btnRevoke";
             this.btnRevoke.Size = new System.Drawing.Size(73, 22);
             this.btnRevoke.StyleController = this.layoutControl1;
@@ -109,7 +109,7 @@
             // 
             // btnAbstain
             // 
-            this.btnAbstain.Location = new System.Drawing.Point(509, 573);
+            this.btnAbstain.Location = new System.Drawing.Point(503, 573);
             this.btnAbstain.Name = "btnAbstain";
             this.btnAbstain.Size = new System.Drawing.Size(73, 22);
             this.btnAbstain.StyleController = this.layoutControl1;
@@ -119,7 +119,7 @@
             // 
             // btnOppose
             // 
-            this.btnOppose.Location = new System.Drawing.Point(422, 573);
+            this.btnOppose.Location = new System.Drawing.Point(416, 573);
             this.btnOppose.Name = "btnOppose";
             this.btnOppose.Size = new System.Drawing.Size(73, 22);
             this.btnOppose.StyleController = this.layoutControl1;
@@ -129,7 +129,7 @@
             // 
             // btnApproval
             // 
-            this.btnApproval.Location = new System.Drawing.Point(331, 573);
+            this.btnApproval.Location = new System.Drawing.Point(325, 573);
             this.btnApproval.Name = "btnApproval";
             this.btnApproval.Size = new System.Drawing.Size(77, 22);
             this.btnApproval.StyleController = this.layoutControl1;
@@ -316,15 +316,15 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(637, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(631, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(284, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(290, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnOppose;
-            this.layoutControlItem4.Location = new System.Drawing.Point(386, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(380, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(77, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -333,7 +333,7 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnAbstain;
-            this.layoutControlItem5.Location = new System.Drawing.Point(473, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(467, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(77, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -342,7 +342,7 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnApproval;
-            this.layoutControlItem3.Location = new System.Drawing.Point(295, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(289, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(81, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -351,7 +351,7 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnRevoke;
-            this.layoutControlItem6.Location = new System.Drawing.Point(560, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(554, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(77, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -362,13 +362,13 @@
             this.emptySpaceItem3.AllowHotTrack = false;
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(295, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(289, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(376, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(370, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -376,7 +376,7 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(463, 0);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(457, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -384,7 +384,7 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(550, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(544, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
