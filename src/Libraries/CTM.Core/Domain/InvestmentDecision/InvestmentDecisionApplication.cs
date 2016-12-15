@@ -20,7 +20,7 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int TradeType { get; set; }
 
-        public int InitialDealFlag { get; set; }
+        public bool InitialDealFlag { get; set; }
 
         public decimal BuyVolume { get; set; }
 
@@ -30,7 +30,9 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public decimal SellAmount { get; set; }
 
+        public decimal PositionVolume { get; set; }
 
+        public decimal Profit { get; set; }
 
         /// <summary>
         /// 投资决策单状态
@@ -38,6 +40,8 @@ namespace CTM.Core.Domain.InvestmentDecision
         /// 1：完成
         /// </summary>
         public int Status { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public DateTime CreateTime { get; set; }
 

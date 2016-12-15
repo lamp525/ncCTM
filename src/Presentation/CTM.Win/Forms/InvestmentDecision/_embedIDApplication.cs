@@ -210,7 +210,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         public void BindApplicationInfo()
         {
             this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-   
+
             string commandText = string.Empty;
 
             switch (CurrentQueryMode)
@@ -445,7 +445,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
-
-
     }
 }

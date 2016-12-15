@@ -120,7 +120,13 @@ namespace CTM.Services.InvestmentDecision
             return serialNo;
         }
 
-        private string GenerateIDApplicationApplyNo()
+
+
+        #endregion Utilities
+
+        #region Methods
+
+        public virtual string GenerateIDApplicationApplyNo()
         {
             var applyNo = "SQ";
 
@@ -139,7 +145,7 @@ namespace CTM.Services.InvestmentDecision
             return applyNo;
         }
 
-        private string GenerateIDOperationNo()
+        public virtual string GenerateIDOperationNo()
         {
             var operateNo = "CZ";
 
@@ -158,10 +164,6 @@ namespace CTM.Services.InvestmentDecision
 
             return operateNo;
         }
-
-        #endregion Utilities
-
-        #region Methods
 
         public virtual void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity)
         {

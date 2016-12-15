@@ -11,9 +11,11 @@ namespace CTM.Data.Mapping.InvestmentDecision
             this.HasKey(p => p.Id);
 
             this.Property(p => p.BuyAmount).HasPrecision(24, 4);
-            this.Property(p => p.BuyVolume).HasPrecision(24, 4);
+            this.Property(p => p.BuyVolume).HasPrecision(24, 0);
             this.Property(p => p.SellAmount).HasPrecision(24, 4);
-            this.Property(p => p.SellVolume).HasPrecision(24, 4);
+            this.Property(p => p.SellVolume).HasPrecision(24, 0);
+            this.Property(p => p.PositionVolume).HasPrecision(24, 0);
+            this.Property(p => p.Profit).HasPrecision(24, 4);
         }
     }
 }

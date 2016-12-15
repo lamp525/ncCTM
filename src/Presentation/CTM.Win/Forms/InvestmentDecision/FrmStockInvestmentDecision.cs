@@ -14,8 +14,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         private _embedIDApplication _doneEmbedForm = null;
         private _embedIDApplication _allEmbedForm = null;
 
-
-
         #endregion Fields
 
         #region Constructors

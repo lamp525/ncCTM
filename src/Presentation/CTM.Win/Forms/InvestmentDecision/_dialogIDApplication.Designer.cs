@@ -97,7 +97,7 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.txtOperateNo = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblProfitBound = new DevExpress.XtraEditors.LabelControl();
@@ -169,7 +169,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperateNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
@@ -180,7 +180,7 @@
             // 
             this.layoutControl1.Controls.Add(this.lblLossBound);
             this.layoutControl1.Controls.Add(this.lblProfitBound);
-            this.layoutControl1.Controls.Add(this.textEdit1);
+            this.layoutControl1.Controls.Add(this.txtOperateNo);
             this.layoutControl1.Controls.Add(this.txtApplyNo);
             this.layoutControl1.Controls.Add(this.deOperate);
             this.layoutControl1.Controls.Add(this.spinPriceBound);
@@ -906,18 +906,18 @@
             this.emptySpaceItem3.Size = new System.Drawing.Size(34, 24);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // textEdit1
+            // txtOperateNo
             // 
-            this.textEdit1.Location = new System.Drawing.Point(85, 238);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.ReadOnly = true;
-            this.textEdit1.Size = new System.Drawing.Size(154, 20);
-            this.textEdit1.StyleController = this.layoutControl1;
-            this.textEdit1.TabIndex = 39;
+            this.txtOperateNo.Location = new System.Drawing.Point(85, 238);
+            this.txtOperateNo.Name = "txtOperateNo";
+            this.txtOperateNo.Properties.ReadOnly = true;
+            this.txtOperateNo.Size = new System.Drawing.Size(154, 20);
+            this.txtOperateNo.StyleController = this.layoutControl1;
+            this.txtOperateNo.TabIndex = 39;
             // 
             // layoutControlItem9
             // 
-            this.layoutControlItem9.Control = this.textEdit1;
+            this.layoutControlItem9.Control = this.txtOperateNo;
             this.layoutControlItem9.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(219, 24);
@@ -1041,7 +1041,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperateNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
@@ -1117,7 +1117,7 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcFullName;
         private DevExpress.XtraLayout.LayoutControlGroup lcgImport;
         private DevExpress.XtraLayout.LayoutControlGroup lcgApply;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit txtOperateNo;
         private DevExpress.XtraEditors.TextEdit txtApplyNo;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;

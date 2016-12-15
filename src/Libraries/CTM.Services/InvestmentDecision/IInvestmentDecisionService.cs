@@ -6,6 +6,10 @@ namespace CTM.Services.InvestmentDecision
 {
     public partial interface IInvestmentDecisionService : IBaseService
     {
+        string GenerateIDApplicationApplyNo();
+
+        string GenerateIDOperationNo();
+
         void SubmitInvestmentDecisionApplication(InvestmentDecisionForm entity);
 
         void IDApplicationApplyProcess(InvestmentDecisionApplication applicationEntity, InvestmentDecisionOperation operationEntity);

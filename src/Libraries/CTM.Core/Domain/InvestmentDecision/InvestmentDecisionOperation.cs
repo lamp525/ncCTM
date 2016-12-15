@@ -89,6 +89,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int AccuracyPoint { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public DateTime CreateTime { get; set; }
 
         public DateTime UpdateTime { get; set; }
