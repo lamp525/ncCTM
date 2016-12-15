@@ -10,10 +10,10 @@ namespace CTM.Data.Mapping.InvestmentDecision
             this.ToTable(nameof(InvestmentDecisionApplication));
             this.HasKey(p => p.Id);
 
-            this.Property(p => p.StopProfitPrice).HasPrecision(18, 4);
-            this.Property(p => p.StopProfitBound).HasPrecision(18, 4);
-            this.Property(p => p.StopLossPrice).HasPrecision(18, 4);
-            this.Property(p => p.StopLossBound).HasPrecision(18, 4);
+            this.Property(p => p.BuyAmount).HasPrecision(24, 4);
+            this.Property(p => p.BuyVolume).HasPrecision(24, 4);
+            this.Property(p => p.SellAmount).HasPrecision(24, 4);
+            this.Property(p => p.SellVolume).HasPrecision(24, 4);
         }
     }
 }

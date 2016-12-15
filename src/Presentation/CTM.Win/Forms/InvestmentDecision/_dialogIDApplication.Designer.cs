@@ -256,6 +256,7 @@
             this.spinLossBound.Size = new System.Drawing.Size(50, 20);
             this.spinLossBound.StyleController = this.layoutControl1;
             this.spinLossBound.TabIndex = 35;
+            this.spinLossBound.EditValueChanged += new System.EventHandler(this.spinLossBound_EditValueChanged);
             // 
             // spinProfitBound
             // 
@@ -271,6 +272,7 @@
             this.spinProfitBound.Size = new System.Drawing.Size(50, 20);
             this.spinProfitBound.StyleController = this.layoutControl1;
             this.spinProfitBound.TabIndex = 34;
+            this.spinProfitBound.EditValueChanged += new System.EventHandler(this.spinProfitBound_EditValueChanged);
             // 
             // txtOperateUser
             // 
@@ -361,6 +363,7 @@
             this.txtLossPrice.Size = new System.Drawing.Size(154, 20);
             this.txtLossPrice.StyleController = this.layoutControl1;
             this.txtLossPrice.TabIndex = 26;
+            this.txtLossPrice.EditValueChanged += new System.EventHandler(this.txtLossPrice_EditValueChanged);
             // 
             // txtProfitPrice
             // 
@@ -369,6 +372,7 @@
             this.txtProfitPrice.Size = new System.Drawing.Size(154, 20);
             this.txtProfitPrice.StyleController = this.layoutControl1;
             this.txtProfitPrice.TabIndex = 25;
+            this.txtProfitPrice.EditValueChanged += new System.EventHandler(this.txtProfitPrice_EditValueChanged);
             // 
             // memoReason
             // 
@@ -410,7 +414,7 @@
             // 
             this.btnImport.Location = new System.Drawing.Point(24, 54);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(122, 22);
+            this.btnImport.Size = new System.Drawing.Size(97, 22);
             this.btnImport.StyleController = this.layoutControl1;
             this.btnImport.TabIndex = 12;
             this.btnImport.Text = "  交易计划导入  ";
@@ -445,10 +449,10 @@
             // 
             // chkSell
             // 
-            this.chkSell.Location = new System.Drawing.Point(313, 262);
+            this.chkSell.Location = new System.Drawing.Point(293, 262);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖出";
-            this.chkSell.Size = new System.Drawing.Size(66, 19);
+            this.chkSell.Size = new System.Drawing.Size(46, 19);
             this.chkSell.StyleController = this.layoutControl1;
             this.chkSell.TabIndex = 8;
             this.chkSell.CheckedChanged += new System.EventHandler(this.chkSell_CheckedChanged);
@@ -459,7 +463,7 @@
             this.chkBuy.Location = new System.Drawing.Point(243, 262);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买入";
-            this.chkBuy.Size = new System.Drawing.Size(66, 19);
+            this.chkBuy.Size = new System.Drawing.Size(46, 19);
             this.chkBuy.StyleController = this.layoutControl1;
             this.chkBuy.TabIndex = 7;
             this.chkBuy.CheckedChanged += new System.EventHandler(this.chkBuy_CheckedChanged);
@@ -654,16 +658,16 @@
             this.layoutControlItem4.Control = this.chkBuy;
             this.layoutControlItem4.Location = new System.Drawing.Point(219, 24);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(70, 23);
+            this.layoutControlItem4.Size = new System.Drawing.Size(50, 23);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.chkSell;
-            this.layoutControlItem5.Location = new System.Drawing.Point(289, 24);
+            this.layoutControlItem5.Location = new System.Drawing.Point(269, 24);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(70, 23);
+            this.layoutControlItem5.Size = new System.Drawing.Size(50, 23);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -788,16 +792,16 @@
             this.lciImportTradePlan.Control = this.btnImport;
             this.lciImportTradePlan.Location = new System.Drawing.Point(0, 0);
             this.lciImportTradePlan.Name = "lciImportTradePlan";
-            this.lciImportTradePlan.Size = new System.Drawing.Size(126, 26);
+            this.lciImportTradePlan.Size = new System.Drawing.Size(101, 26);
             this.lciImportTradePlan.TextSize = new System.Drawing.Size(0, 0);
             this.lciImportTradePlan.TextVisible = false;
             // 
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(126, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(101, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(312, 26);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(337, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lcgApply
@@ -923,9 +927,9 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(359, 24);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(319, 24);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(79, 23);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(119, 23);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lblProfitBound

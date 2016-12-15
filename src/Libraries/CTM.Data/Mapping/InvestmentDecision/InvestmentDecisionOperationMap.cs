@@ -14,6 +14,10 @@ namespace CTM.Data.Mapping.InvestmentDecision
             this.Property(p => p.PriceBound).HasPrecision(18, 4);
             this.Property(p => p.DealVolume).HasPrecision(24, 0);
             this.Property(p => p.DealAmount).HasPrecision(24, 4);
+            this.Property(p => p.StopProfitPrice).HasPrecision(18, 4);
+            this.Property(p => p.StopProfitBound).HasPrecision(18, 4);
+            this.Property(p => p.StopLossPrice).HasPrecision(18, 4);
+            this.Property(p => p.StopLossBound).HasPrecision(18, 4);
         }
     }
 }

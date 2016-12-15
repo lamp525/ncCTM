@@ -20,13 +20,17 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int TradeType { get; set; }
 
-        public decimal StopProfitPrice { get; set; }
+        public int InitialDealFlag { get; set; }
 
-        public decimal StopProfitBound { get; set; }
+        public decimal BuyVolume { get; set; }
 
-        public decimal StopLossPrice { get; set; }
+        public decimal BuyAmount { get; set; }
 
-        public decimal StopLossBound { get; set; }
+        public decimal SellVolume { get; set; }
+
+        public decimal SellAmount { get; set; }
+
+
 
         /// <summary>
         /// 投资决策单状态

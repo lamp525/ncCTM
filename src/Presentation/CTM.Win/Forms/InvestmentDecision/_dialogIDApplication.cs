@@ -444,13 +444,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void CalculatePriceBound()
+        private void CalculatePriceBound(DevExpress.XtraEditors.SpinEdit spinPriceBound, DevExpress.XtraEditors.TextEdit txtPrice, DevExpress.XtraEditors.LabelControl lblPriceBound)
         {
-            if (!string.IsNullOrEmpty(this.spinPriceBound.EditValue.ToString()) && !string.IsNullOrEmpty(this.txtPrice.Text.Trim()))
+            if (!string.IsNullOrEmpty(spinPriceBound.EditValue.ToString()) && !string.IsNullOrEmpty(txtPrice.Text.Trim()))
             {
-                decimal dealUpBound = CommonHelper.SetDecimalDigits((1 + decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
-                decimal dealDownBound = CommonHelper.SetDecimalDigits((1 - decimal.Parse(this.spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(this.txtPrice.Text.Trim()), 2);
-                this.lblPriceBound.Text = dealDownBound.ToString() + " ~ " + dealUpBound.ToString();
+                decimal dealUpBound = CommonHelper.SetDecimalDigits((1 + decimal.Parse(spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(txtPrice.Text.Trim()), 2);
+                decimal dealDownBound = CommonHelper.SetDecimalDigits((1 - decimal.Parse(spinPriceBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred) * decimal.Parse(txtPrice.Text.Trim()), 2);
+                lblPriceBound.Text = dealDownBound.ToString() + " ~ " + dealUpBound.ToString();
             }
         }
 
@@ -594,7 +594,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void txtPrice_EditValueChanged(object sender, EventArgs e)
         {
-            CalculatePriceBound();
+            CalculatePriceBound(this.spinPriceBound, this.txtPrice, this.lblPriceBound);
             CalculateAmount();
         }
 
@@ -605,7 +605,27 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void spinPriceBound_EditValueChanged(object sender, EventArgs e)
         {
-            CalculatePriceBound();
+            CalculatePriceBound(this.spinPriceBound, this.txtPrice, this.lblPriceBound);
+        }
+
+        private void txtProfitPrice_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculatePriceBound(this.spinProfitBound, this.txtProfitPrice, this.lblProfitBound);
+        }
+
+        private void spinProfitBound_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculatePriceBound(this.spinProfitBound, this.txtProfitPrice, this.lblProfitBound);
+        }
+
+        private void txtLossPrice_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculatePriceBound(this.spinLossBound, this.txtLossPrice, this.lblLossBound);
+        }
+
+        private void spinLossBound_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculatePriceBound(this.spinLossBound, this.txtLossPrice, this.lblLossBound);
         }
 
         private void _dialogIDApplication_FormClosing(object sender, FormClosingEventArgs e)
