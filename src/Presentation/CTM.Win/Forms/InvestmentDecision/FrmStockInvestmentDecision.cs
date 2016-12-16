@@ -47,9 +47,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (this.tabPane1.SelectedPage != this.tpProgressing)
                 this.tabPane1.SelectedPage = this.tpProgressing;
 
-            _progressingEmbedForm = null;
-
-            ShowEmbedIDApplication(this.tpProgressing, _embedIDApplication.QueryMode.Proceed, ref _progressingEmbedForm);
+            _progressingEmbedForm?.BindApplicationInfo();          
         }
 
         #endregion Utilities
