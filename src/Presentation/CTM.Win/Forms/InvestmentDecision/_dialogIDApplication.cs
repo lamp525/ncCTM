@@ -29,6 +29,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private bool _initialFlag = true;
         private bool _submitSucceedFlag = false;
+        private bool _profitLossBoundSettingFlag = true;
 
         private _embedAppointedStockApplication _embedASA = null;
         private _embedIDOperationDetail _embedIDOD = null;
@@ -211,8 +212,17 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 //操作人员
                 this.txtOperateUser.Text = LoginInfo.CurrentUser.UserName;
+
                 //操作日期
                 this.deOperate.EditValue = now.Date;
+
+                if (!_profitLossBoundSettingFlag)
+                {
+                    this.txtProfitPrice.ReadOnly = true;
+                    this.spinProfitBound.ReadOnly = true;
+                    this.txtLossPrice.ReadOnly = true;
+                    this.spinLossBound.ReadOnly = true;
+                }
             }
             else
             {
@@ -312,7 +322,6 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 application = new InvestmentDecisionApplication
                 {
-     
                     ApplyNo = string.Empty,
                     ApplyDate = applyDate,
                     ApplyUser = LoginInfo.CurrentUser.UserCode,
@@ -365,32 +374,35 @@ namespace CTM.Win.Forms.InvestmentDecision
                     return false;
                 }
 
-                if (this.txtProfitPrice.Text.Trim().Length == 0)
+                if (_profitLossBoundSettingFlag)
                 {
-                    DXMessage.ShowTips("请输入止盈价格！");
-                    this.txtProfitPrice.Focus();
-                    return false;
-                }
+                    if (this.txtProfitPrice.Text.Trim().Length == 0)
+                    {
+                        DXMessage.ShowTips("请输入止盈价格！");
+                        this.txtProfitPrice.Focus();
+                        return false;
+                    }
 
-                if (decimal.Parse(this.txtProfitPrice.Text.Trim()) <= 0)
-                {
-                    DXMessage.ShowTips("止盈价格应该大于0！");
-                    this.txtProfitPrice.Focus();
-                    return false;
-                }
+                    if (decimal.Parse(this.txtProfitPrice.Text.Trim()) <= 0)
+                    {
+                        DXMessage.ShowTips("止盈价格应该大于0！");
+                        this.txtProfitPrice.Focus();
+                        return false;
+                    }
 
-                if (this.txtLossPrice.Text.Trim().Length == 0)
-                {
-                    DXMessage.ShowTips("请输入止损价格！");
-                    this.txtLossPrice.Focus();
-                    return false;
-                }
+                    if (this.txtLossPrice.Text.Trim().Length == 0)
+                    {
+                        DXMessage.ShowTips("请输入止损价格！");
+                        this.txtLossPrice.Focus();
+                        return false;
+                    }
 
-                if (decimal.Parse(this.txtLossPrice.Text.Trim()) <= 0)
-                {
-                    DXMessage.ShowTips("止损价格应该大于0！");
-                    this.txtLossPrice.Focus();
-                    return false;
+                    if (decimal.Parse(this.txtLossPrice.Text.Trim()) <= 0)
+                    {
+                        DXMessage.ShowTips("止损价格应该大于0！");
+                        this.txtLossPrice.Focus();
+                        return false;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(this.treeListLookUpEdit1.SelectedValue()))
@@ -596,7 +608,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 _submitSucceedFlag = SubmitProcess();
 
-                this.Close();
+                if (_submitSucceedFlag)
+                    this.Close();
             }
             catch (Exception ex)
             {
