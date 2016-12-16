@@ -53,7 +53,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: false, rowIndicatorWidth: 35);
             this.gridView1.OptionsView.RowAutoHeight = true;
 
             if (LoginInfo.CurrentUser.IsAdmin)
@@ -100,10 +100,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             if (drVoteStatusInfo != null)
             {
-                this.esiVoteStatusInfo.Text = $@"投票状态：{drVoteStatusInfo["VoteStatusName"]}    投票分数：{drVoteStatusInfo["VotePoint"]}";
+                this.esiVoteStatusInfo.Text = $@"投票状态：{drVoteStatusInfo["AccuracyStatusName"]}    投票分数：{drVoteStatusInfo["AccuracyPoint"]}";
             }
 
-            var resultCommandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
+            var resultCommandText = $@"SELECT * FROM [dbo].[v_IDOperationAccuracy] WHERE OperateNo = '{OperateNo}' ORDER BY InvestorName";
 
             var dsResult = SqlHelper.ExecuteDataset(connString, CommandType.Text, resultCommandText);
 

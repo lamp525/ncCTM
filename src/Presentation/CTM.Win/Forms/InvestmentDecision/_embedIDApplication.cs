@@ -28,7 +28,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
 
-        private bool _isExpanded = true;
+        private bool _isExpanded = false;
 
         private const string _layoutXmlName_Master = "_embedIDApplication_Master";
         private const string _layoutXmlName_Detail = "_embedIDApplication_Detail";
@@ -118,7 +118,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
 
             this.viewDetail.LoadLayout(_layoutXmlName_Detail);
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 25, columnAutoWidth: false);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: false);
 
             foreach (GridColumn column in this.viewDetail.Columns)
             {
@@ -384,17 +384,24 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void viewDetail_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            //var currentView = sender as GridView;
+            //var focusedDetaiRowHandle = currentView.FocusedRowHandle;
+            //this.viewMaster.GetDetailView 
+        }
+
         private void ribtnOperate_D_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
-                e.Button.Enabled = false;
+                e.Button.Enabled = false;         
 
                 var masterRowHandle = this.viewMaster.FocusedRowHandle;
                 var relationIndex = this.viewMaster.GetRelationIndex(masterRowHandle, "MD");
-                var myView = this.viewMaster.GetDetailView(masterRowHandle, relationIndex) as DevExpress.XtraGrid.Views.Grid.GridView;
+                var detailView = this.viewMaster.GetDetailView(masterRowHandle, relationIndex) as DevExpress.XtraGrid.Views.Grid.GridView;
 
-                DataRow dr = myView.GetDataRow(myView.FocusedRowHandle);
+                DataRow dr = detailView?.GetDataRow(detailView.FocusedRowHandle);
 
                 var applyNo = dr?["ApplyNo"]?.ToString();
 
@@ -445,5 +452,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
+
+   
     }
 }

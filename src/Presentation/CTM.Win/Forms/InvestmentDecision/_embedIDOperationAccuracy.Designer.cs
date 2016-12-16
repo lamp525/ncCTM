@@ -38,14 +38,11 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReasonCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riMemoReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
-            this.colVoteTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colConfirmTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colJudgeTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcgResult = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -171,15 +168,13 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colInvestorCode,
             this.colInvestorName,
-            this.colTypeName,
             this.colWeightPercentage,
             this.colFlagName,
-            this.colReasonCategoryName,
             this.colReasonContent,
-            this.colVoteTime,
-            this.colConfirmTime});
+            this.colJudgeTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
             // colInvestorCode
@@ -196,14 +191,7 @@
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
             this.colInvestorName.VisibleIndex = 0;
-            // 
-            // colTypeName
-            // 
-            this.colTypeName.Caption = "人员类别";
-            this.colTypeName.FieldName = "TypeName";
-            this.colTypeName.Name = "colTypeName";
-            this.colTypeName.Visible = true;
-            this.colTypeName.VisibleIndex = 1;
+            this.colInvestorName.Width = 102;
             // 
             // colWeightPercentage
             // 
@@ -213,58 +201,42 @@
             this.colWeightPercentage.FieldName = "WeightPercentage";
             this.colWeightPercentage.Name = "colWeightPercentage";
             this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 2;
-            this.colWeightPercentage.Width = 65;
+            this.colWeightPercentage.VisibleIndex = 1;
+            this.colWeightPercentage.Width = 94;
             // 
             // colFlagName
             // 
-            this.colFlagName.Caption = "投票信息";
+            this.colFlagName.Caption = "评定信息";
             this.colFlagName.FieldName = "FlagName";
             this.colFlagName.Name = "colFlagName";
             this.colFlagName.Visible = true;
-            this.colFlagName.VisibleIndex = 3;
+            this.colFlagName.VisibleIndex = 2;
             this.colFlagName.Width = 65;
-            // 
-            // colReasonCategoryName
-            // 
-            this.colReasonCategoryName.Caption = "理由类别";
-            this.colReasonCategoryName.FieldName = "ReasonCategoryName";
-            this.colReasonCategoryName.Name = "colReasonCategoryName";
-            this.colReasonCategoryName.Visible = true;
-            this.colReasonCategoryName.VisibleIndex = 4;
-            this.colReasonCategoryName.Width = 120;
             // 
             // colReasonContent
             // 
             this.colReasonContent.AppearanceCell.Options.UseTextOptions = true;
             this.colReasonContent.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.colReasonContent.Caption = "理由";
+            this.colReasonContent.Caption = "理由说明";
             this.colReasonContent.ColumnEdit = this.riMemoReasonContent;
             this.colReasonContent.FieldName = "ReasonContent";
             this.colReasonContent.Name = "colReasonContent";
             this.colReasonContent.Visible = true;
-            this.colReasonContent.VisibleIndex = 5;
-            this.colReasonContent.Width = 350;
+            this.colReasonContent.VisibleIndex = 3;
+            this.colReasonContent.Width = 469;
             // 
             // riMemoReasonContent
             // 
             this.riMemoReasonContent.Name = "riMemoReasonContent";
             // 
-            // colVoteTime
+            // colJudgeTime
             // 
-            this.colVoteTime.Caption = "投票日期";
-            this.colVoteTime.FieldName = "VoteTime";
-            this.colVoteTime.Name = "colVoteTime";
-            this.colVoteTime.Visible = true;
-            this.colVoteTime.VisibleIndex = 6;
-            this.colVoteTime.Width = 100;
-            // 
-            // colConfirmTime
-            // 
-            this.colConfirmTime.Caption = "确定日期";
-            this.colConfirmTime.FieldName = "ConfirmTime";
-            this.colConfirmTime.Name = "colConfirmTime";
-            this.colConfirmTime.Width = 100;
+            this.colJudgeTime.Caption = "评定日期";
+            this.colJudgeTime.FieldName = "JudgeTime";
+            this.colJudgeTime.Name = "colJudgeTime";
+            this.colJudgeTime.Visible = true;
+            this.colJudgeTime.VisibleIndex = 4;
+            this.colJudgeTime.Width = 100;
             // 
             // layoutControlGroup1
             // 
@@ -483,10 +455,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colWeightPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colFlagName;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonContent;
-        private DevExpress.XtraGrid.Columns.GridColumn colVoteTime;
-        private DevExpress.XtraGrid.Columns.GridColumn colConfirmTime;
+        private DevExpress.XtraGrid.Columns.GridColumn colJudgeTime;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private DevExpress.XtraGrid.Columns.GridColumn colTypeName;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit riMemoReasonContent;
         private DevExpress.XtraEditors.SimpleButton btnRevoke;
         private DevExpress.XtraEditors.SimpleButton btnAbstain;
@@ -503,7 +473,6 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private DevExpress.XtraGrid.Columns.GridColumn colReasonCategoryName;
         private DevExpress.XtraLayout.EmptySpaceItem esiVoteStatusInfo;
         private DevExpress.XtraEditors.CheckEdit chkAdminVeto;
         private DevExpress.XtraLayout.LayoutControlItem lciAdminVeto;

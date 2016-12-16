@@ -198,7 +198,9 @@
             this.viewDetail.GridControl = this.gridApplication;
             this.viewDetail.Name = "viewDetail";
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
+            this.viewDetail.ViewCaption = "操作记录";
             this.viewDetail.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewDetail_CustomDrawRowIndicator);
+            this.viewDetail.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.viewDetail_FocusedRowChanged);
             // 
             // colOperate_D
             // 

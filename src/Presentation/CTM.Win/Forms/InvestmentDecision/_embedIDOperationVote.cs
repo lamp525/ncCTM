@@ -53,7 +53,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 50);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
             this.gridView1.OptionsView.RowAutoHeight = true;
         }
 
