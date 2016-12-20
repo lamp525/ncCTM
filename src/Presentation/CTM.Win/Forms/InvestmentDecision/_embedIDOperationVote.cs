@@ -18,7 +18,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private bool _voteSucceedFlag = false;
         private int _reasonCategoryId = -1;
-        private string _reasonContent = string.Empty;
+        private string _reasonContent = null;
 
         #endregion Fields
 
@@ -119,6 +119,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void RefreshForm()
         {
             SetVoteButtonStatus();
+
             DisplayResult();
         }
 
@@ -128,14 +129,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             this._reasonContent = content?.Replace("'", "''");
         }
 
-        private void VoteProcess(EnumLibrary.IDVoteFlag voteFlag)
+        private bool VoteProcess(EnumLibrary.IDVoteFlag voteFlag)
         {
             if (voteFlag == EnumLibrary.IDVoteFlag.None)
             {
                 if (DXMessage.ShowYesNoAndTips("确定撤销上次投票结果么？") == System.Windows.Forms.DialogResult.No)
                 {
-                    this._voteSucceedFlag = false;
-                    return;
+                    return false;
                 }
             }
             else
@@ -145,16 +145,18 @@ namespace CTM.Win.Forms.InvestmentDecision
                 dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
                 if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    this._voteSucceedFlag = false;
-                    return;
+                    return false;
                 }
             }
 
             _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent);
 
-            this._voteSucceedFlag = true;
+            this._reasonCategoryId = -1;
+            this._reasonContent = null;
 
             RefreshForm();
+
+            return true;
         }
 
         #endregion Utilities
@@ -196,7 +198,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.Approval);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.Approval);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -215,7 +219,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.Oppose);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.Oppose);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -234,7 +240,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.Abstain);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.Abstain);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -253,7 +261,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.None);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.None);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {

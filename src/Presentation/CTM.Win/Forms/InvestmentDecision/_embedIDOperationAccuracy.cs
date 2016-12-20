@@ -17,8 +17,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IInvestmentDecisionService _IDService;
 
         private bool _voteSucceedFlag = false;
-        private int _reasonCategoryId = -1;
-        private string _reasonContent = string.Empty;
+        private string _reasonContent = null;
 
         #endregion Fields
 
@@ -51,40 +50,58 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.lcgResult.Text = $@"操作记录[{OperateNo}] - 决策投票结果";
+            this.lcgResult.Text = $@"操作记录[{OperateNo}] - 准确度投票结果";
 
             this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: false, rowIndicatorWidth: 35);
             this.gridView1.OptionsView.RowAutoHeight = true;
 
             if (LoginInfo.CurrentUser.IsAdmin)
+            {
                 this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
             else
+            {
                 this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
         }
 
         private void SetVoteButtonStatus()
         {
-            var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
-
-            //未投票
-            if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+            if (this.chkAdminVeto.Checked && this.lciAdminVeto.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Always)
             {
-                this.btnAbstain.Enabled = true;
-                this.btnApproval.Enabled = true;
-                this.btnOppose.Enabled = true;
-                this.btnRevoke.Enabled = false;
+                var adminVetoInfo = _IDService.GetIDOperationAccuracyAdminVetoInfo(OperateNo);
+
+                if (adminVetoInfo == null || adminVetoInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                {
+                    this.btnApproval.Enabled = true;
+                    this.btnOppose.Enabled = true;
+                    this.btnRevoke.Enabled = false;
+                }
+                else
+                {
+                    this.btnApproval.Enabled = false;
+                    this.btnOppose.Enabled = false;
+                    this.btnRevoke.Enabled = true;
+                }
             }
-            //已投票
             else
             {
-                this.btnAbstain.Enabled = false;
-                this.btnApproval.Enabled = false;
-                this.btnOppose.Enabled = false;
-                //决策交易操作记录操作者
-                if (myVoteInfo.Type == (int)EnumLibrary.IDVoteType.Applicant)
+                var myVoteInfo = _IDService.GetIDOperationAccuracyInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
+
+                //未投票
+                if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                {
+                    this.btnApproval.Enabled = true;
+                    this.btnOppose.Enabled = true;
                     this.btnRevoke.Enabled = false;
+                }
+                //已投票
                 else
+                {
+                    this.btnApproval.Enabled = false;
+                    this.btnOppose.Enabled = false;
                     this.btnRevoke.Enabled = true;
+                }
             }
         }
 
@@ -103,7 +120,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.esiVoteStatusInfo.Text = $@"投票状态：{drVoteStatusInfo["AccuracyStatusName"]}    投票分数：{drVoteStatusInfo["AccuracyPoint"]}";
             }
 
-            var resultCommandText = $@"SELECT * FROM [dbo].[v_IDOperationAccuracy] WHERE OperateNo = '{OperateNo}' ORDER BY InvestorName";
+            var resultCommandText = $@"SELECT * FROM [dbo].[v_IDOperationAccuracy] WHERE OperateNo = '{OperateNo}' ORDER BY IsAdminVeto DESC, InvestorName";
 
             var dsResult = SqlHelper.ExecuteDataset(connString, CommandType.Text, resultCommandText);
 
@@ -119,39 +136,38 @@ namespace CTM.Win.Forms.InvestmentDecision
             DisplayResult();
         }
 
-        private void GetVoteReason(int categoryId, string content)
+        private void GetVoteReason(string content)
         {
-            this._reasonCategoryId = categoryId;
             this._reasonContent = content?.Replace("'", "''");
         }
 
-        private void VoteProcess(EnumLibrary.IDVoteFlag voteFlag)
+        private bool VoteProcess(EnumLibrary.IDVoteFlag voteFlag)
         {
             if (voteFlag == EnumLibrary.IDVoteFlag.None)
             {
                 if (DXMessage.ShowYesNoAndTips("确定撤销上次投票结果么？") == System.Windows.Forms.DialogResult.No)
                 {
-                    this._voteSucceedFlag = false;
-                    return;
+                    return false;
                 }
             }
             else
             {
-                var dialog = this.CreateDialog<_dialogInputVoteReason>();
-                dialog.ReturnEvent += new _dialogInputVoteReason.ReturnContentToParentForm(GetVoteReason);
-                dialog.ContentTitle = CTMHelper.GetIDVoteFlagName((int)voteFlag) + "理由";
+                var dialog = this.CreateDialog<_dialogInputContent>();
+                dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetVoteReason);
+                dialog.ContentTitle = "判定理由";
                 if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    this._voteSucceedFlag = false;
-                    return;
+                    return false;
                 }
             }
 
-            _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent);
+            _IDService.IDOperationAccuracyProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonContent, this.chkAdminVeto.Checked);
 
-            this._voteSucceedFlag = true;
+            this._reasonContent = null;
 
             RefreshForm();
+
+            return true;
         }
 
         #endregion Utilities
@@ -193,8 +209,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-
-                VoteProcess(EnumLibrary.IDVoteFlag.Approval);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.Approval);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -213,27 +230,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-
-                VoteProcess(EnumLibrary.IDVoteFlag.Oppose);
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 弃权
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAbstain_Click(object sender, EventArgs e)
-        {
-            var currentButton = sender as DevExpress.XtraEditors.SimpleButton;
-            try
-            {
-                currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.Abstain);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.Oppose);
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -252,7 +251,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 currentButton.Enabled = false;
-                VoteProcess(EnumLibrary.IDVoteFlag.None);
+                this._voteSucceedFlag = VoteProcess(EnumLibrary.IDVoteFlag.None);
+
+                if (!this._voteSucceedFlag)
+                    currentButton.Enabled = true;
             }
             catch (Exception ex)
             {

@@ -31,16 +31,16 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.chkAdminVeto = new DevExpress.XtraEditors.CheckEdit();
             this.btnRevoke = new DevExpress.XtraEditors.SimpleButton();
-            this.btnAbstain = new DevExpress.XtraEditors.SimpleButton();
             this.btnOppose = new DevExpress.XtraEditors.SimpleButton();
             this.btnApproval = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWeightPercentage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
             this.riMemoReasonContent = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colJudgeTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -50,13 +50,11 @@
             this.lcgVote = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciAdminVeto = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.esiVoteStatusInfo = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -73,13 +71,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.lcgVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciAdminVeto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiVoteStatusInfo)).BeginInit();
@@ -89,7 +85,6 @@
             // 
             this.layoutControl1.Controls.Add(this.chkAdminVeto);
             this.layoutControl1.Controls.Add(this.btnRevoke);
-            this.layoutControl1.Controls.Add(this.btnAbstain);
             this.layoutControl1.Controls.Add(this.btnOppose);
             this.layoutControl1.Controls.Add(this.btnApproval);
             this.layoutControl1.Controls.Add(this.gridControl1);
@@ -103,7 +98,7 @@
             // 
             // chkAdminVeto
             // 
-            this.chkAdminVeto.Location = new System.Drawing.Point(120, 573);
+            this.chkAdminVeto.Location = new System.Drawing.Point(139, 573);
             this.chkAdminVeto.Name = "chkAdminVeto";
             this.chkAdminVeto.Properties.Caption = "管理员一票决定权";
             this.chkAdminVeto.Size = new System.Drawing.Size(118, 19);
@@ -113,7 +108,7 @@
             // 
             // btnRevoke
             // 
-            this.btnRevoke.Location = new System.Drawing.Point(600, 573);
+            this.btnRevoke.Location = new System.Drawing.Point(550, 573);
             this.btnRevoke.Name = "btnRevoke";
             this.btnRevoke.Size = new System.Drawing.Size(75, 22);
             this.btnRevoke.StyleController = this.layoutControl1;
@@ -121,19 +116,9 @@
             this.btnRevoke.Text = "    撤  销    ";
             this.btnRevoke.Click += new System.EventHandler(this.btnRevoke_Click);
             // 
-            // btnAbstain
-            // 
-            this.btnAbstain.Location = new System.Drawing.Point(511, 573);
-            this.btnAbstain.Name = "btnAbstain";
-            this.btnAbstain.Size = new System.Drawing.Size(75, 22);
-            this.btnAbstain.StyleController = this.layoutControl1;
-            this.btnAbstain.TabIndex = 9;
-            this.btnAbstain.Text = "    弃  权    ";
-            this.btnAbstain.Click += new System.EventHandler(this.btnAbstain_Click);
-            // 
             // btnOppose
             // 
-            this.btnOppose.Location = new System.Drawing.Point(418, 573);
+            this.btnOppose.Location = new System.Drawing.Point(457, 573);
             this.btnOppose.Name = "btnOppose";
             this.btnOppose.Size = new System.Drawing.Size(79, 22);
             this.btnOppose.StyleController = this.layoutControl1;
@@ -143,7 +128,7 @@
             // 
             // btnApproval
             // 
-            this.btnApproval.Location = new System.Drawing.Point(325, 573);
+            this.btnApproval.Location = new System.Drawing.Point(364, 573);
             this.btnApproval.Name = "btnApproval";
             this.btnApproval.Size = new System.Drawing.Size(79, 22);
             this.btnApproval.StyleController = this.layoutControl1;
@@ -168,9 +153,10 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colInvestorCode,
             this.colInvestorName,
+            this.colTypeName,
             this.colWeightPercentage,
             this.colFlagName,
-            this.colReasonContent,
+            this.colReason,
             this.colJudgeTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -191,7 +177,15 @@
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
             this.colInvestorName.VisibleIndex = 0;
-            this.colInvestorName.Width = 102;
+            // 
+            // colTypeName
+            // 
+            this.colTypeName.Caption = "类别";
+            this.colTypeName.FieldName = "TypeName";
+            this.colTypeName.Name = "colTypeName";
+            this.colTypeName.Visible = true;
+            this.colTypeName.VisibleIndex = 1;
+            this.colTypeName.Width = 100;
             // 
             // colWeightPercentage
             // 
@@ -201,8 +195,8 @@
             this.colWeightPercentage.FieldName = "WeightPercentage";
             this.colWeightPercentage.Name = "colWeightPercentage";
             this.colWeightPercentage.Visible = true;
-            this.colWeightPercentage.VisibleIndex = 1;
-            this.colWeightPercentage.Width = 94;
+            this.colWeightPercentage.VisibleIndex = 2;
+            this.colWeightPercentage.Width = 70;
             // 
             // colFlagName
             // 
@@ -210,20 +204,20 @@
             this.colFlagName.FieldName = "FlagName";
             this.colFlagName.Name = "colFlagName";
             this.colFlagName.Visible = true;
-            this.colFlagName.VisibleIndex = 2;
+            this.colFlagName.VisibleIndex = 3;
             this.colFlagName.Width = 65;
             // 
-            // colReasonContent
+            // colReason
             // 
-            this.colReasonContent.AppearanceCell.Options.UseTextOptions = true;
-            this.colReasonContent.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.colReasonContent.Caption = "理由说明";
-            this.colReasonContent.ColumnEdit = this.riMemoReasonContent;
-            this.colReasonContent.FieldName = "ReasonContent";
-            this.colReasonContent.Name = "colReasonContent";
-            this.colReasonContent.Visible = true;
-            this.colReasonContent.VisibleIndex = 3;
-            this.colReasonContent.Width = 469;
+            this.colReason.AppearanceCell.Options.UseTextOptions = true;
+            this.colReason.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.colReason.Caption = "理由说明";
+            this.colReason.ColumnEdit = this.riMemoReasonContent;
+            this.colReason.FieldName = "Reason";
+            this.colReason.Name = "colReason";
+            this.colReason.Visible = true;
+            this.colReason.VisibleIndex = 4;
+            this.colReason.Width = 469;
             // 
             // riMemoReasonContent
             // 
@@ -235,7 +229,7 @@
             this.colJudgeTime.FieldName = "JudgeTime";
             this.colJudgeTime.Name = "colJudgeTime";
             this.colJudgeTime.Visible = true;
-            this.colJudgeTime.VisibleIndex = 4;
+            this.colJudgeTime.VisibleIndex = 5;
             this.colJudgeTime.Width = 100;
             // 
             // layoutControlGroup1
@@ -290,13 +284,11 @@
             this.lcgVote.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem2,
             this.layoutControlItem4,
-            this.layoutControlItem5,
             this.layoutControlItem3,
             this.layoutControlItem6,
             this.emptySpaceItem3,
             this.emptySpaceItem4,
             this.emptySpaceItem5,
-            this.emptySpaceItem6,
             this.lciAdminVeto,
             this.emptySpaceItem7});
             this.lcgVote.Location = new System.Drawing.Point(0, 499);
@@ -307,33 +299,24 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(643, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(593, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(278, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(328, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnOppose;
-            this.layoutControlItem4.Location = new System.Drawing.Point(382, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(421, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(83, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.btnAbstain;
-            this.layoutControlItem5.Location = new System.Drawing.Point(475, 0);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnApproval;
-            this.layoutControlItem3.Location = new System.Drawing.Point(289, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(328, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(83, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -342,7 +325,7 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnRevoke;
-            this.layoutControlItem6.Location = new System.Drawing.Point(564, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(514, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -353,13 +336,13 @@
             this.emptySpaceItem3.AllowHotTrack = false;
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(84, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(103, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(372, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(411, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -367,23 +350,15 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(465, 0);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(504, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // emptySpaceItem6
-            // 
-            this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(554, 0);
-            this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // lciAdminVeto
             // 
             this.lciAdminVeto.Control = this.chkAdminVeto;
-            this.lciAdminVeto.Location = new System.Drawing.Point(84, 0);
+            this.lciAdminVeto.Location = new System.Drawing.Point(103, 0);
             this.lciAdminVeto.Name = "lciAdminVeto";
             this.lciAdminVeto.Size = new System.Drawing.Size(122, 26);
             this.lciAdminVeto.TextSize = new System.Drawing.Size(0, 0);
@@ -392,9 +367,9 @@
             // emptySpaceItem7
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(206, 0);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(225, 0);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(83, 26);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(103, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // esiVoteStatusInfo
@@ -429,13 +404,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.lcgVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciAdminVeto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiVoteStatusInfo)).EndInit();
@@ -454,28 +427,26 @@
         private DevExpress.XtraGrid.Columns.GridColumn colInvestorName;
         private DevExpress.XtraGrid.Columns.GridColumn colWeightPercentage;
         private DevExpress.XtraGrid.Columns.GridColumn colFlagName;
-        private DevExpress.XtraGrid.Columns.GridColumn colReasonContent;
+        private DevExpress.XtraGrid.Columns.GridColumn colReason;
         private DevExpress.XtraGrid.Columns.GridColumn colJudgeTime;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit riMemoReasonContent;
         private DevExpress.XtraEditors.SimpleButton btnRevoke;
-        private DevExpress.XtraEditors.SimpleButton btnAbstain;
         private DevExpress.XtraEditors.SimpleButton btnOppose;
         private DevExpress.XtraEditors.SimpleButton btnApproval;
         private DevExpress.XtraLayout.LayoutControlGroup lcgVote;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlGroup lcgResult;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraLayout.EmptySpaceItem esiVoteStatusInfo;
         private DevExpress.XtraEditors.CheckEdit chkAdminVeto;
         private DevExpress.XtraLayout.LayoutControlItem lciAdminVeto;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
+        private DevExpress.XtraGrid.Columns.GridColumn colTypeName;
     }
 }

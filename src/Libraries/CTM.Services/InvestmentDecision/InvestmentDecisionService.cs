@@ -120,8 +120,6 @@ namespace CTM.Services.InvestmentDecision
             return serialNo;
         }
 
-
-
         #endregion Utilities
 
         #region Methods
@@ -613,6 +611,36 @@ namespace CTM.Services.InvestmentDecision
         public virtual InvestmentDecisionOperationVote GetIDOperationVoteInfo(string userCode, string operateNo)
         {
             var query = _IDOperationVoteRepository.TableNoTracking.Where(x => x.UserCode == userCode && x.OperateNo == operateNo);
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual void IDOperationAccuracyProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag voteFlag, string reasonContent , bool isAdminVeto)
+        {
+            if (string.IsNullOrEmpty(reasonContent))
+                reasonContent = @"";
+
+            var commanText = $@"EXEC [dbo].[sp_IDOperationAccuracyProcess]
+                                        @InvestorCode = '{investorCode}',
+		                                @ApplyNo = '{applyNo}',
+                                        @OperateNo='{operateNo}',
+		                                @VoteFlag = {(int)voteFlag},                               
+		                                @ReasonContent =N'{reasonContent}',
+                                        @IsAdminVeto = {isAdminVeto}";
+
+            _dbContext.ExecuteSqlCommand(commanText);
+        }
+
+        public virtual InvestmentDecisionAccuracy GetIDOperationAccuracyInfo(string userCode, string operateNo)
+        {
+            var query = _IDAccuracyRepository.TableNoTracking.Where(x => x.UserCode == userCode && x.OperateNo == operateNo && x.IsAdminVeto == false);
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual InvestmentDecisionAccuracy GetIDOperationAccuracyAdminVetoInfo(string operateNo)
+        {
+            var query = _IDAccuracyRepository.TableNoTracking.Where(x => x.OperateNo == operateNo && x.IsAdminVeto == true);
 
             return query.FirstOrDefault();
         }

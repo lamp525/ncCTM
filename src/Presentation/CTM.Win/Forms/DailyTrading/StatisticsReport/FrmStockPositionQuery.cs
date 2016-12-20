@@ -3,6 +3,7 @@ using System.Data;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 
 namespace CTM.Win.Forms.DailyTrading.StatisticsReport
@@ -33,7 +34,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             var endDate = CommonHelper.StringToDateTime(this.deEnd.EditValue.ToString());
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-            var commandText = $@"EXEC [dbo].[sp_StockPositionQuery] @EndDate ='{endDate}'";
+            var commandText = $@"EXEC [dbo].[sp_StockPositionQuery] @EndDate ='{endDate}', @InvestorCode = '{LoginInfo.CurrentUser.UserCode}'";
 
             var positionInfos = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText)?.Tables?[0];
             this.gridControl1.DataSource = positionInfos;

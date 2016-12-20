@@ -22,6 +22,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public string Reason { get; set; }
 
+        public bool IsAdminVeto { get; set; }
+
         public DateTime? JudgeTime { get; set; }
     }
 }
