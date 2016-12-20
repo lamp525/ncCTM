@@ -384,12 +384,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void viewDetail_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void viewDetail_GotFocus(object sender, EventArgs e)
         {
-            //var currentView = sender as GridView;
-            //var focusedDetaiRowHandle = currentView.FocusedRowHandle;
-            //this.viewMaster.GetDetailView 
+            var currentDetailView = gridApplication.FocusedView as GridView;
+            this.viewMaster.FocusedRowHandle = currentDetailView.SourceRowHandle;
         }
+
+
 
         private void ribtnOperate_D_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -449,10 +450,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+
         #endregion DetailView
 
         #endregion Events
 
-   
+
     }
 }
