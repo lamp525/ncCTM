@@ -28,20 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(_embedIDApplication));
             this.viewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOperate_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ribtnOperate_D = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOperateNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperateNo_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInitialFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -56,11 +57,11 @@
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReasonContent = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colVoteStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colVoteStatus_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colExecuteFlag = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTradeRecordRelateFlag = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccuracyStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colExecuteFlag_D = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeRecordRelateFlag_D = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracyStatus_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -164,7 +165,7 @@
             this.colOperate_D,
             this.gridColumn1,
             this.gridColumn2,
-            this.colOperateNo,
+            this.colOperateNo_D,
             this.colInitialFlag,
             this.gridColumn3,
             this.gridColumn4,
@@ -179,11 +180,11 @@
             this.gridColumn17,
             this.colReasonCategoryId,
             this.colReasonContent,
-            this.colVoteStatus,
+            this.colVoteStatus_D,
             this.gridColumn8,
-            this.colExecuteFlag,
-            this.colTradeRecordRelateFlag,
-            this.colAccuracyStatus,
+            this.colExecuteFlag_D,
+            this.colTradeRecordRelateFlag_D,
+            this.colAccuracyStatus_D,
             this.gridColumn5,
             this.gridColumn6,
             this.gridColumn7,
@@ -200,6 +201,7 @@
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
             this.viewDetail.ViewCaption = "操作记录";
             this.viewDetail.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewDetail_CustomDrawRowIndicator);
+            this.viewDetail.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewDetail_CustomDrawCell);
             this.viewDetail.GotFocus += new System.EventHandler(this.viewDetail_GotFocus);
             // 
             // colOperate_D
@@ -212,17 +214,18 @@
             this.colOperate_D.Name = "colOperate_D";
             this.colOperate_D.Visible = true;
             this.colOperate_D.VisibleIndex = 16;
-            this.colOperate_D.Width = 320;
+            this.colOperate_D.Width = 300;
             // 
             // ribtnOperate_D
             // 
             this.ribtnOperate_D.AutoHeight = false;
             this.ribtnOperate_D.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "IDVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "是否执行", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", "Execute", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", "AccuracyVote", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject10, "", "View", null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject11, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "决策投票", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "IDVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "执行确认", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Execute", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "交易关联", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", "Relate", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "准确度设定", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", "AccuracyVote", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查看详情", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", "View", null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", "Delete", null, true)});
             this.ribtnOperate_D.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.ribtnOperate_D.Name = "ribtnOperate_D";
             this.ribtnOperate_D.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -238,14 +241,14 @@
             this.gridColumn2.FieldName = "ApplyNo";
             this.gridColumn2.Name = "gridColumn2";
             // 
-            // colOperateNo
+            // colOperateNo_D
             // 
-            this.colOperateNo.Caption = "操作编号";
-            this.colOperateNo.FieldName = "OperateNo";
-            this.colOperateNo.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.colOperateNo.Name = "colOperateNo";
-            this.colOperateNo.Visible = true;
-            this.colOperateNo.VisibleIndex = 0;
+            this.colOperateNo_D.Caption = "操作编号";
+            this.colOperateNo_D.FieldName = "OperateNo";
+            this.colOperateNo_D.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colOperateNo_D.Name = "colOperateNo_D";
+            this.colOperateNo_D.Visible = true;
+            this.colOperateNo_D.VisibleIndex = 0;
             // 
             // colInitialFlag
             // 
@@ -354,10 +357,10 @@
             this.colReasonContent.Name = "colReasonContent";
             this.colReasonContent.Width = 85;
             // 
-            // colVoteStatus
+            // colVoteStatus_D
             // 
-            this.colVoteStatus.FieldName = "VoteStatus";
-            this.colVoteStatus.Name = "colVoteStatus";
+            this.colVoteStatus_D.FieldName = "VoteStatus";
+            this.colVoteStatus_D.Name = "colVoteStatus_D";
             // 
             // gridColumn8
             // 
@@ -368,20 +371,20 @@
             this.gridColumn8.VisibleIndex = 9;
             this.gridColumn8.Width = 70;
             // 
-            // colExecuteFlag
+            // colExecuteFlag_D
             // 
-            this.colExecuteFlag.FieldName = "ExecuteFlag";
-            this.colExecuteFlag.Name = "colExecuteFlag";
+            this.colExecuteFlag_D.FieldName = "ExecuteFlag";
+            this.colExecuteFlag_D.Name = "colExecuteFlag_D";
             // 
-            // colTradeRecordRelateFlag
+            // colTradeRecordRelateFlag_D
             // 
-            this.colTradeRecordRelateFlag.FieldName = "TradeRecordRelateFlag";
-            this.colTradeRecordRelateFlag.Name = "colTradeRecordRelateFlag";
+            this.colTradeRecordRelateFlag_D.FieldName = "TradeRecordRelateFlag";
+            this.colTradeRecordRelateFlag_D.Name = "colTradeRecordRelateFlag_D";
             // 
-            // colAccuracyStatus
+            // colAccuracyStatus_D
             // 
-            this.colAccuracyStatus.FieldName = "AccuracyStatus";
-            this.colAccuracyStatus.Name = "colAccuracyStatus";
+            this.colAccuracyStatus_D.FieldName = "AccuracyStatus";
+            this.colAccuracyStatus_D.Name = "colAccuracyStatus_D";
             // 
             // gridColumn5
             // 
@@ -472,10 +475,10 @@
             // 
             // gridApplication
             // 
-            gridLevelNode2.LevelTemplate = this.viewDetail;
-            gridLevelNode2.RelationName = "MD";
+            gridLevelNode1.LevelTemplate = this.viewDetail;
+            gridLevelNode1.RelationName = "MD";
             this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.gridApplication.Location = new System.Drawing.Point(24, 83);
             this.gridApplication.MainView = this.viewMaster;
             this.gridApplication.Name = "gridApplication";
@@ -656,7 +659,7 @@
             // riBtnOperate
             // 
             this.riBtnOperate.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "交易申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject12, "", "Apply", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "交易申请", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", "Apply", null, true)});
             this.riBtnOperate.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.riBtnOperate.Name = "riBtnOperate";
             this.riBtnOperate.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -1087,7 +1090,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView viewDetail;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn colOperateNo;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperateNo_D;
         private DevExpress.XtraGrid.Columns.GridColumn colInitialFlag;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
@@ -1098,11 +1101,11 @@
         private DevExpress.XtraGrid.Columns.GridColumn colFormattedDealAmount;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonCategoryId;
         private DevExpress.XtraGrid.Columns.GridColumn colReasonContent;
-        private DevExpress.XtraGrid.Columns.GridColumn colVoteStatus;
+        private DevExpress.XtraGrid.Columns.GridColumn colVoteStatus_D;
         private DevExpress.XtraGrid.Columns.GridColumn colVotePoint;
-        private DevExpress.XtraGrid.Columns.GridColumn colExecuteFlag;
-        private DevExpress.XtraGrid.Columns.GridColumn colTradeRecordRelateFlag;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyStatus;
+        private DevExpress.XtraGrid.Columns.GridColumn colExecuteFlag_D;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeRecordRelateFlag_D;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyStatus_D;
         private DevExpress.XtraGrid.Columns.GridColumn colAccuracyPoint;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;

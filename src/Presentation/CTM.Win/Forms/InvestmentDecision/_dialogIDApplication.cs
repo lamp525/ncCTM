@@ -440,7 +440,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     DealFlag = chkBuy.Checked,
                     DealPrice = price,
                     DealVolume = volume,
-                    ExecuteFlag = false,
+                    ExecuteFlag = (int)EnumLibrary.IDOperationExecuteStatus .None,
                     InitialFlag = _initialFlag,
                     IsDeleted = false,
                     OperateDate = operateDate,

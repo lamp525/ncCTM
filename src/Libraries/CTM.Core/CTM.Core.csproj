@@ -71,7 +71,7 @@
     <Compile Include="Domain\Account\AccountInitialFund.cs" />
     <Compile Include="Domain\InvestmentDecision\DecisionReasonCategory.cs" />
     <Compile Include="Domain\InvestmentDecision\DecisionReasonContent.cs" />
-    <Compile Include="Domain\InvestmentDecision\InvestmentDecisionAccuracy.cs" />
+    <Compile Include="Domain\InvestmentDecision\InvestmentDecisionOperationAccuracy.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionApplication.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionCommittee.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionForm.cs" />

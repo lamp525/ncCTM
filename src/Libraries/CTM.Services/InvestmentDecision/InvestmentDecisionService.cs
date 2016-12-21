@@ -19,7 +19,7 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<InvestmentDecisionApplication> _IDApplicationRepository;
         private readonly IRepository<InvestmentDecisionOperation> _IDOperationRepository;
         private readonly IRepository<InvestmentDecisionOperationVote> _IDOperationVoteRepository;
-        private readonly IRepository<InvestmentDecisionAccuracy> _IDAccuracyRepository;
+        private readonly IRepository<InvestmentDecisionOperationAccuracy> _IDAccuracyRepository;
 
         private readonly IRepository<InvestmentDecisionForm> _IDFormRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVoteRepository;
@@ -49,7 +49,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<InvestmentDecisionApplication> IDApplicationRepository,
             IRepository<InvestmentDecisionOperation> IDOperationRepository,
             IRepository<InvestmentDecisionOperationVote> IDOperationVoteRepository,
-            IRepository<InvestmentDecisionAccuracy> IDAccuracyRepository,
+            IRepository<InvestmentDecisionOperationAccuracy> IDAccuracyRepository,
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
             IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
@@ -631,14 +631,14 @@ namespace CTM.Services.InvestmentDecision
             _dbContext.ExecuteSqlCommand(commanText);
         }
 
-        public virtual InvestmentDecisionAccuracy GetIDOperationAccuracyInfo(string userCode, string operateNo)
+        public virtual InvestmentDecisionOperationAccuracy GetIDOperationAccuracyInfo(string userCode, string operateNo)
         {
             var query = _IDAccuracyRepository.TableNoTracking.Where(x => x.UserCode == userCode && x.OperateNo == operateNo && x.IsAdminVeto == false);
 
             return query.FirstOrDefault();
         }
 
-        public virtual InvestmentDecisionAccuracy GetIDOperationAccuracyAdminVetoInfo(string operateNo)
+        public virtual InvestmentDecisionOperationAccuracy GetIDOperationAccuracyAdminVetoInfo(string operateNo)
         {
             var query = _IDAccuracyRepository.TableNoTracking.Where(x => x.OperateNo == operateNo && x.IsAdminVeto == true);
 

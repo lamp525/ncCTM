@@ -3,11 +3,11 @@ using CTM.Core.Domain.InvestmentDecision;
 
 namespace CTM.Data.Mapping.InvestmentDecision
 {
-    public partial class InvestmentDecisionAccuracyMap : EntityTypeConfiguration<InvestmentDecisionAccuracy>
+    public partial class InvestmentDecisionAccuracyMap : EntityTypeConfiguration<InvestmentDecisionOperationAccuracy>
     {
         public InvestmentDecisionAccuracyMap()
         {
-            this.ToTable(nameof(InvestmentDecisionAccuracy));
+            this.ToTable(nameof(InvestmentDecisionOperationAccuracy));
             this.HasKey(p => p.Id);
 
             this.Property(p => p.Weight).HasPrecision(18, 4);

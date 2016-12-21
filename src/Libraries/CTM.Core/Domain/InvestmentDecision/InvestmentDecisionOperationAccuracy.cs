@@ -2,7 +2,7 @@
 
 namespace CTM.Core.Domain.InvestmentDecision
 {
-    public class InvestmentDecisionAccuracy : BaseEntity
+    public class InvestmentDecisionOperationAccuracy : BaseEntity
     {
         public string ApplyNo { get; set; }
 

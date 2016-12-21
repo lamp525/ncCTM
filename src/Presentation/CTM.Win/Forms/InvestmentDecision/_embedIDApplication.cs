@@ -376,6 +376,56 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region DetailView
 
+        private void viewDetail_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            var currentDetailView = sender as GridView;
+
+            DataRow dr = currentDetailView.GetDataRow(e.RowHandle);
+
+            if (dr == null) return;
+
+            if(e.Column == colOperate_D )
+            {
+                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+                DetailOperateButtonStatusSetting(dr,buttonVI);
+
+            }
+        }
+
+        private void DetailOperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo btnVI)
+        {
+            var voteStatus = int.Parse(dr[colVoteStatus_D.FieldName]?.ToString());
+            var executeFlag = int.Parse(dr[colExecuteFlag_D.FieldName]?.ToString());
+            var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
+            var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
+
+            /// 按钮0：决策投票 
+            /// 按钮1：执行确认
+            /// 按钮2：交易关联
+            /// 按钮3：准确度设定
+            /// 按钮4：查看详情
+            /// 按钮5：删除
+
+            //决策投票状态：待决策、决策中
+            if(voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None  || voteStatus == (int)EnumLibrary .IDOperationVoteStatus.Proceed )
+            {
+                btnVI.RightButtons[0].Button.Enabled = true;
+                btnVI.RightButtons[0].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[0].Button.Enabled = false;
+                btnVI.RightButtons[0].State = ObjectState.Disabled;
+
+                //决策投票状态：通过
+                if(voteStatus ==(int)EnumLibrary.IDOperationVoteStatus .Passed )
+                {
+                    btnVI.RightButtons[1]
+                }
+            }
+
+        }
+
         private void viewDetail_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle > -1)
@@ -451,10 +501,11 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
 
+
         #endregion DetailView
 
         #endregion Events
 
-
+   
     }
 }

@@ -9,15 +9,27 @@ namespace CTM.Core
         /// </summary>
         public enum IDVoteType
         {
+            /// <summary>
+            /// 申请人
+            /// </summary>
             [Description("申请人")]
             Applicant = 1,
 
+            /// <summary>
+            /// 决策委员会成员
+            /// </summary>
             [Description("决策委员会成员")]
             Committee = 2,
 
+            /// <summary>
+            /// 普通交易员
+            /// </summary>
             [Description("普通交易员")]
             Nomal = 3,
 
+            /// <summary>
+            /// 一票否决
+            /// </summary>
             [Description("一票否决")]
             OneVoteVeto = 99,
         }
@@ -27,15 +39,27 @@ namespace CTM.Core
         /// </summary>
         public enum IDVoteFlag
         {
+            /// <summary>
+            /// 未投票
+            /// </summary>
             [Description("未投票")]
             None = 0,
 
+            /// <summary>
+            /// 赞同
+            /// </summary>
             [Description("赞同")]
             Approval = 1,
 
+            /// <summary>
+            /// 反对
+            /// </summary>
             [Description("反对")]
             Oppose = 2,
 
+            /// <summary>
+            /// 弃权
+            /// </summary>
             [Description("弃权")]
             Abstain = 3,
         }
@@ -57,17 +81,50 @@ namespace CTM.Core
         /// </summary>
         public enum IDOperationVoteStatus
         {
-            [Description("已提交")]
+            /// <summary>
+            ///待决策
+            /// </summary>
+            [Description("待决策")]
             None = 1,
 
-            [Description("投票中")]
+            /// <summary>
+            /// 决策中
+            /// </summary>
+            [Description("决策中")]
             Proceed = 2,
 
+            /// <summary>
+            /// 通过
+            /// </summary>
             [Description("通过")]
             Passed = 3,
 
+            /// <summary>
+            /// 不通过
+            /// </summary>
             [Description("不通过")]
             Denied = 4,
+        }
+
+        public enum IDOperationExecuteStatus
+        {
+            /// <summary>
+            /// 待确认
+            /// </summary>
+            [Description("待确认")]
+            None = 1,
+
+            /// <summary>
+            /// 已执行
+            /// </summary>
+            [Description("已执行")]
+            Executed = 2,
+
+            /// <summary>
+            /// 未执行
+            /// </summary>
+            [Description("未执行")]
+            Unexecuted = 3
         }
 
         /// <summary>
@@ -75,15 +132,27 @@ namespace CTM.Core
         /// </summary>
         public enum IDOperationAccuracyStatus
         {
-            [Description("未评定")]
+            /// <summary>
+            /// 待评定
+            /// </summary>
+            [Description("待评定")]
             None = 1,
 
+            /// <summary>
+            /// 评定中
+            /// </summary>
             [Description("评定中")]
             Proceed = 2,
 
+            /// <summary>
+            /// 准确
+            /// </summary>
             [Description("准确")]
             Accurate = 3,
 
+            /// <summary>
+            /// 不准确
+            /// </summary>
             [Description("不准确")]
             Inaccurate = 4,
         }

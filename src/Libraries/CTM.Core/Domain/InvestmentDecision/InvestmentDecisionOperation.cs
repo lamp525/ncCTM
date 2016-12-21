@@ -54,9 +54,9 @@ namespace CTM.Core.Domain.InvestmentDecision
         public string ReasonContent { get; set; }
 
         /// <summary>
-        /// 投票状态
-        /// 1：未投票
-        /// 2：投票中
+        /// 决策投票状态
+        /// 1：待决策
+        /// 2：决策中
         /// 3：通过
         /// 4：不通过
         /// </summary>
@@ -65,11 +65,12 @@ namespace CTM.Core.Domain.InvestmentDecision
         public int VotePoint { get; set; }
 
         /// <summary>
-        /// 执行标志
-        /// true：已执行
-        /// false：未执行
+        /// 执行确认标志
+        /// 1：待确认
+        /// 2：已执行
+        /// 3：未执行
         /// </summary>
-        public bool ExecuteFlag { get; set; }
+        public int ExecuteFlag { get; set; }
 
         /// <summary>
         /// 交易记录关联标志
@@ -80,8 +81,8 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         /// <summary>
         /// 准确性判定状态
-        /// 1：未投票
-        /// 2：投票中
+        /// 1：待判定
+        /// 2：判定中
         /// 3：准确
         /// 4：不准确
         /// </summary>
