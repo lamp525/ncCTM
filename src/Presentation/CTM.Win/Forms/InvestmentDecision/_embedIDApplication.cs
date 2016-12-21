@@ -384,11 +384,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             if (dr == null) return;
 
-            if(e.Column == colOperate_D )
+            if (e.Column.Name == colOperate_D.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                DetailOperateButtonStatusSetting(dr,buttonVI);
-
+                DetailOperateButtonStatusSetting(dr, buttonVI);
             }
         }
 
@@ -399,15 +398,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
             var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
 
-            /// 按钮0：决策投票 
-            /// 按钮1：执行确认
-            /// 按钮2：交易关联
-            /// 按钮3：准确度设定
-            /// 按钮4：查看详情
-            /// 按钮5：删除
-
-            //决策投票状态：待决策、决策中
-            if(voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None  || voteStatus == (int)EnumLibrary .IDOperationVoteStatus.Proceed )
+            /// 按钮0：决策投票
+            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
             {
                 btnVI.RightButtons[0].Button.Enabled = true;
                 btnVI.RightButtons[0].State = ObjectState.Normal;
@@ -416,14 +408,60 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 btnVI.RightButtons[0].Button.Enabled = false;
                 btnVI.RightButtons[0].State = ObjectState.Disabled;
-
-                //决策投票状态：通过
-                if(voteStatus ==(int)EnumLibrary.IDOperationVoteStatus .Passed )
-                {
-                    btnVI.RightButtons[1]
-                }
             }
 
+            /// 按钮1：执行确认
+            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.None && voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed)
+            {
+                btnVI.RightButtons[1].Button.Enabled = true;
+                btnVI.RightButtons[1].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[1].Button.Enabled = false;
+                btnVI.RightButtons[1].State = ObjectState.Disabled;
+            }
+
+            /// 按钮2：交易关联
+            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Executed)
+            {
+                btnVI.RightButtons[2].Button.Enabled = true;
+                btnVI.RightButtons[2].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[2].Button.Enabled = false;
+                btnVI.RightButtons[2].State = ObjectState.Disabled;
+            }
+
+            /// 按钮3：准确度设定
+            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
+                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
+            {
+                btnVI.RightButtons[3].Button.Enabled = true;
+                btnVI.RightButtons[3].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[3].Button.Enabled = false;
+                btnVI.RightButtons[3].State = ObjectState.Disabled;
+            }
+
+            /// 按钮4：查看详情
+            btnVI.RightButtons[4].Button.Enabled = true;
+            btnVI.RightButtons[4].State = ObjectState.Normal;
+
+            /// 按钮5：删除
+            if (voteStatus != (int)EnumLibrary.IDOperationVoteStatus.None)
+            {
+                btnVI.RightButtons[5].Button.Enabled = true;
+                btnVI.RightButtons[5].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[5].Button.Enabled = false;
+                btnVI.RightButtons[5].State = ObjectState.Disabled;
+            }
         }
 
         private void viewDetail_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
@@ -440,13 +478,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.viewMaster.FocusedRowHandle = currentDetailView.SourceRowHandle;
         }
 
-
-
         private void ribtnOperate_D_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
-                e.Button.Enabled = false;         
+                e.Button.Enabled = false;
 
                 var masterRowHandle = this.viewMaster.FocusedRowHandle;
                 var relationIndex = this.viewMaster.GetRelationIndex(masterRowHandle, "MD");
@@ -460,7 +496,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 if (string.IsNullOrEmpty(applyNo) || string.IsNullOrEmpty(operateNo)) return;
 
-                var buttonTag = e.Button.Tag.ToString().Trim();
+                var buttonTag = e.Button.Tag?.ToString().Trim();
 
                 if (string.IsNullOrEmpty(buttonTag)) return;
 
@@ -500,12 +536,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-
-
         #endregion DetailView
 
         #endregion Events
-
-   
     }
 }
