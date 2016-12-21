@@ -542,6 +542,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 case PageMode.ExecutionConfirm:
                     _embedIDOE = EngineContext.Current.Resolve<_embedIDOperationExecute>();
+                    _embedIDOE.ApplyNo = ApplyNo;
+                    _embedIDOE.OperateNo = OperateNo;
                     _embedIDOE.FormBorderStyle = FormBorderStyle.None;
                     _embedIDOE.TopLevel = false;
                     _embedIDOE.Parent = this.splitContainerControl1.Panel2;

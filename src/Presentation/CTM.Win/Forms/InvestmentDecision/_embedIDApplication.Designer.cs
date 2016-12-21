@@ -64,7 +64,7 @@
             this.colAccuracyStatus_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperateUser_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperateUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperateDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -187,7 +187,7 @@
             this.colAccuracyStatus_D,
             this.gridColumn5,
             this.gridColumn6,
-            this.gridColumn7,
+            this.colOperateUser_D,
             this.colOperateUserName,
             this.colOperateDate,
             this.colDealFlagName,
@@ -214,7 +214,7 @@
             this.colOperate_D.Name = "colOperate_D";
             this.colOperate_D.Visible = true;
             this.colOperate_D.VisibleIndex = 16;
-            this.colOperate_D.Width = 300;
+            this.colOperate_D.Width = 360;
             // 
             // ribtnOperate_D
             // 
@@ -400,10 +400,10 @@
             this.gridColumn6.FieldName = "UpdateTime";
             this.gridColumn6.Name = "gridColumn6";
             // 
-            // gridColumn7
+            // colOperateUser_D
             // 
-            this.gridColumn7.FieldName = "OperateUser";
-            this.gridColumn7.Name = "gridColumn7";
+            this.colOperateUser_D.FieldName = "OperateUser";
+            this.colOperateUser_D.Name = "colOperateUser_D";
             // 
             // colOperateUserName
             // 
@@ -1137,7 +1137,7 @@
         private DevExpress.XtraLayout.LayoutControlItem lciRefresh;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperateUser_D;
         private DevExpress.XtraEditors.SimpleButton btnExpandOrCollapse;
         private DevExpress.XtraLayout.LayoutControlItem lciExpand;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;

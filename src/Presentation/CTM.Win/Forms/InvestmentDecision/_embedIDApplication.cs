@@ -148,6 +148,80 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Detail
 
+        private void DetailOperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo btnVI)
+        {
+            var voteStatus = int.Parse(dr[colVoteStatus_D.FieldName]?.ToString());
+            var executeFlag = int.Parse(dr[colExecuteFlag_D.FieldName]?.ToString());
+            var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
+            var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
+            var operateUser = dr[colOperateUser_D.FieldName].ToString();
+
+            /// 按钮0：决策投票
+            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
+            {
+                btnVI.RightButtons[0].Button.Enabled = true;
+                btnVI.RightButtons[0].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[0].Button.Enabled = false;
+                btnVI.RightButtons[0].State = ObjectState.Disabled;
+            }
+
+            /// 按钮1：执行确认
+            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.None && voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed)
+            {
+                btnVI.RightButtons[1].Button.Enabled = true;
+                btnVI.RightButtons[1].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[1].Button.Enabled = false;
+                btnVI.RightButtons[1].State = ObjectState.Disabled;
+            }
+
+            /// 按钮2：交易关联
+            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Executed)
+            {
+                btnVI.RightButtons[2].Button.Enabled = true;
+                btnVI.RightButtons[2].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[2].Button.Enabled = false;
+                btnVI.RightButtons[2].State = ObjectState.Disabled;
+            }
+
+            /// 按钮3：准确度设定
+            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
+                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
+            {
+                btnVI.RightButtons[3].Button.Enabled = true;
+                btnVI.RightButtons[3].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[3].Button.Enabled = false;
+                btnVI.RightButtons[3].State = ObjectState.Disabled;
+            }
+
+            /// 按钮4：查看详情
+            btnVI.RightButtons[4].Button.Enabled = true;
+            btnVI.RightButtons[4].State = ObjectState.Normal;
+
+            /// 按钮5：删除
+            if (voteStatus != (int)EnumLibrary.IDOperationVoteStatus.None && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
+            {
+                btnVI.RightButtons[5].Button.Enabled = true;
+                btnVI.RightButtons[5].State = ObjectState.Normal;
+            }
+            else
+            {
+                btnVI.RightButtons[5].Button.Enabled = false;
+                btnVI.RightButtons[5].State = ObjectState.Disabled;
+            }
+        }
+
         private void DisplayOperationDetail(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
@@ -388,79 +462,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
                 DetailOperateButtonStatusSetting(dr, buttonVI);
-            }
-        }
-
-        private void DetailOperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo btnVI)
-        {
-            var voteStatus = int.Parse(dr[colVoteStatus_D.FieldName]?.ToString());
-            var executeFlag = int.Parse(dr[colExecuteFlag_D.FieldName]?.ToString());
-            var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
-            var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
-
-            /// 按钮0：决策投票
-            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
-            {
-                btnVI.RightButtons[0].Button.Enabled = true;
-                btnVI.RightButtons[0].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[0].Button.Enabled = false;
-                btnVI.RightButtons[0].State = ObjectState.Disabled;
-            }
-
-            /// 按钮1：执行确认
-            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.None && voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed)
-            {
-                btnVI.RightButtons[1].Button.Enabled = true;
-                btnVI.RightButtons[1].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[1].Button.Enabled = false;
-                btnVI.RightButtons[1].State = ObjectState.Disabled;
-            }
-
-            /// 按钮2：交易关联
-            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Executed)
-            {
-                btnVI.RightButtons[2].Button.Enabled = true;
-                btnVI.RightButtons[2].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[2].Button.Enabled = false;
-                btnVI.RightButtons[2].State = ObjectState.Disabled;
-            }
-
-            /// 按钮3：准确度设定
-            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
-                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
-            {
-                btnVI.RightButtons[3].Button.Enabled = true;
-                btnVI.RightButtons[3].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[3].Button.Enabled = false;
-                btnVI.RightButtons[3].State = ObjectState.Disabled;
-            }
-
-            /// 按钮4：查看详情
-            btnVI.RightButtons[4].Button.Enabled = true;
-            btnVI.RightButtons[4].State = ObjectState.Normal;
-
-            /// 按钮5：删除
-            if (voteStatus != (int)EnumLibrary.IDOperationVoteStatus.None)
-            {
-                btnVI.RightButtons[5].Button.Enabled = true;
-                btnVI.RightButtons[5].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[5].Button.Enabled = false;
-                btnVI.RightButtons[5].State = ObjectState.Disabled;
             }
         }
 

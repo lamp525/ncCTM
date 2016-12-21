@@ -197,6 +197,12 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.Designer.cs">
+      <DependentUpon>_dialogIDOperationRelateRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InvestmentDecision\_embedIDApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -665,11 +671,17 @@
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.resx">
+      <DependentUpon>_dialogIDOperationRelateRecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDApplication.resx">
       <DependentUpon>_embedIDApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationAccuracy.resx">
       <DependentUpon>_embedIDOperationAccuracy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationExecute.resx">
+      <DependentUpon>_embedIDOperationExecute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDOperationVote.resx">
       <DependentUpon>_embedIDOperationVote.cs</DependentUpon>
