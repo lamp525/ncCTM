@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using CTM.Data;
 using CTM.Win.Util;
 
@@ -14,13 +7,30 @@ namespace CTM.Win.Forms.InvestmentDecision
 {
     public partial class _dialogIDOperationRelateRecord : BaseForm
     {
+        #region Properties
 
         public string OperateNo { get; set; }
+
+        #endregion Properties
+
+        #region Delegates
+
+        public delegate void RefreshParentForm();
+
+        public event RefreshParentForm RefreshEvent;
+
+        #endregion Delegates
+
+        #region Constructors
 
         public _dialogIDOperationRelateRecord()
         {
             InitializeComponent();
         }
+
+        #endregion Constructors
+
+        #region Utilities
 
         private void BindRecord()
         {
@@ -33,6 +43,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.gridView1.PopulateColumns();
         }
 
+        #endregion Utilities
+
+        #region Events
+
         private void _dialogIDOperationRelateRecord_Load(object sender, EventArgs e)
         {
             try
@@ -41,11 +55,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
             catch (Exception ex)
             {
-
                 DXMessage.ShowError(ex.Message);
             }
         }
 
+        #endregion Events
 
     }
 }

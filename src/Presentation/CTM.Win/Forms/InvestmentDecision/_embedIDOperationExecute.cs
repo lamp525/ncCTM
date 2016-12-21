@@ -3,6 +3,7 @@ using System.Data;
 using CTM.Core;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
+using CTM.Win.Extensions;
 using CTM.Win.Util;
 using DevExpress.XtraEditors;
 
@@ -65,17 +66,23 @@ namespace CTM.Win.Forms.InvestmentDecision
                 {
                     this.chkYes.Checked = true;
 
-                    var relateRecordCommandText = $@"EXEC [dbo].[sp_GetIDOperationRelateRecord] @OperateNo = '{OperateNo}'";
-
-                    var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
-
-                    this.gridControl1.DataSource = ds?.Tables?[0];
-
-                    this.gridView1.PopulateColumns();
+                    BindRelatedRecord();
                 }
                 else
                     this.chkNo.Checked = true;
             }
+        }
+
+        private void BindRelatedRecord()
+        {
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+            var relateRecordCommandText = $@"EXEC [dbo].[sp_GetIDOperationRelateRecord] @OperateNo = '{OperateNo}'";
+
+            var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
+
+            this.gridControl1.DataSource = dsRecords?.Tables?[0];
+
+            this.gridView1.PopulateColumns();
         }
 
         private void DisplayRecordRelatePanel()
@@ -88,7 +95,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void DisplayRecordSelectForm()
         {
-            throw new NotImplementedException();
+            var dialog = this.CreateDialog<_dialogIDOperationRelateRecord>();
+            dialog.RefreshEvent += new _dialogIDOperationRelateRecord.RefreshParentForm(BindRelatedRecord);
+            dialog.OperateNo = OperateNo ;
+            dialog.Text = "实际交易记录关联";
+            dialog.ShowDialog();
         }
 
         private void ExecuteComfirmProcess()
