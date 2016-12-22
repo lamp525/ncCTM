@@ -81,5 +81,9 @@ namespace CTM.Services.InvestmentDecision
         InvestmentDecisionOperationAccuracy GetIDOperationAccuracyAdminVetoInfo(string operateNo);
 
         void IDOperationAccuracyProcess(string userCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag voteFlag, string reasonContent, bool isAdminVeto);
+
+        IList<int> GetIDOperationRelatedRecordIds(string operateNo);
+
+        void AddIDOperationRelatedRcords(string applyNo, string operateNo, IList<int> recordIds);
     }
 }

@@ -20,6 +20,7 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<InvestmentDecisionOperation> _IDOperationRepository;
         private readonly IRepository<InvestmentDecisionOperationVote> _IDOperationVoteRepository;
         private readonly IRepository<InvestmentDecisionOperationAccuracy> _IDAccuracyRepository;
+        private readonly IRepository<InvestmentDecisionTradeRecord> _IDTradeRecordRepository;
 
         private readonly IRepository<InvestmentDecisionForm> _IDFormRepository;
         private readonly IRepository<InvestmentDecisionVote> _IDVoteRepository;
@@ -50,6 +51,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<InvestmentDecisionOperation> IDOperationRepository,
             IRepository<InvestmentDecisionOperationVote> IDOperationVoteRepository,
             IRepository<InvestmentDecisionOperationAccuracy> IDAccuracyRepository,
+            IRepository<InvestmentDecisionTradeRecord> IDTradeRecordRepository,
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
             IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
@@ -68,6 +70,7 @@ namespace CTM.Services.InvestmentDecision
             this._IDOperationRepository = IDOperationRepository;
             this._IDOperationVoteRepository = IDOperationVoteRepository;
             this._IDAccuracyRepository = IDAccuracyRepository;
+            this._IDTradeRecordRepository = IDTradeRecordRepository;
             this._IDFormRepository = IDFRepository;
             this._IDVoteRepository = IDVRepository;
             this._IDStockPoolRepository = IDStockPoolRepository;
@@ -615,7 +618,7 @@ namespace CTM.Services.InvestmentDecision
             return query.FirstOrDefault();
         }
 
-        public virtual void IDOperationAccuracyProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag voteFlag, string reasonContent , bool isAdminVeto)
+        public virtual void IDOperationAccuracyProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag voteFlag, string reasonContent, bool isAdminVeto)
         {
             if (string.IsNullOrEmpty(reasonContent))
                 reasonContent = @"";
@@ -624,7 +627,7 @@ namespace CTM.Services.InvestmentDecision
                                         @InvestorCode = '{investorCode}',
 		                                @ApplyNo = '{applyNo}',
                                         @OperateNo='{operateNo}',
-		                                @VoteFlag = {(int)voteFlag},                               
+		                                @VoteFlag = {(int)voteFlag},
 		                                @ReasonContent =N'{reasonContent}',
                                         @IsAdminVeto = {isAdminVeto}";
 
@@ -643,6 +646,35 @@ namespace CTM.Services.InvestmentDecision
             var query = _IDAccuracyRepository.TableNoTracking.Where(x => x.OperateNo == operateNo && x.IsAdminVeto == true);
 
             return query.FirstOrDefault();
+        }
+
+        public virtual IList<int> GetIDOperationRelatedRecordIds(string operateNo)
+        {
+            var query = _IDTradeRecordRepository.TableNoTracking.Where(x => x.OperateNo == operateNo).Select(x => x.DailyRecordId);
+
+            return query.ToList();
+        }
+
+        public virtual void AddIDOperationRelatedRcords(string applyNo, string operateNo, IList<int> recordIds)
+        {
+            if (recordIds == null)
+                throw new ArgumentNullException(nameof(recordIds));
+
+            var previousRecords = _IDTradeRecordRepository.TableNoTracking.Where(x => x.OperateNo == operateNo);
+
+            if (previousRecords.Any())
+                _IDTradeRecordRepository.Delete(previousRecords);
+
+            foreach (var recordId in recordIds)
+            {
+                var item = new InvestmentDecisionTradeRecord
+                {
+                    ApplyNo = applyNo,
+                    OperateNo = operateNo,
+                    DailyRecordId = recordId,
+                };
+                _IDTradeRecordRepository.Insert(item);
+            }
         }
 
         #endregion Methods

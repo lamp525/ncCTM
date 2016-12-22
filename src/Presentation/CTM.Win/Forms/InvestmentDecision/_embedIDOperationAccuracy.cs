@@ -199,7 +199,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         /// <summary>
-        /// 赞同
+        /// 准确
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -220,7 +220,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         /// <summary>
-        /// 反对
+        /// 不准确
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

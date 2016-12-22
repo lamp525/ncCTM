@@ -1,13 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using CTM.Data;
+using CTM.Services.InvestmentDecision;
+using CTM.Win.Extensions;
 using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
     public partial class _dialogIDOperationRelateRecord : BaseForm
     {
+        #region Fields
+
+        private readonly IInvestmentDecisionService _IDService;
+        private IList<int> _relatedRecordIds = new List<int>();
+
+        #endregion Fields
+
         #region Properties
+
+        public string ApplyNo { get; set; }
 
         public string OperateNo { get; set; }
 
@@ -23,16 +36,29 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Constructors
 
-        public _dialogIDOperationRelateRecord()
+        public _dialogIDOperationRelateRecord(IInvestmentDecisionService IDService)
         {
             InitializeComponent();
+
+            this._IDService = IDService;
         }
 
         #endregion Constructors
 
         #region Utilities
 
-        private void BindRecord()
+        private void FormInit()
+        {
+            this.gridView1.SetLayout(showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
+            this.btnOk.Enabled = false;
+        }
+
+        private void GetRelatedRecordIds()
+        {
+            this._relatedRecordIds = _IDService.GetIDOperationRelatedRecordIds(OperateNo);
+        }
+
+        private void BindRecords()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
             var relateRecordCommandText = $@"EXEC [dbo].[sp_GetIDOperationRelateRecord] @OperateNo = '{OperateNo}'";
@@ -40,7 +66,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
 
             this.gridControl1.DataSource = dsRecords?.Tables?[0];
-            this.gridView1.PopulateColumns();
         }
 
         #endregion Utilities
@@ -51,7 +76,11 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
-                BindRecord();
+                FormInit();
+
+                GetRelatedRecordIds();
+
+                BindRecords();
             }
             catch (Exception ex)
             {
@@ -59,7 +88,92 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        #endregion Events
+        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
 
+        private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            var selectedHandles = gv.GetSelectedRows();
+
+            if (selectedHandles.Any())
+                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+            if (selectedHandles.Length > 0)
+            {
+                this.btnOk.Enabled = true;
+            }
+            else
+            {
+                this.btnOk.Enabled = false;
+            }
+        }
+
+        private void gridView1_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
+        {
+            var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            var row = gv.GetDataRow(e.RowHandle);
+
+            if (row == null) return;
+
+            var recordId = int.Parse(row["RecordId"].ToString());
+
+            if (_relatedRecordIds.Contains(recordId))
+            {
+                gv.SelectRow(e.RowHandle);
+            }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnOk.Enabled = false;
+
+                var myView = this.gridView1;
+
+                var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Length == 0) return;
+
+                selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
+
+                if (DXMessage.ShowYesNoAndWarning("确定将选择的交易记录关联到决策操作记录吗？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    var recordIds = new List<int>();
+
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                    {
+                        recordIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], "RecordId").ToString()));
+                    }
+
+                    this._IDService.AddIDOperationRelatedRcords(ApplyNo, OperateNo, recordIds);
+
+                    DXMessage.ShowTips("交易记录关联操作成功！");
+
+                    this.RefreshEvent?.Invoke();
+
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+                btnOk.Enabled = true;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion Events
     }
 }

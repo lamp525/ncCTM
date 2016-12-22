@@ -97,8 +97,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var dialog = this.CreateDialog<_dialogIDOperationRelateRecord>();
             dialog.RefreshEvent += new _dialogIDOperationRelateRecord.RefreshParentForm(BindRelatedRecord);
+            dialog.ApplyNo = ApplyNo;
             dialog.OperateNo = OperateNo ;
-            dialog.Text = "实际交易记录关联";
+            dialog.Text = $@"实际交易记录关联 - {OperateNo}";
             dialog.ShowDialog();
         }
 
