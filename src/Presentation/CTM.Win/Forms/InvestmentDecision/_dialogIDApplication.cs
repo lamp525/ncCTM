@@ -440,7 +440,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     DealFlag = chkBuy.Checked,
                     DealPrice = price,
                     DealVolume = volume,
-                    ExecuteFlag = (int)EnumLibrary.IDOperationExecuteStatus .None,
+                    ExecuteFlag = (int)EnumLibrary.IDOperationExecuteStatus.None,
                     InitialFlag = _initialFlag,
                     IsDeleted = false,
                     OperateDate = operateDate,
@@ -666,7 +666,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void _dialogIDApplication_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_submitSucceedFlag || (this._embedIDOV != null && this._embedIDOV.VoteSucceedFlag))
+            if (_submitSucceedFlag
+                || (this._embedIDOV != null && this._embedIDOV.VoteSucceedFlag)
+                || (this._embedIDOA != null && this._embedIDOA.VoteSucceedFlag)
+                || (this._embedIDOE != null && this._embedIDOE.ProcessSucceedFlag))
             {
                 RefreshEvent?.Invoke();
             }

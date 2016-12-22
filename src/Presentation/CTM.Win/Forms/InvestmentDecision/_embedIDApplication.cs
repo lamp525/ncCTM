@@ -168,8 +168,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 btnVI.RightButtons[0].State = ObjectState.Disabled;
             }
 
-            /// 按钮1：执行确认
-            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.None && voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed)
+            /// 按钮1：执行\关联
+            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None)
             {
                 btnVI.RightButtons[1].Button.Enabled = true;
                 btnVI.RightButtons[1].State = ObjectState.Normal;
@@ -180,8 +180,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                 btnVI.RightButtons[1].State = ObjectState.Disabled;
             }
 
-            /// 按钮2：交易关联
-            if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Executed)
+            /// 按钮2：准确度设定
+            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
+                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
             {
                 btnVI.RightButtons[2].Button.Enabled = true;
                 btnVI.RightButtons[2].State = ObjectState.Normal;
@@ -192,33 +193,20 @@ namespace CTM.Win.Forms.InvestmentDecision
                 btnVI.RightButtons[2].State = ObjectState.Disabled;
             }
 
-            /// 按钮3：准确度设定
-            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
-                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
-            {
-                btnVI.RightButtons[3].Button.Enabled = true;
-                btnVI.RightButtons[3].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[3].Button.Enabled = false;
-                btnVI.RightButtons[3].State = ObjectState.Disabled;
-            }
+            /// 按钮3：查看详情
+            btnVI.RightButtons[3].Button.Enabled = true;
+            btnVI.RightButtons[3].State = ObjectState.Normal;
 
-            /// 按钮4：查看详情
-            btnVI.RightButtons[4].Button.Enabled = true;
-            btnVI.RightButtons[4].State = ObjectState.Normal;
-
-            /// 按钮5：删除
+            /// 按钮4：删除
             if (voteStatus != (int)EnumLibrary.IDOperationVoteStatus.None && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
             {
-                btnVI.RightButtons[5].Button.Enabled = true;
-                btnVI.RightButtons[5].State = ObjectState.Normal;
+                btnVI.RightButtons[4].Button.Enabled = true;
+                btnVI.RightButtons[4].State = ObjectState.Normal;
             }
             else
             {
-                btnVI.RightButtons[5].Button.Enabled = false;
-                btnVI.RightButtons[5].State = ObjectState.Disabled;
+                btnVI.RightButtons[4].Button.Enabled = false;
+                btnVI.RightButtons[4].State = ObjectState.Disabled;
             }
         }
 
@@ -261,7 +249,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录执行确认";
+            dialog.Text = "操作记录关联交易记录";
             dialog.ShowDialog();
         }
 

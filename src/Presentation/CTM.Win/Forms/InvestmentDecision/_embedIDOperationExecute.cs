@@ -14,6 +14,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         #region Fields
 
         private readonly IInvestmentDecisionService _IDService;
+
+        private bool _initFlag = true;
         private bool _succeedFlag = false;
 
         #endregion Fields
@@ -47,6 +49,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            this._initFlag = true;
+
             this.gridView1.SetLayout(showCheckBoxRowSelect: false, showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
@@ -57,11 +61,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var drOperation = ds?.Tables?[0].Rows?[0];
 
-            if (drOperation == null)
-            {
-                this.chkNo.Checked = true;
-            }
-            else
+            if (drOperation != null)
             {
                 var executeFlag = int.Parse(drOperation["ExecuteFlag"].ToString());
                 if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Executed)
@@ -73,6 +73,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 else
                     this.chkNo.Checked = true;
             }
+
+            this._initFlag = false;
         }
 
         private void BindRelatedRecord()
@@ -105,6 +107,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void ExecuteComfirmProcess()
         {
+            this._succeedFlag = false;
+
             if (this.chkNo.Checked)
             {
                 DataTable dtRecords = this.gridControl1.DataSource as DataTable;
@@ -119,9 +123,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var commandText = $@"EXEC [dbo].[sp_IDOperationExecuteProcess] @OperateNo = '{OperateNo}' , @ExecuteFlag = {executeFlag}";
 
-            SqlHelper.ExecuteNonQuery(connString, CommandType.StoredProcedure, commandText);
+            SqlHelper.ExecuteNonQuery(connString, CommandType.Text, commandText);
 
-            DXMessage.ShowTips("处理成功！");
+            DXMessage.ShowTips("执行状态更新成功！");
+
+            this._succeedFlag = true;
         }
 
         #endregion Utilities
@@ -146,7 +152,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             DisplayRecordRelatePanel();
 
-            if (this.chkNo.Checked)
+            if (this.chkNo.Checked && this._initFlag == false)
                 ExecuteComfirmProcess();
         }
 
@@ -156,7 +162,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             DisplayRecordRelatePanel();
 
-            if (this.chkYes.Checked)
+            if (this.chkYes.Checked && this._initFlag == false)
                 ExecuteComfirmProcess();
         }
 

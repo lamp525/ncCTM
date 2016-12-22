@@ -50,7 +50,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void FormInit()
         {
             this.gridView1.SetLayout(showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
-            this.btnOk.Enabled = false;
         }
 
         private void BindRecords()
@@ -103,25 +102,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
-        {
-            var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-
-            var selectedHandles = gv.GetSelectedRows();
-
-            if (selectedHandles.Any())
-                selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
-
-            if (selectedHandles.Length > 0)
-            {
-                this.btnOk.Enabled = true;
-            }
-            else
-            {
-                this.btnOk.Enabled = false;
-            }
-        }
-
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
@@ -130,10 +110,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 var myView = this.gridView1;
 
-                var selectedHandles = myView.GetSelectedRows();
-                if (selectedHandles.Length == 0) return;
-
-                selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
+                var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
                 if (DXMessage.ShowYesNoAndWarning("确定将选择的交易记录关联到决策操作记录吗？") == System.Windows.Forms.DialogResult.Yes)
                 {

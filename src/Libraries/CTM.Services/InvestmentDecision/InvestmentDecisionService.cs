@@ -660,7 +660,7 @@ namespace CTM.Services.InvestmentDecision
             if (recordIds == null)
                 throw new ArgumentNullException(nameof(recordIds));
 
-            var previousRecords = _IDTradeRecordRepository.TableNoTracking.Where(x => x.OperateNo == operateNo);
+            var previousRecords = _IDTradeRecordRepository.Table.Where(x => x.OperateNo == operateNo);
 
             if (previousRecords.Any())
                 _IDTradeRecordRepository.Delete(previousRecords);
@@ -688,8 +688,7 @@ namespace CTM.Services.InvestmentDecision
 
             _IDOperationRepository.Update(operationInfo);
         }
-    }
 
-    #endregion Methods
-}
+        #endregion Methods
+    }
 }
