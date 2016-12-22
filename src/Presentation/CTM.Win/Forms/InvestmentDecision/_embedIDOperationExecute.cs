@@ -47,6 +47,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
+
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
             var commandText = $@"SELECT * FROM [dbo].[v_IDOperation] WHERE OperateNo = '{OperateNo}'";
@@ -76,13 +78,11 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void BindRelatedRecord()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-            var relateRecordCommandText = $@"EXEC [dbo].[sp_GetIDOperationRelateRecord] @OperateNo = '{OperateNo}'";
+            var relateRecordCommandText = $@"EXEC [dbo].[sp_GetIDOperationTradeRecord] @OperateNo = '{OperateNo}'";
 
             var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
 
             this.gridControl1.DataSource = dsRecords?.Tables?[0];
-
-            this.gridView1.PopulateColumns();
         }
 
         private void DisplayRecordRelatePanel()
@@ -98,14 +98,30 @@ namespace CTM.Win.Forms.InvestmentDecision
             var dialog = this.CreateDialog<_dialogIDOperationRelateRecord>();
             dialog.RefreshEvent += new _dialogIDOperationRelateRecord.RefreshParentForm(BindRelatedRecord);
             dialog.ApplyNo = ApplyNo;
-            dialog.OperateNo = OperateNo ;
+            dialog.OperateNo = OperateNo;
             dialog.Text = $@"实际交易记录关联 - {OperateNo}";
             dialog.ShowDialog();
         }
 
         private void ExecuteComfirmProcess()
         {
-            throw new NotImplementedException();
+            if (this.chkNo.Checked)
+            {
+                DataTable dtRecords = this.gridControl1.DataSource as DataTable;
+                if (dtRecords != null && dtRecords.Rows.Count > 0)
+                    if (DXMessage.ShowYesNoAndWarning("该决策操作已经关联交易记录，继续处理将取消关联！") == System.Windows.Forms.DialogResult.No)
+                        return;
+            }
+
+            var executeFlag = this.chkNo.Checked ? (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted : (int)EnumLibrary.IDOperationExecuteStatus.Executed;
+
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+            var commandText = $@"EXEC [dbo].[sp_IDOperationExecuteProcess] @OperateNo = '{OperateNo}' , @ExecuteFlag = {executeFlag}";
+
+            SqlHelper.ExecuteNonQuery(connString, CommandType.StoredProcedure, commandText);
+
+            DXMessage.ShowTips("处理成功！");
         }
 
         #endregion Utilities
@@ -129,6 +145,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.chkYes.Checked = !this.chkNo.Checked;
 
             DisplayRecordRelatePanel();
+
+            if (this.chkNo.Checked)
+                ExecuteComfirmProcess();
         }
 
         private void chkYes_CheckedChanged(object sender, EventArgs e)
@@ -136,6 +155,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.chkNo.Checked = !this.chkYes.Checked;
 
             DisplayRecordRelatePanel();
+
+            if (this.chkYes.Checked)
+                ExecuteComfirmProcess();
         }
 
         private void btnRelate_Click(object sender, EventArgs e)
@@ -154,34 +176,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 currentBtn.Enabled = true;
             }
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            var currentBtn = sender as SimpleButton;
-            try
-            {
-                currentBtn.Enabled = false;
-
-                ExecuteComfirmProcess();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                currentBtn.Enabled = true;
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)

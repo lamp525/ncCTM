@@ -53,11 +53,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.btnOk.Enabled = false;
         }
 
-        private void GetRelatedRecordIds()
-        {
-            this._relatedRecordIds = _IDService.GetIDOperationRelatedRecordIds(OperateNo);
-        }
-
         private void BindRecords()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
@@ -65,7 +60,21 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
 
+            if (dsRecords == null || dsRecords.Tables.Count == 0) return;
+
             this.gridControl1.DataSource = dsRecords?.Tables?[0];
+
+            this._relatedRecordIds = _IDService.GetIDOperationRelatedRecordIds(OperateNo);
+
+            if (this._relatedRecordIds.Any())
+            {
+                for (int index = 0; index < dsRecords.Tables[0].Rows.Count; index++)
+                {
+                    DataRow dr = dsRecords.Tables[0].Rows[index];
+                    if (this._relatedRecordIds.Contains(int.Parse(dr["RecordId"].ToString())))
+                        this.gridView1.SelectRow(this.gridView1.GetRowHandle(index));
+                }
+            }
         }
 
         #endregion Utilities
@@ -77,8 +86,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 FormInit();
-
-                GetRelatedRecordIds();
 
                 BindRecords();
             }
@@ -112,22 +119,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             else
             {
                 this.btnOk.Enabled = false;
-            }
-        }
-
-        private void gridView1_RowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
-        {
-            var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-
-            var row = gv.GetDataRow(e.RowHandle);
-
-            if (row == null) return;
-
-            var recordId = int.Parse(row["RecordId"].ToString());
-
-            if (_relatedRecordIds.Contains(recordId))
-            {
-                gv.SelectRow(e.RowHandle);
             }
         }
 

@@ -665,18 +665,31 @@ namespace CTM.Services.InvestmentDecision
             if (previousRecords.Any())
                 _IDTradeRecordRepository.Delete(previousRecords);
 
-            foreach (var recordId in recordIds)
+            if (recordIds.Any())
             {
-                var item = new InvestmentDecisionTradeRecord
+                foreach (var recordId in recordIds)
                 {
-                    ApplyNo = applyNo,
-                    OperateNo = operateNo,
-                    DailyRecordId = recordId,
-                };
-                _IDTradeRecordRepository.Insert(item);
+                    var item = new InvestmentDecisionTradeRecord
+                    {
+                        ApplyNo = applyNo,
+                        OperateNo = operateNo,
+                        DailyRecordId = recordId,
+                    };
+                    _IDTradeRecordRepository.Insert(item);
+                }
             }
-        }
 
-        #endregion Methods
+            var operationInfo = _IDOperationRepository.Table.Where(x => x.OperateNo == operateNo).FirstOrDefault();
+
+            if (operationInfo != null)
+            {
+                operationInfo.TradeRecordRelateFlag = recordIds.Any();
+            }
+
+            _IDOperationRepository.Update(operationInfo);
+        }
     }
+
+    #endregion Methods
+}
 }

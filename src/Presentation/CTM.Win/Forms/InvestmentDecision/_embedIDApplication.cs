@@ -254,6 +254,17 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.ShowDialog();
         }
 
+        private void OperationRelateProcess(string applyNo, string operateNo)
+        {
+            var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
+            dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
+            dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
+            dialog.ApplyNo = applyNo;
+            dialog.OperateNo = operateNo;
+            dialog.Text = "操作记录执行确认";
+            dialog.ShowDialog();
+        }
+
         private void OperationIDVoteProcess(string applyNo, string operateNo)
         {
             var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
@@ -509,6 +520,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                     case "Execute":
                         OperationExecuteProcess(applyNo, operateNo);
+                        break;
+
+                    case "Relate":
+                        OperationRelateProcess(applyNo, operateNo);
                         break;
 
                     case "AccuracyVote":

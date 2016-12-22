@@ -29,29 +29,31 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
             this.btnRelate = new DevExpress.XtraEditors.SimpleButton();
-            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
-            this.btnOk = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colRecordId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealFlagName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealVolume = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colActualAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDataTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBeneficiaryName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colImportUserName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
             this.chkNo = new DevExpress.XtraEditors.CheckEdit();
             this.chkYes = new DevExpress.XtraEditors.CheckEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcgRecord = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciRecord = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -64,20 +66,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkYes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -87,10 +80,7 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.btnRemove);
             this.layoutControl1.Controls.Add(this.btnRelate);
-            this.layoutControl1.Controls.Add(this.btnCancel);
-            this.layoutControl1.Controls.Add(this.btnOk);
             this.layoutControl1.Controls.Add(this.gridControl1);
             this.layoutControl1.Controls.Add(this.chkNo);
             this.layoutControl1.Controls.Add(this.chkYes);
@@ -102,16 +92,6 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // btnRemove
-            // 
-            this.btnRemove.Location = new System.Drawing.Point(139, 109);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 22);
-            this.btnRemove.StyleController = this.layoutControl1;
-            this.btnRemove.TabIndex = 11;
-            this.btnRemove.Text = "    移  除    ";
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
             // btnRelate
             // 
             this.btnRelate.Location = new System.Drawing.Point(34, 109);
@@ -122,41 +102,151 @@
             this.btnRelate.Text = " 关联交易记录 ";
             this.btnRelate.Click += new System.EventHandler(this.btnRelate_Click);
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(528, 569);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 22);
-            this.btnCancel.StyleController = this.layoutControl1;
-            this.btnCancel.TabIndex = 9;
-            this.btnCancel.Text = "    取  消    ";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnOk
-            // 
-            this.btnOk.Location = new System.Drawing.Point(432, 569);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 22);
-            this.btnOk.StyleController = this.layoutControl1;
-            this.btnOk.TabIndex = 8;
-            this.btnOk.Text = "    确  定    ";
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
             // gridControl1
             // 
             this.gridControl1.Location = new System.Drawing.Point(24, 135);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(987, 264);
+            this.gridControl1.Size = new System.Drawing.Size(987, 454);
             this.gridControl1.TabIndex = 7;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colRecordId,
+            this.colStockCode,
+            this.colStockName,
+            this.colTradeDate,
+            this.colTradeTime,
+            this.colDealFlagName,
+            this.colDealPrice,
+            this.colDealVolume,
+            this.colActualAmount,
+            this.colDataTypeName,
+            this.colTradeTypeName,
+            this.colBeneficiaryName,
+            this.colImportUserName,
+            this.colRemarks});
             this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.IndicatorWidth = 40;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
+            this.gridView1.OptionsSelection.MultiSelect = true;
+            this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridView1.OptionsView.EnableAppearanceOddRow = true;
+            this.gridView1.OptionsView.ShowAutoFilterRow = true;
+            this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.gridView1.OptionsView.ShowGroupedColumns = true;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            // 
+            // colRecordId
+            // 
+            this.colRecordId.FieldName = "RecordId";
+            this.colRecordId.Name = "colRecordId";
+            // 
+            // colStockCode
+            // 
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
+            this.colStockCode.VisibleIndex = 1;
+            // 
+            // colStockName
+            // 
+            this.colStockName.Caption = "股票名称";
+            this.colStockName.FieldName = "StockName";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.Visible = true;
+            this.colStockName.VisibleIndex = 2;
+            // 
+            // colTradeDate
+            // 
+            this.colTradeDate.Caption = "交易日期";
+            this.colTradeDate.FieldName = "TradeDate";
+            this.colTradeDate.Name = "colTradeDate";
+            this.colTradeDate.Visible = true;
+            this.colTradeDate.VisibleIndex = 3;
+            // 
+            // colTradeTime
+            // 
+            this.colTradeTime.Caption = "交易时间";
+            this.colTradeTime.FieldName = "TradeTime";
+            this.colTradeTime.Name = "colTradeTime";
+            this.colTradeTime.Visible = true;
+            this.colTradeTime.VisibleIndex = 4;
+            // 
+            // colDealFlagName
+            // 
+            this.colDealFlagName.Caption = "买卖标志";
+            this.colDealFlagName.FieldName = "DealFlagName";
+            this.colDealFlagName.Name = "colDealFlagName";
+            this.colDealFlagName.Visible = true;
+            this.colDealFlagName.VisibleIndex = 5;
+            // 
+            // colDealPrice
+            // 
+            this.colDealPrice.Caption = "成交价格(元)";
+            this.colDealPrice.FieldName = "DealPrice";
+            this.colDealPrice.Name = "colDealPrice";
+            this.colDealPrice.Visible = true;
+            this.colDealPrice.VisibleIndex = 6;
+            // 
+            // colDealVolume
+            // 
+            this.colDealVolume.Caption = "成交数量";
+            this.colDealVolume.FieldName = "DealVolume";
+            this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Visible = true;
+            this.colDealVolume.VisibleIndex = 7;
+            // 
+            // colActualAmount
+            // 
+            this.colActualAmount.Caption = "发生金额(元)";
+            this.colActualAmount.FieldName = "ActualAmount";
+            this.colActualAmount.Name = "colActualAmount";
+            this.colActualAmount.Visible = true;
+            this.colActualAmount.VisibleIndex = 8;
+            // 
+            // colDataTypeName
+            // 
+            this.colDataTypeName.Caption = "数据类型";
+            this.colDataTypeName.FieldName = "DataTypeName";
+            this.colDataTypeName.Name = "colDataTypeName";
+            // 
+            // colTradeTypeName
+            // 
+            this.colTradeTypeName.Caption = "交易类别";
+            this.colTradeTypeName.FieldName = "TradeTypeName";
+            this.colTradeTypeName.Name = "colTradeTypeName";
+            this.colTradeTypeName.Visible = true;
+            this.colTradeTypeName.VisibleIndex = 9;
+            // 
+            // colBeneficiaryName
+            // 
+            this.colBeneficiaryName.Caption = "实际受益人";
+            this.colBeneficiaryName.FieldName = "BeneficiaryName";
+            this.colBeneficiaryName.Name = "colBeneficiaryName";
+            this.colBeneficiaryName.Visible = true;
+            this.colBeneficiaryName.VisibleIndex = 10;
+            // 
+            // colImportUserName
+            // 
+            this.colImportUserName.Caption = "导入人";
+            this.colImportUserName.FieldName = "ImportUserName";
+            this.colImportUserName.Name = "colImportUserName";
+            // 
+            // colRemarks
+            // 
+            this.colRemarks.Caption = "备注";
+            this.colRemarks.FieldName = "Remarks";
+            this.colRemarks.Name = "colRemarks";
             // 
             // chkNo
             // 
@@ -183,77 +273,12 @@
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem4,
-            this.layoutControlItem3,
-            this.layoutControlItem4,
-            this.emptySpaceItem5,
-            this.emptySpaceItem6,
-            this.emptySpaceItem8,
             this.lcgRecord,
-            this.layoutControlGroup3,
-            this.emptySpaceItem3});
+            this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1035, 613);
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // emptySpaceItem4
-            // 
-            this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(595, 557);
-            this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(420, 26);
-            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.btnOk;
-            this.layoutControlItem3.Location = new System.Drawing.Point(420, 557);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.btnCancel;
-            this.layoutControlItem4.Location = new System.Drawing.Point(516, 557);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
-            // 
-            // emptySpaceItem5
-            // 
-            this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 557);
-            this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(420, 26);
-            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem6
-            // 
-            this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(499, 557);
-            this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(17, 26);
-            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 583);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1015, 10);
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem8
-            // 
-            this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(0, 403);
-            this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(1015, 154);
-            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lcgRecord
             // 
@@ -263,12 +288,10 @@
             this.lciRecord,
             this.emptySpaceItem9,
             this.layoutControlItem5,
-            this.emptySpaceItem10,
-            this.layoutControlItem6,
-            this.emptySpaceItem7});
+            this.emptySpaceItem10});
             this.lcgRecord.Location = new System.Drawing.Point(0, 66);
             this.lcgRecord.Name = "lcgRecord";
-            this.lcgRecord.Size = new System.Drawing.Size(1015, 337);
+            this.lcgRecord.Size = new System.Drawing.Size(1015, 527);
             this.lcgRecord.Text = "实际交易记录";
             // 
             // lciRecord
@@ -276,7 +299,7 @@
             this.lciRecord.Control = this.gridControl1;
             this.lciRecord.Location = new System.Drawing.Point(0, 26);
             this.lciRecord.Name = "lciRecord";
-            this.lciRecord.Size = new System.Drawing.Size(991, 268);
+            this.lciRecord.Size = new System.Drawing.Size(991, 458);
             this.lciRecord.Text = "实际交易记录";
             this.lciRecord.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciRecord.TextSize = new System.Drawing.Size(0, 0);
@@ -285,9 +308,9 @@
             // emptySpaceItem9
             // 
             this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(194, 0);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(105, 0);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(797, 26);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(886, 26);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
@@ -306,23 +329,6 @@
             this.emptySpaceItem10.Name = "emptySpaceItem10";
             this.emptySpaceItem10.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // layoutControlItem6
-            // 
-            this.layoutControlItem6.Control = this.btnRemove;
-            this.layoutControlItem6.Location = new System.Drawing.Point(115, 0);
-            this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem6.TextVisible = false;
-            // 
-            // emptySpaceItem7
-            // 
-            this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(105, 0);
-            this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup3
             // 
@@ -390,20 +396,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkYes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgRecord)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciRecord)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -416,8 +413,6 @@
         #endregion
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private DevExpress.XtraEditors.SimpleButton btnCancel;
-        private DevExpress.XtraEditors.SimpleButton btnOk;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.CheckEdit chkNo;
@@ -427,22 +422,26 @@
         private DevExpress.XtraLayout.LayoutControlItem lciRecord;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
         private DevExpress.XtraEditors.SimpleButton btnRelate;
         private DevExpress.XtraLayout.LayoutControlGroup lcgRecord;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private DevExpress.XtraEditors.SimpleButton btnRemove;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraGrid.Columns.GridColumn colRecordId;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockName;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeTime;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealFlagName;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealVolume;
+        private DevExpress.XtraGrid.Columns.GridColumn colActualAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colDataTypeName;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName;
+        private DevExpress.XtraGrid.Columns.GridColumn colBeneficiaryName;
+        private DevExpress.XtraGrid.Columns.GridColumn colImportUserName;
+        private DevExpress.XtraGrid.Columns.GridColumn colRemarks;
     }
 }
