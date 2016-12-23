@@ -85,5 +85,6 @@ namespace CTM.Services.InvestmentDecision
         IList<int> GetIDOperationRelatedRecordIds(string operateNo);
 
         void AddIDOperationRelatedRcords(string applyNo, string operateNo, IList<int> recordIds);
+        void UpdateIDApplicationStatus(string applyNo, int done);
     }
 }

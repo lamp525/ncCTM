@@ -505,6 +505,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 case PageMode.ViewDetail:
                     _embedIDOD = EngineContext.Current.Resolve<_embedIDOperationDetail>();
+                    _embedIDOD.OperateNo = OperateNo;
                     _embedIDOD.FormBorderStyle = FormBorderStyle.None;
                     _embedIDOD.TopLevel = false;
                     _embedIDOD.Parent = this.splitContainerControl1.Panel2;

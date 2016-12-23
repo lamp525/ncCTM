@@ -131,16 +131,52 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
+            var applyType = dr[this.colApplyType.FieldName]?.ToString();
+            var accuracyEvaluateFlag = bool.Parse(dr[this.colAccuracyEvaluateFlag.FieldName]?.ToString());
+            var finishConfirmFlag = bool.Parse(dr[this.colFinishConfirmFlag.FieldName]?.ToString());
+
+            ///按钮0：交易申请
+            ///按钮1：准确度评价
+            ///按钮2：完结确认
 
             if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
             {
-                buttonVI.RightButtons[0].Button.Enabled = true;
-                buttonVI.RightButtons[0].State = ObjectState.Normal;
+                if (accuracyEvaluateFlag)
+                {
+                    buttonVI.RightButtons[1].Button.Enabled = true;
+                    buttonVI.RightButtons[1].State = ObjectState.Normal;
+                }
+                else
+                {
+                    buttonVI.RightButtons[1].Button.Enabled = false;
+                    buttonVI.RightButtons[1].State = ObjectState.Disabled;
+                }
+
+                if (finishConfirmFlag)
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                    buttonVI.RightButtons[2].Button.Enabled = true;
+                    buttonVI.RightButtons[2].State = ObjectState.Normal;
+                }
+                else
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = true;
+                    buttonVI.RightButtons[0].State = ObjectState.Normal;
+                    buttonVI.RightButtons[2].Button.Enabled = false;
+                    buttonVI.RightButtons[2].State = ObjectState.Disabled;
+                }
             }
             else
             {
                 buttonVI.RightButtons[0].Button.Enabled = false;
                 buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[1].Button.Enabled = false;
+                buttonVI.RightButtons[1].State = ObjectState.Disabled;
+
+                buttonVI.RightButtons[2].Button.Enabled = false;
+                buttonVI.RightButtons[2].State = ObjectState.Disabled;
             }
         }
 
@@ -169,7 +205,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
 
             /// 按钮1：执行\关联
-            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None)
+            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed
+                && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None
+                && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
             {
                 btnVI.RightButtons[1].Button.Enabled = true;
                 btnVI.RightButtons[1].State = ObjectState.Normal;
@@ -198,7 +236,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             btnVI.RightButtons[3].State = ObjectState.Normal;
 
             /// 按钮4：删除
-            if (voteStatus != (int)EnumLibrary.IDOperationVoteStatus.None && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
+            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
             {
                 btnVI.RightButtons[4].Button.Enabled = true;
                 btnVI.RightButtons[4].State = ObjectState.Normal;
@@ -270,7 +308,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 //  this._IDService.DeleteInvestmentDecisionForm(serialNo);
 
-                BindApplicationInfo();
+                // BindApplicationInfo();
             }
         }
 
@@ -402,7 +440,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-                OperateButtonStatusSetting(dr, buttonVI);
+               // OperateButtonStatusSetting(dr, buttonVI);
             }
         }
 
@@ -433,6 +471,21 @@ namespace CTM.Win.Forms.InvestmentDecision
                     dialog.OperateNo = string.Empty;
                     dialog.Text = "投资决策交易操作申请";
                     dialog.ShowDialog();
+                }
+                else if (buttonTag == "Accuracy")
+                {
+                    var operateNo = string.Empty;
+
+                    if (!string.IsNullOrEmpty(operateNo))
+                        OperationAccuracyVoteProcess(applyNo, operateNo);
+                }
+                else if (buttonTag == "Finish")
+                {
+                    if (DXMessage.ShowYesNoAndTips("该决策申请是否已经完结？确认后该申请将不可继续操作！") == System.Windows.Forms.DialogResult.OK)
+                    {
+                        _IDService.UpdateIDApplicationStatus(applyNo, (int)EnumLibrary.IDApplicationStatus.Done);
+                        BindApplicationInfo();
+                    }
                 }
             }
             catch (Exception ex)

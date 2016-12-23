@@ -69,11 +69,47 @@ namespace CTM.Core
         /// </summary>
         public enum IDApplicationStatus
         {
+            /// <summary>
+            /// 进行中
+            /// </summary>
             [Description("进行中")]
             Proceed = 0,
 
+            /// <summary>
+            /// 已完成
+            /// </summary>
             [Description("已完成")]
             Done = 99,
+        }
+
+        /// <summary>
+        /// 投资决策交易申请类别
+        /// </summary>
+        public enum IDOperationApplyType
+        {
+            /// <summary>
+            /// 不可操作
+            /// </summary>
+            [Description("不可操作")]
+            None = 0,
+
+            /// <summary>
+            /// 买入
+            /// </summary>
+            [Description("买入")]
+            Buy = 1,
+
+            /// <summary>
+            /// 卖出
+            /// </summary>
+            [Description("卖出")]
+            Sell = 2,
+
+            /// <summary>
+            /// 买卖
+            /// </summary>
+            [Description("买卖")]
+            Both = 99,
         }
 
         /// <summary>

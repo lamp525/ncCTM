@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Data;
+using CTM.Data;
 using CTM.Services.InvestmentDecision;
+using CTM.Win.Extensions;
+using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
@@ -10,6 +14,13 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IInvestmentDecisionService _IDService;
 
         #endregion Fields
+
+
+        #region Properties
+
+        public string OperateNo { get; set; }
+
+        #endregion
 
         #region Constructors
 
@@ -22,11 +33,65 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #endregion Constructors
 
+        #region Utilities
+
+        private void FormInit()
+        {
+            this.gvIDVote.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
+            this.gvRecord.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
+            this.gvAccuracy.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
+
+
+        }
+
+        private void BindDetail()
+        {
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+            var commandText = $@"EXEC [dbo].[sp_GetIDOperationDetail] @OperateNo ='{OperateNo}'";
+
+            var dsDetail = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+
+            if (dsDetail == null || dsDetail.Tables.Count != 4) return;
+
+            DataRow drOperation = dsDetail.Tables[0].Rows?[0];
+
+            if (drOperation != null)
+            {
+                this.esiIDVote.Text = $@"投票状态：{drOperation["VoteStatusName"]}     投票分数：{drOperation["VotePoint"]}";
+                this.esiRecord.Text = $@"执行状态：{drOperation["ExecuteFlagName"]}     交易关联标志：{drOperation["RelateFlagName"]}";
+                this.esiAccuracy.Text = $@"评定状态：{drOperation["AccuracyStatusName"]}     评定分数：{drOperation["AccuracyPoint"]}";
+
+
+                this.gcIDVote.DataSource = dsDetail.Tables[1];
+                this.gcRecord.DataSource = dsDetail.Tables[2];
+                this.gcAccuracy.DataSource = dsDetail.Tables[3];
+
+
+            }
+        }
+
+        #endregion
+
         #region Events
 
         private void _embedIDOperationDetail_Load(object sender, EventArgs e)
         {
+            try
+            {
+                FormInit();
+
+                BindDetail();
+
+            }
+            catch (Exception ex)
+            {
+
+                DXMessage.ShowError(ex.Message);
+            }
         }
+
+      
 
         #endregion Events
     }

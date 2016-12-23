@@ -689,6 +689,18 @@ namespace CTM.Services.InvestmentDecision
             _IDOperationRepository.Update(operationInfo);
         }
 
+        public virtual  void UpdateIDApplicationStatus(string applyNo, int status)
+        {
+            var application = _IDApplicationRepository.Table.Where(x => x.ApplyNo == applyNo).FirstOrDefault();
+
+            if(application != null )
+            {
+                application.Status = status;
+
+                _IDApplicationRepository.Update(application);
+            }
+        }
+
         #endregion Methods
     }
 }
