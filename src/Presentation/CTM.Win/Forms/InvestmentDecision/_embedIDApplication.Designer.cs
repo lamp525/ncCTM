@@ -99,6 +99,9 @@
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colApplyType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracyEvaluateFlag = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinishConfirmFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
@@ -127,9 +130,6 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciExpand = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colApplyType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccuracyEvaluateFlag = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFinishConfirmFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -528,6 +528,7 @@
             this.viewMaster.OptionsView.ColumnAutoWidth = false;
             this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
+            this.viewMaster.ShownEditor += new System.EventHandler(this.viewMaster_ShownEditor);
             // 
             // colId
             // 
@@ -553,7 +554,7 @@
             this.colApplyNo.Name = "colApplyNo";
             this.colApplyNo.OptionsColumn.AllowEdit = false;
             this.colApplyNo.Visible = true;
-            this.colApplyNo.VisibleIndex = 1;
+            this.colApplyNo.VisibleIndex = 0;
             this.colApplyNo.Width = 100;
             // 
             // colApplyUser
@@ -660,7 +661,7 @@
             this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 0;
+            this.colOperate.VisibleIndex = 1;
             this.colOperate.Width = 203;
             // 
             // riBtnOperate
@@ -720,6 +721,24 @@
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Visible = true;
             this.gridColumn12.VisibleIndex = 13;
+            // 
+            // colApplyType
+            // 
+            this.colApplyType.Caption = "gridColumn18";
+            this.colApplyType.FieldName = "ApplyType";
+            this.colApplyType.Name = "colApplyType";
+            // 
+            // colAccuracyEvaluateFlag
+            // 
+            this.colAccuracyEvaluateFlag.Caption = "gridColumn18";
+            this.colAccuracyEvaluateFlag.FieldName = "AccuracyEvaluateFlag";
+            this.colAccuracyEvaluateFlag.Name = "colAccuracyEvaluateFlag";
+            // 
+            // colFinishConfirmFlag
+            // 
+            this.colFinishConfirmFlag.Caption = "gridColumn18";
+            this.colFinishConfirmFlag.FieldName = "FinishConfirmFlag";
+            this.colFinishConfirmFlag.Name = "colFinishConfirmFlag";
             // 
             // layoutControl1
             // 
@@ -1023,24 +1042,6 @@
             this.lciExpand.Size = new System.Drawing.Size(93, 26);
             this.lciExpand.TextSize = new System.Drawing.Size(0, 0);
             this.lciExpand.TextVisible = false;
-            // 
-            // colApplyType
-            // 
-            this.colApplyType.Caption = "gridColumn18";
-            this.colApplyType.FieldName = "ApplyType";
-            this.colApplyType.Name = "colApplyType";
-            // 
-            // colAccuracyEvaluateFlag
-            // 
-            this.colAccuracyEvaluateFlag.Caption = "gridColumn18";
-            this.colAccuracyEvaluateFlag.FieldName = "AccuracyEvaluateFlag";
-            this.colAccuracyEvaluateFlag.Name = "colAccuracyEvaluateFlag";
-            // 
-            // colFinishConfirmFlag
-            // 
-            this.colFinishConfirmFlag.Caption = "gridColumn18";
-            this.colFinishConfirmFlag.FieldName = "FinishConfirmFlag";
-            this.colFinishConfirmFlag.Name = "colFinishConfirmFlag";
             // 
             // _embedIDApplication
             // 

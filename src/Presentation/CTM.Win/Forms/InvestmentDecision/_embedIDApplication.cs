@@ -12,6 +12,7 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -254,7 +255,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ViewDetail;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录详情";
+            dialog.Text = $@"操作记录详情 - {operateNo}";
             dialog.ShowDialog();
         }
 
@@ -265,7 +266,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.AccuracyDetermination;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录准确度评定";
+            dialog.Text = $@"操作记录准确度评定 - {operateNo}";
             dialog.ShowDialog();
         }
 
@@ -276,7 +277,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录执行确认";
+            dialog.Text = $@"操作记录执行确认 - {operateNo}";
             dialog.ShowDialog();
         }
 
@@ -287,7 +288,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.ExecutionConfirm;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录关联交易记录";
+            dialog.Text = $@"操作记录关联交易记录 - {operateNo}";
             dialog.ShowDialog();
         }
 
@@ -298,13 +299,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             dialog.CurrentPageMode = _dialogIDApplication.PageMode.OperationVote;
             dialog.ApplyNo = applyNo;
             dialog.OperateNo = operateNo;
-            dialog.Text = "操作记录决策投票";
+            dialog.Text = $@"操作记录决策投票 - {operateNo}";
             dialog.ShowDialog();
         }
 
         private void OperationDeleteProcess(string applyNo, string operateNo)
         {
-            if (DXMessage.ShowYesNoAndWarning("确定删除该申请单吗？") == DialogResult.Yes)
+            if (DXMessage.ShowYesNoAndWarning($@"确定删除操作记录【{operateNo}】吗？") == DialogResult.Yes)
             {
                 //  this._IDService.DeleteInvestmentDecisionForm(serialNo);
 
@@ -431,17 +432,23 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            var myView = sender as GridView;
+            var masterView = sender as  GridView;
 
-            DataRow dr = myView.GetDataRow(e.RowHandle);
-
+            DataRow dr = masterView.GetDataRow(e.RowHandle);
+            
             if (dr == null) return;
             if (e.Column.Name == colOperate.Name)
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-               // OperateButtonStatusSetting(dr, buttonVI);
+                // OperateButtonStatusSetting(dr, buttonVI);
             }
+        }
+
+        private void viewMaster_ShownEditor(object sender, EventArgs e)
+        {
+            BaseEdit edit = (sender as GridView).ActiveEditor;
+            
         }
 
         private void riBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
@@ -596,5 +603,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
+
+     
     }
 }

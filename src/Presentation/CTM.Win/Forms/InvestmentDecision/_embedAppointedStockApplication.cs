@@ -35,7 +35,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
 
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 35, columnAutoWidth: true);
 
             this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 

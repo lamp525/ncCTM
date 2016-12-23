@@ -717,7 +717,7 @@ namespace CTM.Services.TradeRecord
         {
             #region DataFormatCheck
 
-            var TemplateColumnNames = new List<string> { "委托日期", "委托时间", "证券代码", "证券名称", "买卖标志", "委托价格", "委托数量", "委托编号", "成交数量", "撤单数量", "状态说明", "撤单标志", "股东代码", "操作日期", "交易类别" };
+            var TemplateColumnNames = new List<string> { "成交日期", "成交时间", "证券代码", "证券名称", "买卖标志", "委托价格", "委托数量", "委托编号","成交价格", "成交数量", "成交金额", "成交编号",  "股东代码", "状态说明", "交易类别" };
 
             this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
 
@@ -758,7 +758,7 @@ namespace CTM.Services.TradeRecord
 
                 tradeRecord.SetBeneficiary(importOperation.BandPrincipal, importOperation.TargetPrincipal);
 
-                tradeRecord.TradeTime = row["委托时间"].ToString().Trim();
+                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
 
                 if (_buyTexts.Contains(row["买卖标志"].ToString().Trim()))
                     tradeRecord.DealFlag = true;
@@ -770,15 +770,15 @@ namespace CTM.Services.TradeRecord
                     continue;
                 }
 
-                tradeRecord.DealNo = row["委托编号"].ToString().Trim();
+                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
 
-                tradeRecord.DealPrice = decimal.Parse(row["委托价格"].ToString().Trim());
+                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
 
-                tradeRecord.DealAmount = dealVolume * tradeRecord.DealPrice;
+                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
 
                 tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
 
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
+                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
 
                 var accountInfo = _accountService.GetAccountInfoById(tradeRecord.AccountId);
 
@@ -810,6 +810,105 @@ namespace CTM.Services.TradeRecord
 
             return tradeRecords;
         }
+        /*
+      private IList<DailyRecord> EntrustImportGuoTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+      {
+          #region DataFormatCheck
+
+          var TemplateColumnNames = new List<string> { "委托日期", "委托时间", "证券代码", "证券名称", "买卖标志", "委托价格", "委托数量", "委托编号", "成交数量", "撤单数量", "状态说明", "撤单标志", "股东代码", "操作日期", "交易类别" };
+
+          this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+
+          #endregion DataFormatCheck
+
+          #region DataProcess
+
+          var tradeRecords = new List<DailyRecord>();
+
+          foreach (DataRow row in importDataTable.Rows)
+          {
+              //忽略成交数量为0的数据
+              if (string.IsNullOrEmpty(row["成交数量"].ToString().Trim()) || int.Parse(row["成交数量"].ToString().Trim()) == 0) continue;
+
+              //成交数量
+              var dealVolume = int.Parse(row["成交数量"].ToString().Trim());
+
+              var tradeRecord = new DailyRecord();
+
+              tradeRecord.SetTradeRecordCommonFields(importOperation);
+
+              var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+
+              var stockName = row["证券名称"].ToString().Trim();
+
+              var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+
+              VerifyStockInfo(stockInfo, stockCode, stockName);
+
+              tradeRecord.StockCode = stockInfo.FullCode;
+
+              tradeRecord.StockName = stockName;
+
+              var stockPoolInfo = _stockService.GetStockPoolInfoByStockId(stockInfo.Id);
+
+              var tradeType = row["交易类别"].ToString().Trim();
+              tradeRecord.SetTradeType(tradeType);
+
+              tradeRecord.SetBeneficiary(importOperation.BandPrincipal, importOperation.TargetPrincipal);
+
+              tradeRecord.TradeTime = row["委托时间"].ToString().Trim();
+
+              if (_buyTexts.Contains(row["买卖标志"].ToString().Trim()))
+                  tradeRecord.DealFlag = true;
+              else if (_sellTexts.Contains(row["买卖标志"].ToString().Trim()))
+                  tradeRecord.DealFlag = false;
+              else
+              {
+                  //跳过操作类型不明的数据
+                  continue;
+              }
+
+              tradeRecord.DealNo = row["委托编号"].ToString().Trim();
+
+              tradeRecord.DealPrice = decimal.Parse(row["委托价格"].ToString().Trim());
+
+              tradeRecord.DealAmount = dealVolume * tradeRecord.DealPrice;
+
+              tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
+
+              tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
+
+              var accountInfo = _accountService.GetAccountInfoById(tradeRecord.AccountId);
+
+              tradeRecord.Commission = tradeRecord.DealAmount * accountInfo.CommissionRate;
+
+              tradeRecord.Incidentals = 0;
+
+              //买入
+              if (tradeRecord.DealFlag)
+              {
+                  tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
+                  tradeRecord.StampDuty = 0;
+                  tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(tradeRecord.DealAmount + tradeRecord.Commission + tradeRecord.Incidentals);
+              }
+              //卖出
+              else
+              {
+                  tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
+                  tradeRecord.StampDuty = tradeRecord.DealAmount * accountInfo.StampDutyRate;
+                  tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(tradeRecord.DealAmount - tradeRecord.StampDuty - tradeRecord.Commission - tradeRecord.Incidentals);
+              }
+
+              tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
+
+              tradeRecords.Add(tradeRecord);
+          }
+
+          #endregion DataProcess
+
+          return tradeRecords;
+      }
+      */
 
         #endregion 当日委托--国泰证券（信用）
 
