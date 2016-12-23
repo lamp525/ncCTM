@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using CTM.Core;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
@@ -15,12 +16,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #endregion Fields
 
-
         #region Properties
 
         public string OperateNo { get; set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -37,11 +37,9 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.gvIDVote.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
-            this.gvRecord.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
-            this.gvAccuracy.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true);
-
-
+            this.gvIDVote.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
+            this.gvRecord.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
+            this.gvAccuracy.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
         }
 
         private void BindDetail()
@@ -59,19 +57,35 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (drOperation != null)
             {
                 this.esiIDVote.Text = $@"投票状态：{drOperation["VoteStatusName"]}     投票分数：{drOperation["VotePoint"]}";
-                this.esiRecord.Text = $@"执行状态：{drOperation["ExecuteFlagName"]}     交易关联标志：{drOperation["RelateFlagName"]}";
-                this.esiAccuracy.Text = $@"评定状态：{drOperation["AccuracyStatusName"]}     评定分数：{drOperation["AccuracyPoint"]}";
-
-
                 this.gcIDVote.DataSource = dsDetail.Tables[1];
-                this.gcRecord.DataSource = dsDetail.Tables[2];
-                this.gcAccuracy.DataSource = dsDetail.Tables[3];
 
+                if (int.Parse(drOperation["VoteStatus"].ToString()) == (int)EnumLibrary.IDOperationVoteStatus.None
+                    || int.Parse(drOperation["VoteStatus"].ToString()) == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
+                {
+                    lcgRecord.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                }
+                else
+                {
+                    lcgRecord.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
 
+                    this.esiRecord.Text = $@"执行状态：{drOperation["ExecuteFlagName"]}     交易关联标志：{drOperation["RelateFlagName"]}";
+                    this.gcRecord.DataSource = dsDetail.Tables[2];
+                }
+
+                if (int.Parse(drOperation["ExecuteFlag"].ToString()) == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)
+                {
+                    this.lcgAccuracy.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                    this.esiAccuracy.Text = $@"评定状态：{drOperation["AccuracyStatusName"]}     评定分数：{drOperation["AccuracyPoint"]}";
+                    this.gcAccuracy.DataSource = dsDetail.Tables[3];
+                }
+                else
+                {
+                    this.lcgAccuracy.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                }
             }
         }
 
-        #endregion
+        #endregion Utilities
 
         #region Events
 
@@ -82,16 +96,36 @@ namespace CTM.Win.Forms.InvestmentDecision
                 FormInit();
 
                 BindDetail();
-
             }
             catch (Exception ex)
             {
-
                 DXMessage.ShowError(ex.Message);
             }
         }
 
-      
+        private void gvIDVote_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gvRecord_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gvAccuracy_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
 
         #endregion Events
     }

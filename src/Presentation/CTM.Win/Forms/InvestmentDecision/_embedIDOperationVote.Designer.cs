@@ -99,9 +99,9 @@
             // 
             // btnRevoke
             // 
-            this.btnRevoke.Location = new System.Drawing.Point(590, 573);
+            this.btnRevoke.Location = new System.Drawing.Point(596, 573);
             this.btnRevoke.Name = "btnRevoke";
-            this.btnRevoke.Size = new System.Drawing.Size(73, 22);
+            this.btnRevoke.Size = new System.Drawing.Size(75, 22);
             this.btnRevoke.StyleController = this.layoutControl1;
             this.btnRevoke.TabIndex = 10;
             this.btnRevoke.Text = "    撤  销    ";
@@ -109,9 +109,9 @@
             // 
             // btnAbstain
             // 
-            this.btnAbstain.Location = new System.Drawing.Point(503, 573);
+            this.btnAbstain.Location = new System.Drawing.Point(507, 573);
             this.btnAbstain.Name = "btnAbstain";
-            this.btnAbstain.Size = new System.Drawing.Size(73, 22);
+            this.btnAbstain.Size = new System.Drawing.Size(75, 22);
             this.btnAbstain.StyleController = this.layoutControl1;
             this.btnAbstain.TabIndex = 9;
             this.btnAbstain.Text = "    弃  权    ";
@@ -119,9 +119,9 @@
             // 
             // btnOppose
             // 
-            this.btnOppose.Location = new System.Drawing.Point(416, 573);
+            this.btnOppose.Location = new System.Drawing.Point(418, 573);
             this.btnOppose.Name = "btnOppose";
-            this.btnOppose.Size = new System.Drawing.Size(73, 22);
+            this.btnOppose.Size = new System.Drawing.Size(75, 22);
             this.btnOppose.StyleController = this.layoutControl1;
             this.btnOppose.TabIndex = 8;
             this.btnOppose.Text = "    反  对    ";
@@ -131,7 +131,7 @@
             // 
             this.btnApproval.Location = new System.Drawing.Point(325, 573);
             this.btnApproval.Name = "btnApproval";
-            this.btnApproval.Size = new System.Drawing.Size(77, 22);
+            this.btnApproval.Size = new System.Drawing.Size(79, 22);
             this.btnApproval.StyleController = this.layoutControl1;
             this.btnApproval.TabIndex = 7;
             this.btnApproval.Text = "    赞  同     ";
@@ -316,26 +316,26 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(631, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(639, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(290, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(282, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnOppose;
-            this.layoutControlItem4.Location = new System.Drawing.Point(380, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(382, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnAbstain;
-            this.layoutControlItem5.Location = new System.Drawing.Point(467, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(471, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -344,16 +344,16 @@
             this.layoutControlItem3.Control = this.btnApproval;
             this.layoutControlItem3.Location = new System.Drawing.Point(289, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(81, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(83, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnRevoke;
-            this.layoutControlItem6.Location = new System.Drawing.Point(554, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(560, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -368,7 +368,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(370, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(372, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -376,7 +376,7 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(457, 0);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(461, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -384,7 +384,7 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(544, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(550, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
