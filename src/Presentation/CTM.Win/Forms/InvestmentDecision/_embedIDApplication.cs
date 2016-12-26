@@ -12,7 +12,6 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
-using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -205,45 +204,57 @@ namespace CTM.Win.Forms.InvestmentDecision
                 btnVI.RightButtons[0].State = ObjectState.Disabled;
             }
 
-            /// 按钮1：执行\关联
-            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed
-                && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None
-                && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
+            /// 按钮3：查看详情
+            btnVI.RightButtons[3].Button.Enabled = true;
+            btnVI.RightButtons[3].State = ObjectState.Normal;
+
+            if (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin)
             {
-                btnVI.RightButtons[1].Button.Enabled = true;
-                btnVI.RightButtons[1].State = ObjectState.Normal;
+                /// 按钮1：执行\关联
+                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None)
+                {
+                    btnVI.RightButtons[1].Button.Enabled = true;
+                    btnVI.RightButtons[1].State = ObjectState.Normal;
+                }
+                else
+                {
+                    btnVI.RightButtons[1].Button.Enabled = false;
+                    btnVI.RightButtons[1].State = ObjectState.Disabled;
+                }
+
+                /// 按钮2：准确度设定
+                if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
+                    || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
+                {
+                    btnVI.RightButtons[2].Button.Enabled = true;
+                    btnVI.RightButtons[2].State = ObjectState.Normal;
+                }
+                else
+                {
+                    btnVI.RightButtons[2].Button.Enabled = false;
+                    btnVI.RightButtons[2].State = ObjectState.Disabled;
+                }
+
+                /// 按钮4：删除
+                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None)
+                {
+                    btnVI.RightButtons[4].Button.Enabled = true;
+                    btnVI.RightButtons[4].State = ObjectState.Normal;
+                }
+                else
+                {
+                    btnVI.RightButtons[4].Button.Enabled = false;
+                    btnVI.RightButtons[4].State = ObjectState.Disabled;
+                }
             }
             else
             {
                 btnVI.RightButtons[1].Button.Enabled = false;
                 btnVI.RightButtons[1].State = ObjectState.Disabled;
-            }
 
-            /// 按钮2：准确度设定
-            if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
-                || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
-            {
-                btnVI.RightButtons[2].Button.Enabled = true;
-                btnVI.RightButtons[2].State = ObjectState.Normal;
-            }
-            else
-            {
                 btnVI.RightButtons[2].Button.Enabled = false;
                 btnVI.RightButtons[2].State = ObjectState.Disabled;
-            }
 
-            /// 按钮3：查看详情
-            btnVI.RightButtons[3].Button.Enabled = true;
-            btnVI.RightButtons[3].State = ObjectState.Normal;
-
-            /// 按钮4：删除
-            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None && (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin))
-            {
-                btnVI.RightButtons[4].Button.Enabled = true;
-                btnVI.RightButtons[4].State = ObjectState.Normal;
-            }
-            else
-            {
                 btnVI.RightButtons[4].Button.Enabled = false;
                 btnVI.RightButtons[4].State = ObjectState.Disabled;
             }
@@ -432,10 +443,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            var masterView = sender as  GridView;
+            var masterView = sender as GridView;
 
             DataRow dr = masterView.GetDataRow(e.RowHandle);
-            
+
             if (dr == null) return;
             if (e.Column.Name == colOperate.Name)
             {
@@ -443,12 +454,6 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 // OperateButtonStatusSetting(dr, buttonVI);
             }
-        }
-
-        private void viewMaster_ShownEditor(object sender, EventArgs e)
-        {
-            BaseEdit edit = (sender as GridView).ActiveEditor;
-            
         }
 
         private void riBtnOperate_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
@@ -603,7 +608,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         #endregion DetailView
 
         #endregion Events
-
-     
     }
 }
