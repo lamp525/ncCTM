@@ -131,7 +131,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
-            var applyType =int.Parse ( dr[this.colApplyType.FieldName]?.ToString());
+            var applyType = int.Parse(dr[this.colApplyType.FieldName]?.ToString());
             var accuracyEvaluateFlag = string.IsNullOrEmpty(dr[this.colAccuracyEvaluateOperateNo.FieldName]?.ToString()) ? false : true;
             var finishConfirmFlag = bool.Parse(dr[this.colFinishConfirmFlag.FieldName]?.ToString());
 
@@ -141,15 +141,23 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
             {
-                if(applyType ==(int)EnumLibrary.IDOperationApplyType .None )
+                if (applyType == (int)EnumLibrary.IDOperationApplyType.None)
                 {
                     buttonVI.RightButtons[0].Button.Enabled = false;
                     buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                    buttonVI.RightButtons[0].Button.Caption = "买卖申请";
                 }
                 else
                 {
                     buttonVI.RightButtons[0].Button.Enabled = true;
                     buttonVI.RightButtons[0].State = ObjectState.Normal;
+
+                    if (applyType == (int)EnumLibrary.IDOperationApplyType.Buy)
+                        buttonVI.RightButtons[0].Button.Caption = "买入申请";
+                    else if (applyType == (int)EnumLibrary.IDOperationApplyType.Sell)
+                        buttonVI.RightButtons[0].Button.Caption = "卖出申请";
+                    else if (applyType == (int)EnumLibrary.IDOperationApplyType.Both)
+                        buttonVI.RightButtons[0].Button.Caption = "买卖申请";
                 }
 
                 if (accuracyEvaluateFlag)
@@ -171,7 +179,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     buttonVI.RightButtons[2].State = ObjectState.Normal;
                 }
                 else
-                {             
+                {
                     buttonVI.RightButtons[2].Button.Enabled = false;
                     buttonVI.RightButtons[2].State = ObjectState.Disabled;
                 }
@@ -488,6 +496,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     var dialog = this.CreateDialog<_dialogIDApplication>(borderStyle: FormBorderStyle.Sizable);
                     dialog.RefreshEvent += new _dialogIDApplication.RefreshParentForm(BindApplicationInfo);
                     dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewOperation;
+                    dialog.ApplyType = (EnumLibrary.IDOperationApplyType)int.Parse(dr?[colApplyType.FieldName].ToString());
                     dialog.ApplyNo = applyNo;
                     dialog.OperateNo = string.Empty;
                     dialog.Text = "投资决策交易操作申请";
@@ -495,7 +504,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
                 else if (buttonTag == "Accuracy")
                 {
-                    var operateNo = string.Empty;
+                    var operateNo = dr?[colAccuracyEvaluateOperateNo.FieldName]?.ToString();
 
                     if (!string.IsNullOrEmpty(operateNo))
                         OperationAccuracyVoteProcess(applyNo, operateNo);

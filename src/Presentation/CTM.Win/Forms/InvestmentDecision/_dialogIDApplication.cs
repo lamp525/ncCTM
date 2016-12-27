@@ -43,7 +43,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         public string ApplyNo { get; set; }
 
+        public EnumLibrary.IDOperationApplyType  ApplyType { get; set; }
+
         public string OperateNo { get; set; }
+
+        
 
         #endregion Properties
 
@@ -163,6 +167,22 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             //操作日期
             this.deOperate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+
+            switch (ApplyType)
+            {             
+                case EnumLibrary.IDOperationApplyType.Buy:
+                    this.chkBuy.Checked = true;
+                    this.chkSell.Enabled = false;
+                    break;
+                case EnumLibrary.IDOperationApplyType.Sell:
+                    this.chkSell.Checked = true;
+                    this.chkBuy.Enabled = false;
+                    break;
+                case EnumLibrary.IDOperationApplyType.Both:
+                    break;
+                default:
+                    break;
+            }
 
             this.txtPrice.SetNumericMask(2);
             this.txtPrice.Text = string.Empty;
