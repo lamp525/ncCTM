@@ -131,8 +131,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
-            var applyType = dr[this.colApplyType.FieldName]?.ToString();
-            var accuracyEvaluateFlag = bool.Parse(dr[this.colAccuracyEvaluateFlag.FieldName]?.ToString());
+            var applyType =int.Parse ( dr[this.colApplyType.FieldName]?.ToString());
+            var accuracyEvaluateFlag = string.IsNullOrEmpty(dr[this.colAccuracyEvaluateOperateNo.FieldName]?.ToString()) ? false : true;
             var finishConfirmFlag = bool.Parse(dr[this.colFinishConfirmFlag.FieldName]?.ToString());
 
             ///按钮0：交易申请
@@ -141,6 +141,17 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
             {
+                if(applyType ==(int)EnumLibrary.IDOperationApplyType .None )
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                }
+                else
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = true;
+                    buttonVI.RightButtons[0].State = ObjectState.Normal;
+                }
+
                 if (accuracyEvaluateFlag)
                 {
                     buttonVI.RightButtons[1].Button.Enabled = true;
@@ -160,9 +171,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     buttonVI.RightButtons[2].State = ObjectState.Normal;
                 }
                 else
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = true;
-                    buttonVI.RightButtons[0].State = ObjectState.Normal;
+                {             
                     buttonVI.RightButtons[2].Button.Enabled = false;
                     buttonVI.RightButtons[2].State = ObjectState.Disabled;
                 }
@@ -452,7 +461,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-                // OperateButtonStatusSetting(dr, buttonVI);
+                OperateButtonStatusSetting(dr, buttonVI);
             }
         }
 

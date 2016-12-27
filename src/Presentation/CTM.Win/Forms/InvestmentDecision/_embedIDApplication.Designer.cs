@@ -100,7 +100,7 @@
             this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccuracyEvaluateFlag = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccuracyEvaluateOperateNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinishConfirmFlag = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
@@ -520,7 +520,7 @@
             this.gridColumn11,
             this.gridColumn12,
             this.colApplyType,
-            this.colAccuracyEvaluateFlag,
+            this.colAccuracyEvaluateOperateNo,
             this.colFinishConfirmFlag});
             this.viewMaster.GridControl = this.gridApplication;
             this.viewMaster.IndicatorWidth = 30;
@@ -717,6 +717,7 @@
             // gridColumn12
             // 
             this.gridColumn12.Caption = "最新收盘价";
+            this.gridColumn12.FieldName = "LatestClosePrice";
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Visible = true;
             this.gridColumn12.VisibleIndex = 13;
@@ -727,11 +728,11 @@
             this.colApplyType.FieldName = "ApplyType";
             this.colApplyType.Name = "colApplyType";
             // 
-            // colAccuracyEvaluateFlag
+            // colAccuracyEvaluateOperateNo
             // 
-            this.colAccuracyEvaluateFlag.Caption = "gridColumn18";
-            this.colAccuracyEvaluateFlag.FieldName = "AccuracyEvaluateFlag";
-            this.colAccuracyEvaluateFlag.Name = "colAccuracyEvaluateFlag";
+            this.colAccuracyEvaluateOperateNo.Caption = "gridColumn18";
+            this.colAccuracyEvaluateOperateNo.FieldName = "AccuracyEvaluateOperateNo";
+            this.colAccuracyEvaluateOperateNo.Name = "colAccuracyEvaluateOperateNo";
             // 
             // colFinishConfirmFlag
             // 
@@ -1179,7 +1180,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraGrid.Columns.GridColumn colApplyType;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyEvaluateFlag;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccuracyEvaluateOperateNo;
         private DevExpress.XtraGrid.Columns.GridColumn colFinishConfirmFlag;
     }
 }
