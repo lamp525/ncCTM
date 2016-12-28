@@ -239,18 +239,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 //操作日期
                 this.deOperate.EditValue = now.Date;
 
-                if (OperateStep == 1 || (this.txtApplyNo.Tag != null && bool.Parse(this.txtApplyNo.Tag.ToString()) == this.chkBuy.Checked))
-                    _profitLossBoundSettingFlag = true;
-                else
-                    _profitLossBoundSettingFlag = false;
-
-                if (!_profitLossBoundSettingFlag)
-                {
-                    this.txtProfitPrice.ReadOnly = true;
-                    this.spinProfitBound.ReadOnly = true;
-                    this.txtLossPrice.ReadOnly = true;
-                    this.spinLossBound.ReadOnly = true;
-                }
+                SetLimitBound();
             }
             else
             {
@@ -262,7 +251,15 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void SetLimitBound()
         {
-            throw new NotImplementedException();
+            if (OperateStep == 1 || (this.txtApplyNo.Tag != null && bool.Parse(this.txtApplyNo.Tag.ToString()) == this.chkBuy.Checked))
+                _profitLossBoundSettingFlag = true;
+            else
+                _profitLossBoundSettingFlag = false;
+
+            this.txtProfitPrice.ReadOnly = !_profitLossBoundSettingFlag;
+            this.spinProfitBound.ReadOnly = !_profitLossBoundSettingFlag;
+            this.txtLossPrice.ReadOnly = !_profitLossBoundSettingFlag;
+            this.spinLossBound.ReadOnly = !_profitLossBoundSettingFlag;
         }
 
         private void SetOperationInfo(string operateNo)
@@ -459,10 +456,10 @@ namespace CTM.Win.Forms.InvestmentDecision
                 var amount = Math.Abs(decimal.Parse(this.txtAmount.Text.Trim()) * (int)EnumLibrary.NumericUnit.TenThousand);
                 var operateDate = CommonHelper.StringToDateTime(this.deOperate.EditValue.ToString());
                 var stock = this.luStock.GetSelectedDataRow() as StockInfoModel;
-                var stopProfitPrice = decimal.Parse(this.txtProfitPrice.Text.Trim());
-                var stopProfitBound = decimal.Parse(this.spinProfitBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
-                var stopLossPrice = decimal.Parse(this.txtLossPrice.Text.Trim());
-                var stopLossBound = decimal.Parse(this.spinLossBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred; ;
+                var stopProfitPrice = _profitLossBoundSettingFlag ? decimal.Parse(this.txtProfitPrice.Text.Trim()) : 0;
+                var stopProfitBound = _profitLossBoundSettingFlag ? decimal.Parse(this.spinProfitBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred : 0;
+                var stopLossPrice = _profitLossBoundSettingFlag ? decimal.Parse(this.txtLossPrice.Text.Trim()) : 0;
+                var stopLossBound = _profitLossBoundSettingFlag ? decimal.Parse(this.spinLossBound.EditValue.ToString()) / (int)EnumLibrary.NumericUnit.Hundred : 0;
 
                 operation = new InvestmentDecisionOperation
                 {
@@ -633,16 +630,16 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.chkSell.Checked = !this.chkBuy.Checked;
 
-
-            SetLimitBound();
-            
-        }  
+            if (chkBuy.Checked)
+                SetLimitBound();
+        }
 
         private void chkSell_CheckedChanged(object sender, EventArgs e)
         {
             this.chkBuy.Checked = !this.chkSell.Checked;
 
-            SetLimitBound();
+            if (chkSell.Checked)
+                SetLimitBound();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

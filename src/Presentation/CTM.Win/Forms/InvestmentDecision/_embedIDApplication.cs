@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Timers;
 using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
@@ -133,7 +133,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.timer1.Interval = 10000;
             this.timer1.Start();
         }
-         
 
         #region Master
 
@@ -143,57 +142,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             var applyType = int.Parse(dr[this.colApplyType.FieldName]?.ToString());
             var accuracyEvaluateFlag = string.IsNullOrEmpty(dr[this.colAccuracyEvaluateOperateNo.FieldName]?.ToString()) ? false : true;
             var finishConfirmFlag = bool.Parse(dr[this.colFinishConfirmFlag.FieldName]?.ToString());
+            var status = int.Parse(dr[this.colStatus.FieldName]?.ToString());
 
             ///按钮0：交易申请
             ///按钮1：准确度评价
             ///按钮2：完结确认
 
-            if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
-            {
-                if (applyType == (int)EnumLibrary.IDOperationApplyType.None)
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = false;
-                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
-                    buttonVI.RightButtons[0].Button.Caption = "买卖申请";
-                }
-                else
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = true;
-                    buttonVI.RightButtons[0].State = ObjectState.Normal;
-
-                    if (applyType == (int)EnumLibrary.IDOperationApplyType.Buy)
-                        buttonVI.RightButtons[0].Button.Caption = "买入申请";
-                    else if (applyType == (int)EnumLibrary.IDOperationApplyType.Sell)
-                        buttonVI.RightButtons[0].Button.Caption = "卖出申请";
-                    else if (applyType == (int)EnumLibrary.IDOperationApplyType.Both)
-                        buttonVI.RightButtons[0].Button.Caption = "买卖申请";
-                }
-
-                if (accuracyEvaluateFlag)
-                {
-                    buttonVI.RightButtons[1].Button.Enabled = true;
-                    buttonVI.RightButtons[1].State = ObjectState.Normal;
-                }
-                else
-                {
-                    buttonVI.RightButtons[1].Button.Enabled = false;
-                    buttonVI.RightButtons[1].State = ObjectState.Disabled;
-                }
-
-                if (finishConfirmFlag)
-                {
-                    buttonVI.RightButtons[0].Button.Enabled = false;
-                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
-                    buttonVI.RightButtons[2].Button.Enabled = true;
-                    buttonVI.RightButtons[2].State = ObjectState.Normal;
-                }
-                else
-                {
-                    buttonVI.RightButtons[2].Button.Enabled = false;
-                    buttonVI.RightButtons[2].State = ObjectState.Disabled;
-                }
-            }
-            else
+            if (status == (int)EnumLibrary.IDApplicationStatus.Done)
             {
                 buttonVI.RightButtons[0].Button.Enabled = false;
                 buttonVI.RightButtons[0].State = ObjectState.Disabled;
@@ -203,6 +158,65 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 buttonVI.RightButtons[2].Button.Enabled = false;
                 buttonVI.RightButtons[2].State = ObjectState.Disabled;
+            }
+            else
+            {
+                if (LoginInfo.CurrentUser.IsAdmin || investorCode == LoginInfo.CurrentUser.UserCode)
+                {
+                    if (applyType == (int)EnumLibrary.IDOperationApplyType.None)
+                    {
+                        buttonVI.RightButtons[0].Button.Enabled = false;
+                        buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                        buttonVI.RightButtons[0].Button.Caption = "买卖申请";
+                    }
+                    else
+                    {
+                        buttonVI.RightButtons[0].Button.Enabled = true;
+                        buttonVI.RightButtons[0].State = ObjectState.Normal;
+
+                        if (applyType == (int)EnumLibrary.IDOperationApplyType.Buy)
+                            buttonVI.RightButtons[0].Button.Caption = "买入申请";
+                        else if (applyType == (int)EnumLibrary.IDOperationApplyType.Sell)
+                            buttonVI.RightButtons[0].Button.Caption = "卖出申请";
+                        else if (applyType == (int)EnumLibrary.IDOperationApplyType.Both)
+                            buttonVI.RightButtons[0].Button.Caption = "买卖申请";
+                    }
+
+                    if (accuracyEvaluateFlag)
+                    {
+                        buttonVI.RightButtons[1].Button.Enabled = true;
+                        buttonVI.RightButtons[1].State = ObjectState.Normal;
+                    }
+                    else
+                    {
+                        buttonVI.RightButtons[1].Button.Enabled = false;
+                        buttonVI.RightButtons[1].State = ObjectState.Disabled;
+                    }
+
+                    if (finishConfirmFlag)
+                    {
+                        buttonVI.RightButtons[0].Button.Enabled = false;
+                        buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                        buttonVI.RightButtons[2].Button.Enabled = true;
+                        buttonVI.RightButtons[2].State = ObjectState.Normal;
+                    }
+                    else
+                    {
+                        buttonVI.RightButtons[2].Button.Enabled = false;
+                        buttonVI.RightButtons[2].State = ObjectState.Disabled;
+                    }
+                }
+                else
+                {
+                    buttonVI.RightButtons[0].Button.Enabled = false;
+                    buttonVI.RightButtons[0].State = ObjectState.Disabled;
+
+                    buttonVI.RightButtons[1].Button.Enabled = false;
+                    buttonVI.RightButtons[1].State = ObjectState.Disabled;
+
+                    buttonVI.RightButtons[2].Button.Enabled = false;
+                    buttonVI.RightButtons[2].State = ObjectState.Disabled;
+                }
             }
         }
 
@@ -344,7 +358,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             if (DXMessage.ShowYesNoAndWarning($@"确定删除操作记录【{operateNo}】吗？") == DialogResult.Yes)
             {
-                  this._IDService.DeleteInvestmentDecisionOperation(applyNo,operateNo );
+                this._IDService.DeleteInvestmentDecisionOperation(applyNo, operateNo);
 
                 BindApplicationInfo();
             }
@@ -360,18 +374,21 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-            string commandText = @" EXEC [dbo].[sp_GetIDApplicationAndIDOperation] " ;
+            string commandText = @" EXEC [dbo].[sp_GetIDApplicationAndIDOperation] ";
 
+            string whereCondition = $@" @ApplyDateFrom = '{CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString())}'
+                                                            ,@ApplyDateTo= '{CommonHelper.StringToDateTime(this.deTo.EditValue.ToString())}'
+                                                            ,@Applyuser = '{this.luApplyUser.SelectedValue()}'
+                                                            ,@StockCode = '{this.luStock.SelectedValue()}' ";
 
-            string whereCondition = string.Empty;
             switch (CurrentQueryMode)
             {
                 case QueryMode.Proceed:
-                    whereCondition = $@" @Status = {(int)EnumLibrary.IDApplicationStatus.Proceed}  ";
+                    whereCondition += $@" ,@Status = {(int)EnumLibrary.IDApplicationStatus.Proceed}  ";
                     break;
 
                 case QueryMode.Done:
-                    whereCondition = $@" @Status = {(int)EnumLibrary.IDApplicationStatus.Done}  ";
+                    whereCondition += $@" ,@Status = {(int)EnumLibrary.IDApplicationStatus.Done}  ";
                     break;
 
                 case QueryMode.All:
@@ -425,9 +442,22 @@ namespace CTM.Win.Forms.InvestmentDecision
             BindApplicationInfo();
         }
 
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.btnSearch.Enabled = false;
+
+                BindApplicationInfo();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnSearch.Enabled = true;
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -544,7 +574,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
                 else if (buttonTag == "Finish")
                 {
-                    if (DXMessage.ShowYesNoAndTips("该决策申请是否已经完结？确认后该申请将不可继续操作！") == System.Windows.Forms.DialogResult.OK)
+                    if (DXMessage.ShowYesNoAndTips("该决策申请是否已经完结？确认后该申请将不可继续操作！") == System.Windows.Forms.DialogResult.Yes)
                     {
                         _IDService.UpdateIDApplicationStatus(applyNo, (int)EnumLibrary.IDApplicationStatus.Done);
                         BindApplicationInfo();
@@ -656,11 +686,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-
         #endregion DetailView
 
         #endregion Events
-
-
     }
 }

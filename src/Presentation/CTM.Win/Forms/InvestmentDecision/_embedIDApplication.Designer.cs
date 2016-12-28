@@ -486,13 +486,13 @@
             gridLevelNode1.RelationName = "MD";
             this.gridApplication.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.gridApplication.Location = new System.Drawing.Point(24, 83);
+            this.gridApplication.Location = new System.Drawing.Point(24, 124);
             this.gridApplication.MainView = this.viewMaster;
             this.gridApplication.Name = "gridApplication";
             this.gridApplication.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riBtnOperate,
             this.ribtnOperate_D});
-            this.gridApplication.Size = new System.Drawing.Size(1420, 652);
+            this.gridApplication.Size = new System.Drawing.Size(1420, 611);
             this.gridApplication.TabIndex = 4;
             this.gridApplication.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.viewMaster,
@@ -768,7 +768,7 @@
             // 
             // btnExpandOrCollapse
             // 
-            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 57);
+            this.btnExpandOrCollapse.Location = new System.Drawing.Point(24, 98);
             this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
             this.btnExpandOrCollapse.Size = new System.Drawing.Size(89, 22);
             this.btnExpandOrCollapse.StyleController = this.layoutControl1;
@@ -778,7 +778,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(772, 12);
+            this.btnSearch.Location = new System.Drawing.Point(784, 48);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -788,7 +788,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(593, 12);
+            this.luStock.Location = new System.Drawing.Point(605, 48);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -802,7 +802,7 @@
             // 
             // luApplyUser
             // 
-            this.luApplyUser.Location = new System.Drawing.Point(403, 12);
+            this.luApplyUser.Location = new System.Drawing.Point(415, 48);
             this.luApplyUser.Name = "luApplyUser";
             this.luApplyUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -817,7 +817,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(233, 12);
+            this.deTo.Location = new System.Drawing.Point(245, 48);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -830,7 +830,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(73, 12);
+            this.deFrom.Location = new System.Drawing.Point(85, 48);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -842,7 +842,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(127, 57);
+            this.btnRefresh.Location = new System.Drawing.Point(127, 98);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
@@ -852,7 +852,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1377, 57);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1377, 98);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -878,7 +878,6 @@
             this.lcgSearch.AppearanceGroup.Options.UseFont = true;
             this.lcgSearch.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcgSearch.CaptionImage")));
             this.lcgSearch.ExpandButtonVisible = true;
-            this.lcgSearch.Expanded = false;
             this.lcgSearch.ExpandOnDoubleClick = true;
             this.lcgSearch.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem2,
@@ -893,7 +892,7 @@
             this.layoutControlItem7});
             this.lcgSearch.Location = new System.Drawing.Point(0, 0);
             this.lcgSearch.Name = "lcgSearch";
-            this.lcgSearch.Size = new System.Drawing.Size(1448, 33);
+            this.lcgSearch.Size = new System.Drawing.Size(1448, 74);
             this.lcgSearch.Text = "查询条件";
             // 
             // emptySpaceItem2
@@ -992,9 +991,9 @@
             this.emptySpaceItem1,
             this.layoutControlItem5,
             this.lciExpand});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 33);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 74);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 706);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1448, 665);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem1
@@ -1002,7 +1001,7 @@
             this.layoutControlItem1.Control = this.gridApplication;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 656);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1424, 615);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
