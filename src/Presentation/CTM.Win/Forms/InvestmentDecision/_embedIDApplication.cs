@@ -112,7 +112,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             this.viewMaster.LoadLayout(_layoutXmlName_Master);
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 30, columnAutoWidth: false);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 45, columnAutoWidth: false);
 
             foreach (GridColumn column in this.viewMaster.Columns)
             {
@@ -507,6 +507,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var masterView = sender as GridView;
 
+            var a = e.PrevFocusedRowHandle;
             _defaultMasterFocusedRowHandle = e.FocusedRowHandle;
 
             masterView.RecursExpand(e.FocusedRowHandle);
@@ -522,16 +523,17 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            var masterView = sender as GridView;
-
-            DataRow dr = masterView.GetDataRow(e.RowHandle);
-
-            if (dr == null) return;
             if (e.Column.Name == colOperate.Name)
             {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+                var masterView = sender as GridView;
+                DataRow dr = masterView.GetDataRow(e.RowHandle);
 
-                OperateButtonStatusSetting(dr, buttonVI);
+                if (dr != null)
+                {
+                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                    OperateButtonStatusSetting(dr, buttonVI);
+                }
             }
         }
 
@@ -597,16 +599,16 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewDetail_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            var currentDetailView = sender as GridView;
-
-            DataRow dr = currentDetailView.GetDataRow(e.RowHandle);
-
-            if (dr == null) return;
-
             if (e.Column.Name == colOperate_D.Name)
             {
-                ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                DetailOperateButtonStatusSetting(dr, buttonVI);
+                var currentDetailView = sender as GridView;
+                DataRow dr = currentDetailView.GetDataRow(e.RowHandle);
+
+                if (dr != null)
+                {
+                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+                    DetailOperateButtonStatusSetting(dr, buttonVI);
+                }
             }
         }
 
