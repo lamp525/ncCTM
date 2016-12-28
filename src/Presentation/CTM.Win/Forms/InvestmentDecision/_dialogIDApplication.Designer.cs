@@ -80,11 +80,11 @@
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.止盈价格 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciProfitPrice = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciProfitBound = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.止损价格 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciLossPrice = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciLossBound = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -149,11 +149,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.止盈价格)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProfitPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProfitBound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.止损价格)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciLossPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciLossBound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
@@ -639,11 +639,11 @@
             this.emptySpaceItem4,
             this.layoutControlItem4,
             this.layoutControlItem5,
-            this.止盈价格,
-            this.layoutControlItem22,
+            this.lciProfitPrice,
+            this.lciProfitBound,
             this.emptySpaceItem2,
-            this.止损价格,
-            this.layoutControlItem23,
+            this.lciLossPrice,
+            this.lciLossBound,
             this.emptySpaceItem3,
             this.layoutControlItem10,
             this.layoutControlItem11,
@@ -742,22 +742,23 @@
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
-            // 止盈价格
+            // lciProfitPrice
             // 
-            this.止盈价格.Control = this.txtProfitPrice;
-            this.止盈价格.Location = new System.Drawing.Point(0, 96);
-            this.止盈价格.Name = "止盈价格";
-            this.止盈价格.Size = new System.Drawing.Size(219, 24);
-            this.止盈价格.TextSize = new System.Drawing.Size(58, 14);
+            this.lciProfitPrice.Control = this.txtProfitPrice;
+            this.lciProfitPrice.Location = new System.Drawing.Point(0, 96);
+            this.lciProfitPrice.Name = "lciProfitPrice";
+            this.lciProfitPrice.Size = new System.Drawing.Size(219, 24);
+            this.lciProfitPrice.Text = "止盈价格";
+            this.lciProfitPrice.TextSize = new System.Drawing.Size(58, 14);
             // 
-            // layoutControlItem22
+            // lciProfitBound
             // 
-            this.layoutControlItem22.Control = this.spinProfitBound;
-            this.layoutControlItem22.Location = new System.Drawing.Point(219, 96);
-            this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(115, 24);
-            this.layoutControlItem22.Text = "上下限(%)";
-            this.layoutControlItem22.TextSize = new System.Drawing.Size(58, 14);
+            this.lciProfitBound.Control = this.spinProfitBound;
+            this.lciProfitBound.Location = new System.Drawing.Point(219, 96);
+            this.lciProfitBound.Name = "lciProfitBound";
+            this.lciProfitBound.Size = new System.Drawing.Size(115, 24);
+            this.lciProfitBound.Text = "上下限(%)";
+            this.lciProfitBound.TextSize = new System.Drawing.Size(58, 14);
             // 
             // emptySpaceItem2
             // 
@@ -767,22 +768,23 @@
             this.emptySpaceItem2.Size = new System.Drawing.Size(34, 24);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // 止损价格
+            // lciLossPrice
             // 
-            this.止损价格.Control = this.txtLossPrice;
-            this.止损价格.Location = new System.Drawing.Point(0, 120);
-            this.止损价格.Name = "止损价格";
-            this.止损价格.Size = new System.Drawing.Size(219, 24);
-            this.止损价格.TextSize = new System.Drawing.Size(58, 14);
+            this.lciLossPrice.Control = this.txtLossPrice;
+            this.lciLossPrice.Location = new System.Drawing.Point(0, 120);
+            this.lciLossPrice.Name = "lciLossPrice";
+            this.lciLossPrice.Size = new System.Drawing.Size(219, 24);
+            this.lciLossPrice.Text = "止损价格";
+            this.lciLossPrice.TextSize = new System.Drawing.Size(58, 14);
             // 
-            // layoutControlItem23
+            // lciLossBound
             // 
-            this.layoutControlItem23.Control = this.spinLossBound;
-            this.layoutControlItem23.Location = new System.Drawing.Point(219, 120);
-            this.layoutControlItem23.Name = "layoutControlItem23";
-            this.layoutControlItem23.Size = new System.Drawing.Size(115, 24);
-            this.layoutControlItem23.Text = "上下限(%)";
-            this.layoutControlItem23.TextSize = new System.Drawing.Size(58, 14);
+            this.lciLossBound.Control = this.spinLossBound;
+            this.lciLossBound.Location = new System.Drawing.Point(219, 120);
+            this.lciLossBound.Name = "lciLossBound";
+            this.lciLossBound.Size = new System.Drawing.Size(115, 24);
+            this.lciLossBound.Text = "上下限(%)";
+            this.lciLossBound.TextSize = new System.Drawing.Size(58, 14);
             // 
             // emptySpaceItem3
             // 
@@ -1022,11 +1024,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.止盈价格)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProfitPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProfitBound)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.止损价格)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciLossPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciLossBound)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
@@ -1087,8 +1089,8 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraEditors.TextEdit txtLossPrice;
         private DevExpress.XtraEditors.TextEdit txtProfitPrice;
-        private DevExpress.XtraLayout.LayoutControlItem 止盈价格;
-        private DevExpress.XtraLayout.LayoutControlItem 止损价格;
+        private DevExpress.XtraLayout.LayoutControlItem lciProfitPrice;
+        private DevExpress.XtraLayout.LayoutControlItem lciLossPrice;
         private DevExpress.XtraLayout.EmptySpaceItem esiTitle;
         private DevExpress.XtraEditors.TreeListLookUpEdit treeListLookUpEdit1;
         private DevExpress.XtraTreeList.TreeList treeListLookUpEdit1TreeList;
@@ -1103,8 +1105,8 @@
         private DevExpress.XtraEditors.SpinEdit spinLossBound;
         private DevExpress.XtraEditors.SpinEdit spinProfitBound;
         private DevExpress.XtraEditors.TextEdit txtOperateUser;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem23;
+        private DevExpress.XtraLayout.LayoutControlItem lciProfitBound;
+        private DevExpress.XtraLayout.LayoutControlItem lciLossBound;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem21;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem24;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tcId;

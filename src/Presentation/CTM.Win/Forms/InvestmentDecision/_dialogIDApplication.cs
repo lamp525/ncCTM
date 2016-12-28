@@ -43,11 +43,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         public string ApplyNo { get; set; }
 
-        public EnumLibrary.IDOperationApplyType  ApplyType { get; set; }
+        public EnumLibrary.IDOperationApplyType ApplyType { get; set; }
 
         public string OperateNo { get; set; }
 
-        
+        public int OperateStep { get; set; }
 
         #endregion Properties
 
@@ -169,17 +169,20 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deOperate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
 
             switch (ApplyType)
-            {             
+            {
                 case EnumLibrary.IDOperationApplyType.Buy:
                     this.chkBuy.Checked = true;
                     this.chkSell.Enabled = false;
                     break;
+
                 case EnumLibrary.IDOperationApplyType.Sell:
                     this.chkSell.Checked = true;
                     this.chkBuy.Enabled = false;
                     break;
+
                 case EnumLibrary.IDOperationApplyType.Both:
                     break;
+
                 default:
                     break;
             }
@@ -236,6 +239,11 @@ namespace CTM.Win.Forms.InvestmentDecision
                 //操作日期
                 this.deOperate.EditValue = now.Date;
 
+                if (OperateStep == 1 || (this.txtApplyNo.Tag != null && bool.Parse(this.txtApplyNo.Tag.ToString()) == this.chkBuy.Checked))
+                    _profitLossBoundSettingFlag = true;
+                else
+                    _profitLossBoundSettingFlag = false;
+
                 if (!_profitLossBoundSettingFlag)
                 {
                     this.txtProfitPrice.ReadOnly = true;
@@ -250,6 +258,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 SetOperationInfo(OperateNo);
             }
+        }
+
+        private void SetLimitBound()
+        {
+            throw new NotImplementedException();
         }
 
         private void SetOperationInfo(string operateNo)
@@ -313,6 +326,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (applicationInfo == null) return;
 
             this.txtApplyNo.Text = applicationInfo["ApplyNo"].ToString();
+            this.txtApplyNo.Tag = applicationInfo["InitialDealFlag"].ToString();
             this.txtPlanNo.Text = applicationInfo["TradePlanNo"].ToString();
             this.txtApplyUser.Text = applicationInfo["ApplyUserName"].ToString();
             this.deApply.EditValue = applicationInfo["ApplyDate"];
@@ -463,6 +477,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                     ExecuteFlag = (int)EnumLibrary.IDOperationExecuteStatus.None,
                     InitialFlag = _initialFlag,
                     IsDeleted = false,
+                    IsStopped = false,
+                    Step = OperateStep,
                     OperateDate = operateDate,
                     OperateUser = LoginInfo.CurrentUser.UserCode,
                     OperateNo = string.Empty,
@@ -616,11 +632,17 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void chkBuy_CheckedChanged(object sender, EventArgs e)
         {
             this.chkSell.Checked = !this.chkBuy.Checked;
-        }
+
+
+            SetLimitBound();
+            
+        }  
 
         private void chkSell_CheckedChanged(object sender, EventArgs e)
         {
             this.chkBuy.Checked = !this.chkSell.Checked;
+
+            SetLimitBound();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

@@ -101,6 +101,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 dialog.CurrentPageMode = _dialogIDApplication.PageMode.NewApplication;
                 dialog.ApplyNo = string.Empty;
                 dialog.OperateNo = string.Empty;
+                dialog.OperateStep = 1;
                 dialog.Text = "股票投资交易申请";
 
                 dialog.ShowDialog();

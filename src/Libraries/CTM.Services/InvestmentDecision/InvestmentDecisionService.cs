@@ -696,9 +696,17 @@ namespace CTM.Services.InvestmentDecision
             if(application != null )
             {
                 application.Status = status;
+                application.UpdateTime = _commonService.GetCurrentServerTime();
 
                 _IDApplicationRepository.Update(application);
             }
+        }
+
+        public virtual void DeleteInvestmentDecisionOperation(string applyNo, string operateNo)
+        {
+            var commanText = $@"EXEC [dbo].[sp_IDOperationDeleteProcess] @ApplyNo = '{applyNo}', @OperateNo='{operateNo}'";		                        
+
+            _dbContext.ExecuteSqlCommand(commanText);
         }
 
         #endregion Methods

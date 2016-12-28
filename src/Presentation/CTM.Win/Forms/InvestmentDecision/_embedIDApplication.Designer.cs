@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -102,6 +103,7 @@
             this.colApplyType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccuracyEvaluateOperateNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinishConfirmFlag = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCurrentStep = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExpandOrCollapse = new DevExpress.XtraEditors.SimpleButton();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
@@ -112,7 +114,7 @@
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnSaveLayout = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcgSearch = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -130,6 +132,7 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciExpand = new DevExpress.XtraLayout.LayoutControlItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.viewDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribtnOperate_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridApplication)).BeginInit();
@@ -144,7 +147,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -521,13 +524,15 @@
             this.gridColumn12,
             this.colApplyType,
             this.colAccuracyEvaluateOperateNo,
-            this.colFinishConfirmFlag});
+            this.colFinishConfirmFlag,
+            this.colCurrentStep});
             this.viewMaster.GridControl = this.gridApplication;
             this.viewMaster.IndicatorWidth = 30;
             this.viewMaster.Name = "viewMaster";
             this.viewMaster.OptionsView.ColumnAutoWidth = false;
             this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
+            this.viewMaster.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.viewMaster_FocusedRowChanged);
             // 
             // colId
             // 
@@ -724,21 +729,23 @@
             // 
             // colApplyType
             // 
-            this.colApplyType.Caption = "gridColumn18";
             this.colApplyType.FieldName = "ApplyType";
             this.colApplyType.Name = "colApplyType";
             // 
             // colAccuracyEvaluateOperateNo
             // 
-            this.colAccuracyEvaluateOperateNo.Caption = "gridColumn18";
             this.colAccuracyEvaluateOperateNo.FieldName = "AccuracyEvaluateOperateNo";
             this.colAccuracyEvaluateOperateNo.Name = "colAccuracyEvaluateOperateNo";
             // 
             // colFinishConfirmFlag
             // 
-            this.colFinishConfirmFlag.Caption = "gridColumn18";
             this.colFinishConfirmFlag.FieldName = "FinishConfirmFlag";
             this.colFinishConfirmFlag.Name = "colFinishConfirmFlag";
+            // 
+            // colCurrentStep
+            // 
+            this.colCurrentStep.FieldName = "CurrentStep";
+            this.colCurrentStep.Name = "colCurrentStep";
             // 
             // layoutControl1
             // 
@@ -858,22 +865,22 @@
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlGroup2,
+            this.lcgSearch,
             this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1468, 759);
             this.layoutControlGroup1.TextVisible = false;
             // 
-            // layoutControlGroup2
+            // lcgSearch
             // 
-            this.layoutControlGroup2.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.layoutControlGroup2.AppearanceGroup.Options.UseFont = true;
-            this.layoutControlGroup2.CaptionImage = ((System.Drawing.Image)(resources.GetObject("layoutControlGroup2.CaptionImage")));
-            this.layoutControlGroup2.ExpandButtonVisible = true;
-            this.layoutControlGroup2.Expanded = false;
-            this.layoutControlGroup2.ExpandOnDoubleClick = true;
-            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcgSearch.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lcgSearch.AppearanceGroup.Options.UseFont = true;
+            this.lcgSearch.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcgSearch.CaptionImage")));
+            this.lcgSearch.ExpandButtonVisible = true;
+            this.lcgSearch.Expanded = false;
+            this.lcgSearch.ExpandOnDoubleClick = true;
+            this.lcgSearch.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem2,
             this.layoutControlItem2,
             this.layoutControlItem3,
@@ -884,10 +891,10 @@
             this.emptySpaceItem5,
             this.emptySpaceItem6,
             this.layoutControlItem7});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1448, 33);
-            this.layoutControlGroup2.Text = "查询条件";
+            this.lcgSearch.Location = new System.Drawing.Point(0, 0);
+            this.lcgSearch.Name = "lcgSearch";
+            this.lcgSearch.Size = new System.Drawing.Size(1448, 33);
+            this.lcgSearch.Text = "查询条件";
             // 
             // emptySpaceItem2
             // 
@@ -1043,6 +1050,10 @@
             this.lciExpand.TextSize = new System.Drawing.Size(0, 0);
             this.lciExpand.TextVisible = false;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // _embedIDApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1066,7 +1077,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deFrom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
@@ -1149,7 +1160,7 @@
         private DevExpress.XtraEditors.LookUpEdit luApplyUser;
         private DevExpress.XtraEditors.DateEdit deTo;
         private DevExpress.XtraEditors.DateEdit deFrom;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlGroup lcgSearch;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
@@ -1182,5 +1193,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colApplyType;
         private DevExpress.XtraGrid.Columns.GridColumn colAccuracyEvaluateOperateNo;
         private DevExpress.XtraGrid.Columns.GridColumn colFinishConfirmFlag;
+        private DevExpress.XtraGrid.Columns.GridColumn colCurrentStep;
+        private System.Windows.Forms.Timer timer1;
     }
 }

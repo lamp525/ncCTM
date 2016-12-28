@@ -98,6 +98,6 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int  Step { get; set; }
 
-        public bool isStopped { get; set; }
+        public bool IsStopped { get; set; }
     }
 }

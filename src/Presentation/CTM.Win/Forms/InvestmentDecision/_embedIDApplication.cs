@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Timers;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Data;
@@ -29,6 +30,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IStockService _stockService;
 
         private bool _isExpanded = false;
+        private int _defaultMasterFocusedRowHandle = 0;
 
         private const string _layoutXmlName_Master = "_embedIDApplication_Master";
         private const string _layoutXmlName_Detail = "_embedIDApplication_Detail";
@@ -125,6 +127,13 @@ namespace CTM.Win.Forms.InvestmentDecision
                 column.OptionsColumn.AllowEdit = column == this.colOperate_D ? true : false;
             }
         }
+
+        private void TimerInit()
+        {
+            this.timer1.Interval = 10000;
+            this.timer1.Start();
+        }
+         
 
         #region Master
 
@@ -335,9 +344,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             if (DXMessage.ShowYesNoAndWarning($@"确定删除操作记录【{operateNo}】吗？") == DialogResult.Yes)
             {
-                //  this._IDService.DeleteInvestmentDecisionForm(serialNo);
+                  this._IDService.DeleteInvestmentDecisionOperation(applyNo,operateNo );
 
-                // BindApplicationInfo();
+                BindApplicationInfo();
             }
         }
 
@@ -351,14 +360,18 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-            string commandText = string.Empty;
+            string commandText = @" EXEC [dbo].[sp_GetIDApplicationAndIDOperation] " ;
 
+
+            string whereCondition = string.Empty;
             switch (CurrentQueryMode)
             {
                 case QueryMode.Proceed:
+                    whereCondition = $@" @Status = {(int)EnumLibrary.IDApplicationStatus.Proceed}  ";
                     break;
 
                 case QueryMode.Done:
+                    whereCondition = $@" @Status = {(int)EnumLibrary.IDApplicationStatus.Done}  ";
                     break;
 
                 case QueryMode.All:
@@ -370,7 +383,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            commandText = $@"EXEC [dbo].[sp_GetIDApplicationAndIDOperation] @Status = {(int)EnumLibrary.IDApplicationStatus.Proceed} ";
+            commandText = commandText + whereCondition;
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -383,6 +396,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             this.viewMaster.SetAllRowsExpanded(_isExpanded);
+
+            this.viewMaster.FocusedRowHandle = _defaultMasterFocusedRowHandle;
         }
 
         #endregion Methods
@@ -396,12 +411,20 @@ namespace CTM.Win.Forms.InvestmentDecision
                 FormInit();
 
                 BindApplicationInfo();
+
+                TimerInit();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
             }
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            BindApplicationInfo();
+        }
+
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -449,6 +472,15 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #region MasterView
+
+        private void viewMaster_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            var masterView = sender as GridView;
+
+            _defaultMasterFocusedRowHandle = e.FocusedRowHandle;
+
+            masterView.RecursExpand(e.FocusedRowHandle);
+        }
 
         private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
@@ -499,7 +531,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                     dialog.ApplyType = (EnumLibrary.IDOperationApplyType)int.Parse(dr?[colApplyType.FieldName].ToString());
                     dialog.ApplyNo = applyNo;
                     dialog.OperateNo = string.Empty;
-                    dialog.Text = "投资决策交易操作申请";
+                    dialog.OperateStep = int.Parse(dr?[colCurrentStep.FieldName].ToString());
+                    dialog.Text = $@"投资决策交易操作申请 - {applyNo}";
                     dialog.ShowDialog();
                 }
                 else if (buttonTag == "Accuracy")
@@ -623,8 +656,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+
         #endregion DetailView
 
         #endregion Events
+
+
     }
 }
