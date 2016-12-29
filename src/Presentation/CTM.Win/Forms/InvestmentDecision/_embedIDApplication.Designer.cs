@@ -532,7 +532,9 @@
             this.viewMaster.OptionsView.ColumnAutoWidth = false;
             this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
+            this.viewMaster.ShownEditor += new System.EventHandler(this.viewMaster_ShownEditor);
             this.viewMaster.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.viewMaster_FocusedRowChanged);
+
             // 
             // colId
             // 

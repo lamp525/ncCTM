@@ -13,6 +13,7 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -30,6 +31,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IStockService _stockService;
 
         private bool _isExpanded = false;
+        private bool _isGridDataSourceChanged = false;
         private int _defaultMasterFocusedRowHandle = 0;
 
         private const string _layoutXmlName_Master = "_embedIDApplication_Master";
@@ -264,7 +266,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 /// 按钮2：准确度设定
                 if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
-                    || accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied || (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)))
+                    || (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted))
                 {
                     btnVI.RightButtons[2].Button.Enabled = true;
                     btnVI.RightButtons[2].State = ObjectState.Normal;
@@ -404,17 +406,23 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
-            if (ds == null || ds.Tables.Count == 0) return;
+            this._isGridDataSourceChanged = false;
 
-            ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
+            if (ds == null)
+                this.gridApplication.DataSource = null;
+            else if (ds != null && ds.Tables.Count == 2)
+            {
+                ds.Relations.Add("MD", ds.Tables[0]?.Columns["ApplyNo"], ds.Tables[1]?.Columns["ApplyNo"]);
 
-            this.gridApplication.DataSource = ds.Tables[0];
+                this.gridApplication.DataSource = ds.Tables[0];
 
-            this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
-            this.viewMaster.SetAllRowsExpanded(_isExpanded);
+                this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+                //this.viewMaster.SetAllRowsExpanded(_isExpanded);
 
-            this.viewMaster.FocusedRowHandle = _defaultMasterFocusedRowHandle;
+                this._isGridDataSourceChanged = true;
+                this.viewMaster.FocusedRowHandle = _defaultMasterFocusedRowHandle;
+            }
         }
 
         #endregion Methods
@@ -429,7 +437,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 BindApplicationInfo();
 
-                TimerInit();
+               // TimerInit();
             }
             catch (Exception ex)
             {
@@ -508,7 +516,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             var masterView = sender as GridView;
 
             var a = e.PrevFocusedRowHandle;
-            _defaultMasterFocusedRowHandle = e.FocusedRowHandle;
+
+            if (_isGridDataSourceChanged)
+                _defaultMasterFocusedRowHandle = e.FocusedRowHandle;
 
             masterView.RecursExpand(e.FocusedRowHandle);
         }
@@ -523,17 +533,31 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            if (e.Column.Name == colOperate.Name)
+            if (this._isGridDataSourceChanged)
             {
-                var masterView = sender as GridView;
-                DataRow dr = masterView.GetDataRow(e.RowHandle);
-
-                if (dr != null)
+                if (e.Column.Name == colOperate.Name)
                 {
-                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+                    var masterView = sender as GridView;
+                    DataRow dr = masterView.GetDataRow(e.RowHandle);
 
-                    OperateButtonStatusSetting(dr, buttonVI);
+                    if (dr != null)
+                    {
+                        ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
+
+                        OperateButtonStatusSetting(dr, buttonVI);
+                    }
                 }
+            }
+        }
+
+        private void viewMaster_ShownEditor(object sender, EventArgs e)
+        {
+            var masterView = sender as GridView;
+
+            if(masterView .ActiveEditor is ButtonEdit)
+            {
+                ButtonEdit be = masterView.ActiveEditor as ButtonEdit;
+        
             }
         }
 
@@ -607,8 +631,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                 if (dr != null)
                 {
                     ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                    DetailOperateButtonStatusSetting(dr, buttonVI);
+                   DetailOperateButtonStatusSetting(dr, buttonVI);
                 }
+                
             }
         }
 
@@ -688,8 +713,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+
         #endregion DetailView
 
         #endregion Events
+
+  
     }
 }
