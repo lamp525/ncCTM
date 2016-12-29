@@ -69,6 +69,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     lcgRecord.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
 
                     this.esiRecord.Text = $@"执行状态：{drOperation["ExecuteFlagName"]}     交易关联标志：{drOperation["RelateFlagName"]}";
+
                     this.gcRecord.DataSource = dsDetail.Tables[2];
                 }
 

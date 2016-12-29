@@ -113,26 +113,43 @@ namespace CTM.Win.Forms.InvestmentDecision
            ).OrderBy(x => x.FullCode).ToList();
             this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
-            this.viewMaster.LoadLayout(_layoutXmlName_Master);
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 45, columnAutoWidth: false);
-
-            foreach (GridColumn column in this.viewMaster.Columns)
-            {
-                column.OptionsColumn.AllowEdit = column == this.colOperate ? true : false;
-            }
-
             this.viewDetail.LoadLayout(_layoutXmlName_Detail);
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: false);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true , editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false , showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 
             foreach (GridColumn column in this.viewDetail.Columns)
             {
                 column.OptionsColumn.AllowEdit = column == this.colOperate_D ? true : false;
             }
+
+            this.viewMaster.LoadLayout(_layoutXmlName_Master);
+
+            if (CurrentQueryMode == QueryMode.Done)
+            {
+                this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: false, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: true, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 45, columnAutoWidth: true);
+                this.colOperate.Visible = false;
+
+                this.colOperate_D.Width = 90;
+                this.colOperate_D.MaxWidth = 90;
+                this.colOperate_D.ColumnEdit = this.ribtnView_D;
+            }
+            else
+            {
+                this.viewMaster.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: true, showFilterPanel: false, showAutoFilterRow: true, rowIndicatorWidth: 45, columnAutoWidth: true);
+
+                foreach (GridColumn column in this.viewMaster.Columns)
+                {
+                    column.OptionsColumn.AllowEdit = column == this.colOperate ? true : false;
+                }
+
+                this.colOperate_D.Width = 360;
+                this.colOperate_D.MaxWidth = 360;
+                this.colOperate_D.ColumnEdit = this.ribtnOperate_D;
+            }
         }
 
         private void TimerInit()
         {
-            this.timer1.Interval = 10000;
+            this.timer1.Interval = 60000;
             this.timer1.Start();
         }
 
@@ -437,7 +454,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 BindApplicationInfo();
 
-               // TimerInit();
+                TimerInit();
             }
             catch (Exception ex)
             {
@@ -554,10 +571,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var masterView = sender as GridView;
 
-            if(masterView .ActiveEditor is ButtonEdit)
+            if (masterView.ActiveEditor is ButtonEdit)
             {
                 ButtonEdit be = masterView.ActiveEditor as ButtonEdit;
-        
             }
         }
 
@@ -623,6 +639,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewDetail_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
+            if (CurrentQueryMode == QueryMode.Done) return;
+
             if (e.Column.Name == colOperate_D.Name)
             {
                 var currentDetailView = sender as GridView;
@@ -631,9 +649,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 if (dr != null)
                 {
                     ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                   DetailOperateButtonStatusSetting(dr, buttonVI);
+                    DetailOperateButtonStatusSetting(dr, buttonVI);
                 }
-                
             }
         }
 
@@ -713,11 +730,42 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void ribtnView_D_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            try
+            {
+                e.Button.Enabled = false;
+
+                var masterRowHandle = this.viewMaster.FocusedRowHandle;
+                var relationIndex = this.viewMaster.GetRelationIndex(masterRowHandle, "MD");
+                var detailView = this.viewMaster.GetDetailView(masterRowHandle, relationIndex) as DevExpress.XtraGrid.Views.Grid.GridView;
+
+                DataRow dr = detailView?.GetDataRow(detailView.FocusedRowHandle);
+
+                var applyNo = dr?["ApplyNo"]?.ToString();
+
+                var operateNo = dr?["OperateNo"]?.ToString();
+
+                if (string.IsNullOrEmpty(applyNo) || string.IsNullOrEmpty(operateNo)) return;
+
+                var buttonTag = e.Button.Tag?.ToString().Trim();
+
+                if (!string.IsNullOrEmpty(buttonTag) && buttonTag == "View")
+
+                    DisplayOperationDetail(applyNo, operateNo);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                e.Button.Enabled = true;
+            }
+        }
 
         #endregion DetailView
 
         #endregion Events
-
-  
     }
 }

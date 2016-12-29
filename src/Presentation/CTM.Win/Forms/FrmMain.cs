@@ -573,8 +573,11 @@ namespace CTM.Win.Forms
 
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
+            //this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
+            this.DisplayTabbedForm<FrmStockInvestmentDecision>("股票投资决策管理");
         }
+
+    
 
         private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -664,9 +667,8 @@ namespace CTM.Win.Forms
 
         #endregion Events     
 
-        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmStockInvestmentDecision>("股票投资决策管理");
-        }
+      
+
+    
     }
 }

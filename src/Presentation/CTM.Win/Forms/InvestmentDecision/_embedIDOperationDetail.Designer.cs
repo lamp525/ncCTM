@@ -70,7 +70,7 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiIDVote = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcgRecord = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciRecord = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiRecord = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcgAccuracy = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -88,7 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiIDVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgRecord)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgAccuracy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -110,10 +110,10 @@
             // 
             // gcAccuracy
             // 
-            this.gcAccuracy.Location = new System.Drawing.Point(24, 656);
+            this.gcAccuracy.Location = new System.Drawing.Point(24, 633);
             this.gcAccuracy.MainView = this.gvAccuracy;
             this.gcAccuracy.Name = "gcAccuracy";
-            this.gcAccuracy.Size = new System.Drawing.Size(1155, 184);
+            this.gcAccuracy.Size = new System.Drawing.Size(1155, 207);
             this.gcAccuracy.TabIndex = 6;
             this.gcAccuracy.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvAccuracy});
@@ -202,7 +202,7 @@
             this.gcRecord.Location = new System.Drawing.Point(24, 369);
             this.gcRecord.MainView = this.gvRecord;
             this.gcRecord.Name = "gcRecord";
-            this.gcRecord.Size = new System.Drawing.Size(1155, 210);
+            this.gcRecord.Size = new System.Drawing.Size(1155, 187);
             this.gcRecord.TabIndex = 5;
             this.gcRecord.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvRecord});
@@ -509,22 +509,22 @@
             this.lcgRecord.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.lcgRecord.AppearanceGroup.Options.UseFont = true;
             this.lcgRecord.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem2,
+            this.lciRecord,
             this.esiRecord});
             this.lcgRecord.Location = new System.Drawing.Point(0, 296);
             this.lcgRecord.Name = "lcgRecord";
-            this.lcgRecord.Size = new System.Drawing.Size(1183, 287);
+            this.lcgRecord.Size = new System.Drawing.Size(1183, 264);
             this.lcgRecord.Text = "实际执行记录";
             // 
-            // layoutControlItem2
+            // lciRecord
             // 
-            this.layoutControlItem2.Control = this.gcRecord;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 30);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(1159, 214);
-            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
+            this.lciRecord.Control = this.gcRecord;
+            this.lciRecord.Location = new System.Drawing.Point(0, 30);
+            this.lciRecord.Name = "lciRecord";
+            this.lciRecord.Size = new System.Drawing.Size(1159, 191);
+            this.lciRecord.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciRecord.TextSize = new System.Drawing.Size(0, 0);
+            this.lciRecord.TextVisible = false;
             // 
             // esiRecord
             // 
@@ -545,9 +545,9 @@
             this.lcgAccuracy.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3,
             this.esiAccuracy});
-            this.lcgAccuracy.Location = new System.Drawing.Point(0, 583);
+            this.lcgAccuracy.Location = new System.Drawing.Point(0, 560);
             this.lcgAccuracy.Name = "lcgAccuracy";
-            this.lcgAccuracy.Size = new System.Drawing.Size(1183, 261);
+            this.lcgAccuracy.Size = new System.Drawing.Size(1183, 284);
             this.lcgAccuracy.Text = "准确度评定结果";
             // 
             // layoutControlItem3
@@ -555,7 +555,7 @@
             this.layoutControlItem3.Control = this.gcAccuracy;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 30);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1159, 188);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1159, 211);
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
@@ -594,7 +594,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiIDVote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgRecord)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciRecord)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiRecord)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgAccuracy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
@@ -617,7 +617,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.EmptySpaceItem esiIDVote;
         private DevExpress.XtraLayout.LayoutControlGroup lcgRecord;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem lciRecord;
         private DevExpress.XtraLayout.EmptySpaceItem esiRecord;
         private DevExpress.XtraLayout.LayoutControlGroup lcgAccuracy;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
