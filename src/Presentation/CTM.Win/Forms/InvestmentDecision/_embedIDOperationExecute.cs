@@ -51,7 +51,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this._initFlag = true;
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false,showAutoFilterRow :false , showGroupPanel: false , columnAutoWidth: true, rowIndicatorWidth: 40);
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 

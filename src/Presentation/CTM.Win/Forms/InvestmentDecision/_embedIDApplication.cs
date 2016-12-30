@@ -118,7 +118,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             var allStock = new StockInfoModel
             {
                 FullCode = string.Empty,
-                Name = '所有股票',
+                Name = "所有股票",
                 DisplayMember = "所有股票",
             };
 

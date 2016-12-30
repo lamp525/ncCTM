@@ -436,7 +436,7 @@
             this.colOperateDate.Name = "colOperateDate";
             this.colOperateDate.Visible = true;
             this.colOperateDate.VisibleIndex = 2;
-            this.colOperateDate.Width = 68;
+            this.colOperateDate.Width = 80;
             // 
             // colDealFlagName
             // 

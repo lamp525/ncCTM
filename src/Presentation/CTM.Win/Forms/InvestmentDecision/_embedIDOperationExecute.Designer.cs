@@ -46,6 +46,7 @@
             this.colBeneficiaryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImportUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.chkNo = new DevExpress.XtraEditors.CheckEdit();
             this.chkYes = new DevExpress.XtraEditors.CheckEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -59,7 +60,6 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colAccountDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -89,15 +89,15 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1192, 613);
+            this.layoutControl1.Size = new System.Drawing.Size(1010, 613);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // btnRelate
             // 
-            this.btnRelate.Location = new System.Drawing.Point(36, 109);
+            this.btnRelate.Location = new System.Drawing.Point(34, 109);
             this.btnRelate.Name = "btnRelate";
-            this.btnRelate.Size = new System.Drawing.Size(106, 22);
+            this.btnRelate.Size = new System.Drawing.Size(91, 22);
             this.btnRelate.StyleController = this.layoutControl1;
             this.btnRelate.TabIndex = 10;
             this.btnRelate.Text = " 关联交易记录 ";
@@ -108,7 +108,7 @@
             this.gridControl1.Location = new System.Drawing.Point(24, 135);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1144, 454);
+            this.gridControl1.Size = new System.Drawing.Size(962, 454);
             this.gridControl1.TabIndex = 7;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -137,13 +137,13 @@
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
-            this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.gridView1.OptionsView.EnableAppearanceOddRow = true;
-            this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gridView1.OptionsView.ShowGroupedColumns = true;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
             // colRecordId
@@ -157,8 +157,8 @@
             this.colStockCode.FieldName = "StockCode";
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 2;
-            this.colStockCode.Width = 88;
+            this.colStockCode.VisibleIndex = 1;
+            this.colStockCode.Width = 70;
             // 
             // colStockName
             // 
@@ -166,8 +166,8 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 3;
-            this.colStockName.Width = 88;
+            this.colStockName.VisibleIndex = 2;
+            this.colStockName.Width = 70;
             // 
             // colTradeDate
             // 
@@ -175,8 +175,8 @@
             this.colTradeDate.FieldName = "TradeDate";
             this.colTradeDate.Name = "colTradeDate";
             this.colTradeDate.Visible = true;
-            this.colTradeDate.VisibleIndex = 4;
-            this.colTradeDate.Width = 88;
+            this.colTradeDate.VisibleIndex = 3;
+            this.colTradeDate.Width = 80;
             // 
             // colTradeTime
             // 
@@ -184,8 +184,8 @@
             this.colTradeTime.FieldName = "TradeTime";
             this.colTradeTime.Name = "colTradeTime";
             this.colTradeTime.Visible = true;
-            this.colTradeTime.VisibleIndex = 5;
-            this.colTradeTime.Width = 88;
+            this.colTradeTime.VisibleIndex = 4;
+            this.colTradeTime.Width = 80;
             // 
             // colDealFlagName
             // 
@@ -193,8 +193,8 @@
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 6;
-            this.colDealFlagName.Width = 88;
+            this.colDealFlagName.VisibleIndex = 5;
+            this.colDealFlagName.Width = 60;
             // 
             // colDealPrice
             // 
@@ -202,8 +202,8 @@
             this.colDealPrice.FieldName = "DealPrice";
             this.colDealPrice.Name = "colDealPrice";
             this.colDealPrice.Visible = true;
-            this.colDealPrice.VisibleIndex = 7;
-            this.colDealPrice.Width = 88;
+            this.colDealPrice.VisibleIndex = 6;
+            this.colDealPrice.Width = 85;
             // 
             // colDealVolume
             // 
@@ -211,8 +211,8 @@
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 8;
-            this.colDealVolume.Width = 88;
+            this.colDealVolume.VisibleIndex = 7;
+            this.colDealVolume.Width = 70;
             // 
             // colActualAmount
             // 
@@ -220,8 +220,8 @@
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
             this.colActualAmount.Visible = true;
-            this.colActualAmount.VisibleIndex = 9;
-            this.colActualAmount.Width = 88;
+            this.colActualAmount.VisibleIndex = 8;
+            this.colActualAmount.Width = 110;
             // 
             // colDataTypeName
             // 
@@ -235,8 +235,8 @@
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 10;
-            this.colTradeTypeName.Width = 88;
+            this.colTradeTypeName.VisibleIndex = 9;
+            this.colTradeTypeName.Width = 60;
             // 
             // colBeneficiaryName
             // 
@@ -244,8 +244,8 @@
             this.colBeneficiaryName.FieldName = "BeneficiaryName";
             this.colBeneficiaryName.Name = "colBeneficiaryName";
             this.colBeneficiaryName.Visible = true;
-            this.colBeneficiaryName.VisibleIndex = 11;
-            this.colBeneficiaryName.Width = 100;
+            this.colBeneficiaryName.VisibleIndex = 10;
+            this.colBeneficiaryName.Width = 70;
             // 
             // colImportUserName
             // 
@@ -259,22 +259,31 @@
             this.colRemarks.FieldName = "Remarks";
             this.colRemarks.Name = "colRemarks";
             // 
+            // colAccountDetail
+            // 
+            this.colAccountDetail.Caption = "账户信息";
+            this.colAccountDetail.FieldName = "AccountDetail";
+            this.colAccountDetail.Name = "colAccountDetail";
+            this.colAccountDetail.Visible = true;
+            this.colAccountDetail.VisibleIndex = 0;
+            this.colAccountDetail.Width = 170;
+            // 
             // chkNo
             // 
-            this.chkNo.Location = new System.Drawing.Point(36, 43);
+            this.chkNo.Location = new System.Drawing.Point(34, 43);
             this.chkNo.Name = "chkNo";
             this.chkNo.Properties.Caption = "未执行";
-            this.chkNo.Size = new System.Drawing.Size(68, 19);
+            this.chkNo.Size = new System.Drawing.Size(58, 19);
             this.chkNo.StyleController = this.layoutControl1;
             this.chkNo.TabIndex = 5;
             this.chkNo.CheckedChanged += new System.EventHandler(this.chkNo_CheckedChanged);
             // 
             // chkYes
             // 
-            this.chkYes.Location = new System.Drawing.Point(108, 43);
+            this.chkYes.Location = new System.Drawing.Point(96, 43);
             this.chkYes.Name = "chkYes";
             this.chkYes.Properties.Caption = "已执行";
-            this.chkYes.Size = new System.Drawing.Size(68, 19);
+            this.chkYes.Size = new System.Drawing.Size(58, 19);
             this.chkYes.StyleController = this.layoutControl1;
             this.chkYes.TabIndex = 4;
             this.chkYes.CheckedChanged += new System.EventHandler(this.chkYes_CheckedChanged);
@@ -288,7 +297,7 @@
             this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1192, 613);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1010, 613);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lcgRecord
@@ -302,7 +311,7 @@
             this.emptySpaceItem10});
             this.lcgRecord.Location = new System.Drawing.Point(0, 66);
             this.lcgRecord.Name = "lcgRecord";
-            this.lcgRecord.Size = new System.Drawing.Size(1172, 527);
+            this.lcgRecord.Size = new System.Drawing.Size(990, 527);
             this.lcgRecord.Text = "实际交易记录";
             // 
             // lciRecord
@@ -310,7 +319,7 @@
             this.lciRecord.Control = this.gridControl1;
             this.lciRecord.Location = new System.Drawing.Point(0, 26);
             this.lciRecord.Name = "lciRecord";
-            this.lciRecord.Size = new System.Drawing.Size(1148, 458);
+            this.lciRecord.Size = new System.Drawing.Size(966, 458);
             this.lciRecord.Text = "实际交易记录";
             this.lciRecord.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciRecord.TextSize = new System.Drawing.Size(0, 0);
@@ -319,17 +328,17 @@
             // emptySpaceItem9
             // 
             this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(122, 0);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(105, 0);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(1026, 26);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(861, 26);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnRelate;
-            this.layoutControlItem5.Location = new System.Drawing.Point(12, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(110, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(95, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -338,7 +347,7 @@
             this.emptySpaceItem10.AllowHotTrack = false;
             this.emptySpaceItem10.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(12, 26);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup3
@@ -352,35 +361,35 @@
             this.emptySpaceItem2});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1172, 66);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(990, 66);
             this.layoutControlGroup3.Text = "执行确认标志";
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.chkNo;
-            this.layoutControlItem2.Location = new System.Drawing.Point(12, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(72, 23);
+            this.layoutControlItem2.Size = new System.Drawing.Size(62, 23);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkYes;
-            this.layoutControlItem1.Location = new System.Drawing.Point(84, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(72, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.OptionsTableLayoutItem.ColumnIndex = 1;
-            this.layoutControlItem1.Size = new System.Drawing.Size(72, 23);
+            this.layoutControlItem1.Size = new System.Drawing.Size(62, 23);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(156, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(134, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.OptionsTableLayoutItem.RowIndex = 1;
-            this.emptySpaceItem1.Size = new System.Drawing.Size(992, 23);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(832, 23);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem2
@@ -388,23 +397,14 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(12, 23);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 23);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // colAccountDetail
-            // 
-            this.colAccountDetail.Caption = "账户信息";
-            this.colAccountDetail.FieldName = "AccountDetail";
-            this.colAccountDetail.Name = "colAccountDetail";
-            this.colAccountDetail.Visible = true;
-            this.colAccountDetail.VisibleIndex = 1;
-            this.colAccountDetail.Width = 180;
             // 
             // _embedIDOperationExecute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 613);
+            this.ClientSize = new System.Drawing.Size(1010, 613);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_embedIDOperationExecute";
             this.Text = "_embedIDOperationExecute";

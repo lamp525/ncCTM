@@ -50,6 +50,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void FormInit()
         {
             this.gridView1.SetLayout(showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
+
+            this.btnOk.Enabled = false;
         }
 
         private void BindRecords()
@@ -102,6 +104,18 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            var selectedHandles = gv.GetSelectedRows().Where(x => x > -1).ToArray();
+
+            if (selectedHandles.Any())
+                this.btnOk.Enabled = true;
+            else
+                this.btnOk.Enabled = false;
+        }
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
@@ -142,6 +156,9 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.Close();
         }
 
+
         #endregion Events
+
+      
     }
 }
