@@ -35,9 +35,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.lciIDApplicationList.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
 
-            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: false, rowIndicatorWidth: 35, columnAutoWidth: true);
+            this.viewMaster.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: false, readOnly: true, showGroupPanel: true, rowIndicatorWidth: 35, columnAutoWidth: true);
 
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: 30, columnAutoWidth: true);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, rowIndicatorWidth: -1, columnAutoWidth: true);
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn column in this.viewDetail.Columns)
             {
@@ -163,14 +163,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
-        {
-            if (e.Info.IsRowIndicator && e.RowHandle > -1)
-            {
-                e.Info.DisplayText = (e.RowHandle + 1).ToString();
-            }
-        }
-
-        private void viewDetail_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle > -1)
             {
