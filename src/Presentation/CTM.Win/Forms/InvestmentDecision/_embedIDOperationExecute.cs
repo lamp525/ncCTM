@@ -70,8 +70,15 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                     BindRelatedRecord();
                 }
-                else
+                else if (executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted)
                     this.chkNo.Checked = true;
+                else
+                {
+                    this.chkYes.Checked = false;
+                    this.chkNo.Checked = false;
+
+                    this.lcgRecord.Enabled = false;
+                }
             }
 
             this._initFlag = false;
@@ -85,6 +92,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             var dsRecords = SqlHelper.ExecuteDataset(connString, CommandType.Text, relateRecordCommandText);
 
             this.gridControl1.DataSource = dsRecords?.Tables?[0];
+
+            if ((this.gridControl1.DataSource as DataTable) != null && (this.gridControl1.DataSource as DataTable).Rows.Count > 0)
+            {
+                this.chkNo.Enabled = false;
+                this.chkYes.ReadOnly = true;
+            }
         }
 
         private void DisplayRecordRelatePanel()
@@ -121,7 +134,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_IDOperationExecuteProcess] @OperateNo = '{OperateNo}' , @ExecuteFlag = {executeFlag}";
+            var commandText = $@"EXEC [dbo].[sp_IDOperationExecuteProcess] @ApplyNo = '{ApplyNo}',@OperateNo = '{OperateNo}' , @ExecuteFlag = {executeFlag}";
 
             SqlHelper.ExecuteNonQuery(connString, CommandType.Text, commandText);
 

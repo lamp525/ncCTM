@@ -191,7 +191,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             {
                 TreeListNode currentNode = this.tlCategory.FocusedNode;
                 if (currentNode == null) return;
-                var peer = new DecisionReasonCategory
+                var peer = new DecisionReasonCategoryEntity
                 {
                     Name = "新建分类",
                     ParentId = Convert.ToInt32(currentNode.GetValue(tcParentId)),
@@ -199,7 +199,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 };
                 peer.Id = _IDService.AddIDReasonCategory(peer);
 
-                var source = this.tlCategory.DataSource as List<DecisionReasonCategory>;
+                var source = this.tlCategory.DataSource as List<DecisionReasonCategoryEntity>;
                 source.Add(peer);
                 this.tlCategory.RefreshDataSource();
                 this.tlCategory.SetFocusedNode(this.tlCategory.FocusedNode.ParentNode.LastNode);
@@ -216,7 +216,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             {
                 TreeListNode currentNode = this.tlCategory.FocusedNode;
                 if (currentNode == null) return;
-                var peer = new DecisionReasonCategory
+                var peer = new DecisionReasonCategoryEntity
                 {
                     Name = "新建分类",
                     ParentId = Convert.ToInt32(currentNode.GetValue(tcId)),
@@ -224,7 +224,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 };
                 peer.Id = _IDService.AddIDReasonCategory(peer);
 
-                var source = this.tlCategory.DataSource as List<DecisionReasonCategory>;
+                var source = this.tlCategory.DataSource as List<DecisionReasonCategoryEntity>;
                 source.Add(peer);
                 this.tlCategory.RefreshDataSource();
                 this.tlCategory.SetFocusedNode(this.tlCategory.FocusedNode.LastNode);

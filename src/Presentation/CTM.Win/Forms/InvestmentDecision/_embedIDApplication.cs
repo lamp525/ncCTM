@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Common;
@@ -10,6 +12,7 @@ using CTM.Services.InvestmentDecision;
 using CTM.Services.Stock;
 using CTM.Services.User;
 using CTM.Win.Extensions;
+using CTM.Win.Forms.Common;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
@@ -33,6 +36,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private bool _isExpanded = false;
         private bool _isGridDataSourceChanged = false;
         private int _defaultMasterFocusedRowHandle = 0;
+
+        private string _stopReasonContent = string.Empty;
 
         private const string _layoutXmlName_Master = "_embedIDApplication_Master";
         private const string _layoutXmlName_Detail = "_embedIDApplication_Detail";
@@ -97,10 +102,26 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deTo.EditValue = now;
 
             //申请人
-            var applyUsers = _userService.GetAllOperators(true);
-            this.luApplyUser.Initialize(applyUsers, "Id", "Name", true);
+            var applyUsers = new List<UserInfo>();
+
+            var allUser = new UserInfo
+            {
+                Code = string.Empty,
+                Name = "所有申请人",
+            };
+            applyUsers.Add(allUser);
+
+            applyUsers.AddRange(_userService.GetAllOperators(true).OrderBy(x => x.Name));
+            this.luApplyUser.Initialize(applyUsers, "Code", "Name", true);
 
             //股票
+            var allStock = new StockInfoModel
+            {
+                FullCode = string.Empty,
+                Name = '所有股票',
+                DisplayMember = "所有股票",
+            };
+
             var stocks = _stockService.GetAllStocks(showDeleted: true)
                 .Select(x => new StockInfoModel
                 {
@@ -110,11 +131,16 @@ namespace CTM.Win.Forms.InvestmentDecision
                     Name = x.Name,
                     DisplayMember = x.FullCode + " - " + x.Name,
                 }
-           ).OrderBy(x => x.FullCode).ToList();
+           ).ToList();
+
+            stocks.Add(allStock);
+
+            stocks = stocks.OrderBy(x => x.FullCode).ToList();
+
             this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             this.viewDetail.LoadLayout(_layoutXmlName_Detail);
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true , editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false , showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: true);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: true);
 
             foreach (GridColumn column in this.viewDetail.Columns)
             {
@@ -141,8 +167,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                     column.OptionsColumn.AllowEdit = column == this.colOperate ? true : false;
                 }
 
-                this.colOperate_D.Width = 360;
-                this.colOperate_D.MaxWidth = 360;
+                this.colOperate_D.Width = 400;
+                this.colOperate_D.MaxWidth = 400;
                 this.colOperate_D.ColumnEdit = this.ribtnOperate_D;
             }
         }
@@ -250,64 +276,89 @@ namespace CTM.Win.Forms.InvestmentDecision
             var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
             var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
             var operateUser = dr[colOperateUser_D.FieldName].ToString();
+            var stopFlag = bool.Parse(dr[colIsStopped_D.FieldName].ToString());
 
-            /// 按钮0：决策投票
-            if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
+            if (!stopFlag)
             {
-                btnVI.RightButtons[0].Button.Enabled = true;
-                btnVI.RightButtons[0].State = ObjectState.Normal;
-            }
-            else
-            {
-                btnVI.RightButtons[0].Button.Enabled = false;
-                btnVI.RightButtons[0].State = ObjectState.Disabled;
-            }
-
-            /// 按钮3：查看详情
-            btnVI.RightButtons[3].Button.Enabled = true;
-            btnVI.RightButtons[3].State = ObjectState.Normal;
-
-            if (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin)
-            {
-                /// 按钮1：执行\关联
-                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None)
+                /// 按钮0：决策投票
+                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Proceed)
                 {
-                    btnVI.RightButtons[1].Button.Enabled = true;
-                    btnVI.RightButtons[1].State = ObjectState.Normal;
+                    btnVI.RightButtons[0].Button.Enabled = true;
+                    btnVI.RightButtons[0].State = ObjectState.Normal;
+                }
+                else
+                {
+                    btnVI.RightButtons[0].Button.Enabled = false;
+                    btnVI.RightButtons[0].State = ObjectState.Disabled;
+                }
+
+                ///// 按钮3：查看详情
+                //btnVI.RightButtons[3].Button.Enabled = true;
+                //btnVI.RightButtons[3].State = ObjectState.Normal;
+
+                if (LoginInfo.CurrentUser.UserCode == operateUser || LoginInfo.CurrentUser.IsAdmin)
+                {
+                    /// 按钮1：执行\关联
+                    if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed && accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None)
+                    {
+                        btnVI.RightButtons[1].Button.Enabled = true;
+                        btnVI.RightButtons[1].State = ObjectState.Normal;
+                    }
+                    else
+                    {
+                        btnVI.RightButtons[1].Button.Enabled = false;
+                        btnVI.RightButtons[1].State = ObjectState.Disabled;
+                    }
+
+                    /// 按钮2：准确度设定
+                    if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
+                        || (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted))
+                    {
+                        btnVI.RightButtons[2].Button.Enabled = true;
+                        btnVI.RightButtons[2].State = ObjectState.Normal;
+                    }
+                    else
+                    {
+                        btnVI.RightButtons[2].Button.Enabled = false;
+                        btnVI.RightButtons[2].State = ObjectState.Disabled;
+                    }
+
+                    /// 按钮4：强制中止
+                    btnVI.RightButtons[4].Button.Enabled = true;
+                    btnVI.RightButtons[4].State = ObjectState.Normal;
+
+                    /// 按钮5：删除
+                    if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None)
+                    {
+                        btnVI.RightButtons[5].Button.Enabled = true;
+                        btnVI.RightButtons[5].State = ObjectState.Normal;
+                    }
+                    else
+                    {
+                        btnVI.RightButtons[5].Button.Enabled = false;
+                        btnVI.RightButtons[5].State = ObjectState.Disabled;
+                    }
                 }
                 else
                 {
                     btnVI.RightButtons[1].Button.Enabled = false;
                     btnVI.RightButtons[1].State = ObjectState.Disabled;
-                }
 
-                /// 按钮2：准确度设定
-                if (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.Proceed
-                    || (accuracyStatus == (int)EnumLibrary.IDOperationAccuracyStatus.None && executeFlag == (int)EnumLibrary.IDOperationExecuteStatus.Unexecuted))
-                {
-                    btnVI.RightButtons[2].Button.Enabled = true;
-                    btnVI.RightButtons[2].State = ObjectState.Normal;
-                }
-                else
-                {
                     btnVI.RightButtons[2].Button.Enabled = false;
                     btnVI.RightButtons[2].State = ObjectState.Disabled;
-                }
 
-                /// 按钮4：删除
-                if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None)
-                {
-                    btnVI.RightButtons[4].Button.Enabled = true;
-                    btnVI.RightButtons[4].State = ObjectState.Normal;
-                }
-                else
-                {
                     btnVI.RightButtons[4].Button.Enabled = false;
                     btnVI.RightButtons[4].State = ObjectState.Disabled;
+
+                    btnVI.RightButtons[5].Button.Enabled = false;
+                    btnVI.RightButtons[5].State = ObjectState.Disabled;
                 }
             }
             else
             {
+                btnVI.RightButtons[0].Button.Enabled = false;
+                btnVI.RightButtons[0].State = ObjectState.Disabled;
+
                 btnVI.RightButtons[1].Button.Enabled = false;
                 btnVI.RightButtons[1].State = ObjectState.Disabled;
 
@@ -316,6 +367,9 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 btnVI.RightButtons[4].Button.Enabled = false;
                 btnVI.RightButtons[4].State = ObjectState.Disabled;
+
+                btnVI.RightButtons[5].Button.Enabled = false;
+                btnVI.RightButtons[5].State = ObjectState.Disabled;
             }
         }
 
@@ -381,6 +435,27 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 BindApplicationInfo();
             }
+        }
+
+        private void OperationStopProcess(string operateNo)
+        {
+            if (DXMessage.ShowYesNoAndWarning($@"确定中止操作记录【{operateNo}】吗？") == DialogResult.Yes)
+            {
+                var dialog = this.CreateDialog<_dialogInputContent>();
+                dialog.ReturnEvent += new _dialogInputContent.ReturnContentToParentForm(GetStopReason);
+                dialog.ContentTitle = "中止理由";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    this._IDService.StopInvestmentDecisionOperation(operateNo, this._stopReasonContent);
+
+                    BindApplicationInfo();
+                }
+            }
+        }
+
+        private void GetStopReason(string content)
+        {
+            this._stopReasonContent = content?.Replace("'", "''");
         }
 
         #endregion Detail
@@ -714,6 +789,10 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                     case "Delete":
                         OperationDeleteProcess(applyNo, operateNo);
+                        break;
+
+                    case "Stop":
+                        OperationStopProcess(operateNo);
                         break;
 
                     default:

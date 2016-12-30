@@ -56,7 +56,7 @@ namespace CTM.Services.InvestmentDecision
 
         IList<DecisionReasonCategoryEntity> GetIDReasonCategories(string jointMark = "->");
 
-        int AddIDReasonCategory(DecisionReasonCategory entity);
+        int AddIDReasonCategory(DecisionReasonCategoryEntity entity);
 
         void UpdateIDReasonCategory(int id, string name);
 
@@ -89,5 +89,7 @@ namespace CTM.Services.InvestmentDecision
         void UpdateIDApplicationStatus(string applyNo, int done);
 
         void DeleteInvestmentDecisionOperation(string applyNo, string operateNo);
+
+        void StopInvestmentDecisionOperation(string operateNo, string stopReasonContent);
     }
 }

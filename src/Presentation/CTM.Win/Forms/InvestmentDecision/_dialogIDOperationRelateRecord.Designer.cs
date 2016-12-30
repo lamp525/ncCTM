@@ -33,13 +33,6 @@
             this.btnOk = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.colRecordId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -54,6 +47,14 @@
             this.colBeneficiaryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImportUserName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colAccountDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -126,7 +127,8 @@
             this.colTradeTypeName,
             this.colBeneficiaryName,
             this.colImportUserName,
-            this.colRemarks});
+            this.colRemarks,
+            this.colAccountDetail});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 35;
             this.gridView1.Name = "gridView1";
@@ -142,8 +144,128 @@
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gridView1.OptionsView.ShowGroupedColumns = true;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
-
-
+            // 
+            // colRecordId
+            // 
+            this.colRecordId.FieldName = "RecordId";
+            this.colRecordId.Name = "colRecordId";
+            // 
+            // colStockCode
+            // 
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
+            this.colStockCode.VisibleIndex = 2;
+            this.colStockCode.Width = 93;
+            // 
+            // colStockName
+            // 
+            this.colStockName.Caption = "股票名称";
+            this.colStockName.FieldName = "StockName";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.Visible = true;
+            this.colStockName.VisibleIndex = 3;
+            this.colStockName.Width = 93;
+            // 
+            // colTradeDate
+            // 
+            this.colTradeDate.Caption = "交易日期";
+            this.colTradeDate.FieldName = "TradeDate";
+            this.colTradeDate.Name = "colTradeDate";
+            this.colTradeDate.Visible = true;
+            this.colTradeDate.VisibleIndex = 4;
+            this.colTradeDate.Width = 93;
+            // 
+            // colTradeTime
+            // 
+            this.colTradeTime.Caption = "交易时间";
+            this.colTradeTime.FieldName = "TradeTime";
+            this.colTradeTime.Name = "colTradeTime";
+            this.colTradeTime.Visible = true;
+            this.colTradeTime.VisibleIndex = 5;
+            this.colTradeTime.Width = 93;
+            // 
+            // colDealFlagName
+            // 
+            this.colDealFlagName.Caption = "买卖标志";
+            this.colDealFlagName.FieldName = "DealFlagName";
+            this.colDealFlagName.Name = "colDealFlagName";
+            this.colDealFlagName.Visible = true;
+            this.colDealFlagName.VisibleIndex = 6;
+            this.colDealFlagName.Width = 93;
+            // 
+            // colDealPrice
+            // 
+            this.colDealPrice.Caption = "成交价格(元)";
+            this.colDealPrice.FieldName = "DealPrice";
+            this.colDealPrice.Name = "colDealPrice";
+            this.colDealPrice.Visible = true;
+            this.colDealPrice.VisibleIndex = 7;
+            this.colDealPrice.Width = 93;
+            // 
+            // colDealVolume
+            // 
+            this.colDealVolume.Caption = "成交数量";
+            this.colDealVolume.FieldName = "DealVolume";
+            this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Visible = true;
+            this.colDealVolume.VisibleIndex = 8;
+            this.colDealVolume.Width = 93;
+            // 
+            // colActualAmount
+            // 
+            this.colActualAmount.Caption = "发生金额(元)";
+            this.colActualAmount.FieldName = "ActualAmount";
+            this.colActualAmount.Name = "colActualAmount";
+            this.colActualAmount.Visible = true;
+            this.colActualAmount.VisibleIndex = 9;
+            this.colActualAmount.Width = 93;
+            // 
+            // colDataTypeName
+            // 
+            this.colDataTypeName.Caption = "数据类型";
+            this.colDataTypeName.FieldName = "DataTypeName";
+            this.colDataTypeName.Name = "colDataTypeName";
+            this.colDataTypeName.Visible = true;
+            this.colDataTypeName.VisibleIndex = 10;
+            this.colDataTypeName.Width = 93;
+            // 
+            // colTradeTypeName
+            // 
+            this.colTradeTypeName.Caption = "交易类别";
+            this.colTradeTypeName.FieldName = "TradeTypeName";
+            this.colTradeTypeName.Name = "colTradeTypeName";
+            this.colTradeTypeName.Visible = true;
+            this.colTradeTypeName.VisibleIndex = 11;
+            this.colTradeTypeName.Width = 93;
+            // 
+            // colBeneficiaryName
+            // 
+            this.colBeneficiaryName.Caption = "实际受益人";
+            this.colBeneficiaryName.FieldName = "BeneficiaryName";
+            this.colBeneficiaryName.Name = "colBeneficiaryName";
+            this.colBeneficiaryName.Visible = true;
+            this.colBeneficiaryName.VisibleIndex = 12;
+            this.colBeneficiaryName.Width = 93;
+            // 
+            // colImportUserName
+            // 
+            this.colImportUserName.Caption = "导入人";
+            this.colImportUserName.FieldName = "ImportUserName";
+            this.colImportUserName.Name = "colImportUserName";
+            this.colImportUserName.Visible = true;
+            this.colImportUserName.VisibleIndex = 13;
+            this.colImportUserName.Width = 93;
+            // 
+            // colRemarks
+            // 
+            this.colRemarks.Caption = "备注";
+            this.colRemarks.FieldName = "Remarks";
+            this.colRemarks.Name = "colRemarks";
+            this.colRemarks.Visible = true;
+            this.colRemarks.VisibleIndex = 14;
+            this.colRemarks.Width = 106;
             // 
             // layoutControlGroup1
             // 
@@ -213,114 +335,14 @@
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // colRecordId
+            // colAccountDetail
             // 
-            this.colRecordId.FieldName = "RecordId";
-            this.colRecordId.Name = "colRecordId";
-            // 
-            // colStockCode
-            // 
-            this.colStockCode.Caption = "股票代码";
-            this.colStockCode.FieldName = "StockCode";
-            this.colStockCode.Name = "colStockCode";
-            this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 1;
-            // 
-            // colStockName
-            // 
-            this.colStockName.Caption = "股票名称";
-            this.colStockName.FieldName = "StockName";
-            this.colStockName.Name = "colStockName";
-            this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 2;
-            // 
-            // colTradeDate
-            // 
-            this.colTradeDate.Caption = "交易日期";
-            this.colTradeDate.FieldName = "TradeDate";
-            this.colTradeDate.Name = "colTradeDate";
-            this.colTradeDate.Visible = true;
-            this.colTradeDate.VisibleIndex = 3;
-            // 
-            // colTradeTime
-            // 
-            this.colTradeTime.Caption = "交易时间";
-            this.colTradeTime.FieldName = "TradeTime";
-            this.colTradeTime.Name = "colTradeTime";
-            this.colTradeTime.Visible = true;
-            this.colTradeTime.VisibleIndex = 4;
-            // 
-            // colDealFlagName
-            // 
-            this.colDealFlagName.Caption = "买卖标志";
-            this.colDealFlagName.FieldName = "DealFlagName";
-            this.colDealFlagName.Name = "colDealFlagName";
-            this.colDealFlagName.Visible = true;
-            this.colDealFlagName.VisibleIndex = 5;
-            // 
-            // colDealPrice
-            // 
-            this.colDealPrice.Caption = "成交价格(元)";
-            this.colDealPrice.FieldName = "DealPrice";
-            this.colDealPrice.Name = "colDealPrice";
-            this.colDealPrice.Visible = true;
-            this.colDealPrice.VisibleIndex = 6;
-            // 
-            // colDealVolume
-            // 
-            this.colDealVolume.Caption = "成交数量";
-            this.colDealVolume.FieldName = "DealVolume";
-            this.colDealVolume.Name = "colDealVolume";
-            this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 7;
-            // 
-            // colActualAmount
-            // 
-            this.colActualAmount.Caption = "发生金额(元)";
-            this.colActualAmount.FieldName = "ActualAmount";
-            this.colActualAmount.Name = "colActualAmount";
-            this.colActualAmount.Visible = true;
-            this.colActualAmount.VisibleIndex = 8;
-            // 
-            // colDataTypeName
-            // 
-            this.colDataTypeName.Caption = "数据类型";
-            this.colDataTypeName.FieldName = "DataTypeName";
-            this.colDataTypeName.Name = "colDataTypeName";
-            this.colDataTypeName.Visible = true;
-            this.colDataTypeName.VisibleIndex = 9;
-            // 
-            // colTradeTypeName
-            // 
-            this.colTradeTypeName.Caption = "交易类别";
-            this.colTradeTypeName.FieldName = "TradeTypeName";
-            this.colTradeTypeName.Name = "colTradeTypeName";
-            this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 10;
-            // 
-            // colBeneficiaryName
-            // 
-            this.colBeneficiaryName.Caption = "实际受益人";
-            this.colBeneficiaryName.FieldName = "BeneficiaryName";
-            this.colBeneficiaryName.Name = "colBeneficiaryName";
-            this.colBeneficiaryName.Visible = true;
-            this.colBeneficiaryName.VisibleIndex = 11;
-            // 
-            // colImportUserName
-            // 
-            this.colImportUserName.Caption = "导入人";
-            this.colImportUserName.FieldName = "ImportUserName";
-            this.colImportUserName.Name = "colImportUserName";
-            this.colImportUserName.Visible = true;
-            this.colImportUserName.VisibleIndex = 12;
-            // 
-            // colRemarks
-            // 
-            this.colRemarks.Caption = "备注";
-            this.colRemarks.FieldName = "Remarks";
-            this.colRemarks.Name = "colRemarks";
-            this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 13;
+            this.colAccountDetail.Caption = "账户信息";
+            this.colAccountDetail.FieldName = "AccountDetail";
+            this.colAccountDetail.Name = "colAccountDetail";
+            this.colAccountDetail.Visible = true;
+            this.colAccountDetail.VisibleIndex = 1;
+            this.colAccountDetail.Width = 200;
             // 
             // _dialogIDOperationRelateRecord
             // 
@@ -374,5 +396,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colBeneficiaryName;
         private DevExpress.XtraGrid.Columns.GridColumn colImportUserName;
         private DevExpress.XtraGrid.Columns.GridColumn colRemarks;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountDetail;
     }
 }

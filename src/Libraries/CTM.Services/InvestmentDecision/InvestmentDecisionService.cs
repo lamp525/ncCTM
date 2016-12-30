@@ -561,14 +561,21 @@ namespace CTM.Services.InvestmentDecision
             return categories.ToList();
         }
 
-        public virtual int AddIDReasonCategory(DecisionReasonCategory entity)
+        public virtual int AddIDReasonCategory(DecisionReasonCategoryEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _DRCategoryRepository.Insert(entity);
+            var category = new DecisionReasonCategory
+            {
+                Name = entity.Name,
+                ParentId = entity.ParentId,
+                Remarks = entity.Remarks
+            };
 
-            return entity.Id;
+            _DRCategoryRepository.Insert(category);
+
+            return category.Id;
         }
 
         public virtual void DeleteIDReasonContent(int[] contentIds)
@@ -689,11 +696,11 @@ namespace CTM.Services.InvestmentDecision
             _IDOperationRepository.Update(operationInfo);
         }
 
-        public virtual  void UpdateIDApplicationStatus(string applyNo, int status)
+        public virtual void UpdateIDApplicationStatus(string applyNo, int status)
         {
             var application = _IDApplicationRepository.Table.Where(x => x.ApplyNo == applyNo).FirstOrDefault();
 
-            if(application != null )
+            if (application != null)
             {
                 application.Status = status;
                 application.UpdateTime = _commonService.GetCurrentServerTime();
@@ -704,9 +711,23 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual void DeleteInvestmentDecisionOperation(string applyNo, string operateNo)
         {
-            var commanText = $@"EXEC [dbo].[sp_IDOperationDeleteProcess] @ApplyNo = '{applyNo}', @OperateNo='{operateNo}'";		                        
+            var commanText = $@"EXEC [dbo].[sp_IDOperationDeleteProcess] @ApplyNo = '{applyNo}', @OperateNo='{operateNo}'";
 
             _dbContext.ExecuteSqlCommand(commanText);
+        }
+
+        public virtual void StopInvestmentDecisionOperation(string operateNo, string stopReasonContent)
+        {
+            var operation = _IDOperationRepository.Table.Where(x => x.OperateNo == operateNo).FirstOrDefault();
+
+            if (operateNo != null)
+            {
+                operation.IsStopped = true;
+                operation.ReasonContent += $@"{System.Environment.NewLine} {System.Environment.NewLine} 【强制中止】：{System.Environment.NewLine} {stopReasonContent}";
+                operation.UpdateTime = _commonService.GetCurrentServerTime();
+
+                _IDOperationRepository.Update(operation);
+            }
         }
 
         #endregion Methods
