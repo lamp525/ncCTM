@@ -216,7 +216,6 @@
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
             this.viewDetail.OptionsView.ShowFooter = true;
             this.viewDetail.ViewCaption = "操作记录";
-            this.viewDetail.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewDetail_CustomDrawRowIndicator);
             this.viewDetail.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewDetail_CustomDrawCell);
             this.viewDetail.GotFocus += new System.EventHandler(this.viewDetail_GotFocus);
             // 
@@ -551,6 +550,7 @@
             this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
             this.viewMaster.ShownEditor += new System.EventHandler(this.viewMaster_ShownEditor);
+            this.viewMaster.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.viewMaster_FocusedRowChanged);
             // 
             // colId
             // 

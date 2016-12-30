@@ -140,7 +140,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
             this.viewDetail.LoadLayout(_layoutXmlName_Detail);
-            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: 30, columnAutoWidth: true);
+            this.viewDetail.SetLayout(showCheckBoxRowSelect: false, editable: true, editorShowMode: DevExpress.Utils.EditorShowMode.MouseDown, readOnly: false, showGroupPanel: false, showFilterPanel: false, showAutoFilterRow: false, rowIndicatorWidth: -1, columnAutoWidth: false);
 
             foreach (GridColumn column in this.viewDetail.Columns)
             {
@@ -509,7 +509,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                 this.gridApplication.DataSource = ds.Tables[0];
 
                 this.lciExpand.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+
+                this.btnExpandOrCollapse.Text = "全部收起";
+                //this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
                 //this.viewMaster.SetAllRowsExpanded(_isExpanded);
 
                 this._isGridDataSourceChanged = true;
@@ -584,10 +586,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnExpandOrCollapse.Enabled = false;
 
-                this.viewMaster.SetAllRowsExpanded(!_isExpanded);
+                this.viewMaster.SetAllRowsExpanded(false);
 
-                this._isExpanded = !_isExpanded;
-                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+                // this.viewMaster.SetAllRowsExpanded(!_isExpanded);
+
+                //this._isExpanded = !_isExpanded;
+                //this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             }
             finally
             {
@@ -605,14 +609,12 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
-            var masterView = sender as GridView;
-
-            var a = e.PrevFocusedRowHandle;
-
             if (_isGridDataSourceChanged)
+            {
+                this.viewMaster.SetMasterRowExpanded(_defaultMasterFocusedRowHandle, false);
+                this.viewMaster.SetMasterRowExpanded(e.FocusedRowHandle, true);
                 _defaultMasterFocusedRowHandle = e.FocusedRowHandle;
-
-            masterView.RecursExpand(e.FocusedRowHandle);
+            }
         }
 
         private void viewMaster_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
@@ -625,19 +627,16 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            if (this._isGridDataSourceChanged)
+            if (e.Column.Name == colOperate.Name)
             {
-                if (e.Column.Name == colOperate.Name)
+                var masterView = sender as GridView;
+                DataRow dr = masterView.GetDataRow(e.RowHandle);
+
+                if (dr != null)
                 {
-                    var masterView = sender as GridView;
-                    DataRow dr = masterView.GetDataRow(e.RowHandle);
+                    ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
-                    if (dr != null)
-                    {
-                        ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-
-                        OperateButtonStatusSetting(dr, buttonVI);
-                    }
+                    OperateButtonStatusSetting(dr, buttonVI);
                 }
             }
         }
