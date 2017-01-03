@@ -55,33 +55,63 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             this.gridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
             this.gridView1.OptionsView.RowAutoHeight = true;
+
+            if (LoginInfo.CurrentUser.IsAdmin)
+            {
+                this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
+            else
+            {
+                this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
         }
 
         private void SetVoteButtonStatus()
         {
             if (this.lcgVote.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Never) return;
 
-            var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
-
-            //未投票
-            if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+            if (this.chkAdminVeto.Checked && this.lciAdminVeto.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Always)
             {
-                this.btnAbstain.Enabled = true;
-                this.btnApproval.Enabled = true;
-                this.btnOppose.Enabled = true;
-                this.btnRevoke.Enabled = false;
+                var adminVetoInfo = _IDService.GetIDOperationVoteAdminVetoInfo(OperateNo);
+
+                if (adminVetoInfo == null || adminVetoInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                {
+                    this.btnApproval.Enabled = true;
+                    this.btnOppose.Enabled = true;
+                    this.btnRevoke.Enabled = false;
+                }
+                else
+                {
+                    this.btnApproval.Enabled = false;
+                    this.btnOppose.Enabled = false;
+                    this.btnRevoke.Enabled = true;
+                }
             }
-            //已投票
             else
             {
-                this.btnAbstain.Enabled = false;
-                this.btnApproval.Enabled = false;
-                this.btnOppose.Enabled = false;
-                //决策交易操作记录操作者
-                if (myVoteInfo.Type == (int)EnumLibrary.IDVoteType.Applicant)
+
+                var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
+
+                //未投票
+                if (myVoteInfo == null || myVoteInfo.Flag == (int)EnumLibrary.IDVoteFlag.None)
+                {
+                    this.btnAbstain.Enabled = true;
+                    this.btnApproval.Enabled = true;
+                    this.btnOppose.Enabled = true;
                     this.btnRevoke.Enabled = false;
+                }
+                //已投票
                 else
-                    this.btnRevoke.Enabled = true;
+                {
+                    this.btnAbstain.Enabled = false;
+                    this.btnApproval.Enabled = false;
+                    this.btnOppose.Enabled = false;
+                    //决策交易操作记录操作者
+                    if (myVoteInfo.Type == (int)EnumLibrary.IDVoteType.Applicant)
+                        this.btnRevoke.Enabled = false;
+                    else
+                        this.btnRevoke.Enabled = true;
+                }
             }
         }
 
@@ -103,7 +133,16 @@ namespace CTM.Win.Forms.InvestmentDecision
                 if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Passed || voteStatus == (int)EnumLibrary.IDOperationVoteStatus.Denied)
                     this.lcgVote.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 else
+                {
                     this.lcgVote.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+                    var step = int.Parse(drVoteStatusInfo["Step"].ToString());
+                    if (step > 1)
+                        this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                    else
+                        this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+   
+                }
             }
 
             var resultCommandText = $@"EXEC [dbo].[sp_GetIDOperationVoteResult] @OperateNo = '{OperateNo}'";
@@ -149,7 +188,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
             }
 
-            _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent);
+            _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent,this.chkAdminVeto.Checked);
 
             this._reasonCategoryId = -1;
             this._reasonContent = null;
@@ -271,6 +310,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void chkAdminVeto_CheckedChanged(object sender, EventArgs e)
+        {
+            SetVoteButtonStatus();
+        }
+
         #endregion Events
+
+
     }
 }

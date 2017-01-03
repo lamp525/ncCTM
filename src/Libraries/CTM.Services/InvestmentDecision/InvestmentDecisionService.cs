@@ -373,7 +373,7 @@ namespace CTM.Services.InvestmentDecision
             _dbContext.ExecuteSqlCommand(commanText);
         }
 
-        public virtual void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent)
+        public virtual void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent, bool isAdminVeto)
         {
             if (string.IsNullOrEmpty(reasonContent))
                 reasonContent = @"";
@@ -384,7 +384,8 @@ namespace CTM.Services.InvestmentDecision
                                         @OperateNo='{operateNo}',
 		                                @VoteFlag = {(int)flag},
                                         @ReasonCategoryId ={reasonCategoryId },
-		                                @ReasonContent =N'{reasonContent}'";
+		                                @ReasonContent =N'{reasonContent}',
+                                        @IsAdminVeto = {isAdminVeto}";
 
             _dbContext.ExecuteSqlCommand(commanText);
         }
@@ -621,6 +622,13 @@ namespace CTM.Services.InvestmentDecision
         public virtual InvestmentDecisionOperationVote GetIDOperationVoteInfo(string userCode, string operateNo)
         {
             var query = _IDOperationVoteRepository.TableNoTracking.Where(x => x.UserCode == userCode && x.OperateNo == operateNo);
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual InvestmentDecisionOperationVote GetIDOperationVoteAdminVetoInfo(string operateNo)
+        {
+            var query = _IDOperationVoteRepository.TableNoTracking.Where(x => x.OperateNo == operateNo && x.Type == (int)EnumLibrary.IDVoteType.OneVoteVeto);
 
             return query.FirstOrDefault();
         }

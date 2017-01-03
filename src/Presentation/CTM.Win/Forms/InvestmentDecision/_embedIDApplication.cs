@@ -243,9 +243,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     }
 
                     if (finishConfirmFlag)
-                    {
-                        buttonVI.RightButtons[0].Button.Enabled = false;
-                        buttonVI.RightButtons[0].State = ObjectState.Disabled;
+                    {               
                         buttonVI.RightButtons[2].Button.Enabled = true;
                         buttonVI.RightButtons[2].State = ObjectState.Normal;
                     }
@@ -273,20 +271,21 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Detail
 
-        private void DetailOperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo btnVI)
+        private void DetailOperateButtonStatusSetting(DataRow drMaster, DataRow drDetail, ButtonEditViewInfo btnVI)
         {
-            var voteStatus = int.Parse(dr[colVoteStatus_D.FieldName]?.ToString());
-            var executeFlag = int.Parse(dr[colExecuteFlag_D.FieldName]?.ToString());
-            var tradeRecordRelateFlag = bool.Parse(dr[colTradeRecordRelateFlag_D.FieldName].ToString());
-            var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
-            var operateUser = dr[colOperateUser_D.FieldName].ToString();
-            var stopFlag = bool.Parse(dr[colIsStopped_D.FieldName].ToString());
+            var currentStep = int.Parse(drMaster[colCurrentStep.FieldName].ToString());
 
+            var voteStatus = int.Parse(drDetail[colVoteStatus_D.FieldName]?.ToString());
+            var executeFlag = int.Parse(drDetail[colExecuteFlag_D.FieldName]?.ToString());
+            var tradeRecordRelateFlag = bool.Parse(drDetail[colTradeRecordRelateFlag_D.FieldName].ToString());
+            var accuracyStatus = int.Parse(drDetail[colAccuracyStatus_D.FieldName]?.ToString());
+            var operateUser = drDetail[colOperateUser_D.FieldName].ToString();
+            var stopFlag = bool.Parse(drDetail[colIsStopped_D.FieldName].ToString());
+            var step = int.Parse(drDetail[colStep_D.FieldName].ToString());
 
             var a = 1;
-            if (dr[colOperateNo_D.FieldName].ToString() == "CZ000139")
+            if (drDetail[colOperateNo_D.FieldName].ToString() == "CZ000139")
                 a++;
-
 
             if (!stopFlag)
             {
@@ -334,8 +333,16 @@ namespace CTM.Win.Forms.InvestmentDecision
                     }
 
                     /// 按钮4：强制中止
-                    btnVI.RightButtons[4].Button.Enabled = true;
-                    btnVI.RightButtons[4].State = ObjectState.Normal;
+                    if (currentStep > step)
+                    {
+                        btnVI.RightButtons[4].Button.Enabled = false;
+                        btnVI.RightButtons[4].State = ObjectState.Disabled;
+                    }
+                    else
+                    {
+                        btnVI.RightButtons[4].Button.Enabled = true;
+                        btnVI.RightButtons[4].State = ObjectState.Normal;
+                    }
 
                     /// 按钮5：删除
                     if (voteStatus == (int)EnumLibrary.IDOperationVoteStatus.None)
@@ -728,12 +735,14 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (e.Column.Name == colOperate_D.Name)
             {
                 var currentDetailView = sender as GridView;
-                DataRow dr = currentDetailView.GetDataRow(e.RowHandle);
+                DataRow drDetail = currentDetailView.GetDataRow(e.RowHandle);
 
-                if (dr != null)
+                DataRow drMaster = (currentDetailView.SourceRow as DataRowView).Row;
+
+                if (drDetail != null && drMaster != null)
                 {
                     ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
-                    DetailOperateButtonStatusSetting(dr, buttonVI);
+                    DetailOperateButtonStatusSetting(drMaster, drDetail, buttonVI);
                 }
             }
         }

@@ -79,6 +79,7 @@
             this.colAccuracyStatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStopName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsStopped_D = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStep_D = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridApplication = new DevExpress.XtraGrid.GridControl();
             this.viewMaster = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -210,7 +211,8 @@
             this.colAccuracyPoint,
             this.colAccuracyStatusName,
             this.colStopName,
-            this.colIsStopped_D});
+            this.colIsStopped_D,
+            this.colStep_D});
             this.viewDetail.GridControl = this.gridApplication;
             this.viewDetail.Name = "viewDetail";
             this.viewDetail.OptionsView.ColumnAutoWidth = false;
@@ -495,6 +497,11 @@
             // 
             this.colIsStopped_D.FieldName = "IsStopped";
             this.colIsStopped_D.Name = "colIsStopped_D";
+            // 
+            // colStep_D
+            // 
+            this.colStep_D.FieldName = "Step";
+            this.colStep_D.Name = "colStep_D";
             // 
             // gridApplication
             // 
@@ -1230,5 +1237,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ribtnView_D;
         private DevExpress.XtraGrid.Columns.GridColumn colStopName;
         private DevExpress.XtraGrid.Columns.GridColumn colIsStopped_D;
+        private DevExpress.XtraGrid.Columns.GridColumn colStep_D;
     }
 }
