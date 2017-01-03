@@ -55,11 +55,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"SELECT * FROM [dbo].[v_IDOperation] WHERE OperateNo = '{OperateNo}'";
+            var commandTextOperation = $@"SELECT * FROM [dbo].[v_IDOperation] WHERE OperateNo = '{OperateNo}'";
 
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            var dsOperation = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandTextOperation);
 
-            var drOperation = ds?.Tables?[0].Rows?[0];
+            var drOperation = dsOperation?.Tables?[0].Rows?[0];
 
             if (drOperation != null)
             {
@@ -80,6 +80,22 @@ namespace CTM.Win.Forms.InvestmentDecision
                     this.lcgRecord.Enabled = false;
                 }
             }
+
+            var commandTextApplication = $@"SELECT * FROM [dbo].[v_IDApplication] WHERE ApplyNo = '{ApplyNo}' ";
+            var dsApplication = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandTextApplication);
+            var drApplication = dsApplication?.Tables?[0].Rows[0];
+
+            if(drApplication != null)
+            {
+                var maxStep = int.Parse(drApplication["CurrentStep"].ToString());
+                if(maxStep >1)
+                {
+                    this.chkNo.ReadOnly = true;
+                    this.chkYes.ReadOnly = true;
+                }
+            }
+            
+
 
             this._initFlag = false;
         }

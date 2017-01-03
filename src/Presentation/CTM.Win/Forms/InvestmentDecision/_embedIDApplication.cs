@@ -167,8 +167,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                     column.OptionsColumn.AllowEdit = column == this.colOperate ? true : false;
                 }
 
-                this.colOperate_D.Width = 400;
-                this.colOperate_D.MaxWidth = 400;
+                this.colOperate_D.Width = 420;
+                this.colOperate_D.MaxWidth = 420;
                 this.colOperate_D.ColumnEdit = this.ribtnOperate_D;
             }
         }
@@ -192,6 +192,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             ///按钮0：交易申请
             ///按钮1：准确度评价
             ///按钮2：完结确认
+
+            var a = 1;
+            if (dr[colApplyNo.FieldName].ToString() == "SQ000120")
+                a++;
 
             if (status == (int)EnumLibrary.IDApplicationStatus.Done)
             {
@@ -277,6 +281,12 @@ namespace CTM.Win.Forms.InvestmentDecision
             var accuracyStatus = int.Parse(dr[colAccuracyStatus_D.FieldName]?.ToString());
             var operateUser = dr[colOperateUser_D.FieldName].ToString();
             var stopFlag = bool.Parse(dr[colIsStopped_D.FieldName].ToString());
+
+
+            var a = 1;
+            if (dr[colOperateNo_D.FieldName].ToString() == "CZ000139")
+                a++;
+
 
             if (!stopFlag)
             {

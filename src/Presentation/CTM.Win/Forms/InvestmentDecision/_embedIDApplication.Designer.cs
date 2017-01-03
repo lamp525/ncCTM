@@ -228,7 +228,7 @@
             this.colOperate_D.Name = "colOperate_D";
             this.colOperate_D.Visible = true;
             this.colOperate_D.VisibleIndex = 13;
-            this.colOperate_D.Width = 400;
+            this.colOperate_D.Width = 420;
             // 
             // ribtnOperate_D
             // 
@@ -426,7 +426,7 @@
             this.colOperateUserName.Name = "colOperateUserName";
             this.colOperateUserName.Visible = true;
             this.colOperateUserName.VisibleIndex = 1;
-            this.colOperateUserName.Width = 63;
+            this.colOperateUserName.Width = 70;
             // 
             // colOperateDate
             // 
@@ -565,7 +565,7 @@
             this.colTradePlanNo.Name = "colTradePlanNo";
             this.colTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colTradePlanNo.Visible = true;
-            this.colTradePlanNo.VisibleIndex = 9;
+            this.colTradePlanNo.VisibleIndex = 13;
             this.colTradePlanNo.Width = 100;
             // 
             // colApplyNo
@@ -576,7 +576,7 @@
             this.colApplyNo.Name = "colApplyNo";
             this.colApplyNo.OptionsColumn.AllowEdit = false;
             this.colApplyNo.Visible = true;
-            this.colApplyNo.VisibleIndex = 0;
+            this.colApplyNo.VisibleIndex = 1;
             this.colApplyNo.Width = 100;
             // 
             // colApplyUser
@@ -616,11 +616,12 @@
             // 
             this.colApplyDate.Caption = "申请日期";
             this.colApplyDate.FieldName = "ApplyDate";
+            this.colApplyDate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colApplyDate.Name = "colApplyDate";
             this.colApplyDate.OptionsColumn.AllowEdit = false;
             this.colApplyDate.Visible = true;
-            this.colApplyDate.VisibleIndex = 2;
-            this.colApplyDate.Width = 85;
+            this.colApplyDate.VisibleIndex = 0;
+            this.colApplyDate.Width = 100;
             // 
             // colStockCode
             // 
@@ -683,7 +684,7 @@
             this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 1;
+            this.colOperate.VisibleIndex = 2;
             this.colOperate.Width = 203;
             // 
             // riBtnOperate
@@ -722,7 +723,7 @@
             this.colCurrentPosition.FieldName = "CurrentPosition";
             this.colCurrentPosition.Name = "colCurrentPosition";
             this.colCurrentPosition.Visible = true;
-            this.colCurrentPosition.VisibleIndex = 10;
+            this.colCurrentPosition.VisibleIndex = 9;
             // 
             // colAvgCostPrice
             // 
@@ -730,7 +731,7 @@
             this.colAvgCostPrice.FieldName = "AvgCostPrice";
             this.colAvgCostPrice.Name = "colAvgCostPrice";
             this.colAvgCostPrice.Visible = true;
-            this.colAvgCostPrice.VisibleIndex = 12;
+            this.colAvgCostPrice.VisibleIndex = 11;
             // 
             // colCurrentProfit
             // 
@@ -738,7 +739,7 @@
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
             this.colCurrentProfit.Visible = true;
-            this.colCurrentProfit.VisibleIndex = 13;
+            this.colCurrentProfit.VisibleIndex = 12;
             this.colCurrentProfit.Width = 82;
             // 
             // colLatestClosePrice
@@ -747,7 +748,7 @@
             this.colLatestClosePrice.FieldName = "LatestClosePrice";
             this.colLatestClosePrice.Name = "colLatestClosePrice";
             this.colLatestClosePrice.Visible = true;
-            this.colLatestClosePrice.VisibleIndex = 11;
+            this.colLatestClosePrice.VisibleIndex = 10;
             this.colLatestClosePrice.Width = 82;
             // 
             // colApplyType
