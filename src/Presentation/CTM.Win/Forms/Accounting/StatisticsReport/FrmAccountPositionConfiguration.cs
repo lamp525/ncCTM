@@ -26,7 +26,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now.Date;
 
-            this.gridView1.SetLayout(allowCellMerge: false, showAutoFilterRow: false, multiSelect: false, showCheckBoxRowSelect: false);
+            this.gridView1.SetLayout(allowCellMerge: true, showAutoFilterRow: false, multiSelect: false, showCheckBoxRowSelect: false,columnAutoWidth:true);
         }
 
         private void DisplayResult()
@@ -84,28 +84,28 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
         {
             if (e.Column == this.colOwnerName)
             {
-                e.Appearance.BackColor = System.Drawing.Color.YellowGreen;
+                e.Appearance.BackColor = System.Drawing.Color.GreenYellow;
             }
             else if (e.Column == this.colCurrentPrice)
             {
-                e.Appearance.BackColor = System.Drawing.Color.Gray;
+                e.Appearance.BackColor = System.Drawing.Color.WhiteSmoke;
             }
             else if (e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {
                 var cellValue = e.CellValue.ToString();
 
                 if (cellValue.IndexOf('-') == 0)
-                    e.Appearance.BackColor = System.Drawing.Color.LightGreen;
+                    e.Appearance.BackColor = System.Drawing.Color.MediumAquamarine;
                 else if (cellValue != "0.00%")
-                    e.Appearance.BackColor = System.Drawing.Color.Pink;
+                    e.Appearance.BackColor = System.Drawing.Color.MistyRose;
             }
             else if (e.Column == this.colStockProfit)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
-                    e.Appearance.BackColor = System.Drawing.Color.Pink;
+                    e.Appearance.BackColor = System.Drawing.Color.MistyRose;
                 else if (cellValue < 0)
-                    e.Appearance.BackColor = System.Drawing.Color.LightGreen;
+                    e.Appearance.BackColor = System.Drawing.Color.MediumAquamarine;
             }
         }
     }

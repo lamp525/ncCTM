@@ -100,9 +100,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(455, 43);
+            this.btnSearch.Location = new System.Drawing.Point(455, 45);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(73, 22);
+            this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
             this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "    查  询    ";
@@ -111,7 +111,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(86, 43);
+            this.deFrom.Location = new System.Drawing.Point(86, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -124,7 +124,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(296, 43);
+            this.deTo.Location = new System.Drawing.Point(296, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -136,10 +136,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 112);
+            this.gridControl1.Location = new System.Drawing.Point(24, 116);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1475, 585);
+            this.gridControl1.Size = new System.Drawing.Size(1475, 581);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -193,6 +193,7 @@
             this.colOwnerName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colOwnerName.Visible = true;
             this.colOwnerName.VisibleIndex = 0;
+            this.colOwnerName.Width = 100;
             // 
             // colNetAsset
             // 
@@ -287,7 +288,7 @@
             this.colAccountDetail.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colAccountDetail.Visible = true;
             this.colAccountDetail.VisibleIndex = 6;
-            this.colAccountDetail.Width = 150;
+            this.colAccountDetail.Width = 140;
             // 
             // colStockCode
             // 
@@ -446,7 +447,7 @@
             this.emptySpaceItem4});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1503, 69);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1503, 71);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // layoutControlItem3
@@ -472,7 +473,7 @@
             this.layoutControlItem4.Control = this.btnSearch;
             this.layoutControlItem4.Location = new System.Drawing.Point(431, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -503,9 +504,9 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(508, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(510, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(971, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(969, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup3
@@ -514,9 +515,9 @@
             this.layoutControlGroup3.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1503, 632);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1503, 630);
             this.layoutControlGroup3.Text = "仓位配置规划一览";
             // 
             // layoutControlItem1
@@ -524,7 +525,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1479, 589);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1479, 585);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
