@@ -663,12 +663,16 @@ namespace CTM.Win.Forms
             this.Close();
         }
 
+
+
+
         #endregion SystemMenu
 
         #endregion Events     
 
-      
-
-    
+        private void barButtonItem32_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountPositionConfiguration>("账户仓位配置规划");
+        }
     }
 }

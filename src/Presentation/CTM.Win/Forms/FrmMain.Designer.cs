@@ -93,6 +93,7 @@
             this.barButtonItem20 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem24 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem35 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem32 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -108,6 +109,7 @@
             this.rgpAccountingDataManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgAccountManage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgAccountingReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -188,9 +190,10 @@
             this.barButtonItem9,
             this.barButtonItem20,
             this.barButtonItem24,
-            this.barButtonItem35});
+            this.barButtonItem35,
+            this.barButtonItem32});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 43;
+            this.ribbonControl1.MaxItemId = 44;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -765,7 +768,16 @@
             this.barButtonItem35.Name = "barButtonItem35";
             this.barButtonItem35.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem35.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem35_ItemClick_1);
-
+            // 
+            // barButtonItem32
+            // 
+            this.barButtonItem32.Caption = "账户 - 仓位配置规划查询";
+            this.barButtonItem32.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem32.Glyph")));
+            this.barButtonItem32.Id = 43;
+            this.barButtonItem32.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem32.LargeGlyph")));
+            this.barButtonItem32.Name = "barButtonItem32";
+            this.barButtonItem32.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem32.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem32_ItemClick);
             // 
             // ribbonPageTrade
             // 
@@ -849,7 +861,8 @@
             this.ribbonPageAccounting.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.rgpAccountingDataManage,
             this.rpgAccountManage,
-            this.rpgAccountingReport});
+            this.rpgAccountingReport,
+            this.ribbonPageGroup6});
             this.ribbonPageAccounting.Name = "ribbonPageAccounting";
             this.ribbonPageAccounting.Text = "财务核算";
             // 
@@ -872,6 +885,11 @@
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeDetail);
             this.rpgAccountingReport.Name = "rpgAccountingReport";
+            // 
+            // ribbonPageGroup6
+            // 
+            this.ribbonPageGroup6.ItemLinks.Add(this.barButtonItem32);
+            this.ribbonPageGroup6.Name = "ribbonPageGroup6";
             // 
             // ribbonPageAdmin
             // 
@@ -1058,7 +1076,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
         private DevExpress.XtraBars.BarButtonItem barButtonItem24;
         private DevExpress.XtraBars.BarButtonItem barButtonItem35;
-
+        private DevExpress.XtraBars.BarButtonItem barButtonItem32;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
     }
 }
 

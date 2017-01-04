@@ -198,19 +198,23 @@ namespace CTM.Win.Extensions
         /// Set GridView Layout
         /// </summary>
         /// <param name="gridView"></param>
+        /// <param name="allowCellMerge"></param>
         /// <param name="showGroupPanel"></param>
         /// <param name="showFilterPanel"></param>
         /// <param name="showFooter"></param>
         /// <param name="showAutoFilterRow"></param>
         /// <param name="columnAutoWidth"></param>
         /// <param name="editable"></param>
+        /// <param name="editorShowMode"></param>
         /// <param name="readOnly"></param>
         /// <param name="setAlternateRowColor"></param>
+        /// <param name="multiSelect"></param>
         /// <param name="showCheckBoxRowSelect"></param>
         /// <param name="checkBoxSelectorColumnWidth"></param>
         /// <param name="rowIndicatorWidth"></param>
         public static void SetLayout(
             this GridView gridView,
+            bool allowCellMerge = false,
             bool showGroupPanel = false,
             bool showFilterPanel = false,
             bool showFooter = false,
@@ -256,6 +260,7 @@ namespace CTM.Win.Extensions
                 gridView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CellSelect;
             }
 
+            gridView.OptionsView.AllowCellMerge = allowCellMerge;
             gridView.OptionsView.ColumnAutoWidth = columnAutoWidth;
 
             gridView.OptionsView.ShowAutoFilterRow = showAutoFilterRow;

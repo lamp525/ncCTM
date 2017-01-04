@@ -161,6 +161,12 @@
     <Compile Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.Designer.cs">
       <DependentUpon>_dialogTradeDataContrast.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmAccountPositionConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Accounting\StatisticsReport\FrmAccountPositionConfiguration.Designer.cs">
+      <DependentUpon>FrmAccountPositionConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Admin\BaseData\FrmIDReason.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -652,6 +658,9 @@
     </Content>
     <EmbeddedResource Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.resx">
       <DependentUpon>_dialogTradeDataContrast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Accounting\StatisticsReport\FrmAccountPositionConfiguration.resx">
+      <DependentUpon>FrmAccountPositionConfiguration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Admin\BaseData\FrmIDReason.resx">
       <DependentUpon>FrmIDReason.cs</DependentUpon>
