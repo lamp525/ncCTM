@@ -35,7 +35,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             var toDate = this.deTo.EditValue.ToString();
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-            var commandText = $@"EXEC [dbo].[sp_AccountPositionInfo] @FromDate = '{fromDate }', @ToDate = '{toDate}' ";
+            var commandText = $@"EXEC [dbo].[sp_AccountPositionInfo] @FromDate = '{fromDate}', @ToDate = '{toDate}' ";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
@@ -84,7 +84,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
         {
             if (e.Column == this.colOwnerName)
             {
-                e.Appearance.BackColor = System.Drawing.Color.GreenYellow;
+                e.Appearance.BackColor = System.Drawing.Color.YellowGreen;
             }
             else if (e.Column == this.colCurrentPrice)
             {
