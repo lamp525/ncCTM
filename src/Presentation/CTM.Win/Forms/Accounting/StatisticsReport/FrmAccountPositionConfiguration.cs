@@ -26,7 +26,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now.Date;
 
-            this.gridView1.SetLayout(allowCellMerge: true, showAutoFilterRow: false, multiSelect: false, showCheckBoxRowSelect: false);
+            this.gridView1.SetLayout(allowCellMerge: false, showAutoFilterRow: false, multiSelect: false, showCheckBoxRowSelect: false);
         }
 
         private void DisplayResult()
@@ -40,7 +40,6 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
             this.gridControl1.DataSource = ds?.Tables?[0];
-
         }
 
         private void FrmAccountPositionConfiguration_Load(object sender, EventArgs e)
@@ -75,9 +74,38 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
         private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
-            if(e.Info.IsRowIndicator && e.RowHandle > -1)
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.Column == this.colOwnerName)
+            {
+                e.Appearance.BackColor = System.Drawing.Color.YellowGreen;
+            }
+            else if (e.Column == this.colCurrentPrice)
+            {
+                e.Appearance.BackColor = System.Drawing.Color.Gray;
+            }
+            else if (e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
+            {
+                var cellValue = e.CellValue.ToString();
+
+                if (cellValue.IndexOf('-') == 0)
+                    e.Appearance.BackColor = System.Drawing.Color.LightGreen;
+                else if (cellValue != "0.00%")
+                    e.Appearance.BackColor = System.Drawing.Color.Pink;
+            }
+            else if (e.Column == this.colStockProfit)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.BackColor = System.Drawing.Color.Pink;
+                else if (cellValue < 0)
+                    e.Appearance.BackColor = System.Drawing.Color.LightGreen;
             }
         }
     }

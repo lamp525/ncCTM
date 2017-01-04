@@ -177,9 +177,12 @@
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             // 
             // colOwnerName
             // 
+            this.colOwnerName.AppearanceCell.Options.UseTextOptions = true;
+            this.colOwnerName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colOwnerName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.colOwnerName.AppearanceHeader.Options.UseFont = true;
             this.colOwnerName.AppearanceHeader.Options.UseTextOptions = true;
@@ -187,6 +190,7 @@
             this.colOwnerName.Caption = "主体";
             this.colOwnerName.FieldName = "OwnerName";
             this.colOwnerName.Name = "colOwnerName";
+            this.colOwnerName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colOwnerName.Visible = true;
             this.colOwnerName.VisibleIndex = 0;
             // 
@@ -199,6 +203,7 @@
             this.colNetAsset.Caption = "净资产(万元)";
             this.colNetAsset.FieldName = "NetAsset";
             this.colNetAsset.Name = "colNetAsset";
+            this.colNetAsset.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetAsset.Visible = true;
             this.colNetAsset.VisibleIndex = 1;
             this.colNetAsset.Width = 100;
@@ -212,6 +217,7 @@
             this.colPositionValue.Caption = "持仓市值(万元)";
             this.colPositionValue.FieldName = "PositionValue";
             this.colPositionValue.Name = "colPositionValue";
+            this.colPositionValue.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colPositionValue.Visible = true;
             this.colPositionValue.VisibleIndex = 2;
             this.colPositionValue.Width = 100;
@@ -227,6 +233,7 @@
             this.colPositionRate.Caption = "持仓率";
             this.colPositionRate.FieldName = "PositionRate";
             this.colPositionRate.Name = "colPositionRate";
+            this.colPositionRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colPositionRate.Visible = true;
             this.colPositionRate.VisibleIndex = 3;
             this.colPositionRate.Width = 65;
@@ -240,6 +247,7 @@
             this.colNetProfit.Caption = "净收益(万元)";
             this.colNetProfit.FieldName = "NetProfit";
             this.colNetProfit.Name = "colNetProfit";
+            this.colNetProfit.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetProfit.Visible = true;
             this.colNetProfit.VisibleIndex = 4;
             this.colNetProfit.Width = 100;
@@ -255,6 +263,7 @@
             this.colNetProfitRate.Caption = "净收益率";
             this.colNetProfitRate.FieldName = "NetProfitRate";
             this.colNetProfitRate.Name = "colNetProfitRate";
+            this.colNetProfitRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetProfitRate.Visible = true;
             this.colNetProfitRate.VisibleIndex = 5;
             this.colNetProfitRate.Width = 65;
@@ -266,6 +275,8 @@
             // 
             // colAccountDetail
             // 
+            this.colAccountDetail.AppearanceCell.Options.UseTextOptions = true;
+            this.colAccountDetail.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colAccountDetail.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.colAccountDetail.AppearanceHeader.Options.UseFont = true;
             this.colAccountDetail.AppearanceHeader.Options.UseTextOptions = true;
@@ -273,6 +284,7 @@
             this.colAccountDetail.Caption = "账户";
             this.colAccountDetail.FieldName = "AccountDetail";
             this.colAccountDetail.Name = "colAccountDetail";
+            this.colAccountDetail.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colAccountDetail.Visible = true;
             this.colAccountDetail.VisibleIndex = 6;
             this.colAccountDetail.Width = 150;
