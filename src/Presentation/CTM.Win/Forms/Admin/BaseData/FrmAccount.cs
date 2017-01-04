@@ -60,7 +60,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             industryInfos.Add(all);
 
-            this.treeList1.Initialize(industryInfos, "Id", "ParentId", expandAll: true);
+            this.treeList1.Initialize(industryInfos, "Id", "ParentId", showColumns: false, autoWidth: true, showHorzLines: false, showVertLines: false, expandAll: true);
             this.treeList1.SetDefaultFocusedNode(0);
         }
 
