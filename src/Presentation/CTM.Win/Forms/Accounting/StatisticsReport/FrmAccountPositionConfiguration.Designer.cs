@@ -202,9 +202,10 @@
             this.colNetAsset.AppearanceHeader.Options.UseTextOptions = true;
             this.colNetAsset.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colNetAsset.Caption = "净资产(万元)";
+            this.colNetAsset.DisplayFormat.FormatString = "N2";
+            this.colNetAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colNetAsset.FieldName = "NetAsset";
             this.colNetAsset.Name = "colNetAsset";
-            this.colNetAsset.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetAsset.Visible = true;
             this.colNetAsset.VisibleIndex = 1;
             this.colNetAsset.Width = 100;
@@ -216,9 +217,10 @@
             this.colPositionValue.AppearanceHeader.Options.UseTextOptions = true;
             this.colPositionValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colPositionValue.Caption = "持仓市值(万元)";
+            this.colPositionValue.DisplayFormat.FormatString = "N2";
+            this.colPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPositionValue.FieldName = "PositionValue";
             this.colPositionValue.Name = "colPositionValue";
-            this.colPositionValue.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colPositionValue.Visible = true;
             this.colPositionValue.VisibleIndex = 2;
             this.colPositionValue.Width = 100;
@@ -234,7 +236,6 @@
             this.colPositionRate.Caption = "持仓率";
             this.colPositionRate.FieldName = "PositionRate";
             this.colPositionRate.Name = "colPositionRate";
-            this.colPositionRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colPositionRate.Visible = true;
             this.colPositionRate.VisibleIndex = 3;
             this.colPositionRate.Width = 65;
@@ -246,9 +247,10 @@
             this.colNetProfit.AppearanceHeader.Options.UseTextOptions = true;
             this.colNetProfit.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colNetProfit.Caption = "净收益(万元)";
+            this.colNetProfit.DisplayFormat.FormatString = "N2";
+            this.colNetProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colNetProfit.FieldName = "NetProfit";
             this.colNetProfit.Name = "colNetProfit";
-            this.colNetProfit.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetProfit.Visible = true;
             this.colNetProfit.VisibleIndex = 4;
             this.colNetProfit.Width = 100;
@@ -264,7 +266,6 @@
             this.colNetProfitRate.Caption = "净收益率";
             this.colNetProfitRate.FieldName = "NetProfitRate";
             this.colNetProfitRate.Name = "colNetProfitRate";
-            this.colNetProfitRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colNetProfitRate.Visible = true;
             this.colNetProfitRate.VisibleIndex = 5;
             this.colNetProfitRate.Width = 65;
@@ -299,6 +300,7 @@
             this.colStockCode.Caption = "股票代码";
             this.colStockCode.FieldName = "StockCode";
             this.colStockCode.Name = "colStockCode";
+            this.colStockCode.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockCode.Visible = true;
             this.colStockCode.VisibleIndex = 7;
             // 
@@ -311,6 +313,7 @@
             this.colStockName.Caption = "股票名称";
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
+            this.colStockName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockName.Visible = true;
             this.colStockName.VisibleIndex = 8;
             // 
@@ -323,6 +326,7 @@
             this.colCurrentPrice.Caption = "当前价";
             this.colCurrentPrice.FieldName = "CurrentPrice";
             this.colCurrentPrice.Name = "colCurrentPrice";
+            this.colCurrentPrice.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colCurrentPrice.Visible = true;
             this.colCurrentPrice.VisibleIndex = 9;
             this.colCurrentPrice.Width = 60;
@@ -336,6 +340,7 @@
             this.colCostPrice.Caption = "成本价";
             this.colCostPrice.FieldName = "CostPrice";
             this.colCostPrice.Name = "colCostPrice";
+            this.colCostPrice.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colCostPrice.Visible = true;
             this.colCostPrice.VisibleIndex = 10;
             this.colCostPrice.Width = 60;
@@ -351,6 +356,7 @@
             this.colChangePercentage.Caption = "当日涨跌幅";
             this.colChangePercentage.FieldName = "ChangePercentage";
             this.colChangePercentage.Name = "colChangePercentage";
+            this.colChangePercentage.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colChangePercentage.Visible = true;
             this.colChangePercentage.VisibleIndex = 11;
             // 
@@ -363,6 +369,7 @@
             this.colPositionVolume.Caption = "股数(万股)";
             this.colPositionVolume.FieldName = "PositionVolume";
             this.colPositionVolume.Name = "colPositionVolume";
+            this.colPositionVolume.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colPositionVolume.Visible = true;
             this.colPositionVolume.VisibleIndex = 12;
             this.colPositionVolume.Width = 90;
@@ -374,8 +381,11 @@
             this.colStockPositionValue.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockPositionValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colStockPositionValue.Caption = "市值(万元)";
+            this.colStockPositionValue.DisplayFormat.FormatString = "N2";
+            this.colStockPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colStockPositionValue.FieldName = "StockPositionValue";
             this.colStockPositionValue.Name = "colStockPositionValue";
+            this.colStockPositionValue.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockPositionValue.Visible = true;
             this.colStockPositionValue.VisibleIndex = 13;
             this.colStockPositionValue.Width = 90;
@@ -387,8 +397,11 @@
             this.colStockProfit.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockProfit.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colStockProfit.Caption = "盈亏(万元)";
+            this.colStockProfit.DisplayFormat.FormatString = "N2";
+            this.colStockProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colStockProfit.FieldName = "StockProfit";
             this.colStockProfit.Name = "colStockProfit";
+            this.colStockProfit.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockProfit.Visible = true;
             this.colStockProfit.VisibleIndex = 14;
             this.colStockProfit.Width = 90;
@@ -404,6 +417,7 @@
             this.colStockProfitRate.Caption = "盈亏百分比";
             this.colStockProfitRate.FieldName = "StockProfitRate";
             this.colStockProfitRate.Name = "colStockProfitRate";
+            this.colStockProfitRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockProfitRate.Visible = true;
             this.colStockProfitRate.VisibleIndex = 15;
             // 
@@ -418,6 +432,7 @@
             this.colStockProfitInOwnerRate.Caption = "占百分比";
             this.colStockProfitInOwnerRate.FieldName = "StockProfitInOwnerRate";
             this.colStockProfitInOwnerRate.Name = "colStockProfitInOwnerRate";
+            this.colStockProfitInOwnerRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockProfitInOwnerRate.Visible = true;
             this.colStockProfitInOwnerRate.VisibleIndex = 16;
             // 
