@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using CTM.Core;
 using CTM.Core.Domain.Industry;
+using CTM.Data;
 using CTM.Services.Account;
 using CTM.Services.Industry;
 using CTM.Win.Extensions;
@@ -64,6 +66,93 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.treeList1.SetDefaultFocusedNode(0);
         }
 
+        private void BindSubjectInfo(int industryId)
+        {
+            if (industryId < 1)
+                this.lcgSubject.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            else
+            {
+                this.lcgSubject.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+                this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lciConfirm.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+                var sql = $@"SELECT * FROM [dbo].[v_InvestmentSubject] WHERE IndustryId = {industryId}";
+
+                var ds = SqlHelper.ExecuteDataset(connString, System.Data.CommandType.Text, sql);
+
+                var dr = ds?.Tables?[0].Rows?[0];
+
+                if (dr != null)
+                {
+                    txtName.Text = dr["SubjectFullName"].ToString();
+                    txtInvestFund.Text = dr["InvestFund"].ToString();
+                    txtNetAsset.Text = dr["NetAsset"].ToString();
+                    txtFinancingAmount.Text = dr["FinancingAmount"].ToString();
+                    txtRemarks.Text = dr["Remarks"].ToString();
+                }
+            }
+        }
+
+        private void SetSubjectControlStatus(bool isEdit)
+        {
+            if (isEdit)
+            {
+                this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lciConfirm.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            }
+            else
+            {
+                this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lciConfirm.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
+
+            txtFinancingAmount.ReadOnly = !isEdit;
+            txtInvestFund.ReadOnly = !isEdit;
+            txtNetAsset.ReadOnly = !isEdit;
+            txtRemarks.ReadOnly = !isEdit;
+        }
+
+        private bool SubjectEditProcess()
+        {
+            var investFund = decimal.Parse(this.txtInvestFund.Text.Trim());
+            if (investFund < 0)
+            {
+                DXMessage.ShowTips("投入资金不能小于0！");
+                this.txtInvestFund.Focus();
+                return false;
+            }
+
+            var netAsset = decimal.Parse(this.txtNetAsset.Text.Trim());
+            if (netAsset < 0)
+            {
+                DXMessage.ShowTips("净资产不能小于0！");
+                this.txtNetAsset.Focus();
+                return false;
+            }
+
+            var financingAmount = decimal.Parse(this.txtFinancingAmount.Text.Trim());
+            if (financingAmount < 0)
+            {
+                DXMessage.ShowTips("融资额不能小于0！");
+                this.txtFinancingAmount.Focus();
+                return false;
+            }
+            var unit = (int)EnumLibrary.NumericUnit.TenThousand;
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+            var sql = $@" EXEC [dbo].[sp_InvestmentSubjectEditProcess] @IndustryId={_industryId}, @InvestFund={investFund*unit}, @NetAsset={netAsset*unit}, @FinancingAmount={financingAmount*unit}, @Remarks='{txtRemarks.Text.Trim()}' ";
+
+            SqlHelper.ExecuteNonQuery(connString, System.Data.CommandType.Text, sql);
+
+            return true;
+        }
+
         private void BindAccountInfo(int industryId)
         {
             var accounts = _accountService.GetAccountDetails(industryId: industryId, showDisabled: true, tableNoTracking: true).OrderBy(x => x.Name);
@@ -105,13 +194,75 @@ namespace CTM.Win.Forms.Admin.BaseData
                 this.gridView1.LoadLayout(_layoutXmlName);
                 this.gridView1.SetLayout(showFilterPanel: true, showGroupPanel: true);
 
-                BindIndustryTree();
+                this.txtInvestFund.SetNumericMask(2);
+                this.txtNetAsset.SetNumericMask(2);
+                this.txtFinancingAmount.SetNumericMask(2);
 
-                this.ActiveControl = this.btnAdd;
+                BindIndustryTree();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnEditSubject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnEditSubject.Enabled = false;
+
+                SetSubjectControlStatus(true);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnEditSubject.Enabled = true;
+            }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnConfirm.Enabled = false;
+
+                SubjectEditProcess();
+
+                SetSubjectControlStatus(false);
+
+                BindSubjectInfo(_industryId);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnConfirm.Enabled = true;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnCancel.Enabled = false;
+
+                SetSubjectControlStatus(false);
+
+                BindSubjectInfo(_industryId);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnCancel.Enabled = true;
             }
         }
 
@@ -205,6 +356,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 {
                     _industryId = int.Parse(selectedNode.GetValue(treeColId).ToString());
 
+                    BindSubjectInfo(_industryId);
                     BindAccountInfo(_industryId);
                 }
                 this._firstFocused = false;

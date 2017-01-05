@@ -34,24 +34,24 @@
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colOwnerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNetAsset = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPositionRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNetProfit = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNetProfitRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectInvestFund = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectNetAsset = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectPositionRate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectNetProfit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectNetProfitRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccountDetail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrentPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCostPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChangePercentage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPositionVolume = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockPositionVolume = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockProfit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockProfitRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockProfitInOwnerRate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockProfitInSubjectRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -120,6 +120,7 @@
             this.deFrom.Size = new System.Drawing.Size(145, 20);
             this.deFrom.StyleController = this.layoutControl1;
             this.deFrom.TabIndex = 6;
+            this.deFrom.EditValueChanged += new System.EventHandler(this.deFrom_EditValueChanged);
             // 
             // deTo
             // 
@@ -133,6 +134,7 @@
             this.deTo.Size = new System.Drawing.Size(145, 20);
             this.deTo.StyleController = this.layoutControl1;
             this.deTo.TabIndex = 5;
+            this.deTo.EditValueChanged += new System.EventHandler(this.deTo_EditValueChanged);
             // 
             // gridControl1
             // 
@@ -147,24 +149,24 @@
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colOwnerName,
-            this.colNetAsset,
-            this.colPositionValue,
-            this.colPositionRate,
-            this.colNetProfit,
-            this.colNetProfitRate,
-            this.colAccountId,
+            this.colSubjectName,
+            this.colSubjectInvestFund,
+            this.colSubjectNetAsset,
+            this.colSubjectPositionValue,
+            this.colSubjectPositionRate,
+            this.colSubjectNetProfit,
+            this.colSubjectNetProfitRate,
             this.colAccountDetail,
             this.colStockCode,
             this.colStockName,
             this.colCurrentPrice,
             this.colCostPrice,
             this.colChangePercentage,
-            this.colPositionVolume,
+            this.colStockPositionVolume,
             this.colStockPositionValue,
             this.colStockProfit,
             this.colStockProfitRate,
-            this.colStockProfitInOwnerRate});
+            this.colStockProfitInSubjectRate});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
@@ -179,101 +181,111 @@
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             // 
-            // colOwnerName
+            // colSubjectName
             // 
-            this.colOwnerName.AppearanceCell.Options.UseTextOptions = true;
-            this.colOwnerName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colOwnerName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colOwnerName.AppearanceHeader.Options.UseFont = true;
-            this.colOwnerName.AppearanceHeader.Options.UseTextOptions = true;
-            this.colOwnerName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colOwnerName.Caption = "主体";
-            this.colOwnerName.FieldName = "OwnerName";
-            this.colOwnerName.Name = "colOwnerName";
-            this.colOwnerName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
-            this.colOwnerName.Visible = true;
-            this.colOwnerName.VisibleIndex = 0;
-            this.colOwnerName.Width = 100;
+            this.colSubjectName.AppearanceCell.Options.UseTextOptions = true;
+            this.colSubjectName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectName.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectName.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectName.Caption = "主体";
+            this.colSubjectName.FieldName = "SubjectName";
+            this.colSubjectName.Name = "colSubjectName";
+            this.colSubjectName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
+            this.colSubjectName.Visible = true;
+            this.colSubjectName.VisibleIndex = 0;
+            this.colSubjectName.Width = 100;
             // 
-            // colNetAsset
+            // colSubjectInvestFund
             // 
-            this.colNetAsset.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colNetAsset.AppearanceHeader.Options.UseFont = true;
-            this.colNetAsset.AppearanceHeader.Options.UseTextOptions = true;
-            this.colNetAsset.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colNetAsset.Caption = "净资产(万元)";
-            this.colNetAsset.DisplayFormat.FormatString = "N2";
-            this.colNetAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colNetAsset.FieldName = "NetAsset";
-            this.colNetAsset.Name = "colNetAsset";
-            this.colNetAsset.Visible = true;
-            this.colNetAsset.VisibleIndex = 1;
-            this.colNetAsset.Width = 100;
+            this.colSubjectInvestFund.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectInvestFund.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectInvestFund.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectInvestFund.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectInvestFund.Caption = "投入资金(万元)";
+            this.colSubjectInvestFund.DisplayFormat.FormatString = "N0";
+            this.colSubjectInvestFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSubjectInvestFund.FieldName = "SubjectInvestFund";
+            this.colSubjectInvestFund.Name = "colSubjectInvestFund";
+            this.colSubjectInvestFund.Visible = true;
+            this.colSubjectInvestFund.VisibleIndex = 1;
+            this.colSubjectInvestFund.Width = 110;
             // 
-            // colPositionValue
+            // colSubjectNetAsset
             // 
-            this.colPositionValue.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colPositionValue.AppearanceHeader.Options.UseFont = true;
-            this.colPositionValue.AppearanceHeader.Options.UseTextOptions = true;
-            this.colPositionValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colPositionValue.Caption = "持仓市值(万元)";
-            this.colPositionValue.DisplayFormat.FormatString = "N2";
-            this.colPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colPositionValue.FieldName = "PositionValue";
-            this.colPositionValue.Name = "colPositionValue";
-            this.colPositionValue.Visible = true;
-            this.colPositionValue.VisibleIndex = 2;
-            this.colPositionValue.Width = 100;
+            this.colSubjectNetAsset.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectNetAsset.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectNetAsset.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectNetAsset.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectNetAsset.Caption = "净资产(万元)";
+            this.colSubjectNetAsset.DisplayFormat.FormatString = "N0";
+            this.colSubjectNetAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSubjectNetAsset.FieldName = "SubjectNetAsset";
+            this.colSubjectNetAsset.Name = "colSubjectNetAsset";
+            this.colSubjectNetAsset.Visible = true;
+            this.colSubjectNetAsset.VisibleIndex = 2;
+            this.colSubjectNetAsset.Width = 100;
             // 
-            // colPositionRate
+            // colSubjectPositionValue
             // 
-            this.colPositionRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colPositionRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colPositionRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colPositionRate.AppearanceHeader.Options.UseFont = true;
-            this.colPositionRate.AppearanceHeader.Options.UseTextOptions = true;
-            this.colPositionRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colPositionRate.Caption = "持仓率";
-            this.colPositionRate.FieldName = "PositionRate";
-            this.colPositionRate.Name = "colPositionRate";
-            this.colPositionRate.Visible = true;
-            this.colPositionRate.VisibleIndex = 3;
-            this.colPositionRate.Width = 65;
+            this.colSubjectPositionValue.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectPositionValue.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectPositionValue.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectPositionValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectPositionValue.Caption = "持仓市值(万元)";
+            this.colSubjectPositionValue.DisplayFormat.FormatString = "N0";
+            this.colSubjectPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSubjectPositionValue.FieldName = "SubjectPositionValue";
+            this.colSubjectPositionValue.Name = "colSubjectPositionValue";
+            this.colSubjectPositionValue.Visible = true;
+            this.colSubjectPositionValue.VisibleIndex = 3;
+            this.colSubjectPositionValue.Width = 100;
             // 
-            // colNetProfit
+            // colSubjectPositionRate
             // 
-            this.colNetProfit.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colNetProfit.AppearanceHeader.Options.UseFont = true;
-            this.colNetProfit.AppearanceHeader.Options.UseTextOptions = true;
-            this.colNetProfit.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colNetProfit.Caption = "净收益(万元)";
-            this.colNetProfit.DisplayFormat.FormatString = "N2";
-            this.colNetProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colNetProfit.FieldName = "NetProfit";
-            this.colNetProfit.Name = "colNetProfit";
-            this.colNetProfit.Visible = true;
-            this.colNetProfit.VisibleIndex = 4;
-            this.colNetProfit.Width = 100;
+            this.colSubjectPositionRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colSubjectPositionRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colSubjectPositionRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectPositionRate.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectPositionRate.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectPositionRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectPositionRate.Caption = "持仓率";
+            this.colSubjectPositionRate.FieldName = "SubjectPositionRate";
+            this.colSubjectPositionRate.Name = "colSubjectPositionRate";
+            this.colSubjectPositionRate.Visible = true;
+            this.colSubjectPositionRate.VisibleIndex = 4;
+            this.colSubjectPositionRate.Width = 65;
             // 
-            // colNetProfitRate
+            // colSubjectNetProfit
             // 
-            this.colNetProfitRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colNetProfitRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colNetProfitRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colNetProfitRate.AppearanceHeader.Options.UseFont = true;
-            this.colNetProfitRate.AppearanceHeader.Options.UseTextOptions = true;
-            this.colNetProfitRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colNetProfitRate.Caption = "净收益率";
-            this.colNetProfitRate.FieldName = "NetProfitRate";
-            this.colNetProfitRate.Name = "colNetProfitRate";
-            this.colNetProfitRate.Visible = true;
-            this.colNetProfitRate.VisibleIndex = 5;
-            this.colNetProfitRate.Width = 65;
+            this.colSubjectNetProfit.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectNetProfit.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectNetProfit.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectNetProfit.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectNetProfit.Caption = "净收益(万元)";
+            this.colSubjectNetProfit.DisplayFormat.FormatString = "N0";
+            this.colSubjectNetProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSubjectNetProfit.FieldName = "SubjectNetProfit";
+            this.colSubjectNetProfit.Name = "colSubjectNetProfit";
+            this.colSubjectNetProfit.Visible = true;
+            this.colSubjectNetProfit.VisibleIndex = 5;
+            this.colSubjectNetProfit.Width = 100;
             // 
-            // colAccountId
+            // colSubjectNetProfitRate
             // 
-            this.colAccountId.FieldName = "AccountId";
-            this.colAccountId.Name = "colAccountId";
+            this.colSubjectNetProfitRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colSubjectNetProfitRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colSubjectNetProfitRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colSubjectNetProfitRate.AppearanceHeader.Options.UseFont = true;
+            this.colSubjectNetProfitRate.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSubjectNetProfitRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSubjectNetProfitRate.Caption = "净收益率";
+            this.colSubjectNetProfitRate.FieldName = "SubjectNetProfitRate";
+            this.colSubjectNetProfitRate.Name = "colSubjectNetProfitRate";
+            this.colSubjectNetProfitRate.Visible = true;
+            this.colSubjectNetProfitRate.VisibleIndex = 6;
+            this.colSubjectNetProfitRate.Width = 65;
             // 
             // colAccountDetail
             // 
@@ -288,8 +300,8 @@
             this.colAccountDetail.Name = "colAccountDetail";
             this.colAccountDetail.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colAccountDetail.Visible = true;
-            this.colAccountDetail.VisibleIndex = 6;
-            this.colAccountDetail.Width = 140;
+            this.colAccountDetail.VisibleIndex = 7;
+            this.colAccountDetail.Width = 120;
             // 
             // colStockCode
             // 
@@ -302,7 +314,7 @@
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 7;
+            this.colStockCode.VisibleIndex = 8;
             // 
             // colStockName
             // 
@@ -315,7 +327,7 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 8;
+            this.colStockName.VisibleIndex = 9;
             // 
             // colCurrentPrice
             // 
@@ -324,11 +336,13 @@
             this.colCurrentPrice.AppearanceHeader.Options.UseTextOptions = true;
             this.colCurrentPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colCurrentPrice.Caption = "当前价";
+            this.colCurrentPrice.DisplayFormat.FormatString = "N";
+            this.colCurrentPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentPrice.FieldName = "CurrentPrice";
             this.colCurrentPrice.Name = "colCurrentPrice";
             this.colCurrentPrice.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colCurrentPrice.Visible = true;
-            this.colCurrentPrice.VisibleIndex = 9;
+            this.colCurrentPrice.VisibleIndex = 10;
             this.colCurrentPrice.Width = 60;
             // 
             // colCostPrice
@@ -338,11 +352,13 @@
             this.colCostPrice.AppearanceHeader.Options.UseTextOptions = true;
             this.colCostPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colCostPrice.Caption = "成本价";
+            this.colCostPrice.DisplayFormat.FormatString = "N";
+            this.colCostPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCostPrice.FieldName = "CostPrice";
             this.colCostPrice.Name = "colCostPrice";
             this.colCostPrice.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colCostPrice.Visible = true;
-            this.colCostPrice.VisibleIndex = 10;
+            this.colCostPrice.VisibleIndex = 11;
             this.colCostPrice.Width = 60;
             // 
             // colChangePercentage
@@ -358,21 +374,21 @@
             this.colChangePercentage.Name = "colChangePercentage";
             this.colChangePercentage.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colChangePercentage.Visible = true;
-            this.colChangePercentage.VisibleIndex = 11;
+            this.colChangePercentage.VisibleIndex = 12;
             // 
-            // colPositionVolume
+            // colStockPositionVolume
             // 
-            this.colPositionVolume.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colPositionVolume.AppearanceHeader.Options.UseFont = true;
-            this.colPositionVolume.AppearanceHeader.Options.UseTextOptions = true;
-            this.colPositionVolume.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colPositionVolume.Caption = "股数(万股)";
-            this.colPositionVolume.FieldName = "PositionVolume";
-            this.colPositionVolume.Name = "colPositionVolume";
-            this.colPositionVolume.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
-            this.colPositionVolume.Visible = true;
-            this.colPositionVolume.VisibleIndex = 12;
-            this.colPositionVolume.Width = 90;
+            this.colStockPositionVolume.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colStockPositionVolume.AppearanceHeader.Options.UseFont = true;
+            this.colStockPositionVolume.AppearanceHeader.Options.UseTextOptions = true;
+            this.colStockPositionVolume.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colStockPositionVolume.Caption = "股数(万股)";
+            this.colStockPositionVolume.FieldName = "StockPositionVolume";
+            this.colStockPositionVolume.Name = "colStockPositionVolume";
+            this.colStockPositionVolume.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            this.colStockPositionVolume.Visible = true;
+            this.colStockPositionVolume.VisibleIndex = 13;
+            this.colStockPositionVolume.Width = 90;
             // 
             // colStockPositionValue
             // 
@@ -381,13 +397,13 @@
             this.colStockPositionValue.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockPositionValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colStockPositionValue.Caption = "市值(万元)";
-            this.colStockPositionValue.DisplayFormat.FormatString = "N2";
+            this.colStockPositionValue.DisplayFormat.FormatString = "N";
             this.colStockPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colStockPositionValue.FieldName = "StockPositionValue";
             this.colStockPositionValue.Name = "colStockPositionValue";
             this.colStockPositionValue.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockPositionValue.Visible = true;
-            this.colStockPositionValue.VisibleIndex = 13;
+            this.colStockPositionValue.VisibleIndex = 14;
             this.colStockPositionValue.Width = 90;
             // 
             // colStockProfit
@@ -397,13 +413,13 @@
             this.colStockProfit.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockProfit.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colStockProfit.Caption = "盈亏(万元)";
-            this.colStockProfit.DisplayFormat.FormatString = "N2";
+            this.colStockProfit.DisplayFormat.FormatString = "N";
             this.colStockProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colStockProfit.FieldName = "StockProfit";
             this.colStockProfit.Name = "colStockProfit";
             this.colStockProfit.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockProfit.Visible = true;
-            this.colStockProfit.VisibleIndex = 14;
+            this.colStockProfit.VisibleIndex = 15;
             this.colStockProfit.Width = 90;
             // 
             // colStockProfitRate
@@ -419,22 +435,22 @@
             this.colStockProfitRate.Name = "colStockProfitRate";
             this.colStockProfitRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.colStockProfitRate.Visible = true;
-            this.colStockProfitRate.VisibleIndex = 15;
+            this.colStockProfitRate.VisibleIndex = 16;
             // 
-            // colStockProfitInOwnerRate
+            // colStockProfitInSubjectRate
             // 
-            this.colStockProfitInOwnerRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colStockProfitInOwnerRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colStockProfitInOwnerRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colStockProfitInOwnerRate.AppearanceHeader.Options.UseFont = true;
-            this.colStockProfitInOwnerRate.AppearanceHeader.Options.UseTextOptions = true;
-            this.colStockProfitInOwnerRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colStockProfitInOwnerRate.Caption = "占百分比";
-            this.colStockProfitInOwnerRate.FieldName = "StockProfitInOwnerRate";
-            this.colStockProfitInOwnerRate.Name = "colStockProfitInOwnerRate";
-            this.colStockProfitInOwnerRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
-            this.colStockProfitInOwnerRate.Visible = true;
-            this.colStockProfitInOwnerRate.VisibleIndex = 16;
+            this.colStockProfitInSubjectRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colStockProfitInSubjectRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colStockProfitInSubjectRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseFont = true;
+            this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseTextOptions = true;
+            this.colStockProfitInSubjectRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colStockProfitInSubjectRate.Caption = "占百分比";
+            this.colStockProfitInSubjectRate.FieldName = "StockProfitInSubjectRate";
+            this.colStockProfitInSubjectRate.Name = "colStockProfitInSubjectRate";
+            this.colStockProfitInSubjectRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            this.colStockProfitInSubjectRate.Visible = true;
+            this.colStockProfitInSubjectRate.VisibleIndex = 17;
             // 
             // layoutControlGroup1
             // 
@@ -596,23 +612,23 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraGrid.Columns.GridColumn colOwnerName;
-        private DevExpress.XtraGrid.Columns.GridColumn colNetAsset;
-        private DevExpress.XtraGrid.Columns.GridColumn colPositionValue;
-        private DevExpress.XtraGrid.Columns.GridColumn colPositionRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colNetProfit;
-        private DevExpress.XtraGrid.Columns.GridColumn colNetProfitRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccountId;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectName;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectNetAsset;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectPositionValue;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectPositionRate;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectNetProfit;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectNetProfitRate;
         private DevExpress.XtraGrid.Columns.GridColumn colAccountDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colStockCode;
         private DevExpress.XtraGrid.Columns.GridColumn colStockName;
         private DevExpress.XtraGrid.Columns.GridColumn colCurrentPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colCostPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colChangePercentage;
-        private DevExpress.XtraGrid.Columns.GridColumn colPositionVolume;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockPositionVolume;
         private DevExpress.XtraGrid.Columns.GridColumn colStockPositionValue;
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfit;
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfitRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockProfitInOwnerRate;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockProfitInSubjectRate;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectInvestFund;
     }
 }

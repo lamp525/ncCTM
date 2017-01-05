@@ -12,6 +12,7 @@ namespace CTM.Data.Mapping.Industry
 
             this.Property(p => p.TotalFund).HasPrecision(24, 4);
             this.Property(p => p.InvestFund).HasPrecision(24, 4);
+            this.Property(p => p.NetAsset).HasPrecision(24, 4);
             this.Property(p => p.FinancingAmount).HasPrecision(24, 4);
         }
     }
