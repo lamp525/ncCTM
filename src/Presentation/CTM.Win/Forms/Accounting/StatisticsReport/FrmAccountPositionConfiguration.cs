@@ -93,7 +93,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             else if (e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {
                 var cellValue = e.CellValue.ToString();
-
+                
                 if (cellValue.IndexOf('-') == 0)
                     e.Appearance.BackColor = System.Drawing.Color.MediumAquamarine;
                 else if (cellValue != "0.00%")

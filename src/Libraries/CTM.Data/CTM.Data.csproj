@@ -66,6 +66,7 @@
     <Compile Include="Mapping\Account\AccountInfoMap.cs" />
     <Compile Include="Mapping\Account\AccountInitialFundMap.cs" />
     <Compile Include="Mapping\Account\AccountOperatorMap.cs" />
+    <Compile Include="Mapping\Industry\InvestmentSubjectMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\DecisionReasonCategoryMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\DecisionReasonContentMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionAccuracyMap.cs" />

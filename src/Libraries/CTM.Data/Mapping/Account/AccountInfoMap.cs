@@ -7,7 +7,7 @@ namespace CTM.Data.Mapping.Account
     {
         public AccountInfoMap()
         {
-            this.ToTable("AccountInfo");
+            this.ToTable(nameof (AccountInfo));
             this.HasKey(p => p.Id);
 
             this.Property(p => p.Name).HasMaxLength(20);
