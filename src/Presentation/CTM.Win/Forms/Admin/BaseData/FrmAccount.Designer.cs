@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
@@ -42,6 +43,8 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccountName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOwnerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIndustryId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIndustryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTypeCode = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -90,10 +93,19 @@
             this.lciCancel = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciConfirm = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.treeList1 = new DevExpress.XtraTreeList.TreeList();
-            this.treeColId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.treeColName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.treeColParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlIndustry = new DevExpress.XtraTreeList.TreeList();
+            this.tcId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tcName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tcParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.barBtnAddPeer = new DevExpress.XtraBars.BarButtonItem();
+            this.barBtnAddChild = new DevExpress.XtraBars.BarButtonItem();
+            this.barBtnDeleteCurrent = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -127,7 +139,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lciConfirm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.treeList1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tlIndustry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -253,6 +267,8 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colAccountId,
             this.colAccountName,
+            this.colCode,
+            this.colOwnerName,
             this.colIndustryId,
             this.colIndustryName,
             this.colTypeCode,
@@ -308,6 +324,21 @@
             this.colAccountName.VisibleIndex = 1;
             this.colAccountName.Width = 103;
             // 
+            // colCode
+            // 
+            this.colCode.FieldName = "Code";
+            this.colCode.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colCode.Name = "colCode";
+            // 
+            // colOwnerName
+            // 
+            this.colOwnerName.Caption = "负责人";
+            this.colOwnerName.FieldName = "OwnerName";
+            this.colOwnerName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colOwnerName.Name = "colOwnerName";
+            this.colOwnerName.Visible = true;
+            this.colOwnerName.VisibleIndex = 2;
+            // 
             // colIndustryId
             // 
             this.colIndustryId.FieldName = "IndustryId";
@@ -319,7 +350,7 @@
             this.colIndustryName.FieldName = "IndustryName";
             this.colIndustryName.Name = "colIndustryName";
             this.colIndustryName.Visible = true;
-            this.colIndustryName.VisibleIndex = 2;
+            this.colIndustryName.VisibleIndex = 3;
             this.colIndustryName.Width = 214;
             // 
             // colTypeCode
@@ -333,7 +364,7 @@
             this.colSecurityCompanyName.FieldName = "SecurityCompanyName";
             this.colSecurityCompanyName.Name = "colSecurityCompanyName";
             this.colSecurityCompanyName.Visible = true;
-            this.colSecurityCompanyName.VisibleIndex = 3;
+            this.colSecurityCompanyName.VisibleIndex = 4;
             this.colSecurityCompanyName.Width = 66;
             // 
             // colTypeName
@@ -342,7 +373,7 @@
             this.colTypeName.FieldName = "TypeName";
             this.colTypeName.Name = "colTypeName";
             this.colTypeName.Visible = true;
-            this.colTypeName.VisibleIndex = 5;
+            this.colTypeName.VisibleIndex = 6;
             this.colTypeName.Width = 61;
             // 
             // colAttributeCode
@@ -356,7 +387,7 @@
             this.colAttributeName.FieldName = "AttributeName";
             this.colAttributeName.Name = "colAttributeName";
             this.colAttributeName.Visible = true;
-            this.colAttributeName.VisibleIndex = 4;
+            this.colAttributeName.VisibleIndex = 5;
             this.colAttributeName.Width = 57;
             // 
             // colPlanCode
@@ -370,7 +401,7 @@
             this.colPlanName.FieldName = "PlanName";
             this.colPlanName.Name = "colPlanName";
             this.colPlanName.Visible = true;
-            this.colPlanName.VisibleIndex = 6;
+            this.colPlanName.VisibleIndex = 7;
             this.colPlanName.Width = 78;
             // 
             // colSecurityCompanyCode
@@ -384,51 +415,51 @@
             this.colOperatorNames.FieldName = "OperatorNames";
             this.colOperatorNames.Name = "colOperatorNames";
             this.colOperatorNames.Visible = true;
-            this.colOperatorNames.VisibleIndex = 7;
+            this.colOperatorNames.VisibleIndex = 8;
             this.colOperatorNames.Width = 137;
             // 
             // colTotalFund
             // 
             this.colTotalFund.Caption = "总资产";
-            this.colTotalFund.DisplayFormat.FormatString = "0.#0";
-            this.colTotalFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colTotalFund.DisplayFormat.FormatString = "N";
+            this.colTotalFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTotalFund.FieldName = "TotalFund";
             this.colTotalFund.Name = "colTotalFund";
             this.colTotalFund.Visible = true;
-            this.colTotalFund.VisibleIndex = 8;
+            this.colTotalFund.VisibleIndex = 9;
             this.colTotalFund.Width = 125;
             // 
             // colInvestFund
             // 
             this.colInvestFund.Caption = "投入资金";
-            this.colInvestFund.DisplayFormat.FormatString = "0.#0";
-            this.colInvestFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colInvestFund.DisplayFormat.FormatString = "N";
+            this.colInvestFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInvestFund.FieldName = "InvestFund";
             this.colInvestFund.Name = "colInvestFund";
             this.colInvestFund.Visible = true;
-            this.colInvestFund.VisibleIndex = 9;
+            this.colInvestFund.VisibleIndex = 10;
             this.colInvestFund.Width = 112;
             // 
             // colFinancingAmount
             // 
             this.colFinancingAmount.Caption = "融资额";
-            this.colFinancingAmount.DisplayFormat.FormatString = "0.#0";
-            this.colFinancingAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colFinancingAmount.DisplayFormat.FormatString = "N";
+            this.colFinancingAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colFinancingAmount.FieldName = "FinancingAmount";
             this.colFinancingAmount.Name = "colFinancingAmount";
             this.colFinancingAmount.Visible = true;
-            this.colFinancingAmount.VisibleIndex = 10;
+            this.colFinancingAmount.VisibleIndex = 11;
             this.colFinancingAmount.Width = 117;
             // 
             // colBalance
             // 
             this.colBalance.Caption = "余额";
-            this.colBalance.DisplayFormat.FormatString = "0.#0";
-            this.colBalance.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colBalance.DisplayFormat.FormatString = "N";
+            this.colBalance.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBalance.FieldName = "Balance";
             this.colBalance.Name = "colBalance";
             this.colBalance.Visible = true;
-            this.colBalance.VisibleIndex = 11;
+            this.colBalance.VisibleIndex = 12;
             this.colBalance.Width = 116;
             // 
             // colIncomeRate
@@ -439,7 +470,7 @@
             this.colIncomeRate.FieldName = "IncomeRate";
             this.colIncomeRate.Name = "colIncomeRate";
             this.colIncomeRate.Visible = true;
-            this.colIncomeRate.VisibleIndex = 12;
+            this.colIncomeRate.VisibleIndex = 13;
             // 
             // colStampDutyRate
             // 
@@ -449,7 +480,7 @@
             this.colStampDutyRate.FieldName = "StampDutyRate";
             this.colStampDutyRate.Name = "colStampDutyRate";
             this.colStampDutyRate.Visible = true;
-            this.colStampDutyRate.VisibleIndex = 13;
+            this.colStampDutyRate.VisibleIndex = 14;
             this.colStampDutyRate.Width = 83;
             // 
             // colCommissionRate
@@ -460,7 +491,7 @@
             this.colCommissionRate.FieldName = "CommissionRate";
             this.colCommissionRate.Name = "colCommissionRate";
             this.colCommissionRate.Visible = true;
-            this.colCommissionRate.VisibleIndex = 14;
+            this.colCommissionRate.VisibleIndex = 15;
             this.colCommissionRate.Width = 68;
             // 
             // colIncidentalsRate
@@ -471,7 +502,7 @@
             this.colIncidentalsRate.FieldName = "IncidentalsRate";
             this.colIncidentalsRate.Name = "colIncidentalsRate";
             this.colIncidentalsRate.Visible = true;
-            this.colIncidentalsRate.VisibleIndex = 15;
+            this.colIncidentalsRate.VisibleIndex = 16;
             this.colIncidentalsRate.Width = 81;
             // 
             // colNeedAccounting
@@ -480,7 +511,7 @@
             this.colNeedAccounting.FieldName = "NeedAccounting";
             this.colNeedAccounting.Name = "colNeedAccounting";
             this.colNeedAccounting.Visible = true;
-            this.colNeedAccounting.VisibleIndex = 16;
+            this.colNeedAccounting.VisibleIndex = 17;
             this.colNeedAccounting.Width = 57;
             // 
             // colIsDisabled
@@ -489,7 +520,7 @@
             this.colIsDisabled.FieldName = "IsDisabled";
             this.colIsDisabled.Name = "colIsDisabled";
             this.colIsDisabled.Visible = true;
-            this.colIsDisabled.VisibleIndex = 17;
+            this.colIsDisabled.VisibleIndex = 18;
             this.colIsDisabled.Width = 56;
             // 
             // colRemarks
@@ -498,7 +529,7 @@
             this.colRemarks.FieldName = "Remarks";
             this.colRemarks.Name = "colRemarks";
             this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 18;
+            this.colRemarks.VisibleIndex = 19;
             // 
             // btnDisable
             // 
@@ -756,7 +787,7 @@
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 0);
             this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.Controls.Add(this.treeList1);
+            this.splitContainerControl1.Panel1.Controls.Add(this.tlIndustry);
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.layoutControl1);
             this.splitContainerControl1.Panel2.Text = "Panel2";
@@ -765,49 +796,123 @@
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
-            // treeList1
+            // tlIndustry
             // 
-            this.treeList1.Appearance.Caption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.treeList1.Appearance.Caption.Options.UseFont = true;
-            this.treeList1.Appearance.Caption.Options.UseTextOptions = true;
-            this.treeList1.Appearance.Caption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.treeList1.Caption = "投资主体";
-            this.treeList1.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.treeColId,
-            this.treeColName,
-            this.treeColParentId});
-            this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeList1.Location = new System.Drawing.Point(0, 0);
-            this.treeList1.Name = "treeList1";
-            this.treeList1.OptionsBehavior.Editable = false;
-            this.treeList1.OptionsBehavior.ReadOnly = true;
-            this.treeList1.OptionsView.ShowCaption = true;
-            this.treeList1.OptionsView.ShowColumns = false;
-            this.treeList1.Size = new System.Drawing.Size(229, 821);
-            this.treeList1.TabIndex = 0;
-            this.treeList1.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.treeList1_FocusedNodeChanged);
+            this.tlIndustry.Appearance.Caption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.tlIndustry.Appearance.Caption.Options.UseFont = true;
+            this.tlIndustry.Appearance.Caption.Options.UseTextOptions = true;
+            this.tlIndustry.Appearance.Caption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlIndustry.Caption = "投资主体";
+            this.tlIndustry.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.tcId,
+            this.tcName,
+            this.tcParentId});
+            this.tlIndustry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlIndustry.Location = new System.Drawing.Point(0, 0);
+            this.tlIndustry.Name = "tlIndustry";
+            this.tlIndustry.OptionsBehavior.Editable = false;
+            this.tlIndustry.OptionsBehavior.ReadOnly = true;
+            this.tlIndustry.OptionsView.ShowCaption = true;
+            this.tlIndustry.OptionsView.ShowColumns = false;
+            this.tlIndustry.Size = new System.Drawing.Size(229, 821);
+            this.tlIndustry.TabIndex = 0;
+            this.tlIndustry.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.treeList1_FocusedNodeChanged);
+            this.tlIndustry.CellValueChanged += new DevExpress.XtraTreeList.CellValueChangedEventHandler(this.treeList1_CellValueChanged);
+            this.tlIndustry.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeList1_DragDrop);
+            this.tlIndustry.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeList1_MouseUp);
             // 
-            // treeColId
+            // tcId
             // 
-            this.treeColId.Caption = "Id";
-            this.treeColId.FieldName = "Id";
-            this.treeColId.Name = "treeColId";
+            this.tcId.Caption = "Id";
+            this.tcId.FieldName = "Id";
+            this.tcId.Name = "tcId";
             // 
-            // treeColName
+            // tcName
             // 
-            this.treeColName.Caption = "Name";
-            this.treeColName.FieldName = "Name";
-            this.treeColName.Name = "treeColName";
-            this.treeColName.Visible = true;
-            this.treeColName.VisibleIndex = 0;
-            this.treeColName.Width = 115;
+            this.tcName.Caption = "Name";
+            this.tcName.FieldName = "Name";
+            this.tcName.Name = "tcName";
+            this.tcName.Visible = true;
+            this.tcName.VisibleIndex = 0;
+            this.tcName.Width = 115;
             // 
-            // treeColParentId
+            // tcParentId
             // 
-            this.treeColParentId.Caption = "Parent Id";
-            this.treeColParentId.FieldName = "ParentId";
-            this.treeColParentId.Name = "treeColParentId";
-            this.treeColParentId.Width = 115;
+            this.tcParentId.Caption = "Parent Id";
+            this.tcParentId.FieldName = "ParentId";
+            this.tcParentId.Name = "tcParentId";
+            this.tcParentId.Width = 115;
+            // 
+            // popupMenu1
+            // 
+            this.popupMenu1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barBtnAddPeer),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barBtnAddChild),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barBtnDeleteCurrent)});
+            this.popupMenu1.Manager = this.barManager1;
+            this.popupMenu1.Name = "popupMenu1";
+            // 
+            // barManager1
+            // 
+            this.barManager1.DockControls.Add(this.barDockControlTop);
+            this.barManager1.DockControls.Add(this.barDockControlBottom);
+            this.barManager1.DockControls.Add(this.barDockControlLeft);
+            this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.Form = this;
+            this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barBtnAddPeer,
+            this.barBtnAddChild,
+            this.barBtnDeleteCurrent});
+            this.barManager1.MaxItemId = 3;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(1616, 0);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 821);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1616, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 821);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(1616, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 821);
+            // 
+            // barBtnAddPeer
+            // 
+            this.barBtnAddPeer.Caption = "添加同级主体";
+            this.barBtnAddPeer.Id = 0;
+            this.barBtnAddPeer.Name = "barBtnAddPeer";
+            this.barBtnAddPeer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddPeer_ItemClick);
+            // 
+            // barBtnAddChild
+            // 
+            this.barBtnAddChild.Caption = "添加下级主体";
+            this.barBtnAddChild.Id = 1;
+            this.barBtnAddChild.Name = "barBtnAddChild";
+            this.barBtnAddChild.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddChild_ItemClick);
+            // 
+            // barBtnDeleteCurrent
+            // 
+            this.barBtnDeleteCurrent.Caption = "删除当前主体";
+            this.barBtnDeleteCurrent.Id = 2;
+            this.barBtnDeleteCurrent.Name = "barBtnDeleteCurrent";
+            this.barBtnDeleteCurrent.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnDeleteCurrent_ItemClick);
             // 
             // FrmAccount
             // 
@@ -815,6 +920,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1616, 821);
             this.Controls.Add(this.splitContainerControl1);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Name = "FrmAccount";
             this.Text = "FrmAccount";
             this.Load += new System.EventHandler(this.FrmAccount_Load);
@@ -851,8 +960,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.lciConfirm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.treeList1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tlIndustry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -874,10 +986,10 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
-        private DevExpress.XtraTreeList.TreeList treeList1;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn treeColId;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn treeColName;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn treeColParentId;
+        private DevExpress.XtraTreeList.TreeList tlIndustry;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tcId;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tcName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tcParentId;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
@@ -924,5 +1036,16 @@
         private DevExpress.XtraLayout.LayoutControlItem lciConfirm;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraLayout.LayoutControlItem lciCancel;
+        private DevExpress.XtraGrid.Columns.GridColumn colCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colOwnerName;
+        private DevExpress.XtraBars.PopupMenu popupMenu1;
+        private DevExpress.XtraBars.BarManager barManager1;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem barBtnAddPeer;
+        private DevExpress.XtraBars.BarButtonItem barBtnAddChild;
+        private DevExpress.XtraBars.BarButtonItem barBtnDeleteCurrent;
     }
 }

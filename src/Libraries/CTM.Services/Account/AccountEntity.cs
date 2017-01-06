@@ -16,6 +16,8 @@
 
         public string Owner { get; set; }
 
+        public string OwnerName { get; set; }
+
         /// <summary>
         /// 开户所在地
         /// </summary>

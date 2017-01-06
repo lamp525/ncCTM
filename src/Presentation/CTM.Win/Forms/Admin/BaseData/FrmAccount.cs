@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
@@ -9,6 +10,9 @@ using CTM.Services.Account;
 using CTM.Services.Industry;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
+using DevExpress.XtraBars;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
 
 namespace CTM.Win.Forms.Admin.BaseData
 {
@@ -19,6 +23,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IIndustryService _industryService;
         private readonly IAccountService _accountService;
 
+        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
         private const string _layoutXmlName = "FrmAccount";
         private bool _firstFocused = true;
         private int _industryId;
@@ -62,8 +67,20 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             industryInfos.Add(all);
 
-            this.treeList1.Initialize(industryInfos, "Id", "ParentId", showColumns: false, autoWidth: true, showHorzLines: false, showVertLines: false, expandAll: true);
-            this.treeList1.SetDefaultFocusedNode(0);
+            this.tlIndustry.Initialize(industryInfos, "Id", "ParentId", editable: true, showColumns: false, autoWidth: true, showHorzLines: false, showVertLines: false, expandAll: true);
+            this.tlIndustry.AllowDrop = false;
+            this.tlIndustry.OptionsDragAndDrop.DragNodesMode = DevExpress.XtraTreeList.DragNodesMode.Single;
+            this.tlIndustry.SetDefaultFocusedNode(0);
+        }
+
+        private void AddNewIndustryProcess(IndustryInfo peer)
+        {
+            peer.Id = _industryService.AddIndustryInfo(peer);
+
+            var source = this.tlIndustry.DataSource as List<IndustryInfo>;
+            source.Add(peer);
+            this.tlIndustry.RefreshDataSource();
+            this.tlIndustry.SetFocusedNode(this.tlIndustry.FocusedNode.ParentNode.LastNode);
         }
 
         private void BindSubjectInfo(int industryId)
@@ -78,11 +95,9 @@ namespace CTM.Win.Forms.Admin.BaseData
                 this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 this.lciConfirm.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
                 var sql = $@"SELECT * FROM [dbo].[v_InvestmentSubject] WHERE IndustryId = {industryId}";
 
-                var ds = SqlHelper.ExecuteDataset(connString, System.Data.CommandType.Text, sql);
+                var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sql);
 
                 var dr = ds?.Tables?[0].Rows?[0];
 
@@ -144,11 +159,10 @@ namespace CTM.Win.Forms.Admin.BaseData
                 return false;
             }
             var unit = (int)EnumLibrary.NumericUnit.TenThousand;
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var sql = $@" EXEC [dbo].[sp_InvestmentSubjectEditProcess] @IndustryId={_industryId}, @InvestFund={investFund*unit}, @NetAsset={netAsset*unit}, @FinancingAmount={financingAmount*unit}, @Remarks='{txtRemarks.Text.Trim()}' ";
+            var sql = $@" EXEC [dbo].[sp_InvestmentSubjectEditProcess] @IndustryId={_industryId}, @InvestFund={investFund * unit}, @NetAsset={netAsset * unit}, @FinancingAmount={financingAmount * unit}, @Remarks='{txtRemarks.Text.Trim()}' ";
 
-            SqlHelper.ExecuteNonQuery(connString, System.Data.CommandType.Text, sql);
+            SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, sql);
 
             return true;
         }
@@ -205,6 +219,8 @@ namespace CTM.Win.Forms.Admin.BaseData
                 DXMessage.ShowError(ex.Message);
             }
         }
+
+        #region Subject Edit
 
         private void btnEditSubject_Click(object sender, EventArgs e)
         {
@@ -265,6 +281,199 @@ namespace CTM.Win.Forms.Admin.BaseData
                 this.btnCancel.Enabled = true;
             }
         }
+
+        #endregion Subject Edit
+
+        #region TreeList
+
+        private void treeList1_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+            try
+            {
+                if (e.Node == null) return;
+
+                e.Node.ExpandAll();
+
+                if (!this._firstFocused)
+                {
+                    _industryId = int.Parse(e.Node.GetValue(tcId).ToString());
+
+                    BindSubjectInfo(_industryId);
+                    BindAccountInfo(_industryId);
+                }
+                this._firstFocused = false;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void treeList1_DragDrop(object sender, DragEventArgs e)
+        {
+            TreeListNode dragNode = (TreeListNode)e.Data.GetData(typeof(TreeListNode));
+            if (dragNode == null) return;
+
+            TreeList myTree = (TreeList)sender;
+
+            TreeListHitInfo hitInfo = myTree.CalcHitInfo(myTree.PointToClient(new System.Drawing.Point(e.X, e.Y)));
+
+            if (hitInfo.Node == null) return;
+
+            var targetNode = hitInfo.Node;
+
+            bool? isPeer = null;
+
+            DragInsertPosition dip = this.tlIndustry.GetDragInsertPosition();
+            switch (dip)
+            {
+                case DragInsertPosition.AsChild:
+                    isPeer = false;
+                    break;
+
+                case DragInsertPosition.Before:
+                case DragInsertPosition.After:
+                    isPeer = true;
+                    break;
+
+                case DragInsertPosition.None:
+                default:
+                    break;
+            }
+
+            if (!isPeer.HasValue) return;
+
+            var newParentId = 0;
+            if (isPeer.Value)
+                newParentId = Convert.ToInt32(targetNode.GetValue(tcParentId));
+            else
+                newParentId = Convert.ToInt32(targetNode.GetValue(tcId));
+
+            var commandText = $@"UPDATE IndustryInfo SET ParentId = {newParentId} WHERE Id = {Convert.ToInt32(dragNode.GetValue(tcId))}";
+
+            SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
+
+            this.tlIndustry.ExpandAll();
+        }
+
+        private void treeList1_CellValueChanged(object sender, DevExpress.XtraTreeList.CellValueChangedEventArgs e)
+        {
+            if (e.Column == this.tcName)
+            {
+                if (string.IsNullOrEmpty(e.Value.ToString().Trim()))
+                {
+                    DXMessage.ShowTips("主体名称不能为空！");
+                    return;
+                }
+                var id = Convert.ToInt32(e.Node.GetValue(tcId));
+                var name = e.Value.ToString().Trim();
+
+                var commandText = $@"UPDATE IndustryInfo SET Name = '{name}' WHERE Id = {id }";
+
+                SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
+            }
+        }
+
+        private void barBtnAddPeer_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                TreeListNode currentNode = this.tlIndustry.FocusedNode;
+                if (currentNode == null) return;
+                var peer = new IndustryInfo
+                {
+                    Name = "新建主体",
+                    ParentId = Convert.ToInt32(currentNode.GetValue(tcParentId)),
+                    Remarks = null,
+                };
+
+                AddNewIndustryProcess(peer);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+
+
+        private void barBtnAddChild_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                TreeListNode currentNode = this.tlIndustry.FocusedNode;
+                if (currentNode == null) return;
+                var peer = new IndustryInfo
+                {
+                    Name = "新建主体",
+                    ParentId = Convert.ToInt32(currentNode.GetValue(tcId)),
+                    Remarks = null,
+                };
+
+                AddNewIndustryProcess(peer);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void barBtnDeleteCurrent_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                TreeListNode currentNode = this.tlIndustry.FocusedNode;
+                if (currentNode == null) return;
+
+                if (DXMessage.ShowYesNoAndTips("确定删除当前主体么？") == DialogResult.Yes)
+                {
+                    var id = Convert.ToInt32(currentNode.GetValue(tcId));
+                    _industryService.DeleteIndunstryInfo(id);
+                    this.tlIndustry.Nodes.Remove(currentNode);
+                    this.tlIndustry.RefreshDataSource();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void treeList1_MouseUp(object sender, MouseEventArgs e)
+        {
+            TreeList tl = sender as TreeList;
+            if (e.Button == MouseButtons.Right && ModifierKeys == Keys.None && tl.State == TreeListState.Regular)
+            {
+                System.Drawing.Point p = new System.Drawing.Point(Cursor.Position.X, Cursor.Position.Y);
+                TreeListHitInfo hitInfo = tl.CalcHitInfo(e.Location);
+                if (hitInfo.HitInfoType == HitInfoType.Cell)
+                {
+                    tl.SetFocusedNode(hitInfo.Node);
+                }
+
+                if (tl.FocusedNode != null)
+                {
+                    if (Convert.ToInt32(tl.FocusedNode.GetValue(tcId)) == 0)
+                    {
+                        this.barBtnAddChild.Visibility = BarItemVisibility.Always;
+                        this.barBtnDeleteCurrent.Visibility = BarItemVisibility.Never;
+                        this.barBtnAddPeer.Visibility = BarItemVisibility.Never;
+                    }
+                    else
+                    {
+                        foreach (BarButtonItemLink item in this.popupMenu1.ItemLinks)
+                        {
+                            item.Item.Visibility = BarItemVisibility.Always;
+                        }
+                    }
+                    popupMenu1.ShowPopup(p);
+                }
+            }
+        }
+
+        #endregion TreeList
+
+        #region Account Info
 
         /// <summary>
         /// 编辑账户
@@ -344,29 +553,6 @@ namespace CTM.Win.Forms.Admin.BaseData
             DisplayEditDialog(0);
         }
 
-        private void treeList1_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
-        {
-            try
-            {
-                var selectedNode = this.treeList1.FocusedNode;
-
-                if (selectedNode == null) return;
-
-                if (!this._firstFocused)
-                {
-                    _industryId = int.Parse(selectedNode.GetValue(treeColId).ToString());
-
-                    BindSubjectInfo(_industryId);
-                    BindAccountInfo(_industryId);
-                }
-                this._firstFocused = false;
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             this.gridView1.SaveLayout(_layoutXmlName);
@@ -418,6 +604,8 @@ namespace CTM.Win.Forms.Admin.BaseData
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+
+        #endregion Account Info
 
         #endregion Events
     }

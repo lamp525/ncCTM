@@ -8,5 +8,9 @@ namespace CTM.Services.Industry
         IList<IndustryInfo> GetAllIndustry(bool showDeleted = false);
 
         string GetIndustryNameById(int industryId);
+
+        int AddIndustryInfo(IndustryInfo entity);
+
+        void DeleteIndunstryInfo(int id);
     }
 }

@@ -111,6 +111,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             var dealers = _userService.GetAllOperators();
             this.luOperator.Initialize(dealers, "Id", "Name", true);
+            this.luOwner.Initialize(dealers, "Code", "Name", true);
 
             var operators = _accountService.GetAccountOperatorsByAccountId(_accountId).ToList();
 
@@ -196,6 +197,12 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 //账户名
                 txtAccountName.Text = accountInfo.Name;
+
+                //账户编码
+                txtCode.Text = accountInfo.Code;
+
+                //负责人
+                luOwner.EditValue = accountInfo.Owner;
 
                 //投入资金
                 txtInvestFund.Text = accountInfo.InvestFund.ToString();
@@ -283,6 +290,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                     {
                         AttributeCode = int.Parse(this.cbAttribute.SelectedValue()),
                         AttributeName = this.cbAttribute.Text.Trim(),
+                        Code = this.txtCode.Text.Trim(),
                         CommissionRate = decimal.Parse(this.txtCommissionRate.EditValue.ToString()),
                         FinancingAmount = decimal.Parse(this.txtFinacingAmount.Text.Trim()),
                         IncidentalsRate = decimal.Parse(this.txtIncidentalsRate.EditValue.ToString()),
@@ -293,6 +301,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                         NeedAccounting = this.chkYes.Checked ? true : false,
                         PlanCode = int.Parse(this.cbPlan.SelectedValue()),
                         PlanName = this.cbPlan.Text.Trim(),
+                        Owner = this.luOwner.SelectedValue(),
                         Remarks = this.memoRemarks.Text.Trim(),
                         StampDutyRate = decimal.Parse(this.txtStampDutyRate.EditValue.ToString()),
                         SecurityCompanyCode = int.Parse(this.cbSecurity.SelectedValue()),
@@ -330,6 +339,8 @@ namespace CTM.Win.Forms.Admin.BaseData
                     account.PlanCode = int.Parse(this.cbType.SelectedValue());
                     account.PlanName = this.cbPlan.Text.Trim();
                     account.Name = this.txtAccountName.Text.Trim();
+                    account.Code = this.txtCode.Text.Trim();
+                    account.Owner = this.luOwner.SelectedValue();
                     account.InvestFund = decimal.Parse(this.txtInvestFund.Text.Trim());
                     account.FinancingAmount = decimal.Parse(this.txtFinacingAmount.Text.Trim());
                     account.StampDutyRate = decimal.Parse(this.txtStampDutyRate.EditValue.ToString());
@@ -417,9 +428,9 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             this._isEdit = this._accountId > 0 ? true : false;
 
+            BindAccountOperator();
             SetControlProperties();
             BindAccountInfo();
-            BindAccountOperator();
         }
 
         /// <summary>
