@@ -465,7 +465,7 @@
             this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseFont = true;
             this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockProfitInSubjectRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colStockProfitInSubjectRate.Caption = "占百分比";
+            this.colStockProfitInSubjectRate.Caption = "持仓占比";
             this.colStockProfitInSubjectRate.FieldName = "StockProfitInSubjectRate";
             this.colStockProfitInSubjectRate.Name = "colStockProfitInSubjectRate";
             this.colStockProfitInSubjectRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;

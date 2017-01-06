@@ -103,9 +103,9 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             var currentUniqueSerialNo = int.Parse(this.gridView1.GetRowCellValue(e.RowHandle, this.colUniqueSerialNo).ToString());
 
             if (currentUniqueSerialNo % 2 == 0)
-                e.Appearance.BackColor = System.Drawing.Color.LemonChiffon;
-            else
-                e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
+            //else
+            //    e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
         }
 
         private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
@@ -114,24 +114,28 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
             if (e.Column == this.colCurrentPrice)
             {
-                e.Appearance.ForeColor = System.Drawing.Color.Coral;
+                var changePercentage = this.gridView1.GetRowCellValue(e.RowHandle, this.colChangePercentage).ToString();
+                if (changePercentage.IndexOf('-') == 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+                else if (changePercentage != "0.00%")
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
             }
-            else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate || e.Column == this.colStockProfitInSubjectRate)
+            else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {
                 var cellValue = e.CellValue.ToString();
 
                 if (cellValue.IndexOf('-') == 0)
-                    e.Appearance.ForeColor = System.Drawing.Color.Green;  //System.Drawing.Color.MediumAquamarine;
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
                 else if (cellValue != "0.00%")
-                    e.Appearance.ForeColor = System.Drawing.Color.Red ; //System.Drawing.Color.MistyRose;
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
             }
             else if (e.Column == this.colSubjectNetProfit || e.Column == this.colStockProfit)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
-                    e.Appearance.ForeColor = System.Drawing.Color.Red; //System.Drawing.Color.MistyRose;
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
                 else if (cellValue < 0)
-                    e.Appearance.ForeColor = System.Drawing.Color.Green; //System.Drawing.Color.MediumAquamarine;
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
         }
 

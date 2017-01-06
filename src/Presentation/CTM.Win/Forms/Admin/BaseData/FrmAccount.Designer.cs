@@ -98,14 +98,14 @@
             this.tcName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tcParentId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barBtnAddPeer = new DevExpress.XtraBars.BarButtonItem();
+            this.barBtnAddChild = new DevExpress.XtraBars.BarButtonItem();
+            this.barBtnDeleteCurrent = new DevExpress.XtraBars.BarButtonItem();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.barBtnAddPeer = new DevExpress.XtraBars.BarButtonItem();
-            this.barBtnAddChild = new DevExpress.XtraBars.BarButtonItem();
-            this.barBtnDeleteCurrent = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -852,6 +852,27 @@
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
             // 
+            // barBtnAddPeer
+            // 
+            this.barBtnAddPeer.Caption = "添加同级主体";
+            this.barBtnAddPeer.Id = 0;
+            this.barBtnAddPeer.Name = "barBtnAddPeer";
+            this.barBtnAddPeer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddPeer_ItemClick);
+            // 
+            // barBtnAddChild
+            // 
+            this.barBtnAddChild.Caption = "添加下级主体";
+            this.barBtnAddChild.Id = 1;
+            this.barBtnAddChild.Name = "barBtnAddChild";
+            this.barBtnAddChild.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddChild_ItemClick);
+            // 
+            // barBtnDeleteCurrent
+            // 
+            this.barBtnDeleteCurrent.Caption = "删除当前主体";
+            this.barBtnDeleteCurrent.Id = 2;
+            this.barBtnDeleteCurrent.Name = "barBtnDeleteCurrent";
+            this.barBtnDeleteCurrent.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnDeleteCurrent_ItemClick);
+            // 
             // barManager1
             // 
             this.barManager1.DockControls.Add(this.barDockControlTop);
@@ -892,27 +913,6 @@
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(1616, 0);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 821);
-            // 
-            // barBtnAddPeer
-            // 
-            this.barBtnAddPeer.Caption = "添加同级主体";
-            this.barBtnAddPeer.Id = 0;
-            this.barBtnAddPeer.Name = "barBtnAddPeer";
-            this.barBtnAddPeer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddPeer_ItemClick);
-            // 
-            // barBtnAddChild
-            // 
-            this.barBtnAddChild.Caption = "添加下级主体";
-            this.barBtnAddChild.Id = 1;
-            this.barBtnAddChild.Name = "barBtnAddChild";
-            this.barBtnAddChild.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnAddChild_ItemClick);
-            // 
-            // barBtnDeleteCurrent
-            // 
-            this.barBtnDeleteCurrent.Caption = "删除当前主体";
-            this.barBtnDeleteCurrent.Id = 2;
-            this.barBtnDeleteCurrent.Name = "barBtnDeleteCurrent";
-            this.barBtnDeleteCurrent.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barBtnDeleteCurrent_ItemClick);
             // 
             // FrmAccount
             // 

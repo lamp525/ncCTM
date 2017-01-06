@@ -579,6 +579,7 @@ namespace CTM.Win.Extensions
                 treeList.ExpandAll();
 
             treeList.OptionsBehavior.Editable = editable;
+            treeList.OptionsBehavior.ReadOnly = !editable;
 
             treeList.OptionsView.AutoWidth = autoWidth;
             treeList.OptionsView.ShowCheckBoxes = showCheckBox;
