@@ -10,7 +10,13 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 {
     public partial class FrmAccountPositionConfiguration : BaseForm
     {
+        #region Fields
+
         private readonly ICommonService _commonSercice;
+
+        #endregion Fields
+
+        #region Constructors
 
         public FrmAccountPositionConfiguration(ICommonService commonSercice)
         {
@@ -18,6 +24,10 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
             this._commonSercice = commonSercice;
         }
+
+        #endregion Constructors
+
+        #region Utilities
 
         private void FormInit()
         {
@@ -27,7 +37,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now.Date;
 
-            this.gridView1.SetLayout(allowCellMerge: true, showAutoFilterRow: false, multiSelect: false, showCheckBoxRowSelect: false, columnAutoWidth: false);
+            this.gridView1.SetLayout(allowCellMerge: true, showAutoFilterRow: false, showCheckBoxRowSelect: false, columnAutoWidth: false);
         }
 
         private void DisplayResult()
@@ -42,6 +52,10 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
             this.gridControl1.DataSource = ds?.Tables?[0];
         }
+
+        #endregion Utilities
+
+        #region Events
 
         private void FrmAccountPositionConfiguration_Load(object sender, EventArgs e)
         {
@@ -82,34 +96,42 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             }
         }
 
+        private void gridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            var currentUniqueSerialNo = int.Parse(this.gridView1.GetRowCellValue(e.RowHandle, this.colUniqueSerialNo).ToString());
+
+            if (currentUniqueSerialNo % 2 == 0)
+                e.Appearance.BackColor = System.Drawing.Color.LemonChiffon;
+            else
+                e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
+        }
+
         private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colSubjectName)
+            if (e.Column == this.colCurrentPrice)
             {
-                e.Appearance.BackColor = System.Drawing.Color.YellowGreen;
-            }
-            else if (e.Column == this.colCurrentPrice)
-            {
-                e.Appearance.BackColor = System.Drawing.Color.WhiteSmoke;
+                e.Appearance.ForeColor = System.Drawing.Color.Coral;
             }
             else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate || e.Column == this.colStockProfitInSubjectRate)
             {
                 var cellValue = e.CellValue.ToString();
 
                 if (cellValue.IndexOf('-') == 0)
-                    e.Appearance.BackColor = System.Drawing.Color.MediumAquamarine;
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;  //System.Drawing.Color.MediumAquamarine;
                 else if (cellValue != "0.00%")
-                    e.Appearance.BackColor = System.Drawing.Color.MistyRose;
+                    e.Appearance.ForeColor = System.Drawing.Color.Red ; //System.Drawing.Color.MistyRose;
             }
             else if (e.Column == this.colSubjectNetProfit || e.Column == this.colStockProfit)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
-                    e.Appearance.BackColor = System.Drawing.Color.MistyRose;
+                    e.Appearance.ForeColor = System.Drawing.Color.Red; //System.Drawing.Color.MistyRose;
                 else if (cellValue < 0)
-                    e.Appearance.BackColor = System.Drawing.Color.MediumAquamarine;
+                    e.Appearance.ForeColor = System.Drawing.Color.Green; //System.Drawing.Color.MediumAquamarine;
             }
         }
 
@@ -140,5 +162,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             if (toDate < fromDate)
                 this.deTo.EditValue = fromDate;
         }
+
+        #endregion Events
     }
 }

@@ -34,6 +34,8 @@
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colUniqueSerialNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubjectId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubjectName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubjectInvestFund = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubjectNetAsset = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -149,6 +151,8 @@
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colUniqueSerialNo,
+            this.colSubjectId,
             this.colSubjectName,
             this.colSubjectInvestFund,
             this.colSubjectNetAsset,
@@ -172,6 +176,9 @@
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
@@ -180,9 +187,22 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
+            this.gridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridView1_RowStyle);
+            // 
+            // colUniqueSerialNo
+            // 
+            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
+            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
+            // 
+            // colSubjectId
+            // 
+            this.colSubjectId.FieldName = "SubjectId";
+            this.colSubjectId.Name = "colSubjectId";
             // 
             // colSubjectName
             // 
+            this.colSubjectName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.colSubjectName.AppearanceCell.Options.UseFont = true;
             this.colSubjectName.AppearanceCell.Options.UseTextOptions = true;
             this.colSubjectName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colSubjectName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
@@ -195,7 +215,7 @@
             this.colSubjectName.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colSubjectName.Visible = true;
             this.colSubjectName.VisibleIndex = 0;
-            this.colSubjectName.Width = 100;
+            this.colSubjectName.Width = 120;
             // 
             // colSubjectInvestFund
             // 
@@ -301,7 +321,7 @@
             this.colAccountDetail.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
             this.colAccountDetail.Visible = true;
             this.colAccountDetail.VisibleIndex = 7;
-            this.colAccountDetail.Width = 120;
+            this.colAccountDetail.Width = 140;
             // 
             // colStockCode
             // 
@@ -630,5 +650,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfitRate;
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfitInSubjectRate;
         private DevExpress.XtraGrid.Columns.GridColumn colSubjectInvestFund;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubjectId;
+        private DevExpress.XtraGrid.Columns.GridColumn colUniqueSerialNo;
     }
 }
