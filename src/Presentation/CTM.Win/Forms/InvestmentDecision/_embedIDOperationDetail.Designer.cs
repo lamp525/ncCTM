@@ -232,6 +232,7 @@
             this.gvRecord.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
             this.gvRecord.OptionsSelection.MultiSelect = true;
             this.gvRecord.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gvRecord.OptionsView.ColumnAutoWidth = false;
             this.gvRecord.OptionsView.EnableAppearanceEvenRow = true;
             this.gvRecord.OptionsView.EnableAppearanceOddRow = true;
             this.gvRecord.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
@@ -285,7 +286,6 @@
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
             this.colDealFlagName.VisibleIndex = 5;
-            this.colDealFlagName.Width = 70;
             // 
             // colDealPrice
             // 
@@ -301,18 +301,22 @@
             this.colDealVolume.Caption = "成交数量";
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DealVolume", "合计：{0:N0}")});
             this.colDealVolume.Visible = true;
             this.colDealVolume.VisibleIndex = 7;
-            this.colDealVolume.Width = 119;
+            this.colDealVolume.Width = 140;
             // 
             // colActualAmount
             // 
             this.colActualAmount.Caption = "发生金额(元)";
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
+            this.colActualAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ActualAmount", "合计：{0:N4}")});
             this.colActualAmount.Visible = true;
             this.colActualAmount.VisibleIndex = 8;
-            this.colActualAmount.Width = 144;
+            this.colActualAmount.Width = 200;
             // 
             // colDataTypeName
             // 

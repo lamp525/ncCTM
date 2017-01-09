@@ -38,7 +38,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void FormInit()
         {
             this.gvIDVote.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
-            this.gvRecord.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
+            this.gvRecord.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35, showFooter: true);
             this.gvAccuracy.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, columnAutoWidth: true, rowIndicatorWidth: 35);
         }
 

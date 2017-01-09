@@ -194,7 +194,7 @@
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
             this.colDealFlagName.VisibleIndex = 5;
-            this.colDealFlagName.Width = 60;
+            this.colDealFlagName.Width = 65;
             // 
             // colDealPrice
             // 
@@ -210,6 +210,8 @@
             this.colDealVolume.Caption = "成交数量";
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DealVolume", "{0:N0}")});
             this.colDealVolume.Visible = true;
             this.colDealVolume.VisibleIndex = 7;
             this.colDealVolume.Width = 70;
@@ -219,9 +221,11 @@
             this.colActualAmount.Caption = "发生金额(元)";
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
+            this.colActualAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ActualAmount", "{0:N4}")});
             this.colActualAmount.Visible = true;
             this.colActualAmount.VisibleIndex = 8;
-            this.colActualAmount.Width = 110;
+            this.colActualAmount.Width = 130;
             // 
             // colDataTypeName
             // 
@@ -266,7 +270,7 @@
             this.colAccountDetail.Name = "colAccountDetail";
             this.colAccountDetail.Visible = true;
             this.colAccountDetail.VisibleIndex = 0;
-            this.colAccountDetail.Width = 170;
+            this.colAccountDetail.Width = 150;
             // 
             // chkNo
             // 

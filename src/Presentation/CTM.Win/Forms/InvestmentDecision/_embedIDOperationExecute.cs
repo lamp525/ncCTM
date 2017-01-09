@@ -51,7 +51,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this._initFlag = true;
 
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false,showAutoFilterRow :false , showGroupPanel: false , columnAutoWidth: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showCheckBoxRowSelect: false, showAutoFilterRow: false, showGroupPanel: false, columnAutoWidth: true, rowIndicatorWidth: 40, showFooter: true);
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -85,17 +85,15 @@ namespace CTM.Win.Forms.InvestmentDecision
             var dsApplication = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandTextApplication);
             var drApplication = dsApplication?.Tables?[0].Rows[0];
 
-            if(drApplication != null)
+            if (drApplication != null)
             {
                 var maxStep = int.Parse(drApplication["CurrentStep"].ToString());
-                if(maxStep >1)
+                if (maxStep > 1)
                 {
                     this.chkNo.ReadOnly = true;
                     this.chkYes.ReadOnly = true;
                 }
             }
-            
-
 
             this._initFlag = false;
         }

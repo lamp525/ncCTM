@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
@@ -134,7 +133,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             if (e.Column == this.colDealVolume)
             {
-
                 var selectedHandles = this.gridView1.GetSelectedRows().Where(x => x > -1);
 
                 decimal dealVolume = 0;
@@ -143,9 +141,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                     dealVolume += decimal.Parse(this.gridView1.GetRowCellValue(rowHandle, this.colDealVolume).ToString());
                 }
 
-                e.Info.DisplayText ="合计：" + dealVolume.ToString("N0");
+                e.Info.DisplayText = "合计：" + dealVolume.ToString("N0");
             }
-            else if(e.Column ==this.colActualAmount)
+            else if (e.Column == this.colActualAmount)
             {
                 var selectedHandles = this.gridView1.GetSelectedRows().Where(x => x > -1);
 
@@ -155,9 +153,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                     actualAmount += decimal.Parse(this.gridView1.GetRowCellValue(rowHandle, this.colActualAmount).ToString());
                 }
 
-                e.Info.DisplayText = "合计：" + actualAmount.ToString("C4");
+                e.Info.DisplayText = "合计：" + actualAmount.ToString("N4");
             }
-
         }
 
         private void btnOk_Click(object sender, EventArgs e)
