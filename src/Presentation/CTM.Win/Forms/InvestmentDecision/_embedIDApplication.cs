@@ -16,7 +16,6 @@ using CTM.Win.Forms.Common;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
-using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -32,6 +31,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
+
+        private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         private bool _isExpanded = false;
         private bool _isGridDataSourceChanged = false;
@@ -181,6 +182,25 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Master
 
+        private void SetApplicationIdentify(DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e, string applyNo)
+        {
+            e.DisplayText = @"决: 0   准: 0";
+
+            var commandText = $@"EXEC [dbo].[sp_GetIDIdentify] @InvestorCode = '{LoginInfo.CurrentUser.UserCode}' ,@ApplyNo = '{applyNo}'";
+
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0) return;
+
+            var needVote = ds.Tables[0].Rows[0]["NeedVote"].ToString();
+            var needAccuracy = ds.Tables[0].Rows[0]["NeedAccuracy"].ToString();
+
+            if (!string.IsNullOrEmpty(needVote) && !string.IsNullOrEmpty(needAccuracy))
+                e.DisplayText = $@"决: {int.Parse(needVote)}   准: {int.Parse(needAccuracy)}";
+            else
+                e.DisplayText = @"决: 0   准: 0";
+        }
+
         private void OperateButtonStatusSetting(DataRow dr, ButtonEditViewInfo buttonVI)
         {
             var investorCode = dr[this.colApplyUser.FieldName]?.ToString();
@@ -243,7 +263,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     }
 
                     if (finishConfirmFlag)
-                    {               
+                    {
                         buttonVI.RightButtons[2].Button.Enabled = true;
                         buttonVI.RightButtons[2].State = ObjectState.Normal;
                     }
@@ -509,11 +529,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                     break;
             }
 
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
             commandText = commandText + whereCondition;
 
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             this._isGridDataSourceChanged = false;
 
@@ -642,29 +660,34 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
+        private void viewMaster_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            
+            if (e.ListSourceRowIndex > -1)
+            {
+                if (e.Column == this.colIdentify)
+                {
+                    var applyNo = this.viewMaster.GetRowCellValue(e.ListSourceRowIndex, this.colApplyNo).ToString();
+                    
+                    if (!string.IsNullOrEmpty(applyNo))
+                        SetApplicationIdentify(e, applyNo);
+                }
+            }
+        }
+
         private void viewMaster_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
             if (e.Column.Name == colOperate.Name)
             {
                 var masterView = sender as GridView;
                 DataRow dr = masterView.GetDataRow(e.RowHandle);
-
+                
                 if (dr != null)
                 {
                     ButtonEditViewInfo buttonVI = (ButtonEditViewInfo)((GridCellInfo)e.Cell).ViewInfo;
 
                     OperateButtonStatusSetting(dr, buttonVI);
                 }
-            }
-        }
-
-        private void viewMaster_ShownEditor(object sender, EventArgs e)
-        {
-            var masterView = sender as GridView;
-
-            if (masterView.ActiveEditor is ButtonEdit)
-            {
-                ButtonEdit be = masterView.ActiveEditor as ButtonEdit;
             }
         }
 

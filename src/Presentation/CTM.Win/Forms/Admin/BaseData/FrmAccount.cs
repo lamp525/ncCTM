@@ -395,8 +395,6 @@ namespace CTM.Win.Forms.Admin.BaseData
             }
         }
 
-
-
         private void barBtnAddChild_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             try

@@ -83,6 +83,7 @@
             this.gridApplication = new DevExpress.XtraGrid.GridControl();
             this.viewMaster = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIdentify = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradePlanNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colApplyUser = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -526,6 +527,7 @@
             // 
             this.viewMaster.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
+            this.colIdentify,
             this.colTradePlanNo,
             this.colApplyNo,
             this.colApplyUser,
@@ -556,14 +558,23 @@
             this.viewMaster.OptionsView.ColumnAutoWidth = false;
             this.viewMaster.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewMaster_CustomDrawRowIndicator);
             this.viewMaster.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.viewMaster_CustomDrawCell);
-            this.viewMaster.ShownEditor += new System.EventHandler(this.viewMaster_ShownEditor);
             this.viewMaster.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.viewMaster_FocusedRowChanged);
+            this.viewMaster.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.viewMaster_CustomColumnDisplayText);
             // 
             // colId
             // 
             this.colId.FieldName = "Id";
             this.colId.Name = "colId";
             this.colId.OptionsColumn.AllowEdit = false;
+            // 
+            // colIdentify
+            // 
+            this.colIdentify.Caption = "标识";
+            this.colIdentify.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colIdentify.Name = "colIdentify";
+            this.colIdentify.Visible = true;
+            this.colIdentify.VisibleIndex = 2;
+            this.colIdentify.Width = 85;
             // 
             // colTradePlanNo
             // 
@@ -572,7 +583,7 @@
             this.colTradePlanNo.Name = "colTradePlanNo";
             this.colTradePlanNo.OptionsColumn.AllowEdit = false;
             this.colTradePlanNo.Visible = true;
-            this.colTradePlanNo.VisibleIndex = 13;
+            this.colTradePlanNo.VisibleIndex = 14;
             this.colTradePlanNo.Width = 100;
             // 
             // colApplyNo
@@ -599,7 +610,7 @@
             this.colApplyUserName.Name = "colApplyUserName";
             this.colApplyUserName.OptionsColumn.AllowEdit = false;
             this.colApplyUserName.Visible = true;
-            this.colApplyUserName.VisibleIndex = 3;
+            this.colApplyUserName.VisibleIndex = 4;
             this.colApplyUserName.Width = 85;
             // 
             // colDepartmentId
@@ -616,7 +627,7 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.OptionsColumn.AllowEdit = false;
             this.colDepartmentName.Visible = true;
-            this.colDepartmentName.VisibleIndex = 4;
+            this.colDepartmentName.VisibleIndex = 5;
             this.colDepartmentName.Width = 85;
             // 
             // colApplyDate
@@ -637,7 +648,7 @@
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.OptionsColumn.AllowEdit = false;
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 5;
+            this.colStockCode.VisibleIndex = 6;
             this.colStockCode.Width = 85;
             // 
             // colStockName
@@ -647,7 +658,7 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 6;
+            this.colStockName.VisibleIndex = 7;
             this.colStockName.Width = 85;
             // 
             // colTradeType
@@ -663,7 +674,7 @@
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.OptionsColumn.AllowEdit = false;
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.VisibleIndex = 7;
+            this.colTradeTypeName.VisibleIndex = 8;
             this.colTradeTypeName.Width = 65;
             // 
             // colStatusName
@@ -673,7 +684,7 @@
             this.colStatusName.Name = "colStatusName";
             this.colStatusName.OptionsColumn.AllowEdit = false;
             this.colStatusName.Visible = true;
-            this.colStatusName.VisibleIndex = 8;
+            this.colStatusName.VisibleIndex = 9;
             this.colStatusName.Width = 65;
             // 
             // colStatus
@@ -691,7 +702,7 @@
             this.colOperate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colOperate.Name = "colOperate";
             this.colOperate.Visible = true;
-            this.colOperate.VisibleIndex = 2;
+            this.colOperate.VisibleIndex = 3;
             this.colOperate.Width = 203;
             // 
             // riBtnOperate
@@ -730,7 +741,7 @@
             this.colCurrentPosition.FieldName = "CurrentPosition";
             this.colCurrentPosition.Name = "colCurrentPosition";
             this.colCurrentPosition.Visible = true;
-            this.colCurrentPosition.VisibleIndex = 9;
+            this.colCurrentPosition.VisibleIndex = 10;
             // 
             // colAvgCostPrice
             // 
@@ -738,7 +749,7 @@
             this.colAvgCostPrice.FieldName = "AvgCostPrice";
             this.colAvgCostPrice.Name = "colAvgCostPrice";
             this.colAvgCostPrice.Visible = true;
-            this.colAvgCostPrice.VisibleIndex = 11;
+            this.colAvgCostPrice.VisibleIndex = 12;
             // 
             // colCurrentProfit
             // 
@@ -746,7 +757,7 @@
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
             this.colCurrentProfit.Visible = true;
-            this.colCurrentProfit.VisibleIndex = 12;
+            this.colCurrentProfit.VisibleIndex = 13;
             this.colCurrentProfit.Width = 82;
             // 
             // colLatestClosePrice
@@ -755,7 +766,7 @@
             this.colLatestClosePrice.FieldName = "LatestClosePrice";
             this.colLatestClosePrice.Name = "colLatestClosePrice";
             this.colLatestClosePrice.Visible = true;
-            this.colLatestClosePrice.VisibleIndex = 10;
+            this.colLatestClosePrice.VisibleIndex = 11;
             this.colLatestClosePrice.Width = 82;
             // 
             // colApplyType
@@ -1238,5 +1249,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStopName;
         private DevExpress.XtraGrid.Columns.GridColumn colIsStopped_D;
         private DevExpress.XtraGrid.Columns.GridColumn colStep_D;
+        private DevExpress.XtraGrid.Columns.GridColumn colIdentify;
     }
 }

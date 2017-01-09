@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
@@ -49,7 +50,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.gridView1.SetLayout(showGroupPanel: true, columnAutoWidth: true, rowIndicatorWidth: 40);
+            this.gridView1.SetLayout(showGroupPanel: true, showFooter: true, columnAutoWidth: true, rowIndicatorWidth: 40);
 
             this.btnOk.Enabled = false;
         }
@@ -108,12 +109,55 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
 
+            gv.InvalidateFooter();
+
             var selectedHandles = gv.GetSelectedRows().Where(x => x > -1).ToArray();
 
             if (selectedHandles.Any())
                 this.btnOk.Enabled = true;
             else
                 this.btnOk.Enabled = false;
+        }
+
+        private void gridView1_CustomDrawFooter(object sender, DevExpress.XtraGrid.Views.Base.RowObjectCustomDrawEventArgs e)
+        {
+            e.Graphics.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(225, 244, 255)), e.Bounds);
+            var footerText = "已选择交易记录数：" + this.gridView1.GetSelectedRows().Where(x => x > -1).Count().ToString();
+            var outStringFormat = new System.Drawing.StringFormat();
+            outStringFormat.Alignment = System.Drawing.StringAlignment.Near;
+            outStringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
+            e.Graphics.DrawString(footerText, new System.Drawing.Font("Arial", 11, System.Drawing.FontStyle.Bold), new System.Drawing.SolidBrush(System.Drawing.Color.Black), e.Bounds, outStringFormat);
+            e.Handled = true;
+        }
+
+        private void gridView1_CustomDrawFooterCell(object sender, DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventArgs e)
+        {
+            if (e.Column == this.colDealVolume)
+            {
+
+                var selectedHandles = this.gridView1.GetSelectedRows().Where(x => x > -1);
+
+                decimal dealVolume = 0;
+                foreach (int rowHandle in selectedHandles)
+                {
+                    dealVolume += decimal.Parse(this.gridView1.GetRowCellValue(rowHandle, this.colDealVolume).ToString());
+                }
+
+                e.Info.DisplayText ="合计：" + dealVolume.ToString("N0");
+            }
+            else if(e.Column ==this.colActualAmount)
+            {
+                var selectedHandles = this.gridView1.GetSelectedRows().Where(x => x > -1);
+
+                decimal actualAmount = 0;
+                foreach (int rowHandle in selectedHandles)
+                {
+                    actualAmount += decimal.Parse(this.gridView1.GetRowCellValue(rowHandle, this.colActualAmount).ToString());
+                }
+
+                e.Info.DisplayText = "合计：" + actualAmount.ToString("N4");
+            }
+
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -156,9 +200,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.Close();
         }
 
-
         #endregion Events
-
-      
     }
 }

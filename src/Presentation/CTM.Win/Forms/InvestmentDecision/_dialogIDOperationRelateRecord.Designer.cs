@@ -75,15 +75,15 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1269, 647);
+            this.layoutControl1.Size = new System.Drawing.Size(1363, 647);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(1161, 613);
+            this.btnCancel.Location = new System.Drawing.Point(1247, 613);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 22);
+            this.btnCancel.Size = new System.Drawing.Size(104, 22);
             this.btnCancel.StyleController = this.layoutControl1;
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "    取  消    ";
@@ -91,9 +91,9 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(1043, 613);
+            this.btnOk.Location = new System.Drawing.Point(1120, 613);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(96, 22);
+            this.btnOk.Size = new System.Drawing.Size(104, 22);
             this.btnOk.StyleController = this.layoutControl1;
             this.btnOk.TabIndex = 5;
             this.btnOk.Text = "     确  定     ";
@@ -104,7 +104,7 @@
             this.gridControl1.Location = new System.Drawing.Point(12, 12);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1245, 597);
+            this.gridControl1.Size = new System.Drawing.Size(1339, 597);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -141,8 +141,11 @@
             this.gridView1.OptionsView.EnableAppearanceOddRow = true;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupedColumns = true;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.CustomDrawFooterCell += new DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventHandler(this.gridView1_CustomDrawFooterCell);
+            this.gridView1.CustomDrawFooter += new DevExpress.XtraGrid.Views.Base.RowObjectCustomDrawEventHandler(this.gridView1_CustomDrawFooter);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
             // 
             // colRecordId
@@ -205,18 +208,22 @@
             this.colDealVolume.Caption = "成交数量";
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DealVolume", "合计={0:N0}")});
             this.colDealVolume.Visible = true;
             this.colDealVolume.VisibleIndex = 8;
-            this.colDealVolume.Width = 73;
+            this.colDealVolume.Width = 110;
             // 
             // colActualAmount
             // 
             this.colActualAmount.Caption = "发生金额(元)";
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
+            this.colActualAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ActualAmount", "合计={0:N4}")});
             this.colActualAmount.Visible = true;
             this.colActualAmount.VisibleIndex = 9;
-            this.colActualAmount.Width = 110;
+            this.colActualAmount.Width = 160;
             // 
             // colDataTypeName
             // 
@@ -283,7 +290,7 @@
             this.emptySpaceItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1269, 647);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1363, 647);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -291,7 +298,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1249, 601);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1343, 601);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -299,18 +306,18 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnOk;
-            this.layoutControlItem2.Location = new System.Drawing.Point(1031, 601);
+            this.layoutControlItem2.Location = new System.Drawing.Point(1108, 601);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(100, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(108, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnCancel;
-            this.layoutControlItem3.Location = new System.Drawing.Point(1149, 601);
+            this.layoutControlItem3.Location = new System.Drawing.Point(1235, 601);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(100, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(108, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -319,22 +326,22 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 601);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1031, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1108, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(1131, 601);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(1216, 601);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(18, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(19, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // _dialogIDOperationRelateRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1269, 647);
+            this.ClientSize = new System.Drawing.Size(1363, 647);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogIDOperationRelateRecord";
             this.Text = "_dialogIDOperationRelateRecord";
