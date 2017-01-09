@@ -155,7 +155,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     actualAmount += decimal.Parse(this.gridView1.GetRowCellValue(rowHandle, this.colActualAmount).ToString());
                 }
 
-                e.Info.DisplayText = "合计：" + actualAmount.ToString("N4");
+                e.Info.DisplayText = "合计：" + actualAmount.ToString("C4");
             }
 
         }
