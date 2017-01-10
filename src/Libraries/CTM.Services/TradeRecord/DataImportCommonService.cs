@@ -67,7 +67,7 @@ namespace CTM.Services.TradeRecord
         /// <param name="TemplateColumnNames"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        public virtual void DataFormatCheck(List<string> TemplateColumnNames, DataTable importDataTable)
+        public virtual void DataFormatCheck(IList<string> TemplateColumnNames, DataTable importDataTable)
         {
             var DataColumnNames = new List<string>();
 
@@ -111,7 +111,7 @@ namespace CTM.Services.TradeRecord
 
             if (securityCompanyName == "安信证券" && accountAttributeName == "普通")
             {
-                securityAccount = EnumLibrary.SecurityAccount.ESSENCE_N ;
+                securityAccount = EnumLibrary.SecurityAccount.ESSENCE_N;
             }
 
             if (securityCompanyName == "中银国际" && accountAttributeName == "信用")
@@ -178,7 +178,7 @@ namespace CTM.Services.TradeRecord
             {
                 securityAccount = EnumLibrary.SecurityAccount.HuaTai_C;
             }
-       
+
             if (securityCompanyName == "海通证券" && accountAttributeName == "普通")
             {
                 // return true;
