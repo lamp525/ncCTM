@@ -160,16 +160,33 @@ namespace CTM.Core.Util
             return result;
         }
 
+        /// <summary>
+        /// 判断由正数、负数、零组成的字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool IsNumeric(string value)
         {
-            var result = Regex.IsMatch(value, @"^([0-9]{1,}[.][0-9]*)$");
+            var result = Regex.IsMatch(value, @"^(\-|\+)?\d+(\.\d+)?$");
 
             return result;
         }
 
-        public static bool IsInt(string value)
+        public static bool IsInteger(string value)
         {
-            var result = Regex.IsMatch(value, @"^([0-9]{1,})$");
+            var result = Regex.IsMatch(value, @"^-?[1-9]\d*|0$");
+
+            return result;
+        }
+
+        /// <summary>
+        /// 判断由数字和26个英文字母组成的字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsNumberAndAlphabet(string value)
+        {
+            var result = Regex.IsMatch(value, @"^[A-Za-z0-9]+$");
 
             return result;
         }
@@ -550,6 +567,27 @@ namespace CTM.Core.Util
         }
 
         /// <summary>
+        /// 字符串转化为Decimal
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static decimal StringToDecimal(string value)
+        {
+            decimal result;
+
+            try
+            {
+                result = Convert.ToDecimal(value);
+            }
+            catch (Exception)
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// 整数到字节数组的转换
         /// </summary>
         /// <param name="number"></param>
@@ -602,9 +640,13 @@ namespace CTM.Core.Util
         /// <returns>日期/时间格式</returns>
         public static string NumberStringToDate(string value)
         {
-            if (value.Length < 6 && (IsInt(value) || IsNumeric(value)))
+            if (value.Length < 6 && IsNumeric(value))
             {
                 return DateTime.FromOADate(double.Parse(value)).ToShortDateString();
+            }
+            else if (value.Length > 10)
+            {
+                return value.Substring(0, 8);
             }
 
             return value;

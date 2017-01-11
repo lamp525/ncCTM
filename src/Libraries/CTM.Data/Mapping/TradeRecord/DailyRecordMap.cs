@@ -23,6 +23,7 @@ namespace CTM.Data.Mapping.TradeRecord
             this.Property(p => p.Remarks).HasMaxLength(200);
 
             this.Property(p => p.DealPrice).HasPrecision(18, 4);
+            this.Property(p => p.DealVolume).HasPrecision(24, 0);
             this.Property(p => p.DealAmount).HasPrecision(24, 4);
             this.Property(p => p.ActualAmount).HasPrecision(24, 4);
             this.Property(p => p.StampDuty).HasPrecision(18, 4);

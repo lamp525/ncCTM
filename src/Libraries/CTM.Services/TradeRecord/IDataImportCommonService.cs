@@ -11,8 +11,6 @@ namespace CTM.Services.TradeRecord
 
         void DataFormatCheck(IList<string> templateColumnNames, DataTable importDataTable);
 
-        void VerifyStockInfo(StockInfo stockInfo, string stockCode, string stockName);
-
         EnumLibrary.SecurityAccount GetSelectedSecurityCompanyEnum(string securityCompanyName, string accountAttributeName);
     }
 }

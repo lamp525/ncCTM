@@ -19,7 +19,7 @@
 
         public decimal InitPositionValue { get; set; }
 
-        public int InitHoldingVolume { get; set; }
+        public decimal InitHoldingVolume { get; set; }
 
         public decimal InitPrice { get; set; }
 
@@ -27,7 +27,7 @@
 
         public decimal CurrentPositionValue { get; set; }
 
-        public int CurrentHoldingVolume { get; set; }
+        public decimal CurrentHoldingVolume { get; set; }
 
         public decimal CurrentPrice { get; set; }
 
@@ -37,7 +37,7 @@
 
         public decimal TargetPositionValue { get; set; }
 
-        public int TargetHoldingVolume { get; set; }
+        public decimal TargetHoldingVolume { get; set; }
 
         public decimal TargetTotalProfit { get; set; }
 
@@ -49,7 +49,7 @@
 
         public decimal BandPositionValue { get; set; }
 
-        public int BandHoldingVolume { get; set; }
+        public decimal BandHoldingVolume { get; set; }
 
         public decimal BandTotalProfit { get; set; }
 
@@ -61,7 +61,7 @@
 
         public decimal DayPositionValue { get; set; }
 
-        public int DayHoldingVolume { get; set; }
+        public decimal DayHoldingVolume { get; set; }
 
         public decimal DayTotalProfit { get; set; }
 

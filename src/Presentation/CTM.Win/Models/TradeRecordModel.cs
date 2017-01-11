@@ -58,7 +58,7 @@ namespace CTM.Win.Models
         /// <summary>
         /// 成交数量
         /// </summary>
-        public int DealVolume { get; set; }
+        public decimal DealVolume { get; set; }
 
         /// <summary>
         /// 成交金额

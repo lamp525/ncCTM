@@ -252,7 +252,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                         decimal initActualAmount = initRecords.Sum(x => x.ActualAmount);
 
                         //股票的持股数
-                        int initHoldingVolume = initRecords.Sum(x => x.DealVolume);
+                        decimal initHoldingVolume = initRecords.Sum(x => x.DealVolume);
 
                         //持仓市值
                         decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
@@ -268,7 +268,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                         var currentRecords = tradeTypeGroup;
 
                         //股票持股数
-                        int currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
+                        decimal currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
 
                         //发生金额
                         decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);

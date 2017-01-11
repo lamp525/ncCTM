@@ -20,7 +20,7 @@
 
         public string StockFullCode { get; set; }
 
-        public int StockHoldingVolume { get; set; }
+        public decimal StockHoldingVolume { get; set; }
 
         public decimal CurrentPrice { get; set; }
 

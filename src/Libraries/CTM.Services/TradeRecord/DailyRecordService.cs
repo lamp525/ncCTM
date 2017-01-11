@@ -5,7 +5,6 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Data;
 using CTM.Core.Domain.Account;
-using CTM.Core.Domain.Stock;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
@@ -59,19 +58,6 @@ namespace CTM.Services.TradeRecord
         #region Utilities
 
         #region 数据校验
-
-        /// <summary>
-        /// 校验股票信息
-        /// </summary>
-        /// <param name="stockInfo"></param>
-        /// <param name="stockCode"></param>
-        /// <param name="stockName"></param>
-        /// <returns></returns>
-        private void VerifyStockInfo(StockInfo stockInfo, string stockCode, string stockName)
-        {
-            if (stockInfo == null)
-                throw new Exception($"系统不存在【代码：{stockCode}】【名称：{stockName}】的股票信息！");
-        }
 
         /// <summary>
         /// 导入数据验证
@@ -139,15 +125,15 @@ namespace CTM.Services.TradeRecord
             ///过滤记录
             if (isDelivery)
             {
-                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsInt(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
-                                                                                                             && CommonHelper.IsNumeric(x.Field<string>(columnList[nameof(record.DealVolume)])) && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
-                                                                                                             && CommonHelper.IsNumeric(x.Field<string>(columnList[nameof(record.ActualAmount)])) && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
+                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsNumberAndAlphabet(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
+                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
+                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
                                                                                                .ToList();
             }
             else
             {
-                validRecords = importDataTable.AsEnumerable().Where(x => Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
-                                                                                                            && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
+                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
+                                                                                                            && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
                                                                                               .ToList();
             }
 
@@ -168,9 +154,9 @@ namespace CTM.Services.TradeRecord
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
                 var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
-                var stockInfo = _stockService.GetStockInfoByName(stockName);
+                var stockInfo = string.IsNullOrEmpty(stockCode) ? _stockService.GetStockInfoByName(stockName) : _stockService.GetStockInfoByCode(stockCode);
 
-                VerifyStockInfo(stockInfo, stockCode, stockName);
+                if (stockInfo == null) continue;
 
                 //共通字段
                 record.SetTradeRecordCommonFields(importOperation);
@@ -182,7 +168,7 @@ namespace CTM.Services.TradeRecord
                 //证券代码
                 record.StockCode = stockInfo.FullCode;
                 //证券名称
-                record.StockName = stockName;
+                record.StockName = stockInfo.Name;
 
                 //交易日期
                 if (!string.IsNullOrEmpty(columnList[nameof(record.TradeDate)]))
@@ -192,36 +178,36 @@ namespace CTM.Services.TradeRecord
                     record.TradeTime = row[columnList[nameof(record.TradeTime)]].ToString().Trim();
 
                 //成交价格
-                record.DealPrice = decimal.Parse(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
+                record.DealPrice = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
                 //成交数量
-                var dealVolume = int.Parse(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
+                var dealVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
                 record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
                 //成交金额
                 if (string.IsNullOrEmpty(columnList[nameof(record.DealAmount)]))
                     record.DealAmount = record.DealPrice * Math.Abs(record.DealVolume);
                 else
-                    record.DealAmount = decimal.Parse(row[columnList[nameof(record.DealAmount)]].ToString().Trim());
+                    record.DealAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealAmount)]].ToString().Trim());
 
                 ///交割单
                 if (isDelivery)
                 {
                     //发生金额
-                    record.ActualAmount = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
+                    record.ActualAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
                     //佣金
                     if (!string.IsNullOrEmpty(columnList[nameof(record.Commission)]))
-                        record.Commission = decimal.Parse(row[columnList[nameof(record.Commission)]].ToString().Trim());
+                        record.Commission = CommonHelper.StringToDecimal(row[columnList[nameof(record.Commission)]].ToString().Trim());
                     //印花税
                     if (!string.IsNullOrEmpty(columnList[nameof(record.StampDuty)]))
-                        record.StampDuty = decimal.Parse(row[columnList[nameof(record.StampDuty)]].ToString().Trim());
+                        record.StampDuty = CommonHelper.StringToDecimal(row[columnList[nameof(record.StampDuty)]].ToString().Trim());
                     //杂费
                     if (!string.IsNullOrEmpty(columnList[nameof(record.Incidentals)]))
-                        record.Incidentals = decimal.Parse(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
+                        record.Incidentals = CommonHelper.StringToDecimal(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee1"]))
-                        record.Incidentals += decimal.Parse(row["OtherFee1"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee1"].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee2"]))
-                        record.Incidentals += decimal.Parse(row["OtherFee2"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee2"].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
-                        record.Incidentals += decimal.Parse(row["OtherFee3"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee3"].ToString().Trim());
                 }
                 ///当日委托
                 else
@@ -1524,7 +1510,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "买卖标志");
-            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.ActualAmount), "发生金额");
@@ -1656,13 +1642,13 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
-            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.ActualAmount), "发生金额");
-            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.Commission), "佣金");
             columnList.Add(nameof(record.StampDuty), "印花税");
-            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add(nameof(record.Incidentals), "过户费");
             columnList.Add("OtherFee1", null);
             columnList.Add("OtherFee2", null);
             columnList.Add("OtherFee3", null);

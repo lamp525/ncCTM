@@ -32,7 +32,7 @@
 
         public decimal InitPositionValue { get; set; }
 
-        public int InitHoldingVolume { get; set; }
+        public decimal InitHoldingVolume { get; set; }
 
         public decimal InitProfit { get; set; }
 
@@ -40,7 +40,7 @@
 
         public decimal CurrentPositionValue { get; set; }
 
-        public int CurrentHoldingVolume { get; set; }
+        public decimal CurrentHoldingVolume { get; set; }
 
         public decimal CurrentPrice { get; set; }
 

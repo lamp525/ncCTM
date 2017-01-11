@@ -76,18 +76,6 @@ namespace CTM.Services.TradeRecord
             }
         }
 
-        /// <summary>
-        /// 校验股票信息
-        /// </summary>
-        /// <param name="stockInfo"></param>
-        /// <param name="stockCode"></param>
-        /// <param name="stockName"></param>
-        /// <returns></returns>
-        public virtual void VerifyStockInfo(StockInfo stockInfo, string stockCode, string stockName)
-        {
-            if (stockInfo == null)
-                throw new Exception($"系统不存在【代码：{stockCode}】【名称：{stockName}】的股票信息！");
-        }
 
         /// <summary>
         /// 判断选中的证券公司和账户属性是否支持数据导入处理

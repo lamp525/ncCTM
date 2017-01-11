@@ -190,7 +190,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 decimal initActualAmount = initRecords.Sum(x => x.ActualAmount);
 
                 //股票的持股数
-                int initHoldingVolume = initRecords.Sum(x => x.DealVolume);
+                decimal initHoldingVolume = initRecords.Sum(x => x.DealVolume);
 
                 //持仓市值
                 decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
@@ -218,7 +218,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var currentRecords = stockGroup;
 
                 //股票持股数
-                int currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
+                decimal currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
 
                 //发生金额
                 decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);
@@ -244,7 +244,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var targetRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
 
                 //目标股票持股数
-                int targetHoldingVolume = targetRecords.Sum(x => x.DealVolume);
+                decimal targetHoldingVolume = targetRecords.Sum(x => x.DealVolume);
 
                 //目标发生金额
                 decimal targetActualAmount = targetRecords.Sum(x => x.ActualAmount);
@@ -269,7 +269,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var bandRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Band);
 
                 //波段股票持股数
-                int bandHoldingVolume = bandRecords.Sum(x => x.DealVolume);
+                decimal bandHoldingVolume = bandRecords.Sum(x => x.DealVolume);
 
                 //波段发生金额
                 decimal bandActualAmount = bandRecords.Sum(x => x.ActualAmount);
@@ -294,7 +294,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var dayRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Day);
 
                 //日内股票持股数
-                int dayHoldingVolume = dayRecords.Sum(x => x.DealVolume);
+                decimal dayHoldingVolume = dayRecords.Sum(x => x.DealVolume);
 
                 //日内发生金额
                 decimal dayActualAmount = dayRecords.Sum(x => x.ActualAmount);

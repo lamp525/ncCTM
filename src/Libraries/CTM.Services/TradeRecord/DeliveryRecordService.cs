@@ -49,1867 +49,100 @@ namespace CTM.Services.TradeRecord
 
         #region Delivery Data Import
 
-        #region 交割单--财通证券（信用）
-
         /// <summary>
-        /// 交割单--财通证券（信用）
+        /// 从导入数据DataTable从获取交易数据
         /// </summary>
         /// <param name="importOperation"></param>
         /// <param name="importDataTable"></param>
+        /// <param name="columnList"></param>
         /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportCaiTong_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        private IList<DeliveryRecord> ObtainTradeDataFromImportDataTable(RecordImportOperationEntity importOperation, DataTable importDataTable, Dictionary<string, string> columnList)
         {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "证券代码", "证券名称", "操作", "成交均价", "成交数量", "成交金额", "印花税", "过户费", "发生金额", "合同编号", "股东帐户", "委托日期", "可用余额", "其他杂费", "佣金", "可用金额" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
             var tradeRecords = new List<DeliveryRecord>();
 
-            foreach (DataRow row in importDataTable.Rows)
+            foreach (var key in columnList.Keys)
             {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
+                columnList[key] = columnList[key].Trim();
+            }
 
-                var tradeRecord = new DeliveryRecord();
+            DeliveryRecord record = null;
 
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
+            List<DataRow> validRecords = new List<DataRow>();
 
-                var stockName = row["证券名称"].ToString().Trim();
+            ///过滤记录
+            validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0).ToList();
 
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
+            foreach (DataRow row in validRecords)
+            {
+                record = new DeliveryRecord();
+
+                //买卖标志
+                record.DealFlag = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0 ? false : true;
+
+                var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
+                var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
+                var stockInfo =string.IsNullOrEmpty (stockCode)? _stockService.GetStockInfoByName(stockName):_stockService.GetStockInfoByCode (stockCode );
 
                 if (stockInfo == null) continue;
 
-                tradeRecord.StockCode = stockInfo.FullCode;
+                //共通字段
+                record.SetTradeRecordCommonFields(importOperation);
 
-                tradeRecord.StockName = stockName;
+                //证券代码
+                record.StockCode = stockInfo.FullCode;
+                //证券名称
+                record.StockName = stockInfo.Name;
 
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
+                //交易日期
+                if (!string.IsNullOrEmpty(columnList[nameof(record.TradeDate)]))
+                    record.TradeDate = CommonHelper.StringToDateTime(row[columnList[nameof(record.TradeDate)]].ToString().Trim());
+                //交易时间
+                if (!string.IsNullOrEmpty(columnList[nameof(record.TradeTime)]))
+                    record.TradeTime = row[columnList[nameof(record.TradeTime)]].ToString().Trim();
 
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["委托日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
+                //成交价格
+                record.DealPrice = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
+                //成交数量
+                var dealVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
+                record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
+                //成交金额
+                if (string.IsNullOrEmpty(columnList[nameof(record.DealAmount)]))
+                    record.DealAmount = record.DealPrice * Math.Abs(record.DealVolume);
                 else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
+                    record.DealAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealAmount)]].ToString().Trim());
+                //发生金额
+                record.ActualAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
+                //佣金
+                if (!string.IsNullOrEmpty(columnList[nameof(record.Commission)]))
+                    record.Commission = CommonHelper.StringToDecimal(row[columnList[nameof(record.Commission)]].ToString().Trim());
+                //印花税
+                if (!string.IsNullOrEmpty(columnList[nameof(record.StampDuty)]))
+                    record.StampDuty = CommonHelper.StringToDecimal(row[columnList[nameof(record.StampDuty)]].ToString().Trim());
+                //杂费
+                if (!string.IsNullOrEmpty(columnList[nameof(record.Incidentals)]))
+                    record.Incidentals = CommonHelper.StringToDecimal(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
+                if (!string.IsNullOrEmpty(columnList["OtherFee1"]))
+                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee1"].ToString().Trim());
+                if (!string.IsNullOrEmpty(columnList["OtherFee2"]))
+                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee2"].ToString().Trim());
+                if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
+                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee3"].ToString().Trim());
 
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
+                //成交编号
+                record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
+                //合同编号
+                record.ContractNo = row[columnList[nameof(record.ContractNo)]].ToString().Trim();
+                //股东代码
+                if (!string.IsNullOrEmpty(columnList[nameof(record.StockHolderCode)]))
+                    record.StockHolderCode = row[columnList[nameof(record.StockHolderCode)]].ToString().Trim();
+                //备注
+                record.Remarks = row[columnList[nameof(record.Remarks)]].ToString().Trim();
 
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
+                tradeRecords.Add(record);
             }
-
-            #endregion DataProcess
 
             return tradeRecords;
         }
-
-        #endregion 交割单--财通证券（信用）
-
-        #region 交割单--财通证券（普通）
-
-        /// <summary>
-        /// 交割单--财通证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportCaiTong_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交均价", "成交数量", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "本次金额", "合同编号", "成交时间", "股东帐户", "备注", "成交编号", "交易市场" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--财通证券（普通）
-
-        #region 交割单--安信证券（普通）
-
-        /// <summary>
-        /// 交割单--安信证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportESSENCE_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "发生日期", "证券代码", "证券名称", "业务名称", "成交价格", "成交数量", "成交金额", "手续费", "印花税", "深市过户费(含在手续费中收取)", "沪市过户费", "清算费", "清算金额", "资金本次余额", "委托编号", "委托价格", "委托数量", "成交时间", "股东代码", "资金账户","币种" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["沪市过户费"].ToString().Trim()) + decimal.Parse(row["清算费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--财通证券（普通）
-
-        #region 交割单--方正证券（普通）
-
-        /// <summary>
-        ///  交割单--方正证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-
-        private IList<DeliveryRecord> DeliveryImportFounder_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "成交时间", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "佣金", "过户费", "交易市场" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--方正证券（普通）
-
-        #region 交割单--国金证券（普通）
-
-        /// <summary>
-        /// 交割单--国金证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportSinoLink_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "佣金", "印花税", "过户费", "成交编号", "股东代码", "备注" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--国金证券（普通）
-
-        #region 交割单--国泰证券（信用）
-
-        /// <summary>
-        /// 交割单--国泰证券（信用）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportGuoTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "业务名称", "证券代码", "证券名称", "成交价格", "成交数量", "剩余数量", "成交金额", "清算金额", "剩余金额", "净佣金", "规费", "印花税", "过户费", "结算费", "附加费", "成交编号", "股东代码" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["净佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["规费"].ToString().Trim()) + decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim()) + decimal.Parse(row["附加费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--国泰证券（信用）
-
-        #region 交割单--国泰证券（普通）
-
-        /// <summary>
-        /// 交割单--国泰证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "业务名称", "证券代码", "证券名称", "成交价格", "成交数量", "剩余数量", "成交金额", "清算金额", "剩余金额", "净佣金", "规费", "印花税", "过户费", "结算费", "附加费", "成交编号", "股东代码" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["净佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["规费"].ToString().Trim()) + decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim()) + decimal.Parse(row["附加费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #region deleted
-        /***
-        private IList<DeliveryRecord> DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "市场名称", "股东帐户" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        } 
-        ***/
-        #endregion
-
-        #endregion 交割单--国泰证券（普通）
-
-        #region 交割单--华泰证券（普通）
-
-        /// <summary>
-        /// 交割单--华泰证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportHuaTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "操作", "证券代码", "结算汇率" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--华泰证券（普通）
-
-        #region 交割单--华泰证券（信用）
-
-        /// <summary>
-        /// 交割单--华泰证券（信用）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportHuaTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "摘要", "证券名称", "合同编号", "成交数量", "成交均价", "成交金额", "手续费", "印花税", "其他杂费", "发生金额", "股东帐户", "备注", "本次资金余额", "本次股票余额" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = string.Empty;
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByName(stockName);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["摘要"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--华泰证券（信用）
-
-        #region 交割单--申万证券（普通）
-
-        /// <summary>
-        /// 交割单--申万证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportShenWan_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "操作", "成交数量", "成交编号", "成交均价", "成交金额", "余额", "发生金额", "手续费", "印花税", "其他杂费", "本次金额", "合同编号", "股东帐户", "交易市场" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--申万证券（普通）
-
-        #region 交割单--银河证券（普通）
-
-        /// <summary>
-        /// 交割单--银河证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportGalaxy_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "证券代码", "证券名称", "操作", "成交数量", "成交均价", "成交金额", "股票余额", "发生金额", "手续费", "印花税", "其他杂费", "资金余额", "合同编号", "股东帐户", "交收日期", "净佣金", "过户费", "结算费", "币种" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["交收日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["净佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["手续费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim()) + decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--银河证券（普通）
-
-        #region 交割单--招商证券（普通）
-
-        /// <summary>
-        /// 交割单--招商证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportZhaoShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "币种", "证券名称", "成交日期", "成交价格", "成交数量", "发生金额", "资金余额", "合同编号", "业务名称", "手续费", "印花税", "过户费", "结算费", "证券代码", "股东代码" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim().Substring(0, 8));
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = string.Empty;
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = tradeRecord.DealPrice * Math.Abs(tradeRecord.DealVolume);
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["结算费"].ToString().Trim()); ;
-
-                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--招商证券（普通）
-
-        #region 交割单--浙商证券（信用）
-
-        /// <summary>
-        /// 交割单--浙商证券（信用）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportZheShang_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "委托日期", "股东帐户", "证券代码", "证券名称", "合同编号", "操作", "成交数量", "可用余额", "成交均价", "成交金额", "印花税", "过户费", "其他杂费", "佣金", "发生金额", "可用金额" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["委托日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交均价"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["其他杂费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--浙商证券（信用）
-
-        #region 交割单--浙商证券（普通）
-
-        /// <summary>
-        /// 交割单--浙商证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportZheShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "成交日期", "证券代码", "证券名称", "成交价格", "发生数量", "成交数量", "成交金额", "发生金额", "股票余额", "佣金", "印花税", "过户费", "成交编号", "合同编号", "操作", "股东帐户", "交易市场", "备注" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["成交日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = string.Empty;
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东帐户"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["合同编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["操作"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--浙商证券（普通）
-
-        #region 交割单--中信国际（信用）
-
-        /// <summary>
-        /// 交割单--中信国际（信用）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportCITIC_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "发生日期", "证券名称", "委托编号", "成交数量", "成交价格", "成交金额", "手续费", "印花税", "清算金额", "资金本次余额", "股东代码", "备注", "过户费", "交易所清算费", "成交时间", "资金帐号", "币种", "费用备注" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByName(stockName);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易所清算费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["备注"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--中信国际（信用）
-
-        #region 交割单--中信证券（普通）
-
-        /// <summary>
-        /// 交割单--中信证券（普通）
-        /// </summary>
-        /// <param name="importOperation"></param>
-        /// <param name="importDataTable"></param>
-        /// <returns></returns>
-        private IList<DeliveryRecord> DeliveryImportCITIC_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
-        {
-            #region DataFormatCheck
-
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "业务名称", "成交数量", "成交价格", "成交金额", "余额", "清算金额", "手续费", "印花税", "附加费", "资金本次余额", "委托编号", "股东代码", "过户费", "交易所清算费", "资金帐号", "币种", "费用备注" };
-
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
-
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["清算金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = string.Empty;
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["清算金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["清算金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["清算金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["手续费"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易所清算费"].ToString().Trim()) + decimal.Parse(row["附加费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["业务名称"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
-
-            return tradeRecords;
-        }
-
-        #endregion 交割单--中信证券（普通）
 
         #region 交割单--中银国际（信用）
 
@@ -1921,100 +154,33 @@ namespace CTM.Services.TradeRecord
         /// <returns></returns>
         private IList<DeliveryRecord> DeliveryImportBOCI_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
-            #region DataFormatCheck
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
 
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注" };
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "买卖标志");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "交易征费");
+            columnList.Add("OtherFee2", "交易规费");
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
+            columnList.Add(nameof(record.Remarks), "备注");
 
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易征费"].ToString().Trim()) + decimal.Parse(row["交易规费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -2031,105 +197,727 @@ namespace CTM.Services.TradeRecord
         /// <returns></returns>
         private IList<DeliveryRecord> DeliveryImportBOCI_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
         {
-            #region DataFormatCheck
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
 
-            var TemplateColumnNames = new List<string> { "发生日期", "成交时间", "证券代码", "证券名称", "买卖标志", "成交价格", "成交数量", "成交金额", "发生金额", "剩余金额", "申报序号", "成交编号", "委托编号", "股东代码", "席位代码", "证券数量", "佣金", "印花税", "过户费", "交易征费", "交易规费", "备注" };
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "买卖标志");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "交易征费");
+            columnList.Add("OtherFee2", "交易规费");
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
+            columnList.Add(nameof(record.Remarks), "备注");
 
-            this._dataImportService.DataFormatCheck(TemplateColumnNames, importDataTable);
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            #endregion DataFormatCheck
-
-            #region DataProcess
-
-            var tradeRecords = new List<DeliveryRecord>();
-
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                //过滤交易记录
-                if (int.Parse(row["成交数量"].ToString().Trim()) == 0 && decimal.Parse(row["发生金额"].ToString().Trim()) == 0) continue;
-
-                var tradeRecord = new DeliveryRecord();
-
-                var stockCode = CommonHelper.StockCodeZerofill(row["证券代码"].ToString().Trim());
-
-                var stockName = row["证券名称"].ToString().Trim();
-
-                var stockInfo = _stockService.GetStockInfoByCode(stockCode);
-
-                if (stockInfo == null) continue;
-
-                tradeRecord.StockCode = stockInfo.FullCode;
-
-                tradeRecord.StockName = stockName;
-
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
-
-                tradeRecord.TradeDate = CommonHelper.StringToDateTime(row["发生日期"].ToString().Trim());
-
-                tradeRecord.TradeTime = row["成交时间"].ToString().Trim();
-
-                tradeRecord.DealNo = row["成交编号"].ToString().Trim();
-
-                tradeRecord.DealPrice = decimal.Parse(row["成交价格"].ToString().Trim());
-
-                tradeRecord.DealAmount = decimal.Parse(row["成交金额"].ToString().Trim());
-
-                if (decimal.Parse(row["发生金额"].ToString().Trim()) == 0)
-                {
-                    //买入
-                    if (int.Parse(row["成交数量"].ToString().Trim()) > 0)
-                        tradeRecord.DealFlag = true;
-                    //卖出
-                    else
-                        tradeRecord.DealFlag = false;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) < 0)
-                {
-                    //买入
-                    tradeRecord.DealFlag = true;
-                }
-                else if (decimal.Parse(row["发生金额"].ToString().Trim()) > 0)
-                {
-                    //卖出
-                    tradeRecord.DealFlag = false;
-                }
-
-                //买入
-                if (tradeRecord.DealFlag)
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToPositive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToNegtive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-                //卖出
-                else
-                {
-                    tradeRecord.DealVolume = CommonHelper.ConvertToNegtive(int.Parse(row["成交数量"].ToString().Trim()));
-
-                    tradeRecord.ActualAmount = CommonHelper.ConvertToPositive(decimal.Parse(row["发生金额"].ToString().Trim()));
-                }
-
-                tradeRecord.StockHolderCode = row["股东代码"].ToString().Trim();
-
-                tradeRecord.ContractNo = row["委托编号"].ToString().Trim();
-
-                tradeRecord.Commission = decimal.Parse(row["佣金"].ToString().Trim());
-
-                tradeRecord.StampDuty = decimal.Parse(row["印花税"].ToString().Trim());
-
-                tradeRecord.Incidentals = decimal.Parse(row["过户费"].ToString().Trim()) + decimal.Parse(row["交易征费"].ToString().Trim()) + decimal.Parse(row["交易规费"].ToString().Trim());
-
-                tradeRecord.Remarks = row["买卖标志"].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
-            }
-
-            #endregion DataProcess
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
 
         #endregion 交割单--中银国际（普通）
+
+        #region 交割单--财通证券（信用）
+
+        /// <summary>
+        /// 交割单--财通证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportCaiTong_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "其他杂费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--财通证券（信用）
+
+        #region 交割单--财通证券（普通）
+
+        /// <summary>
+        /// 交割单--财通证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportCaiTong_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "备注");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--财通证券（普通）
+
+        #region 交割单--中信证券（信用）
+
+        /// <summary>
+        /// 交割单--中信证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportCITIC_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), null);
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "备注");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "交易所清算费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "备注");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--中信证券（信用）
+
+        #region 交割单--中信证券（普通）
+
+        /// <summary>
+        /// 交割单--中信证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportCITIC_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "交易所清算费");
+            columnList.Add("OtherFee2", "附加费");
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--中信证券（普通）
+
+        #region 交割单--安信证券（普通）
+
+        /// <summary>
+        /// 交割单--安信证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportESSENCE_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "清算费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--安信证券（普通）
+
+        #region 交割单--方正证券（普通）
+
+        /// <summary>
+        ///  交割单--方正证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+
+        private IList<DeliveryRecord> DeliveryImportFounder_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "其他杂费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--方正证券（普通）
+
+        #region 交割单--银河证券（普通）
+
+        /// <summary>
+        /// 交割单--银河证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportGalaxy_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "交收日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "净佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "手续费");
+            columnList.Add("OtherFee1", "过户费");
+            columnList.Add("OtherFee2", "结算费");
+            columnList.Add("OtherFee3", "其他杂费");
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--银河证券（普通）
+
+        #region 交割单--国泰证券（信用）
+
+        /// <summary>
+        /// 交割单--国泰证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportGuoTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "净佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "规费");
+            columnList.Add("OtherFee1", "附加费");
+            columnList.Add("OtherFee2", "结算费");
+            columnList.Add("OtherFee3", "过户费");
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--国泰证券（信用）
+
+        #region 交割单--国泰证券（普通）
+
+        /// <summary>
+        /// 交割单--国泰证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportGuoTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "净佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "规费");
+            columnList.Add("OtherFee1", "过户费");
+            columnList.Add("OtherFee2", "附加费");
+            columnList.Add("OtherFee3", "结算费");
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--国泰证券（普通）
+
+        #region 交割单--华泰证券（信用）
+
+        /// <summary>
+        /// 交割单--华泰证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportHuaTai_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), null);
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "摘要");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "摘要");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--华泰证券（信用）
+
+        #region 交割单--华泰证券（普通）
+
+        /// <summary>
+        /// 交割单--华泰证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportHuaTai_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "摘要");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--华泰证券（普通）
+
+        #region 交割单--申万证券（普通）
+
+        /// <summary>
+        /// 交割单--申万证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportShenWan_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--申万证券（普通）
+
+        #region 交割单--国金证券（普通）
+
+        /// <summary>
+        /// 交割单--国金证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportSinoLink_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "买卖标志");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
+            columnList.Add(nameof(record.Remarks), "备注");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--国金证券（普通）
+
+        #region 交割单--招商证券（普通）
+
+        /// <summary>
+        /// 交割单--招商证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportZhaoShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), null);
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "结算费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--招商证券（普通）
+
+        #region 交割单--浙商证券（信用）
+
+        /// <summary>
+        /// 交割单--浙商证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportZheShang_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", "过户费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--浙商证券（信用）
+
+        #region 交割单--浙商证券（普通）
+
+        /// <summary>
+        /// 交割单--浙商证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportZheShang_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "备注");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--浙商证券（普通）
 
         #endregion Delivery Data Import
 
@@ -2155,7 +943,7 @@ namespace CTM.Services.TradeRecord
 
                 //安信普通
                 case EnumLibrary.SecurityAccount.ESSENCE_N:
-                    records = DeliveryImportESSENCE_N(importOperation,importDataTable );
+                    records = DeliveryImportESSENCE_N(importOperation, importDataTable);
                     break;
 
                 //方正普通
