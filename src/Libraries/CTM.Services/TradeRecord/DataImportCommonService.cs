@@ -64,24 +64,14 @@ namespace CTM.Services.TradeRecord
         /// <summary>
         ///导入数据格式检查
         /// </summary>
-        /// <param name="TemplateColumnNames"></param>
+        /// <param name="templateColumnNames"></param>
         /// <param name="importDataTable"></param>
         /// <returns></returns>
-        public virtual void DataFormatCheck(IList<string> TemplateColumnNames, DataTable importDataTable)
+        public virtual void DataFormatCheck(IList<string> templateColumnNames, DataTable importDataTable)
         {
-            var DataColumnNames = new List<string>();
-
-            foreach (DataColumn column in importDataTable.Columns)
+            foreach (var name in templateColumnNames)
             {
-                if (TemplateColumnNames.Contains(column.ColumnName))
-                    DataColumnNames.Add(column.ColumnName);
-                else
-                    throw new Exception($"交易数据Excel文件中列【{column.ColumnName}】的名称不正确。");
-            }
-
-            foreach (var name in TemplateColumnNames)
-            {
-                if (!DataColumnNames.Contains(name))
+                if (!importDataTable.Columns.Contains(name))
                     throw new Exception($"交易数据Excel文件中缺少列【{name}】。");
             }
         }

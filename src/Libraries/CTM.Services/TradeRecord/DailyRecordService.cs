@@ -124,113 +124,129 @@ namespace CTM.Services.TradeRecord
         {
             var tradeRecords = new List<DailyRecord>();
 
+            foreach (var key in columnList.Keys)
+            {
+                columnList[key] = columnList[key].Trim();
+            }
+
             //当前账户信息
             AccountInfo currentAccount = isDelivery ? null : _accountService.GetAccountInfoById(importOperation.AccountId);
 
-            foreach (DataRow row in importDataTable.Rows)
-            {
-                var tradeRecord = new DailyRecord();
+            DailyRecord record = null;
 
-                //过滤合同编号为空或无实际成交额或成交量的交易记录
-                if (!CommonHelper.IsInt(row[columnList[nameof(tradeRecord.ContractNo)]].ToString().Trim())
-                    || int.Parse(row[columnList[nameof(tradeRecord.DealVolume)]].ToString().Trim()) == 0
-                    || (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.DealAmount)]) && decimal.Parse(row[columnList[nameof(tradeRecord.DealAmount)]].ToString().Trim()) == 0))
-                    continue;
+            List<DataRow> validRecords = new List<DataRow>();
+
+            ///过滤记录
+            if (isDelivery)
+            {
+                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsInt(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
+                                                                                                             && CommonHelper.IsNumeric(x.Field<string>(columnList[nameof(record.DealVolume)])) && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
+                                                                                                             && CommonHelper.IsNumeric(x.Field<string>(columnList[nameof(record.ActualAmount)])) && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
+                                                                                               .ToList();
+            }
+            else
+            {
+                validRecords = importDataTable.AsEnumerable().Where(x => Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
+                                                                                                            && Convert.ToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
+                                                                                              .ToList();
+            }
+
+            foreach (DataRow row in validRecords)
+            {
+                record = new DailyRecord();
 
                 //买卖标志
-                if (_buyTexts.Contains(row[columnList[nameof(tradeRecord.DealFlag)]].ToString().Trim()) || row[columnList[nameof(tradeRecord.DealFlag)]].ToString().Trim().IndexOf("买入") > -1)
-                    tradeRecord.DealFlag = true;
-                else if (_sellTexts.Contains(row[columnList[nameof(tradeRecord.DealFlag)]].ToString().Trim()) || row[columnList[nameof(tradeRecord.DealFlag)]].ToString().Trim().IndexOf("卖出") > -1)
-                    tradeRecord.DealFlag = false;
+                if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买入") > -1)
+                    record.DealFlag = true;
+                else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖出") > -1)
+                    record.DealFlag = false;
                 else
                 {
                     //跳过操作类型不明的交易记录
                     continue;
                 }
 
-                var stockCode = string.IsNullOrEmpty(columnList[nameof(tradeRecord.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(tradeRecord.StockCode)]].ToString().Trim());
-                var stockName = row[columnList[nameof(tradeRecord.StockName)]].ToString().Trim();
+                var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
+                var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
                 var stockInfo = _stockService.GetStockInfoByName(stockName);
 
                 VerifyStockInfo(stockInfo, stockCode, stockName);
 
                 //共通字段
-                tradeRecord.SetTradeRecordCommonFields(importOperation);
+                record.SetTradeRecordCommonFields(importOperation);
                 //交易类别
-                tradeRecord.SetTradeType(row[columnList[nameof(tradeRecord.TradeType)]].ToString().Trim());
+                record.SetTradeType(row[columnList[nameof(record.TradeType)]].ToString().Trim());
                 //受益人
-                tradeRecord.SetBeneficiary(importOperation.BandPrincipal, importOperation.TargetPrincipal);
+                record.SetBeneficiary(importOperation.BandPrincipal, importOperation.TargetPrincipal);
 
                 //证券代码
-                tradeRecord.StockCode = stockInfo.FullCode;
+                record.StockCode = stockInfo.FullCode;
                 //证券名称
-                tradeRecord.StockName = stockName;
+                record.StockName = stockName;
 
                 //交易日期
-                if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.TradeDate)]))
-                {
-                    var dateString = row[columnList[nameof(tradeRecord.TradeDate)]].ToString().Trim();
-                    tradeRecord.TradeDate = CommonHelper.StringToDateTime(dateString.Substring(0, 8));
-                }
+                if (!string.IsNullOrEmpty(columnList[nameof(record.TradeDate)]))
+                    record.TradeDate = CommonHelper.StringToDateTime(row[columnList[nameof(record.TradeDate)]].ToString().Trim());
                 //交易时间
-                if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.TradeTime)]))
-                    tradeRecord.TradeTime = row[columnList[nameof(tradeRecord.TradeTime)]].ToString().Trim();
+                if (!string.IsNullOrEmpty(columnList[nameof(record.TradeTime)]))
+                    record.TradeTime = row[columnList[nameof(record.TradeTime)]].ToString().Trim();
 
                 //成交价格
-                tradeRecord.DealPrice = decimal.Parse(row[columnList[nameof(tradeRecord.DealPrice)]].ToString().Trim());
+                record.DealPrice = decimal.Parse(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
                 //成交数量
-                var dealVolume = int.Parse(row[columnList[nameof(tradeRecord.DealVolume)]].ToString().Trim());
-                tradeRecord.DealVolume = tradeRecord.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
+                var dealVolume = int.Parse(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
+                record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
                 //成交金额
-                if (string.IsNullOrEmpty(columnList[nameof(tradeRecord.DealAmount)]))
-                    tradeRecord.DealAmount = tradeRecord.DealPrice * Math.Abs(tradeRecord.DealVolume);
+                if (string.IsNullOrEmpty(columnList[nameof(record.DealAmount)]))
+                    record.DealAmount = record.DealPrice * Math.Abs(record.DealVolume);
                 else
-                    tradeRecord.DealAmount = decimal.Parse(row[columnList[nameof(tradeRecord.DealAmount)]].ToString().Trim());
+                    record.DealAmount = decimal.Parse(row[columnList[nameof(record.DealAmount)]].ToString().Trim());
 
                 ///交割单
                 if (isDelivery)
                 {
                     //发生金额
-                    tradeRecord.ActualAmount = decimal.Parse(row[columnList[nameof(tradeRecord.ActualAmount)]].ToString().Trim());
+                    record.ActualAmount = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
                     //佣金
-                    if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.Commission)]))
-                        tradeRecord.Commission = decimal.Parse(row[columnList[nameof(tradeRecord.Commission)]].ToString().Trim());
+                    if (!string.IsNullOrEmpty(columnList[nameof(record.Commission)]))
+                        record.Commission = decimal.Parse(row[columnList[nameof(record.Commission)]].ToString().Trim());
                     //印花税
-                    if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.StampDuty)]))
-                        tradeRecord.StampDuty = decimal.Parse(row[columnList[nameof(tradeRecord.StampDuty)]].ToString().Trim());
+                    if (!string.IsNullOrEmpty(columnList[nameof(record.StampDuty)]))
+                        record.StampDuty = decimal.Parse(row[columnList[nameof(record.StampDuty)]].ToString().Trim());
                     //杂费
-                    if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.Incidentals)]))
-                        tradeRecord.Incidentals = decimal.Parse(row[columnList[nameof(tradeRecord.Incidentals)]].ToString().Trim());
+                    if (!string.IsNullOrEmpty(columnList[nameof(record.Incidentals)]))
+                        record.Incidentals = decimal.Parse(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee1"]))
-                        tradeRecord.Incidentals += decimal.Parse(row["OtherFee1"].ToString().Trim());
+                        record.Incidentals += decimal.Parse(row["OtherFee1"].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee2"]))
-                        tradeRecord.Incidentals += decimal.Parse(row["OtherFee2"].ToString().Trim());
+                        record.Incidentals += decimal.Parse(row["OtherFee2"].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
-                        tradeRecord.Incidentals += decimal.Parse(row["OtherFee3"].ToString().Trim());
+                        record.Incidentals += decimal.Parse(row["OtherFee3"].ToString().Trim());
                 }
                 ///当日委托
                 else
                 {
                     //佣金
-                    tradeRecord.Commission = tradeRecord.DealAmount * currentAccount.CommissionRate;
+                    record.Commission = record.DealAmount * currentAccount.CommissionRate;
                     //印花税
-                    tradeRecord.StampDuty = tradeRecord.DealFlag ? 0 : tradeRecord.DealAmount * currentAccount.StampDutyRate;
+                    record.StampDuty = record.DealFlag ? 0 : record.DealAmount * currentAccount.StampDutyRate;
                     //杂费
-                    tradeRecord.Incidentals = 0;
+                    record.Incidentals = 0;
                     //发生金额
-                    tradeRecord.ActualAmount = (tradeRecord.DealFlag ? CommonHelper.ConvertToNegtive(tradeRecord.DealAmount) : CommonHelper.ConvertToPositive(tradeRecord.DealAmount)) - tradeRecord.Commission - tradeRecord.StampDuty - tradeRecord.Incidentals;
+                    record.ActualAmount = (record.DealFlag ? CommonHelper.ConvertToNegtive(record.DealAmount) : CommonHelper.ConvertToPositive(record.DealAmount)) - record.Commission - record.StampDuty - record.Incidentals;
                 }
 
-                tradeRecord.DealNo = row[columnList[nameof(tradeRecord.DealNo)]].ToString().Trim();
+                //成交编号
+                record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
+                //合同编号
+                record.ContractNo = row[columnList[nameof(record.ContractNo)]].ToString().Trim();
+                //股东代码
+                if (!string.IsNullOrEmpty(columnList[nameof(record.StockHolderCode)]))
+                    record.StockHolderCode = row[columnList[nameof(record.StockHolderCode)]].ToString().Trim();
+                //备注
+                record.Remarks = row[columnList[nameof(record.Remarks)]].ToString().Trim();
 
-                tradeRecord.ContractNo = row[columnList[nameof(tradeRecord.ContractNo)]].ToString().Trim();
-
-                if (!string.IsNullOrEmpty(columnList[nameof(tradeRecord.StockHolderCode)]))
-                    tradeRecord.StockHolderCode = row[columnList[nameof(tradeRecord.StockHolderCode)]].ToString().Trim();
-
-                tradeRecord.Remarks = row[columnList[nameof(tradeRecord.Remarks)]].ToString().Trim();
-
-                tradeRecords.Add(tradeRecord);
+                tradeRecords.Add(record);
             }
 
             return tradeRecords;
@@ -954,7 +970,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -998,7 +1014,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1042,7 +1058,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1086,7 +1102,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1130,7 +1146,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1174,7 +1190,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1219,7 +1235,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1263,7 +1279,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1307,7 +1323,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1351,7 +1367,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1395,7 +1411,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1439,7 +1455,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1483,7 +1499,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1527,7 +1543,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1568,10 +1584,10 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.Remarks), "业务名称");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
-            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).Distinct().ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1615,7 +1631,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }
@@ -1659,7 +1675,7 @@ namespace CTM.Services.TradeRecord
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
 
-            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
 
             return tradeRecords;
         }

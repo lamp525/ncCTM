@@ -9,7 +9,7 @@ namespace CTM.Services.TradeRecord
     {
         DataTable GetImportDataFromExcel(string filePath);
 
-        void DataFormatCheck(IList<string> TemplateColumnNames, DataTable importDataTable);
+        void DataFormatCheck(IList<string> templateColumnNames, DataTable importDataTable);
 
         void VerifyStockInfo(StockInfo stockInfo, string stockCode, string stockName);
 
