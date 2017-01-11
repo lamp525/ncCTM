@@ -34,6 +34,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private EnumLibrary.SecurityAccount _securityAccount;
 
+        private string _defaultImportFilePath = null;
+
         #endregion Fields
 
         #region Constructors
@@ -433,16 +435,15 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 var myOpenFileDialog = this.openFileDialog1;
 
-                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(_defaultImportFilePath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : _defaultImportFilePath;
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
 
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var fileName = myOpenFileDialog.FileName;
-
+                {      
                     this.txtImportFileName.Text = myOpenFileDialog.FileName;
+                    _defaultImportFilePath = myOpenFileDialog.InitialDirectory;
                 }
             }
             catch (Exception ex)
