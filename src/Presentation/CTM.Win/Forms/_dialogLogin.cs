@@ -108,15 +108,15 @@ namespace CTM.Win.Forms
                 loginModel.Password = pwd;
             }
 
-            AppSettingHelper.Save(loginModel);
+            LoginHelper.Save(loginModel);
         }
 
         private void GetSavedLoginInfo()
         {
-            var loginInfo = AppSettingHelper.Load();
+            var loginInfo = LoginHelper.Load();
 
             if (loginInfo == null)
-                loginInfo = AppSettingHelper.LoadDefault();
+                loginInfo = LoginHelper.LoadDefault();
 
             this.txtAccount.Text = loginInfo.UserCode;
 

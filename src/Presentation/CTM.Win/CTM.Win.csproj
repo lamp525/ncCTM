@@ -557,7 +557,7 @@
     <Compile Include="Models\DepartmentInfoModel.cs" />
     <Compile Include="Models\DictionaryInfoModel.cs" />
     <Compile Include="Models\StockPoolInfoModel.cs" />
-    <Compile Include="Util\AppSettingHelper.cs" />
+    <Compile Include="Util\LoginHelper.cs" />
     <Compile Include="Forms\Admin\BaseData\FrmAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -628,6 +628,7 @@
     </Compile>
     <Compile Include="Util\DataSourceHelper.cs" />
     <Compile Include="Util\NetHelper.cs" />
+    <Compile Include="Util\SettingHelper.cs" />
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1046,6 +1047,7 @@
     <Content Include="DataTemplate\AccountingDelivery\ESSENCE_N.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="App_Data\Config\Config.ini" />
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1058,6 +1060,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Icon\" />
     <Folder Include="CustomControl\" />
     <Folder Include="Resources\" />
   </ItemGroup>

@@ -6,7 +6,7 @@ using CTM.Win.Models;
 
 namespace CTM.Win.Util
 {
-    public class AppSettingHelper
+    public class LoginHelper
     {
         private static string _directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static string _fileName = "87CFDD5F4EBA497C88B196ABD09AAA42.ini";
