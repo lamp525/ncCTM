@@ -83,7 +83,12 @@
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageFinish = new DevExpress.XtraWizard.CompletionWizardPage();
-            this.lblImportStatus = new DevExpress.XtraEditors.LabelControl();
+            this.layoutControl4 = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControlSkip = new DevExpress.XtraGrid.GridControl();
+            this.gridViewSkip = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciSkip = new DevExpress.XtraLayout.LayoutControlItem();
+            this.esiImportResult = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageAccount = new DevExpress.XtraWizard.WelcomeWizardPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.luSecurityCompany = new DevExpress.XtraEditors.LookUpEdit();
@@ -171,6 +176,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             this.PageFinish.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).BeginInit();
+            this.layoutControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).BeginInit();
             this.PageAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
@@ -736,7 +748,7 @@
             this.PageFinish.AllowBack = false;
             this.PageFinish.AllowCancel = false;
             this.PageFinish.AllowNext = false;
-            this.PageFinish.Controls.Add(this.lblImportStatus);
+            this.PageFinish.Controls.Add(this.layoutControl4);
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
@@ -744,14 +756,69 @@
             this.PageFinish.Text = "交易数据导入";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
-            // lblImportStatus
+            // layoutControl4
             // 
-            this.lblImportStatus.Appearance.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.lblImportStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblImportStatus.Location = new System.Drawing.Point(126, 121);
-            this.lblImportStatus.Name = "lblImportStatus";
-            this.lblImportStatus.Size = new System.Drawing.Size(261, 50);
-            this.lblImportStatus.TabIndex = 0;
+            this.layoutControl4.Controls.Add(this.gridControlSkip);
+            this.layoutControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl4.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl4.Name = "layoutControl4";
+            this.layoutControl4.Root = this.layoutControlGroup6;
+            this.layoutControl4.Size = new System.Drawing.Size(710, 411);
+            this.layoutControl4.TabIndex = 1;
+            this.layoutControl4.Text = "layoutControl4";
+            // 
+            // gridControlSkip
+            // 
+            this.gridControlSkip.Location = new System.Drawing.Point(12, 59);
+            this.gridControlSkip.MainView = this.gridViewSkip;
+            this.gridControlSkip.Name = "gridControlSkip";
+            this.gridControlSkip.Size = new System.Drawing.Size(686, 340);
+            this.gridControlSkip.TabIndex = 4;
+            this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewSkip});
+            // 
+            // gridViewSkip
+            // 
+            this.gridViewSkip.GridControl = this.gridControlSkip;
+            this.gridViewSkip.Name = "gridViewSkip";
+            this.gridViewSkip.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewSkip_CustomDrawRowIndicator);
+            // 
+            // layoutControlGroup6
+            // 
+            this.layoutControlGroup6.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup6.GroupBordersVisible = false;
+            this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciSkip,
+            this.esiImportResult});
+            this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup6.Name = "layoutControlGroup6";
+            this.layoutControlGroup6.Size = new System.Drawing.Size(710, 411);
+            this.layoutControlGroup6.TextVisible = false;
+            // 
+            // lciSkip
+            // 
+            this.lciSkip.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lciSkip.AppearanceItemCaption.Options.UseFont = true;
+            this.lciSkip.Control = this.gridControlSkip;
+            this.lciSkip.Location = new System.Drawing.Point(0, 30);
+            this.lciSkip.Name = "lciSkip";
+            this.lciSkip.Size = new System.Drawing.Size(690, 361);
+            this.lciSkip.Text = "已忽略的交易记录：";
+            this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciSkip.TextSize = new System.Drawing.Size(117, 14);
+            // 
+            // esiImportResult
+            // 
+            this.esiImportResult.AllowHotTrack = false;
+            this.esiImportResult.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.esiImportResult.AppearanceItemCaption.Options.UseFont = true;
+            this.esiImportResult.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.esiImportResult.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.esiImportResult.Location = new System.Drawing.Point(0, 0);
+            this.esiImportResult.Name = "esiImportResult";
+            this.esiImportResult.Size = new System.Drawing.Size(690, 30);
+            this.esiImportResult.TextSize = new System.Drawing.Size(117, 0);
+            this.esiImportResult.TextVisible = true;
             // 
             // PageAccount
             // 
@@ -1156,6 +1223,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             this.PageFinish.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).EndInit();
+            this.layoutControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).EndInit();
             this.PageAccount.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
@@ -1199,7 +1273,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraWizard.CompletionWizardPage PageFinish;
-        private DevExpress.XtraEditors.LabelControl lblImportStatus;
         private DevExpress.XtraWizard.WelcomeWizardPage PageAccount;
         private DevExpress.XtraWizard.WizardControl wizardControl1;
         private DevExpress.XtraEditors.TextEdit txtAccountType;
@@ -1267,5 +1340,11 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+        private DevExpress.XtraLayout.LayoutControl layoutControl4;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
+        private DevExpress.XtraGrid.GridControl gridControlSkip;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewSkip;
+        private DevExpress.XtraLayout.LayoutControlItem lciSkip;
+        private DevExpress.XtraLayout.EmptySpaceItem esiImportResult;
     }
 }

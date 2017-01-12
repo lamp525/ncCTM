@@ -122,11 +122,11 @@ namespace CTM.Services.TradeRecord
                 if (!string.IsNullOrEmpty(columnList[nameof(record.Incidentals)]))
                     record.Incidentals = CommonHelper.StringToDecimal(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
                 if (!string.IsNullOrEmpty(columnList["OtherFee1"]))
-                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee1"].ToString().Trim());
+                    record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee1"]].ToString().Trim());
                 if (!string.IsNullOrEmpty(columnList["OtherFee2"]))
-                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee2"].ToString().Trim());
+                    record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee2"]].ToString().Trim());
                 if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
-                    record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee3"].ToString().Trim());
+                    record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee3"]].ToString().Trim());
 
                 //成交编号
                 record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();

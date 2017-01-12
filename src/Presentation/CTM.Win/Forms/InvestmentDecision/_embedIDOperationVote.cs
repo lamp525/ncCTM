@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using CTM.Core;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
@@ -89,7 +90,6 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
             else
             {
-
                 var myVoteInfo = _IDService.GetIDOperationVoteInfo(LoginInfo.CurrentUser.UserCode, OperateNo);
 
                 //未投票
@@ -141,7 +141,6 @@ namespace CTM.Win.Forms.InvestmentDecision
                         this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                     else
                         this.lciAdminVeto.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-   
                 }
             }
 
@@ -188,7 +187,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
             }
 
-            _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent,this.chkAdminVeto.Checked);
+            _IDService.IDOperationVoteProcess(LoginInfo.CurrentUser.UserCode, ApplyNo, OperateNo, voteFlag, _reasonCategoryId, _reasonContent, this.chkAdminVeto.Checked);
 
             this._reasonCategoryId = -1;
             this._reasonContent = null;
@@ -316,7 +315,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
-
-
     }
 }

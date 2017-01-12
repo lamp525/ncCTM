@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -36,6 +37,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         private IniConfigHelper _iniConfigHelper;
 
         private bool _accountViewFirstDisplay = false;
+
+        private IList<DataRow> _skippedRecords = null;
 
         #endregion Fields
 
@@ -127,11 +130,11 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             this.gridControlAccount.DataSource = accounts;
 
-            if (!accounts.Any())
+            if (accounts.Count == 0)
             {
                 DXMessage.ShowTips($"证券公司【{securityCompanyName}】没有账户属性为【{accountAttributeName}】的账户信息，请重新选择！");
             }
-            else
+            else if (accounts.Count > 1)
             {
                 this.gridViewAccount.ClearSelection();
                 _accountViewFirstDisplay = true;
@@ -179,6 +182,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
             else
                 this.luOperator.ItemIndex = 0;
+
+            this.txtImportFileName.Text = string.Empty;
         }
 
         /// <summary>
@@ -245,7 +250,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                         TargetPrincipal = this.luTargetPrincipal.SelectedValue(),
                     };
 
-                    _dailyRecordService.DataImportProcess(_securityAccount, source, operationInfo);
+                    _skippedRecords = null;
+                    _dailyRecordService.DataImportProcess(_securityAccount, source, operationInfo, out _skippedRecords);
                 }
 
                 result = true;
@@ -268,6 +274,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             {
                 this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
                 this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -469,7 +476,18 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void PageFinish_PageInit(object sender, EventArgs e)
         {
-            this.lblImportStatus.Text = "交易数据导入成功。";
+            this.esiImportResult.Text = "交易数据导入完成。";
+
+            if (_skippedRecords == null || _skippedRecords.Count == 0)
+            {
+                this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            }
+            else
+            {
+                this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
+                this.gridViewSkip.PopulateColumns();
+                this.gridViewSkip.BestFitColumns();
+            }
         }
 
         private void wizardControl1_CancelClick(object sender, System.ComponentModel.CancelEventArgs e)
@@ -561,6 +579,14 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this._accountViewFirstDisplay = false;
             this.gridViewAccount.UnselectRow(e.PrevFocusedRowHandle);
             this.gridViewAccount.SelectRow(e.FocusedRowHandle);
+        }
+
+        private void gridViewSkip_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
         }
 
         /// <summary>

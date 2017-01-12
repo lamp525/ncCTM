@@ -547,7 +547,6 @@
     <Compile Include="Forms\Setting\_dialogChangePwd.Designer.cs">
       <DependentUpon>_dialogChangePwd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\CTMHelper.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Models\ComboBoxItemModel.cs" />
     <Compile Include="Util\DXMessage.cs" />

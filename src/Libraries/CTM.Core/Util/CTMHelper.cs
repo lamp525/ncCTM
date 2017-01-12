@@ -1,7 +1,7 @@
 ﻿using CTM.Core;
 using CTM.Core.Util;
 
-namespace CTM.Win.Util
+namespace CTM.Core.Util
 {
     public class CTMHelper
     {
@@ -39,6 +39,8 @@ namespace CTM.Win.Util
 
             return tradeType;
         }
+
+        public static string GetSecurityAccountName(int value) => value.ToEnumDescriptionString(typeof(EnumLibrary.SecurityAccount));
 
         /// <summary>
         /// 取得报表类别名称

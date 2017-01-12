@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Core.Infrastructure;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;

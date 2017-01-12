@@ -25,6 +25,8 @@ namespace CTM.Services.TradeRecord
         private readonly IStockService _stockService;
         private readonly IAccountService _accountService;
 
+        private IList<DataRow> _skippedRecords = null;
+
         #endregion Fields
 
         #region Constants
@@ -110,11 +112,6 @@ namespace CTM.Services.TradeRecord
         {
             var tradeRecords = new List<DailyRecord>();
 
-            foreach (var key in columnList.Keys)
-            {
-                columnList[key] = columnList[key].Trim();
-            }
-
             //当前账户信息
             AccountInfo currentAccount = isDelivery ? null : _accountService.GetAccountInfoById(importOperation.AccountId);
 
@@ -133,9 +130,11 @@ namespace CTM.Services.TradeRecord
             else
             {
                 validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
-                                                                                                            && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
+                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
                                                                                               .ToList();
             }
+
+            _skippedRecords = importDataTable.AsEnumerable().Where(x => !validRecords.Contains(x)).ToList();
 
             foreach (DataRow row in validRecords)
             {
@@ -148,7 +147,7 @@ namespace CTM.Services.TradeRecord
                     record.DealFlag = false;
                 else
                 {
-                    //跳过操作类型不明的交易记录
+                    _skippedRecords.Add(row);
                     continue;
                 }
 
@@ -156,8 +155,11 @@ namespace CTM.Services.TradeRecord
                 var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
                 var stockInfo = string.IsNullOrEmpty(stockCode) ? _stockService.GetStockInfoByName(stockName) : _stockService.GetStockInfoByCode(stockCode);
 
-                if (stockInfo == null) continue;
-
+                if (stockInfo == null)
+                {
+                    _skippedRecords.Add(row);
+                    continue;
+                }
                 //共通字段
                 record.SetTradeRecordCommonFields(importOperation);
                 //交易类别
@@ -203,11 +205,11 @@ namespace CTM.Services.TradeRecord
                     if (!string.IsNullOrEmpty(columnList[nameof(record.Incidentals)]))
                         record.Incidentals = CommonHelper.StringToDecimal(row[columnList[nameof(record.Incidentals)]].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee1"]))
-                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee1"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee1"]].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee2"]))
-                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee2"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee2"]].ToString().Trim());
                     if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
-                        record.Incidentals += CommonHelper.StringToDecimal(row["OtherFee3"].ToString().Trim());
+                        record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee3"]].ToString().Trim());
                 }
                 ///当日委托
                 else
@@ -324,6 +326,9 @@ namespace CTM.Services.TradeRecord
                 case EnumLibrary.SecurityAccount.BOCI_N:
                     result = EntrustImportBOCI_N(importOperation, importDataTable);
                     break;
+
+                default:
+                    throw new Exception($@"券商【{CTMHelper.GetSecurityAccountName((int)securityAccount)}】的委托数据导入功能未实现，请联系管理员！");
             }
             return result;
         }
@@ -913,6 +918,9 @@ namespace CTM.Services.TradeRecord
                 case EnumLibrary.SecurityAccount.BOCI_N:
                     result = DeliveryImportBOCI_N(importOperation, importDataTable);
                     break;
+
+                default:
+                    throw new Exception($@"券商【{CTMHelper.GetSecurityAccountName((int)securityAccount)}】的委托数据导入功能未实现，请联系管理员！");
             }
             return result;
         }
@@ -1676,8 +1684,10 @@ namespace CTM.Services.TradeRecord
 
         #region Methods
 
-        public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation)
+        public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation, out IList<DataRow> skippedRecords)
         {
+            _skippedRecords = null;
+
             ImportRecordsCheck(importDataTable, importOperation);
 
             IList<DailyRecord> records = new List<DailyRecord>();
@@ -1701,6 +1711,8 @@ namespace CTM.Services.TradeRecord
             }
 
             BatchInsertDailyRecords(records);
+
+            skippedRecords = _skippedRecords;
 
             return true;
         }

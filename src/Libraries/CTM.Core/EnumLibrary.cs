@@ -493,106 +493,127 @@ namespace CTM.Core
             /// <summary>
             /// 未知
             /// </summary>
+            [Description("未知")]
             Unknown,
 
             /// <summary>
             /// 中银国际（信用）
             /// </summary>
+            [Description("中银国际（信用）")]
             BOCI_C,
 
             /// <summary>
             /// 中银国际（普通）
             /// </summary>
+            [Description("中银国际（普通）")]
             BOCI_N,
 
             /// <summary>
             /// 财通证券（信用）
             /// </summary>
+            [Description("财通证券（信用）")]
             CaiTong_C,
 
             /// <summary>
             /// 财通证券（普通）
             /// </summary>
+            [Description("财通证券（普通）")]
             CaiTong_N,
 
             /// <summary>
             /// 中信证券（信用）
             /// </summary>
+            [Description("中信证券（信用）")]
             CITIC_C,
 
             /// <summary>
             /// 中信证券（普通）
             /// </summary>
+            [Description("中信证券（普通）")]
             CITIC_N,
 
             /// <summary>
             /// 安信证券（普通）
             /// </summary>
+            [Description("安信证券（普通）")]
             ESSENCE_N,
 
             /// <summary>
             /// 安信证券（信用）
             /// </summary>
+            [Description("安信证券（信用）")]
             ESSENCE_C,
 
             /// <summary>
             /// 方正证券（信用）
             /// </summary>
+            [Description("方正证券（信用）")]
             Founder_C,
 
             /// <summary>
             /// 方正证券（普通）
             /// </summary>
+            [Description("方正证券（普通）")]
             Founder_N,
 
             /// <summary>
             /// 银河证券（普通）
             /// </summary>
+            [Description("银河证券（普通）")]
             Galaxy_N,
 
             /// <summary>
             /// 国泰君安（信用）
             /// </summary>
+            [Description(" 国泰君安（信用）")]
             GuoTai_C,
 
             /// <summary>
             /// 国泰君安（普通）
             /// </summary>
+            [Description("国泰君安（普通）")]
             GuoTai_N,
 
             /// <summary>
             /// 华泰证券（普通）
             /// </summary>
+            [Description("华泰证券（普通）")]
             HuaTai_N,
 
             /// <summary>
             /// 华泰证券（信用）
             /// </summary>
+            [Description("华泰证券（信用）")]
             HuaTai_C,
 
             /// <summary>
             /// 申万证券（普通）
             /// </summary>
+            [Description("申万证券（普通）")]
             ShenWan_N,
 
             /// <summary>
             /// 国金证券（普通）
             /// </summary>
+            [Description("国金证券（普通）")]
             SinoLink_N,
 
             /// <summary>
             /// 招商证券（普通）
             /// </summary>
+            [Description("招商证券（普通）")]
             ZhaoShang_N,
 
             /// <summary>
             /// 浙商证券（信用）
             /// </summary>
+            [Description("浙商证券（信用）")]
             ZheShang_C,
 
             /// <summary>
             /// 浙商证券（普通）
             /// </summary>
+            [Description("浙商证券（普通）")]
             ZheShang_N,
         }
     }
