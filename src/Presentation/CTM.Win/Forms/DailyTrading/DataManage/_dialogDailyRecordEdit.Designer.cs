@@ -322,8 +322,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbTradeType.Size = new System.Drawing.Size(133, 20);
             this.cbTradeType.StyleController = this.layoutControl1;
-            this.cbTradeType.TabIndex = 4;
-            this.cbTradeType.SelectedIndexChanged += new System.EventHandler(this.cbTradeType_SelectedIndexChanged);
+            this.cbTradeType.TabIndex = 4;   
             // 
             // layoutControlGroup1
             // 

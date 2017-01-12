@@ -80,34 +80,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             cbTradeType.Initialize(tradeTypes, displayAdditionalItem: true, additionalItemText: "请选择...", additionalItemValue: "");
         }
 
-        private void BindBeneficiary(int tradeType)
+        private void BindBeneficiary()
         {
-            var deptIds = new List<int>();
-
-            deptIds.Add((int)EnumLibrary.AccountingDepartment.Independence);
-
-            switch ((EnumLibrary.TradeType)tradeType)
-            {
-                case EnumLibrary.TradeType.All:
-                    break;
-
-                case EnumLibrary.TradeType.Target:
-                    deptIds.Add((int)EnumLibrary.AccountingDepartment.Target);
-                    break;
-
-                case EnumLibrary.TradeType.Band:
-                    deptIds.Add((int)EnumLibrary.AccountingDepartment.Band);
-                    break;
-
-                case EnumLibrary.TradeType.Day:
-                    deptIds.Add((int)EnumLibrary.AccountingDepartment.Day);
-                    break;
-
-                default:
-                    break;
-            }
-
-            var beneficiaries = this._userService.GetUserInfos(departmentIds: deptIds.ToArray()).OrderBy(x => x.Code).ToList();
+            var beneficiaries = this._userService.GetAllOperators(true);
 
             luBeneficiary.Initialize(beneficiaries, "Code", "Name", showHeader: false, enableSearch: true);
         }
@@ -162,19 +137,19 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void _dialogDailyRecordEdit_Load(object sender, EventArgs e)
         {
-            BindTradeType();
+            try
+            {
+                BindTradeType();
+                BindBeneficiary();
 
-            this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-            this.gridControl1.DataSource = _records;
-        }
-
-        private void cbTradeType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var tradeType = this.cbTradeType.SelectedValue();
-
-            if (!string.IsNullOrEmpty(tradeType))
-                BindBeneficiary(int.Parse(tradeType));
+                this.gridView1.LoadLayout(_layoutXmlName);
+                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridControl1.DataSource = _records;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         /// <summary>
