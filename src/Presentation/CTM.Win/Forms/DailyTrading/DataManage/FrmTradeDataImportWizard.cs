@@ -35,9 +35,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private EnumLibrary.SecurityAccount _securityAccount;
         private IniConfigHelper _iniConfigHelper;
-
         private bool _accountViewFirstDisplay = false;
-
         private IList<DataRow> _skippedRecords = null;
 
         #endregion Fields
@@ -122,12 +120,10 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
                 DXMessage.ShowTips($"证券公司【{securityCompanyName}】的【{accountAttributeName}】账户暂不支持数据导入功能，请联系管理员！");
-
                 return;
             }
 
             var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode).OrderBy(x => x.Name).ToList();
-
             this.gridControlAccount.DataSource = accounts;
 
             if (accounts.Count == 0)
@@ -304,9 +300,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         /// <param name="e"></param>
         private void wizardControl1_PrevClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
         {
-            var pageName = e.Page.Name.Trim();
-
-            switch (pageName)
+            switch (e.Page.Name.Trim())
             {
                 case "PageFinish":
                     this.txtImportFileName.Text = string.Empty;
@@ -321,11 +315,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         /// <param name="e"></param>
         private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
         {
-            var pageName = e.Page.Name.Trim();
-
             try
             {
-                switch (pageName)
+                switch (e.Page.Name.Trim())
                 {
                     #region 账户选择画面
 
@@ -450,7 +442,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnBrowse.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
-
                 var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
 
                 myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
@@ -498,7 +489,13 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void wizardControl1_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Close();
+            if (this.wizardControl1.SelectedPage == PageFinish)
+                this.Close();
+            else
+            {
+                if (DXMessage.ShowYesNoAndTips("确定取消本次数据导入操作么？") == DialogResult.Yes)
+                    this.Close();
+            }
         }
 
         /// <summary>

@@ -160,6 +160,7 @@ namespace CTM.Services.TradeRecord
                     _skippedRecords.Add(row);
                     continue;
                 }
+
                 //共通字段
                 record.SetTradeRecordCommonFields(importOperation);
                 //交易类别
@@ -1686,9 +1687,9 @@ namespace CTM.Services.TradeRecord
 
         public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation, out IList<DataRow> skippedRecords)
         {
-            _skippedRecords = null;
-
             ImportRecordsCheck(importDataTable, importOperation);
+
+            _skippedRecords = null;
 
             IList<DailyRecord> records = new List<DailyRecord>();
 

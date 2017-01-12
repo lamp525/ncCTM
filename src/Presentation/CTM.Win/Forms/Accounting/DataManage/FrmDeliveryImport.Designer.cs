@@ -84,8 +84,16 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageFinish = new DevExpress.XtraWizard.CompletionWizardPage();
-            this.lblFinish = new DevExpress.XtraEditors.LabelControl();
+            this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControlSkip = new DevExpress.XtraGrid.GridControl();
+            this.gridViewSkip = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
+            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciProgress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciSkip = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.esiImportResult = new DevExpress.XtraLayout.EmptySpaceItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
             this.wizardControl1.SuspendLayout();
@@ -120,7 +128,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             this.PageFinish.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
+            this.layoutControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).BeginInit();
             this.SuspendLayout();
             // 
             // wizardControl1
@@ -146,7 +164,7 @@
             this.PageAccount.IntroductionText = "";
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
-            this.PageAccount.Size = new System.Drawing.Size(1099, 596);
+            this.PageAccount.Size = new System.Drawing.Size(1099, 595);
             this.PageAccount.Text = "选择交割单导入目标账户";
             // 
             // layoutControl1
@@ -158,7 +176,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1099, 596);
+            this.layoutControl1.Size = new System.Drawing.Size(1099, 595);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -167,7 +185,7 @@
             this.gridControlAccount.Location = new System.Drawing.Point(12, 87);
             this.gridControlAccount.MainView = this.gridViewAccount;
             this.gridControlAccount.Name = "gridControlAccount";
-            this.gridControlAccount.Size = new System.Drawing.Size(1075, 497);
+            this.gridControlAccount.Size = new System.Drawing.Size(1075, 496);
             this.gridControlAccount.TabIndex = 11;
             this.gridControlAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccount});
@@ -211,6 +229,7 @@
             this.gridViewAccount.OptionsView.ShowAutoFilterRow = true;
             this.gridViewAccount.OptionsView.ShowGroupPanel = false;
             this.gridViewAccount.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewAccount_CustomDrawRowIndicator);
+            this.gridViewAccount.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridViewAccount_FocusedRowChanged);
             // 
             // colAccountId
             // 
@@ -440,7 +459,7 @@
             this.layoutControlItem14});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1099, 596);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1099, 595);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem13
@@ -466,7 +485,7 @@
             this.layoutControlItem1.Control = this.gridControlAccount;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 58);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1079, 518);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1079, 517);
             this.layoutControlItem1.Text = "账户信息";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(60, 14);
@@ -494,7 +513,7 @@
             this.PageImport.Controls.Add(this.layoutControl2);
             this.PageImport.DescriptionText = "注意：请再次核对选择的目标账号是否正确。";
             this.PageImport.Name = "PageImport";
-            this.PageImport.Size = new System.Drawing.Size(1284, 585);
+            this.PageImport.Size = new System.Drawing.Size(1284, 583);
             this.PageImport.Text = "交割单数据导入预览";
             // 
             // layoutControl2
@@ -508,7 +527,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1284, 585);
+            this.layoutControl2.Size = new System.Drawing.Size(1284, 583);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -546,7 +565,7 @@
             this.gridControlPreview.Location = new System.Drawing.Point(12, 101);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(1260, 472);
+            this.gridControlPreview.Size = new System.Drawing.Size(1260, 470);
             this.gridControlPreview.TabIndex = 5;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -582,7 +601,7 @@
             this.emptySpaceItem5});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1284, 585);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1284, 583);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem2
@@ -601,7 +620,7 @@
             this.layoutControlItem3.Control = this.gridControlPreview;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1264, 493);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1264, 491);
             this.layoutControlItem3.Text = "导入数据预览";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(88, 14);
@@ -669,37 +688,119 @@
             // 
             this.PageFinish.AllowCancel = false;
             this.PageFinish.AllowNext = false;
-            this.PageFinish.Controls.Add(this.lblFinish);
-            this.PageFinish.Controls.Add(this.marqueeProgressBarControl1);
+            this.PageFinish.Controls.Add(this.layoutControl3);
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
-            this.PageFinish.Size = new System.Drawing.Size(1099, 596);
+            this.PageFinish.Size = new System.Drawing.Size(1099, 595);
             this.PageFinish.Text = "数据导入处理";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
-            // lblFinish
+            // layoutControl3
             // 
-            this.lblFinish.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lblFinish.Location = new System.Drawing.Point(220, 247);
-            this.lblFinish.Name = "lblFinish";
-            this.lblFinish.Size = new System.Drawing.Size(102, 18);
-            this.lblFinish.TabIndex = 1;
-            this.lblFinish.Text = "labelControl1";
-            this.lblFinish.Visible = false;
+            this.layoutControl3.Controls.Add(this.gridControlSkip);
+            this.layoutControl3.Controls.Add(this.marqueeProgressBarControl1);
+            this.layoutControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl3.Name = "layoutControl3";
+            this.layoutControl3.Root = this.layoutControlGroup3;
+            this.layoutControl3.Size = new System.Drawing.Size(1099, 595);
+            this.layoutControl3.TabIndex = 1;
+            this.layoutControl3.Text = "layoutControl3";
+            // 
+            // gridControlSkip
+            // 
+            this.gridControlSkip.Location = new System.Drawing.Point(12, 77);
+            this.gridControlSkip.MainView = this.gridViewSkip;
+            this.gridControlSkip.Name = "gridControlSkip";
+            this.gridControlSkip.Size = new System.Drawing.Size(1075, 506);
+            this.gridControlSkip.TabIndex = 4;
+            this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewSkip});
+            // 
+            // gridViewSkip
+            // 
+            this.gridViewSkip.GridControl = this.gridControlSkip;
+            this.gridViewSkip.Name = "gridViewSkip";
+            this.gridViewSkip.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewSkip_CustomDrawRowIndicator);
             // 
             // marqueeProgressBarControl1
             // 
             this.marqueeProgressBarControl1.EditValue = "";
-            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(220, 219);
+            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(212, 12);
             this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
             this.marqueeProgressBarControl1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.marqueeProgressBarControl1.Properties.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 40;
             this.marqueeProgressBarControl1.Properties.MarqueeWidth = 80;
             this.marqueeProgressBarControl1.Properties.ProgressAnimationMode = DevExpress.Utils.Drawing.ProgressAnimationMode.Cycle;
-            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(579, 22);
+            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(675, 18);
+            this.marqueeProgressBarControl1.StyleController = this.layoutControl3;
             this.marqueeProgressBarControl1.TabIndex = 0;
+            // 
+            // layoutControlGroup3
+            // 
+            this.layoutControlGroup3.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup3.GroupBordersVisible = false;
+            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciProgress,
+            this.lciSkip,
+            this.emptySpaceItem7,
+            this.emptySpaceItem8,
+            this.esiImportResult});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1099, 595);
+            this.layoutControlGroup3.TextVisible = false;
+            // 
+            // lciProgress
+            // 
+            this.lciProgress.Control = this.marqueeProgressBarControl1;
+            this.lciProgress.Location = new System.Drawing.Point(200, 0);
+            this.lciProgress.Name = "lciProgress";
+            this.lciProgress.Size = new System.Drawing.Size(679, 22);
+            this.lciProgress.TextSize = new System.Drawing.Size(0, 0);
+            this.lciProgress.TextVisible = false;
+            // 
+            // lciSkip
+            // 
+            this.lciSkip.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lciSkip.AppearanceItemCaption.Options.UseFont = true;
+            this.lciSkip.Control = this.gridControlSkip;
+            this.lciSkip.Location = new System.Drawing.Point(0, 48);
+            this.lciSkip.Name = "lciSkip";
+            this.lciSkip.Size = new System.Drawing.Size(1079, 527);
+            this.lciSkip.Text = "已忽略的交易记录";
+            this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciSkip.TextSize = new System.Drawing.Size(104, 14);
+            // 
+            // emptySpaceItem7
+            // 
+            this.emptySpaceItem7.AllowHotTrack = false;
+            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem7.Name = "emptySpaceItem7";
+            this.emptySpaceItem7.Size = new System.Drawing.Size(200, 22);
+            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem8
+            // 
+            this.emptySpaceItem8.AllowHotTrack = false;
+            this.emptySpaceItem8.Location = new System.Drawing.Point(879, 0);
+            this.emptySpaceItem8.Name = "emptySpaceItem8";
+            this.emptySpaceItem8.Size = new System.Drawing.Size(200, 22);
+            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // esiImportResult
+            // 
+            this.esiImportResult.AllowHotTrack = false;
+            this.esiImportResult.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.esiImportResult.AppearanceItemCaption.Options.UseFont = true;
+            this.esiImportResult.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.esiImportResult.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.esiImportResult.Location = new System.Drawing.Point(0, 22);
+            this.esiImportResult.Name = "esiImportResult";
+            this.esiImportResult.Size = new System.Drawing.Size(1079, 26);
+            this.esiImportResult.TextSize = new System.Drawing.Size(0, 0);
             // 
             // openFileDialog1
             // 
@@ -747,8 +848,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             this.PageFinish.ResumeLayout(false);
-            this.PageFinish.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
+            this.layoutControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -813,6 +923,14 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgressBarControl1;
-        private DevExpress.XtraEditors.LabelControl lblFinish;
+        private DevExpress.XtraLayout.LayoutControl layoutControl3;
+        private DevExpress.XtraGrid.GridControl gridControlSkip;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewSkip;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraLayout.LayoutControlItem lciProgress;
+        private DevExpress.XtraLayout.LayoutControlItem lciSkip;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
+        private DevExpress.XtraLayout.EmptySpaceItem esiImportResult;
     }
 }

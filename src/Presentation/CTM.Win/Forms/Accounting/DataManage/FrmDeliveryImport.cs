@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -27,6 +28,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private readonly ICommonService _commonService;
 
         private EnumLibrary.SecurityAccount _securityAccount;
+        private IniConfigHelper _iniConfigHelper;
+        private bool _accountViewFirstDisplay = false;
+        private IList<DataRow> _skippedRecords = null;
 
         #endregion Fields
 
@@ -48,6 +52,12 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this._deliveryRecordService = deliveryRecordService;
             this._dataImportCommonService = dataImportCommonService;
             this._commonService = commonService;
+
+            string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
+
+            configFilePath = Path.Combine(Application.StartupPath, configFilePath);
+
+            this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
         #endregion Constructors
@@ -99,21 +109,21 @@ namespace CTM.Win.Forms.Accounting.DataManage
             _securityAccount = _dataImportCommonService.GetSelectedSecurityCompanyEnum(securityCompanyName, accountAttributeName);
             if (_securityAccount == EnumLibrary.SecurityAccount.Unknown)
             {
-                DXMessage.ShowTips(string.Format("证券公司【{0}】的【{1}】账户暂不支持数据导入功能，请联系管理员！", securityCompanyName, accountAttributeName));
-
+                DXMessage.ShowTips($"证券公司【{securityCompanyName}】的【{accountAttributeName}】账户暂不支持数据导入功能，请联系管理员！");
                 return;
             }
 
             var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode).OrderBy(x => x.Name).ToList();
+            this.gridControlAccount.DataSource = accounts;
 
-            if (accounts.Any())
+            if (accounts.Count == 0)
             {
-                this.gridControlAccount.DataSource = accounts;
-                this.gridViewAccount.SelectRow(0);
+                DXMessage.ShowTips($"证券公司【{securityCompanyName}】没有账户属性为【{accountAttributeName}】的账户信息，请重新选择！");
             }
-            else
+            else if (accounts.Count > 1)
             {
-                DXMessage.ShowTips(string.Format("证券公司【{0}】没有账户属性为【{1}】的账户信息，请重新选择！", securityCompanyName, accountAttributeName));
+                this.gridViewAccount.ClearSelection();
+                _accountViewFirstDisplay = true;
             }
         }
 
@@ -130,6 +140,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
             }
+
+            this.txtFilePath.Text = string.Empty;
         }
 
         /// <summary>
@@ -165,6 +177,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
                 this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 60);
+                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -225,6 +238,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
+                var defaultPath = this._iniConfigHelper.GetString("Accounting", "TradeDataImportPath", null);
 
                 myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
@@ -235,7 +249,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 {
                     var fileName = myOpenFileDialog.FileName;
 
-                    this.txtFilePath.Text = myOpenFileDialog.FileName;
+                    this.txtFilePath.Text = fileName;
+                    this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(fileName));
 
                     //导入数据预览
                     BindPreviewData(fileName);
@@ -255,10 +270,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             try
             {
-                this.lblFinish.Text = string.Empty;
-                this.lblFinish.Visible = false;
+                this.esiImportResult.Text = string.Empty;
+                this.esiImportResult.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 this.PageFinish.AllowBack = false;
 
+                this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.marqueeProgressBarControl1.Visible = true;
                 this.marqueeProgressBarControl1.Text = "数据导入中...请稍后...";
                 this.marqueeProgressBarControl1.Properties.ShowTitle = true;
@@ -300,7 +316,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
                         ImportUserCode = LoginInfo.CurrentUser.UserCode,
                         DataType = EnumLibrary.DataType.Delivery,
                     };
-                    _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo);
+
+                    _skippedRecords = null;
+                    _deliveryRecordService.DataImportProcess(_securityAccount, source, operationInfo, out _skippedRecords);
                 }
             }
             catch (Exception ex)
@@ -311,38 +329,42 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private void DataImportCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.marqueeProgressBarControl1.Properties.Stopped = true;
             this.marqueeProgressBarControl1.Visible = false;
-            this.lblFinish.Visible = true;
+            this.esiImportResult.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
 
             if (e.Error == null && e.Result == null)
             {
-                this.lblFinish.Text = "数据导入完成！";
-                this.lblFinish.ForeColor = System.Drawing.Color.Black;
+                this.esiImportResult.Text = "数据导入完成！";
+                this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
                 this.PageFinish.AllowBack = false;
+
+                if (_skippedRecords == null || _skippedRecords.Count == 0)
+                {
+                    this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                }
+                else
+                {
+                    this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
+                    this.gridViewSkip.PopulateColumns();
+                    this.gridViewSkip.BestFitColumns();
+                }
             }
             else
             {
                 var msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
-                this.lblFinish.Text = msg;
-                this.lblFinish.ForeColor = System.Drawing.Color.Red;
+                this.esiImportResult.Text = msg;
+                this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                 this.PageFinish.AllowBack = true;
             }
         }
 
-        private void wizardControl1_CancelClick(object sender, CancelEventArgs e)
-        {
-            if (DXMessage.ShowYesNoAndTips("确定取消本次数据导入操作么？") == DialogResult.Yes)
-                this.Close();
-        }
-
         private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
         {
-            var pageName = e.Page.Name.Trim();
-
             try
             {
-                switch (pageName)
+                switch (e.Page.Name.Trim())
                 {
                     case "PageAccount":
 
@@ -367,21 +389,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
                             e.Handled = true;
                             return;
                         }
-                        //else
-                        //{
-                        //    var rowHandles = this.gridViewAccount.GetSelectedRows();
-
-                        //    var operators = this.gridViewAccount.GetRowCellValue(rowHandles[0], colOperatorNames);
-
-                        //    if (operators == null || string.IsNullOrEmpty(operators.ToString()))
-                        //    {
-                        //        DXMessage.ShowTips("该账号未设置操作人员，请联系管理员！");
-                        //        e.Handled = true;
-                        //        return;
-                        //    }
-                        //    else
-                        //        BindDataImportInfo();
-                        //}
 
                         BindDataImportInfo();
                         break;
@@ -415,9 +422,21 @@ namespace CTM.Win.Forms.Accounting.DataManage
             }
         }
 
+        private void wizardControl1_CancelClick(object sender, CancelEventArgs e)
+        {
+            if (DXMessage.ShowYesNoAndTips("确定取消本次数据导入操作么？") == DialogResult.Yes)
+                this.Close();
+        }
+
         private void wizardControl1_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Close();
+            if (this.wizardControl1.SelectedPage == PageFinish)
+                this.Close();
+            else
+            {
+                if (DXMessage.ShowYesNoAndTips("确定取消本次数据导入操作么？") == DialogResult.Yes)
+                    this.Close();
+            }
         }
 
         private void gridViewAccount_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
@@ -425,10 +444,27 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+                if (this._accountViewFirstDisplay)
+                    e.Info.ImageIndex = -1;
             }
         }
 
+        private void gridViewAccount_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            this._accountViewFirstDisplay = false;
+            this.gridViewAccount.UnselectRow(e.PrevFocusedRowHandle);
+            this.gridViewAccount.SelectRow(e.FocusedRowHandle);
+        }
+
         private void gridViewPreview_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridViewSkip_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {

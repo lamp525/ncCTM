@@ -23,6 +23,8 @@ namespace CTM.Services.TradeRecord
         private readonly IDataImportCommonService _dataImportService;
         private readonly IStockService _stockService;
 
+        private IList<DataRow> _skippedRecords = null;
+
         #endregion Fields
 
         #region Constructors
@@ -60,17 +62,14 @@ namespace CTM.Services.TradeRecord
         {
             var tradeRecords = new List<DeliveryRecord>();
 
-            foreach (var key in columnList.Keys)
-            {
-                columnList[key] = columnList[key].Trim();
-            }
-
             DeliveryRecord record = null;
 
             List<DataRow> validRecords = new List<DataRow>();
 
             ///过滤记录
             validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0).ToList();
+
+            _skippedRecords = importDataTable.AsEnumerable().Where(x => !validRecords.Contains(x)).ToList();
 
             foreach (DataRow row in validRecords)
             {
@@ -81,9 +80,13 @@ namespace CTM.Services.TradeRecord
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
                 var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
-                var stockInfo =string.IsNullOrEmpty (stockCode)? _stockService.GetStockInfoByName(stockName):_stockService.GetStockInfoByCode (stockCode );
+                var stockInfo = string.IsNullOrEmpty(stockCode) ? _stockService.GetStockInfoByName(stockName) : _stockService.GetStockInfoByCode(stockCode);
 
-                if (stockInfo == null) continue;
+                if (stockInfo == null)
+                {
+                    _skippedRecords.Add(row);
+                    continue;
+                }
 
                 //共通字段
                 record.SetTradeRecordCommonFields(importOperation);
@@ -925,8 +928,10 @@ namespace CTM.Services.TradeRecord
 
         #region Methods
 
-        public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation)
+        public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation, out IList<DataRow> skippedRecords)
         {
+            _skippedRecords = null;
+
             IList<DeliveryRecord> records = new List<DeliveryRecord>();
 
             switch (securityAccount)
@@ -1023,6 +1028,8 @@ namespace CTM.Services.TradeRecord
             }
 
             BatchInsertDeliveryRecords(records);
+
+            skippedRecords = _skippedRecords;
 
             return true;
         }
