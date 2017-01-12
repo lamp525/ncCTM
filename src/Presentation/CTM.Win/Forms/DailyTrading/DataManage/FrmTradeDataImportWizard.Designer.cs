@@ -769,10 +769,10 @@
             // 
             // gridControlSkip
             // 
-            this.gridControlSkip.Location = new System.Drawing.Point(12, 59);
+            this.gridControlSkip.Location = new System.Drawing.Point(12, 54);
             this.gridControlSkip.MainView = this.gridViewSkip;
             this.gridControlSkip.Name = "gridControlSkip";
-            this.gridControlSkip.Size = new System.Drawing.Size(686, 340);
+            this.gridControlSkip.Size = new System.Drawing.Size(686, 345);
             this.gridControlSkip.TabIndex = 4;
             this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSkip});
@@ -800,9 +800,9 @@
             this.lciSkip.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.lciSkip.AppearanceItemCaption.Options.UseFont = true;
             this.lciSkip.Control = this.gridControlSkip;
-            this.lciSkip.Location = new System.Drawing.Point(0, 30);
+            this.lciSkip.Location = new System.Drawing.Point(0, 25);
             this.lciSkip.Name = "lciSkip";
-            this.lciSkip.Size = new System.Drawing.Size(690, 361);
+            this.lciSkip.Size = new System.Drawing.Size(690, 366);
             this.lciSkip.Text = "已忽略的交易记录：";
             this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciSkip.TextSize = new System.Drawing.Size(117, 14);
@@ -816,7 +816,7 @@
             this.esiImportResult.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiImportResult.Location = new System.Drawing.Point(0, 0);
             this.esiImportResult.Name = "esiImportResult";
-            this.esiImportResult.Size = new System.Drawing.Size(690, 30);
+            this.esiImportResult.Size = new System.Drawing.Size(690, 25);
             this.esiImportResult.TextSize = new System.Drawing.Size(117, 0);
             this.esiImportResult.TextVisible = true;
             // 

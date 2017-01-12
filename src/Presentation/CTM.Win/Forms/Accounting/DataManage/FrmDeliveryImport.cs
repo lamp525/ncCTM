@@ -250,7 +250,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     var fileName = myOpenFileDialog.FileName;
 
                     this.txtFilePath.Text = fileName;
-                    this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(fileName));
+                    this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(fileName));
 
                     //导入数据预览
                     BindPreviewData(fileName);
@@ -342,10 +342,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
                 if (_skippedRecords == null || _skippedRecords.Count == 0)
                 {
-                    this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                    this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 }
                 else
                 {
+                    this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                     this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
                     this.gridViewSkip.PopulateColumns();
                     this.gridViewSkip.BestFitColumns();
@@ -469,6 +470,24 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void btnExportSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExportSkip.Enabled = false;
+                var fileName = Path.GetFileNameWithoutExtension(this.txtFilePath.Text) + " （未导入）";
+                this.gridViewSkip.ExportToExcelAndOpen(fileName);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExportSkip.Enabled = true;
             }
         }
 

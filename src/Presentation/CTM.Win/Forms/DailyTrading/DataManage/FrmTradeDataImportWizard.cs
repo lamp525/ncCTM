@@ -475,6 +475,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
             else
             {
+                this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
                 this.gridViewSkip.PopulateColumns();
                 this.gridViewSkip.BestFitColumns();
