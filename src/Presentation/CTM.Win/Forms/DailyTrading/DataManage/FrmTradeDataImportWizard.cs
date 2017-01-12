@@ -33,8 +33,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         private readonly ICommonService _commonService;
 
         private EnumLibrary.SecurityAccount _securityAccount;
+        private IniConfigHelper _iniConfigHelper;
 
-        private string _defaultImportFilePath = null;
+        private bool _accountViewFirstDisplay = false;
 
         #endregion Fields
 
@@ -60,6 +61,12 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this._dataImportCommonService = dataImportService;
             this._marginService = marginService;
             this._commonService = commonService;
+
+            string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
+
+            configFilePath = Path.Combine(Application.StartupPath, configFilePath);
+
+            this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
         #endregion Constructors
@@ -118,14 +125,16 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             var accounts = _accountService.GetAccountDetails(securityCompanyCode: securityCompanyCode, attributeCode: accountAttributeCode).OrderBy(x => x.Name).ToList();
 
-            if (accounts.Any())
+            this.gridControlAccount.DataSource = accounts;
+
+            if (!accounts.Any())
             {
-                this.gridControlAccount.DataSource = accounts;
-                this.gridViewAccount.SelectRow(0);
+                DXMessage.ShowTips($"证券公司【{securityCompanyName}】没有账户属性为【{accountAttributeName}】的账户信息，请重新选择！");
             }
             else
             {
-                DXMessage.ShowTips($"证券公司【{securityCompanyName}】没有账户属性为【{accountAttributeName}】的账户信息，请重新选择！");
+                this.gridViewAccount.ClearSelection();
+                _accountViewFirstDisplay = true;
             }
         }
 
@@ -435,15 +444,17 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 var myOpenFileDialog = this.openFileDialog1;
 
-                myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(_defaultImportFilePath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : _defaultImportFilePath;
+                var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
+
+                myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
 
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
-                {      
+                {
                     this.txtImportFileName.Text = myOpenFileDialog.FileName;
-                    _defaultImportFilePath = myOpenFileDialog.InitialDirectory;
+                    this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
                 }
             }
             catch (Exception ex)
@@ -540,7 +551,16 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+                if (this._accountViewFirstDisplay)
+                    e.Info.ImageIndex = -1;
             }
+        }
+
+        private void gridViewAccount_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            this._accountViewFirstDisplay = false;
+            this.gridViewAccount.UnselectRow(e.PrevFocusedRowHandle);
+            this.gridViewAccount.SelectRow(e.FocusedRowHandle);
         }
 
         /// <summary>

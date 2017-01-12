@@ -418,7 +418,7 @@
             // 
             // txtAccountPlan
             // 
-            this.txtAccountPlan.Location = new System.Drawing.Point(123, 139);
+            this.txtAccountPlan.Location = new System.Drawing.Point(123, 138);
             this.txtAccountPlan.Name = "txtAccountPlan";
             this.txtAccountPlan.Properties.ReadOnly = true;
             this.txtAccountPlan.Size = new System.Drawing.Size(285, 20);
@@ -458,7 +458,7 @@
             // 
             // txtAccountType
             // 
-            this.txtAccountType.Location = new System.Drawing.Point(123, 115);
+            this.txtAccountType.Location = new System.Drawing.Point(123, 114);
             this.txtAccountType.Name = "txtAccountType";
             this.txtAccountType.Properties.ReadOnly = true;
             this.txtAccountType.Size = new System.Drawing.Size(285, 20);
@@ -499,7 +499,7 @@
             // 
             // txtAccountAttribute
             // 
-            this.txtAccountAttribute.Location = new System.Drawing.Point(123, 91);
+            this.txtAccountAttribute.Location = new System.Drawing.Point(123, 90);
             this.txtAccountAttribute.Name = "txtAccountAttribute";
             this.txtAccountAttribute.Properties.ReadOnly = true;
             this.txtAccountAttribute.Size = new System.Drawing.Size(285, 20);
@@ -508,7 +508,7 @@
             // 
             // txtSecurityCompany
             // 
-            this.txtSecurityCompany.Location = new System.Drawing.Point(123, 67);
+            this.txtSecurityCompany.Location = new System.Drawing.Point(123, 66);
             this.txtSecurityCompany.Name = "txtSecurityCompany";
             this.txtSecurityCompany.Properties.ReadOnly = true;
             this.txtSecurityCompany.Size = new System.Drawing.Size(285, 20);
@@ -517,7 +517,7 @@
             // 
             // txtAccountName
             // 
-            this.txtAccountName.Location = new System.Drawing.Point(123, 43);
+            this.txtAccountName.Location = new System.Drawing.Point(123, 42);
             this.txtAccountName.Name = "txtAccountName";
             this.txtAccountName.Properties.ReadOnly = true;
             this.txtAccountName.Size = new System.Drawing.Size(285, 20);
@@ -551,7 +551,7 @@
             this.layoutControlItem9});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 163);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 162);
             this.layoutControlGroup2.Text = "交易数据来源信息";
             // 
             // layoutControlItem1
@@ -630,9 +630,9 @@
             this.layoutControlItem17,
             this.layoutControlItem10,
             this.emptySpaceItem8});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 200);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 201);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(764, 140);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(764, 139);
             this.layoutControlGroup3.Text = "交易数据导入信息";
             // 
             // layoutControlItem5
@@ -726,9 +726,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 163);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 162);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(764, 37);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(764, 39);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // PageFinish
@@ -830,6 +830,7 @@
             this.gridViewAccount.OptionsView.ShowAutoFilterRow = true;
             this.gridViewAccount.OptionsView.ShowGroupPanel = false;
             this.gridViewAccount.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewAccount_CustomDrawRowIndicator);
+            this.gridViewAccount.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridViewAccount_FocusedRowChanged);
             // 
             // colAccountId
             // 

@@ -628,7 +628,7 @@
     </Compile>
     <Compile Include="Util\DataSourceHelper.cs" />
     <Compile Include="Util\NetHelper.cs" />
-    <Compile Include="Util\SettingHelper.cs" />
+    <Compile Include="Util\IniConfigHelper.cs" />
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
     <Content Include="External\DailyTradeIdentification\Client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -843,6 +843,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -1047,7 +1048,9 @@
     <Content Include="DataTemplate\AccountingDelivery\ESSENCE_N.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="App_Data\Config\Config.ini" />
+    <Content Include="App_Data\Config\Config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
