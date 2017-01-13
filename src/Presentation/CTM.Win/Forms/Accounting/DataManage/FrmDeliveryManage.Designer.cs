@@ -648,6 +648,7 @@
             // 
             this.layoutControlGroup2.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.layoutControlGroup2.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup2.ExpandButtonVisible = true;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem12,
             this.layoutControlItem6,
