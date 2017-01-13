@@ -168,8 +168,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
             dialog.AccountId = _currentAccountId;
             dialog.StockCode = string.IsNullOrEmpty(entity.DE_StockCode) ? entity.DA_StockCode : entity.DE_StockCode;
             dialog.StockName = string.IsNullOrEmpty(entity.DE_StockName) ? entity.DA_StockName : entity.DE_StockName;
-            dialog.TradeDate = entity.DE_TradeDate.Value;
-            dialog.DealFlag = entity.DE_DealFlag.HasValue ? entity.DE_DealFlag.Value  : entity.DA_DealFlag.Value ;
+            dialog.FromDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
+            dialog.ToDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
+            dialog.DealFlag = entity.DE_DealFlag.HasValue ? entity.DE_DealFlag.Value : entity.DA_DealFlag.Value;
             dialog.Show();
         }
 

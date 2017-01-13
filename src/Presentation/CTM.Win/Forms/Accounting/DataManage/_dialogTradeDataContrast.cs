@@ -15,7 +15,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         public string AccountInfo { get; set; }
 
-        public DateTime TradeDate { get; set; }
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
 
         public string StockCode { get; set; }
 
@@ -38,17 +40,17 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private void FormInit()
         {
-            this.esiTitle.Text = $@"{TradeDate.ToShortDateString()} - [{AccountInfo}] - [{StockCode} - {StockName}] ";
+            this.esiTitle.Text = $@"{FromDate.ToShortDateString()} - {ToDate.ToShortDateString()}  [{AccountInfo}] - [{StockCode} - {StockName}] ";
 
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false,rowIndicatorWidth:35);
-            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35);
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false,rowIndicatorWidth: 45);
+            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 45);
         }
 
         private void BindTradeDate()
         {
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-            var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @TradeDate = '{TradeDate}' , @DealFlag = {DealFlag}";
+            var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @FromDate = '{FromDate}' , @ToDate = '{ToDate}' , @DealFlag = {DealFlag}";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 

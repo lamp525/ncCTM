@@ -33,6 +33,7 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colStockCode_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName_R = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeDate_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTime_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlagName_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealPrice_R = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,6 +47,7 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colStockCode_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName_L = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeDate_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTime_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealFlagName_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealPrice_L = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -77,16 +79,16 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1432, 715);
+            this.layoutControl1.Size = new System.Drawing.Size(1477, 715);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(581, 71);
+            this.gridControl2.Location = new System.Drawing.Point(599, 71);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(839, 632);
+            this.gridControl2.Size = new System.Drawing.Size(866, 632);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -96,6 +98,7 @@
             this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colStockCode_R,
             this.colStockName_R,
+            this.colTradeDate_R,
             this.colTradeTime_R,
             this.colDealFlagName_R,
             this.colDealPrice_R,
@@ -125,8 +128,6 @@
             this.colStockCode_R.Caption = "证券代码";
             this.colStockCode_R.FieldName = "StockCode";
             this.colStockCode_R.Name = "colStockCode_R";
-            this.colStockCode_R.Visible = true;
-            this.colStockCode_R.VisibleIndex = 0;
             this.colStockCode_R.Width = 70;
             // 
             // colStockName_R
@@ -135,8 +136,17 @@
             this.colStockName_R.FieldName = "StockName";
             this.colStockName_R.Name = "colStockName_R";
             this.colStockName_R.Visible = true;
-            this.colStockName_R.VisibleIndex = 1;
+            this.colStockName_R.VisibleIndex = 0;
             this.colStockName_R.Width = 70;
+            // 
+            // colTradeDate_R
+            // 
+            this.colTradeDate_R.Caption = "交易日期";
+            this.colTradeDate_R.FieldName = "TradeDate";
+            this.colTradeDate_R.Name = "colTradeDate_R";
+            this.colTradeDate_R.Visible = true;
+            this.colTradeDate_R.VisibleIndex = 1;
+            this.colTradeDate_R.Width = 80;
             // 
             // colTradeTime_R
             // 
@@ -226,7 +236,7 @@
             this.gridControl1.Location = new System.Drawing.Point(12, 71);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(565, 632);
+            this.gridControl1.Size = new System.Drawing.Size(583, 632);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -236,6 +246,7 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colStockCode_L,
             this.colStockName_L,
+            this.colTradeDate_L,
             this.colTradeTime_L,
             this.colDealFlagName_L,
             this.colDealPrice_L,
@@ -261,8 +272,6 @@
             this.colStockCode_L.Caption = "证券代码";
             this.colStockCode_L.FieldName = "StockCode";
             this.colStockCode_L.Name = "colStockCode_L";
-            this.colStockCode_L.Visible = true;
-            this.colStockCode_L.VisibleIndex = 0;
             this.colStockCode_L.Width = 70;
             // 
             // colStockName_L
@@ -271,8 +280,17 @@
             this.colStockName_L.FieldName = "StockName";
             this.colStockName_L.Name = "colStockName_L";
             this.colStockName_L.Visible = true;
-            this.colStockName_L.VisibleIndex = 1;
+            this.colStockName_L.VisibleIndex = 0;
             this.colStockName_L.Width = 70;
+            // 
+            // colTradeDate_L
+            // 
+            this.colTradeDate_L.Caption = "交易日期";
+            this.colTradeDate_L.FieldName = "TradeDate";
+            this.colTradeDate_L.Name = "colTradeDate_L";
+            this.colTradeDate_L.Visible = true;
+            this.colTradeDate_L.VisibleIndex = 1;
+            this.colTradeDate_L.Width = 80;
             // 
             // colTradeTime_L
             // 
@@ -333,7 +351,7 @@
             this.emptySpaceItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1432, 715);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1477, 715);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -345,7 +363,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 39);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(569, 656);
+            this.layoutControlItem1.Size = new System.Drawing.Size(587, 656);
             this.layoutControlItem1.Text = "财务核算交割单";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(105, 17);
@@ -357,9 +375,9 @@
             this.layoutControlItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.layoutControlItem2.Control = this.gridControl2;
-            this.layoutControlItem2.Location = new System.Drawing.Point(569, 39);
+            this.layoutControlItem2.Location = new System.Drawing.Point(587, 39);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(843, 656);
+            this.layoutControlItem2.Size = new System.Drawing.Size(870, 656);
             this.layoutControlItem2.Text = "每日交易数据";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(105, 17);
@@ -373,7 +391,7 @@
             this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
-            this.esiTitle.Size = new System.Drawing.Size(1412, 29);
+            this.esiTitle.Size = new System.Drawing.Size(1457, 29);
             this.esiTitle.TextSize = new System.Drawing.Size(105, 0);
             this.esiTitle.TextVisible = true;
             // 
@@ -382,14 +400,14 @@
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(0, 29);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1412, 10);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(1457, 10);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // _dialogTradeDataContrast
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1432, 715);
+            this.ClientSize = new System.Drawing.Size(1477, 715);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogTradeDataContrast";
             this.Text = "_dialogTradeDataContrast";
@@ -439,5 +457,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colActualAmount_L;
         private DevExpress.XtraGrid.Columns.GridColumn colBeneficaryName;
         private DevExpress.XtraGrid.Columns.GridColumn colImportUserName;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeDate_R;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeDate_L;
     }
 }
