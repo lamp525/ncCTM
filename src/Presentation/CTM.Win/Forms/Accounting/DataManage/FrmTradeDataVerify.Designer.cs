@@ -298,6 +298,8 @@
             // colDE_TotalActualAmount
             // 
             this.colDE_TotalActualAmount.Caption = "发生金额";
+            this.colDE_TotalActualAmount.DisplayFormat.FormatString = "N";
+            this.colDE_TotalActualAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDE_TotalActualAmount.FieldName = "DE_TotalActualAmount";
             this.colDE_TotalActualAmount.Name = "colDE_TotalActualAmount";
             this.colDE_TotalActualAmount.Visible = true;
@@ -306,6 +308,8 @@
             // colDE_TotalDealVolume
             // 
             this.colDE_TotalDealVolume.Caption = "成交数量";
+            this.colDE_TotalDealVolume.DisplayFormat.FormatString = "N";
+            this.colDE_TotalDealVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDE_TotalDealVolume.FieldName = "DE_TotalDealVolume";
             this.colDE_TotalDealVolume.Name = "colDE_TotalDealVolume";
             this.colDE_TotalDealVolume.Visible = true;
@@ -329,6 +333,8 @@
             this.colAmountDiff.AppearanceCell.BackColor = System.Drawing.Color.Azure;
             this.colAmountDiff.AppearanceCell.Options.UseBackColor = true;
             this.colAmountDiff.Caption = "差额（金额）";
+            this.colAmountDiff.DisplayFormat.FormatString = "N";
+            this.colAmountDiff.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colAmountDiff.FieldName = "AmountDiff";
             this.colAmountDiff.Name = "colAmountDiff";
             this.colAmountDiff.Visible = true;
@@ -339,6 +345,8 @@
             this.colVolumeDiff.AppearanceCell.BackColor = System.Drawing.Color.Azure;
             this.colVolumeDiff.AppearanceCell.Options.UseBackColor = true;
             this.colVolumeDiff.Caption = "差额（数量）";
+            this.colVolumeDiff.DisplayFormat.FormatString = "N";
+            this.colVolumeDiff.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colVolumeDiff.FieldName = "VolumeDiff";
             this.colVolumeDiff.Name = "colVolumeDiff";
             this.colVolumeDiff.Visible = true;
@@ -365,6 +373,8 @@
             // colDA_TotalDealVolume
             // 
             this.colDA_TotalDealVolume.Caption = "成交数量";
+            this.colDA_TotalDealVolume.DisplayFormat.FormatString = "N";
+            this.colDA_TotalDealVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDA_TotalDealVolume.FieldName = "DA_TotalDealVolume";
             this.colDA_TotalDealVolume.Name = "colDA_TotalDealVolume";
             this.colDA_TotalDealVolume.Visible = true;
@@ -373,6 +383,8 @@
             // colDA_TotalActualAmount
             // 
             this.colDA_TotalActualAmount.Caption = "发生金额";
+            this.colDA_TotalActualAmount.DisplayFormat.FormatString = "N";
+            this.colDA_TotalActualAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDA_TotalActualAmount.FieldName = "DA_TotalActualAmount";
             this.colDA_TotalActualAmount.Name = "colDA_TotalActualAmount";
             this.colDA_TotalActualAmount.Visible = true;

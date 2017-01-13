@@ -222,7 +222,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                     DisplayMember = "  全部  ",
                 };
                 accounts.Add(allAccountModel);
-                accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ToList();
             }
             else if (this.radioGroup1.SelectedIndex == 1)
             {
@@ -230,6 +229,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 accounts = _accountService.GetAccountDetails(accountIds: operateAccountIds.ToArray());
             }
 
+            accounts = accounts.OrderBy(x => x.Name).ThenBy(x => x.SecurityCompanyName).ThenBy(x => x.AttributeName).ToList();
             luAccount.Initialize(accounts, "Id", "DisplayMember", enableSearch: true);
         }
 
@@ -286,6 +286,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         /// </summary>
         private void BindTradeRecord(SearchModel seachCondition)
         {
+            this.gridControl1.DataSource = null;
+
             var today = _commonService.GetCurrentServerTime().Date;
 
             if (seachCondition == null)
@@ -431,7 +433,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 this.gridView1.LoadLayout(_layoutXmlName);
 
-                this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, rowIndicatorWidth: 70, showCheckBoxRowSelect: true);
+                this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, rowIndicatorWidth: 60, showCheckBoxRowSelect: true);
 
                 BindSearchInfo();
 

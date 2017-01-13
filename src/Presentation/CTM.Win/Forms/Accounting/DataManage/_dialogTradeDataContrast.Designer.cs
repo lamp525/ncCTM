@@ -168,6 +168,8 @@
             // colDealVolume_R
             // 
             this.colDealVolume_R.Caption = "成交数量";
+            this.colDealVolume_R.DisplayFormat.FormatString = "N";
+            this.colDealVolume_R.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealVolume_R.FieldName = "DealVolume";
             this.colDealVolume_R.Name = "colDealVolume_R";
             this.colDealVolume_R.Visible = true;
@@ -176,6 +178,8 @@
             // colActualAmount_R
             // 
             this.colActualAmount_R.Caption = "发生金额";
+            this.colActualAmount_R.DisplayFormat.FormatString = "N";
+            this.colActualAmount_R.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colActualAmount_R.FieldName = "ActualAmount";
             this.colActualAmount_R.Name = "colActualAmount_R";
             this.colActualAmount_R.Visible = true;
@@ -300,6 +304,8 @@
             // colDealVolume_L
             // 
             this.colDealVolume_L.Caption = "成交数量";
+            this.colDealVolume_L.DisplayFormat.FormatString = "N";
+            this.colDealVolume_L.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealVolume_L.FieldName = "DealVolume";
             this.colDealVolume_L.Name = "colDealVolume_L";
             this.colDealVolume_L.Visible = true;
@@ -308,6 +314,8 @@
             // colActualAmount_L
             // 
             this.colActualAmount_L.Caption = "发生金额";
+            this.colActualAmount_L.DisplayFormat.FormatString = "N";
+            this.colActualAmount_L.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colActualAmount_L.FieldName = "ActualAmount";
             this.colActualAmount_L.Name = "colActualAmount_L";
             this.colActualAmount_L.Visible = true;

@@ -18,13 +18,13 @@ namespace CTM.Services.StatisticsReport
 
         public decimal? DE_TotalActualAmount { get; set; }
 
-        public int? DE_TotalDealVolume { get; set; }
+        public decimal? DE_TotalDealVolume { get; set; }
 
         #endregion DeliveryData
 
         public decimal AmountDiff { get; set; }
 
-        public int VolumeDiff { get; set; }
+        public decimal VolumeDiff { get; set; }
 
         #region DailyData
 
@@ -40,7 +40,7 @@ namespace CTM.Services.StatisticsReport
 
         public decimal? DA_TotalActualAmount { get; set; }
 
-        public int? DA_TotalDealVolume { get; set; }
+        public decimal? DA_TotalDealVolume { get; set; }
 
         #endregion DailyData
     }
