@@ -325,9 +325,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                         }
                         else
                         {
-                            var rowHandles = this.gridViewAccount.GetSelectedRows();
-
-                            var operators = this.gridViewAccount.GetRowCellValue(rowHandles[0], colOperatorNames);
+                            var operators = this.gridViewAccount.GetRowCellValue(this.gridViewAccount.FocusedRowHandle, colOperatorNames);
 
                             if (operators == null || string.IsNullOrEmpty(operators.ToString()))
                             {
