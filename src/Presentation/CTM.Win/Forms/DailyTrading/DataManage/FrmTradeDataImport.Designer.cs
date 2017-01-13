@@ -31,11 +31,16 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.PageFinish = new DevExpress.XtraWizard.CompletionWizardPage();
             this.layoutControl4 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnExportSkip = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlSkip = new DevExpress.XtraGrid.GridControl();
             this.gridViewSkip = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lciSkip = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiImportResult = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciSkip = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageAccount = new DevExpress.XtraWizard.WelcomeWizardPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.luSecurityCompany = new DevExpress.XtraEditors.LookUpEdit();
@@ -106,19 +111,18 @@
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.btnExportSkip = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageFinish.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).BeginInit();
             this.layoutControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             this.PageAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
@@ -169,10 +173,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -188,7 +188,7 @@
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
-            this.PageFinish.Size = new System.Drawing.Size(1133, 596);
+            this.PageFinish.Size = new System.Drawing.Size(1133, 597);
             this.PageFinish.Text = "交易数据导入";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
@@ -200,16 +200,26 @@
             this.layoutControl4.Location = new System.Drawing.Point(0, 0);
             this.layoutControl4.Name = "layoutControl4";
             this.layoutControl4.Root = this.layoutControlGroup6;
-            this.layoutControl4.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControl4.Size = new System.Drawing.Size(1133, 597);
             this.layoutControl4.TabIndex = 1;
             this.layoutControl4.Text = "layoutControl4";
+            // 
+            // btnExportSkip
+            // 
+            this.btnExportSkip.Location = new System.Drawing.Point(34, 72);
+            this.btnExportSkip.Name = "btnExportSkip";
+            this.btnExportSkip.Size = new System.Drawing.Size(75, 22);
+            this.btnExportSkip.StyleController = this.layoutControl4;
+            this.btnExportSkip.TabIndex = 5;
+            this.btnExportSkip.Text = "导出到Excel";
+            this.btnExportSkip.Click += new System.EventHandler(this.btnExportSkip_Click);
             // 
             // gridControlSkip
             // 
             this.gridControlSkip.Location = new System.Drawing.Point(24, 98);
             this.gridControlSkip.MainView = this.gridViewSkip;
             this.gridControlSkip.Name = "gridControlSkip";
-            this.gridControlSkip.Size = new System.Drawing.Size(1085, 474);
+            this.gridControlSkip.Size = new System.Drawing.Size(1085, 475);
             this.gridControlSkip.TabIndex = 4;
             this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSkip});
@@ -230,21 +240,8 @@
             this.layoutControlGroup1});
             this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(1133, 597);
             this.layoutControlGroup6.TextVisible = false;
-            // 
-            // lciSkip
-            // 
-            this.lciSkip.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.lciSkip.AppearanceItemCaption.Options.UseFont = true;
-            this.lciSkip.Control = this.gridControlSkip;
-            this.lciSkip.Location = new System.Drawing.Point(0, 26);
-            this.lciSkip.Name = "lciSkip";
-            this.lciSkip.Size = new System.Drawing.Size(1089, 478);
-            this.lciSkip.Text = "已忽略的交易记录：";
-            this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
-            this.lciSkip.TextSize = new System.Drawing.Size(0, 0);
-            this.lciSkip.TextVisible = false;
             // 
             // esiImportResult
             // 
@@ -259,13 +256,65 @@
             this.esiImportResult.TextSize = new System.Drawing.Size(0, 0);
             this.esiImportResult.TextVisible = true;
             // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup1.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciSkip,
+            this.layoutControlItem4,
+            this.emptySpaceItem7,
+            this.emptySpaceItem8});
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 29);
+            this.layoutControlGroup1.Name = "layoutControlGroup1";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1113, 548);
+            this.layoutControlGroup1.Text = "已忽略的数据";
+            // 
+            // lciSkip
+            // 
+            this.lciSkip.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lciSkip.AppearanceItemCaption.Options.UseFont = true;
+            this.lciSkip.Control = this.gridControlSkip;
+            this.lciSkip.Location = new System.Drawing.Point(0, 26);
+            this.lciSkip.Name = "lciSkip";
+            this.lciSkip.Size = new System.Drawing.Size(1089, 479);
+            this.lciSkip.Text = "已忽略的交易记录：";
+            this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciSkip.TextSize = new System.Drawing.Size(0, 0);
+            this.lciSkip.TextVisible = false;
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.btnExportSkip;
+            this.layoutControlItem4.Location = new System.Drawing.Point(10, 0);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
+            // 
+            // emptySpaceItem7
+            // 
+            this.emptySpaceItem7.AllowHotTrack = false;
+            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem7.Name = "emptySpaceItem7";
+            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem8
+            // 
+            this.emptySpaceItem8.AllowHotTrack = false;
+            this.emptySpaceItem8.Location = new System.Drawing.Point(89, 0);
+            this.emptySpaceItem8.Name = "emptySpaceItem8";
+            this.emptySpaceItem8.Size = new System.Drawing.Size(1000, 26);
+            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // PageAccount
             // 
             this.PageAccount.Controls.Add(this.layoutControl2);
             this.PageAccount.IntroductionText = "";
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
-            this.PageAccount.Size = new System.Drawing.Size(1133, 596);
+            this.PageAccount.Size = new System.Drawing.Size(1133, 597);
             this.PageAccount.Text = "选择交易数据来源";
             // 
             // layoutControl2
@@ -277,7 +326,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup4;
-            this.layoutControl2.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControl2.Size = new System.Drawing.Size(1133, 597);
             this.layoutControl2.TabIndex = 12;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -299,7 +348,7 @@
             this.gridControlAccount.Location = new System.Drawing.Point(24, 144);
             this.gridControlAccount.MainView = this.gridViewAccount;
             this.gridControlAccount.Name = "gridControlAccount";
-            this.gridControlAccount.Size = new System.Drawing.Size(1085, 428);
+            this.gridControlAccount.Size = new System.Drawing.Size(1085, 429);
             this.gridControlAccount.TabIndex = 0;
             this.gridControlAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccount});
@@ -499,7 +548,7 @@
             this.emptySpaceItem6});
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1133, 597);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // layoutControlGroup7
@@ -549,7 +598,7 @@
             this.layoutControlItem15});
             this.layoutControlGroup8.Location = new System.Drawing.Point(0, 101);
             this.layoutControlGroup8.Name = "layoutControlGroup8";
-            this.layoutControlGroup8.Size = new System.Drawing.Size(1113, 475);
+            this.layoutControlGroup8.Size = new System.Drawing.Size(1113, 476);
             this.layoutControlGroup8.Text = "账户信息";
             // 
             // layoutControlItem15
@@ -557,7 +606,7 @@
             this.layoutControlItem15.Control = this.gridControlAccount;
             this.layoutControlItem15.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(1089, 432);
+            this.layoutControlItem15.Size = new System.Drawing.Size(1089, 433);
             this.layoutControlItem15.Text = "账户信息";
             this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(0, 0);
@@ -594,7 +643,7 @@
             this.PageImport.Controls.Add(this.layoutControl5);
             this.PageImport.DescriptionText = "注意：导入数据格式必须与模板格式一致，否则无法导入。";
             this.PageImport.Name = "PageImport";
-            this.PageImport.Size = new System.Drawing.Size(1318, 584);
+            this.PageImport.Size = new System.Drawing.Size(1318, 586);
             this.PageImport.Text = "数据导入预览";
             // 
             // layoutControl5
@@ -613,7 +662,7 @@
             this.layoutControl5.Location = new System.Drawing.Point(0, 0);
             this.layoutControl5.Name = "layoutControl5";
             this.layoutControl5.Root = this.layoutControlGroup9;
-            this.layoutControl5.Size = new System.Drawing.Size(1318, 584);
+            this.layoutControl5.Size = new System.Drawing.Size(1318, 586);
             this.layoutControl5.TabIndex = 0;
             this.layoutControl5.Text = "layoutControl5";
             // 
@@ -682,7 +731,7 @@
             this.gridControlPreview.Location = new System.Drawing.Point(24, 196);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(1270, 364);
+            this.gridControlPreview.Size = new System.Drawing.Size(1270, 366);
             this.gridControlPreview.TabIndex = 8;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -742,7 +791,7 @@
             this.emptySpaceItem10});
             this.layoutControlGroup9.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup9.Name = "layoutControlGroup9";
-            this.layoutControlGroup9.Size = new System.Drawing.Size(1318, 584);
+            this.layoutControlGroup9.Size = new System.Drawing.Size(1318, 586);
             this.layoutControlGroup9.TextVisible = false;
             // 
             // layoutControlGroup10
@@ -859,7 +908,7 @@
             this.emptySpaceItem5});
             this.layoutControlGroup11.Location = new System.Drawing.Point(0, 127);
             this.layoutControlGroup11.Name = "layoutControlGroup11";
-            this.layoutControlGroup11.Size = new System.Drawing.Size(1298, 437);
+            this.layoutControlGroup11.Size = new System.Drawing.Size(1298, 439);
             this.layoutControlGroup11.Text = "数据预览";
             // 
             // layoutControlItem18
@@ -867,7 +916,7 @@
             this.layoutControlItem18.Control = this.gridControlPreview;
             this.layoutControlItem18.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(1274, 368);
+            this.layoutControlItem18.Size = new System.Drawing.Size(1274, 370);
             this.layoutControlItem18.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem18.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem18.TextVisible = false;
@@ -966,55 +1015,6 @@
             this.gridColumn3.VisibleIndex = 1;
             this.gridColumn3.Width = 88;
             // 
-            // layoutControlGroup1
-            // 
-            this.layoutControlGroup1.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.layoutControlGroup1.AppearanceGroup.Options.UseFont = true;
-            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lciSkip,
-            this.layoutControlItem4,
-            this.emptySpaceItem7,
-            this.emptySpaceItem8});
-            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 29);
-            this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1113, 547);
-            this.layoutControlGroup1.Text = "已忽略的数据";
-            // 
-            // btnExportSkip
-            // 
-            this.btnExportSkip.Location = new System.Drawing.Point(34, 72);
-            this.btnExportSkip.Name = "btnExportSkip";
-            this.btnExportSkip.Size = new System.Drawing.Size(75, 22);
-            this.btnExportSkip.StyleController = this.layoutControl4;
-            this.btnExportSkip.TabIndex = 5;
-            this.btnExportSkip.Text = "导出到Excel";
-            this.btnExportSkip.Click += new System.EventHandler(this.btnExportSkip_Click);
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.btnExportSkip;
-            this.layoutControlItem4.Location = new System.Drawing.Point(10, 0);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
-            // 
-            // emptySpaceItem7
-            // 
-            this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem8
-            // 
-            this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(89, 0);
-            this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(1000, 26);
-            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // FrmTradeDataImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1030,8 +1030,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlSkip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSkip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciSkip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             this.PageAccount.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
@@ -1082,10 +1086,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             this.ResumeLayout(false);
 
         }

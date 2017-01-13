@@ -177,7 +177,7 @@
             this.PageAccount.IntroductionText = "";
             this.PageAccount.Name = "PageAccount";
             this.PageAccount.ProceedText = "";
-            this.PageAccount.Size = new System.Drawing.Size(1133, 596);
+            this.PageAccount.Size = new System.Drawing.Size(1133, 597);
             this.PageAccount.Text = "选择交割单数据来源";
             // 
             // layoutControl1
@@ -189,7 +189,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControl1.Size = new System.Drawing.Size(1133, 597);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -198,7 +198,7 @@
             this.gridControlAccount.Location = new System.Drawing.Point(24, 145);
             this.gridControlAccount.MainView = this.gridViewAccount;
             this.gridControlAccount.Name = "gridControlAccount";
-            this.gridControlAccount.Size = new System.Drawing.Size(1085, 427);
+            this.gridControlAccount.Size = new System.Drawing.Size(1085, 428);
             this.gridControlAccount.TabIndex = 11;
             this.gridControlAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccount});
@@ -411,7 +411,7 @@
             this.layoutControlGroup5});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1133, 597);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // emptySpaceItem1
@@ -471,7 +471,7 @@
             this.layoutControlItem1});
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 102);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(1113, 474);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(1113, 475);
             this.layoutControlGroup5.Text = "账户信息";
             // 
             // layoutControlItem1
@@ -481,7 +481,7 @@
             this.layoutControlItem1.Control = this.gridControlAccount;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1089, 431);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1089, 432);
             this.layoutControlItem1.Text = "账户信息";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -492,7 +492,7 @@
             this.PageImport.Controls.Add(this.layoutControl2);
             this.PageImport.DescriptionText = "注意：导入数据格式必须与模板格式一致，否则无法导入。";
             this.PageImport.Name = "PageImport";
-            this.PageImport.Size = new System.Drawing.Size(1318, 584);
+            this.PageImport.Size = new System.Drawing.Size(1318, 586);
             this.PageImport.Text = "数据导入预览";
             // 
             // layoutControl2
@@ -506,7 +506,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1318, 584);
+            this.layoutControl2.Size = new System.Drawing.Size(1318, 586);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -544,7 +544,7 @@
             this.gridControlPreview.Location = new System.Drawing.Point(24, 176);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(1270, 384);
+            this.gridControlPreview.Size = new System.Drawing.Size(1270, 386);
             this.gridControlPreview.TabIndex = 5;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -575,7 +575,7 @@
             this.layoutControlGroup7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1318, 584);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1318, 586);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // emptySpaceItem6
@@ -646,7 +646,7 @@
             this.emptySpaceItem3});
             this.layoutControlGroup7.Location = new System.Drawing.Point(0, 107);
             this.layoutControlGroup7.Name = "layoutControlGroup7";
-            this.layoutControlGroup7.Size = new System.Drawing.Size(1298, 457);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(1298, 459);
             this.layoutControlGroup7.Text = "数据预览";
             // 
             // layoutControlItem3
@@ -656,7 +656,7 @@
             this.layoutControlItem3.Control = this.gridControlPreview;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1274, 388);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1274, 390);
             this.layoutControlItem3.Text = "导入数据预览";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -695,7 +695,7 @@
             this.PageFinish.FinishText = "";
             this.PageFinish.Name = "PageFinish";
             this.PageFinish.ProceedText = "";
-            this.PageFinish.Size = new System.Drawing.Size(1133, 596);
+            this.PageFinish.Size = new System.Drawing.Size(1133, 597);
             this.PageFinish.Text = "数据导入处理";
             this.PageFinish.PageInit += new System.EventHandler(this.PageFinish_PageInit);
             // 
@@ -708,7 +708,7 @@
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup3;
-            this.layoutControl3.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControl3.Size = new System.Drawing.Size(1133, 597);
             this.layoutControl3.TabIndex = 1;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -727,7 +727,7 @@
             this.gridControlSkip.Location = new System.Drawing.Point(24, 90);
             this.gridControlSkip.MainView = this.gridViewSkip;
             this.gridControlSkip.Name = "gridControlSkip";
-            this.gridControlSkip.Size = new System.Drawing.Size(1085, 482);
+            this.gridControlSkip.Size = new System.Drawing.Size(1085, 483);
             this.gridControlSkip.TabIndex = 4;
             this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSkip});
@@ -765,7 +765,7 @@
             this.esiImportResult});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1133, 596);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1133, 597);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // lciProgress
@@ -804,7 +804,7 @@
             this.emptySpaceItem10});
             this.lcgSkip.Location = new System.Drawing.Point(0, 21);
             this.lcgSkip.Name = "lcgSkip";
-            this.lcgSkip.Size = new System.Drawing.Size(1113, 555);
+            this.lcgSkip.Size = new System.Drawing.Size(1113, 556);
             this.lcgSkip.Text = "已忽略的数据";
             // 
             // lciSkip
@@ -814,7 +814,7 @@
             this.lciSkip.Control = this.gridControlSkip;
             this.lciSkip.Location = new System.Drawing.Point(0, 26);
             this.lciSkip.Name = "lciSkip";
-            this.lciSkip.Size = new System.Drawing.Size(1089, 486);
+            this.lciSkip.Size = new System.Drawing.Size(1089, 487);
             this.lciSkip.Text = "已忽略的交易记录";
             this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciSkip.TextSize = new System.Drawing.Size(0, 0);
