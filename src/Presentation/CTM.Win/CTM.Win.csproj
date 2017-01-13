@@ -613,11 +613,11 @@
     <Compile Include="Forms\Admin\BaseData\FrmDepartment.Designer.cs">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.cs">
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.Designer.cs">
-      <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
+    <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataImport.Designer.cs">
+      <DependentUpon>FrmTradeDataImport.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.cs">
       <SubType>Form</SubType>
@@ -859,8 +859,8 @@
     <EmbeddedResource Include="Forms\Admin\BaseData\FrmDepartment.resx">
       <DependentUpon>FrmDepartment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DailyTrading\DataManage\FrmTradeDataImportWizard.resx">
-      <DependentUpon>FrmTradeDataImportWizard.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DailyTrading\DataManage\FrmTradeDataImport.resx">
+      <DependentUpon>FrmTradeDataImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\DataManage\FrmTradeDataManage.resx">
       <DependentUpon>FrmTradeDataManage.cs</DependentUpon>
@@ -900,9 +900,6 @@
     <Content Include="App_Data\Install\SqlServer.LinkedServers.sql" />
     <Content Include="App_Data\Install\SqlServer.StoredProcedures.sql" />
     <Content Include="App_Data\Install\SqlServerAgent.Jobs.sql" />
-    <Content Include="DataTemplate\Daily\HuaTai_C.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="DataTemplate\Delivery\BOCI_C.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

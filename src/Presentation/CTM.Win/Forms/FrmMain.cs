@@ -353,7 +353,7 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmTradeDataImportWizard>("交易数据导入");
+            this.DisplayForm<FrmTradeDataImport>("交易数据导入");
         }
 
         /// <summary>

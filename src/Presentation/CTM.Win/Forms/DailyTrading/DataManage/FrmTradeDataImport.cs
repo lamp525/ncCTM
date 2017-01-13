@@ -20,7 +20,7 @@ using CTM.Win.Util;
 
 namespace CTM.Win.Forms.DailyTrading.DataManage
 {
-    public partial class FrmTradeDataImportWizard : BaseForm
+    public partial class FrmTradeDataImport : BaseForm
     {
         #region Fields
 
@@ -42,7 +42,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         #region Constructors
 
-        public FrmTradeDataImportWizard(
+        public FrmTradeDataImport(
             IDictionaryService dictionaryService,
             IAccountService accountService,
             IUserService userService,
@@ -142,52 +142,23 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         /// </summary>
         private void BindDataImportInfo()
         {
-            var myGridView = this.gridViewAccount;
+            var selectedAccountInfo = this.gridViewAccount.GetFocusedRow() as AccountEntity;
 
-            //Get the selected row's handle
-            int selectedHandle = myGridView.GetSelectedRows()[0];
+            if (selectedAccountInfo != null)
+            {
+                this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
 
-            ////所属产业
-            //txtIndustryName.Text = myGridView.GetRowCellValue(selectedHandle, colIndustryName).ToString();
+                //交易员
+                var dealers = _accountService.GetAccountOperatorsByAccountId(selectedAccountInfo.Id);
 
-            //账户名称
-            txtAccountName.Text = myGridView.GetRowCellValue(selectedHandle, colAccountName).ToString();
-            txtAccountName.Tag = myGridView.GetRowCellValue(selectedHandle, colAccountId);
+                this.luOperator.Initialize(dealers, "Code", "Name", showHeader: false, showFooter: false);
 
-            //账户属性
-            txtAccountAttribute.Text = myGridView.GetRowCellValue(selectedHandle, colAttributeName).ToString();
+                if (dealers.Select(x => x.Code).Contains(LoginInfo.CurrentUser.UserCode))
+                    this.luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
+                else
+                    this.luOperator.ItemIndex = 0;
+            }
 
-            //账户类型
-            txtAccountType.Text = myGridView.GetRowCellValue(selectedHandle, colTypeName).ToString();
-
-            //账户规划
-            txtAccountPlan.Text = myGridView.GetRowCellValue(selectedHandle, colPlanName).ToString();
-
-            //开户券商
-            txtSecurityCompany.Text = myGridView.GetRowCellValue(selectedHandle, colSecurityCompanyName).ToString();
-
-            //数据导入人
-            txtImportUser.Text = LoginInfo.CurrentUser.UserName;
-
-            //交易员
-            var dealers = _accountService.GetAccountOperatorsByAccountId(int.Parse(myGridView.GetRowCellValue(selectedHandle, colAccountId).ToString()));
-
-            this.luOperator.Initialize(dealers, "Code", "Name", showHeader: false, showFooter: false);
-
-            if (dealers.Select(x => x.Code).Contains(LoginInfo.CurrentUser.UserCode))
-                this.luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
-            else
-                this.luOperator.ItemIndex = 0;
-
-            this.txtImportFileName.Text = string.Empty;
-        }
-
-        /// <summary>
-        /// 绑定预览数据
-        /// </summary>
-        /// <param name="importFileName"></param>
-        private void BindPreviewData(string importFileName)
-        {
             var noneModel = new UserInfo()
             {
                 Code = string.Empty,
@@ -205,10 +176,19 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             targetOperatorInfos.Add(noneModel);
             targetOperatorInfos = targetOperatorInfos.OrderBy(x => x.Code).ToList();
             this.luTargetPrincipal.Initialize(targetOperatorInfos, "Code", "Name", enableSearch: true);
+        }
 
-            var deliveryData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
+        /// <summary>
+        /// 绑定预览数据
+        /// </summary>
+        /// <param name="importFileName"></param>
+        private void BindPreviewData(string importFileName)
+        {
+            this.gridControlPreview.DataSource = null;
 
-            this.gridControlPreview.DataSource = deliveryData;
+            var tradeData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
+
+            this.gridControlPreview.DataSource = tradeData;
             this.gridViewPreview.PopulateColumns();
             this.gridViewPreview.BestFitColumns(true);
         }
@@ -235,13 +215,14 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 if (source?.Rows.Count > 0)
                 {
+                    var accountId = int.Parse(this.gridViewAccount.GetRowCellValue(this.gridViewAccount.FocusedRowHandle, colAccountId).ToString());
                     var operationInfo = new RecordImportOperationEntity
                     {
-                        AccountId = int.Parse(txtAccountName.Tag.ToString()),
+                        AccountId = accountId,
                         OperatorCode = this.luOperator.SelectedValue(),
                         ImportTime = _commonService.GetCurrentServerTime(),
                         ImportUserCode = LoginInfo.CurrentUser.UserCode,
-                        DataType = this.checkDaily.Checked ? EnumLibrary.DataType.Daily : this.chkEntrust.Checked ? EnumLibrary.DataType.Entrust : EnumLibrary.DataType.Delivery,
+                        DataType = this.chkDelivery.Checked ? EnumLibrary.DataType.Delivery : EnumLibrary.DataType.Entrust,
                         BandPrincipal = this.luBandPrincipal.SelectedValue(),
                         TargetPrincipal = this.luTargetPrincipal.SelectedValue(),
                     };
@@ -303,7 +284,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             switch (e.Page.Name.Trim())
             {
                 case "PageFinish":
-                    this.txtImportFileName.Text = string.Empty;
+                    this.txtFilePath.Text = string.Empty;
                     break;
             }
         }
@@ -319,8 +300,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             {
                 switch (e.Page.Name.Trim())
                 {
-                    #region 账户选择画面
-
                     case "PageAccount":
 
                         if (string.IsNullOrEmpty(this.luSecurityCompany.SelectedValue()))
@@ -361,11 +340,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                         }
                         break;
 
-                    #endregion 账户选择画面
-
-                    #region 导入数据选择画面
-
-                    case "PageSelectFile":
+                    case "PageImport":
 
                         //交易员
                         if (string.IsNullOrEmpty(this.luOperator.SelectedValue()))
@@ -376,36 +351,18 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                         }
 
                         //导入的Excel文件路径
-                        string importFileName = this.txtImportFileName.Text.Trim();
-                        if (string.IsNullOrEmpty(importFileName))
+                        if (string.IsNullOrEmpty(this.txtFilePath.Text.Trim()))
                         {
                             DXMessage.ShowTips("请选择要导入的交易数据Excel文件！");
                             e.Handled = true;
                             return;
                         }
 
-                        //导入的Excel是否存在
-                        if (!System.IO.File.Exists(importFileName))
-                        {
-                            DXMessage.ShowTips("该Excel文件不存在！");
-                            e.Handled = true;
-                            return;
-                        }
-
-                        //导入数据预览
-                        BindPreviewData(importFileName);
-
-                        break;
-
-                    #endregion 导入数据选择画面
-
-                    #region 数据预览画面
-
-                    case "PagePreview":
-
                         if (this.gridViewPreview.DataRowCount == 0)
                         {
-                            this.PagePreview.AllowNext = false;
+                            DXMessage.ShowTips("该Excel文件不存在交易记录！");
+                            e.Handled = true;
+                            return;
                         }
                         else
                         {
@@ -417,9 +374,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                             }
                         }
 
-                        break;
+                        this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-                        #endregion 数据预览画面
+                        break;
                 }
             }
             catch (Exception ex)
@@ -435,11 +392,11 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnBrowse_Click(object sender, EventArgs e)
+        private void btnFileSelect_Click(object sender, EventArgs e)
         {
             try
             {
-                this.btnBrowse.Enabled = false;
+                this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
                 var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
@@ -451,8 +408,11 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    this.txtImportFileName.Text = myOpenFileDialog.FileName;
+                    this.txtFilePath.Text = myOpenFileDialog.FileName;
                     this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
+
+                    //导入数据预览
+                    BindPreviewData(myOpenFileDialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -461,7 +421,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
             finally
             {
-                this.btnBrowse.Enabled = true;
+                this.btnFileSelect.Enabled = true;
             }
         }
 
@@ -469,11 +429,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         {
             this.esiImportResult.Text = "交易数据导入完成。";
 
-            if (_skippedRecords == null || _skippedRecords.Count == 0)
-            {
-                this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            }
-            else
+            if (_skippedRecords != null || _skippedRecords.Count >= 0)
             {
                 this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
@@ -499,49 +455,14 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
         }
 
-        /// <summary>
-        /// 当日成交
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkDay_CheckedChanged(object sender, EventArgs e)
+        private void chkDelivery_CheckedChanged(object sender, EventArgs e)
         {
-            //if (this.checkDaily.Checked)
-            //{
-            //    this.checkDelivery.Checked = false;
-            //    this.chkEntrust.Checked = false;
-            //}
-            //else
-            //{
-            //    this.chkEntrust.Checked = false;
-            //    this.checkDelivery.Checked = true;
-            //}
+            chkEntrust.Checked = !chkDelivery.Checked;
         }
 
-        /// <summary>
-        /// 交割单
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkDelivery_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.checkDelivery.Checked)
-                this.chkEntrust.Checked = false;
-            else
-                this.chkEntrust.Checked = true;
-        }
-
-        /// <summary>
-        /// 委托数据
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void chkEntrust_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.chkEntrust.Checked)
-                this.checkDelivery.Checked = false;
-            else
-                this.checkDelivery.Checked = true;
+            chkDelivery.Checked = !chkEntrust.Checked;
         }
 
         /// <summary>
@@ -602,10 +523,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 if (chkEntrust.Checked)
                     targetDirectoryName += "Entrust";
-                else if (checkDelivery.Checked)
+                else if (chkDelivery.Checked)
                     targetDirectoryName += "Delivery";
-                else if (checkDaily.Checked)
-                    targetDirectoryName += "Daily";
 
                 var fileName = _securityAccount.ToString() + ".xlsx";
 
@@ -627,6 +546,24 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             finally
             {
                 this.btnExcelTemplate.Enabled = true;
+            }
+        }
+
+        private void btnExportSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExportSkip.Enabled = false;
+                var fileName = Path.GetFileNameWithoutExtension(this.txtFilePath.Text) + " （未导入）";
+                this.gridViewSkip.ExportToExcelAndOpen(fileName);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExportSkip.Enabled = true;
             }
         }
 

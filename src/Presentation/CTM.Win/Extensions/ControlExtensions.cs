@@ -451,8 +451,6 @@ namespace CTM.Win.Extensions
 
         #endregion SpinEdit
 
-
-
         #region TreeListLookUpEdit
 
         /// <summary>

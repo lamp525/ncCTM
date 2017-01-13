@@ -132,14 +132,12 @@ namespace CTM.Win.Forms.Accounting.DataManage
         /// </summary>
         private void BindDataImportInfo()
         {
-            int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
-
-            var selectedAccountInfo = this.gridViewAccount.GetRow(selectedHandle) as AccountEntity;
+            var selectedAccountInfo = this.gridViewAccount.GetFocusedRow() as AccountEntity;
 
             if (selectedAccountInfo != null)
             {
                 this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
-            }       
+            }
         }
 
         /// <summary>
@@ -150,9 +148,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             this.gridControlPreview.DataSource = null;
 
-            var deliveryData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
+            var tradeData = _dataImportCommonService.GetImportDataFromExcel(importFileName);
 
-            this.gridControlPreview.DataSource = deliveryData;
+            this.gridControlPreview.DataSource = tradeData;
             this.gridViewPreview.PopulateColumns();
             this.gridViewPreview.BestFitColumns(true);
         }
@@ -266,11 +264,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             try
             {
-                this.esiImportResult.Text = string.Empty;
-                this.esiImportResult.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                this.PageFinish.AllowBack = false;
-
                 this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.marqueeProgressBarControl1.Visible = true;
                 this.marqueeProgressBarControl1.Text = "数据导入中...请稍后...";
@@ -301,9 +294,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
                 if (source?.Rows.Count > 0)
                 {
-                    int selectedHandle = this.gridViewAccount.GetSelectedRows()[0];
-
-                    var accountId = int.Parse(this.gridViewAccount.GetRowCellValue(selectedHandle, colAccountId).ToString());
+                    var accountId = int.Parse(this.gridViewAccount.GetRowCellValue(this.gridViewAccount.FocusedRowHandle, colAccountId).ToString());
 
                     var operationInfo = new RecordImportOperationEntity
                     {
@@ -390,8 +381,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     case "PageImport":
 
                         //导入的Excel文件路径
-                        string importFileName = this.txtFilePath.Text.Trim();
-                        if (string.IsNullOrEmpty(importFileName))
+                        if (string.IsNullOrEmpty(this.txtFilePath.Text.Trim()))
                         {
                             DXMessage.ShowTips("请选择要导入的交易数据Excel文件！");
                             e.Handled = true;
@@ -404,6 +394,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
                             e.Handled = true;
                             return;
                         }
+
+                        this.esiImportResult.Text = string.Empty;
+                        this.esiImportResult.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                        this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                        this.PageFinish.AllowBack = false;
 
                         break;
                 }
