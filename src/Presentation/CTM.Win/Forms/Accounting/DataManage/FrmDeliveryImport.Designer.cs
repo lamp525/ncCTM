@@ -77,8 +77,6 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.PageFinish = new DevExpress.XtraWizard.CompletionWizardPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExportSkip = new DevExpress.XtraEditors.SimpleButton();
@@ -96,6 +94,8 @@
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.esiImportResult = new DevExpress.XtraLayout.EmptySpaceItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlGroup7 = new DevExpress.XtraLayout.LayoutControlGroup();
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
             this.wizardControl1.SuspendLayout();
             this.PageAccount.SuspendLayout();
@@ -128,8 +128,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             this.PageFinish.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
@@ -146,6 +144,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).BeginInit();
             this.SuspendLayout();
             // 
             // wizardControl1
@@ -484,7 +484,7 @@
             // PageImport
             // 
             this.PageImport.Controls.Add(this.layoutControl2);
-            this.PageImport.DescriptionText = "注意：请再次核对选择的目标账号是否正确。";
+            this.PageImport.DescriptionText = "注意：请再次核对选择的数据来源是否正确。";
             this.PageImport.Name = "PageImport";
             this.PageImport.Size = new System.Drawing.Size(1318, 584);
             this.PageImport.Text = "数据导入预览";
@@ -506,18 +506,18 @@
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Location = new System.Drawing.Point(103, 48);
+            this.txtFilePath.Location = new System.Drawing.Point(115, 69);
             this.txtFilePath.Name = "txtFilePath";
             this.txtFilePath.Properties.ReadOnly = true;
-            this.txtFilePath.Size = new System.Drawing.Size(414, 20);
+            this.txtFilePath.Size = new System.Drawing.Size(401, 20);
             this.txtFilePath.StyleController = this.layoutControl2;
             this.txtFilePath.TabIndex = 8;
             // 
             // btnFileSelect
             // 
-            this.btnFileSelect.Location = new System.Drawing.Point(521, 48);
+            this.btnFileSelect.Location = new System.Drawing.Point(520, 69);
             this.btnFileSelect.Name = "btnFileSelect";
-            this.btnFileSelect.Size = new System.Drawing.Size(123, 22);
+            this.btnFileSelect.Size = new System.Drawing.Size(119, 22);
             this.btnFileSelect.StyleController = this.layoutControl2;
             this.btnFileSelect.TabIndex = 7;
             this.btnFileSelect.Text = "    浏  览    ";
@@ -525,9 +525,9 @@
             // 
             // btnExcelTemplate
             // 
-            this.btnExcelTemplate.Location = new System.Drawing.Point(521, 12);
+            this.btnExcelTemplate.Location = new System.Drawing.Point(520, 43);
             this.btnExcelTemplate.Name = "btnExcelTemplate";
-            this.btnExcelTemplate.Size = new System.Drawing.Size(123, 22);
+            this.btnExcelTemplate.Size = new System.Drawing.Size(119, 22);
             this.btnExcelTemplate.StyleController = this.layoutControl2;
             this.btnExcelTemplate.TabIndex = 6;
             this.btnExcelTemplate.Text = " 查看导入Excel模板 ";
@@ -535,10 +535,10 @@
             // 
             // gridControlPreview
             // 
-            this.gridControlPreview.Location = new System.Drawing.Point(12, 101);
+            this.gridControlPreview.Location = new System.Drawing.Point(24, 148);
             this.gridControlPreview.MainView = this.gridViewPreview;
             this.gridControlPreview.Name = "gridControlPreview";
-            this.gridControlPreview.Size = new System.Drawing.Size(1294, 471);
+            this.gridControlPreview.Size = new System.Drawing.Size(1270, 412);
             this.gridControlPreview.TabIndex = 5;
             this.gridControlPreview.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPreview});
@@ -547,14 +547,15 @@
             // 
             this.gridViewPreview.GridControl = this.gridControlPreview;
             this.gridViewPreview.Name = "gridViewPreview";
+            this.gridViewPreview.OptionsView.ShowGroupPanel = false;
             this.gridViewPreview.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewPreview_CustomDrawRowIndicator);
             // 
             // txtAccountInfo
             // 
-            this.txtAccountInfo.Location = new System.Drawing.Point(103, 12);
+            this.txtAccountInfo.Location = new System.Drawing.Point(115, 43);
             this.txtAccountInfo.Name = "txtAccountInfo";
             this.txtAccountInfo.Properties.ReadOnly = true;
-            this.txtAccountInfo.Size = new System.Drawing.Size(414, 20);
+            this.txtAccountInfo.Size = new System.Drawing.Size(401, 20);
             this.txtAccountInfo.StyleController = this.layoutControl2;
             this.txtAccountInfo.TabIndex = 4;
             // 
@@ -563,15 +564,9 @@
             this.layoutControlGroup2.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup2.GroupBordersVisible = false;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem2,
-            this.layoutControlItem3,
-            this.emptySpaceItem4,
-            this.layoutControlItem5,
-            this.layoutControlItem6,
             this.emptySpaceItem6,
-            this.layoutControlItem4,
-            this.emptySpaceItem3,
-            this.emptySpaceItem5});
+            this.layoutControlGroup6,
+            this.layoutControlGroup7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Size = new System.Drawing.Size(1318, 584);
@@ -582,7 +577,7 @@
             this.layoutControlItem2.Control = this.txtAccountInfo;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(509, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(496, 26);
             this.layoutControlItem2.Text = "账户信息：";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(88, 14);
             // 
@@ -591,43 +586,44 @@
             this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.Control = this.gridControlPreview;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 72);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1298, 492);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1274, 416);
             this.layoutControlItem3.Text = "导入数据预览";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(88, 14);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(636, 36);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(619, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(662, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(655, 52);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnFileSelect;
-            this.layoutControlItem5.Location = new System.Drawing.Point(509, 36);
+            this.layoutControlItem5.Location = new System.Drawing.Point(496, 26);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(127, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(123, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.txtFilePath;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 36);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(509, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(496, 26);
             this.layoutControlItem6.Text = "Excel文件路径：";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(88, 14);
             // 
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 62);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 95);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(1298, 10);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -635,27 +631,11 @@
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnExcelTemplate;
-            this.layoutControlItem4.Location = new System.Drawing.Point(509, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(496, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(127, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(123, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(636, 0);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(662, 26);
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem5
-            // 
-            this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 26);
-            this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(1298, 10);
-            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // PageFinish
             // 
@@ -684,7 +664,7 @@
             // 
             // btnExportSkip
             // 
-            this.btnExportSkip.Location = new System.Drawing.Point(34, 66);
+            this.btnExportSkip.Location = new System.Drawing.Point(34, 64);
             this.btnExportSkip.Name = "btnExportSkip";
             this.btnExportSkip.Size = new System.Drawing.Size(85, 22);
             this.btnExportSkip.StyleController = this.layoutControl3;
@@ -694,10 +674,10 @@
             // 
             // gridControlSkip
             // 
-            this.gridControlSkip.Location = new System.Drawing.Point(24, 92);
+            this.gridControlSkip.Location = new System.Drawing.Point(24, 90);
             this.gridControlSkip.MainView = this.gridViewSkip;
             this.gridControlSkip.Name = "gridControlSkip";
-            this.gridControlSkip.Size = new System.Drawing.Size(1085, 480);
+            this.gridControlSkip.Size = new System.Drawing.Size(1085, 482);
             this.gridControlSkip.TabIndex = 4;
             this.gridControlSkip.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewSkip});
@@ -764,7 +744,7 @@
             // 
             // lcgSkip
             // 
-            this.lcgSkip.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lcgSkip.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.lcgSkip.AppearanceGroup.Options.UseFont = true;
             this.lcgSkip.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciSkip,
@@ -783,7 +763,7 @@
             this.lciSkip.Control = this.gridControlSkip;
             this.lciSkip.Location = new System.Drawing.Point(0, 26);
             this.lciSkip.Name = "lciSkip";
-            this.lciSkip.Size = new System.Drawing.Size(1089, 484);
+            this.lciSkip.Size = new System.Drawing.Size(1089, 486);
             this.lciSkip.Text = "已忽略的交易记录";
             this.lciSkip.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciSkip.TextSize = new System.Drawing.Size(0, 0);
@@ -831,6 +811,30 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // layoutControlGroup6
+            // 
+            this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem2,
+            this.layoutControlItem6,
+            this.layoutControlItem5,
+            this.layoutControlItem4,
+            this.emptySpaceItem4});
+            this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup6.Name = "layoutControlGroup6";
+            this.layoutControlGroup6.Size = new System.Drawing.Size(1298, 95);
+            this.layoutControlGroup6.Text = "数据来源";
+            // 
+            // layoutControlGroup7
+            // 
+            this.layoutControlGroup7.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup7.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup7.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+            this.layoutControlGroup7.Location = new System.Drawing.Point(0, 105);
+            this.layoutControlGroup7.Name = "layoutControlGroup7";
+            this.layoutControlGroup7.Size = new System.Drawing.Size(1298, 459);
+            this.layoutControlGroup7.Text = "数据预览";
+            // 
             // FrmDeliveryImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -872,8 +876,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             this.PageFinish.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
@@ -890,6 +892,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiImportResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -944,8 +948,6 @@
         private DevExpress.XtraEditors.TextEdit txtFilePath;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgressBarControl1;
         private DevExpress.XtraLayout.LayoutControl layoutControl3;
         private DevExpress.XtraGrid.GridControl gridControlSkip;
@@ -964,5 +966,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colOwnerName;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup7;
     }
 }
