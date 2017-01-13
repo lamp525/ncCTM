@@ -139,9 +139,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (selectedAccountInfo != null)
             {
                 this.txtAccountInfo.Text = selectedAccountInfo.Name + " - " + selectedAccountInfo.SecurityCompanyName + " - " + selectedAccountInfo.AttributeName + " - " + selectedAccountInfo.TypeName + " - " + selectedAccountInfo.PlanName;
-            }
-
-            this.txtFilePath.Text = string.Empty;
+            }       
         }
 
         /// <summary>
@@ -175,8 +173,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             try
             {
-                this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 60);
+                this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
+                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 50);
                 this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
 
                 BindAccountAttribute();
@@ -240,20 +238,18 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 var myOpenFileDialog = this.openFileDialog1;
                 var defaultPath = this._iniConfigHelper.GetString("Accounting", "TradeDataImportPath", null);
 
-                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
 
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var fileName = myOpenFileDialog.FileName;
-
-                    this.txtFilePath.Text = fileName;
-                    this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(fileName));
+                    this.txtFilePath.Text = myOpenFileDialog.FileName;
+                    this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
 
                     //导入数据预览
-                    BindPreviewData(fileName);
+                    BindPreviewData(myOpenFileDialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -272,6 +268,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 this.esiImportResult.Text = string.Empty;
                 this.esiImportResult.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 this.PageFinish.AllowBack = false;
 
                 this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
@@ -340,11 +337,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
                 this.PageFinish.AllowBack = false;
 
-                if (_skippedRecords == null || _skippedRecords.Count == 0)
-                {
-                    this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                }
-                else
+                if (_skippedRecords != null || _skippedRecords.Count >= 0)
                 {
                     this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                     this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();

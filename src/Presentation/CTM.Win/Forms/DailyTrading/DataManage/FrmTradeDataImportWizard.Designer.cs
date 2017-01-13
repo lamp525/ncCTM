@@ -123,6 +123,7 @@
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.wizardPage1 = new DevExpress.XtraWizard.WizardPage();
             this.PagePreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
@@ -1120,6 +1121,7 @@
             this.wizardControl1.Controls.Add(this.PageFinish);
             this.wizardControl1.Controls.Add(this.PageSelectFile);
             this.wizardControl1.Controls.Add(this.PagePreview);
+            this.wizardControl1.Controls.Add(this.wizardPage1);
             this.wizardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wizardControl1.Location = new System.Drawing.Point(0, 0);
             this.wizardControl1.Name = "wizardControl1";
@@ -1127,6 +1129,7 @@
             this.PageAccount,
             this.PageSelectFile,
             this.PagePreview,
+            this.wizardPage1,
             this.PageFinish});
             this.wizardControl1.Size = new System.Drawing.Size(927, 544);
             this.wizardControl1.CancelClick += new System.ComponentModel.CancelEventHandler(this.wizardControl1_CancelClick);
@@ -1160,6 +1163,11 @@
             this.gridColumn3.Visible = true;
             this.gridColumn3.VisibleIndex = 1;
             this.gridColumn3.Width = 88;
+            // 
+            // wizardPage1
+            // 
+            this.wizardPage1.Name = "wizardPage1";
+            this.wizardPage1.Size = new System.Drawing.Size(895, 399);
             // 
             // FrmTradeDataImportWizard
             // 
@@ -1346,5 +1354,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewSkip;
         private DevExpress.XtraLayout.LayoutControlItem lciSkip;
         private DevExpress.XtraLayout.EmptySpaceItem esiImportResult;
+        private DevExpress.XtraWizard.WizardPage wizardPage1;
     }
 }
