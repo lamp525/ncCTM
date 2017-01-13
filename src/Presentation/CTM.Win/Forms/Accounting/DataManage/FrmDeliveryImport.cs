@@ -172,8 +172,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
             try
             {
                 this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
-                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 50);
-                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 50, columnAutoWidth: true);
+                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, columnAutoWidth: true);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -328,7 +328,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
                 this.PageFinish.AllowBack = false;
 
-                if (_skippedRecords != null || _skippedRecords.Count >= 0)
+                if (_skippedRecords != null && _skippedRecords.Count > 0)
                 {
                     this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                     this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();

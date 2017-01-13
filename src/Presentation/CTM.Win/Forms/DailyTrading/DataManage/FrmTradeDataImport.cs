@@ -249,9 +249,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         {
             try
             {
-                this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridViewAccount.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
+                this.gridViewPreview.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, columnAutoWidth: true);
+                this.gridViewSkip.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, columnAutoWidth: true);
 
                 BindAccountAttribute();
                 BindSecurityCompany();
@@ -372,7 +372,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                             }
                         }
 
-                        this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                        this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
                         break;
                 }
@@ -427,9 +427,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         {
             this.esiImportResult.Text = "交易数据导入完成。";
 
-            if (_skippedRecords != null || _skippedRecords.Count >= 0)
+            if (_skippedRecords != null && _skippedRecords.Count > 0)
             {
-                this.lciSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.lcgSkip.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.gridControlSkip.DataSource = _skippedRecords.CopyToDataTable();
                 this.gridViewSkip.PopulateColumns();
                 this.gridViewSkip.BestFitColumns();
