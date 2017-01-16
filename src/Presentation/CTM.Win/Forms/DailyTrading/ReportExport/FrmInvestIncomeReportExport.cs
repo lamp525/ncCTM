@@ -175,66 +175,75 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             Excel.Workbook workbook = excelApp.Workbooks.Open(templateFilePath);
 
-            foreach (var item in reportData)
+            try
             {
-                var investorName = item.Key;
-                Excel._Worksheet worksheet = null;
-
-                foreach (Excel.Worksheet sheet in workbook.Sheets)
+                foreach (var item in reportData)
                 {
-                    if (sheet.Name == investorName)
-                        worksheet = sheet;
-                }
+                    var investorName = item.Key;
+                    Excel._Worksheet worksheet = null;
 
-                if (worksheet == null) continue;
-
-                WorksheetFormatting(worksheet);
-
-                var startRowIndex = 34;
-
-                var data = item.Value;
-
-                for (int i = 0; i < data.Count; i++)
-                {
-                    var investInfo = data[i];
-
-                    if (deptId != (int)EnumLibrary.AccountingDepartment.Day)
+                    foreach (Excel.Worksheet sheet in workbook.Sheets)
                     {
-                        //周一（万元）
-                        worksheet.Cells[startRowIndex + i, 3] = investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                        //净资产（万元）
-                        worksheet.Cells[startRowIndex + i, 4] = investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                        //持仓市值（万元）
-                        worksheet.Cells[startRowIndex + i, 9] = investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                        //持仓仓位
-                        worksheet.Cells[startRowIndex + i, 12] = investInfo.PositionRate;
+                        if (sheet.Name == investorName)
+                            worksheet = sheet;
                     }
 
-                    //日期
-                    worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
+                    if (worksheet == null) continue;
 
-                    //累计收益额（万元）
-                    worksheet.Cells[startRowIndex + i, 5] = investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+                    WorksheetFormatting(worksheet);
 
-                    //当日收益率
-                    worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
+                    var startRowIndex = 34;
 
-                    //日收益额（万元）
-                    worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+                    var data = item.Value;
 
-                    //累计收益率
-                    worksheet.Cells[startRowIndex + i, 8] = investInfo.AccumulatedIncomeRate;
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        var investInfo = data[i];
+
+                        if (deptId != (int)EnumLibrary.AccountingDepartment.Day)
+                        {
+                            //周一（万元）
+                            worksheet.Cells[startRowIndex + i, 3] = investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
+
+                            //净资产（万元）
+                            worksheet.Cells[startRowIndex + i, 4] = investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand;
+
+                            //持仓市值（万元）
+                            worksheet.Cells[startRowIndex + i, 9] = investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
+
+                            //持仓仓位
+                            worksheet.Cells[startRowIndex + i, 12] = investInfo.PositionRate;
+                        }
+
+                        //日期
+                        worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
+
+                        //累计收益额（万元）
+                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+
+                        //当日收益率
+                        worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
+
+                        //日收益额（万元）
+                        worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+
+                        //累计收益率
+                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AccumulatedIncomeRate;
+                    }
                 }
+
+                workbook.SaveAs(destinyFilePath, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
             }
-
-            workbook.SaveAs(destinyFilePath, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
-
-            workbook = null;
-            excelApp.Quit();
-            excelApp = null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                workbook = null;
+                excelApp.Quit();
+                excelApp = null;
+            }
         }
 
         private void WorksheetFormatting(Excel._Worksheet worksheet)
