@@ -278,7 +278,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
         private IDictionary<string, IList<UserInvestIncomeEntity>> GetReportData(DateTime endDate, int deptId, string reportType)
         {
-            IDictionary<string, IList<UserInvestIncomeEntity>> result = new Dictionary <string, IList<UserInvestIncomeEntity>>();
+            IDictionary<string, IList<UserInvestIncomeEntity>> result = new Dictionary<string, IList<UserInvestIncomeEntity>>();
 
             IList<UserInfo> investors = _userService.GetUserInfos(departmentIds: new int[] { deptId }).Where(x => x.IsDeleted == false).ToList();
 
@@ -314,15 +314,19 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 //交易记录
                 var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: 0, beneficiaries: statisticalInvestorCodes.ToArray(), tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
 
-                //交易记录中的所有股票代码
-                var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
-                //所有交易日期
-                var tradeDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
+                IList<UserInvestIncomeEntity> investIncome = new List<UserInvestIncomeEntity>();
+                if (tradeRecords.Any())
+                {
+                    //交易记录中的所有股票代码
+                    var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
+                    //所有交易日期
+                    var tradeDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
 
-                //各交易日所有股票收盘价
-                var stockClosePrices = this._tKLineService.GetStockClosePrices(tradeDates, stockFullCodes);
+                    //各交易日所有股票收盘价
+                    var stockClosePrices = this._tKLineService.GetStockClosePrices(tradeDates, stockFullCodes);
 
-                var investIncome = this._statisticsReportService.CalculateUserInvestIncome(investor, statisticalInvestorCodes, tradeRecords, queryDates, stockClosePrices);
+                    investIncome = this._statisticsReportService.CalculateUserInvestIncome(investor, statisticalInvestorCodes, tradeRecords, queryDates, stockClosePrices);
+                }
 
                 result.Add(new KeyValuePair<string, IList<UserInvestIncomeEntity>>(investor.Name, investIncome));
             }
