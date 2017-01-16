@@ -166,7 +166,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             WriteDataToExcel(reportData, deptId, templateFilePath, destinyFileName);
         }
 
-        private void WriteDataToExcel(IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> reportData, int deptId, string templateFilePath, string destinyFilePath)
+        private void WriteDataToExcel(IDictionary<string, IList<UserInvestIncomeEntity>> reportData, int deptId, string templateFilePath, string destinyFilePath)
         {
             if (reportData == null)
                 throw new NullReferenceException(nameof(reportData));
@@ -276,9 +276,9 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             //rngColL.NumberFormatLocal = @"0.00";
         }
 
-        private IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> GetReportData(DateTime endDate, int deptId, string reportType)
+        private IDictionary<string, IList<UserInvestIncomeEntity>> GetReportData(DateTime endDate, int deptId, string reportType)
         {
-            IList<KeyValuePair<string, IList<UserInvestIncomeEntity>>> result = new List<KeyValuePair<string, IList<UserInvestIncomeEntity>>>();
+            IDictionary<string, IList<UserInvestIncomeEntity>> result = new Dictionary <string, IList<UserInvestIncomeEntity>>();
 
             IList<UserInfo> investors = _userService.GetUserInfos(departmentIds: new int[] { deptId }).Where(x => x.IsDeleted == false).ToList();
 
