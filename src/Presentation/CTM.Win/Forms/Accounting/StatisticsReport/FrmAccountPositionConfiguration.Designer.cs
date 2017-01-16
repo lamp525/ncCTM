@@ -403,6 +403,8 @@
             this.colStockPositionVolume.AppearanceHeader.Options.UseTextOptions = true;
             this.colStockPositionVolume.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colStockPositionVolume.Caption = "股数(万股)";
+            this.colStockPositionVolume.DisplayFormat.FormatString = "N";
+            this.colStockPositionVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colStockPositionVolume.FieldName = "StockPositionVolume";
             this.colStockPositionVolume.Name = "colStockPositionVolume";
             this.colStockPositionVolume.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;

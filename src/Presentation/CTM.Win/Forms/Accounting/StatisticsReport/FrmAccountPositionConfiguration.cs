@@ -122,12 +122,14 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             }
             else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {
-                var cellValue = e.CellValue.ToString();
+                var cellValueString = e.CellValue.ToString();
 
-                if (cellValue.IndexOf('-') == 0)
-                    e.Appearance.ForeColor = System.Drawing.Color.Green;
-                else if (cellValue != "0.00%")
+                var cellValue = decimal.Parse(cellValueString.Substring(0, cellValueString.Length - 1));
+
+                if (cellValue > 0)
                     e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
             else if (e.Column == this.colSubjectNetProfit || e.Column == this.colStockProfit)
             {
