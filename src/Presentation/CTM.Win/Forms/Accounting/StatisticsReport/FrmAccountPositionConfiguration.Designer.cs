@@ -53,7 +53,7 @@
             this.colStockPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockProfit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockProfitRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockProfitInSubjectRate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockPositionValueRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -170,7 +170,7 @@
             this.colStockPositionValue,
             this.colStockProfit,
             this.colStockProfitRate,
-            this.colStockProfitInSubjectRate});
+            this.colStockPositionValueRate});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
@@ -459,20 +459,20 @@
             this.colStockProfitRate.Visible = true;
             this.colStockProfitRate.VisibleIndex = 16;
             // 
-            // colStockProfitInSubjectRate
+            // colStockPositionValueRate
             // 
-            this.colStockProfitInSubjectRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colStockProfitInSubjectRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colStockProfitInSubjectRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseFont = true;
-            this.colStockProfitInSubjectRate.AppearanceHeader.Options.UseTextOptions = true;
-            this.colStockProfitInSubjectRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colStockProfitInSubjectRate.Caption = "持仓占比";
-            this.colStockProfitInSubjectRate.FieldName = "StockProfitInSubjectRate";
-            this.colStockProfitInSubjectRate.Name = "colStockProfitInSubjectRate";
-            this.colStockProfitInSubjectRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
-            this.colStockProfitInSubjectRate.Visible = true;
-            this.colStockProfitInSubjectRate.VisibleIndex = 17;
+            this.colStockPositionValueRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colStockPositionValueRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colStockPositionValueRate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.colStockPositionValueRate.AppearanceHeader.Options.UseFont = true;
+            this.colStockPositionValueRate.AppearanceHeader.Options.UseTextOptions = true;
+            this.colStockPositionValueRate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colStockPositionValueRate.Caption = "持仓占比";
+            this.colStockPositionValueRate.FieldName = "StockPositionValueRate";
+            this.colStockPositionValueRate.Name = "colStockPositionValueRate";
+            this.colStockPositionValueRate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            this.colStockPositionValueRate.Visible = true;
+            this.colStockPositionValueRate.VisibleIndex = 17;
             // 
             // layoutControlGroup1
             // 
@@ -490,6 +490,7 @@
             // 
             this.layoutControlGroup2.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.layoutControlGroup2.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup2.ExpandButtonVisible = true;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3,
             this.layoutControlItem2,
@@ -650,7 +651,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStockPositionValue;
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfit;
         private DevExpress.XtraGrid.Columns.GridColumn colStockProfitRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockProfitInSubjectRate;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockPositionValueRate;
         private DevExpress.XtraGrid.Columns.GridColumn colSubjectInvestFund;
         private DevExpress.XtraGrid.Columns.GridColumn colSubjectId;
         private DevExpress.XtraGrid.Columns.GridColumn colUniqueSerialNo;
