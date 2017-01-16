@@ -471,6 +471,7 @@
             this.barButtonItem33.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem33.LargeGlyph")));
             this.barButtonItem33.Name = "barButtonItem33";
             this.barButtonItem33.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem33.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem33_ItemClick);
             // 
             // barButtonItem34
             // 

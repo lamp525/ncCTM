@@ -11,7 +11,7 @@ using CTM.Win.Forms.Accounting.AccountManage;
 using CTM.Win.Forms.Accounting.DataManage;
 using CTM.Win.Forms.Accounting.StatisticsReport;
 using CTM.Win.Forms.Admin.BaseData;
-using CTM.Win.Forms.Admin.DataManage;
+using CTM.Win.Forms.Admin.Log;
 using CTM.Win.Forms.DailyTrading.DataManage;
 using CTM.Win.Forms.DailyTrading.ReportExport;
 using CTM.Win.Forms.DailyTrading.StatisticsReport;
@@ -242,11 +242,18 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmAccountInvestFundDetail>("账户投资资金查询");
         }
 
+        private void barButtonItem32_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountPositionConfiguration>("账户仓位配置规划");
+        }
+
         #endregion Report
 
         #endregion Accounting
 
         #region Admin
+
+        #region BaseData
 
         /// <summary>
         /// 数据字典
@@ -299,20 +306,6 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// 历史交易数据导入
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem41_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            // if (this.ActiveOpenedForm(typeof(FrmHistoryTradeDataImport).Name, false)) return;
-
-            var dialog = this.CreateDialog<FrmHistoryTradeDataImport>();
-            dialog.Text = "历史交易数据导入";
-            dialog.ShowDialog();
-        }
-
-        /// <summary>
         /// 用户信息
         /// </summary>
         /// <param name="sender"></param>
@@ -321,6 +314,32 @@ namespace CTM.Win.Forms
         {
             this.DisplayTabbedForm<FrmUser>("用户管理");
         }
+
+        private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmIDCommittee>("决策委员会");
+        }
+
+        private void barButtonItem9_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmIDStockPool>("决策股票池");
+        }
+
+        private void barButtonItem24_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmIDReason>("决策理由");
+        }
+
+        #endregion BaseData
+
+        #region Log
+
+        private void barButtonItem33_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmLoginLog>("登录日志");
+        }
+
+        #endregion Log
 
         #endregion Admin
 
@@ -556,28 +575,11 @@ namespace CTM.Win.Forms
 
         #region InvestmentDecision
 
-        private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayForm<FrmIDCommittee>("决策委员会");
-        }
-
-        private void barButtonItem9_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmIDStockPool>("决策股票池");
-        }
-
-        private void barButtonItem24_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmIDReason>("决策理由");
-        }
-
         private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
         {
             //this.DisplayTabbedForm<FrmInvestmentDecisionManage>("股票投资决策管理");
             this.DisplayTabbedForm<FrmStockInvestmentDecision>("股票投资决策管理");
         }
-
-    
 
         private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -663,16 +665,8 @@ namespace CTM.Win.Forms
             this.Close();
         }
 
-
-
-
         #endregion SystemMenu
 
-        #endregion Events     
-
-        private void barButtonItem32_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmAccountPositionConfiguration>("账户仓位配置规划");
-        }
+        #endregion Events
     }
 }
