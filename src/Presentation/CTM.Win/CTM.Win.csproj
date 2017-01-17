@@ -1065,6 +1065,9 @@
     <Content Include="ReportTemplate\UserDailyProfitFlow\TargetReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportTemplate\UserDailyProfitFlow\IndependenceReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Icon\" />

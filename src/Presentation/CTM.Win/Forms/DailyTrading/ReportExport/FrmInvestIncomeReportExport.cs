@@ -71,7 +71,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             //部门
             var deptInfos = this._departmentService.GetAllAccountingDepartmentInfo()
-                .Where(x => x.Id != (int)EnumLibrary.AccountingDepartment.Independence)
                 .Select(x => new ComboBoxItemModel
                 {
                     Text = x.Name,
@@ -102,6 +101,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             switch ((EnumLibrary.AccountingDepartment)deptId)
             {
+                case EnumLibrary.AccountingDepartment.Independence:
+                    fileName = "IndependenceReport.xlsx";
+                    break;
+
                 case EnumLibrary.AccountingDepartment.Target:
                     fileName = "TargetReport.xlsx";
                     break;
@@ -128,6 +131,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             switch ((EnumLibrary.AccountingDepartment)deptId)
             {
+                case EnumLibrary.AccountingDepartment.Independence:
+                    typeName = "独立核算";
+                    break;
+
                 case EnumLibrary.AccountingDepartment.Target:
                     typeName = "目标";
                     break;
