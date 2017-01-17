@@ -138,6 +138,14 @@ namespace CTM.Win.Extensions
 
         #region GridControl/GridView
 
+        public static  void DrawRowIndicator(this GridView view, RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
         /// <summary>
         /// Expand a master row recursively
         /// </summary>

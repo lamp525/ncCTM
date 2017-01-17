@@ -397,7 +397,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
-                // var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
+                //var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
                 //myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
                 myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
@@ -407,7 +407,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.txtFilePath.Text = myOpenFileDialog.FileName;
-                   // this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
+                    //this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
 
                     //导入数据预览
                     BindPreviewData(myOpenFileDialog.FileName);
@@ -500,10 +500,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void gridViewSkip_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
-            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
-            {
-                e.Info.DisplayText = (e.RowHandle + 1).ToString();
-            }
+            (sender as DevExpress.XtraGrid.Views.Grid.GridView).DrawRowIndicator(e);
         }
 
         /// <summary>
