@@ -48,8 +48,13 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void BindStockPool()
         {
+            this.btnEdit.Enabled = false;
+            this.btnDelete.Enabled = false;
+            this.gridControl1.DataSource = null;
+
             var commandText = $@" SELECT *  FROM [dbo].[v_IDStockPool] ORDER BY Principal";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gridControl1.DataSource = ds.Tables[0];
