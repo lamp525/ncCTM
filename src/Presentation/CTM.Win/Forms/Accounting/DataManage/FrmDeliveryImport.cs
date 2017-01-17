@@ -53,11 +53,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this._dataImportCommonService = dataImportCommonService;
             this._commonService = commonService;
 
-            string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
+            //string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
 
-            configFilePath = Path.Combine(Application.StartupPath, configFilePath);
+            //configFilePath = Path.Combine(Application.StartupPath, configFilePath);
 
-            this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
+            //this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
         #endregion Constructors
@@ -234,9 +234,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
-                var defaultPath = this._iniConfigHelper.GetString("Accounting", "TradeDataImportPath", null);
-
-                myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
+                // var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
+                //myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
+                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
@@ -244,7 +244,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.txtFilePath.Text = myOpenFileDialog.FileName;
-                    this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
+                   // this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
 
                     //导入数据预览
                     BindPreviewData(myOpenFileDialog.FileName);
