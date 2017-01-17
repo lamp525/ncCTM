@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -1052,9 +1052,7 @@
     <Content Include="DataTemplate\AccountingDelivery\ESSENCE_N.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <AdditionalFiles Include="App_Data\Config\Config.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
+    <Content Include="App_Data\Config\Config.ini" />
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1164,6 +1162,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PublishFile Include="App_Data\Config\Config.ini">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
     <PublishFile Include="App_Data\Install\SqlServer.Functions.sql">
       <Visible>False</Visible>
       <Group>
