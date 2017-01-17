@@ -26,6 +26,7 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<InvestmentDecisionVote> _IDVoteRepository;
 
         private readonly IRepository<InvestmentDecisionStockPool> _IDStockPoolRepository;
+        private readonly IRepository<InvestmentDecisionStockPoolLog> _IDStockPoolLogRepository;
 
         private readonly IRepository<MarketTrendForecastInfo> _MTFInfoRepository;
         private readonly IRepository<MarketTrendForecastDetail> _MTFDetailRepository;
@@ -55,6 +56,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<InvestmentDecisionForm> IDFRepository,
             IRepository<InvestmentDecisionVote> IDVRepository,
             IRepository<InvestmentDecisionStockPool> IDStockPoolRepository,
+            IRepository<InvestmentDecisionStockPoolLog> IDStockPoolLogRepository,
             IRepository<MarketTrendForecastInfo> MTFInfoRepository,
             IRepository<MarketTrendForecastDetail> MTFDetailRepository,
             IRepository<PositionStockAnalysisInfo> PSAInfoRepository,
@@ -74,6 +76,7 @@ namespace CTM.Services.InvestmentDecision
             this._IDFormRepository = IDFRepository;
             this._IDVoteRepository = IDVRepository;
             this._IDStockPoolRepository = IDStockPoolRepository;
+            this._IDStockPoolLogRepository = IDStockPoolLogRepository;
             this._MTFInfoRepository = MTFInfoRepository;
             this._MTFDetailRepository = MTFDetailRepository;
             this._PSADetailRepository = PSADetailRepository;
@@ -419,13 +422,6 @@ namespace CTM.Services.InvestmentDecision
             _MTFDetailRepository.Delete(votes.ToArray());
         }
 
-        public virtual IList<InvestmentDecisionStockPool> GetIDStockPool()
-        {
-            var query = _IDStockPoolRepository.Table;
-
-            return query.ToList();
-        }
-
         public virtual InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode)
         {
             var info = _IDStockPoolRepository.Table.FirstOrDefault(x => x.StockCode == stockCode);
@@ -441,14 +437,29 @@ namespace CTM.Services.InvestmentDecision
             _IDStockPoolRepository.Update(entity);
         }
 
-        public virtual void DeleteIDStockPool(IList<string> stockCodes)
+        public virtual void DeleteIDStockPool(IList<string> stockCodes, string operateCode)
         {
             if (stockCodes == null)
                 throw new NullReferenceException(nameof(stockCodes));
 
-            var infos = _IDStockPoolRepository.Table.Where(x => stockCodes.Contains(x.StockCode)).ToList();
+            foreach (var stockCode in stockCodes)
+            {
+                var info = _IDStockPoolRepository.Table.Where(x => x.StockCode == stockCode).SingleOrDefault();
 
-            _IDStockPoolRepository.Delete(infos);
+                if (info == null) continue;
+
+                _IDStockPoolRepository.Delete(info);
+
+                var logModel = new InvestmentDecisionStockPoolLog
+                {
+                    StockCode = stockCode,
+                    Type = (int)EnumLibrary.OperateType.Delete,
+                    OperatorCode = operateCode,
+                    OperateTime = _commonService.GetCurrentServerTime(),
+                };
+
+                AddIDStockPoolLog(logModel);
+            }
         }
 
         public virtual void AddIDStockPool(InvestmentDecisionStockPool entity)
@@ -457,6 +468,14 @@ namespace CTM.Services.InvestmentDecision
                 throw new NullReferenceException(nameof(entity));
 
             _IDStockPoolRepository.Insert(entity);
+        }
+
+        public virtual void AddIDStockPoolLog(InvestmentDecisionStockPoolLog entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _IDStockPoolLogRepository.Insert(entity);
         }
 
         public virtual IList<InvestmentDecisionCommittee> GetIDCommittees()

@@ -23,11 +23,9 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IInvestmentDecisionService _IDService;
         private readonly ICommonService _commonService;
 
-        private IList<StockInfo> _stocks;
+        private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-        private const string _PoolLogFormatAdd = @"[ {0} ] —— {1} 将股票 [{2}][{3}] 添加到股票池中。【 目标负责人： {4}   波段负责人： {5} 】";
-        private const string _PoolLogFormatEdit = @"[ {0} ] —— {1} 修改了股票 [{2}][{3}] 的股票池信息。【 目标负责人： {4}   波段负责人： {5} 】";
-        private const string _PoolLogFormatDelete = @"[ {0} ] —— {1} 将股票 [{2}][{3}] 移出了股票池。";
+        private IList<StockInfo> _stocks;
 
         private const int _RecentLogNumber = 20;
 
@@ -50,9 +48,8 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void BindStockPool()
         {
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
             var commandText = $@" SELECT *  FROM [dbo].[v_IDStockPool] ORDER BY Principal";
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gridControl1.DataSource = ds.Tables[0];
@@ -64,7 +61,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             BindStockInfoLeft();
 
-            DisplayPoolHistory(0, _RecentLogNumber);
+            DisplayPoolHistory(null, _RecentLogNumber);
         }
 
         private void BindStockInfoLeft()
@@ -103,9 +100,9 @@ namespace CTM.Win.Forms.Admin.BaseData
             var all = new StockInfoModel
             {
                 Id = 0,
-                FullCode = "000000",
+                FullCode = string.Empty,
                 Name = "全部",
-                DisplayMember = "000000 - 全部",
+                DisplayMember = " 全部",
             };
             source.Add(all);
 
@@ -121,6 +118,50 @@ namespace CTM.Win.Forms.Admin.BaseData
             dialog.StockCode = stockCode;
             dialog.Text = "决策股票池设置";
             dialog.ShowDialog();
+        }
+
+        private void DisplayPoolHistory(string stockCode, int logNumber)
+        {
+            this.lbHistoryLog.Items.Clear();
+
+            var sqlScript = logNumber > 0 ? $@" SELECT TOP {logNumber} * FROM [dbo].[v_IDStockPoolLog] WHERE 1= 1 " : $@" SELECT  * FROM [dbo].[v_IDStockPoolLog] WHERE 1= 1 ";
+
+            if (!string.IsNullOrEmpty(stockCode))
+                sqlScript += $@" AND StockCode = '{stockCode}' ";
+
+            sqlScript += $@" ORDER BY OperateTime DESC ";
+
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlScript);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            var dtLog = ds.Tables[0];
+
+            var parsedLogs = new List<string>();
+            foreach (DataRow row in dtLog.Rows)
+            {
+                var parsedLog = string.Empty;
+                parsedLogs.Add(parsedLog);
+
+                switch (int.Parse(row["Type"].ToString()))
+                {
+                    case (int)EnumLibrary.OperateType.Add:
+                        parsedLog = $@"[ {row["OperateTime"]} ] —— {row["OperatorName"]} 将股票 [{row["StockName"]}][{row["StockCode"]}] 添加到股票池中。【 负责人： {row["PrincipalName"]} 】";
+                        break;
+
+                    case (int)EnumLibrary.OperateType.Edit:
+                        parsedLog = $@"[ {row["OperateTime"]} ] —— {row["OperatorName"]} 修改了股票 [{row["StockName"]}][{row["StockCode"]}] 的股票池信息。【 负责人： {row["PrincipalName"]} 】";
+                        break;
+
+                    case (int)EnumLibrary.OperateType.Delete:
+                        parsedLog = $@"[ {row["OperateTime"]} ] —— {row["OperatorName"]} 将股票 [{row["StockName"]}][{row["StockCode"]}]  移出了股票池。";
+                        break;
+                }
+
+                parsedLogs.Add(parsedLog);
+            }
+
+            this.lbHistoryLog.Items.AddRange(parsedLogs.ToArray());
         }
 
         #endregion Utilities
@@ -143,47 +184,9 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.chkAll.Checked = false;
             this.chkRecent.Checked = true;
 
-            DisplayPoolHistory(0, _RecentLogNumber);
+            DisplayPoolHistory(null, _RecentLogNumber);
 
             this.ActiveControl = this.btnAdd;
-        }
-
-        private void DisplayPoolHistory(int stockId, int logNumber)
-        {
-            //var logs = _stockService.GetStockPoolLogs(stockId, logNumber).OrderByDescending(x => x.OperatorTime).ToList();
-
-            //var parsedLogs = new List<string>();
-            //foreach (var log in logs)
-            //{
-            //    var parsedLog = string.Empty;
-            //    parsedLogs.Add(parsedLog);
-
-            //    if (string.IsNullOrEmpty(log.BandPricipalName))
-            //        log.BandPricipalName = " / ";
-
-            //    if (string.IsNullOrEmpty(log.TargetPricipalName))
-            //        log.TargetPricipalName = " / ";
-
-            //    switch (log.Type)
-            //    {
-            //        case (int)EnumLibrary.OperateType.Add:
-            //            parsedLog = string.Format(_PoolLogFormatAdd, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
-            //            break;
-
-            //        case (int)EnumLibrary.OperateType.Edit:
-            //            parsedLog = string.Format(_PoolLogFormatEdit, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
-            //            break;
-
-            //        case (int)EnumLibrary.OperateType.Delete:
-            //            parsedLog = string.Format(_PoolLogFormatDelete, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode);
-            //            break;
-            //    }
-
-            //    parsedLogs.Add(parsedLog);
-            //}
-
-            //this.lbHistoryLog.Items.Clear();
-            //this.lbHistoryLog.Items.AddRange(parsedLogs.ToArray());
         }
 
         private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
@@ -228,7 +231,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
-                if (DXMessage.ShowYesNoAndTips("确定将该股票移出股票池吗？") == DialogResult.Yes)
+                if (DXMessage.ShowYesNoAndTips("确定将选择的股票移出股票池吗？") == DialogResult.Yes)
                 {
                     var stockCodes = new List<string>();
                     for (int i = 0; i < selectedHandles.Length; i++)
@@ -236,7 +239,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                         stockCodes.Add(myView.GetRowCellValue(selectedHandles[i], colStockCode).ToString());
                     }
 
-                    _IDService.DeleteIDStockPool(stockCodes);
+                    _IDService.DeleteIDStockPool(stockCodes, LoginInfo.CurrentUser.UserCode);
 
                     RefreshForm();
                 }
@@ -319,10 +322,10 @@ namespace CTM.Win.Forms.Admin.BaseData
             {
                 this.btnSearch.Enabled = false;
 
-                var stockId = luStock.SelectedValue() == null ? 0 : int.Parse(luStock.SelectedValue());
+                var stockCode = luStock.SelectedValue();
                 var logNumber = chkRecent.Checked ? _RecentLogNumber : 0;
 
-                DisplayPoolHistory(stockId, logNumber);
+                DisplayPoolHistory(stockCode, logNumber);
             }
             catch (Exception ex)
             {

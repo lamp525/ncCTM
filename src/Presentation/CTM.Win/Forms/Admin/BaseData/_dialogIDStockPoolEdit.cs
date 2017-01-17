@@ -1,10 +1,12 @@
 ﻿using System;
+using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Services.Stock;
 using CTM.Services.User;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 
 namespace CTM.Win.Forms.Admin.BaseData
@@ -93,14 +95,13 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             var principal = this.luPrincipal.SelectedValue();
 
-            //var logModel = new StockPoolLog()
-            //{
-            //    StockId = _stockId,
-            //    BandPrincipal = bandPrincipal,
-            //    TargetPrincipal = targetPrincipal,
-            //    OperatorCode = LoginInfo.CurrentUser.UserCode,
-            //    OperatorTime = _commonService.GetCurrentServerTime(),
-            //};
+            var logModel = new InvestmentDecisionStockPoolLog()
+            {
+                StockCode = StockCode,
+                Principal = principal,         
+                OperatorCode = LoginInfo.CurrentUser.UserCode,
+                OperateTime = _commonService.GetCurrentServerTime(),
+            };
 
             //修改股票池的场合
             if (this._isEdit)
@@ -111,7 +112,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 _IDService.UpdateIDStockPool(stockPool);
 
-                // logModel.Type = (int)EnumLibrary.OperateType.Edit;
+                logModel.Type = (int)EnumLibrary.OperateType.Edit;
             }
             //添加股票池的场合
             else
@@ -126,11 +127,11 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 _IDService.AddIDStockPool(stockPool);
 
-                //  logModel.Type = (int)EnumLibrary.OperateType.Add;
+                logModel.Type = (int)EnumLibrary.OperateType.Add;
             }
 
             //添加股票池操作日志
-            //  _stockService.AddStockPoolLog(logModel);
+             _IDService.AddIDStockPoolLog(logModel);
 
             RefreshEvent?.Invoke();
 

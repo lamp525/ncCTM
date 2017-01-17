@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.Stock;
-using CTM.Services.Common;
 using CTM.Services.Stock;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
@@ -18,7 +17,6 @@ namespace CTM.Win.Forms.Admin.BaseData
         #region Fields
 
         private readonly IStockService _stockService;
-        private readonly ICommonService _commonService;
 
         private IList<StockInfo> _stocks;
 
@@ -26,20 +24,17 @@ namespace CTM.Win.Forms.Admin.BaseData
         private const string _PoolLogFormatEdit = @"[ {0} ] —— {1} 修改了股票 [{2}][{3}] 的股票池信息。【 目标负责人： {4}   波段负责人： {5} 】";
         private const string _PoolLogFormatDelete = @"[ {0} ] —— {1} 将股票 [{2}][{3}] 移出了股票池。";
 
-        private const string _layoutXmlName = "FrmStockPool";
-
         private const int _RecentLogNumber = 20;
 
         #endregion Fields
 
         #region Constructors
 
-        public FrmStockPool(IStockService stockService, ICommonService commonService)
+        public FrmStockPool(IStockService stockService)
         {
             InitializeComponent();
 
             this._stockService = stockService;
-            this._commonService = commonService;
         }
 
         #endregion Constructors
@@ -139,34 +134,11 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.luStock.Initialize(source, "Id", "DisplayMember", enableSearch: true, searchColumnIndex: 0);
         }
 
-        #endregion Utilities
-
-        #region Events
-
-        private void FrmStockPool_Load(object sender, EventArgs e)
-        {
-            this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout();
-
-            SetOperateButtonProperties();
-
-            BindStockPool();
-
-            BindStockInfoLeft();
-
-            BindStockInfo();
-
-            this.chkAll.Checked = false;
-            this.chkRecent.Checked = true;
-
-            DisplayPoolHistory(0, _RecentLogNumber);
-
-            this.ActiveControl = this.btnAdd;
-        }
-
         private void DisplayPoolHistory(int stockId, int logNumber)
         {
-            var logs = _stockService.GetStockPoolLogs(stockId, logNumber).OrderByDescending(x => x.OperatorTime).ToList();
+            this.lbHistoryLog.Items.Clear();
+
+            var logs = _stockService.GetStockPoolLogs(stockId, logNumber).OrderByDescending(x => x.OperateTime).ToList();
 
             var parsedLogs = new List<string>();
             foreach (var log in logs)
@@ -183,23 +155,47 @@ namespace CTM.Win.Forms.Admin.BaseData
                 switch (log.Type)
                 {
                     case (int)EnumLibrary.OperateType.Add:
-                        parsedLog = string.Format(_PoolLogFormatAdd, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
+                        parsedLog = string.Format(_PoolLogFormatAdd, log.OperateTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
                         break;
 
                     case (int)EnumLibrary.OperateType.Edit:
-                        parsedLog = string.Format(_PoolLogFormatEdit, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
+                        parsedLog = string.Format(_PoolLogFormatEdit, log.OperateTime, log.OperatorName, log.StockName, log.StockFullCode, log.TargetPricipalName, log.BandPricipalName);
                         break;
 
                     case (int)EnumLibrary.OperateType.Delete:
-                        parsedLog = string.Format(_PoolLogFormatDelete, log.OperatorTime, log.OperatorName, log.StockName, log.StockFullCode);
+                        parsedLog = string.Format(_PoolLogFormatDelete, log.OperateTime, log.OperatorName, log.StockName, log.StockFullCode);
                         break;
                 }
 
                 parsedLogs.Add(parsedLog);
             }
 
-            this.lbHistoryLog.Items.Clear();
+        
             this.lbHistoryLog.Items.AddRange(parsedLogs.ToArray());
+        }
+
+        #endregion Utilities
+
+        #region Events
+
+        private void FrmStockPool_Load(object sender, EventArgs e)
+        {        
+            this.gridView1.SetLayout();
+
+            SetOperateButtonProperties();
+
+            BindStockPool();
+
+            BindStockInfoLeft();
+
+            BindStockInfo();
+
+            this.chkAll.Checked = false;
+            this.chkRecent.Checked = true;
+
+            DisplayPoolHistory(0, _RecentLogNumber);
+
+            this.ActiveControl = this.btnAdd;
         }
 
         private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
@@ -244,21 +240,15 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 var selectedHandles = myView.GetSelectedRows().Where(x => x > -1).ToArray();
 
-                if (DXMessage.ShowYesNoAndTips("确定将该股票移出股票池吗？") == DialogResult.Yes)
+                if (DXMessage.ShowYesNoAndTips("确定将选择股票移出股票池吗？") == DialogResult.Yes)
                 {
-                    var stockId = int.Parse(myView.GetRowCellValue(selectedHandles[0], colStockId).ToString());
-
-                    _stockService.DeleteStockPoolInfoByStockId(stockId);
-
-                    var logModel = new StockPoolLog
+                    var stockIds = new List<int>();
+                    for (int i = 0; i < selectedHandles.Length; i++)
                     {
-                        StockId = stockId,
-                        Type = (int)EnumLibrary.OperateType.Delete,
-                        OperatorCode = LoginInfo.CurrentUser.UserCode,
-                        OperatorTime = _commonService.GetCurrentServerTime(),
-                    };
+                        stockIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[i], colStockId).ToString()));
+                    }
 
-                    _stockService.AddStockPoolLog(logModel);
+                    _stockService.DeleteStockPool(stockIds, LoginInfo.CurrentUser.UserCode);
 
                     RefreshForm();
                 }
@@ -329,17 +319,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             {
                 this.btnAdd.Enabled = true;
             }
-        }
-
-        /// <summary>
-        /// 保存样式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSaveLayout_Click(object sender, EventArgs e)
-        {
-            this.gridView1.SaveLayout(_layoutXmlName);
-        }
+        }    
 
         private void chkRecent_CheckedChanged(object sender, EventArgs e)
         {

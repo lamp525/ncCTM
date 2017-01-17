@@ -28,15 +28,15 @@ namespace CTM.Services.InvestmentDecision
 
         void DeleteMTFInfo(string serialNo);
 
-        IList<InvestmentDecisionStockPool> GetIDStockPool();
-
         InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode);
 
-        void DeleteIDStockPool(IList<string> stockCodes);
+        void DeleteIDStockPool(IList<string> stockCodes, string operateCode);
 
         void AddIDStockPool(InvestmentDecisionStockPool entity);
 
         void UpdateIDStockPool(InvestmentDecisionStockPool entity);
+
+        void AddIDStockPoolLog(InvestmentDecisionStockPoolLog entity);
 
         IList<InvestmentDecisionCommittee> GetIDCommittees();
 
@@ -72,7 +72,7 @@ namespace CTM.Services.InvestmentDecision
 
         string GetIDReasonCategoryNameWithParent(int categoryId, string jointMark = "-");
 
-        void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent,bool isAdminVeto);
+        void IDOperationVoteProcess(string investorCode, string applyNo, string operateNo, EnumLibrary.IDVoteFlag flag, int reasonCategoryId, string reasonContent, bool isAdminVeto);
 
         InvestmentDecisionOperationVote GetIDOperationVoteInfo(string userCode, string operateNo);
 
@@ -93,5 +93,6 @@ namespace CTM.Services.InvestmentDecision
         void DeleteInvestmentDecisionOperation(string applyNo, string operateNo);
 
         void StopInvestmentDecisionOperation(string operateNo, string stopReasonContent);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CTM.Core;
 using CTM.Core.Data;
 using CTM.Core.Domain.Stock;
 using CTM.Core.Domain.User;
@@ -304,7 +305,7 @@ namespace CTM.Services.Stock
             if (string.IsNullOrEmpty(stockCode))
                 throw new ArgumentNullException(nameof(stockCode));
 
-            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code || stockCode == x.FullCode ).FirstOrDefault();
+            var info = _stockInfoRepository.Table.Where(x => stockCode == x.Code || stockCode == x.FullCode).FirstOrDefault();
 
             return info;
         }
@@ -327,7 +328,7 @@ namespace CTM.Services.Stock
                 query = query.Where(x => x.StockId == stockId);
 
             if (logNumber > 0)
-                query = query.OrderByDescending(x => x.OperatorTime).Take(logNumber);
+                query = query.OrderByDescending(x => x.OperateTime).Take(logNumber);
 
             var infos = from log in query
                         join stock in _stockInfoRepository.Table
@@ -352,7 +353,7 @@ namespace CTM.Services.Stock
                 BandPrincipal = x.log.BandPrincipal,
                 OperatorCode = x.log.OperatorCode,
                 OperatorName = x.operatorName,
-                OperatorTime = x.log.OperatorTime,
+                OperateTime = x.log.OperateTime,
                 StockFullCode = x.stockInfo.FullCode,
                 StockId = x.log.StockId,
                 StockName = x.stockInfo.Name,
@@ -404,6 +405,27 @@ namespace CTM.Services.Stock
             result = query.ToList();
 
             return result;
+        }
+
+        public virtual void DeleteStockPool(IList<int> stockIds, string operateCode)
+        {
+            if (stockIds == null)
+                throw new NullReferenceException(nameof(stockIds));
+
+            foreach (var stockId in stockIds)
+            {
+                DeleteStockPoolInfoByStockId(stockId);
+
+                var logModel = new StockPoolLog
+                {
+                    StockId = stockId,
+                    Type = (int)EnumLibrary.OperateType.Delete,
+                    OperatorCode = operateCode,
+                    OperateTime = _commonService.GetCurrentServerTime(),
+                };
+
+                AddStockPoolLog(logModel);
+            }
         }
 
         #endregion Methods

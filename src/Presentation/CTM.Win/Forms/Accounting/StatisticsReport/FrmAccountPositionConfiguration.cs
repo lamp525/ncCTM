@@ -114,11 +114,13 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
             if (e.Column == this.colCurrentPrice)
             {
-                var changePercentage = this.gridView1.GetRowCellValue(e.RowHandle, this.colChangePercentage).ToString();
-                if (changePercentage.IndexOf('-') == 0)
-                    e.Appearance.ForeColor = System.Drawing.Color.Green;
-                else if (changePercentage != "0.00%")
+                var changePercentageString = this.gridView1.GetRowCellValue(e.RowHandle, this.colChangePercentage).ToString();
+                var changePercentage = decimal.Parse(changePercentageString.Substring(0, changePercentageString.Length - 1));
+
+                if (changePercentage > 0)
                     e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (changePercentage < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
             else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {

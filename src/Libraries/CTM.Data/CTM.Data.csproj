@@ -73,6 +73,7 @@
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionApplicationMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionOperationMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionOperationVoteMap.cs" />
+    <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionStockPoolLogMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\InvestmentDecisionTradeRecordMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisSummaryMap.cs" />
     <Compile Include="Mapping\InvestmentDecision\PositionStockAnalysisDetailMap.cs" />
@@ -236,6 +237,10 @@
     <Compile Include="Migrations\201701110715474_033.Designer.cs">
       <DependentUpon>201701110715474_033.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701170213374_034.cs" />
+    <Compile Include="Migrations\201701170213374_034.Designer.cs">
+      <DependentUpon>201701170213374_034.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -352,6 +357,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701110715474_033.resx">
       <DependentUpon>201701110715474_033.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701170213374_034.resx">
+      <DependentUpon>201701170213374_034.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

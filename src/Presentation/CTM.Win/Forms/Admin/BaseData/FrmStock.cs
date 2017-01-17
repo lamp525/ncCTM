@@ -20,8 +20,6 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IStockService _stockService;
         private readonly ICommonService _commonService;
 
-        private const string _layoutXmlName = "FrmStock";
-
         #endregion Fields
 
         #region Constructors
@@ -104,7 +102,6 @@ namespace CTM.Win.Forms.Admin.BaseData
 
         private void FrmStock_Load(object sender, EventArgs e)
         {
-            this.gridView1.LoadLayout(_layoutXmlName);
             this.gridView1.SetLayout(rowIndicatorWidth: 50);
 
             SetOperateButtonProperties();
@@ -112,16 +109,6 @@ namespace CTM.Win.Forms.Admin.BaseData
             BindStockInfo();
 
             this.ActiveControl = this.btnAdd;
-        }
-
-        /// <summary>
-        /// 保存样式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSaveLayout_Click(object sender, EventArgs e)
-        {
-            this.gridView1.SaveLayout(_layoutXmlName);
         }
 
         /// <summary>
@@ -223,7 +210,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                         StockId = stockId,
                         Type = (int)EnumLibrary.OperateType.Add,
                         OperatorCode = LoginInfo.CurrentUser.UserCode,
-                        OperatorTime = _commonService.GetCurrentServerTime(),
+                        OperateTime = _commonService.GetCurrentServerTime(),
                     };
 
                     _stockService.AddStockPoolLog(logModel);

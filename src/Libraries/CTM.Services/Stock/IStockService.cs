@@ -48,6 +48,8 @@ namespace CTM.Services.Stock
 
         IList<StockPoolInfo> GetAllStockPoolDetail();
 
+        void DeleteStockPool(IList<int> stockIds, string operateCode);
+
         #endregion StockPool
 
         #region StockPoolLog

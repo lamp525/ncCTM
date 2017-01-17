@@ -22,7 +22,7 @@ namespace CTM.Core.Domain.Stock
         /// <summary>
         /// 操作时间
         /// </summary>
-        public DateTime OperatorTime { get; set; }
+        public DateTime OperateTime { get; set; }
 
         /// <summary>
         /// 目标负责人代码

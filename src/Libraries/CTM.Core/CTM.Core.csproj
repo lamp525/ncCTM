@@ -78,6 +78,7 @@
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionForm.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionOperation.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionStockPool.cs" />
+    <Compile Include="Domain\InvestmentDecision\InvestmentDecisionStockPoolLog.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionTradeRecord.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionVote.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionOperationVote.cs" />

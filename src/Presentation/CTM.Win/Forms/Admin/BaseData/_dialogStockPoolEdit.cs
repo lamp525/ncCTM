@@ -86,18 +86,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         }
 
         private void btnOk_Click(object sender, EventArgs e)
-        {
-            //if (this.luTarget.EditValue == null || this.luTarget.EditValue.ToString() == "nulltext")
-            //{
-            //    DXMessage.ShowTips("请选择目标负责人！");
-            //    return;
-            //}
-
-            //if (this.luBand.EditValue == null || this.luBand.EditValue.ToString() == "nulltext")
-            //{
-            //    DXMessage.ShowTips("请选择波段负责人！");
-            //    return;
-            //}
+        {            
 
             var targetPrincipal = this.luTarget.SelectedValue();
 
@@ -109,7 +98,7 @@ namespace CTM.Win.Forms.Admin.BaseData
                 BandPrincipal = bandPrincipal,
                 TargetPrincipal = targetPrincipal,
                 OperatorCode = LoginInfo.CurrentUser.UserCode,
-                OperatorTime = _commonService.GetCurrentServerTime(),
+                OperateTime = _commonService.GetCurrentServerTime(),
             };
 
             //修改股票池的场合
