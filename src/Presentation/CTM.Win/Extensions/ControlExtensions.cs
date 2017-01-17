@@ -138,6 +138,11 @@ namespace CTM.Win.Extensions
 
         #region GridControl/GridView
 
+        /// <summary>
+        /// Draw Row indicator
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="e"></param>
         public static  void DrawRowIndicator(this GridView view, RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
