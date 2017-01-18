@@ -125,7 +125,13 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
                 this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
+
                 BindSearchInfo();
+
+                var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
+                var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
+
+                BindFundTranserInfo(0,dateFrom,dateTo,null);
 
                 this.btnDelete.Enabled = false;
                 this.btnExportToExcel.Enabled = false;

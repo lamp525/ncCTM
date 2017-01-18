@@ -64,9 +64,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this._commonService = commonService;
 
             //string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
-
             //configFilePath = Path.Combine(Application.StartupPath, configFilePath);
-
             //this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
