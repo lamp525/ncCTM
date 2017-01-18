@@ -33,5 +33,10 @@ namespace CTM.Services.StatisticsReport
         /// 累计收益（包含持仓收益）
         /// </summary>
         public decimal AccumulatedProfit { get; set; }
+
+        /// <summary>
+        /// 年度收益（包含持仓收益）
+        /// </summary>
+        public decimal AnnualProfit { get; set; }
     }
 }

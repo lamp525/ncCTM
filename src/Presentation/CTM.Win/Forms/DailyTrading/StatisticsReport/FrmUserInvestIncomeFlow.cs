@@ -542,6 +542,10 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 AccumulatedProfit = CommonHelper.SetDecimalDigits(x.AccumulatedProfit / _unitTenThousand),
                 ActualMarginAmount = CommonHelper.SetDecimalDigits(x.ActualMarginAmount / _unitTenThousand),
                 AllotFund = CommonHelper.SetDecimalDigits(x.AllotFund / _unitTenThousand),
+                AnnualIncomeRate = CommonHelper.SetDecimalDigits(x.AnnualIncomeRate, 4),
+                AnnualInterest = CommonHelper.SetDecimalDigits(x.AnnualInterest / _unitTenThousand),
+                AnnualActualProfit = CommonHelper.SetDecimalDigits(x.AnnualActualProfit / _unitTenThousand),
+                AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit / _unitTenThousand),
                 AverageMarginAmount = CommonHelper.SetDecimalDigits(x.AverageMarginAmount / _unitTenThousand),
                 CurrentAsset = CommonHelper.SetDecimalDigits(x.CurrentAsset / _unitTenThousand),
                 CurrentIncomeRate = CommonHelper.SetDecimalDigits(x.CurrentIncomeRate, 4),
@@ -549,14 +553,14 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 CurrentActualProfit = CommonHelper.SetDecimalDigits(x.CurrentActualProfit / _unitTenThousand),
                 CurrentProfit = CommonHelper.SetDecimalDigits(x.CurrentProfit / _unitTenThousand),
                 DealAmount = CommonHelper.SetDecimalDigits(x.DealAmount / _unitTenThousand),
-                DepartmentName = deptName,
-                FormatedTradeTime = x.TradeTime.ToString(tradeTimeFormat),
+                DepartmentName = deptName,           
                 FundOccupyAmount = CommonHelper.SetDecimalDigits(x.FundOccupyAmount / _unitTenThousand),
                 Investor = x.Investor,
                 MondayPositionValue = CommonHelper.SetDecimalDigits(x.MondayPositionValue / _unitTenThousand),
                 PositionValue = CommonHelper.SetDecimalDigits(x.PositionValue / _unitTenThousand),
                 PositionRate = CommonHelper.SetDecimalDigits(x.PositionRate, 4),
                 PlanMarginAmount = CommonHelper.SetDecimalDigits(x.PlanMarginAmount / _unitTenThousand),
+                TradeTime = x.TradeTime,
                 TradeTypeName = tradeTypeName,
             }
             );
@@ -570,11 +574,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             this.colMondayPositionValue.Visible = _reportType == "日" ? true : false;
 
             //净资产（当前实际融资融券额 + 累计净收益额）
-            this.colCurrentAsset.ToolTip = this.colActualMarginAmount.Caption + " + " + this.colAccumulatedActualProfit.Caption;
+            this.colCurrentAsset.ToolTip = this.colActualMarginAmount.Caption + " + " + this.colAnnualActualProfit.Caption;
             //累计净收益额（累计收益额 - 累计利息）
-            this.colAccumulatedActualProfit.ToolTip = this.colAccumulatedProfit.Caption + " - " + this.colAccumulatedInterest.Caption;
+            this.colAnnualActualProfit.ToolTip = this.colAnnualProfit.Caption + " - " + this.colAnnualInterest.Caption;
             //累计收益率（累计净收益额 / 平均融资融券额）
-            this.colAccumulatedIncomeRate.ToolTip = this.colAccumulatedActualProfit.Caption + " / " + this.colAverageMarginAmount.Caption;
+            this.colAnnualIncomeRate.ToolTip = this.colAnnualActualProfit.Caption + " / " + this.colAverageMarginAmount.Caption;
             //当前净收益额（当前收益额 - 当前利息）
             this.colCurrentActualProfit.ToolTip = this.colCurrentProfit.Caption + " - " + this.colCurrentInterest.Caption;
             //当前收益率（当前净收益额 / 当前实际融资融券额）
@@ -927,9 +931,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             _seriesPositionValue = new Series(this.colPositionValue.Caption.Trim(), ViewType.Bar);
             _seriesCurrentAsset = new Series(this.colCurrentAsset.Caption.Trim(), ViewType.Spline);
             _seriesCurrentActualProfit = new Series(this.colCurrentActualProfit.Caption.Trim(), ViewType.Spline);
-            _seriesAccumulatedActualProfit = new Series(this.colAccumulatedActualProfit.Caption.Trim(), ViewType.Spline);
+            _seriesAccumulatedActualProfit = new Series(this.colAnnualActualProfit.Caption.Trim(), ViewType.Spline);
             _seriesCurrentIncomeRatio = new Series(this.colCurrentIncomeRate.Caption.Trim(), ViewType.Spline);
-            _seriesAccumulatedIncomeRatio = new Series(this.colAccumulatedIncomeRate.Caption.Trim(), ViewType.Spline);
+            _seriesAccumulatedIncomeRatio = new Series(this.colAnnualIncomeRate.Caption.Trim(), ViewType.Spline);
 
             #endregion create series
 

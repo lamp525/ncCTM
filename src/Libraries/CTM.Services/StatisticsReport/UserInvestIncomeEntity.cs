@@ -16,8 +16,6 @@ namespace CTM.Services.StatisticsReport
         /// </summary>
         public DateTime TradeTime { get; set; }
 
-        public string FormatedTradeTime { get; set; }
-
         /// <summary>
         /// 交易类别
         /// </summary>
@@ -127,6 +125,26 @@ namespace CTM.Services.StatisticsReport
         /// 累计实际收益额（扣息后）
         /// </summary>
         public decimal AccumulatedActualProfit { get; set; }
+
+        /// <summary>
+        /// 年度收益
+        /// </summary>
+        public decimal AnnualProfit { get; set; }
+
+        /// <summary>
+        /// 年度利息
+        /// </summary>
+        public decimal AnnualInterest { get; set; }
+
+        /// <summary>
+        /// 年度实际收益（扣息后）
+        /// </summary>
+        public decimal AnnualActualProfit { get; set; }
+
+        /// <summary>
+        /// 年度收益率
+        /// </summary>
+        public decimal AnnualIncomeRate { get; set; }
     }
 
     public static class UserInvestIncomeEntityExtensions

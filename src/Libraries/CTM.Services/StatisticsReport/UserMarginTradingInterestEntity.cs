@@ -31,5 +31,7 @@ namespace CTM.Services.StatisticsReport
         public decimal LastDayInterest { get; set; }
 
         public decimal AccumulatedInterest { get; set; }
+
+        public decimal AnnualInterest { get; set; }
     }
 }
