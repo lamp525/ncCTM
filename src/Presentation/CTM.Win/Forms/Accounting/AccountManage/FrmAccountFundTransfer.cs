@@ -93,8 +93,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 if (!string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
                     source = source?.Where(x => x.SecurityCompanyCode == int.Parse(this.cbSecurity.SelectedValue())).ToList();
 
-                this.luAccount.Properties.DataSource = source;
-                this.luAccount.Properties.DropDownRows = source.Count;
+                this.luAccount.Properties.DataSource = source;    
             }
         }
 
@@ -109,10 +108,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
             this.gridControl1.DataSource = source;
 
-            if (source.Any())
-                this.btnExportToExcel.Enabled = true;
-            else
-                this.btnExportToExcel.Enabled = false;
+            this.btnExportToExcel.Enabled = source.Any() ? true : false;
         }
 
         #endregion Utilities
@@ -131,7 +127,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
                 var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
 
-                BindFundTranserInfo(0,dateFrom,dateTo,null);
+                BindFundTranserInfo(0, dateFrom, dateTo, null);
 
                 this.btnDelete.Enabled = false;
                 this.btnExportToExcel.Enabled = false;

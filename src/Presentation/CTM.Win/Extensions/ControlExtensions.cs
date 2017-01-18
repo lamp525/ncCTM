@@ -396,7 +396,7 @@ namespace CTM.Win.Extensions
         /// <param name="enableSearch"></param>
         public static void Initialize<T>(this LookUpEdit lookUpEdit, IList<T> source, string valueMember, string displayMember, bool showHeader = false, bool showFooter = false, bool enableSearch = false, int? searchColumnIndex = null)
         {
-            lookUpEdit.Properties.BestFitMode = BestFitMode.None;
+            lookUpEdit.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
             lookUpEdit.Properties.ValueMember = valueMember;
             lookUpEdit.Properties.DisplayMember = displayMember;
             lookUpEdit.Properties.DataSource = source;

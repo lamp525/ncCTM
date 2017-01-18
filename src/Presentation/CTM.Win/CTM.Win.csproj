@@ -74,6 +74,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>stocks.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
     <Reference Include="Autofac, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -662,6 +665,8 @@
     <Content Include="LayoutXml\_dialogVirtualRecord_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ico\stocks.ico" />
+    <Content Include="stocks.ico" />
     <EmbeddedResource Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.resx">
       <DependentUpon>_dialogTradeDataContrast.cs</DependentUpon>
     </EmbeddedResource>
@@ -1071,7 +1076,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Icon\" />
     <Folder Include="CustomControl\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\CTM.Core\CTM.Core.csproj">

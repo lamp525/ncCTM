@@ -50,6 +50,8 @@ namespace CTM.Win.Forms
         {
             InitializeComponent();
 
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             this._userService = userService;
             this._marginService = marginService;
             this._commonService = commonService;
