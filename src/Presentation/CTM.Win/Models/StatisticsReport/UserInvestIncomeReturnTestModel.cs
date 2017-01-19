@@ -20,14 +20,14 @@
 
         public decimal PeriodMaxRetracementAmount { get; set; }
 
-        public decimal AccumulatedProfit { get; set; }
+        public decimal AnnualProfit { get; set; }
 
         public decimal AverageMarginAmount { get; set; }
 
-        public decimal AccumulatedInterest { get; set; }
+        public decimal AnnualInterest { get; set; }
 
-        public decimal AccumulatedActualProfit { get; set; }
+        public decimal AnnualActualProfit { get; set; }
 
-        public decimal MaxRetracementAmount { get; set; }
+        public decimal AnnualRetracementAmount { get; set; }
     }
 }

@@ -111,36 +111,40 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             var beneficiaryCodes = beneficiaryInfos.Select(x => x.Code).ToArray();
 
-            //交易记录
-            var tradeRecords = _dailyRecordService.GetDailyRecords(beneficiaries: beneficiaryCodes, tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
+            //查询截止日交易记录
+            var intervalTradeRecords = _dailyRecordService.GetDailyRecords(beneficiaries: beneficiaryCodes, tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
 
-            if (!tradeRecords.Any()) return result;
+            if (!intervalTradeRecords.Any()) return result;
 
             //股票收盘价
-            var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
-            var queryDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
+            var stockFullCodes = intervalTradeRecords.Select(x => x.StockCode).Distinct().ToArray();
+            var queryDates = CommonHelper.GetAllWorkDays(intervalTradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
             var stockClosePrices = this._tKLineService.GetStockClosePrices(queryDates, stockFullCodes);
 
             foreach (var user in beneficiaryInfos)
             {
                 //当前用户交易记录
-                var userRecords = tradeRecords.Where(x => x.Beneficiary == user.Code).ToList();
+                var userRecords = intervalTradeRecords.Where(x => x.Beneficiary == user.Code).ToList();
                 var userStockCodes = userRecords.Select(x => x.StockCode).Distinct().ToList();
                 var userStockClosePrices = stockClosePrices.Where(x => userStockCodes.Contains(x.StockCode.Trim())).ToList();
                 var statisticalInvestorCodes = new List<string> { user.Code };
                 var dailyInvestIncomes = this._statisticsReportService.CalculateUserInvestIncome(user, statisticalInvestorCodes, userRecords, queryDates, userStockClosePrices);
                 if (!dailyInvestIncomes.Any()) continue;
 
-                //计算最大回撤金额
-                decimal maxRetracementAmount = 0;
-                foreach (var dayIncome in dailyInvestIncomes)
+                //计算截至日期年度回撤金额
+                decimal annualRetracementAmount = 0;
+
+                var maxYear = dailyInvestIncomes.Max(x => x.TradeTime.Year);
+                var baseDate = (new DateTime(maxYear, 1, 1)).AddDays (-1);
+                var annualDailyInvestIncomes = dailyInvestIncomes.Where(x => x.TradeTime > baseDate);
+                foreach (var dayIncome in annualDailyInvestIncomes)
                 {
                     if (dayIncome.CurrentProfit < 0)
                     {
-                        var previousMaxAccumulatedProfit = dailyInvestIncomes.Where(x => x.TradeTime < dayIncome.TradeTime.AddDays(1)).Max(x => x.AccumulatedProfit);
-                        var currentRetracementAmount = previousMaxAccumulatedProfit > dayIncome.AccumulatedProfit ? dayIncome.AccumulatedProfit - previousMaxAccumulatedProfit : dayIncome.CurrentProfit;
-                        if (currentRetracementAmount < maxRetracementAmount)
-                            maxRetracementAmount = currentRetracementAmount;
+                        var previousMaxAnnualProfit = annualDailyInvestIncomes.Where(x => x.TradeTime < dayIncome.TradeTime.AddDays(1)).Max(x => x.AnnualProfit);
+                        var currentRetracementAmount = previousMaxAnnualProfit > dayIncome.AnnualProfit ? dayIncome.AnnualProfit - previousMaxAnnualProfit : dayIncome.CurrentProfit;
+                        if (currentRetracementAmount < annualRetracementAmount)
+                            annualRetracementAmount = currentRetracementAmount;
                     }
                 }
 
@@ -173,11 +177,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     PeriodInterest = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentInterest)),
                     PeriodActualProfit = CommonHelper.SetDecimalDigits(periodDailyInvestIncomes.Sum(x => x.CurrentActualProfit)),
                     PeriodMaxRetracementAmount = CommonHelper.SetDecimalDigits(periodMaxRetracementAmount),
-                    AccumulatedProfit = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AccumulatedProfit),
+                    AnnualProfit = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AnnualProfit),
                     AverageMarginAmount = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AverageMarginAmount),
-                    AccumulatedInterest = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AccumulatedInterest),
-                    AccumulatedActualProfit = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AccumulatedActualProfit),
-                    MaxRetracementAmount = CommonHelper.SetDecimalDigits(maxRetracementAmount),
+                    AnnualInterest = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AnnualInterest),
+                    AnnualActualProfit = CommonHelper.SetDecimalDigits(endDailyInvestIncome.AnnualActualProfit),
+                    AnnualRetracementAmount = CommonHelper.SetDecimalDigits(annualRetracementAmount),
                 };
 
                 result.Add(userRetracementInfo);
@@ -208,7 +212,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 AccessControl();
 
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showCheckBoxRowSelect: false);
+                this.gridView1.SetLayout(showAutoFilterRow:false , showCheckBoxRowSelect: false);
+                this.gridView1.SetColumnHeaderAppearance();
 
                 this.ActiveControl = this.btnSearch;
             }
