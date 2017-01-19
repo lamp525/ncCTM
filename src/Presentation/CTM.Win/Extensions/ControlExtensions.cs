@@ -141,9 +141,9 @@ namespace CTM.Win.Extensions
         /// <summary>
         /// Draw Row indicator
         /// </summary>
-        /// <param name="view"></param>
+        /// <param name="gv"></param>
         /// <param name="e"></param>
-        public static  void DrawRowIndicator(this GridView view, RowIndicatorCustomDrawEventArgs e)
+        public static void DrawRowIndicator(this GridView gv, RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
@@ -191,26 +191,51 @@ namespace CTM.Win.Extensions
         /// <summary>
         /// Expand / Collapse all rows of the view
         /// </summary>
-        /// <param name="view"></param>
-        public static void SetAllRowsExpanded(this GridView view, bool expand)
+        /// <param name="gv"></param>
+        public static void SetAllRowsExpanded(this GridView gv, bool expand)
         {
-            view.BeginUpdate();
+            gv.BeginUpdate();
             try
             {
-                int dataRowCount = view.DataRowCount;
+                int dataRowCount = gv.DataRowCount;
                 for (int rHandle = 0; rHandle < dataRowCount; rHandle++)
-                    view.SetMasterRowExpanded(rHandle, expand);
+                    gv.SetMasterRowExpanded(rHandle, expand);
             }
             finally
             {
-                view.EndUpdate();
+                gv.EndUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Set ColumnHeader Appearance
+        /// </summary>
+        /// <param name="gv"></param>
+        /// <param name="hAlignment"></param>
+        /// <param name="vAligment"></param>
+        /// <param name="fontName"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="fontStyle"></param>
+        public static void SetColumnHeaderAppearance(
+            this GridView gv
+            , HorzAlignment hAlignment = HorzAlignment.Center
+            , VertAlignment vAligment = VertAlignment.Center
+            , string fontName = "Tahoma"
+            , float fontSize = 9F
+            , System.Drawing.FontStyle fontStyle = System.Drawing.FontStyle.Bold)
+        {
+            foreach (GridColumn column in gv.Columns)
+            {
+                column.AppearanceHeader.TextOptions.HAlignment = hAlignment;
+                column.AppearanceHeader.TextOptions.VAlignment = vAligment;
+                column.AppearanceHeader.Font = new System.Drawing.Font(fontName, fontSize, fontStyle);
             }
         }
 
         /// <summary>
         /// Set GridView Layout
         /// </summary>
-        /// <param name="gridView"></param>
+        /// <param name="gv"></param>
         /// <param name="allowCellMerge"></param>
         /// <param name="showGroupPanel"></param>
         /// <param name="showFilterPanel"></param>
@@ -226,7 +251,7 @@ namespace CTM.Win.Extensions
         /// <param name="checkBoxSelectorColumnWidth"></param>
         /// <param name="rowIndicatorWidth"></param>
         public static void SetLayout(
-            this GridView gridView,
+            this GridView gv,
             bool allowCellMerge = false,
             bool showGroupPanel = false,
             bool showFilterPanel = false,
@@ -240,69 +265,72 @@ namespace CTM.Win.Extensions
             bool multiSelect = true,
             bool showCheckBoxRowSelect = true,
             int checkBoxSelectorColumnWidth = 30,
-            int rowIndicatorWidth = 40)
+            int rowIndicatorWidth = 40,
+            int columnPanelRowHeight = 30)
         {
-            gridView.OptionsBehavior.Editable = editable;
-            gridView.OptionsBehavior.EditorShowMode = editorShowMode;
-            gridView.OptionsBehavior.ReadOnly = readOnly;
+            gv.ColumnPanelRowHeight = columnPanelRowHeight;
+
+            gv.OptionsBehavior.Editable = editable;
+            gv.OptionsBehavior.EditorShowMode = editorShowMode;
+            gv.OptionsBehavior.ReadOnly = readOnly;
 
             if (setAlternateRowColor)
             {
-                gridView.OptionsView.EnableAppearanceEvenRow = true;
-                gridView.OptionsView.EnableAppearanceOddRow = true;
+                gv.OptionsView.EnableAppearanceEvenRow = true;
+                gv.OptionsView.EnableAppearanceOddRow = true;
 
                 //gridView.Appearance.EvenRow.BackColor = Color.GreenYellow ;
                 //gridView.Appearance.OddRow.BackColor = Color.WhiteSmoke;
                 //gridView.Appearance.FocusedRow.BackColor = Color.DeepSkyBlue;
             }
 
-            gridView.OptionsSelection.MultiSelect = multiSelect;
-            gridView.OptionsSelection.UseIndicatorForSelection = true;
+            gv.OptionsSelection.MultiSelect = multiSelect;
+            gv.OptionsSelection.UseIndicatorForSelection = true;
 
             if (showCheckBoxRowSelect)
             {
                 if (checkBoxSelectorColumnWidth < 30)
-                    gridView.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
+                    gv.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
                 else
-                    gridView.OptionsSelection.CheckBoxSelectorColumnWidth = checkBoxSelectorColumnWidth;
+                    gv.OptionsSelection.CheckBoxSelectorColumnWidth = checkBoxSelectorColumnWidth;
 
-                gridView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect;
+                gv.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect;
             }
             else
             {
-                gridView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CellSelect;
+                gv.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CellSelect;
             }
 
-            gridView.OptionsView.AllowCellMerge = allowCellMerge;
-            gridView.OptionsView.ColumnAutoWidth = columnAutoWidth;
+            gv.OptionsView.AllowCellMerge = allowCellMerge;
+            gv.OptionsView.ColumnAutoWidth = columnAutoWidth;
 
-            gridView.OptionsView.ShowAutoFilterRow = showAutoFilterRow;
+            gv.OptionsView.ShowAutoFilterRow = showAutoFilterRow;
 
-            gridView.OptionsView.ShowFooter = showFooter;
+            gv.OptionsView.ShowFooter = showFooter;
 
-            gridView.OptionsView.ShowGroupPanel = showGroupPanel;
+            gv.OptionsView.ShowGroupPanel = showGroupPanel;
 
             if (showGroupPanel)
             {
-                gridView.OptionsView.ShowGroupedColumns = true;
+                gv.OptionsView.ShowGroupedColumns = true;
             }
 
             if (showFilterPanel)
-                gridView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
+                gv.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
             else
-                gridView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+                gv.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
 
-            gridView.OptionsView.ShowIndicator = true;
-            gridView.IndicatorWidth = rowIndicatorWidth;
+            gv.OptionsView.ShowIndicator = true;
+            gv.IndicatorWidth = rowIndicatorWidth;
         }
 
         /// <summary>
         /// Save Girdview Layout
         /// </summary>
-        /// <param name="gridView"></param>
+        /// <param name="gv"></param>
         /// <param name="layoutXmlName"></param>
         /// <param name="showMessage"></param>
-        public static void SaveLayout(this GridView gridView, string layoutXmlName, bool showMessage = true)
+        public static void SaveLayout(this GridView gv, string layoutXmlName, bool showMessage = true)
         {
             var directoryPath = ".\\LayoutXml";
 
@@ -314,13 +342,13 @@ namespace CTM.Win.Extensions
 
             var filePath = System.IO.Path.Combine(directoryPath, layoutXmlName);
 
-            gridView.SaveLayoutToXml(filePath, OptionsLayoutBase.FullLayout);
+            gv.SaveLayoutToXml(filePath, OptionsLayoutBase.FullLayout);
 
             if (showMessage)
                 DXMessage.ShowTips("样式保存成功 ！");
         }
 
-        public static void LoadLayout(this GridView gridView, string layoutXmlName)
+        public static void LoadLayout(this GridView gv, string layoutXmlName)
         {
             if (string.IsNullOrEmpty(layoutXmlName)) return;
 
@@ -331,10 +359,10 @@ namespace CTM.Win.Extensions
 
             if (!System.IO.File.Exists(filePath)) return;
 
-            gridView.RestoreLayoutFromXml(filePath, OptionsLayoutBase.FullLayout);
+            gv.RestoreLayoutFromXml(filePath, OptionsLayoutBase.FullLayout);
         }
 
-        public static void ExportToExcelAndOpen(this GridView gridView, string fileName)
+        public static void ExportToExcelAndOpen(this GridView gv, string fileName)
         {
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Title = "请选择文件存放路径";
@@ -345,12 +373,12 @@ namespace CTM.Win.Extensions
                 DevExpress.XtraPrinting.XlsExportOptions options = new DevExpress.XtraPrinting.XlsExportOptions();
                 options.TextExportMode = DevExpress.XtraPrinting.TextExportMode.Text;
                 options.SheetName = fileName;
-                gridView.OptionsPrint.AutoWidth = false;
-                gridView.OptionsPrint.AllowCancelPrintExport = false;
-                gridView.AppearancePrint.Row.Font = new System.Drawing.Font("宋体", 9);
+                gv.OptionsPrint.AutoWidth = false;
+                gv.OptionsPrint.AllowCancelPrintExport = false;
+                gv.AppearancePrint.Row.Font = new System.Drawing.Font("宋体", 9);
                 try
                 {
-                    gridView.ExportToXls(saveFile.FileName, options);
+                    gv.ExportToXls(saveFile.FileName, options);
                 }
                 catch (Exception ex)
                 {

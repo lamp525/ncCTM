@@ -35,19 +35,20 @@
             this.cbDepartment = new DevExpress.XtraEditors.ComboBoxEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colAverageMarginAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurrentInterest = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurrentActualProfit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDepartmentName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestor = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTradeTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAnnualProfit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrentProfit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCurrentActualProfit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAverageMarginAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrentIncomeRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPlanMarginAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActualMarginAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCurrentInterest = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAllotFund = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccumulatedProfit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deTradeDate = new DevExpress.XtraEditors.DateEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -62,7 +63,6 @@
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colPositionValue = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbDepartment.Properties)).BeginInit();
@@ -103,6 +103,7 @@
             // 
             // lblInterest
             // 
+            this.lblInterest.Appearance.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblInterest.Location = new System.Drawing.Point(24, 116);
             this.lblInterest.Name = "lblInterest";
             this.lblInterest.Size = new System.Drawing.Size(70, 14);
@@ -153,20 +154,20 @@
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colPositionValue,
-            this.colAverageMarginAmount,
-            this.colCurrentInterest,
-            this.colCurrentActualProfit,
+            this.colTradeTime,
             this.colDepartmentName,
             this.colInvestor,
-            this.colTradeTime,
+            this.colAnnualProfit,
             this.colCurrentProfit,
+            this.colCurrentActualProfit,
+            this.colAverageMarginAmount,
             this.colCurrentIncomeRate,
             this.colDealAmount,
             this.colPlanMarginAmount,
             this.colActualMarginAmount,
-            this.colAllotFund,
-            this.colAccumulatedProfit});
+            this.colCurrentInterest,
+            this.colPositionValue,
+            this.colAllotFund});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
@@ -178,32 +179,16 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
-            // colAverageMarginAmount
+            // colTradeTime
             // 
-            this.colAverageMarginAmount.Caption = "月日均融资融券额";
-            this.colAverageMarginAmount.FieldName = "AverageMarginAmount";
-            this.colAverageMarginAmount.Name = "colAverageMarginAmount";
-            this.colAverageMarginAmount.Visible = true;
-            this.colAverageMarginAmount.VisibleIndex = 6;
-            this.colAverageMarginAmount.Width = 127;
-            // 
-            // colCurrentInterest
-            // 
-            this.colCurrentInterest.Caption = "月利息(单位：元)";
-            this.colCurrentInterest.FieldName = "CurrentInterest";
-            this.colCurrentInterest.Name = "colCurrentInterest";
-            this.colCurrentInterest.Visible = true;
-            this.colCurrentInterest.VisibleIndex = 11;
-            this.colCurrentInterest.Width = 119;
-            // 
-            // colCurrentActualProfit
-            // 
-            this.colCurrentActualProfit.Caption = "月净收益额";
-            this.colCurrentActualProfit.FieldName = "CurrentActualProfit";
-            this.colCurrentActualProfit.Name = "colCurrentActualProfit";
-            this.colCurrentActualProfit.Visible = true;
-            this.colCurrentActualProfit.VisibleIndex = 5;
-            this.colCurrentActualProfit.Width = 100;
+            this.colTradeTime.Caption = "交易月份";
+            this.colTradeTime.DisplayFormat.FormatString = "yyyy年MM月";
+            this.colTradeTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colTradeTime.FieldName = "TradeTime";
+            this.colTradeTime.Name = "colTradeTime";
+            this.colTradeTime.Visible = true;
+            this.colTradeTime.VisibleIndex = 0;
+            this.colTradeTime.Width = 90;
             // 
             // colDepartmentName
             // 
@@ -214,7 +199,7 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.Visible = true;
             this.colDepartmentName.VisibleIndex = 1;
-            this.colDepartmentName.Width = 91;
+            this.colDepartmentName.Width = 90;
             // 
             // colInvestor
             // 
@@ -223,29 +208,53 @@
             this.colInvestor.Name = "colInvestor";
             this.colInvestor.Visible = true;
             this.colInvestor.VisibleIndex = 2;
-            this.colInvestor.Width = 88;
+            this.colInvestor.Width = 90;
             // 
-            // colTradeTime
+            // colAnnualProfit
             // 
-            this.colTradeTime.Caption = "交易月份";
-            this.colTradeTime.DisplayFormat.FormatString = "yyyy年MM月";
-            this.colTradeTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colTradeTime.FieldName = "TradeTime";
-            this.colTradeTime.Name = "colTradeTime";
-            this.colTradeTime.Visible = true;
-            this.colTradeTime.VisibleIndex = 0;
-            this.colTradeTime.Width = 99;
+            this.colAnnualProfit.Caption = "本年累计收益额";
+            this.colAnnualProfit.DisplayFormat.FormatString = "N";
+            this.colAnnualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAnnualProfit.FieldName = "AnnualProfit";
+            this.colAnnualProfit.Name = "colAnnualProfit";
+            this.colAnnualProfit.Visible = true;
+            this.colAnnualProfit.VisibleIndex = 3;
+            this.colAnnualProfit.Width = 110;
             // 
             // colCurrentProfit
             // 
             this.colCurrentProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentProfit.Caption = "月收益额";
+            this.colCurrentProfit.DisplayFormat.FormatString = "N";
+            this.colCurrentProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
             this.colCurrentProfit.Visible = true;
             this.colCurrentProfit.VisibleIndex = 4;
-            this.colCurrentProfit.Width = 100;
+            this.colCurrentProfit.Width = 110;
+            // 
+            // colCurrentActualProfit
+            // 
+            this.colCurrentActualProfit.Caption = "月净收益额";
+            this.colCurrentActualProfit.DisplayFormat.FormatString = "N";
+            this.colCurrentActualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colCurrentActualProfit.FieldName = "CurrentActualProfit";
+            this.colCurrentActualProfit.Name = "colCurrentActualProfit";
+            this.colCurrentActualProfit.Visible = true;
+            this.colCurrentActualProfit.VisibleIndex = 5;
+            this.colCurrentActualProfit.Width = 110;
+            // 
+            // colAverageMarginAmount
+            // 
+            this.colAverageMarginAmount.Caption = "月日均融资融券额";
+            this.colAverageMarginAmount.DisplayFormat.FormatString = "N";
+            this.colAverageMarginAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAverageMarginAmount.FieldName = "AverageMarginAmount";
+            this.colAverageMarginAmount.Name = "colAverageMarginAmount";
+            this.colAverageMarginAmount.Visible = true;
+            this.colAverageMarginAmount.VisibleIndex = 6;
+            this.colAverageMarginAmount.Width = 120;
             // 
             // colCurrentIncomeRate
             // 
@@ -265,31 +274,59 @@
             this.colDealAmount.AppearanceCell.Options.UseTextOptions = true;
             this.colDealAmount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDealAmount.Caption = "月成交额";
+            this.colDealAmount.DisplayFormat.FormatString = "N";
+            this.colDealAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealAmount.FieldName = "DealAmount";
             this.colDealAmount.Name = "colDealAmount";
             this.colDealAmount.Visible = true;
             this.colDealAmount.VisibleIndex = 8;
-            this.colDealAmount.Width = 100;
+            this.colDealAmount.Width = 110;
             // 
             // colPlanMarginAmount
             // 
             this.colPlanMarginAmount.AppearanceCell.Options.UseTextOptions = true;
             this.colPlanMarginAmount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colPlanMarginAmount.Caption = "月计划融资融券额";
+            this.colPlanMarginAmount.DisplayFormat.FormatString = "N";
+            this.colPlanMarginAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPlanMarginAmount.FieldName = "PlanMarginAmount";
             this.colPlanMarginAmount.Name = "colPlanMarginAmount";
             this.colPlanMarginAmount.Visible = true;
             this.colPlanMarginAmount.VisibleIndex = 9;
-            this.colPlanMarginAmount.Width = 117;
+            this.colPlanMarginAmount.Width = 120;
             // 
             // colActualMarginAmount
             // 
             this.colActualMarginAmount.Caption = "月实际融资融券额";
+            this.colActualMarginAmount.DisplayFormat.FormatString = "N";
+            this.colActualMarginAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colActualMarginAmount.FieldName = "ActualMarginAmount";
             this.colActualMarginAmount.Name = "colActualMarginAmount";
             this.colActualMarginAmount.Visible = true;
             this.colActualMarginAmount.VisibleIndex = 10;
-            this.colActualMarginAmount.Width = 111;
+            this.colActualMarginAmount.Width = 120;
+            // 
+            // colCurrentInterest
+            // 
+            this.colCurrentInterest.Caption = "月利息(单位：元)";
+            this.colCurrentInterest.DisplayFormat.FormatString = "N";
+            this.colCurrentInterest.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colCurrentInterest.FieldName = "CurrentInterest";
+            this.colCurrentInterest.Name = "colCurrentInterest";
+            this.colCurrentInterest.Visible = true;
+            this.colCurrentInterest.VisibleIndex = 11;
+            this.colCurrentInterest.Width = 120;
+            // 
+            // colPositionValue
+            // 
+            this.colPositionValue.Caption = "月末持仓市值";
+            this.colPositionValue.DisplayFormat.FormatString = "N";
+            this.colPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colPositionValue.FieldName = "PositionValue";
+            this.colPositionValue.Name = "colPositionValue";
+            this.colPositionValue.Visible = true;
+            this.colPositionValue.VisibleIndex = 12;
+            this.colPositionValue.Width = 110;
             // 
             // colAllotFund
             // 
@@ -299,15 +336,6 @@
             this.colAllotFund.FieldName = "AllotFund";
             this.colAllotFund.Name = "colAllotFund";
             this.colAllotFund.Width = 100;
-            // 
-            // colAccumulatedProfit
-            // 
-            this.colAccumulatedProfit.Caption = "累计收益额";
-            this.colAccumulatedProfit.FieldName = "AccumulatedProfit";
-            this.colAccumulatedProfit.Name = "colAccumulatedProfit";
-            this.colAccumulatedProfit.Visible = true;
-            this.colAccumulatedProfit.VisibleIndex = 3;
-            this.colAccumulatedProfit.Width = 100;
             // 
             // deTradeDate
             // 
@@ -413,7 +441,7 @@
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Size = new System.Drawing.Size(1516, 656);
-            this.layoutControlGroup3.Text = "日收益明细（金额单位：万元）";
+            this.layoutControlGroup3.Text = "月收益明细（金额单位：万元）";
             // 
             // layoutControlItem2
             // 
@@ -451,15 +479,6 @@
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
-            // colPositionValue
-            // 
-            this.colPositionValue.Caption = "月末持仓市值";
-            this.colPositionValue.FieldName = "PositionValue";
-            this.colPositionValue.Name = "colPositionValue";
-            this.colPositionValue.Visible = true;
-            this.colPositionValue.VisibleIndex = 12;
-            this.colPositionValue.Width = 100;
-            // 
             // FrmUserInvestIncomeMonthly
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -467,7 +486,7 @@
             this.ClientSize = new System.Drawing.Size(1536, 747);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmUserInvestIncomeMonthly";
-            this.Text = "FrmUserInvestIncomeDaily";
+            this.Text = "FrmUserInvestIncomeMonthly";
             this.Load += new System.EventHandler(this.FrmUserInvestIncomeDaily_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -528,7 +547,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentName;
         private DevExpress.XtraGrid.Columns.GridColumn colPlanMarginAmount;
         private DevExpress.XtraGrid.Columns.GridColumn colActualMarginAmount;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccumulatedProfit;
+        private DevExpress.XtraGrid.Columns.GridColumn colAnnualProfit;
         private DevExpress.XtraGrid.Columns.GridColumn colPositionValue;
     }
 }

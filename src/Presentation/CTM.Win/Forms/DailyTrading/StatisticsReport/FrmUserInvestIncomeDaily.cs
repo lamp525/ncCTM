@@ -154,6 +154,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     AccumulatedProfit = CommonHelper.SetDecimalDigits(x.AccumulatedProfit / unit),
                     ActualMarginAmount = CommonHelper.SetDecimalDigits(x.ActualMarginAmount / unit),
                     AllotFund = CommonHelper.SetDecimalDigits(x.AllotFund / unit),
+                    AnnualActualProfit = CommonHelper.SetDecimalDigits(x.AnnualActualProfit / unit),
+                    AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit / unit),
                     AverageMarginAmount = CommonHelper.SetDecimalDigits(x.AverageMarginAmount / unit),
                     CurrentAsset = CommonHelper.SetDecimalDigits(x.CurrentAsset / unit),
                     CurrentIncomeRate = CommonHelper.SetDecimalDigits(x.CurrentIncomeRate, 4),
@@ -184,7 +186,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             AccessControl();
 
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false);
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+            this.gridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
         }
@@ -197,7 +200,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.gridControl1.DataSource = null;
 
                 //查询截至交易日
-                var endDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());
+                var endDate = CommonHelper.GetPreviousWorkDay(CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString()));
+                this.deTradeDate.EditValue  = endDate;
 
                 //部门ID
                 var deptId = int.Parse(this.cbDepartment.SelectedValue());

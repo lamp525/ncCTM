@@ -180,6 +180,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                         //月末持仓市值
                         PositionValue = dailyInvestIncomes.Last().PositionValue,
                         TradeTime = dailyInvestIncomes.Last().TradeTime,
+
+                        AnnualActualProfit = dailyInvestIncomes.Last().AnnualActualProfit,
+                        AnnualIncomeRate = dailyInvestIncomes.Last().AnnualIncomeRate,
+                        AnnualInterest = dailyInvestIncomes.Last().AnnualInterest,
+                        AnnualProfit = dailyInvestIncomes.Last().AnnualProfit,
                     };
 
                     result.Add(currentUserIncome);
@@ -207,6 +212,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     AccumulatedProfit = CommonHelper.SetDecimalDigits(x.AccumulatedProfit / unit),
                     ActualMarginAmount = CommonHelper.SetDecimalDigits(x.ActualMarginAmount / unit),
                     AllotFund = CommonHelper.SetDecimalDigits(x.AllotFund / unit),
+                    AnnualActualProfit = CommonHelper.SetDecimalDigits(x.AnnualActualProfit / unit),
+                    AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit / unit),
                     AverageMarginAmount = CommonHelper.SetDecimalDigits(x.AverageMarginAmount / unit),
                     CurrentAsset = CommonHelper.SetDecimalDigits(x.CurrentAsset / unit),
                     CurrentIncomeRate = CommonHelper.SetDecimalDigits(x.CurrentIncomeRate, 4),
@@ -237,7 +244,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             AccessControl();
 
             this.gridView1.LoadLayout(_layoutXmlName);
-            this.gridView1.SetLayout(showCheckBoxRowSelect: false);
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+            this.gridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
         }
