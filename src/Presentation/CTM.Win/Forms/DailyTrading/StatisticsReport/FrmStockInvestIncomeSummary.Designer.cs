@@ -35,7 +35,7 @@
             this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colStockFullCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAccumulatedProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colAnnualProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colInitPositionValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colInitPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -116,7 +116,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 112);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1451, 116);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(72, 22);
             this.btnSaveLayout.StyleController = this.layoutControl2;
@@ -126,10 +126,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 138);
+            this.gridControl1.Location = new System.Drawing.Point(24, 142);
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1499, 555);
+            this.gridControl1.Size = new System.Drawing.Size(1499, 551);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bandedGridView1});
@@ -146,7 +146,7 @@
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
             this.colStockFullCode,
             this.colStockName,
-            this.colAccumulatedProfit,
+            this.colAnnualProfit,
             this.colInitPositionValue,
             this.colInitHoldingVolume,
             this.colInitPrice,
@@ -188,18 +188,18 @@
             // 
             // gridBand1
             // 
-            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.gridBand1.AppearanceHeader.Options.UseFont = true;
             this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridBand1.Caption = "基本信息";
             this.gridBand1.Columns.Add(this.colStockFullCode);
             this.gridBand1.Columns.Add(this.colStockName);
-            this.gridBand1.Columns.Add(this.colAccumulatedProfit);
+            this.gridBand1.Columns.Add(this.colAnnualProfit);
             this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 225;
+            this.gridBand1.Width = 250;
             // 
             // colStockFullCode
             // 
@@ -215,14 +215,17 @@
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
             // 
-            // colAccumulatedProfit
+            // colAnnualProfit
             // 
-            this.colAccumulatedProfit.AppearanceCell.Options.UseTextOptions = true;
-            this.colAccumulatedProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colAccumulatedProfit.Caption = "累计收益额";
-            this.colAccumulatedProfit.FieldName = "AccumulatedProfit";
-            this.colAccumulatedProfit.Name = "colAccumulatedProfit";
-            this.colAccumulatedProfit.Visible = true;
+            this.colAnnualProfit.AppearanceCell.Options.UseTextOptions = true;
+            this.colAnnualProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colAnnualProfit.Caption = "本年累计收益额";
+            this.colAnnualProfit.DisplayFormat.FormatString = "N";
+            this.colAnnualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAnnualProfit.FieldName = "AnnualProfit";
+            this.colAnnualProfit.Name = "colAnnualProfit";
+            this.colAnnualProfit.Visible = true;
+            this.colAnnualProfit.Width = 100;
             // 
             // gridBand2
             // 
@@ -237,13 +240,15 @@
             this.gridBand2.Columns.Add(this.colInitProfit);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 279;
+            this.gridBand2.Width = 304;
             // 
             // colInitPositionValue
             // 
             this.colInitPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colInitPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitPositionValue.Caption = "期初市值";
+            this.colInitPositionValue.DisplayFormat.FormatString = "N";
+            this.colInitPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitPositionValue.FieldName = "InitPositionValue";
             this.colInitPositionValue.Name = "colInitPositionValue";
             this.colInitPositionValue.Visible = true;
@@ -254,6 +259,8 @@
             this.colInitPrice.AppearanceCell.Options.UseTextOptions = true;
             this.colInitPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitPrice.Caption = "期初价格";
+            this.colInitPrice.DisplayFormat.FormatString = "N";
+            this.colInitPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitPrice.FieldName = "InitPrice";
             this.colInitPrice.Name = "colInitPrice";
             this.colInitPrice.Visible = true;
@@ -264,15 +271,20 @@
             this.colInitHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colInitHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitHoldingVolume.Caption = "期初持仓量";
+            this.colInitHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colInitHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitHoldingVolume.FieldName = "InitHoldingVolume";
             this.colInitHoldingVolume.Name = "colInitHoldingVolume";
             this.colInitHoldingVolume.Visible = true;
+            this.colInitHoldingVolume.Width = 100;
             // 
             // colInitProfit
             // 
             this.colInitProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colInitProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitProfit.Caption = "期初收益额";
+            this.colInitProfit.DisplayFormat.FormatString = "N";
+            this.colInitProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitProfit.FieldName = "InitProfit";
             this.colInitProfit.Name = "colInitProfit";
             this.colInitProfit.Visible = true;
@@ -290,13 +302,15 @@
             this.gridBand3.Columns.Add(this.colCurrentProfit);
             this.gridBand3.Name = "gridBand3";
             this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 272;
+            this.gridBand3.Width = 297;
             // 
             // colCurrentPositionValue
             // 
             this.colCurrentPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentPositionValue.Caption = "期末市值";
+            this.colCurrentPositionValue.DisplayFormat.FormatString = "N";
+            this.colCurrentPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentPositionValue.FieldName = "CurrentPositionValue";
             this.colCurrentPositionValue.Name = "colCurrentPositionValue";
             this.colCurrentPositionValue.Visible = true;
@@ -307,6 +321,8 @@
             this.colCurrentPrice.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentPrice.Caption = "最新价";
+            this.colCurrentPrice.DisplayFormat.FormatString = "N";
+            this.colCurrentPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentPrice.FieldName = "CurrentPrice";
             this.colCurrentPrice.Name = "colCurrentPrice";
             this.colCurrentPrice.Visible = true;
@@ -317,15 +333,20 @@
             this.colCurrentHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentHoldingVolume.Caption = "期末持仓量";
+            this.colCurrentHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colCurrentHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentHoldingVolume.FieldName = "CurrentHoldingVolume";
             this.colCurrentHoldingVolume.Name = "colCurrentHoldingVolume";
             this.colCurrentHoldingVolume.Visible = true;
+            this.colCurrentHoldingVolume.Width = 100;
             // 
             // colCurrentProfit
             // 
             this.colCurrentProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentProfit.Caption = "本期收益额";
+            this.colCurrentProfit.DisplayFormat.FormatString = "N";
+            this.colCurrentProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
             this.colCurrentProfit.Visible = true;
@@ -344,33 +365,39 @@
             this.gridBand4.Columns.Add(this.colTargetFoatingProfit);
             this.gridBand4.Name = "gridBand4";
             this.gridBand4.VisibleIndex = 3;
-            this.gridBand4.Width = 438;
+            this.gridBand4.Width = 476;
             // 
             // colTargetPositionValue
             // 
             this.colTargetPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colTargetPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colTargetPositionValue.Caption = "目标市值";
+            this.colTargetPositionValue.DisplayFormat.FormatString = "N";
+            this.colTargetPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTargetPositionValue.FieldName = "TargetPositionValue";
             this.colTargetPositionValue.Name = "colTargetPositionValue";
             this.colTargetPositionValue.Visible = true;
-            this.colTargetPositionValue.Width = 61;
+            this.colTargetPositionValue.Width = 70;
             // 
             // colTargetHoldingVolume
             // 
             this.colTargetHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colTargetHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colTargetHoldingVolume.Caption = "目标持仓量";
+            this.colTargetHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colTargetHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTargetHoldingVolume.FieldName = "TargetHoldingVolume";
             this.colTargetHoldingVolume.Name = "colTargetHoldingVolume";
             this.colTargetHoldingVolume.Visible = true;
-            this.colTargetHoldingVolume.Width = 71;
+            this.colTargetHoldingVolume.Width = 100;
             // 
             // colTargetTotalProfit
             // 
             this.colTargetTotalProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colTargetTotalProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colTargetTotalProfit.Caption = "目标收益额（小计）";
+            this.colTargetTotalProfit.DisplayFormat.FormatString = "N";
+            this.colTargetTotalProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTargetTotalProfit.FieldName = "TargetTotalProfit";
             this.colTargetTotalProfit.Name = "colTargetTotalProfit";
             this.colTargetTotalProfit.Visible = true;
@@ -381,6 +408,8 @@
             this.colTargetActualProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colTargetActualProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colTargetActualProfit.Caption = "目标实际收益额";
+            this.colTargetActualProfit.DisplayFormat.FormatString = "N";
+            this.colTargetActualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTargetActualProfit.FieldName = "TargetActualProfit";
             this.colTargetActualProfit.Name = "colTargetActualProfit";
             this.colTargetActualProfit.Visible = true;
@@ -391,6 +420,8 @@
             this.colTargetFoatingProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colTargetFoatingProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colTargetFoatingProfit.Caption = "目标浮动收益额";
+            this.colTargetFoatingProfit.DisplayFormat.FormatString = "N";
+            this.colTargetFoatingProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colTargetFoatingProfit.FieldName = "TargetFoatingProfit";
             this.colTargetFoatingProfit.Name = "colTargetFoatingProfit";
             this.colTargetFoatingProfit.Visible = true;
@@ -410,33 +441,39 @@
             this.gridBand5.Columns.Add(this.colBandFoatingProfit);
             this.gridBand5.Name = "gridBand5";
             this.gridBand5.VisibleIndex = 4;
-            this.gridBand5.Width = 448;
+            this.gridBand5.Width = 480;
             // 
             // colBandPositionValue
             // 
             this.colBandPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colBandPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colBandPositionValue.Caption = "波段市值";
+            this.colBandPositionValue.DisplayFormat.FormatString = "N";
+            this.colBandPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBandPositionValue.FieldName = "BandPositionValue";
             this.colBandPositionValue.Name = "colBandPositionValue";
             this.colBandPositionValue.Visible = true;
-            this.colBandPositionValue.Width = 62;
+            this.colBandPositionValue.Width = 70;
             // 
             // colBandHoldingVolume
             // 
             this.colBandHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colBandHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colBandHoldingVolume.Caption = "波段持仓量";
+            this.colBandHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colBandHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBandHoldingVolume.FieldName = "BandHoldingVolume";
             this.colBandHoldingVolume.Name = "colBandHoldingVolume";
             this.colBandHoldingVolume.Visible = true;
-            this.colBandHoldingVolume.Width = 76;
+            this.colBandHoldingVolume.Width = 100;
             // 
             // colBandTotalProfit
             // 
             this.colBandTotalProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colBandTotalProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colBandTotalProfit.Caption = "波段收益额（小计）";
+            this.colBandTotalProfit.DisplayFormat.FormatString = "N";
+            this.colBandTotalProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBandTotalProfit.FieldName = "BandTotalProfit";
             this.colBandTotalProfit.Name = "colBandTotalProfit";
             this.colBandTotalProfit.Visible = true;
@@ -447,6 +484,8 @@
             this.colBandActualProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colBandActualProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colBandActualProfit.Caption = "波段实际收益额";
+            this.colBandActualProfit.DisplayFormat.FormatString = "N";
+            this.colBandActualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBandActualProfit.FieldName = "BandActualProfit";
             this.colBandActualProfit.Name = "colBandActualProfit";
             this.colBandActualProfit.Visible = true;
@@ -457,6 +496,8 @@
             this.colBandFoatingProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colBandFoatingProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colBandFoatingProfit.Caption = "波段浮动收益额";
+            this.colBandFoatingProfit.DisplayFormat.FormatString = "N";
+            this.colBandFoatingProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colBandFoatingProfit.FieldName = "BandFoatingProfit";
             this.colBandFoatingProfit.Name = "colBandFoatingProfit";
             this.colBandFoatingProfit.Visible = true;
@@ -476,13 +517,15 @@
             this.gridBand6.Columns.Add(this.colDayFoatingProfit);
             this.gridBand6.Name = "gridBand6";
             this.gridBand6.VisibleIndex = 5;
-            this.gridBand6.Width = 474;
+            this.gridBand6.Width = 493;
             // 
             // colDayPositionValue
             // 
             this.colDayPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colDayPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDayPositionValue.Caption = "日内市值";
+            this.colDayPositionValue.DisplayFormat.FormatString = "N";
+            this.colDayPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDayPositionValue.FieldName = "DayPositionValue";
             this.colDayPositionValue.Name = "colDayPositionValue";
             this.colDayPositionValue.Visible = true;
@@ -493,16 +536,20 @@
             this.colDayHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colDayHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDayHoldingVolume.Caption = "日内持仓量";
+            this.colDayHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colDayHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDayHoldingVolume.FieldName = "DayHoldingVolume";
             this.colDayHoldingVolume.Name = "colDayHoldingVolume";
             this.colDayHoldingVolume.Visible = true;
-            this.colDayHoldingVolume.Width = 81;
+            this.colDayHoldingVolume.Width = 100;
             // 
             // colDayTotalProfit
             // 
             this.colDayTotalProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colDayTotalProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDayTotalProfit.Caption = "日内收益额（小计）";
+            this.colDayTotalProfit.DisplayFormat.FormatString = "N";
+            this.colDayTotalProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDayTotalProfit.FieldName = "DayTotalProfit";
             this.colDayTotalProfit.Name = "colDayTotalProfit";
             this.colDayTotalProfit.Visible = true;
@@ -513,6 +560,8 @@
             this.colDayActualProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colDayActualProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDayActualProfit.Caption = "日内实际收益额";
+            this.colDayActualProfit.DisplayFormat.FormatString = "N";
+            this.colDayActualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDayActualProfit.FieldName = "DayActualProfit";
             this.colDayActualProfit.Name = "colDayActualProfit";
             this.colDayActualProfit.Visible = true;
@@ -523,6 +572,8 @@
             this.colDayFoatingProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colDayFoatingProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDayFoatingProfit.Caption = "日内浮动收益额";
+            this.colDayFoatingProfit.DisplayFormat.FormatString = "N";
+            this.colDayFoatingProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDayFoatingProfit.FieldName = "DayFoatingProfit";
             this.colDayFoatingProfit.Name = "colDayFoatingProfit";
             this.colDayFoatingProfit.Visible = true;
@@ -531,7 +582,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(87, 43);
+            this.deFrom.Location = new System.Drawing.Point(87, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -544,7 +595,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(267, 43);
+            this.deTo.Location = new System.Drawing.Point(267, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -556,9 +607,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(394, 43);
+            this.btnSearch.Location = new System.Drawing.Point(394, 45);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(73, 22);
+            this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl2;
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "    查  询    ";
@@ -584,9 +635,9 @@
             this.layoutControlItem3,
             this.emptySpaceItem3,
             this.layoutControlItem4});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1527, 628);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1527, 626);
             this.layoutControlGroup4.Text = "投资收益汇总（金额单位：万元）";
             // 
             // layoutControlItem3
@@ -594,7 +645,7 @@
             this.layoutControlItem3.Control = this.gridControl1;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1503, 559);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1503, 555);
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
@@ -621,6 +672,7 @@
             this.layoutControlGroup6.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.layoutControlGroup6.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup6.CustomizationFormText = "查询条件";
+            this.layoutControlGroup6.ExpandButtonVisible = true;
             this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem6,
             this.layoutControlItem7,
@@ -629,7 +681,7 @@
             this.emptySpaceItem6});
             this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(1527, 69);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(1527, 71);
             this.layoutControlGroup6.Text = "查询条件";
             // 
             // layoutControlItem6
@@ -656,9 +708,9 @@
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
             this.emptySpaceItem5.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem5.Location = new System.Drawing.Point(447, 0);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(449, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(1056, 26);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(1054, 26);
             this.emptySpaceItem5.Text = "emptySpaceItem1";
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -668,7 +720,7 @@
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem5";
             this.layoutControlItem8.Location = new System.Drawing.Point(370, 0);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem8.Text = "layoutControlItem5";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
@@ -727,7 +779,7 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bandedGridView1;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockFullCode;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockName;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccumulatedProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnnualProfit;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitProfit;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitPrice;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitPositionValue;

@@ -15,6 +15,8 @@
 
         public decimal AccumulatedProfit { get; set; }
 
+        public decimal AnnualProfit { get; set; }
+
         //public decimal AccumulatedIncomeRate { get; set; }
 
         public decimal InitPositionValue { get; set; }

@@ -53,6 +53,7 @@
             this.colCurrentPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colCurrentProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colCurrentIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colUniqueSerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.deFrom = new DevExpress.XtraEditors.DateEdit();
             this.deTo = new DevExpress.XtraEditors.DateEdit();
@@ -71,7 +72,6 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colUniqueSerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).BeginInit();
@@ -420,6 +420,11 @@
             this.colCurrentIncomeRate.Visible = true;
             this.colCurrentIncomeRate.Width = 95;
             // 
+            // colUniqueSerialNo
+            // 
+            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
+            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
+            // 
             // colType
             // 
             this.colType.FieldName = "Type";
@@ -610,11 +615,6 @@
             this.emptySpaceItem6.Size = new System.Drawing.Size(1053, 26);
             this.emptySpaceItem6.Text = "emptySpaceItem2";
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // colUniqueSerialNo
-            // 
-            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
-            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
             // 
             // FrmUserInvestIncomeSummary
             // 

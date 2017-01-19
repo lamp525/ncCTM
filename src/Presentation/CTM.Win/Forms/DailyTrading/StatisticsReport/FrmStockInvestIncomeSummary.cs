@@ -70,6 +70,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 StockName = x.StockName,
 
                 AccumulatedProfit = CommonHelper.SetDecimalDigits(x.AccumulatedProfit / unit),
+                AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit / unit),
 
                 BandActualProfit = CommonHelper.SetDecimalDigits(x.BandActualProfit / unit),
                 BandFoatingProfit = CommonHelper.SetDecimalDigits(x.BandFoatingProfit / unit),
@@ -117,6 +118,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             totalSummaryModel.StockName = string.Empty;
 
             totalSummaryModel.AccumulatedProfit = queryResult.Sum(x => x.AccumulatedProfit);
+            totalSummaryModel.AnnualProfit = queryResult.Sum(x => x.AnnualProfit);
 
             totalSummaryModel.BandActualProfit = queryResult.Sum(x => x.BandActualProfit);
             totalSummaryModel.BandFoatingProfit = queryResult.Sum(x => x.BandFoatingProfit);
@@ -160,8 +162,10 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             if (!allRecords.Any()) return result;
 
             var stockFullCodes = allRecords.Select(x => x.StockCode).Distinct().ToArray();
-            var queryDates = new List<DateTime> { startDate, endDate };
+            var baseDate = (new DateTime(endDate.Year, 1, 1)).AddDays(-1);
+            var queryDates = new List<DateTime> { baseDate, startDate, endDate };
             var stockClosePrices = _TKLineService.GetStockClosePrices(queryDates, stockFullCodes);
+            var baseDateClosePrices = stockClosePrices.Where(x => x.TradeDate == baseDate).ToList();
             var initDateClosePrices = stockClosePrices.Where(x => x.TradeDate == startDate).ToList();
             var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == endDate).ToList();
 
@@ -175,37 +179,46 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                 var recordsByTradeType = stockGroup.GroupBy(x => x.TradeType);
 
-                //期初股票最新收盘价格
+                //基准日股票收盘价
+                decimal baseClosePrice = (baseDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
+                //期初股票收盘价格
                 decimal initClosePrice = (initDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
-
-                //期末股票最新收盘价格
+                //期末股票收盘价格
                 decimal currentClosePrice = (currentDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
+
+                #region 基准日处理
+
+                //截至基准日的交易记录
+                var baseRecords = stockGroup.Where(x => x.TradeDate <= baseDate);
+                //发生金额
+                decimal baseActualAmount = baseRecords.Sum(x => x.ActualAmount);
+                //股票的持股数
+                decimal baseHoldingVolume = baseRecords.Sum(x => x.DealVolume);
+                //持仓市值
+                decimal basePositionValue = Math.Abs(baseHoldingVolume) * initClosePrice;
+                //累计收益额
+                decimal baseAccumulatedProfit = baseActualAmount + baseHoldingVolume * initClosePrice;
+
+                #endregion 基准日处理
 
                 #region 期初处理
 
                 //截至期初的交易记录
                 var initRecords = stockGroup.Where(x => x.TradeDate <= startDate);
-
                 //发生金额
                 decimal initActualAmount = initRecords.Sum(x => x.ActualAmount);
-
                 //股票的持股数
                 decimal initHoldingVolume = initRecords.Sum(x => x.DealVolume);
-
                 //持仓市值
                 decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
-
                 //累计收益额
                 decimal initAccumulatedProfit = initActualAmount + initHoldingVolume * initClosePrice;
-
                 //目标累计收益额
                 var initTargetRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
                 decimal initTargetAccumulatedProfit = initTargetRecords.Sum(x => x.ActualAmount) + Math.Abs(initTargetRecords.Sum(x => x.DealVolume)) * initClosePrice;
-
                 //波段累计收益额
                 var initBandRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
                 decimal initBandAccumulatedProfit = initBandRecords.Sum(x => x.ActualAmount) + Math.Abs(initBandRecords.Sum(x => x.DealVolume)) * initClosePrice;
-
                 //日内累计收益额
                 var initDayRecords = initRecords.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
                 decimal initDayAccumulatedProfit = initDayRecords.Sum(x => x.ActualAmount) + Math.Abs(initDayRecords.Sum(x => x.DealVolume)) * initClosePrice;
@@ -216,48 +229,31 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                 //截至期末的交易记录
                 var currentRecords = stockGroup;
-
                 //股票持股数
                 decimal currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
-
                 //发生金额
                 decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);
-
                 //持仓市值
                 decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
-
                 //累计收益额
                 decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume * currentClosePrice;
-
-                //累计收益率
-                //decimal currentAccumulatedIncomeRate = 0.00M;
-
                 //本期收益
                 decimal currentProfit = currentAccumulatedProfit - initAccumulatedProfit;
-
-                //本期收益率
-                //decimal currentIncomeRate = 0.00M;
 
                 #region 目标统计
 
                 //目标交易记录
                 var targetRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Target);
-
                 //目标股票持股数
                 decimal targetHoldingVolume = targetRecords.Sum(x => x.DealVolume);
-
                 //目标发生金额
                 decimal targetActualAmount = targetRecords.Sum(x => x.ActualAmount);
-
                 //目标持仓市值
                 decimal targetPositionValue = Math.Abs(targetHoldingVolume) * currentClosePrice;
-
                 //目标累计收益额
                 decimal targetAccumulatedProfit = targetActualAmount + targetHoldingVolume * currentClosePrice;
-
                 //目标本期收益
                 decimal targetTotalProfit = targetAccumulatedProfit - initTargetAccumulatedProfit;
-
                 //目标浮动收益
                 decimal targetFloatingProfit = targetHoldingVolume * (currentClosePrice - initClosePrice);
 
@@ -267,22 +263,16 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                 //波段交易记录
                 var bandRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Band);
-
                 //波段股票持股数
                 decimal bandHoldingVolume = bandRecords.Sum(x => x.DealVolume);
-
                 //波段发生金额
                 decimal bandActualAmount = bandRecords.Sum(x => x.ActualAmount);
-
                 //波段持仓市值
                 decimal bandPositionValue = Math.Abs(bandHoldingVolume) * currentClosePrice;
-
                 //波段累计收益额
                 decimal bandAccumulatedProfit = bandActualAmount + bandHoldingVolume * currentClosePrice;
-
                 //波段本期收益
                 decimal bandTotalProfit = bandAccumulatedProfit - initBandAccumulatedProfit;
-
                 //波段浮动收益
                 decimal bandFloatingProfit = bandHoldingVolume * (currentClosePrice - initClosePrice);
 
@@ -292,22 +282,16 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                 //日内交易记录
                 var dayRecords = stockGroup.Where(x => x.TradeType == (int)EnumLibrary.TradeType.Day);
-
                 //日内股票持股数
                 decimal dayHoldingVolume = dayRecords.Sum(x => x.DealVolume);
-
                 //日内发生金额
                 decimal dayActualAmount = dayRecords.Sum(x => x.ActualAmount);
-
                 //日内持仓市值
                 decimal dayPositionValue = Math.Abs(dayHoldingVolume) * currentClosePrice;
-
                 //日内累计收益额
                 decimal dayAccumulatedProfit = dayActualAmount + dayHoldingVolume * currentClosePrice;
-
                 //日内本期收益
                 decimal dayTotalProfit = dayAccumulatedProfit - initDayAccumulatedProfit;
-
                 //日内浮动收益
                 decimal dayFloatingProfit = dayHoldingVolume * (currentClosePrice - initClosePrice);
 
@@ -323,6 +307,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     StockName = stockName,
 
                     AccumulatedProfit = currentAccumulatedProfit,
+                    AnnualProfit = currentAccumulatedProfit - baseAccumulatedProfit,
 
                     BandActualProfit = bandActualAmount,
                     BandFoatingProfit = bandFloatingProfit,
