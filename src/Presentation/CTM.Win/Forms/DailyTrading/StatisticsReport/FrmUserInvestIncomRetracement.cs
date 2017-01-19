@@ -134,8 +134,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 //计算截至日期年度回撤金额
                 decimal annualRetracementAmount = 0;
 
-                var maxYear = dailyInvestIncomes.Max(x => x.TradeTime.Year);
-                var baseDate = (new DateTime(maxYear, 1, 1)).AddDays (-1);
+                var baseDate = (new DateTime(endDate.Year, 1, 1)).AddDays (-1);
                 var annualDailyInvestIncomes = dailyInvestIncomes.Where(x => x.TradeTime > baseDate);
                 foreach (var dayIncome in annualDailyInvestIncomes)
                 {
