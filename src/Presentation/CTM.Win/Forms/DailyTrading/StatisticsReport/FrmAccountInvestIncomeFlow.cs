@@ -183,8 +183,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 PositionValue = CommonHelper.SetDecimalDigits(x.PositionValue),
                 SecurityCompanyName = x.SecurityCompanyName,
                 TradeTime = x.TradeTime,
+
+                AnnualIncomeRate = CommonHelper.SetDecimalDigits(x.AnnualIncomeRate, 4),
+                AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit),
             }
-            );
+            ).OrderByDescending(x => x.TradeTime);
 
             this.gridControl1.DataSource = source;
         }
@@ -228,7 +231,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 AccessControl();
 
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showFilterPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
+                this.gridView1.SetLayout(showFilterPanel: true, showAutoFilterRow: false, showCheckBoxRowSelect: false);
+                this.gridView1.SetColumnHeaderAppearance();
 
                 this.ActiveControl = this.btnSearch;
             }

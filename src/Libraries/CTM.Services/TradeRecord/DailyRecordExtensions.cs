@@ -36,25 +36,19 @@ namespace CTM.Services.TradeRecord
 
             var recordsByStock = source.GroupBy(x => x.StockCode);
             foreach (var stockGroup in recordsByStock)
-            {
-                ////各只股票发生金额
-                //decimal actualAmountPerStock = stockGroup.Sum(x => x.ActualAmount);
-                //accumulatedActualAmount += actualAmountPerStock;
+            {          
 
                 //各只股票的持股数
                 decimal holdingVolume = stockGroup.Sum(x => x.DealVolume);
-
                 decimal closePrice = 0;
 
                 if (holdingVolume != 0 && stockClosePrices.Any())
                 {
-                    //System.Diagnostics.Debug.WriteLine(date.ToString() + ":   " + stockGroup.Key);
                     closePrice = (stockClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
                 }
 
                 //持仓市值
                 positionValue += Math.Abs(holdingVolume) * closePrice;
-
                 //持仓收益
                 positionProfit += holdingVolume * closePrice;
             }

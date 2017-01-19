@@ -941,6 +941,14 @@ namespace CTM.Services.StatisticsReport
             //帐户分配资金
             decimal allotFund = accountInfo.InvestFund;
 
+            #region 基准日
+            var baseDate = (new DateTime(queryDates.Last ().Year, 1, 1)).AddDays(-1);
+            var baseRecords = records.Where(x => x.TradeDate <= baseDate).ToList();
+            var baseDateClosePrices = stockClosePrices.Where(x => x.TradeDate == baseDate).ToList();
+            //基准日的累计收益额
+            decimal baseAccumulatedProfit = baseRecords.GetInvestStatisticsCommonInfo(baseDateClosePrices).AccumulatedProfit;
+            #endregion
+
             #region 统计日前一天
 
             var lastDate = queryDates.First();
@@ -992,16 +1000,19 @@ namespace CTM.Services.StatisticsReport
                     SecurityCompanyName = accountInfo.SecurityCompanyName,
                     //交易日
                     TradeTime = date,
+
+                    //本年累计收益
+                    AnnualProfit = currentInvestIncomeInfo.AccumulatedProfit - baseAccumulatedProfit,
                 };
 
                 //持仓仓位
                 incomeModel.PositionRate = CommonHelper.CalculateRate(incomeModel.PositionValue, incomeModel.CurrentAsset);
-
                 //当日收益率
                 incomeModel.CurrentIncomeRate = CommonHelper.CalculateRate(incomeModel.CurrentProfit, incomeModel.AllotFund);
-
                 //累计收益率
                 incomeModel.AccumulatedIncomeRate = CommonHelper.CalculateRate(incomeModel.AccumulatedProfit, incomeModel.AllotFund);
+                //本年累计收益率
+                incomeModel.AnnualIncomeRate = CommonHelper.CalculateRate(incomeModel.AnnualProfit, incomeModel.AllotFund);
 
                 #endregion 当前统计日
 

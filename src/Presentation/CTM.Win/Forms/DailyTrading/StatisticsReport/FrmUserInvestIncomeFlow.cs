@@ -36,9 +36,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private Series _seriesPositionValue;
         private Series _seriesCurrentAsset;
         private Series _seriesCurrentActualProfit;
-        private Series _seriesAccumulatedActualProfit;
         private Series _seriesCurrentIncomeRatio;
-        private Series _seriesAccumulatedIncomeRatio;
+        private Series _seriesAnnualActualProfit;
+        private Series _seriesAnnualIncomeRatio;
         private Series _seriesAverageMarginAmount;
         private Series _seriesActualMarginAmount;
 
@@ -553,7 +553,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 CurrentActualProfit = CommonHelper.SetDecimalDigits(x.CurrentActualProfit / _unitTenThousand),
                 CurrentProfit = CommonHelper.SetDecimalDigits(x.CurrentProfit / _unitTenThousand),
                 DealAmount = CommonHelper.SetDecimalDigits(x.DealAmount / _unitTenThousand),
-                DepartmentName = deptName,           
+                DepartmentName = deptName,
                 FundOccupyAmount = CommonHelper.SetDecimalDigits(x.FundOccupyAmount / _unitTenThousand),
                 Investor = x.Investor,
                 MondayPositionValue = CommonHelper.SetDecimalDigits(x.MondayPositionValue / _unitTenThousand),
@@ -563,7 +563,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 TradeTime = x.TradeTime,
                 TradeTypeName = tradeTypeName,
             }
-            );
+            ).OrderByDescending(x => x.TradeTime);
 
             this.gridControl1.DataSource = source;
         }
@@ -854,7 +854,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
 
             ((LineSeriesView)_seriesCurrentIncomeRatio.View).AxisY = myAxisY;
-            ((LineSeriesView)_seriesAccumulatedIncomeRatio.View).AxisY = myAxisY;
+            ((LineSeriesView)_seriesAnnualIncomeRatio.View).AxisY = myAxisY;
 
             myAxisY.ConstantLines.Clear();
             myAxisY.ConstantLines.Add(_lineBase);
@@ -931,9 +931,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             _seriesPositionValue = new Series(this.colPositionValue.Caption.Trim(), ViewType.Bar);
             _seriesCurrentAsset = new Series(this.colCurrentAsset.Caption.Trim(), ViewType.Spline);
             _seriesCurrentActualProfit = new Series(this.colCurrentActualProfit.Caption.Trim(), ViewType.Spline);
-            _seriesAccumulatedActualProfit = new Series(this.colAnnualActualProfit.Caption.Trim(), ViewType.Spline);
+            _seriesAnnualActualProfit = new Series(this.colAnnualActualProfit.Caption.Trim(), ViewType.Spline);
             _seriesCurrentIncomeRatio = new Series(this.colCurrentIncomeRate.Caption.Trim(), ViewType.Spline);
-            _seriesAccumulatedIncomeRatio = new Series(this.colAnnualIncomeRate.Caption.Trim(), ViewType.Spline);
+            _seriesAnnualIncomeRatio = new Series(this.colAnnualIncomeRate.Caption.Trim(), ViewType.Spline);
 
             #endregion create series
 
@@ -1007,19 +1007,19 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             #endregion 当前净收益额
 
-            #region 累计净收益额
+            #region 本年累计净收益额
 
-            _seriesAccumulatedActualProfit.LegendText = _seriesAccumulatedActualProfit.Name.Trim() + "(单位:万元)";
-            _seriesAccumulatedActualProfit.View.Color = Color.MidnightBlue;
-            _seriesAccumulatedActualProfit.ArgumentScaleType = ScaleType.Qualitative;
-            _seriesAccumulatedActualProfit.ValueScaleType = ScaleType.Numerical;
-            _seriesAccumulatedActualProfit.LabelsVisibility = DefaultBoolean.False;
+            _seriesAnnualActualProfit.LegendText = _seriesAnnualActualProfit.Name.Trim() + "(单位:万元)";
+            _seriesAnnualActualProfit.View.Color = Color.MidnightBlue;
+            _seriesAnnualActualProfit.ArgumentScaleType = ScaleType.Qualitative;
+            _seriesAnnualActualProfit.ValueScaleType = ScaleType.Numerical;
+            _seriesAnnualActualProfit.LabelsVisibility = DefaultBoolean.False;
 
-            ((LineSeriesView)_seriesAccumulatedActualProfit.View).MarkerVisibility = DefaultBoolean.True;
-            ((LineSeriesView)_seriesAccumulatedActualProfit.View).LineMarkerOptions.Kind = MarkerKind.Triangle;
-            ((LineSeriesView)_seriesAccumulatedActualProfit.View).LineMarkerOptions.Size = 6;
+            ((LineSeriesView)_seriesAnnualActualProfit.View).MarkerVisibility = DefaultBoolean.True;
+            ((LineSeriesView)_seriesAnnualActualProfit.View).LineMarkerOptions.Kind = MarkerKind.Triangle;
+            ((LineSeriesView)_seriesAnnualActualProfit.View).LineMarkerOptions.Size = 6;
 
-            #endregion 累计净收益额
+            #endregion 本年累计净收益额
 
             #region 当前收益率
 
@@ -1034,18 +1034,18 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             #endregion 当前收益率
 
-            #region 累计收益率
+            #region 本年累计收益率
 
-            _seriesAccumulatedIncomeRatio.LegendText = _seriesAccumulatedIncomeRatio.Name.Trim();
-            _seriesAccumulatedIncomeRatio.View.Color = Color.Coral;
-            _seriesAccumulatedIncomeRatio.ArgumentScaleType = ScaleType.Qualitative;
-            _seriesAccumulatedIncomeRatio.ValueScaleType = ScaleType.Numerical;
-            _seriesAccumulatedIncomeRatio.LabelsVisibility = DefaultBoolean.False;
-            ((LineSeriesView)_seriesAccumulatedIncomeRatio.View).MarkerVisibility = DefaultBoolean.True;
-            ((LineSeriesView)_seriesAccumulatedIncomeRatio.View).LineMarkerOptions.Kind = MarkerKind.Circle;
-            ((LineSeriesView)_seriesAccumulatedIncomeRatio.View).LineMarkerOptions.Size = 8;
+            _seriesAnnualIncomeRatio.LegendText = _seriesAnnualIncomeRatio.Name.Trim();
+            _seriesAnnualIncomeRatio.View.Color = Color.Coral;
+            _seriesAnnualIncomeRatio.ArgumentScaleType = ScaleType.Qualitative;
+            _seriesAnnualIncomeRatio.ValueScaleType = ScaleType.Numerical;
+            _seriesAnnualIncomeRatio.LabelsVisibility = DefaultBoolean.False;
+            ((LineSeriesView)_seriesAnnualIncomeRatio.View).MarkerVisibility = DefaultBoolean.True;
+            ((LineSeriesView)_seriesAnnualIncomeRatio.View).LineMarkerOptions.Kind = MarkerKind.Circle;
+            ((LineSeriesView)_seriesAnnualIncomeRatio.View).LineMarkerOptions.Size = 8;
 
-            #endregion 累计收益率
+            #endregion 本年累计收益率
 
             #endregion set series appearance
 
@@ -1093,17 +1093,17 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var currentActualProfit = CommonHelper.SetDecimalDigits(item.CurrentActualProfit / _unitTenThousand);
                 _seriesCurrentActualProfit.Points.Add(new SeriesPoint(argument, currentActualProfit));
 
-                //累计净收益额（万）
-                var accumulatedActualProfit = CommonHelper.SetDecimalDigits(item.AccumulatedActualProfit / _unitTenThousand);
-                _seriesAccumulatedActualProfit.Points.Add(new SeriesPoint(argument, accumulatedActualProfit));
-
                 //当前收益率
                 var currentIncomeRate = CommonHelper.SetDecimalDigits(item.CurrentIncomeRate, 4);
                 _seriesCurrentIncomeRatio.Points.Add(new SeriesPoint(argument, currentIncomeRate));
 
-                //累计收益率
-                var accumulatedIncomeRate = CommonHelper.SetDecimalDigits(item.AccumulatedIncomeRate, 4);
-                _seriesAccumulatedIncomeRatio.Points.Add(new SeriesPoint(argument, accumulatedIncomeRate));
+                //本年累计净收益额（万）
+                var annualActualProfit = CommonHelper.SetDecimalDigits(item.AnnualActualProfit / _unitTenThousand);
+                _seriesAnnualActualProfit.Points.Add(new SeriesPoint(argument, annualActualProfit));
+
+                //本年累计收益率
+                var annualIncomeRate = CommonHelper.SetDecimalDigits(item.AnnualIncomeRate, 4);
+                _seriesAnnualIncomeRatio.Points.Add(new SeriesPoint(argument, annualIncomeRate));
             }
 
             #endregion set series data
@@ -1120,8 +1120,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     //chartControl1.Series.Add(_seriesCurrentAsset);
                     chartControl1.Series.Add(_seriesCurrentActualProfit);
                     chartControl1.Series.Add(_seriesCurrentIncomeRatio);
-                    chartControl1.Series.Add(_seriesAccumulatedActualProfit);
-                    chartControl1.Series.Add(_seriesAccumulatedIncomeRatio);
+                    chartControl1.Series.Add(_seriesAnnualActualProfit);
+                    chartControl1.Series.Add(_seriesAnnualIncomeRatio);
                     break;
 
                 case EnumLibrary.TradeType.Band:
@@ -1130,8 +1130,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     chartControl1.Series.Add(_seriesCurrentAsset);
                     chartControl1.Series.Add(_seriesCurrentActualProfit);
                     chartControl1.Series.Add(_seriesCurrentIncomeRatio);
-                    chartControl1.Series.Add(_seriesAccumulatedActualProfit);
-                    chartControl1.Series.Add(_seriesAccumulatedIncomeRatio);
+                    chartControl1.Series.Add(_seriesAnnualActualProfit);
+                    chartControl1.Series.Add(_seriesAnnualIncomeRatio);
                     break;
 
                 case EnumLibrary.TradeType.Target:
@@ -1140,8 +1140,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     chartControl1.Series.Add(_seriesCurrentAsset);
                     chartControl1.Series.Add(_seriesCurrentActualProfit);
                     chartControl1.Series.Add(_seriesCurrentIncomeRatio);
-                    chartControl1.Series.Add(_seriesAccumulatedActualProfit);
-                    chartControl1.Series.Add(_seriesAccumulatedIncomeRatio);
+                    chartControl1.Series.Add(_seriesAnnualActualProfit);
+                    chartControl1.Series.Add(_seriesAnnualIncomeRatio);
                     break;
 
                 case EnumLibrary.TradeType.All:
@@ -1150,8 +1150,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     chartControl1.Series.Add(_seriesCurrentAsset);
                     chartControl1.Series.Add(_seriesCurrentActualProfit);
                     chartControl1.Series.Add(_seriesCurrentIncomeRatio);
-                    chartControl1.Series.Add(_seriesAccumulatedActualProfit);
-                    chartControl1.Series.Add(_seriesAccumulatedIncomeRatio);
+                    chartControl1.Series.Add(_seriesAnnualActualProfit);
+                    chartControl1.Series.Add(_seriesAnnualIncomeRatio);
                     break;
             }
         }
@@ -1192,7 +1192,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             {
                 foreach (CrosshairElement element in elementGroup.CrosshairElements)
                 {
-                    if (element.Series.Name == _seriesCurrentIncomeRatio.Name || element.Series.Name == _seriesAccumulatedIncomeRatio.Name)
+                    if (element.Series.Name == _seriesCurrentIncomeRatio.Name || element.Series.Name == _seriesAnnualIncomeRatio.Name)
                     {
                         SeriesPoint point = element.SeriesPoint;
 

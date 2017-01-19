@@ -33,5 +33,9 @@ namespace CTM.Services.StatisticsReport
         public decimal FundOccupyAmount { get; set; }
 
         public decimal PositionRate { get; set; }
+
+        public decimal AnnualProfit { get; set; }
+
+        public decimal AnnualIncomeRate { get; set; }
     }
 }
