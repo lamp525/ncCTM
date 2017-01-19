@@ -29,5 +29,9 @@
         public decimal Profit { get; set; }
 
         public decimal AccumulatedProfit { get; set; }
+
+        public decimal AnnualProfit { get; internal set; }
+
+        public int UniqueSerialNo { get; internal set; }
     }
 }

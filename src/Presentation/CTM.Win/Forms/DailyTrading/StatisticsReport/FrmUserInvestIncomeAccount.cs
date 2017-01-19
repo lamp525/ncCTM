@@ -28,10 +28,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private readonly ITKLineService _tKLineService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
-
+        private IList<UserInvestIncomeAccountModel> _queryResult = null;
         private const string _layoutXmlName = "FrmUserInvestIncomeAccount";
-
-        private IList<UserInvestIncomeAccountModel> _investIncomeInfos = null;
 
         #endregion Fields
 
@@ -57,25 +55,31 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
         #region Utilities
 
-        private void RefreshInvestIncomeInfo()
+        private void DisplaySearchResult(bool isSearch)
         {
-            if (_investIncomeInfos == null) return;
-
-            var source = this.chkOnWorking.Checked ? _investIncomeInfos.Where(x => x.IsOnWorking).ToList() : _investIncomeInfos;
-
-            this.gridControl1.DataSource = source;
-        }
-
-        private void DisplaySearchResult()
-        {
-            _investIncomeInfos = null;
+            this.gridControl1.DataSource = null;
 
             var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
 
-            _investIncomeInfos = CalculateInvestIncome(dateFrom, dateTo).OrderBy(x => x.InvestorName).ThenBy(x => x.AccountName).ToList();
+            if (isSearch)
+                _queryResult = CalculateInvestIncome(dateFrom, dateTo).OrderBy(x => x.InvestorName).ThenBy(x => x.AccountName).ToList();
 
-            var source = this.chkOnWorking.Checked ? _investIncomeInfos.Where(x => x.IsOnWorking).ToList() : _investIncomeInfos;
+            if (_queryResult == null) return;
+
+            var source = this.chkOnWorking.Checked ? _queryResult.Where(x => x.IsOnWorking).ToList() : _queryResult;
+
+            int serialNo = 0;
+            string previousInvestor = null;
+            foreach (var item in source)
+            {
+                if (!item.InvestorCode.Equals(previousInvestor))
+                    serialNo++;
+
+                item.UniqueSerialNo = serialNo;
+                previousInvestor = item.InvestorCode;
+            }
+
             this.gridControl1.DataSource = source;
         }
 
@@ -140,7 +144,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                         var investStatisticsInfoPerStock = stockRecords.ToList().GetDailyInvestStatisticsCommonInfo(queryDates, stockClosePrices);
 
-                        //期初收益信息
                         var startStatisticsInfo = investStatisticsInfoPerStock.First();
                         var endStatisticsInfo = investStatisticsInfoPerStock.Last();
 
@@ -150,6 +153,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                             AccountId = currentAccount.Id,
                             AccountName = currentAccount.Name,
                             AccumulatedProfit = CommonHelper.SetDecimalDigits(endStatisticsInfo.AccumulatedProfit),
+                            AnnualProfit = CommonHelper.SetDecimalDigits(endStatisticsInfo.AnnualProfit),
                             AttributeName = currentAccount.AttributeName,
                             InvestorCode = currentInvest.Code,
                             InvestorName = currentInvest.Name,
@@ -194,6 +198,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             this.gridView1.LoadLayout(_layoutXmlName);
             this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, showCheckBoxRowSelect: false);
+            this.gridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
         }
@@ -205,7 +210,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.btnSearch.Enabled = false;
                 this.gridControl1.DataSource = null;
 
-                DisplaySearchResult();
+                DisplaySearchResult(true);
             }
             catch (Exception ex)
             {
@@ -222,19 +227,30 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             this.chkAll.Checked = !this.chkOnWorking.Checked;
 
-            RefreshInvestIncomeInfo();
+            DisplaySearchResult(false);
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
         {
             this.chkOnWorking.Checked = !this.chkAll.Checked;
 
-            RefreshInvestIncomeInfo();
+            DisplaySearchResult(false);
         }
 
         private void btnSaveLayout_Click(object sender, EventArgs e)
         {
             this.gridView1.SaveLayout(_layoutXmlName);
+        }
+
+        private void gridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            var currentUniqueSerialNo = int.Parse(this.gridView1.GetRowCellValue(e.RowHandle, this.colUniqueSerialNo).ToString());
+            if (currentUniqueSerialNo % 2 == 1)
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
+
+            e.HighPriority = true;
         }
 
         /// <summary>

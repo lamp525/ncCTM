@@ -24,10 +24,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private readonly IUserService _userService;
 
         private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
-
+        private IList<UserInvestIncomeSummaryModel> _queryResult = null;
         private const string _layoutXmlName = "FrmUserInvestIncomeSummary";
-
-        public IList<UserInvestIncomeSummaryModel> _queryResult = null;
 
         #endregion Fields
 
@@ -58,11 +56,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             if (_queryResult == null) return;
 
-            var currentResult = new List<UserInvestIncomeSummaryModel>();
-            if (this.chkOnWorking.Checked)
-                currentResult = _queryResult.Where(x => x.IsOnWorking).ToList();
-            else
-                currentResult.AddRange(_queryResult);
+            var currentResult = this.chkOnWorking.Checked ? _queryResult.Where(x => x.IsOnWorking).ToList() : _queryResult;
 
             var totalSummary = CalculateTotalInvestIncome(currentResult);
 
@@ -77,7 +71,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             int unit = (int)EnumLibrary.NumericUnit.TenThousand;
 
             result = source.Select(x => new UserInvestIncomeSummaryModel()
-            {                
+            {
                 Type = x.Type,
 
                 Investor = x.Investor,
@@ -107,7 +101,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 AnnualIncomeRate = CommonHelper.SetDecimalDigits(x.AnnualIncomeRate, 4),
             }
             ).OrderBy(x => x.Investor).ThenBy(x => x.StockFullCode).ThenBy(x => x.StockName).ToList();
-
 
             int serialNo = 0;
             string previousInvestor = null;
@@ -456,7 +449,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             if (e.RowHandle < 0) return;
 
             var currentUniqueSerialNo = int.Parse(this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colUniqueSerialNo).ToString());
-            if (currentUniqueSerialNo % 2 == 0)
+            if (currentUniqueSerialNo % 2 == 1)
                 e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
 
             var stockCode = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colStockFullCode).ToString();
@@ -465,6 +458,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             e.HighPriority = true;
         }
+
         /// <summary>
         /// 显示数据行号
         /// </summary>
@@ -479,7 +473,5 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         }
 
         #endregion Events
-
-     
     }
 }
