@@ -77,7 +77,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             int unit = (int)EnumLibrary.NumericUnit.TenThousand;
 
             result = source.Select(x => new UserInvestIncomeSummaryModel()
-            {
+            {                
+                Type = x.Type,
+
                 Investor = x.Investor,
 
                 TradeTypeName = CTMHelper.GetTradeTypeName(x.TradeType),
@@ -100,8 +102,23 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 CurrentPrice = x.Type == 0 ? CommonHelper.SetDecimalDigits(x.CurrentPrice) : 0,
                 CurrentProfit = CommonHelper.SetDecimalDigits(x.CurrentProfit / unit),
                 CurrentIncomeRate = CommonHelper.SetDecimalDigits(x.CurrentIncomeRate, 4),
+
+                AnnualProfit = CommonHelper.SetDecimalDigits(x.AnnualProfit / unit),
+                AnnualIncomeRate = CommonHelper.SetDecimalDigits(x.AnnualIncomeRate, 4),
             }
             ).OrderBy(x => x.Investor).ThenBy(x => x.StockFullCode).ThenBy(x => x.StockName).ToList();
+
+
+            int serialNo = 0;
+            string previousInvestor = null;
+            foreach (var item in result)
+            {
+                if (!item.Investor.Equals(previousInvestor))
+                    serialNo++;
+
+                item.UniqueSerialNo = serialNo;
+                previousInvestor = item.Investor;
+            }
 
             return result;
         }
@@ -123,6 +140,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var subTotalAccumulatedProfit = investorGroup.Sum(x => x.AccumulatedProfit);
                 var subTotalInitProfit = investorGroup.Sum(x => x.InitProfit);
                 var subTotalCurrentProfit = investorGroup.Sum(x => x.CurrentProfit);
+                var subTotalAnnualProfit = investorGroup.Sum(x => x.AnnualProfit);
 
                 var subTotalModel = new UserInvestIncomeSummaryModel
                 {
@@ -148,6 +166,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     CurrentPrice = 0,
                     CurrentProfit = subTotalCurrentProfit,
                     CurrentIncomeRate = CommonHelper.CalculateRate(subTotalCurrentProfit, firstRecord.AllotFund),
+
+                    AnnualProfit = subTotalAnnualProfit,
+                    AnnualIncomeRate = CommonHelper.CalculateRate(subTotalAnnualProfit, firstRecord.AllotFund),
 
                     TradeType = 0,
                 };
@@ -182,6 +203,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             totalModel.CurrentProfit = allSubTotalRecords.Sum(x => x.CurrentProfit);
             totalModel.CurrentIncomeRate = CommonHelper.CalculateRate(totalModel.CurrentProfit, totalModel.AllotFund);
 
+            totalModel.AnnualProfit = allSubTotalRecords.Sum(x => x.AnnualProfit);
+            totalModel.AnnualIncomeRate = CommonHelper.CalculateRate(totalModel.AnnualProfit, totalModel.AllotFund);
+
             totalModel.TradeType = 0;
 
             totalSummaryRecords.Add(totalModel);
@@ -192,8 +216,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private IList<UserInvestIncomeSummaryModel> CalculateUserIncomeSummary(DateTime startDate, DateTime endDate)
         {
             var result = new List<UserInvestIncomeSummaryModel>();
-
             var beneficiaries = new string[1];
+
             if (LoginInfo.CurrentUser.IsAdmin)
                 beneficiaries = null;
             else
@@ -203,12 +227,13 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             if (!allRecords.Any()) return result;
 
+            var baseDate = (new DateTime(endDate.Year, 1, 1)).AddDays(-1);
+            var queryDates = new List<DateTime> { baseDate > startDate ? startDate : baseDate, endDate };
             var stockFullCodes = allRecords.Select(x => x.StockCode).Distinct().ToArray();
-            var queryDates = new List<DateTime> { startDate, endDate };
             var stockClosePrices = _TKLineService.GetStockClosePrices(queryDates, stockFullCodes);
+            var baseDateClosePrices = stockClosePrices.Where(x => x.TradeDate == baseDate).ToList();
             var initDateClosePrices = stockClosePrices.Where(x => x.TradeDate == startDate).ToList();
             var currentDateClosePrices = stockClosePrices.Where(x => x.TradeDate == endDate).ToList();
-
             var allBeneficiaries = allRecords.Select(x => x.Beneficiary).Distinct().ToArray();
             var allBeneficiaryInfos = _userService.GetUserInfoByCode(allBeneficiaries);
 
@@ -220,9 +245,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 var beneficiaryInfo = allBeneficiaryInfos.SingleOrDefault(x => x.Code == beneficiaryGroup.Key);
                 if (beneficiaryInfo == null) continue;
 
-                //var investor = beneficiaryInfo.Name;
                 var allotFund = beneficiaryInfo.AllotFund;
-
                 //股票分组记录
                 var recordsByStockCode = beneficiaryGroup.GroupBy(x => x.StockCode);
 
@@ -230,33 +253,44 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 {
                     var stockFullCode = stockGroup.Key;
                     var stockName = stockGroup.First().StockName;
-
                     var recordsByTradeType = stockGroup.GroupBy(x => x.TradeType);
 
-                    //期初股票最新收盘价格
+                    //年度基准日股票收盘价格
+                    decimal baseClosePrice = (baseDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
+                    //期初股票收盘价格
                     decimal initClosePrice = (initDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
-
-                    //期末股票最新收盘价格
+                    //期末股票收盘价格
                     decimal currentClosePrice = (currentDateClosePrices.LastOrDefault(x => x.StockCode.Trim() == stockGroup.Key) ?? new TKLineToday()).Close;
 
                     foreach (var tradeTypeGroup in recordsByTradeType)
                     {
                         var tradeType = tradeTypeGroup.Key;
 
+                        #region 基准日处理
+
+                        //截至基准日的交易记录
+                        var baseRecords = tradeTypeGroup.Where(x => x.TradeDate <= baseDate);
+                        //发生金额
+                        decimal baseActualAmount = baseRecords.Sum(x => x.ActualAmount);
+                        //股票的持股数
+                        decimal baseHoldingVolume = baseRecords.Sum(x => x.DealVolume);
+                        //持仓市值
+                        decimal basePositionValue = Math.Abs(baseHoldingVolume) * initClosePrice;
+                        //累计收益额
+                        decimal baseAccumulatedProfit = baseActualAmount + baseHoldingVolume * initClosePrice;
+
+                        #endregion 基准日处理
+
                         #region 期初处理
 
                         //截至期初的交易记录
                         var initRecords = tradeTypeGroup.Where(x => x.TradeDate <= startDate);
-
                         //发生金额
                         decimal initActualAmount = initRecords.Sum(x => x.ActualAmount);
-
                         //股票的持股数
                         decimal initHoldingVolume = initRecords.Sum(x => x.DealVolume);
-
                         //持仓市值
                         decimal initPositionValue = Math.Abs(initHoldingVolume) * initClosePrice;
-
                         //累计收益额
                         decimal initAccumulatedProfit = initActualAmount + initHoldingVolume * initClosePrice;
 
@@ -269,34 +303,34 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                         //股票持股数
                         decimal currentHoldingVolume = currentRecords.Sum(x => x.DealVolume);
-
                         //发生金额
                         decimal currentActualAmount = currentRecords.Sum(x => x.ActualAmount);
-
                         //持仓市值
                         decimal currentPositionValue = Math.Abs(currentHoldingVolume) * currentClosePrice;
-
                         //累计收益额
                         decimal currentAccumulatedProfit = currentActualAmount + currentHoldingVolume * currentClosePrice;
-
                         //累计收益率
                         decimal currentAccumulatedIncomeRate = 0.00M;
-
                         //本期收益
                         decimal currentProfit = currentAccumulatedProfit - initAccumulatedProfit;
-
                         //本期收益率
                         decimal currentIncomeRate = 0.00M;
+                        //本年收益额
+                        decimal annualProfit = currentAccumulatedProfit - baseAccumulatedProfit;
+                        //本年收益率
+                        decimal annualIncomeRate = 0.00M;
 
                         if (tradeType == (int)EnumLibrary.TradeType.Day)
                         {
                             currentIncomeRate = CommonHelper.CalculateRate(currentProfit, currentPositionValue > allotFund ? currentPositionValue : allotFund);
                             currentAccumulatedIncomeRate = CommonHelper.CalculateRate(currentAccumulatedProfit, currentPositionValue > allotFund ? currentPositionValue : allotFund);
+                            annualIncomeRate = CommonHelper.CalculateRate(annualProfit, currentPositionValue > allotFund ? currentPositionValue : allotFund);
                         }
                         else
                         {
                             currentIncomeRate = CommonHelper.CalculateRate(currentProfit, allotFund);
                             currentAccumulatedIncomeRate = CommonHelper.CalculateRate(currentAccumulatedProfit, allotFund);
+                            annualIncomeRate = CommonHelper.CalculateRate(annualProfit, allotFund);
                         }
 
                         #endregion 期末处理
@@ -327,6 +361,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                             CurrentPrice = currentClosePrice,
                             CurrentProfit = currentProfit,
                             CurrentIncomeRate = currentIncomeRate,
+
+                            AnnualProfit = annualProfit,
+                            AnnualIncomeRate = annualIncomeRate,
                         };
 
                         result.Add(tradeTypeSummaryModel);
@@ -370,6 +407,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             this.bandedGridView1.LoadLayout(_layoutXmlName);
             this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: true, showGroupPanel: true);
+            this.bandedGridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
         }
@@ -413,6 +451,20 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             this.bandedGridView1.SaveLayout(_layoutXmlName);
         }
 
+        private void bandedGridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            var currentUniqueSerialNo = int.Parse(this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colUniqueSerialNo).ToString());
+            if (currentUniqueSerialNo % 2 == 0)
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
+
+            var stockCode = this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colStockFullCode).ToString();
+            if (string.IsNullOrEmpty(stockCode))
+                e.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+
+            e.HighPriority = true;
+        }
         /// <summary>
         /// 显示数据行号
         /// </summary>
@@ -427,5 +479,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         }
 
         #endregion Events
+
+     
     }
 }

@@ -40,8 +40,8 @@
             this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colAllotFund = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAccumulatedProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAccumulatedIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colAnnualProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colAnnualIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colInitAsset = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colInitPositionValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -53,6 +53,7 @@
             this.colCurrentPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colCurrentProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colCurrentIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.deFrom = new DevExpress.XtraEditors.DateEdit();
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
@@ -62,14 +63,15 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciCheckOnWorking = new DevExpress.XtraLayout.LayoutControlItem();
-            this.lciCheckAll = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lciCheckAll = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colUniqueSerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).BeginInit();
@@ -86,8 +88,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCheckOnWorking)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
@@ -161,12 +163,15 @@
             this.gridBand2,
             this.gridBand3});
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
+            this.colUniqueSerialNo,
+            this.colType,
             this.colInvestor,
             this.colStockFullCode,
             this.colStockName,
             this.colAllotFund,
-            this.colAccumulatedProfit,
-            this.colAccumulatedIncomeRate,
+            this.colTradeTypeName,
+            this.colAnnualProfit,
+            this.colAnnualIncomeRate,
             this.colInitAsset,
             this.colInitPositionValue,
             this.colInitHoldingVolume,
@@ -175,8 +180,7 @@
             this.colCurrentHoldingVolume,
             this.colCurrentPrice,
             this.colCurrentProfit,
-            this.colCurrentIncomeRate,
-            this.colTradeTypeName});
+            this.colCurrentIncomeRate});
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.Name = "bandedGridView1";
             this.bandedGridView1.OptionsBehavior.Editable = false;
@@ -190,6 +194,7 @@
             this.bandedGridView1.OptionsView.ShowAutoFilterRow = true;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
+            this.bandedGridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.bandedGridView1_RowStyle);
             // 
             // gridBand1
             // 
@@ -203,11 +208,11 @@
             this.gridBand1.Columns.Add(this.colStockName);
             this.gridBand1.Columns.Add(this.colAllotFund);
             this.gridBand1.Columns.Add(this.colTradeTypeName);
-            this.gridBand1.Columns.Add(this.colAccumulatedProfit);
-            this.gridBand1.Columns.Add(this.colAccumulatedIncomeRate);
+            this.gridBand1.Columns.Add(this.colAnnualProfit);
+            this.gridBand1.Columns.Add(this.colAnnualIncomeRate);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 684;
+            this.gridBand1.Width = 610;
             // 
             // colInvestor
             // 
@@ -215,7 +220,6 @@
             this.colInvestor.FieldName = "Investor";
             this.colInvestor.Name = "colInvestor";
             this.colInvestor.Visible = true;
-            this.colInvestor.Width = 90;
             // 
             // colStockFullCode
             // 
@@ -223,7 +227,6 @@
             this.colStockFullCode.FieldName = "StockFullCode";
             this.colStockFullCode.Name = "colStockFullCode";
             this.colStockFullCode.Visible = true;
-            this.colStockFullCode.Width = 97;
             // 
             // colStockName
             // 
@@ -231,17 +234,18 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.Width = 99;
             // 
             // colAllotFund
             // 
             this.colAllotFund.AppearanceCell.Options.UseTextOptions = true;
             this.colAllotFund.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colAllotFund.Caption = "分配资金";
+            this.colAllotFund.DisplayFormat.FormatString = "N";
+            this.colAllotFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colAllotFund.FieldName = "AllotFund";
             this.colAllotFund.Name = "colAllotFund";
             this.colAllotFund.Visible = true;
-            this.colAllotFund.Width = 111;
+            this.colAllotFund.Width = 100;
             // 
             // colTradeTypeName
             // 
@@ -251,29 +255,29 @@
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.Visible = true;
-            this.colTradeTypeName.Width = 85;
+            this.colTradeTypeName.Width = 65;
             // 
-            // colAccumulatedProfit
+            // colAnnualProfit
             // 
-            this.colAccumulatedProfit.AppearanceCell.Options.UseTextOptions = true;
-            this.colAccumulatedProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colAccumulatedProfit.Caption = "累计收益额";
-            this.colAccumulatedProfit.FieldName = "AccumulatedProfit";
-            this.colAccumulatedProfit.Name = "colAccumulatedProfit";
-            this.colAccumulatedProfit.Visible = true;
-            this.colAccumulatedProfit.Width = 89;
+            this.colAnnualProfit.Caption = "本年累计收益额";
+            this.colAnnualProfit.DisplayFormat.FormatString = "N";
+            this.colAnnualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAnnualProfit.FieldName = "AnnualProfit";
+            this.colAnnualProfit.Name = "colAnnualProfit";
+            this.colAnnualProfit.Visible = true;
+            this.colAnnualProfit.Width = 110;
             // 
-            // colAccumulatedIncomeRate
+            // colAnnualIncomeRate
             // 
-            this.colAccumulatedIncomeRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colAccumulatedIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colAccumulatedIncomeRate.Caption = "累计收益率";
-            this.colAccumulatedIncomeRate.DisplayFormat.FormatString = "#0.00%";
-            this.colAccumulatedIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colAccumulatedIncomeRate.FieldName = "AccumulatedIncomeRate";
-            this.colAccumulatedIncomeRate.Name = "colAccumulatedIncomeRate";
-            this.colAccumulatedIncomeRate.Visible = true;
-            this.colAccumulatedIncomeRate.Width = 113;
+            this.colAnnualIncomeRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colAnnualIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colAnnualIncomeRate.Caption = "本年累计收益率";
+            this.colAnnualIncomeRate.DisplayFormat.FormatString = "#0.00%";
+            this.colAnnualIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colAnnualIncomeRate.FieldName = "AnnualIncomeRate";
+            this.colAnnualIncomeRate.Name = "colAnnualIncomeRate";
+            this.colAnnualIncomeRate.Visible = true;
+            this.colAnnualIncomeRate.Width = 110;
             // 
             // gridBand2
             // 
@@ -289,23 +293,27 @@
             this.gridBand2.Columns.Add(this.colInitHoldingVolume);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 281;
+            this.gridBand2.Width = 285;
             // 
             // colInitAsset
             // 
             this.colInitAsset.AppearanceCell.Options.UseTextOptions = true;
             this.colInitAsset.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitAsset.Caption = "期初资产";
+            this.colInitAsset.DisplayFormat.FormatString = "N";
+            this.colInitAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitAsset.FieldName = "InitAsset";
             this.colInitAsset.Name = "colInitAsset";
             this.colInitAsset.Visible = true;
-            this.colInitAsset.Width = 103;
+            this.colInitAsset.Width = 95;
             // 
             // colInitPositionValue
             // 
             this.colInitPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colInitPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitPositionValue.Caption = "期初市值";
+            this.colInitPositionValue.DisplayFormat.FormatString = "N";
+            this.colInitPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitPositionValue.FieldName = "InitPositionValue";
             this.colInitPositionValue.Name = "colInitPositionValue";
             this.colInitPositionValue.Visible = true;
@@ -316,10 +324,12 @@
             this.colInitHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colInitHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitHoldingVolume.Caption = "期初持仓量";
+            this.colInitHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colInitHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitHoldingVolume.FieldName = "InitHoldingVolume";
             this.colInitHoldingVolume.Name = "colInitHoldingVolume";
             this.colInitHoldingVolume.Visible = true;
-            this.colInitHoldingVolume.Width = 83;
+            this.colInitHoldingVolume.Width = 95;
             // 
             // gridBand3
             // 
@@ -338,37 +348,43 @@
             this.gridBand3.Columns.Add(this.colCurrentIncomeRate);
             this.gridBand3.Name = "gridBand3";
             this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 537;
+            this.gridBand3.Width = 535;
             // 
             // colCurrentAsset
             // 
             this.colCurrentAsset.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentAsset.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentAsset.Caption = "期末资产";
+            this.colCurrentAsset.DisplayFormat.FormatString = "N";
+            this.colCurrentAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentAsset.FieldName = "CurrentAsset";
             this.colCurrentAsset.Name = "colCurrentAsset";
             this.colCurrentAsset.Visible = true;
-            this.colCurrentAsset.Width = 110;
+            this.colCurrentAsset.Width = 95;
             // 
             // colCurrentPositionValue
             // 
             this.colCurrentPositionValue.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentPositionValue.Caption = "期末市值";
+            this.colCurrentPositionValue.DisplayFormat.FormatString = "N";
+            this.colCurrentPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentPositionValue.FieldName = "CurrentPositionValue";
             this.colCurrentPositionValue.Name = "colCurrentPositionValue";
             this.colCurrentPositionValue.Visible = true;
-            this.colCurrentPositionValue.Width = 88;
+            this.colCurrentPositionValue.Width = 95;
             // 
             // colCurrentHoldingVolume
             // 
             this.colCurrentHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentHoldingVolume.Caption = "期末持仓量";
+            this.colCurrentHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colCurrentHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentHoldingVolume.FieldName = "CurrentHoldingVolume";
             this.colCurrentHoldingVolume.Name = "colCurrentHoldingVolume";
             this.colCurrentHoldingVolume.Visible = true;
-            this.colCurrentHoldingVolume.Width = 85;
+            this.colCurrentHoldingVolume.Width = 95;
             // 
             // colCurrentPrice
             // 
@@ -378,17 +394,19 @@
             this.colCurrentPrice.FieldName = "CurrentPrice";
             this.colCurrentPrice.Name = "colCurrentPrice";
             this.colCurrentPrice.Visible = true;
-            this.colCurrentPrice.Width = 77;
+            this.colCurrentPrice.Width = 60;
             // 
             // colCurrentProfit
             // 
             this.colCurrentProfit.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentProfit.Caption = "本期收益额";
+            this.colCurrentProfit.DisplayFormat.FormatString = "N";
+            this.colCurrentProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
             this.colCurrentProfit.Visible = true;
-            this.colCurrentProfit.Width = 94;
+            this.colCurrentProfit.Width = 95;
             // 
             // colCurrentIncomeRate
             // 
@@ -400,32 +418,37 @@
             this.colCurrentIncomeRate.FieldName = "CurrentIncomeRate";
             this.colCurrentIncomeRate.Name = "colCurrentIncomeRate";
             this.colCurrentIncomeRate.Visible = true;
-            this.colCurrentIncomeRate.Width = 83;
+            this.colCurrentIncomeRate.Width = 95;
+            // 
+            // colType
+            // 
+            this.colType.FieldName = "Type";
+            this.colType.Name = "colType";
             // 
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(87, 45);
+            this.deFrom.Location = new System.Drawing.Point(75, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deFrom.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deFrom.Size = new System.Drawing.Size(113, 20);
+            this.deFrom.Size = new System.Drawing.Size(125, 20);
             this.deFrom.StyleController = this.layoutControl2;
             this.deFrom.TabIndex = 4;
             // 
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(267, 45);
+            this.deTo.Location = new System.Drawing.Point(255, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deTo.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deTo.Size = new System.Drawing.Size(113, 20);
+            this.deTo.Size = new System.Drawing.Size(125, 20);
             this.deTo.StyleController = this.layoutControl2;
             this.deTo.TabIndex = 5;
             // 
@@ -503,6 +526,14 @@
             this.lciCheckOnWorking.TextSize = new System.Drawing.Size(0, 0);
             this.lciCheckOnWorking.TextVisible = false;
             // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // lciCheckAll
             // 
             this.lciCheckAll.Control = this.chkAll;
@@ -512,19 +543,12 @@
             this.lciCheckAll.TextSize = new System.Drawing.Size(0, 0);
             this.lciCheckAll.TextVisible = false;
             // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // layoutControlGroup6
             // 
             this.layoutControlGroup6.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.layoutControlGroup6.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup6.CustomizationFormText = "查询条件";
+            this.layoutControlGroup6.ExpandButtonVisible = true;
             this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem6,
             this.layoutControlItem7,
@@ -543,8 +567,8 @@
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(180, 26);
-            this.layoutControlItem6.Text = "查询时间：";
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(60, 14);
+            this.layoutControlItem6.Text = "开始日期";
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem7
             // 
@@ -553,8 +577,8 @@
             this.layoutControlItem7.Location = new System.Drawing.Point(180, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(180, 26);
-            this.layoutControlItem7.Text = "      到";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
+            this.layoutControlItem7.Text = "截至日期";
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem8
             // 
@@ -587,6 +611,11 @@
             this.emptySpaceItem6.Text = "emptySpaceItem2";
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // colUniqueSerialNo
+            // 
+            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
+            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
+            // 
             // FrmUserInvestIncomeSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -612,8 +641,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCheckOnWorking)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCheckAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
@@ -638,8 +667,8 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockFullCode;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockName;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAllotFund;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccumulatedProfit;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccumulatedIncomeRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnnualProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnnualIncomeRate;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitAsset;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitPositionValue;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitHoldingVolume;
@@ -650,9 +679,6 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentPrice;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentProfit;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentIncomeRate;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraEditors.DateEdit deFrom;
         private DevExpress.XtraEditors.DateEdit deTo;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
@@ -667,5 +693,10 @@
         private DevExpress.XtraLayout.LayoutControlItem lciCheckOnWorking;
         private DevExpress.XtraLayout.LayoutControlItem lciCheckAll;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colType;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colUniqueSerialNo;
     }
 }

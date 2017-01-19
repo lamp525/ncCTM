@@ -47,5 +47,11 @@
         public decimal CurrentProfit { get; set; }
 
         public decimal CurrentIncomeRate { get; set; }
+
+        public decimal AnnualProfit { get; internal set; }
+
+        public decimal AnnualIncomeRate { get; internal set; }
+
+        public int UniqueSerialNo { get; internal set; }
     }
 }
