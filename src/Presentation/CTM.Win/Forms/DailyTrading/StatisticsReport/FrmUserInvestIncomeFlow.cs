@@ -1173,7 +1173,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 CustomDrawGridView();
 
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showFilterPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
+                this.gridView1.SetLayout(showFilterPanel: false, showAutoFilterRow: false, showCheckBoxRowSelect: false);
                 this.gridView1.SetColumnHeaderAppearance();
 
                 this.ActiveControl = this.btnSearch;

@@ -325,7 +325,7 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.Visible = true;
             this.colDepartmentName.VisibleIndex = 1;
-            this.colDepartmentName.Width = 85;
+            this.colDepartmentName.Width = 65;
             // 
             // colInvestor
             // 
@@ -366,7 +366,6 @@
             this.colCurrentAsset.Name = "colCurrentAsset";
             this.colCurrentAsset.Visible = true;
             this.colCurrentAsset.VisibleIndex = 5;
-            this.colCurrentAsset.Width = 90;
             // 
             // colAnnualProfit
             // 
@@ -379,7 +378,7 @@
             this.colAnnualProfit.Name = "colAnnualProfit";
             this.colAnnualProfit.Visible = true;
             this.colAnnualProfit.VisibleIndex = 6;
-            this.colAnnualProfit.Width = 100;
+            this.colAnnualProfit.Width = 110;
             // 
             // colAnnualInterest
             // 
@@ -401,7 +400,7 @@
             this.colAnnualActualProfit.Name = "colAnnualActualProfit";
             this.colAnnualActualProfit.Visible = true;
             this.colAnnualActualProfit.VisibleIndex = 8;
-            this.colAnnualActualProfit.Width = 110;
+            this.colAnnualActualProfit.Width = 120;
             // 
             // colAnnualIncomeRate
             // 
@@ -414,7 +413,7 @@
             this.colAnnualIncomeRate.Name = "colAnnualIncomeRate";
             this.colAnnualIncomeRate.Visible = true;
             this.colAnnualIncomeRate.VisibleIndex = 9;
-            this.colAnnualIncomeRate.Width = 100;
+            this.colAnnualIncomeRate.Width = 110;
             // 
             // colAverageMarginAmount
             // 
@@ -425,7 +424,7 @@
             this.colAverageMarginAmount.Name = "colAverageMarginAmount";
             this.colAverageMarginAmount.Visible = true;
             this.colAverageMarginAmount.VisibleIndex = 10;
-            this.colAverageMarginAmount.Width = 95;
+            this.colAverageMarginAmount.Width = 110;
             // 
             // colPlanMarginAmount
             // 
@@ -438,7 +437,7 @@
             this.colPlanMarginAmount.Name = "colPlanMarginAmount";
             this.colPlanMarginAmount.Visible = true;
             this.colPlanMarginAmount.VisibleIndex = 11;
-            this.colPlanMarginAmount.Width = 95;
+            this.colPlanMarginAmount.Width = 110;
             // 
             // colDealAmount
             // 
@@ -460,7 +459,7 @@
             this.colActualMarginAmount.Name = "colActualMarginAmount";
             this.colActualMarginAmount.Visible = true;
             this.colActualMarginAmount.VisibleIndex = 13;
-            this.colActualMarginAmount.Width = 95;
+            this.colActualMarginAmount.Width = 110;
             // 
             // colCurrentProfit
             // 
@@ -496,7 +495,7 @@
             this.colCurrentActualProfit.Tag = "本{0}净收益额";
             this.colCurrentActualProfit.Visible = true;
             this.colCurrentActualProfit.VisibleIndex = 16;
-            this.colCurrentActualProfit.Width = 80;
+            this.colCurrentActualProfit.Width = 90;
             // 
             // colCurrentIncomeRate
             // 
@@ -1079,6 +1078,7 @@
             // 
             this.layoutControlGroup3.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.layoutControlGroup3.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup3.ExpandButtonVisible = true;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.emptySpaceItem2,
