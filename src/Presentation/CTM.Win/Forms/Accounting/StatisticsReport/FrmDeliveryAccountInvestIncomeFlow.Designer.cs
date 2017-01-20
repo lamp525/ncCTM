@@ -159,6 +159,7 @@
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             // 
             // colAccountName
             // 
@@ -245,7 +246,7 @@
             this.colAccumulatedIncomeRate.AppearanceCell.Options.UseTextOptions = true;
             this.colAccumulatedIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colAccumulatedIncomeRate.Caption = "累计收益率";
-            this.colAccumulatedIncomeRate.DisplayFormat.FormatString = "#0.00%";
+            this.colAccumulatedIncomeRate.DisplayFormat.FormatString = "#####0.00%";
             this.colAccumulatedIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colAccumulatedIncomeRate.FieldName = "AccumulatedIncomeRate";
             this.colAccumulatedIncomeRate.Name = "colAccumulatedIncomeRate";
@@ -269,7 +270,7 @@
             this.colCurrentIncomeRate.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentIncomeRate.Caption = "当日收益率";
-            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#0.00%";
+            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#####0.00%";
             this.colCurrentIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCurrentIncomeRate.FieldName = "CurrentIncomeRate";
             this.colCurrentIncomeRate.Name = "colCurrentIncomeRate";

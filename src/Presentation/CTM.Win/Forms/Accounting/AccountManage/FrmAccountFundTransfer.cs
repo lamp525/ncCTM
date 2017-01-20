@@ -121,6 +121,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
                 this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
+                this.gridView1.SetColumnHeaderAppearance();
 
                 BindSearchInfo();
 
@@ -267,7 +268,21 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
 
+            if (e.Column == this.colTransferAmount )
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
         #endregion Events
+
+
     }
 }

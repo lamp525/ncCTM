@@ -60,7 +60,8 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
 
             this.gridView1.LoadLayout(_layoutXmlName);
             this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 60);
-            gridView1.OptionsBehavior.AllowPartialGroups = DefaultBoolean.True;
+            this.gridView1.SetColumnHeaderAppearance();
+           gridView1.OptionsBehavior.AllowPartialGroups = DefaultBoolean.True;
 
             this.ActiveControl = this.btnSearch;
         }
@@ -100,6 +101,20 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colProfit || e.Column == this.colAccumulatedProfit)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
         }
 
