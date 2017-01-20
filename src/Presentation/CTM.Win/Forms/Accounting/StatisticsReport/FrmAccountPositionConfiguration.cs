@@ -125,7 +125,6 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             else if (e.Column == this.colSubjectNetProfitRate || e.Column == this.colChangePercentage || e.Column == this.colStockProfitRate)
             {
                 var cellValueString = e.CellValue.ToString();
-
                 var cellValue = decimal.Parse(cellValueString.Substring(0, cellValueString.Length - 1));
 
                 if (cellValue > 0)

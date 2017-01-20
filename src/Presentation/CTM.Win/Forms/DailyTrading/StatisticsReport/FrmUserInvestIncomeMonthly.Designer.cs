@@ -178,6 +178,7 @@
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             // 
             // colTradeTime
             // 
@@ -261,7 +262,7 @@
             this.colCurrentIncomeRate.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentIncomeRate.Caption = "月收益率";
-            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#0.00%";
+            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#####0.00%";
             this.colCurrentIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCurrentIncomeRate.FieldName = "CurrentIncomeRate";
             this.colCurrentIncomeRate.Name = "colCurrentIncomeRate";

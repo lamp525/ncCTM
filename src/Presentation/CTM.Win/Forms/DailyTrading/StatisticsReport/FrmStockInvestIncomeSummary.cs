@@ -402,6 +402,31 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             }
         }
 
-        #endregion Events
+        private void bandedGridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAnnualProfit
+                || e.Column == this.colInitProfit
+                || e.Column == this.colCurrentProfit
+                || e.Column == this.colTargetActualProfit
+                || e.Column == this.colTargetFoatingProfit
+                || e.Column == this.colTargetTotalProfit
+                || e.Column == this.colBandActualProfit
+                || e.Column == this.colBandFoatingProfit
+                || e.Column == this.colBandTotalProfit
+                || e.Column == this.colDayActualProfit
+                || e.Column == this.colDayFoatingProfit
+                || e.Column == this.colDayTotalProfit)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
     }
+
+    #endregion Events
 }

@@ -294,6 +294,23 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             }
         }
 
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAnnualProfit
+                || e.Column == this.colCurrentProfit
+                || e.Column == this.colCurrentActualProfit
+                || e.Column == this.colCurrentIncomeRate)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
         #endregion Events
     }
 }

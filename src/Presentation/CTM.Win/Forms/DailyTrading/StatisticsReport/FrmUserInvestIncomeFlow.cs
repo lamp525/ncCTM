@@ -563,7 +563,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 TradeTime = x.TradeTime,
                 TradeTypeName = tradeTypeName,
             }
-            ).OrderByDescending(x => x.TradeTime);
+            );//.OrderByDescending(x => x.TradeTime);
 
             this.gridControl1.DataSource = source;
         }
@@ -1232,6 +1232,25 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAnnualProfit 
+                || e.Column == this.colAnnualActualProfit 
+                || e.Column == this.colAnnualIncomeRate 
+                || e.Column == this.colCurrentActualProfit 
+                || e.Column == this.colCurrentProfit
+                || e.Column == this.colCurrentIncomeRate)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
         }
 

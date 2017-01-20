@@ -33,6 +33,7 @@
             this.chkOnWorking = new DevExpress.XtraEditors.CheckEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colUniqueSerialNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQueryPeriod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,7 +67,6 @@
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciAll = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colUniqueSerialNo = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkAll.Properties)).BeginInit();
@@ -178,7 +178,13 @@
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             this.gridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridView1_RowStyle);
+            // 
+            // colUniqueSerialNo
+            // 
+            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
+            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
             // 
             // colQueryPeriod
             // 
@@ -186,7 +192,7 @@
             this.colQueryPeriod.FieldName = "QueryPeriod";
             this.colQueryPeriod.Name = "colQueryPeriod";
             this.colQueryPeriod.Visible = true;
-            this.colQueryPeriod.VisibleIndex = 1;
+            this.colQueryPeriod.VisibleIndex = 0;
             this.colQueryPeriod.Width = 160;
             // 
             // colInvestorName
@@ -195,7 +201,7 @@
             this.colInvestorName.FieldName = "InvestorName";
             this.colInvestorName.Name = "colInvestorName";
             this.colInvestorName.Visible = true;
-            this.colInvestorName.VisibleIndex = 2;
+            this.colInvestorName.VisibleIndex = 1;
             this.colInvestorName.Width = 100;
             // 
             // colInvestorCode
@@ -230,7 +236,7 @@
             this.colAccountDetail.FieldName = "AccountDetail";
             this.colAccountDetail.Name = "colAccountDetail";
             this.colAccountDetail.Visible = true;
-            this.colAccountDetail.VisibleIndex = 3;
+            this.colAccountDetail.VisibleIndex = 2;
             this.colAccountDetail.Width = 220;
             // 
             // colProfit
@@ -241,7 +247,7 @@
             this.colProfit.FieldName = "Profit";
             this.colProfit.Name = "colProfit";
             this.colProfit.Visible = true;
-            this.colProfit.VisibleIndex = 5;
+            this.colProfit.VisibleIndex = 4;
             this.colProfit.Width = 100;
             // 
             // colAnnualProfit
@@ -252,7 +258,7 @@
             this.colAnnualProfit.FieldName = "AnnualProfit";
             this.colAnnualProfit.Name = "colAnnualProfit";
             this.colAnnualProfit.Visible = true;
-            this.colAnnualProfit.VisibleIndex = 6;
+            this.colAnnualProfit.VisibleIndex = 5;
             this.colAnnualProfit.Width = 110;
             // 
             // colIsOnWorking
@@ -261,7 +267,7 @@
             this.colIsOnWorking.FieldName = "IsOnWorking";
             this.colIsOnWorking.Name = "colIsOnWorking";
             this.colIsOnWorking.Visible = true;
-            this.colIsOnWorking.VisibleIndex = 7;
+            this.colIsOnWorking.VisibleIndex = 6;
             this.colIsOnWorking.Width = 70;
             // 
             // colStockCode
@@ -284,7 +290,7 @@
             this.colStockDetail.FieldName = "StockDetail";
             this.colStockDetail.Name = "colStockDetail";
             this.colStockDetail.Visible = true;
-            this.colStockDetail.VisibleIndex = 4;
+            this.colStockDetail.VisibleIndex = 3;
             this.colStockDetail.Width = 180;
             // 
             // btnSaveLayout
@@ -490,11 +496,6 @@
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(363, 805);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // colUniqueSerialNo
-            // 
-            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
-            this.colUniqueSerialNo.Name = "colUniqueSerialNo";
             // 
             // FrmUserInvestIncomeAccount
             // 

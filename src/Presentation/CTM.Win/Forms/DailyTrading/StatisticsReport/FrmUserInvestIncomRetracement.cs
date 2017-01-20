@@ -134,7 +134,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 //计算截至日期年度回撤金额
                 decimal annualRetracementAmount = 0;
 
-                var baseDate = (new DateTime(endDate.Year, 1, 1)).AddDays (-1);
+                var baseDate = (new DateTime(endDate.Year, 1, 1)).AddDays(-1);
                 var annualDailyInvestIncomes = dailyInvestIncomes.Where(x => x.TradeTime > baseDate);
                 foreach (var dayIncome in annualDailyInvestIncomes)
                 {
@@ -211,7 +211,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 AccessControl();
 
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showAutoFilterRow:false , showCheckBoxRowSelect: false);
+                this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
                 this.gridView1.SetColumnHeaderAppearance();
 
                 this.ActiveControl = this.btnSearch;
@@ -305,6 +305,23 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAnnualProfit
+                || e.Column == this.colAnnualActualProfit
+                || e.Column == this.colPeriodActualProfit
+                || e.Column == this.colPeriodProfit)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
         }
 
