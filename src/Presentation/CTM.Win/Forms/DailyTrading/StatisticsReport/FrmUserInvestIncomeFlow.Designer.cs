@@ -328,7 +328,6 @@
             this.colDepartmentName.Name = "colDepartmentName";
             this.colDepartmentName.Visible = true;
             this.colDepartmentName.VisibleIndex = 1;
-            this.colDepartmentName.Width = 65;
             // 
             // colInvestor
             // 
@@ -337,7 +336,6 @@
             this.colInvestor.Name = "colInvestor";
             this.colInvestor.Visible = true;
             this.colInvestor.VisibleIndex = 2;
-            this.colInvestor.Width = 85;
             // 
             // colTradeTypeName
             // 
