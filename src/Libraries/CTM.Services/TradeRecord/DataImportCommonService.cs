@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using CTM.Core;
-using CTM.Core.Domain.Stock;
 using CTM.Core.Util;
 
 namespace CTM.Services.TradeRecord
@@ -75,7 +74,6 @@ namespace CTM.Services.TradeRecord
                     throw new Exception($"交易数据Excel文件中缺少列【{name}】。");
             }
         }
-
 
         /// <summary>
         /// 判断选中的证券公司和账户属性是否支持数据导入处理
@@ -159,7 +157,7 @@ namespace CTM.Services.TradeRecord
 
             if (securityCompanyName == "海通证券" && accountAttributeName == "普通")
             {
-                // return true;
+                securityAccount = EnumLibrary.SecurityAccount.HaiTong_N;
             }
 
             if (securityCompanyName == "申万宏源" && accountAttributeName == "普通")

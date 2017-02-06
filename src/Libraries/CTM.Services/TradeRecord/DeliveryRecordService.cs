@@ -621,6 +621,49 @@ namespace CTM.Services.TradeRecord
 
         #endregion 交割单--国泰证券（普通）
 
+        #region 交割单--海通证券（普通）
+
+        /// <summary>
+        /// 交割单--海通证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportHaiTong_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "其他杂费");
+            columnList.Add("OtherFee1", "过户费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "操作");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--华泰证券（信用）
+
         #region 交割单--华泰证券（信用）
 
         /// <summary>
@@ -969,6 +1012,11 @@ namespace CTM.Services.TradeRecord
                 //国泰普通
                 case EnumLibrary.SecurityAccount.GuoTai_N:
                     records = DeliveryImportGuoTai_N(importOperation, importDataTable);
+                    break;
+
+                //海通普通
+                case EnumLibrary.SecurityAccount.HaiTong_N:
+                    records = DeliveryImportHaiTong_N(importOperation, importDataTable);
                     break;
 
                 //华泰信用

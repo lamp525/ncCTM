@@ -575,6 +575,12 @@ namespace CTM.Core
             GuoTai_N,
 
             /// <summary>
+            /// 海通证券（普通）
+            /// </summary>
+            [Description("海通证券（普通）")]
+            HaiTong_N,
+
+            /// <summary>
             /// 华泰证券（普通）
             /// </summary>
             [Description("华泰证券（普通）")]
