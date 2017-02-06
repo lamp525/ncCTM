@@ -1067,7 +1067,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Icon\" />
     <Folder Include="CustomControl\" />
     <Folder Include="Resources\" />
   </ItemGroup>
