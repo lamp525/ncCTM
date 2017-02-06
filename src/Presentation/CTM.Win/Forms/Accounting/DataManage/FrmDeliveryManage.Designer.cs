@@ -96,13 +96,13 @@
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciImport = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -143,13 +143,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciImport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -180,10 +180,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 186);
+            this.gridControl1.Location = new System.Drawing.Point(24, 190);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1537, 636);
+            this.gridControl1.Size = new System.Drawing.Size(1537, 632);
             this.gridControl1.TabIndex = 20;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -321,7 +321,7 @@
             // colDealVolume
             // 
             this.colDealVolume.Caption = "成交数量";
-            this.colDealVolume.DisplayFormat.FormatString = "N";
+            this.colDealVolume.DisplayFormat.FormatString = "N0";
             this.colDealVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
@@ -469,7 +469,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(125, 160);
+            this.btnImport.Location = new System.Drawing.Point(125, 164);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(79, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -479,7 +479,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(36, 160);
+            this.btnDelete.Location = new System.Drawing.Point(36, 164);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
@@ -489,9 +489,9 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1496, 160);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1494, 164);
             this.btnSaveLayout.Name = "btnSaveLayout";
-            this.btnSaveLayout.Size = new System.Drawing.Size(65, 22);
+            this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
             this.btnSaveLayout.TabIndex = 16;
             this.btnSaveLayout.Text = " 保存样式 ";
@@ -500,7 +500,7 @@
             // labelControl1
             // 
             this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Horizontal;
-            this.labelControl1.Location = new System.Drawing.Point(364, 91);
+            this.labelControl1.Location = new System.Drawing.Point(364, 93);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(48, 14);
             this.labelControl1.StyleController = this.layoutControl1;
@@ -510,7 +510,7 @@
             // chkSell
             // 
             this.chkSell.AutoSizeInLayoutControl = true;
-            this.chkSell.Location = new System.Drawing.Point(484, 91);
+            this.chkSell.Location = new System.Drawing.Point(484, 93);
             this.chkSell.Name = "chkSell";
             this.chkSell.Properties.Caption = "卖  出";
             this.chkSell.Size = new System.Drawing.Size(54, 19);
@@ -521,7 +521,7 @@
             // chkBuy
             // 
             this.chkBuy.AutoSizeInLayoutControl = true;
-            this.chkBuy.Location = new System.Drawing.Point(426, 91);
+            this.chkBuy.Location = new System.Drawing.Point(426, 93);
             this.chkBuy.Name = "chkBuy";
             this.chkBuy.Properties.Caption = "买  入";
             this.chkBuy.Size = new System.Drawing.Size(54, 19);
@@ -531,7 +531,7 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(87, 67);
+            this.luStock.Location = new System.Drawing.Point(87, 69);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -544,7 +544,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(945, 91);
+            this.btnClear.Location = new System.Drawing.Point(945, 93);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 22);
             this.btnClear.StyleController = this.layoutControl1;
@@ -554,7 +554,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(856, 91);
+            this.btnSearch.Location = new System.Drawing.Point(856, 93);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -564,7 +564,7 @@
             // 
             // luAccount
             // 
-            this.luAccount.Location = new System.Drawing.Point(87, 43);
+            this.luAccount.Location = new System.Drawing.Point(87, 45);
             this.luAccount.Name = "luAccount";
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -580,7 +580,7 @@
             // deImportTo
             // 
             this.deImportTo.EditValue = null;
-            this.deImportTo.Location = new System.Drawing.Point(767, 67);
+            this.deImportTo.Location = new System.Drawing.Point(767, 69);
             this.deImportTo.Name = "deImportTo";
             this.deImportTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -592,7 +592,7 @@
             // 
             // luImport
             // 
-            this.luImport.Location = new System.Drawing.Point(87, 91);
+            this.luImport.Location = new System.Drawing.Point(87, 93);
             this.luImport.Name = "luImport";
             this.luImport.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -606,7 +606,7 @@
             // deImportFrom
             // 
             this.deImportFrom.EditValue = null;
-            this.deImportFrom.Location = new System.Drawing.Point(427, 67);
+            this.deImportFrom.Location = new System.Drawing.Point(427, 69);
             this.deImportFrom.Name = "deImportFrom";
             this.deImportFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -619,7 +619,7 @@
             // deTradeTo
             // 
             this.deTradeTo.EditValue = null;
-            this.deTradeTo.Location = new System.Drawing.Point(767, 43);
+            this.deTradeTo.Location = new System.Drawing.Point(767, 45);
             this.deTradeTo.Name = "deTradeTo";
             this.deTradeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -632,7 +632,7 @@
             // deTradeFrom
             // 
             this.deTradeFrom.EditValue = null;
-            this.deTradeFrom.Location = new System.Drawing.Point(427, 43);
+            this.deTradeFrom.Location = new System.Drawing.Point(427, 45);
             this.deTradeFrom.Name = "deTradeFrom";
             this.deTradeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -682,7 +682,7 @@
             this.emptySpaceItem13});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1565, 117);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1565, 119);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // layoutControlItem12
@@ -870,26 +870,17 @@
             this.layoutControlItem23,
             this.emptySpaceItem1,
             this.layoutControlItem22});
-            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 117);
+            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 119);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(1565, 709);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(1565, 707);
             this.layoutControlGroup5.Text = "交割单记录详情";
-            // 
-            // layoutControlItem22
-            // 
-            this.layoutControlItem22.Control = this.btnSaveLayout;
-            this.layoutControlItem22.Location = new System.Drawing.Point(1472, 0);
-            this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(69, 26);
-            this.layoutControlItem22.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem22.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.gridControl1;
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(1541, 640);
+            this.layoutControlItem7.Size = new System.Drawing.Size(1541, 636);
             this.layoutControlItem7.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
@@ -899,7 +890,7 @@
             this.emptySpaceItem5.AllowHotTrack = false;
             this.emptySpaceItem5.Location = new System.Drawing.Point(184, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(1288, 26);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(1286, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem6
@@ -935,6 +926,15 @@
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem22
+            // 
+            this.layoutControlItem22.Control = this.btnSaveLayout;
+            this.layoutControlItem22.Location = new System.Drawing.Point(1470, 0);
+            this.layoutControlItem22.Name = "layoutControlItem22";
+            this.layoutControlItem22.Size = new System.Drawing.Size(71, 26);
+            this.layoutControlItem22.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem22.TextVisible = false;
             // 
             // FrmDeliveryManage
             // 
@@ -985,13 +985,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciImport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
             this.ResumeLayout(false);
 
         }
