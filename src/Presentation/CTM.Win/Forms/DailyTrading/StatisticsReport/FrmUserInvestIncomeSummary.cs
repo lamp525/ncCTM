@@ -268,9 +268,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                         //股票的持股数
                         decimal baseHoldingVolume = baseRecords.Sum(x => x.DealVolume);
                         //持仓市值
-                        decimal basePositionValue = Math.Abs(baseHoldingVolume) * initClosePrice;
+                        decimal basePositionValue = Math.Abs(baseHoldingVolume) * baseClosePrice;
                         //累计收益额
-                        decimal baseAccumulatedProfit = baseActualAmount + baseHoldingVolume * initClosePrice;
+                        decimal baseAccumulatedProfit = baseActualAmount + baseHoldingVolume * baseClosePrice;
 
                         #endregion 基准日处理
 
