@@ -135,7 +135,7 @@ namespace CTM.Services.TradeRecord
                 record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
                 //合同编号
                 record.ContractNo = row[columnList[nameof(record.ContractNo)]].ToString().Trim();
-                //股东代码
+                //股东代码\股东帐户
                 if (!string.IsNullOrEmpty(columnList[nameof(record.StockHolderCode)]))
                     record.StockHolderCode = row[columnList[nameof(record.StockHolderCode)]].ToString().Trim();
                 //备注
