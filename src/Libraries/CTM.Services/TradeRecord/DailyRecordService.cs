@@ -1458,8 +1458,6 @@ namespace CTM.Services.TradeRecord
 
         #endregion 交割单--国泰证券（普通）
 
-
-
         #region 交割单--海通证券（普通）
 
         /// <summary>

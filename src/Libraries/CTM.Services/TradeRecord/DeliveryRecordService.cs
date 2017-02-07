@@ -474,8 +474,8 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.Commission), "佣金");
             columnList.Add(nameof(record.StampDuty), "印花税");
             columnList.Add(nameof(record.Incidentals), "过户费");
-            columnList.Add("OtherFee1", "其他杂费");
-            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee1", "手续费");
+            columnList.Add("OtherFee2", "其他杂费");
             columnList.Add("OtherFee3", null);
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
             columnList.Add(nameof(record.DealNo), "成交编号");
@@ -662,7 +662,7 @@ namespace CTM.Services.TradeRecord
             return tradeRecords;
         }
 
-        #endregion 交割单--华泰证券（信用）
+        #endregion 交割单--海通证券（普通）
 
         #region 交割单--华泰证券（信用）
 
