@@ -27,14 +27,10 @@ namespace CTM.Services.TradeRecord
 
         private IList<DataRow> _skippedRecords = null;
 
-        #endregion Fields
-
-        #region Constants
-
         private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入" };
         private readonly List<string> _sellTexts = new List<string> { "融券购回", "卖券还款" };
 
-        #endregion Constants
+        #endregion Fields
 
         #region Constructors
 
