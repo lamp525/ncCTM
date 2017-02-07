@@ -1489,7 +1489,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
             columnList.Add(nameof(record.DealNo), "合同编号");
             columnList.Add(nameof(record.ContractNo), "合同编号");
-            columnList.Add(nameof(record.Remarks), "摘要");
+            columnList.Add(nameof(record.Remarks), "操作");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
