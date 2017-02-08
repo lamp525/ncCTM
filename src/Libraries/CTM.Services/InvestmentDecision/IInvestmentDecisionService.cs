@@ -100,5 +100,9 @@ namespace CTM.Services.InvestmentDecision
         void AddInvestmentPlanRecord(string serialNo, string stockCode, string stockName, string investorCode, DateTime analysisDate);
 
         void DeleteInvestmentPlanRecord(IList<int> recordIds);
+
+        InvestmentPlanRecord  GetIPRInfo(int id);
+
+        void UpdateIPRInfo(InvestmentPlanRecord entity);
     }
 }

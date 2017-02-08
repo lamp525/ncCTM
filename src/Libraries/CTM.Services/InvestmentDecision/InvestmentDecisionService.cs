@@ -776,6 +776,7 @@ namespace CTM.Services.InvestmentDecision
                 CreateTime = now,
                 DealDate = null,
                 InvestorCode = investorCode,
+                Probability =null,
                 SerialNo = serialNo,
                 StockCode = stockCode,
                 StockName = stockName,
@@ -794,6 +795,21 @@ namespace CTM.Services.InvestmentDecision
             query = query.Where(x => recordIds.Contains(x.Id));
 
             _IPRRepository.Delete(query);
+        }
+
+        public virtual InvestmentPlanRecord GetIPRInfo(int id)
+        {
+            var info = _IPRRepository.GetById(id);
+
+            return info;
+        }
+
+        public virtual  void UpdateIPRInfo(InvestmentPlanRecord entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _IPRRepository.Update(entity);
         }
 
         #endregion Methods

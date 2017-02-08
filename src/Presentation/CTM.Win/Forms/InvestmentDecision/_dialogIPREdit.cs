@@ -55,7 +55,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.esiTitle.Text = $@"股票池个股分析记录 - 分析日期：{AnalysisDate.ToShortDateString()}  分析人员：{LoginInfo.CurrentUser.UserName}";
+            this.esiTitle.Text = $@"股票池个股分析记录 -{SerialNo} -分析日期：{AnalysisDate.ToShortDateString()} -分析人员：{LoginInfo.CurrentUser.UserName}";
 
             //走势预判
             var trendTypes = new List<ImageComboBoxItem>
@@ -92,7 +92,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 },
                 new ImageComboBoxItem
                 {
-                    Description =" 高开高走",
+                    Description ="高开高走",
                     Value ="7",
                 },
                 new ImageComboBoxItem
@@ -154,7 +154,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 },
                        new ImageComboBoxItem
                 {
-                    Description ="隔日短差",
+                    Description ="短差",
                     Value ="3",
                 },
             };
@@ -202,7 +202,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.bandedGridView1.SetLayout(editable: true, readOnly: false, showAutoFilterRow: false, multiSelect: true, showCheckBoxRowSelect: true);
             this.bandedGridView1.SetColumnHeaderAppearance();
 
-            foreach (GridColumn column in this.bandedGridView1.VisibleColumns)
+            foreach (GridColumn column in this.bandedGridView1.Columns)
             {
                 if (column.Name == this.colStockCode.Name || column.Name == this.colStockName.Name)
                     column.OptionsColumn.AllowEdit = false;
@@ -213,7 +213,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void BindIPR()
         {
-            string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE InvestorCode = '{LoginInfo.CurrentUser.UserCode }' AND AnalysisDate = '{AnalysisDate}'";
+            string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE InvestorCode = '{LoginInfo.CurrentUser.UserCode }' AND AnalysisDate = '{AnalysisDate}' ORDER BY StockName, Probability DESC, CreateTime";
             DataSet ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
             if (ds == null || ds.Tables.Count == 0) return;
             this.gridControl1.DataSource = ds.Tables[0];
@@ -317,7 +317,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             if (e.RowHandle < 0) return;
 
             //走势预判
-            if (e.Column == this.colTrend)
+            if (e.Column.Name == this.colTrend.Name)
             {
                 ImageComboBoxEdit icb = new ImageComboBoxEdit();
                 icb.Properties.Items.AddRange(this.riImageComboBoxTrendType.Items);
@@ -325,7 +325,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 foreach (ImageComboBoxItem item in icb.Properties.Items)
                 {
-                    if (e.CellValue == item.Value)
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
                     {
                         icb.SelectedItem = item;
                         return;
@@ -333,7 +333,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
             }
             //操作方案
-            else if (e.Column == this.colScheme)
+            else if (e.Column.Name == this.colScheme.Name)
             {
                 ImageComboBoxEdit icb = new ImageComboBoxEdit();
                 icb.Properties.Items.AddRange(this.riImageComboBoxOperateScheme.Items);
@@ -341,7 +341,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 foreach (ImageComboBoxItem item in icb.Properties.Items)
                 {
-                    if (e.CellValue == item.Value)
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
                     {
                         icb.SelectedItem = item;
                         return;
@@ -349,7 +349,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
             }
             //交易类别
-            else if (e.Column == this.colTradeType)
+            else if (e.Column.Name == this.colTradeType.Name)
             {
                 ImageComboBoxEdit icb = new ImageComboBoxEdit();
                 icb.Properties.Items.AddRange(this.riImageComboBoxTradeType.Items);
@@ -357,7 +357,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 foreach (ImageComboBoxItem item in icb.Properties.Items)
                 {
-                    if (e.CellValue == item.Value)
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
                     {
                         icb.SelectedItem = item;
                         return;
@@ -365,7 +365,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 }
             }
             //操作方式
-            else if (e.Column == this.colOperateMode)
+            else if (e.Column.Name == this.colOperateMode.Name)
             {
                 ImageComboBoxEdit icb = new ImageComboBoxEdit();
                 icb.Properties.Items.AddRange(this.riImageComboBoxOperateMode.Items);
@@ -373,7 +373,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 foreach (ImageComboBoxItem item in icb.Properties.Items)
                 {
-                    if (e.CellValue == item.Value)
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
                     {
                         icb.SelectedItem = item;
                         return;
@@ -407,10 +407,49 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void bandedGridView1_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
         {
+            try
+            {
+                DataRowView drv = (DataRowView)e.Row;
+                DataRow row = drv.Row;
+                if (row.RowState == DataRowState.Modified)
+                {
+                    var id = int.Parse(row[colId.FieldName].ToString());
+
+                    var info = _IDService.GetIPRInfo(id);
+
+                    info.Trend = Convert.ToInt32(row[colTrend.FieldName]);
+                    if (row[colProbability.FieldName] == null || row[colProbability.FieldName].ToString().Trim() == "")
+                        info.Probability = null;
+                    else
+                        info.Probability = Convert.ToInt32(row[colProbability.FieldName]);
+                    info.Logic = row[colLogic.FieldName].ToString();
+                    info.Scheme = Convert.ToInt32(row[colScheme.FieldName]);
+                    info.TradeType = Convert.ToInt32(row[colTradeType.FieldName]);
+                    info.OperateMode = Convert.ToInt32(row[colOperateMode.FieldName]);
+                    info.Expected = row[colExpected.FieldName].ToString();
+                    info.Unexpected = row[colUnexpected.FieldName].ToString();
+                    info.PlanPrice = Convert.ToDecimal(row[colPlanPrice.FieldName]);
+                    info.PlanVolume = Convert.ToDecimal(row[colPlanVolume.FieldName]);
+                    info.PlanAmount = Convert.ToDecimal(row[colPlanAmount.FieldName]);
+                    info.ProfitPrice = Convert.ToDecimal(row[colProfitPrice.FieldName]);
+                    info.LossPrice = Convert.ToDecimal(row[colLossPrice.FieldName]);
+                    if (row[colDealDate.FieldName] != null && row[colDealDate.FieldName].ToString().Trim() != "")
+                        info.DealDate = Convert.ToDateTime(row[colDealDate.FieldName]);
+                    info.DealPrice = Convert.ToDecimal(row[colDealPrice.FieldName]);
+                    info.DealVolume = Convert.ToDecimal(row[colDealVolume.FieldName]);
+                    info.DealAmount = Convert.ToDecimal(row[colDealAmount.FieldName]);
+                    info.Summary = row[colSummary.FieldName].ToString();
+                    info.UpdateTime = _commonService.GetCurrentServerTime();
+
+                    _IDService.UpdateIPRInfo(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         #endregion Events
-
-   
     }
 }

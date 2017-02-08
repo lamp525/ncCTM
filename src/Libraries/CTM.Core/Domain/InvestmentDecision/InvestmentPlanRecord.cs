@@ -20,7 +20,7 @@ namespace CTM.Core.Domain.InvestmentDecision
 
         public int Trend { get; set; }
 
-        public int Probability { get; set; }
+        public int? Probability { get; set; }
 
         public string Logic { get; set; }
 

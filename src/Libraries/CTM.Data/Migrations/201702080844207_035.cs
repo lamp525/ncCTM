@@ -18,7 +18,7 @@ namespace CTM.Data.Migrations
                         StockCode = c.String(),
                         StockName = c.String(),
                         Trend = c.Int(nullable: false),
-                        Probability = c.Int(nullable: false),
+                        Probability = c.Int(),
                         Logic = c.String(),
                         Scheme = c.Int(nullable: false),
                         TradeType = c.Int(nullable: false),
