@@ -11,6 +11,7 @@ using CTM.Win.Util;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid.Columns;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
@@ -27,6 +28,14 @@ namespace CTM.Win.Forms.InvestmentDecision
         private RepositoryItemImageComboBox riImageComboBoxOperateMode;
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
+        #region Properties
+
+        public string SerialNo { get; set; }
+
+        public DateTime AnalysisDate { get; set; }
+
+        #endregion Properties
 
         #endregion Fields
 
@@ -46,6 +55,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
+            this.esiTitle.Text = $@"股票池个股分析记录 - 分析日期：{AnalysisDate.ToShortDateString()}  分析人员：{LoginInfo.CurrentUser.UserName}";
+
             //走势预判
             var trendTypes = new List<ImageComboBoxItem>
             {
@@ -188,13 +199,21 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             this.btnDelete.Enabled = false;
             this.btnAdd.Enabled = false;
-            this.bandedGridView1.SetLayout(showAutoFilterRow: false, multiSelect: true, showCheckBoxRowSelect: true);
+            this.bandedGridView1.SetLayout(editable: true, readOnly: false, showAutoFilterRow: false, multiSelect: true, showCheckBoxRowSelect: true);
             this.bandedGridView1.SetColumnHeaderAppearance();
+
+            foreach (GridColumn column in this.bandedGridView1.VisibleColumns)
+            {
+                if (column.Name == this.colStockCode.Name || column.Name == this.colStockName.Name)
+                    column.OptionsColumn.AllowEdit = false;
+                else
+                    column.OptionsColumn.AllowEdit = true;
+            }
         }
 
         private void BindIPR()
         {
-            string commandText = "";
+            string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE InvestorCode = '{LoginInfo.CurrentUser.UserCode }' AND AnalysisDate = '{AnalysisDate}'";
             DataSet ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
             if (ds == null || ds.Tables.Count == 0) return;
             this.gridControl1.DataSource = ds.Tables[0];
@@ -208,6 +227,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
+                SerialNo = "IPR000001";
+                AnalysisDate = DateTime.Now.Date;
+
                 FormInit();
                 BindIPR();
             }
@@ -229,10 +251,34 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
+                this.btnDelete.Enabled = false;
+
+                var selectedHandles = this.bandedGridView1.GetSelectedRows();
+
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                if (DXMessage.ShowYesNoAndWarning("确定删除选择的分析记录吗？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    var ids = new List<int>();
+
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                    {
+                        ids.Add(int.Parse(this.bandedGridView1.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+                    }
+
+                    _IDService.DeleteInvestmentPlanRecord(ids);
+
+                    BindIPR();
+                }
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnDelete.Enabled = true;
             }
         }
 
@@ -240,10 +286,21 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             try
             {
+                this.btnAdd.Enabled = false;
+
+                var stockInfo = this.luStock.GetSelectedDataRow() as StockInfoModel;
+                if (stockInfo == null) return;
+
+                _IDService.AddInvestmentPlanRecord(SerialNo, stockInfo.FullCode, stockInfo.Name, LoginInfo.CurrentUser.UserCode, AnalysisDate);
+                BindIPR();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAdd.Enabled = true;
             }
         }
 
@@ -353,5 +410,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
+
+   
     }
 }

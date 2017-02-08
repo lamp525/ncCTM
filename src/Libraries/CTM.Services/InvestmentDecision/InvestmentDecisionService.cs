@@ -38,6 +38,8 @@ namespace CTM.Services.InvestmentDecision
         private readonly IRepository<DecisionReasonCategory> _DRCategoryRepository;
         private readonly IRepository<DecisionReasonContent> _DRContentRepository;
 
+        private readonly IRepository<InvestmentPlanRecord> _IPRRepository;
+
         private readonly ICommonService _commonService;
 
         private readonly IDbContext _dbContext;
@@ -64,6 +66,7 @@ namespace CTM.Services.InvestmentDecision
             IRepository<PositionStockAnalysisSummary> PSASummaryRepository,
             IRepository<DecisionReasonCategory> DRCategoryRepository,
             IRepository<DecisionReasonContent> DRContentRepository,
+            IRepository<InvestmentPlanRecord> IPRRepository,
             ICommonService commonService,
             IDbContext dbContext)
         {
@@ -84,6 +87,7 @@ namespace CTM.Services.InvestmentDecision
             this._PSASummaryRepository = PSASummaryRepository;
             this._DRCategoryRepository = DRCategoryRepository;
             this._DRContentRepository = DRContentRepository;
+            this._IPRRepository = IPRRepository;
 
             this._commonService = commonService;
             this._dbContext = dbContext;
@@ -421,9 +425,10 @@ namespace CTM.Services.InvestmentDecision
 
             _MTFDetailRepository.Delete(votes.ToArray());
         }
-        public virtual  IList<InvestmentDecisionStockPool> GetIDStockPool()
+
+        public virtual IList<InvestmentDecisionStockPool> GetIDStockPool()
         {
-            return _IDStockPoolRepository.Table.ToList ();
+            return _IDStockPoolRepository.Table.ToList();
         }
 
         public virtual InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode)
@@ -693,7 +698,7 @@ namespace CTM.Services.InvestmentDecision
             return query.ToList();
         }
 
-        public virtual void AddIDOperationRelatedRcords(string applyNo, string operateNo, IList<int> recordIds)
+        public virtual void AddIDOperationRelatedRecords(string applyNo, string operateNo, IList<int> recordIds)
         {
             if (recordIds == null)
                 throw new ArgumentNullException(nameof(recordIds));
@@ -761,7 +766,36 @@ namespace CTM.Services.InvestmentDecision
             }
         }
 
-      
+        public virtual void AddInvestmentPlanRecord(string serialNo, string stockCode, string stockName, string investorCode, DateTime analysisDate)
+        {
+            var now = _commonService.GetCurrentServerTime();
+
+            var ipr = new InvestmentPlanRecord
+            {
+                AnalysisDate = analysisDate,
+                CreateTime = now,
+                DealDate = null,
+                InvestorCode = investorCode,
+                SerialNo = serialNo,
+                StockCode = stockCode,
+                StockName = stockName,
+                UpdateTime = now,
+            };
+
+            _IPRRepository.Insert(ipr);
+        }
+
+        public virtual void DeleteInvestmentPlanRecord(IList<int> recordIds)
+        {
+            if (recordIds == null)
+                throw new ArgumentNullException(nameof(recordIds));
+
+            var query = _IPRRepository.Table;
+            query = query.Where(x => recordIds.Contains(x.Id));
+
+            _IPRRepository.Delete(query);
+        }
+
         #endregion Methods
     }
 }

@@ -176,7 +176,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                         recordIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], "RecordId").ToString()));
                     }
 
-                    this._IDService.AddIDOperationRelatedRcords(ApplyNo, OperateNo, recordIds);
+                    this._IDService.AddIDOperationRelatedRecords(ApplyNo, OperateNo, recordIds);
 
                     DXMessage.ShowTips("交易记录关联操作成功！");
 

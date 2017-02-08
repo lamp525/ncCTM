@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CTM.Core;
 using CTM.Core.Domain.InvestmentDecision;
 
@@ -88,13 +89,16 @@ namespace CTM.Services.InvestmentDecision
 
         IList<int> GetIDOperationRelatedRecordIds(string operateNo);
 
-        void AddIDOperationRelatedRcords(string applyNo, string operateNo, IList<int> recordIds);
+        void AddIDOperationRelatedRecords(string applyNo, string operateNo, IList<int> recordIds);
 
         void UpdateIDApplicationStatus(string applyNo, int done);
 
         void DeleteInvestmentDecisionOperation(string applyNo, string operateNo);
 
         void StopInvestmentDecisionOperation(string operateNo, string stopReasonContent);
- 
+
+        void AddInvestmentPlanRecord(string serialNo, string stockCode, string stockName, string investorCode, DateTime analysisDate);
+
+        void DeleteInvestmentPlanRecord(IList<int> recordIds);
     }
 }
