@@ -30,6 +30,8 @@ namespace CTM.Services.InvestmentDecision
 
         InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode);
 
+        IList<InvestmentDecisionStockPool> GetIDStockPool();
+
         void DeleteIDStockPool(IList<string> stockCodes, string operateCode);
 
         void AddIDStockPool(InvestmentDecisionStockPool entity);
@@ -93,6 +95,6 @@ namespace CTM.Services.InvestmentDecision
         void DeleteInvestmentDecisionOperation(string applyNo, string operateNo);
 
         void StopInvestmentDecisionOperation(string operateNo, string stopReasonContent);
-
+ 
     }
 }

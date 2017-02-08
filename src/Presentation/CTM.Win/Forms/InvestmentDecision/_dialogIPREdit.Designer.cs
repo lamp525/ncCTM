@@ -32,30 +32,30 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
             this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.bandedGridColumn1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn2 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.bandedGridColumn3 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn4 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn5 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn6 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn7 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn8 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn9 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn10 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colTrend = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colProbability = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colLogic = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colScheme = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colTradeType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colOperateMode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colExpected = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colUnexpected = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.bandedGridColumn11 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn12 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn13 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn14 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn15 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPlanPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPlanVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPlanAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colProfitPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colLossPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.bandedGridColumn16 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn17 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn18 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn19 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.bandedGridColumn20 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colSummary = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn21 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn22 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn23 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -129,26 +129,26 @@
             this.gridBand4,
             this.gridBand5});
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
-            this.bandedGridColumn1,
-            this.bandedGridColumn2,
-            this.bandedGridColumn3,
-            this.bandedGridColumn4,
-            this.bandedGridColumn5,
-            this.bandedGridColumn6,
-            this.bandedGridColumn7,
-            this.bandedGridColumn8,
-            this.bandedGridColumn9,
-            this.bandedGridColumn10,
-            this.bandedGridColumn11,
-            this.bandedGridColumn12,
-            this.bandedGridColumn13,
-            this.bandedGridColumn14,
-            this.bandedGridColumn15,
-            this.bandedGridColumn16,
-            this.bandedGridColumn17,
-            this.bandedGridColumn18,
-            this.bandedGridColumn19,
-            this.bandedGridColumn20,
+            this.colStockName,
+            this.colStockCode,
+            this.colTrend,
+            this.colProbability,
+            this.colLogic,
+            this.colScheme,
+            this.colTradeType,
+            this.colOperateMode,
+            this.colExpected,
+            this.colUnexpected,
+            this.colPlanPrice,
+            this.colPlanVolume,
+            this.colPlanAmount,
+            this.colProfitPrice,
+            this.colLossPrice,
+            this.colDealDate,
+            this.colDealPrice,
+            this.colDealVolume,
+            this.colDealAmount,
+            this.colSummary,
             this.bandedGridColumn21,
             this.bandedGridColumn22,
             this.bandedGridColumn23,
@@ -158,200 +158,204 @@
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.Name = "bandedGridView1";
             this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
+            this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
+            this.bandedGridView1.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.bandedGridView1_CustomRowCellEdit);
+            this.bandedGridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.bandedGridView1_SelectionChanged);
+            this.bandedGridView1.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.bandedGridView1_RowUpdated);
             // 
             // gridBand1
             // 
             this.gridBand1.Caption = "基础信息";
-            this.gridBand1.Columns.Add(this.bandedGridColumn1);
-            this.gridBand1.Columns.Add(this.bandedGridColumn2);
+            this.gridBand1.Columns.Add(this.colStockName);
+            this.gridBand1.Columns.Add(this.colStockCode);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
             this.gridBand1.Width = 133;
             // 
-            // bandedGridColumn1
+            // colStockName
             // 
-            this.bandedGridColumn1.Caption = "股票名称";
-            this.bandedGridColumn1.Name = "bandedGridColumn1";
-            this.bandedGridColumn1.Visible = true;
-            this.bandedGridColumn1.Width = 71;
+            this.colStockName.Caption = "股票名称";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.Visible = true;
+            this.colStockName.Width = 71;
             // 
-            // bandedGridColumn2
+            // colStockCode
             // 
-            this.bandedGridColumn2.Caption = "股票代码";
-            this.bandedGridColumn2.Name = "bandedGridColumn2";
-            this.bandedGridColumn2.Visible = true;
-            this.bandedGridColumn2.Width = 62;
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
+            this.colStockCode.Width = 62;
             // 
             // gridBand2
             // 
             this.gridBand2.Caption = "分析";
-            this.gridBand2.Columns.Add(this.bandedGridColumn3);
-            this.gridBand2.Columns.Add(this.bandedGridColumn4);
-            this.gridBand2.Columns.Add(this.bandedGridColumn5);
-            this.gridBand2.Columns.Add(this.bandedGridColumn6);
-            this.gridBand2.Columns.Add(this.bandedGridColumn7);
-            this.gridBand2.Columns.Add(this.bandedGridColumn8);
-            this.gridBand2.Columns.Add(this.bandedGridColumn9);
-            this.gridBand2.Columns.Add(this.bandedGridColumn10);
+            this.gridBand2.Columns.Add(this.colTrend);
+            this.gridBand2.Columns.Add(this.colProbability);
+            this.gridBand2.Columns.Add(this.colLogic);
+            this.gridBand2.Columns.Add(this.colScheme);
+            this.gridBand2.Columns.Add(this.colTradeType);
+            this.gridBand2.Columns.Add(this.colOperateMode);
+            this.gridBand2.Columns.Add(this.colExpected);
+            this.gridBand2.Columns.Add(this.colUnexpected);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
             this.gridBand2.Width = 501;
             // 
-            // bandedGridColumn3
+            // colTrend
             // 
-            this.bandedGridColumn3.Caption = "走势预判";
-            this.bandedGridColumn3.Name = "bandedGridColumn3";
-            this.bandedGridColumn3.Visible = true;
-            this.bandedGridColumn3.Width = 61;
+            this.colTrend.Caption = "走势预判";
+            this.colTrend.Name = "colTrend";
+            this.colTrend.Visible = true;
+            this.colTrend.Width = 61;
             // 
-            // bandedGridColumn4
+            // colProbability
             // 
-            this.bandedGridColumn4.Caption = "概率";
-            this.bandedGridColumn4.Name = "bandedGridColumn4";
-            this.bandedGridColumn4.Visible = true;
-            this.bandedGridColumn4.Width = 61;
+            this.colProbability.Caption = "概率";
+            this.colProbability.Name = "colProbability";
+            this.colProbability.Visible = true;
+            this.colProbability.Width = 61;
             // 
-            // bandedGridColumn5
+            // colLogic
             // 
-            this.bandedGridColumn5.Caption = "预判逻辑";
-            this.bandedGridColumn5.Name = "bandedGridColumn5";
-            this.bandedGridColumn5.Visible = true;
-            this.bandedGridColumn5.Width = 61;
+            this.colLogic.Caption = "预判逻辑";
+            this.colLogic.Name = "colLogic";
+            this.colLogic.Visible = true;
+            this.colLogic.Width = 61;
             // 
-            // bandedGridColumn6
+            // colScheme
             // 
-            this.bandedGridColumn6.Caption = "操作方案";
-            this.bandedGridColumn6.Name = "bandedGridColumn6";
-            this.bandedGridColumn6.Visible = true;
-            this.bandedGridColumn6.Width = 61;
+            this.colScheme.Caption = "操作方案";
+            this.colScheme.Name = "colScheme";
+            this.colScheme.Visible = true;
+            this.colScheme.Width = 61;
             // 
-            // bandedGridColumn7
+            // colTradeType
             // 
-            this.bandedGridColumn7.Caption = "交易类别";
-            this.bandedGridColumn7.Name = "bandedGridColumn7";
-            this.bandedGridColumn7.Visible = true;
-            this.bandedGridColumn7.Width = 61;
+            this.colTradeType.Caption = "交易类别";
+            this.colTradeType.Name = "colTradeType";
+            this.colTradeType.Visible = true;
+            this.colTradeType.Width = 61;
             // 
-            // bandedGridColumn8
+            // colOperateMode
             // 
-            this.bandedGridColumn8.Caption = "操作方式";
-            this.bandedGridColumn8.Name = "bandedGridColumn8";
-            this.bandedGridColumn8.Visible = true;
-            this.bandedGridColumn8.Width = 61;
+            this.colOperateMode.Caption = "操作方式";
+            this.colOperateMode.Name = "colOperateMode";
+            this.colOperateMode.Visible = true;
+            this.colOperateMode.Width = 61;
             // 
-            // bandedGridColumn9
+            // colExpected
             // 
-            this.bandedGridColumn9.Caption = "预期操作";
-            this.bandedGridColumn9.Name = "bandedGridColumn9";
-            this.bandedGridColumn9.Visible = true;
-            this.bandedGridColumn9.Width = 61;
+            this.colExpected.Caption = "预期操作";
+            this.colExpected.Name = "colExpected";
+            this.colExpected.Visible = true;
+            this.colExpected.Width = 61;
             // 
-            // bandedGridColumn10
+            // colUnexpected
             // 
-            this.bandedGridColumn10.Caption = "非预期操作";
-            this.bandedGridColumn10.Name = "bandedGridColumn10";
-            this.bandedGridColumn10.Visible = true;
-            this.bandedGridColumn10.Width = 74;
+            this.colUnexpected.Caption = "非预期操作";
+            this.colUnexpected.Name = "colUnexpected";
+            this.colUnexpected.Visible = true;
+            this.colUnexpected.Width = 74;
             // 
             // gridBand3
             // 
             this.gridBand3.Caption = "计划";
-            this.gridBand3.Columns.Add(this.bandedGridColumn11);
-            this.gridBand3.Columns.Add(this.bandedGridColumn12);
-            this.gridBand3.Columns.Add(this.bandedGridColumn13);
-            this.gridBand3.Columns.Add(this.bandedGridColumn14);
-            this.gridBand3.Columns.Add(this.bandedGridColumn15);
+            this.gridBand3.Columns.Add(this.colPlanPrice);
+            this.gridBand3.Columns.Add(this.colPlanVolume);
+            this.gridBand3.Columns.Add(this.colPlanAmount);
+            this.gridBand3.Columns.Add(this.colProfitPrice);
+            this.gridBand3.Columns.Add(this.colLossPrice);
             this.gridBand3.Name = "gridBand3";
             this.gridBand3.VisibleIndex = 2;
             this.gridBand3.Width = 342;
             // 
-            // bandedGridColumn11
+            // colPlanPrice
             // 
-            this.bandedGridColumn11.Caption = "交易价格";
-            this.bandedGridColumn11.Name = "bandedGridColumn11";
-            this.bandedGridColumn11.Visible = true;
-            this.bandedGridColumn11.Width = 70;
+            this.colPlanPrice.Caption = "交易价格";
+            this.colPlanPrice.Name = "colPlanPrice";
+            this.colPlanPrice.Visible = true;
+            this.colPlanPrice.Width = 70;
             // 
-            // bandedGridColumn12
+            // colPlanVolume
             // 
-            this.bandedGridColumn12.Caption = "数量(万股)";
-            this.bandedGridColumn12.Name = "bandedGridColumn12";
-            this.bandedGridColumn12.Visible = true;
-            this.bandedGridColumn12.Width = 88;
+            this.colPlanVolume.Caption = "数量(万股)";
+            this.colPlanVolume.Name = "colPlanVolume";
+            this.colPlanVolume.Visible = true;
+            this.colPlanVolume.Width = 88;
             // 
-            // bandedGridColumn13
+            // colPlanAmount
             // 
-            this.bandedGridColumn13.Caption = "金额(万元)";
-            this.bandedGridColumn13.Name = "bandedGridColumn13";
-            this.bandedGridColumn13.Visible = true;
-            this.bandedGridColumn13.Width = 68;
+            this.colPlanAmount.Caption = "金额(万元)";
+            this.colPlanAmount.Name = "colPlanAmount";
+            this.colPlanAmount.Visible = true;
+            this.colPlanAmount.Width = 68;
             // 
-            // bandedGridColumn14
+            // colProfitPrice
             // 
-            this.bandedGridColumn14.Caption = "止盈价";
-            this.bandedGridColumn14.Name = "bandedGridColumn14";
-            this.bandedGridColumn14.Visible = true;
-            this.bandedGridColumn14.Width = 53;
+            this.colProfitPrice.Caption = "止盈价";
+            this.colProfitPrice.Name = "colProfitPrice";
+            this.colProfitPrice.Visible = true;
+            this.colProfitPrice.Width = 53;
             // 
-            // bandedGridColumn15
+            // colLossPrice
             // 
-            this.bandedGridColumn15.Caption = "止损价";
-            this.bandedGridColumn15.Name = "bandedGridColumn15";
-            this.bandedGridColumn15.Visible = true;
-            this.bandedGridColumn15.Width = 63;
+            this.colLossPrice.Caption = "止损价";
+            this.colLossPrice.Name = "colLossPrice";
+            this.colLossPrice.Visible = true;
+            this.colLossPrice.Width = 63;
             // 
             // gridBand4
             // 
             this.gridBand4.Caption = "实际";
-            this.gridBand4.Columns.Add(this.bandedGridColumn16);
-            this.gridBand4.Columns.Add(this.bandedGridColumn17);
-            this.gridBand4.Columns.Add(this.bandedGridColumn18);
-            this.gridBand4.Columns.Add(this.bandedGridColumn19);
+            this.gridBand4.Columns.Add(this.colDealDate);
+            this.gridBand4.Columns.Add(this.colDealPrice);
+            this.gridBand4.Columns.Add(this.colDealVolume);
+            this.gridBand4.Columns.Add(this.colDealAmount);
             this.gridBand4.Name = "gridBand4";
             this.gridBand4.VisibleIndex = 3;
             this.gridBand4.Width = 341;
             // 
-            // bandedGridColumn16
+            // colDealDate
             // 
-            this.bandedGridColumn16.Caption = "成交日期";
-            this.bandedGridColumn16.Name = "bandedGridColumn16";
-            this.bandedGridColumn16.Visible = true;
-            this.bandedGridColumn16.Width = 71;
+            this.colDealDate.Caption = "成交日期";
+            this.colDealDate.Name = "colDealDate";
+            this.colDealDate.Visible = true;
+            this.colDealDate.Width = 71;
             // 
-            // bandedGridColumn17
+            // colDealPrice
             // 
-            this.bandedGridColumn17.Caption = "成交均价";
-            this.bandedGridColumn17.Name = "bandedGridColumn17";
-            this.bandedGridColumn17.Visible = true;
-            this.bandedGridColumn17.Width = 80;
+            this.colDealPrice.Caption = "成交均价";
+            this.colDealPrice.Name = "colDealPrice";
+            this.colDealPrice.Visible = true;
+            this.colDealPrice.Width = 80;
             // 
-            // bandedGridColumn18
+            // colDealVolume
             // 
-            this.bandedGridColumn18.Caption = "成交数量(万股)";
-            this.bandedGridColumn18.Name = "bandedGridColumn18";
-            this.bandedGridColumn18.Visible = true;
-            this.bandedGridColumn18.Width = 100;
+            this.colDealVolume.Caption = "成交数量(万股)";
+            this.colDealVolume.Name = "colDealVolume";
+            this.colDealVolume.Visible = true;
+            this.colDealVolume.Width = 100;
             // 
-            // bandedGridColumn19
+            // colDealAmount
             // 
-            this.bandedGridColumn19.Caption = "成交金额(万元)";
-            this.bandedGridColumn19.Name = "bandedGridColumn19";
-            this.bandedGridColumn19.Visible = true;
-            this.bandedGridColumn19.Width = 90;
+            this.colDealAmount.Caption = "成交金额(万元)";
+            this.colDealAmount.Name = "colDealAmount";
+            this.colDealAmount.Visible = true;
+            this.colDealAmount.Width = 90;
             // 
             // gridBand5
             // 
             this.gridBand5.Caption = "总结";
-            this.gridBand5.Columns.Add(this.bandedGridColumn20);
+            this.gridBand5.Columns.Add(this.colSummary);
             this.gridBand5.Name = "gridBand5";
             this.gridBand5.VisibleIndex = 4;
             this.gridBand5.Width = 256;
             // 
-            // bandedGridColumn20
+            // colSummary
             // 
-            this.bandedGridColumn20.Name = "bandedGridColumn20";
-            this.bandedGridColumn20.Visible = true;
-            this.bandedGridColumn20.Width = 256;
+            this.colSummary.Name = "colSummary";
+            this.colSummary.Visible = true;
+            this.colSummary.Width = 256;
             // 
             // bandedGridColumn21
             // 
@@ -409,9 +413,13 @@
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.luStock.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FullCode", "Code"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
             this.luStock.Size = new System.Drawing.Size(166, 20);
             this.luStock.StyleController = this.layoutControl1;
             this.luStock.TabIndex = 4;
+            this.luStock.EditValueChanged += new System.EventHandler(this.luStock_EditValueChanged);
             // 
             // layoutControlGroup1
             // 
@@ -569,30 +577,30 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bandedGridView1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn1;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn2;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockName;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockCode;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn3;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn4;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn5;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn6;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn7;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn8;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn9;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn10;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTrend;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colProbability;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colLogic;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colScheme;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTradeType;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colOperateMode;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colExpected;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colUnexpected;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn11;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn12;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn13;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn14;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn15;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPlanPrice;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPlanVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPlanAmount;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colProfitPrice;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colLossPrice;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn16;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn17;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn18;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn19;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealDate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealPrice;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealAmount;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn20;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colSummary;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn21;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn22;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn23;

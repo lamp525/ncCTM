@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using CTM.Data;
 using CTM.Services.Common;
 using CTM.Services.InvestmentDecision;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
+using CTM.Win.Util;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
@@ -15,10 +20,13 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
+
         private RepositoryItemImageComboBox riImageComboBoxTradeType;
         private RepositoryItemImageComboBox riImageComboBoxTrendType;
         private RepositoryItemImageComboBox riImageComboBoxOperateScheme;
         private RepositoryItemImageComboBox riImageComboBoxOperateMode;
+
+        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         #endregion Fields
 
@@ -38,9 +46,6 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.bandedGridView1.SetLayout();
-            this.bandedGridView1.SetColumnHeaderAppearance();
-
             //走势预判
             var trendTypes = new List<ImageComboBoxItem>
             {
@@ -93,7 +98,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 {
                     Description ="涨停",
                     Value ="10",
-                },          
+                },
             };
 
             var imageComboBoxTrendType = new ImageComboBoxEdit();
@@ -121,7 +126,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             };
             var imageComboBoxOperateScheme = new ImageComboBoxEdit();
             imageComboBoxOperateScheme.Initialize(operateSchemes, displayAdditionalItem: false);
-            this.riImageComboBoxOperateScheme= imageComboBoxOperateScheme.Properties;
+            this.riImageComboBoxOperateScheme = imageComboBoxOperateScheme.Properties;
 
             //交易类别
             var tradeTypes = new List<ImageComboBoxItem>
@@ -169,6 +174,30 @@ namespace CTM.Win.Forms.InvestmentDecision
             var imageComboBoxOperateMode = new ImageComboBoxEdit();
             imageComboBoxOperateMode.Initialize(operateModes, displayAdditionalItem: false);
             this.riImageComboBoxOperateMode = imageComboBoxOperateMode.Properties;
+
+            //取得股票池股票信息
+            var stockPool = _IDService.GetIDStockPool().OrderBy(x => x.StockCode).ToList();
+            var stocks = stockPool.Select(x => new StockInfoModel
+            {
+                FullCode = x.StockCode,
+                Name = x.StockName,
+                DisplayMember = x.StockCode + " - " + x.StockName,
+            }
+            ).ToList();
+            this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true, searchColumnIndex: 0);
+
+            this.btnDelete.Enabled = false;
+            this.btnAdd.Enabled = false;
+            this.bandedGridView1.SetLayout(showAutoFilterRow: false, multiSelect: true, showCheckBoxRowSelect: true);
+            this.bandedGridView1.SetColumnHeaderAppearance();
+        }
+
+        private void BindIPR()
+        {
+            string commandText = "";
+            DataSet ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            if (ds == null || ds.Tables.Count == 0) return;
+            this.gridControl1.DataSource = ds.Tables[0];
         }
 
         #endregion Utilities
@@ -180,23 +209,149 @@ namespace CTM.Win.Forms.InvestmentDecision
             try
             {
                 FormInit();
+                BindIPR();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                DXMessage.ShowError(ex.Message);
             }
         }
+
+        private void luStock_EditValueChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(luStock.SelectedValue()))
+                this.btnAdd.Enabled = false;
+            else
+                this.btnAdd.Enabled = true;
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
+
+        private void bandedGridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void bandedGridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            //走势预判
+            if (e.Column == this.colTrend)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxTrendType.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue == item.Value)
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //操作方案
+            else if (e.Column == this.colScheme)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxOperateScheme.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue == item.Value)
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //交易类别
+            else if (e.Column == this.colTradeType)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxTradeType.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue == item.Value)
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //操作方式
+            else if (e.Column == this.colOperateMode)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxOperateMode.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue == item.Value)
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void bandedGridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selectedHandles = this.bandedGridView1.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                if (selectedHandles.Length == 0)
+                {
+                    this.btnDelete.Enabled = false;
+                }
+                else
+                {
+                    this.btnDelete.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void bandedGridView1_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+        }
+
         #endregion Events
-
-
     }
 }

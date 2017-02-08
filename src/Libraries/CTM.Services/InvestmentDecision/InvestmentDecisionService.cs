@@ -421,6 +421,10 @@ namespace CTM.Services.InvestmentDecision
 
             _MTFDetailRepository.Delete(votes.ToArray());
         }
+        public virtual  IList<InvestmentDecisionStockPool> GetIDStockPool()
+        {
+            return _IDStockPoolRepository.Table.ToList ();
+        }
 
         public virtual InvestmentDecisionStockPool GetIDStockPoolByCode(string stockCode)
         {
@@ -757,6 +761,7 @@ namespace CTM.Services.InvestmentDecision
             }
         }
 
+      
         #endregion Methods
     }
 }
