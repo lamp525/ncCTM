@@ -212,11 +212,23 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.Designer.cs">
+      <DependentUpon>FrmInvestmentPlanRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.Designer.cs">
       <DependentUpon>_dialogIDOperationRelateRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIPREdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestmentDecision\_dialogIPREdit.Designer.cs">
+      <DependentUpon>_dialogIPREdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\_embedIDApplication.cs">
       <SubType>Form</SubType>
@@ -687,8 +699,14 @@
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.resx">
+      <DependentUpon>FrmInvestmentPlanRecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIDOperationRelateRecord.resx">
       <DependentUpon>_dialogIDOperationRelateRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestmentDecision\_dialogIPREdit.resx">
+      <DependentUpon>_dialogIPREdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\_embedIDApplication.resx">
       <DependentUpon>_embedIDApplication.cs</DependentUpon>
@@ -849,6 +867,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

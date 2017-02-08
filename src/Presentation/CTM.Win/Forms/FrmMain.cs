@@ -670,5 +670,11 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
+
+        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
+        {
+          var  frm =   this.CreateDialog<_dialogIPREdit>();
+            frm.ShowDialog();
+        }
     }
 }
