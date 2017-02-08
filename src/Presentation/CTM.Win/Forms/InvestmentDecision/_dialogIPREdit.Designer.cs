@@ -31,31 +31,30 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
-            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colTrend = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colProbability = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colLogic = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colScheme = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colTradeType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colOperateMode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colExpected = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemMemoEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colUnexpected = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.repositoryItemMemoEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colPlanPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colPlanVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colPlanAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colProfitPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colLossPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colDealDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colSummary = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemMemoEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn22 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn23 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -75,10 +74,19 @@
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiTitle = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -111,6 +119,11 @@
             this.gridControl1.Location = new System.Drawing.Point(12, 74);
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
+            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemMemoEdit1,
+            this.repositoryItemMemoEdit2,
+            this.repositoryItemMemoEdit3,
+            this.repositoryItemMemoEdit4});
             this.gridControl1.Size = new System.Drawing.Size(1541, 696);
             this.gridControl1.TabIndex = 7;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -163,21 +176,6 @@
             this.bandedGridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.bandedGridView1_SelectionChanged);
             this.bandedGridView1.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.bandedGridView1_RowUpdated);
             // 
-            // gridBand1
-            // 
-            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.gridBand1.AppearanceHeader.Options.UseFont = true;
-            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand1.Caption = "基础信息";
-            this.gridBand1.Columns.Add(this.colStockName);
-            this.gridBand1.Columns.Add(this.colStockCode);
-            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.gridBand1.Name = "gridBand1";
-            this.gridBand1.RowCount = 2;
-            this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 150;
-            // 
             // colStockName
             // 
             this.colStockName.Caption = "股票名称";
@@ -191,25 +189,6 @@
             this.colStockCode.FieldName = "StockCode";
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.Visible = true;
-            // 
-            // gridBand2
-            // 
-            this.gridBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.gridBand2.AppearanceHeader.Options.UseFont = true;
-            this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand2.Caption = "分析";
-            this.gridBand2.Columns.Add(this.colTrend);
-            this.gridBand2.Columns.Add(this.colProbability);
-            this.gridBand2.Columns.Add(this.colLogic);
-            this.gridBand2.Columns.Add(this.colScheme);
-            this.gridBand2.Columns.Add(this.colTradeType);
-            this.gridBand2.Columns.Add(this.colOperateMode);
-            this.gridBand2.Columns.Add(this.colExpected);
-            this.gridBand2.Columns.Add(this.colUnexpected);
-            this.gridBand2.Name = "gridBand2";
-            this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 985;
             // 
             // colTrend
             // 
@@ -230,10 +209,15 @@
             // colLogic
             // 
             this.colLogic.Caption = "预判逻辑";
+            this.colLogic.ColumnEdit = this.repositoryItemMemoEdit1;
             this.colLogic.FieldName = "Logic";
             this.colLogic.Name = "colLogic";
             this.colLogic.Visible = true;
             this.colLogic.Width = 200;
+            // 
+            // repositoryItemMemoEdit1
+            // 
+            this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
             // 
             // colScheme
             // 
@@ -259,34 +243,28 @@
             // colExpected
             // 
             this.colExpected.Caption = "预期操作";
+            this.colExpected.ColumnEdit = this.repositoryItemMemoEdit2;
             this.colExpected.FieldName = "Expected";
             this.colExpected.Name = "colExpected";
             this.colExpected.Visible = true;
             this.colExpected.Width = 200;
             // 
+            // repositoryItemMemoEdit2
+            // 
+            this.repositoryItemMemoEdit2.Name = "repositoryItemMemoEdit2";
+            // 
             // colUnexpected
             // 
             this.colUnexpected.Caption = "非预期操作";
+            this.colUnexpected.ColumnEdit = this.repositoryItemMemoEdit3;
             this.colUnexpected.FieldName = "Unexpected";
             this.colUnexpected.Name = "colUnexpected";
             this.colUnexpected.Visible = true;
             this.colUnexpected.Width = 200;
             // 
-            // gridBand3
+            // repositoryItemMemoEdit3
             // 
-            this.gridBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.gridBand3.AppearanceHeader.Options.UseFont = true;
-            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand3.Caption = "计划";
-            this.gridBand3.Columns.Add(this.colPlanPrice);
-            this.gridBand3.Columns.Add(this.colPlanVolume);
-            this.gridBand3.Columns.Add(this.colPlanAmount);
-            this.gridBand3.Columns.Add(this.colProfitPrice);
-            this.gridBand3.Columns.Add(this.colLossPrice);
-            this.gridBand3.Name = "gridBand3";
-            this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 390;
+            this.repositoryItemMemoEdit3.Name = "repositoryItemMemoEdit3";
             // 
             // colPlanPrice
             // 
@@ -338,21 +316,6 @@
             this.colLossPrice.Visible = true;
             this.colLossPrice.Width = 70;
             // 
-            // gridBand4
-            // 
-            this.gridBand4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.gridBand4.AppearanceHeader.Options.UseFont = true;
-            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand4.Caption = "实际";
-            this.gridBand4.Columns.Add(this.colDealDate);
-            this.gridBand4.Columns.Add(this.colDealPrice);
-            this.gridBand4.Columns.Add(this.colDealVolume);
-            this.gridBand4.Columns.Add(this.colDealAmount);
-            this.gridBand4.Name = "gridBand4";
-            this.gridBand4.VisibleIndex = 3;
-            this.gridBand4.Width = 365;
-            // 
             // colDealDate
             // 
             this.colDealDate.Caption = "成交日期";
@@ -390,25 +353,18 @@
             this.colDealAmount.Visible = true;
             this.colDealAmount.Width = 110;
             // 
-            // gridBand5
-            // 
-            this.gridBand5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.gridBand5.AppearanceHeader.Options.UseFont = true;
-            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand5.Caption = "总结";
-            this.gridBand5.Columns.Add(this.colSummary);
-            this.gridBand5.Name = "gridBand5";
-            this.gridBand5.VisibleIndex = 4;
-            this.gridBand5.Width = 300;
-            // 
             // colSummary
             // 
             this.colSummary.Caption = "  ";
+            this.colSummary.ColumnEdit = this.repositoryItemMemoEdit4;
             this.colSummary.FieldName = "Summary";
             this.colSummary.Name = "colSummary";
             this.colSummary.Visible = true;
             this.colSummary.Width = 300;
+            // 
+            // repositoryItemMemoEdit4
+            // 
+            this.repositoryItemMemoEdit4.Name = "repositoryItemMemoEdit4";
             // 
             // colId
             // 
@@ -452,7 +408,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(454, 48);
+            this.btnAdd.Location = new System.Drawing.Point(384, 48);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(73, 22);
             this.btnAdd.StyleController = this.layoutControl1;
@@ -462,14 +418,14 @@
             // 
             // luStock
             // 
-            this.luStock.Location = new System.Drawing.Point(217, 48);
+            this.luStock.Location = new System.Drawing.Point(185, 48);
             this.luStock.Name = "luStock";
             this.luStock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luStock.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FullCode", "Code"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
-            this.luStock.Size = new System.Drawing.Size(223, 20);
+            this.luStock.Size = new System.Drawing.Size(185, 20);
             this.luStock.StyleController = this.layoutControl1;
             this.luStock.TabIndex = 4;
             this.luStock.EditValueChanged += new System.EventHandler(this.luStock_EditValueChanged);
@@ -496,16 +452,16 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.luStock;
-            this.layoutControlItem1.Location = new System.Drawing.Point(154, 36);
+            this.layoutControlItem1.Location = new System.Drawing.Point(122, 36);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(278, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(240, 26);
             this.layoutControlItem1.Text = "股票信息";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnAdd;
-            this.layoutControlItem2.Location = new System.Drawing.Point(442, 36);
+            this.layoutControlItem2.Location = new System.Drawing.Point(372, 36);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(77, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -514,15 +470,15 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(519, 36);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(449, 36);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1026, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1096, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(432, 36);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(362, 36);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -541,7 +497,7 @@
             this.emptySpaceItem4.AllowHotTrack = false;
             this.emptySpaceItem4.Location = new System.Drawing.Point(89, 36);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(65, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(33, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem6
@@ -576,6 +532,82 @@
             this.esiTitle.TextSize = new System.Drawing.Size(48, 0);
             this.esiTitle.TextVisible = true;
             // 
+            // gridBand1
+            // 
+            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.gridBand1.AppearanceHeader.Options.UseFont = true;
+            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand1.Caption = "基础信息";
+            this.gridBand1.Columns.Add(this.colStockName);
+            this.gridBand1.Columns.Add(this.colStockCode);
+            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 0;
+            this.gridBand1.Width = 150;
+            // 
+            // gridBand2
+            // 
+            this.gridBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.gridBand2.AppearanceHeader.Options.UseFont = true;
+            this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand2.Caption = "分析";
+            this.gridBand2.Columns.Add(this.colTrend);
+            this.gridBand2.Columns.Add(this.colProbability);
+            this.gridBand2.Columns.Add(this.colLogic);
+            this.gridBand2.Columns.Add(this.colScheme);
+            this.gridBand2.Columns.Add(this.colTradeType);
+            this.gridBand2.Columns.Add(this.colOperateMode);
+            this.gridBand2.Columns.Add(this.colExpected);
+            this.gridBand2.Columns.Add(this.colUnexpected);
+            this.gridBand2.Name = "gridBand2";
+            this.gridBand2.VisibleIndex = 1;
+            this.gridBand2.Width = 985;
+            // 
+            // gridBand3
+            // 
+            this.gridBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.gridBand3.AppearanceHeader.Options.UseFont = true;
+            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand3.Caption = "计划";
+            this.gridBand3.Columns.Add(this.colPlanPrice);
+            this.gridBand3.Columns.Add(this.colPlanVolume);
+            this.gridBand3.Columns.Add(this.colPlanAmount);
+            this.gridBand3.Columns.Add(this.colProfitPrice);
+            this.gridBand3.Columns.Add(this.colLossPrice);
+            this.gridBand3.Name = "gridBand3";
+            this.gridBand3.VisibleIndex = 2;
+            this.gridBand3.Width = 390;
+            // 
+            // gridBand4
+            // 
+            this.gridBand4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.gridBand4.AppearanceHeader.Options.UseFont = true;
+            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand4.Caption = "实际";
+            this.gridBand4.Columns.Add(this.colDealDate);
+            this.gridBand4.Columns.Add(this.colDealPrice);
+            this.gridBand4.Columns.Add(this.colDealVolume);
+            this.gridBand4.Columns.Add(this.colDealAmount);
+            this.gridBand4.Name = "gridBand4";
+            this.gridBand4.VisibleIndex = 3;
+            this.gridBand4.Width = 365;
+            // 
+            // gridBand5
+            // 
+            this.gridBand5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.gridBand5.AppearanceHeader.Options.UseFont = true;
+            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand5.Caption = "总结";
+            this.gridBand5.Columns.Add(this.colSummary);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.VisibleIndex = 4;
+            this.gridBand5.Width = 300;
+            // 
             // _dialogIPREdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -589,6 +621,10 @@
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.luStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -648,6 +684,10 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.EmptySpaceItem esiTitle;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit3;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
