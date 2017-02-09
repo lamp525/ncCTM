@@ -34,7 +34,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         private readonly ICommonService _commonService;
 
         private EnumLibrary.SecurityAccount _securityAccount;
-        private IniConfigHelper _iniConfigHelper;
+        private IniConfigHelper _iniConfigHelper = new IniConfigHelper();
         private bool _accountViewFirstDisplay = false;
         private IList<DataRow> _skippedRecords = null;
 
@@ -62,10 +62,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this._dataImportCommonService = dataImportService;
             this._marginService = marginService;
             this._commonService = commonService;
-
-            //string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
-            //configFilePath = Path.Combine(Application.StartupPath, configFilePath);
-            //this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
         #endregion Constructors
@@ -395,9 +391,9 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
-                //var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
-                //myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
-                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
+                myOpenFileDialog.InitialDirectory = Directory.Exists(defaultPath) ? defaultPath : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                //myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
@@ -405,7 +401,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.txtFilePath.Text = myOpenFileDialog.FileName;
-                    //this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
+                    this._iniConfigHelper.WriteValue("Investor", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
 
                     //导入数据预览
                     BindPreviewData(myOpenFileDialog.FileName);

@@ -8,7 +8,7 @@ namespace CTM.Win.Util
 {
     public class LoginHelper
     {
-        private static string _directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static string _directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CTM");
         private static string _fileName = "87CFDD5F4EBA497C88B196ABD09AAA42.ini";
 
         /// <summary>
@@ -48,8 +48,11 @@ namespace CTM.Win.Util
         /// <param name="loginInfo"></param>
         public static void Save(LoginInfo loginInfo)
         {
-            var filePath = Path.Combine(_directoryPath, _fileName);
+            if (!Directory.Exists(_directoryPath))
+                Directory.CreateDirectory(_directoryPath);
 
+            var filePath = Path.Combine(_directoryPath, _fileName);
+      
             FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
 
             byte[] arrEncryptByte = Serialize.EncryptToBytes(loginInfo);

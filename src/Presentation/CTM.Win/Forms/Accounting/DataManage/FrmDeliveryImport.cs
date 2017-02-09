@@ -28,9 +28,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private readonly ICommonService _commonService;
 
         private EnumLibrary.SecurityAccount _securityAccount;
-        private IniConfigHelper _iniConfigHelper;
         private bool _accountViewFirstDisplay = false;
         private IList<DataRow> _skippedRecords = null;
+        private IniConfigHelper _iniConfigHelper = new IniConfigHelper();
 
         #endregion Fields
 
@@ -52,12 +52,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this._deliveryRecordService = deliveryRecordService;
             this._dataImportCommonService = dataImportCommonService;
             this._commonService = commonService;
-
-            //string configFilePath = System.Configuration.ConfigurationManager.AppSettings["ConfigFilePath"].ToString();
-
-            //configFilePath = Path.Combine(Application.StartupPath, configFilePath);
-
-            //this._iniConfigHelper = string.IsNullOrEmpty(configFilePath) ? new IniConfigHelper() : new IniConfigHelper(configFilePath);
         }
 
         #endregion Constructors
@@ -234,9 +228,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 this.btnFileSelect.Enabled = false;
 
                 var myOpenFileDialog = this.openFileDialog1;
-                // var defaultPath = this._iniConfigHelper.GetString("Investor", "TradeDataImportPath", null);
-                //myOpenFileDialog.InitialDirectory = string.IsNullOrEmpty(defaultPath) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : defaultPath;
-                myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var defaultPath = this._iniConfigHelper.GetString("Accounting", "TradeDataImportPath", null);
+                myOpenFileDialog.InitialDirectory = Directory.Exists(defaultPath) ? defaultPath : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                //myOpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 myOpenFileDialog.Filter = "Excel文件|*.xlsx";
                 myOpenFileDialog.RestoreDirectory = false;
                 myOpenFileDialog.FileName = string.Empty;
@@ -244,7 +238,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.txtFilePath.Text = myOpenFileDialog.FileName;
-                   // this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
+                    this._iniConfigHelper.WriteValue("Accounting", "TradeDataImportPath", Path.GetDirectoryName(myOpenFileDialog.FileName));
 
                     //导入数据预览
                     BindPreviewData(myOpenFileDialog.FileName);
@@ -328,7 +322,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 var skippedCount = _skippedRecords.Count;
                 var succeedCount = allCount - skippedCount;
 
-                this.esiImportResult.Text = $@"交易数据导入完成。 ( 记录总数：{allCount}    导入：{succeedCount}     忽略：{skippedCount} )";           
+                this.esiImportResult.Text = $@"交易数据导入完成。 ( 记录总数：{allCount}    导入：{succeedCount}     忽略：{skippedCount} )";
                 this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
                 this.PageFinish.AllowBack = false;
 

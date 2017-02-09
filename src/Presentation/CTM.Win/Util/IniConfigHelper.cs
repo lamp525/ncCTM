@@ -9,8 +9,9 @@ namespace CTM.Win.Util
     public class IniConfigHelper
     {
         public const int MaxSectionSize = 32767; // 32 KB
-
-        private string _configFilePath;
+        private static string _configFilePath;
+        private static string _directoryPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CTM");
+        private static string _fileName = "Config.ini";
 
         #region P/Invoke Declares
 
@@ -43,7 +44,7 @@ namespace CTM.Win.Util
 
         public IniConfigHelper()
         {
-            _configFilePath = System.IO.Path.GetTempPath() + typeof(IniConfigHelper).GUID + ".ini";
+            _configFilePath = System.IO.Path.Combine(_directoryPath, _fileName);
         }
 
         public IniConfigHelper(string path)
