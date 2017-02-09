@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             this.gridViewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colInvestorCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestorName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -209,10 +209,10 @@
             // 
             // gridControl1
             // 
-            gridLevelNode1.LevelTemplate = this.gridViewDetail;
-            gridLevelNode1.RelationName = "SummaryDetail";
+            gridLevelNode2.LevelTemplate = this.gridViewDetail;
+            gridLevelNode2.RelationName = "SummaryDetail";
             this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.gridControl1.Location = new System.Drawing.Point(12, 68);
             this.gridControl1.MainView = this.gridViewSummary;
             this.gridControl1.Name = "gridControl1";

@@ -33,9 +33,11 @@
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colInvestor = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colTrend = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colProbability = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colLogic = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -47,15 +49,18 @@
             this.repositoryItemMemoEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colUnexpected = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.repositoryItemMemoEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
+            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colPlanPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colPlanVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colPlanAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colProfitPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colLossPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colDealDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDealAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colSummary = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.repositoryItemMemoEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -70,11 +75,6 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -189,6 +189,21 @@
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
             this.bandedGridView1.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.bandedGridView1_CustomRowCellEdit);
             // 
+            // gridBand1
+            // 
+            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand1.AppearanceHeader.Options.UseFont = true;
+            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand1.Caption = "基础信息";
+            this.gridBand1.Columns.Add(this.colStockName);
+            this.gridBand1.Columns.Add(this.colStockCode);
+            this.gridBand1.Columns.Add(this.colInvestor);
+            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 0;
+            this.gridBand1.Width = 275;
+            // 
             // colStockName
             // 
             this.colStockName.Caption = "股票名称";
@@ -212,8 +227,29 @@
             this.colInvestor.Visible = true;
             this.colInvestor.Width = 100;
             // 
+            // gridBand2
+            // 
+            this.gridBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand2.AppearanceHeader.Options.UseFont = true;
+            this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand2.Caption = "分析";
+            this.gridBand2.Columns.Add(this.colTrend);
+            this.gridBand2.Columns.Add(this.colProbability);
+            this.gridBand2.Columns.Add(this.colLogic);
+            this.gridBand2.Columns.Add(this.colScheme);
+            this.gridBand2.Columns.Add(this.colTradeType);
+            this.gridBand2.Columns.Add(this.colOperateMode);
+            this.gridBand2.Columns.Add(this.colExpected);
+            this.gridBand2.Columns.Add(this.colUnexpected);
+            this.gridBand2.Name = "gridBand2";
+            this.gridBand2.VisibleIndex = 1;
+            this.gridBand2.Width = 985;
+            // 
             // colTrend
             // 
+            this.colTrend.AppearanceCell.Options.UseTextOptions = true;
+            this.colTrend.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.colTrend.Caption = "走势预判";
             this.colTrend.FieldName = "Trend";
             this.colTrend.Name = "colTrend";
@@ -243,6 +279,8 @@
             // 
             // colScheme
             // 
+            this.colScheme.AppearanceCell.Options.UseTextOptions = true;
+            this.colScheme.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.colScheme.Caption = "操作方案";
             this.colScheme.FieldName = "Scheme";
             this.colScheme.Name = "colScheme";
@@ -250,6 +288,8 @@
             // 
             // colTradeType
             // 
+            this.colTradeType.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.colTradeType.Caption = "交易类别";
             this.colTradeType.FieldName = "TradeType";
             this.colTradeType.Name = "colTradeType";
@@ -257,6 +297,8 @@
             // 
             // colOperateMode
             // 
+            this.colOperateMode.AppearanceCell.Options.UseTextOptions = true;
+            this.colOperateMode.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.colOperateMode.Caption = "操作方式";
             this.colOperateMode.FieldName = "OperateMode";
             this.colOperateMode.Name = "colOperateMode";
@@ -287,6 +329,22 @@
             // repositoryItemMemoEdit3
             // 
             this.repositoryItemMemoEdit3.Name = "repositoryItemMemoEdit3";
+            // 
+            // gridBand3
+            // 
+            this.gridBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand3.AppearanceHeader.Options.UseFont = true;
+            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand3.Caption = "计划";
+            this.gridBand3.Columns.Add(this.colPlanPrice);
+            this.gridBand3.Columns.Add(this.colPlanVolume);
+            this.gridBand3.Columns.Add(this.colPlanAmount);
+            this.gridBand3.Columns.Add(this.colProfitPrice);
+            this.gridBand3.Columns.Add(this.colLossPrice);
+            this.gridBand3.Name = "gridBand3";
+            this.gridBand3.VisibleIndex = 2;
+            this.gridBand3.Width = 390;
             // 
             // colPlanPrice
             // 
@@ -338,6 +396,21 @@
             this.colLossPrice.Visible = true;
             this.colLossPrice.Width = 70;
             // 
+            // gridBand4
+            // 
+            this.gridBand4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand4.AppearanceHeader.Options.UseFont = true;
+            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand4.Caption = "实际";
+            this.gridBand4.Columns.Add(this.colDealDate);
+            this.gridBand4.Columns.Add(this.colDealPrice);
+            this.gridBand4.Columns.Add(this.colDealVolume);
+            this.gridBand4.Columns.Add(this.colDealAmount);
+            this.gridBand4.Name = "gridBand4";
+            this.gridBand4.VisibleIndex = 3;
+            this.gridBand4.Width = 365;
+            // 
             // colDealDate
             // 
             this.colDealDate.Caption = "成交日期";
@@ -374,6 +447,18 @@
             this.colDealAmount.Name = "colDealAmount";
             this.colDealAmount.Visible = true;
             this.colDealAmount.Width = 110;
+            // 
+            // gridBand5
+            // 
+            this.gridBand5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand5.AppearanceHeader.Options.UseFont = true;
+            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand5.Caption = "总结";
+            this.gridBand5.Columns.Add(this.colSummary);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.VisibleIndex = 4;
+            this.gridBand5.Width = 300;
             // 
             // colSummary
             // 
@@ -487,83 +572,6 @@
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(1368, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // gridBand1
-            // 
-            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.gridBand1.AppearanceHeader.Options.UseFont = true;
-            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand1.Caption = "基础信息";
-            this.gridBand1.Columns.Add(this.colStockName);
-            this.gridBand1.Columns.Add(this.colStockCode);
-            this.gridBand1.Columns.Add(this.colInvestor);
-            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.gridBand1.Name = "gridBand1";
-            this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 275;
-            // 
-            // gridBand2
-            // 
-            this.gridBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.gridBand2.AppearanceHeader.Options.UseFont = true;
-            this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand2.Caption = "分析";
-            this.gridBand2.Columns.Add(this.colTrend);
-            this.gridBand2.Columns.Add(this.colProbability);
-            this.gridBand2.Columns.Add(this.colLogic);
-            this.gridBand2.Columns.Add(this.colScheme);
-            this.gridBand2.Columns.Add(this.colTradeType);
-            this.gridBand2.Columns.Add(this.colOperateMode);
-            this.gridBand2.Columns.Add(this.colExpected);
-            this.gridBand2.Columns.Add(this.colUnexpected);
-            this.gridBand2.Name = "gridBand2";
-            this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 985;
-            // 
-            // gridBand3
-            // 
-            this.gridBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.gridBand3.AppearanceHeader.Options.UseFont = true;
-            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand3.Caption = "计划";
-            this.gridBand3.Columns.Add(this.colPlanPrice);
-            this.gridBand3.Columns.Add(this.colPlanVolume);
-            this.gridBand3.Columns.Add(this.colPlanAmount);
-            this.gridBand3.Columns.Add(this.colProfitPrice);
-            this.gridBand3.Columns.Add(this.colLossPrice);
-            this.gridBand3.Name = "gridBand3";
-            this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 390;
-            // 
-            // gridBand4
-            // 
-            this.gridBand4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.gridBand4.AppearanceHeader.Options.UseFont = true;
-            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand4.Caption = "实际";
-            this.gridBand4.Columns.Add(this.colDealDate);
-            this.gridBand4.Columns.Add(this.colDealPrice);
-            this.gridBand4.Columns.Add(this.colDealVolume);
-            this.gridBand4.Columns.Add(this.colDealAmount);
-            this.gridBand4.Name = "gridBand4";
-            this.gridBand4.VisibleIndex = 3;
-            this.gridBand4.Width = 365;
-            // 
-            // gridBand5
-            // 
-            this.gridBand5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.gridBand5.AppearanceHeader.Options.UseFont = true;
-            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridBand5.Caption = "总结";
-            this.gridBand5.Columns.Add(this.colSummary);
-            this.gridBand5.Name = "gridBand5";
-            this.gridBand5.VisibleIndex = 4;
-            this.gridBand5.Width = 300;
             // 
             // _dialogIPRResult
             // 

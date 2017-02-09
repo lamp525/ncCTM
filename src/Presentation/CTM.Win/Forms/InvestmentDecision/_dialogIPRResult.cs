@@ -197,8 +197,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 DisplayMember = x.StockCode + " - " + x.StockName,
             }
             ).ToList();
-          
-            this.bandedGridView1.SetLayout(showAutoFilterRow: false,showGroupPanel :true ,columnPanelRowHeight :20);
+
+            this.bandedGridView1.SetLayout(showAutoFilterRow: false, showGroupPanel: true, columnPanelRowHeight: -1,setAlternateRowColor:false);
             this.bandedGridView1.SetColumnHeaderAppearance();
 
             foreach (GridColumn column in this.bandedGridView1.Columns)
@@ -256,7 +256,6 @@ namespace CTM.Win.Forms.InvestmentDecision
                 else
                     this.bandedGridView1.CollapseAllGroups();
 
-             
                 this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             }
             finally
@@ -361,7 +360,5 @@ namespace CTM.Win.Forms.InvestmentDecision
         }
 
         #endregion Events
-
-      
     }
 }

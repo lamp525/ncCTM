@@ -591,7 +591,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem8_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmPositionStockAnalysis>("持仓股票投资决策");
+            this.DisplayTabbedForm<FrmInvestmentPlanRecord>("持仓个股投资计划");
         }
 
         #endregion InvestmentDecision
@@ -673,7 +673,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmInvestmentPlanRecord>("持仓个股投资计划记录");
+          
         }
     }
 }

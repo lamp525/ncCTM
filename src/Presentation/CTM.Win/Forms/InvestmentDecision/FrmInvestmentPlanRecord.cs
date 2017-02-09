@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +13,9 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils.Drawing;
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -25,6 +29,11 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
+
+        private RepositoryItemImageComboBox riImageComboBoxTradeType;
+        private RepositoryItemImageComboBox riImageComboBoxTrendType;
+        private RepositoryItemImageComboBox riImageComboBoxOperateScheme;
+        private RepositoryItemImageComboBox riImageComboBoxOperateMode;
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -75,16 +84,146 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.deFrom.EditValue = now.AddMonths(-1);
             this.deTo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deTo.EditValue = now.AddDays(1);
-            this.gridView2.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false);
+            this.bandedGridView1.SetLayout(showGroupPanel: true, showAutoFilterRow: true, showCheckBoxRowSelect: false, columnPanelRowHeight: -1, setAlternateRowColor: false);
+            this.bandedGridView1.SetColumnHeaderAppearance();
 
             this.btnExpand.Enabled = false;
+
+            //走势预判
+            var trendTypes = new List<ImageComboBoxItem>
+            {
+                 new ImageComboBoxItem
+                {
+                    Description ="低开低走",
+                    Value ="1",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="低开低走回升",
+                    Value ="2",
+                },
+                       new ImageComboBoxItem
+                {
+                    Description ="低开高走",
+                    Value ="3",
+                },
+                        new ImageComboBoxItem
+                {
+                    Description ="低开高走回落",
+                    Value ="4",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="冲高回落",
+                    Value ="5",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="冲高回落回升",
+                    Value ="6",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="高开高走",
+                    Value ="7",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="高开高走回落",
+                    Value ="8",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="跌停",
+                    Value ="9",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="涨停",
+                    Value ="10",
+                },
+            };
+
+            var imageComboBoxTrendType = new ImageComboBoxEdit();
+            imageComboBoxTrendType.Initialize(trendTypes, displayAdditionalItem: false);
+            this.riImageComboBoxTrendType = imageComboBoxTrendType.Properties;
+
+            //操作方案
+            var operateSchemes = new List<ImageComboBoxItem>
+            {
+                new ImageComboBoxItem
+                {
+                    Description ="低止损",
+                     Value ="1",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="塔仓买入",
+                     Value ="2",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="日内短差",
+                     Value ="3",
+                },
+            };
+            var imageComboBoxOperateScheme = new ImageComboBoxEdit();
+            imageComboBoxOperateScheme.Initialize(operateSchemes, displayAdditionalItem: false);
+            this.riImageComboBoxOperateScheme = imageComboBoxOperateScheme.Properties;
+
+            //交易类别
+            var tradeTypes = new List<ImageComboBoxItem>
+            {
+                new ImageComboBoxItem
+                {
+                    Description ="目标",
+                    Value ="1",
+                },
+                new ImageComboBoxItem
+                {
+                    Description ="波段",
+                    Value ="2",
+                },
+                       new ImageComboBoxItem
+                {
+                    Description ="短差",
+                    Value ="3",
+                },
+            };
+
+            var imageComboBoxTradeType = new ImageComboBoxEdit();
+            imageComboBoxTradeType.Initialize(tradeTypes, displayAdditionalItem: false);
+            this.riImageComboBoxTradeType = imageComboBoxTradeType.Properties;
+
+            //操作方式
+            var operateModes = new List<ImageComboBoxItem>
+            {
+                new ImageComboBoxItem
+                {
+                    Description ="保留",
+                    Value ="1",
+                },
+                 new ImageComboBoxItem
+                {
+                    Description ="买入",
+                    Value ="2",
+                },
+                  new ImageComboBoxItem
+                {
+                    Description ="卖出",
+                    Value ="3",
+                },
+            };
+            var imageComboBoxOperateMode = new ImageComboBoxEdit();
+            imageComboBoxOperateMode.Initialize(operateModes, displayAdditionalItem: false);
+            this.riImageComboBoxOperateMode = imageComboBoxOperateMode.Properties;
 
             #endregion Page Search
         }
 
         private void BindIPRSummary()
         {
-            this.gridControl1.DataSource = null;         
+            this.gridControl1.DataSource = null;
 
             var commandText = $@"SELECT TOP 25 * FROM [dbo].[InvestmentPlanRecordSummary] ORDER BY AnalysisDate DESC";
 
@@ -133,9 +272,9 @@ namespace CTM.Win.Forms.InvestmentDecision
         private void ExpandOrCollapse()
         {
             if (_isExpanded)
-                this.gridView2.CollapseAllGroups();
+                this.bandedGridView1.CollapseAllGroups();
             else
-                this.gridView2.ExpandAllGroups();
+                this.bandedGridView1.ExpandAllGroups();
 
             _isExpanded = !_isExpanded;
             this.btnExpand.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
@@ -230,7 +369,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnAdd.Enabled = false;
 
-                var analysisDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());   
+                var analysisDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());
                 var commandText = $@"EXEC [dbo].[sp_GenerateIPRSummary]  @AnalysisDate = '{analysisDate}'";
                 SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
 
@@ -378,7 +517,77 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void gridView2_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
+        private void bandedGridView1_CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            //走势预判
+            if (e.Column.Name == this.colTrend.Name)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxTrendType.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //操作方案
+            else if (e.Column.Name == this.colScheme.Name)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxOperateScheme.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //交易类别
+            else if (e.Column.Name == this.colTradeType.Name)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxTradeType.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            //操作方式
+            else if (e.Column.Name == this.colOperateMode.Name)
+            {
+                ImageComboBoxEdit icb = new ImageComboBoxEdit();
+                icb.Properties.Items.AddRange(this.riImageComboBoxOperateMode.Items);
+                e.RepositoryItem = icb.Properties;
+
+                foreach (ImageComboBoxItem item in icb.Properties.Items)
+                {
+                    if (e.CellValue != null && e.CellValue.ToString() == item.Value.ToString())
+                    {
+                        icb.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void bandedGridView1_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
