@@ -324,7 +324,11 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
             if (e.Error == null && e.Result == null)
             {
-                this.esiImportResult.Text = "数据导入完成！";
+                var allCount = gridViewPreview.DataRowCount;
+                var skippedCount = _skippedRecords.Count;
+                var succeedCount = allCount - skippedCount;
+
+                this.esiImportResult.Text = $@"交易数据导入完成。 ( 记录总数：{allCount}    导入：{succeedCount}     忽略：{skippedCount} )";           
                 this.esiImportResult.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
                 this.PageFinish.AllowBack = false;
 

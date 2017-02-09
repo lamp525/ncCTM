@@ -423,7 +423,11 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void PageFinish_PageInit(object sender, EventArgs e)
         {
-            this.esiImportResult.Text = "交易数据导入完成。";
+            var allCount = gridViewPreview.DataRowCount;
+            var skippedCount = _skippedRecords.Count;
+            var succeedCount = allCount - skippedCount;
+
+            this.esiImportResult.Text = $@"交易数据导入完成。 ( 记录总数：{allCount}    导入：{succeedCount}     忽略：{skippedCount} )";
 
             if (_skippedRecords != null && _skippedRecords.Count > 0)
             {
