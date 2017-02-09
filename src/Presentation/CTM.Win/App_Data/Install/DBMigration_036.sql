@@ -1,3 +1,4 @@
+
 CREATE TABLE [dbo].[InvestmentPlanRecord] (
     [Id] [int] NOT NULL IDENTITY,
     [SerialNo] [nvarchar](max),
