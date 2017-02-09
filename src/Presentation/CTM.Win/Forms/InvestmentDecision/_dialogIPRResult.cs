@@ -15,7 +15,7 @@ using DevExpress.XtraGrid.Columns;
 
 namespace CTM.Win.Forms.InvestmentDecision
 {
-    public partial class _dialogIPREdit : BaseForm
+    public partial class _dialogIPRResult : BaseForm
     {
         #region Fields
 
@@ -29,6 +29,8 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
+        private bool _isExpanded = true;
+
         #region Properties
 
         public string SerialNo { get; set; }
@@ -41,7 +43,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         #region Constructors
 
-        public _dialogIPREdit(ICommonService commonService, IInvestmentDecisionService IDService)
+        public _dialogIPRResult(ICommonService commonService, IInvestmentDecisionService IDService)
         {
             InitializeComponent();
 
@@ -55,7 +57,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private void FormInit()
         {
-            this.esiTitle.Text = $@"个股投资计划记录 -{SerialNo} -分析日期：{AnalysisDate.ToShortDateString()} -分析人员：{LoginInfo.CurrentUser.UserName}";
+            this.esiTitle.Text = $@"个股投资计划记录 -{SerialNo} -分析日期：{AnalysisDate.ToShortDateString()}";
 
             //走势预判
             var trendTypes = new List<ImageComboBoxItem>
@@ -195,11 +197,8 @@ namespace CTM.Win.Forms.InvestmentDecision
                 DisplayMember = x.StockCode + " - " + x.StockName,
             }
             ).ToList();
-            this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true, searchColumnIndex: 0);
-
-            this.btnDelete.Enabled = false;
-            this.btnAdd.Enabled = false;
-            this.bandedGridView1.SetLayout(editable: true, readOnly: false, showAutoFilterRow: false, multiSelect: true, showCheckBoxRowSelect: true);
+          
+            this.bandedGridView1.SetLayout(showAutoFilterRow: false,showGroupPanel :true ,columnPanelRowHeight :20);
             this.bandedGridView1.SetColumnHeaderAppearance();
 
             foreach (GridColumn column in this.bandedGridView1.Columns)
@@ -215,17 +214,24 @@ namespace CTM.Win.Forms.InvestmentDecision
         {
             this.gridControl1.DataSource = null;
 
-            string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE InvestorCode = '{LoginInfo.CurrentUser.UserCode }' AND AnalysisDate = '{AnalysisDate}' ORDER BY StockName, Probability DESC, CreateTime";
+            string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE  SerialNo ='{SerialNo}' ORDER BY StockName, InvestorName,  Probability DESC, CreateTime";
             DataSet ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
             if (ds == null || ds.Tables.Count == 0) return;
             this.gridControl1.DataSource = ds.Tables[0];
+
+            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+
+            if (_isExpanded)
+                this.bandedGridView1.ExpandAllGroups();
+            else
+                this.bandedGridView1.CollapseAllGroups();
         }
 
         #endregion Utilities
 
         #region Events
 
-        private void _dialogIPREdit_Load(object sender, EventArgs e)
+        private void _dialogIPRResult_Load(object sender, EventArgs e)
         {
             try
             {
@@ -238,59 +244,32 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void luStock_EditValueChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(luStock.SelectedValue()))
-                this.btnAdd.Enabled = false;
-            else
-                this.btnAdd.Enabled = true;
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
         {
             try
             {
-                this.btnDelete.Enabled = false;
+                this.btnExpandOrCollapse.Enabled = false;
+                this._isExpanded = !_isExpanded;
 
-                var selectedHandles = this.bandedGridView1.GetSelectedRows();
+                if (_isExpanded)
+                    this.bandedGridView1.ExpandAllGroups();
+                else
+                    this.bandedGridView1.CollapseAllGroups();
 
-                if (selectedHandles.Any())
-                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
-
-                if (DXMessage.ShowYesNoAndWarning("确定删除选择的分析记录吗？") == System.Windows.Forms.DialogResult.Yes)
-                {
-                    var ids = new List<int>();
-
-                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
-                    {
-                        ids.Add(int.Parse(this.bandedGridView1.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
-                    }
-
-                    _IDService.DeleteInvestmentPlanRecord(ids);
-
-                    BindIPR();
-                }
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
+             
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
             }
             finally
             {
-                this.btnDelete.Enabled = true;
+                this.btnExpandOrCollapse.Enabled = true;
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {
-                this.btnAdd.Enabled = false;
-
-                var stockInfo = this.luStock.GetSelectedDataRow() as StockInfoModel;
-                if (stockInfo == null) return;
-
-                _IDService.AddInvestmentPlanRecord(SerialNo, stockInfo.FullCode, stockInfo.Name, LoginInfo.CurrentUser.UserCode, AnalysisDate);
+                this.btnRefresh.Enabled = false;
                 BindIPR();
             }
             catch (Exception ex)
@@ -299,7 +278,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
             finally
             {
-                this.btnAdd.Enabled = true;
+                this.btnRefresh.Enabled = true;
             }
         }
 
@@ -381,74 +360,8 @@ namespace CTM.Win.Forms.InvestmentDecision
             }
         }
 
-        private void bandedGridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
-        {
-            try
-            {
-                var selectedHandles = this.bandedGridView1.GetSelectedRows();
-                if (selectedHandles.Any())
-                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
-
-                if (selectedHandles.Length == 0)
-                {
-                    this.btnDelete.Enabled = false;
-                }
-                else
-                {
-                    this.btnDelete.Enabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
-        private void bandedGridView1_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
-        {
-            try
-            {
-                DataRowView drv = (DataRowView)e.Row;
-                DataRow row = drv.Row;
-                if (row.RowState == DataRowState.Modified)
-                {
-                    var id = int.Parse(row[colId.FieldName].ToString());
-
-                    var info = _IDService.GetIPRInfo(id);
-
-                    info.Trend = Convert.ToInt32(row[colTrend.FieldName]);
-                    if (row[colProbability.FieldName] == null || row[colProbability.FieldName].ToString().Trim() == "")
-                        info.Probability = null;
-                    else
-                        info.Probability = Convert.ToInt32(row[colProbability.FieldName]);
-                    info.Logic = row[colLogic.FieldName].ToString();
-                    info.Scheme = Convert.ToInt32(row[colScheme.FieldName]);
-                    info.TradeType = Convert.ToInt32(row[colTradeType.FieldName]);
-                    info.OperateMode = Convert.ToInt32(row[colOperateMode.FieldName]);
-                    info.Expected = row[colExpected.FieldName].ToString();
-                    info.Unexpected = row[colUnexpected.FieldName].ToString();
-                    info.PlanPrice = Convert.ToDecimal(row[colPlanPrice.FieldName]);
-                    info.PlanVolume = Convert.ToDecimal(row[colPlanVolume.FieldName]);
-                    info.PlanAmount = Convert.ToDecimal(row[colPlanAmount.FieldName]);
-                    info.ProfitPrice = Convert.ToDecimal(row[colProfitPrice.FieldName]);
-                    info.LossPrice = Convert.ToDecimal(row[colLossPrice.FieldName]);
-                    if (row[colDealDate.FieldName] != null && row[colDealDate.FieldName].ToString().Trim() != "")
-                        info.DealDate = Convert.ToDateTime(row[colDealDate.FieldName]);
-                    info.DealPrice = Convert.ToDecimal(row[colDealPrice.FieldName]);
-                    info.DealVolume = Convert.ToDecimal(row[colDealVolume.FieldName]);
-                    info.DealAmount = Convert.ToDecimal(row[colDealAmount.FieldName]);
-                    info.Summary = row[colSummary.FieldName].ToString();
-                    info.UpdateTime = _commonService.GetCurrentServerTime();
-
-                    _IDService.UpdateIPRInfo(info);
-                }
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
         #endregion Events
+
+      
     }
 }

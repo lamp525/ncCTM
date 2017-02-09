@@ -83,6 +83,7 @@
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionVote.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentDecisionOperationVote.cs" />
     <Compile Include="Domain\InvestmentDecision\InvestmentPlanRecord.cs" />
+    <Compile Include="Domain\InvestmentDecision\InvestmentPlanRecordSummary.cs" />
     <Compile Include="Domain\InvestmentDecision\MarketTrendForecastDetail.cs" />
     <Compile Include="Domain\InvestmentDecision\MarketTrendForecastInfo.cs" />
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisSummary.cs" />

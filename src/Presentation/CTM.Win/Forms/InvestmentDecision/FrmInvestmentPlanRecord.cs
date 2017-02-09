@@ -26,6 +26,8 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly ICommonService _commonService;
         private readonly IInvestmentDecisionService _IDService;
 
+        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
         private bool _isExpanded = true;
 
         #endregion Fields
@@ -80,15 +82,13 @@ namespace CTM.Win.Forms.InvestmentDecision
             #endregion Page Search
         }
 
-        private void BindPSAInfo()
+        private void BindIPRSummary()
         {
-            this.gridControl1.DataSource = null;
+            this.gridControl1.DataSource = null;         
 
-            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+            var commandText = $@"SELECT TOP 25 * FROM [dbo].[InvestmentPlanRecordSummary] ORDER BY AnalysisDate DESC";
 
-            var commandText = $@"SELECT TOP 25 * FROM [dbo].[PositionStockAnalysisInfo] ORDER BY AnalysisDate DESC";
-
-            var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
@@ -96,22 +96,22 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.gridControl1.DataSource = source;
         }
 
-        private void DisplayPSAEdit(DataRow dr)
+        private void DisplayIPREdit(DataRow dr)
         {
-            var dialog = EngineContext.Current.Resolve<_dialogPSAEdit>();
+            var dialog = EngineContext.Current.Resolve<_dialogIPREdit>();
             dialog.Owner = this.ParentForm;
-            dialog.Text = "股票池股票操作建议单";
+            dialog.Text = "持仓个股投资计划记录";
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.SerialNo = dr[colSerialNo.FieldName].ToString();
             dialog.AnalysisDate = CommonHelper.StringToDateTime(dr[colAnalysisDate.FieldName].ToString());
             dialog.Show();
         }
 
-        private void DisplayPSAResult(DataRow dr)
+        private void DisplayIPRResult(DataRow dr)
         {
-            var dialog = EngineContext.Current.Resolve<_dialogPSAResult>();
+            var dialog = EngineContext.Current.Resolve<_dialogIPRResult>();
             dialog.Owner = this.ParentForm;
-            dialog.Text = "股票池操作建议一览";
+            dialog.Text = "持仓个股投资计划记录一览";
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.SerialNo = dr[colSerialNo.FieldName].ToString();
             dialog.AnalysisDate = CommonHelper.StringToDateTime(dr[colAnalysisDate.FieldName].ToString());
@@ -151,7 +151,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 FormInit();
 
-                BindPSAInfo();
+                BindIPRSummary();
             }
             catch (Exception ex)
             {
@@ -165,12 +165,10 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 if (e.Page.Caption == tpSearch.Caption)
                 {
-                    var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
                     //股票信息
-                    var stockCommandText = $@"SELECT DISTINCT StockCode, StockName FROM [dbo].[v_PSADetail] ";
+                    var stockCommandText = $@"SELECT DISTINCT StockCode, StockName FROM [dbo].[v_IPRDetail] ";
 
-                    var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, stockCommandText);
+                    var dsStock = SqlHelper.ExecuteDataset(_connString, CommandType.Text, stockCommandText);
 
                     if (dsStock == null || dsStock.Tables.Count == 0) return;
 
@@ -194,9 +192,9 @@ namespace CTM.Win.Forms.InvestmentDecision
                     this.luStock.Initialize(stocks, "FullCode", "DisplayMember", enableSearch: true);
 
                     //投资人员
-                    var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_PSADetail] ";
+                    var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_IPRDetail] ";
 
-                    var dsInvestor = SqlHelper.ExecuteDataset(connString, CommandType.Text, investorCommandText);
+                    var dsInvestor = SqlHelper.ExecuteDataset(_connString, CommandType.Text, investorCommandText);
 
                     if (dsInvestor == null || dsInvestor.Tables.Count == 0) return;
 
@@ -232,13 +230,11 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnAdd.Enabled = false;
 
-                var analysisDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());
+                var analysisDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());   
+                var commandText = $@"EXEC [dbo].[sp_GenerateIPRSummary]  @AnalysisDate = '{analysisDate}'";
+                SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
 
-                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-                var commandText = $@"EXEC [dbo].[sp_GeneratePSAInfo]  @AnalysisDate = '{analysisDate}'";
-                SqlHelper.ExecuteNonQuery(connString, CommandType.Text, commandText);
-
-                BindPSAInfo();
+                BindIPRSummary();
             }
             catch (Exception ex)
             {
@@ -256,7 +252,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             {
                 this.btnRefresh.Enabled = false;
 
-                BindPSAInfo();
+                BindIPRSummary();
             }
             catch (Exception ex)
             {
@@ -316,16 +312,16 @@ namespace CTM.Win.Forms.InvestmentDecision
                     {
                         this._IDService.DeletePSAInfo(serialNo);
 
-                        BindPSAInfo();
+                        BindIPRSummary();
                     }
                 }
                 else if (buttonTag == "Edit")
                 {
-                    DisplayPSAEdit(dr);
+                    DisplayIPREdit(dr);
                 }
                 else if (buttonTag == "View")
                 {
-                    DisplayPSAResult(dr);
+                    DisplayIPRResult(dr);
                 }
             }
             catch (Exception ex)
@@ -354,9 +350,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                 var stockCode = this.luStock.SelectedValue();
                 var investorCode = this.luInvestor.SelectedValue();
 
-                var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
-                var commandText = $@" SELECT *  FROM [dbo].[v_PSADetail]  WHERE AnalysisDate BETWEEN '{dateFrom}' AND '{dateTo}' ";
+                var commandText = $@" SELECT *  FROM [dbo].[v_IPRDetail]  WHERE AnalysisDate BETWEEN '{dateFrom}' AND '{dateTo}' ";
 
                 if (!string.IsNullOrEmpty(stockCode))
                     commandText += $@" AND StockCode = '{stockCode}' ";
@@ -366,7 +360,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 commandText += $@" ORDER BY StockCode, AnalysisDate DESC, InvestorName ";
 
-                var dsStock = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
+                var dsStock = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
                 this.gridControl2.DataSource = dsStock?.Tables?[0];
 

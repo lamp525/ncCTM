@@ -673,8 +673,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-          var  frm =   this.CreateDialog<_dialogIPREdit>();
-            frm.ShowDialog();
+            this.DisplayTabbedForm<FrmInvestmentPlanRecord>("持仓个股投资计划记录");
         }
     }
 }
