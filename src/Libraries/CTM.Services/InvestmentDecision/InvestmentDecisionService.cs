@@ -768,22 +768,29 @@ namespace CTM.Services.InvestmentDecision
 
         public virtual void AddInvestmentPlanRecord(string serialNo, string stockCode, string stockName, string investorCode, DateTime analysisDate)
         {
-            var now = _commonService.GetCurrentServerTime();
+            var existedIPR = _IPRRepository.Table.Where(x => x.InvestorCode == investorCode && x.SerialNo == serialNo && x.StockCode == stockCode);
 
-            var ipr = new InvestmentPlanRecord
+            var recordNumber = existedIPR.Count() > 0 ? 1 : 3;
+
+            for (int i = 0; i < recordNumber; i++)
             {
-                AnalysisDate = analysisDate,
-                CreateTime = now,
-                DealDate = null,
-                InvestorCode = investorCode,
-                Probability =null,
-                SerialNo = serialNo,
-                StockCode = stockCode,
-                StockName = stockName,
-                UpdateTime = now,
-            };
+                var now = _commonService.GetCurrentServerTime();
+                var ipr = new InvestmentPlanRecord
+                {
+                    AnalysisDate = analysisDate,
+                    CreateTime = now,
+                    DealDate = null,
+                    InvestorCode = investorCode,
+                    Probability = null,
+                    SerialNo = serialNo,
+                    StockCode = stockCode,
+                    StockName = stockName,
+                    UpdateTime = now,
+                };
 
-            _IPRRepository.Insert(ipr);
+                _IPRRepository.Insert(ipr);
+            }
+          
         }
 
         public virtual void DeleteInvestmentPlanRecord(IList<int> recordIds)

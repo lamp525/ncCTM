@@ -61,66 +61,112 @@ namespace CTM.Core.Util
             }
         }
 
-        public static List<DataTable> ImportAllSheetToDataTable(string xlsxFile)
+        public static List<DataTable> ImportAllSheetToDataTable(string excelFile)
         {
-            if (!File.Exists(xlsxFile))
-                throw new FileNotFoundException("文件不存在");
-
             List<DataTable> result = new List<DataTable>();
-            Stream stream = new MemoryStream(File.ReadAllBytes(xlsxFile));
-            IWorkbook workbook = new XSSFWorkbook(stream);
-            for (int i = 0; i < workbook.NumberOfSheets; i++)
+            string importExcelFile = string.Empty;
+            string extension = string.Empty;
+            Stream stream = null;
+
+            try
             {
-                DataTable dt = new DataTable();
-                ISheet sheet = workbook.GetSheetAt(i);
-
-                //blank sheet or only one row
-                if (sheet.PhysicalNumberOfRows < 2) continue;
-
-                IRow headerRow = sheet.GetRow(sheet.FirstRowNum);
-
-                int cellCount = headerRow.LastCellNum;
-                for (int j = headerRow.FirstCellNum; j < cellCount; j++)
+                if (!File.Exists(excelFile))
+                    throw new FileNotFoundException("文件不存在!");
+                else
                 {
-                    DataColumn column = new DataColumn(headerRow.GetCell(j).StringCellValue.Trim());
-                    dt.Columns.Add(column);
+                    extension = Path.GetExtension(excelFile);
+                    importExcelFile = Path.Combine(Path.GetDirectoryName(excelFile), "B667F371C4C3BD7A14346BF2F7307E31" + extension);
+                    File.Copy(excelFile, importExcelFile, true);
                 }
 
-                for (int a = (sheet.FirstRowNum + 1); a < sheet.LastRowNum + 1; a++)
-                {
-                    IRow row = sheet.GetRow(a);
-                    if (row == null) continue;
+                IWorkbook workbook = null;
+                stream = new MemoryStream(File.ReadAllBytes(excelFile));
+                if (extension == ".xls")
+                    workbook = new HSSFWorkbook(stream);
+                else if (extension == ".xlsx")
+                    workbook = new XSSFWorkbook(stream);
 
-                    DataRow dr = dt.NewRow();
-                    for (int b = row.FirstCellNum; b < cellCount; b++)
+                if (workbook == null || workbook.NumberOfSheets == 0) return result;
+
+                for (int i = 0; i < workbook.NumberOfSheets; i++)
+                {
+                    DataTable dt = new DataTable();
+                    ISheet sheet = workbook.GetSheetAt(i);
+
+                    if (sheet.PhysicalNumberOfRows > 0)
                     {
-                        //if (row.GetCell(b) == null) continue;
-                        //dr[b] = row.GetCell(b).ToString();
-                        dr[b] = row.GetCellValue(b);
+                        IRow headerRow = sheet.GetRow(sheet.FirstRowNum);
+
+                        int cellCount = headerRow.Cells.Count;
+                        for (int j = headerRow.FirstCellNum; j < cellCount; j++)
+                        {
+                            string cellValue = headerRow.GetCellValue(j) == null ? null : headerRow.GetCellValue(j).ToString().Trim();
+
+                            DataColumn column = new DataColumn(cellValue);
+                            dt.Columns.Add(column);
+                        }
+
+                        if (sheet.PhysicalNumberOfRows > 1)
+                        {
+                            for (int a = (sheet.FirstRowNum + 1); a < sheet.LastRowNum + 1; a++)
+                            {
+                                IRow row = sheet.GetRow(a);
+                                if (row == null) continue;
+
+                                DataRow dr = dt.NewRow();
+                                for (int b = row.FirstCellNum; b < cellCount; b++)
+                                {
+                                    dr[b] = row.GetCellValue(b);
+                                }
+
+                                dt.Rows.Add(dr);
+                            }
+                        }
                     }
 
-                    dt.Rows.Add(dr);
+                    result.Add(dt);
                 }
-                result.Add(dt);
             }
-            stream.Close();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
 
+                if (File.Exists(importExcelFile))
+                    File.Delete(importExcelFile);
+            }
             return result;
         }
 
         public static DataTable ImportFirstSheetToDataTable(string excelFile)
         {
-            if (!File.Exists(excelFile))
-                throw new FileNotFoundException("文件不存在");
-
             DataTable result = new DataTable();
+
+            string importExcelFile = string.Empty;
+            string extension = string.Empty;
+            Stream stream = null;
+
             try
             {
+                if (!File.Exists(excelFile))
+                    throw new FileNotFoundException("文件不存在!");
+                else
+                {
+                    extension = Path.GetExtension(excelFile);
+                    importExcelFile = Path.Combine(Path.GetDirectoryName(excelFile), "B667F371C4C3BD7A14346BF2F7307E31" + extension);
+                    File.Copy(excelFile, importExcelFile, true);
+                }
+
+                if (!File.Exists(importExcelFile)) return result;
+
                 IWorkbook workbook = null;
 
-                Stream stream = new MemoryStream(File.ReadAllBytes(excelFile));
+                stream = new MemoryStream(File.ReadAllBytes(importExcelFile));
 
-                var extension = Path.GetExtension(excelFile);
                 if (extension == ".xls")
                     workbook = new HSSFWorkbook(stream);
                 else if (extension == ".xlsx")
@@ -130,39 +176,48 @@ namespace CTM.Core.Util
 
                 ISheet sheet = workbook.GetSheetAt(0);
 
-                //blank sheet or only one row
-                if (sheet.PhysicalNumberOfRows < 2) return result;
-
-                IRow headerRow = sheet.GetRow(sheet.FirstRowNum);
-
-                int cellCount = headerRow.LastCellNum;
-                for (int j = headerRow.FirstCellNum; j < cellCount; j++)
+                if (sheet.PhysicalNumberOfRows > 0)
                 {
-                    DataColumn column = new DataColumn(headerRow.GetCell(j).StringCellValue.Trim());
-                    result.Columns.Add(column);
-                }
+                    IRow headerRow = sheet.GetRow(sheet.FirstRowNum);
 
-                for (int a = (sheet.FirstRowNum + 1); a < sheet.LastRowNum + 1; a++)
-                {
-                    IRow row = sheet.GetRow(a);
-                    if (row == null) continue;
-
-                    DataRow dr = result.NewRow();
-                    for (int b = row.FirstCellNum; b < cellCount; b++)
+                    int cellCount = headerRow.Cells.Count;
+                    for (int j = headerRow.FirstCellNum; j < cellCount; j++)
                     {
-                        //if (row.GetCell(b) == null) continue;
-                        //dr[b] = row.GetCell(b).ToString();
-                        dr[b] = row.GetCellValue(b);
+                        string cellValue = headerRow.GetCellValue(j) == null ? null : headerRow.GetCellValue(j).ToString().Trim();
+
+                        DataColumn column = new DataColumn(cellValue);
+                        result.Columns.Add(column);
                     }
 
-                    result.Rows.Add(dr);
-                }
+                    if (sheet.PhysicalNumberOfRows > 1)
+                    {
+                        for (int a = (sheet.FirstRowNum + 1); a < sheet.LastRowNum + 1; a++)
+                        {
+                            IRow row = sheet.GetRow(a);
+                            if (row == null) continue;
 
-                stream.Close();
+                            DataRow dr = result.NewRow();
+                            for (int b = row.FirstCellNum; b < cellCount; b++)
+                            {
+                                dr[b] = row.GetCellValue(b);
+                            }
+
+                            result.Rows.Add(dr);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+
+                if (File.Exists(importExcelFile))
+                    File.Delete(importExcelFile);
             }
 
             return result;
