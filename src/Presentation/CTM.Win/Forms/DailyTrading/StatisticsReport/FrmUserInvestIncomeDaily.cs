@@ -99,7 +99,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             IList<UserInfo> beneficiaryInfos = new List<UserInfo>();
 
-            if (LoginInfo.CurrentUser.IsAdmin)
+            if (LoginInfo.CurrentUser.IsAdmin || deptId == (int)EnumLibrary.AccountingDepartment.Day)
                 beneficiaryInfos = this._userService.GetUserInfos(departmentIds: new int[] { deptId }).Where(x => x.IsDeleted == false).ToList();
             else
                 beneficiaryInfos.Add(_userService.GetUserInfoById(LoginInfo.CurrentUser.UserId));
