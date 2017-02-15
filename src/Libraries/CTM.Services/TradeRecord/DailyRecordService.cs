@@ -1011,7 +1011,7 @@ namespace CTM.Services.TradeRecord
                     break;
 
                 default:
-                    throw new Exception($@"券商【{CTMHelper.GetSecurityAccountName((int)securityAccount)}】的委托数据导入功能未实现，请联系管理员！");
+                    throw new Exception($@"券商【{CTMHelper.GetSecurityAccountName((int)securityAccount)}】的交割单导入功能未实现，请联系管理员！");
             }
             return result;
         }
