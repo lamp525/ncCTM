@@ -27,7 +27,7 @@ namespace CTM.Services.TradeRecord
 
         private IList<DataRow> _skippedRecords = null;
 
-        private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入" };
+        private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入","红股入帐","新股入帐","红股入账", "新股入账" };
         private readonly List<string> _sellTexts = new List<string> { "融券购回", "卖券还款" };
 
         #endregion Fields

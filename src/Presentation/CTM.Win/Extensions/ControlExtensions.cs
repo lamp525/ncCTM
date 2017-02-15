@@ -366,11 +366,11 @@ namespace CTM.Win.Extensions
         {
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Title = "请选择文件存放路径";
-            saveFile.Filter = "Excel文档(*.xls)|*.xls|Excel文档(*.xlsx)|*.xlsx";
+            saveFile.Filter = "Excel文档(*.xlsx)|*.xlsx";
             saveFile.FileName = fileName;
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                DevExpress.XtraPrinting.XlsExportOptions options = new DevExpress.XtraPrinting.XlsExportOptions();
+                DevExpress.XtraPrinting.XlsxExportOptions options = new DevExpress.XtraPrinting.XlsxExportOptions();
                 options.TextExportMode = DevExpress.XtraPrinting.TextExportMode.Text;
                 options.SheetName = fileName;
                 gv.OptionsPrint.AutoWidth = false;
@@ -378,7 +378,7 @@ namespace CTM.Win.Extensions
                 gv.AppearancePrint.Row.Font = new System.Drawing.Font("宋体", 9);
                 try
                 {
-                    gv.ExportToXls(saveFile.FileName, options);
+                    gv.ExportToXlsx(saveFile.FileName, options);
                 }
                 catch (Exception ex)
                 {

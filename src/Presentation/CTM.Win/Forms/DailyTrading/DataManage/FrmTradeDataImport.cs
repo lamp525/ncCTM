@@ -547,7 +547,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             try
             {
                 this.btnExportSkip.Enabled = false;
-                var fileName = Path.GetFileNameWithoutExtension(this.txtFilePath.Text) + " （未导入）";
+                var fileName = Path.GetFileNameWithoutExtension(this.txtFilePath.Text) + "未导入";
                 this.gridViewSkip.ExportToExcelAndOpen(fileName);
             }
             catch (Exception ex)
