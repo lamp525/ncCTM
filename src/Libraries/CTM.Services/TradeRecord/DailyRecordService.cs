@@ -925,6 +925,11 @@ namespace CTM.Services.TradeRecord
                     result = DeliveryImportCaiTong_N(importOperation, importDataTable);
                     break;
 
+                //安信普通
+                case EnumLibrary.SecurityAccount.ESSENCE_N:
+                    result = DeliveryImportEssence_N(importOperation, importDataTable);
+                    break;
+
                 //方正普通
                 case EnumLibrary.SecurityAccount.Founder_N:
                     result = DeliveryImportFounder_N(importOperation, importDataTable);
@@ -1276,6 +1281,50 @@ namespace CTM.Services.TradeRecord
         }
 
         #endregion 交割单--中信证券（普通）
+
+        #region 交割单--安信证券（普通）
+
+        /// <summary>
+        /// 交割单--安信证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DailyRecord> DeliveryImportEssence_N(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DailyRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "清算金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "沪市过户费");
+            columnList.Add("OtherFee1", "清算费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+            columnList.Add(nameof(record.TradeType), "交易类别");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(true, importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--财通证券（普通）
 
         #region 交割单--方正证券（普通）
 
