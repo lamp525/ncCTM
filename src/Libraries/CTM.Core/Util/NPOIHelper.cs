@@ -243,7 +243,6 @@ namespace CTM.Core.Util
 
                     case CellType.Numeric:
                         cellValue = cell.NumericCellValue.ToString();
-
                         break;
 
                     case CellType.String:
