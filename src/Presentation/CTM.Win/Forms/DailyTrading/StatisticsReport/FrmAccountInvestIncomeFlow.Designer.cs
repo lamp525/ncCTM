@@ -173,6 +173,8 @@
             // 
             // colSecurityCompanyName
             // 
+            this.colSecurityCompanyName.AppearanceCell.Options.UseTextOptions = true;
+            this.colSecurityCompanyName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colSecurityCompanyName.Caption = "开户券商";
             this.colSecurityCompanyName.FieldName = "SecurityCompanyName";
             this.colSecurityCompanyName.Name = "colSecurityCompanyName";
@@ -182,6 +184,8 @@
             // 
             // colAccountAttributeName
             // 
+            this.colAccountAttributeName.AppearanceCell.Options.UseTextOptions = true;
+            this.colAccountAttributeName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colAccountAttributeName.Caption = "账户属性";
             this.colAccountAttributeName.FieldName = "AccountAttributeName";
             this.colAccountAttributeName.Name = "colAccountAttributeName";
@@ -191,6 +195,8 @@
             // 
             // colAccountTypeName
             // 
+            this.colAccountTypeName.AppearanceCell.Options.UseTextOptions = true;
+            this.colAccountTypeName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colAccountTypeName.Caption = "账户类别";
             this.colAccountTypeName.FieldName = "AccountTypeName";
             this.colAccountTypeName.Name = "colAccountTypeName";
@@ -200,6 +206,8 @@
             // 
             // colTradeTime
             // 
+            this.colTradeTime.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTime.Caption = "日期";
             this.colTradeTime.DisplayFormat.FormatString = "d";
             this.colTradeTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;

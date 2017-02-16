@@ -311,6 +311,8 @@
             // 
             // colTradeTime
             // 
+            this.colTradeTime.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTime.Caption = "日期";
             this.colTradeTime.DisplayFormat.FormatString = "yyyy-MM-dd";
             this.colTradeTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -323,6 +325,8 @@
             // 
             // colDepartmentName
             // 
+            this.colDepartmentName.AppearanceCell.Options.UseTextOptions = true;
+            this.colDepartmentName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colDepartmentName.Caption = "部门名称";
             this.colDepartmentName.FieldName = "DepartmentName";
             this.colDepartmentName.Name = "colDepartmentName";
@@ -331,6 +335,8 @@
             // 
             // colInvestor
             // 
+            this.colInvestor.AppearanceCell.Options.UseTextOptions = true;
+            this.colInvestor.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colInvestor.Caption = "投资人员";
             this.colInvestor.FieldName = "Investor";
             this.colInvestor.Name = "colInvestor";
@@ -339,6 +345,8 @@
             // 
             // colTradeTypeName
             // 
+            this.colTradeTypeName.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTypeName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTypeName.Caption = "交易类别";
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";

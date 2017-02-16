@@ -182,6 +182,8 @@
             // 
             // colTradeTime
             // 
+            this.colTradeTime.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTime.Caption = "交易月份";
             this.colTradeTime.DisplayFormat.FormatString = "yyyy年MM月";
             this.colTradeTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;

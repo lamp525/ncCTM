@@ -188,6 +188,8 @@
             // 
             // colQueryPeriod
             // 
+            this.colQueryPeriod.AppearanceCell.Options.UseTextOptions = true;
+            this.colQueryPeriod.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colQueryPeriod.Caption = "查询日期区间";
             this.colQueryPeriod.FieldName = "QueryPeriod";
             this.colQueryPeriod.Name = "colQueryPeriod";

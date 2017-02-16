@@ -180,6 +180,8 @@
             // 
             // colTradeTime
             // 
+            this.colTradeTime.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTime.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.colTradeTime.AppearanceHeader.Options.UseFont = true;
             this.colTradeTime.Caption = "交易日期";

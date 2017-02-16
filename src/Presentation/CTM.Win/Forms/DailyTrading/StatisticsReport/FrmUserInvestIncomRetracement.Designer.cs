@@ -222,6 +222,8 @@
             // 
             // colTradeDate
             // 
+            this.colTradeDate.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeDate.Caption = "查询日期区间";
             this.colTradeDate.FieldName = "TradeDate";
             this.colTradeDate.Name = "colTradeDate";
@@ -231,6 +233,8 @@
             // 
             // colDepartmentName
             // 
+            this.colDepartmentName.AppearanceCell.Options.UseTextOptions = true;
+            this.colDepartmentName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colDepartmentName.Caption = "部门名称";
             this.colDepartmentName.FieldName = "DepartmentName";
             this.colDepartmentName.Name = "colDepartmentName";
