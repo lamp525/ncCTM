@@ -8,6 +8,7 @@ using CTM.Core.Domain.Account;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
+using CTM.Services.Common;
 using CTM.Services.Stock;
 
 namespace CTM.Services.TradeRecord
@@ -16,12 +17,14 @@ namespace CTM.Services.TradeRecord
     {
         #region Fields
 
+        private readonly IRepository<DailyRecord> _dailyRepository;
         private readonly IRepository<DeliveryRecord> _deliveryRepository;
         private readonly IRepository<UserInfo> _userRepository;
         private readonly IRepository<AccountInfo> _accountRepository;
 
         private readonly IDataImportCommonService _dataImportService;
         private readonly IStockService _stockService;
+        private readonly ICommonService _commonService;
 
         private IList<DataRow> _skippedRecords = null;
 
@@ -29,20 +32,22 @@ namespace CTM.Services.TradeRecord
 
         #region Constructors
 
-        public DeliveryRecordService
-            (
+        public DeliveryRecordService(
+            IRepository<DailyRecord> dailyRepository,
             IRepository<DeliveryRecord> deliveryRepository,
             IRepository<UserInfo> userRepository,
             IRepository<AccountInfo> accountRepository,
             IDataImportCommonService DICService,
-            IStockService stockService
-            )
+            IStockService stockService,
+            ICommonService commonService)
         {
+            this._dailyRepository = dailyRepository;
             this._deliveryRepository = deliveryRepository;
             this._userRepository = userRepository;
             this._accountRepository = accountRepository;
             this._dataImportService = DICService;
             this._stockService = stockService;
+            this._commonService = commonService;
         }
 
         #endregion Constructors
@@ -1206,6 +1211,55 @@ namespace CTM.Services.TradeRecord
             var query = _deliveryRepository.Table.Select(x => x.AccountId).Distinct();
 
             return query.ToList();
+        }
+
+        public virtual void CopyToDailyRecord(IList<int> deliveryRecordIds, string importUserCode, int accountId, string beneficiary, int tradeType)
+        {
+            var deliveryRecords = _deliveryRepository.Table.Where(x => deliveryRecordIds.Contains(x.Id));
+
+            var now = _commonService.GetCurrentServerTime();
+
+
+            IList<DailyRecord> dailyRecords = new List<DailyRecord>();
+
+            foreach (var item in deliveryRecords)
+            {
+                var dailyRecord = new DailyRecord
+                {
+                    AccountCode = item.AccountCode,
+                    AccountId = item.AccountId,
+                    ActualAmount = item.ActualAmount,
+                    Beneficiary = beneficiary,
+                    Commission = item.Commission,
+                    ContractNo = item.ContractNo,
+                    DataType = item.DataType,
+                    DealAmount = item.DealAmount,
+                    DealFlag = item.DealFlag,
+                    DealNo = item.DealNo,
+                    DealPrice = item.DealPrice,
+                    DealVolume = item.DealVolume,
+                    ImportTime = now,
+                    ImportUser = importUserCode,
+                    Incidentals = item.Incidentals,
+                    OperatorCode = beneficiary,
+                    Remarks = "从财务交割单复制导入",
+                    StampDuty = item.StampDuty,
+                    StockCode = item.StockCode,
+                    StockHolderCode = item.StockHolderCode,
+                    StockName = item.StockName,
+                    TradeDate = item.TradeDate,
+                    TradeTime = item.TradeTime,
+                    TradeType = tradeType,
+                    UpdateTime = now,
+                    UpdateUser = importUserCode,
+                };
+
+                dailyRecords.Add(dailyRecord);
+            }
+
+            if (dailyRecords.Any())
+                _dailyRepository.Insert(dailyRecords);
+
         }
 
         #endregion Methods

@@ -21,5 +21,7 @@ namespace CTM.Services.TradeRecord
         IList<DeliveryRecord> GetDeliveryRecords(int[] accountIds, DateTime? tradeDateFrom, DateTime? tradeDateTo);
 
         IList<int> GetTradingAccountIds();
+
+        void CopyToDailyRecord(IList<int> deliveryRecordIds, string importUserCode, int accountId, string beneficiary, int tradeType);
     }
 }
