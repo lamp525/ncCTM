@@ -333,7 +333,7 @@
             // colPlanVolume
             // 
             this.colPlanVolume.Caption = "数量(万股)";
-            this.colPlanVolume.DisplayFormat.FormatString = "N2";
+            this.colPlanVolume.DisplayFormat.FormatString = "N0";
             this.colPlanVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPlanVolume.FieldName = "PlanVolume";
             this.colPlanVolume.Name = "colPlanVolume";
@@ -343,7 +343,7 @@
             // colPlanAmount
             // 
             this.colPlanAmount.Caption = "金额(万元)";
-            this.colPlanAmount.DisplayFormat.FormatString = "N2";
+            this.colPlanAmount.DisplayFormat.FormatString = "N0";
             this.colPlanAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPlanAmount.FieldName = "PlanAmount";
             this.colPlanAmount.Name = "colPlanAmount";

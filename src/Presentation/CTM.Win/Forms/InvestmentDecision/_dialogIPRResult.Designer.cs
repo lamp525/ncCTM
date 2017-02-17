@@ -109,7 +109,7 @@
             // 
             this.btnExpandOrCollapse.Location = new System.Drawing.Point(12, 42);
             this.btnExpandOrCollapse.Name = "btnExpandOrCollapse";
-            this.btnExpandOrCollapse.Size = new System.Drawing.Size(86, 22);
+            this.btnExpandOrCollapse.Size = new System.Drawing.Size(88, 22);
             this.btnExpandOrCollapse.StyleController = this.layoutControl1;
             this.btnExpandOrCollapse.TabIndex = 9;
             this.btnExpandOrCollapse.Text = "全部展开/收起";
@@ -117,9 +117,9 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(112, 42);
+            this.btnRefresh.Location = new System.Drawing.Point(114, 42);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(73, 22);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 22);
             this.btnRefresh.StyleController = this.layoutControl1;
             this.btnRefresh.TabIndex = 8;
             this.btnRefresh.Text = "    刷  新    ";
@@ -359,7 +359,7 @@
             // colPlanVolume
             // 
             this.colPlanVolume.Caption = "数量(万股)";
-            this.colPlanVolume.DisplayFormat.FormatString = "N2";
+            this.colPlanVolume.DisplayFormat.FormatString = "N0";
             this.colPlanVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPlanVolume.FieldName = "PlanVolume";
             this.colPlanVolume.Name = "colPlanVolume";
@@ -369,7 +369,7 @@
             // colPlanAmount
             // 
             this.colPlanAmount.Caption = "金额(万元)";
-            this.colPlanAmount.DisplayFormat.FormatString = "N2";
+            this.colPlanAmount.DisplayFormat.FormatString = "N0";
             this.colPlanAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colPlanAmount.FieldName = "PlanAmount";
             this.colPlanAmount.Name = "colPlanAmount";
@@ -542,9 +542,9 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.btnRefresh;
-            this.layoutControlItem1.Location = new System.Drawing.Point(100, 30);
+            this.layoutControlItem1.Location = new System.Drawing.Point(102, 30);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -553,14 +553,14 @@
             this.layoutControlItem2.Control = this.btnExpandOrCollapse;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 30);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(90, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(92, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(90, 30);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(92, 30);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -568,9 +568,9 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(177, 30);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(181, 30);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1368, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1364, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // _dialogIPRResult
