@@ -176,12 +176,12 @@ namespace CTM.Services.User
             return info;
         }
 
-        public UserInfo GetUserInfoById(int userId)
+        public virtual UserInfo GetUserInfoById(int userId)
         {
             return _userInfoRepository.GetById(userId);
         }
 
-        public bool IsExistedUser(string code, int userId = 0)
+        public virtual bool IsExistedUser(string code, int userId = 0)
         {
             var query = _userInfoRepository.Table;
 
@@ -195,7 +195,7 @@ namespace CTM.Services.User
             return info == null ? false : true;
         }
 
-        public void AddUserInfo(UserInfo user)
+        public virtual void AddUserInfo(UserInfo user)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
@@ -203,7 +203,7 @@ namespace CTM.Services.User
             _userInfoRepository.Insert(user);
         }
 
-        public void UpdateUserInfo(UserInfo user)
+        public virtual void UpdateUserInfo(UserInfo user)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
@@ -211,7 +211,7 @@ namespace CTM.Services.User
             _userInfoRepository.Update(user);
         }
 
-        public void DisableUser(int[] userIds)
+        public virtual void DisableUser(int[] userIds)
         {
             if (userIds == null)
                 throw new ArgumentNullException(nameof(userIds));
@@ -225,6 +225,20 @@ namespace CTM.Services.User
             });
 
             _userInfoRepository.Update(query);
+        }
+
+        public virtual void ResetPwd(int[] userIds)
+        {
+            if (userIds == null)
+                throw new ArgumentNullException(nameof(userIds));
+
+            var query = _userInfoRepository.Table;
+            query = query.Where(x => userIds.Contains(x.Id));
+
+            query.ToList().ForEach(x =>
+            {
+                x.Password = x.Code;
+            });
         }
 
         #endregion Method

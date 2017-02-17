@@ -44,6 +44,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             this.btnEdit.Enabled = false;
             this.btnDisable.Enabled = false;
+            this.btnResetPwd.Enabled = false;
         }
 
         private void BindDepartmentTree()
@@ -159,19 +160,19 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 var selectedHandles = myView.GetSelectedRows();
 
-                if (selectedHandles.Length == 0)
-                {
-                    DXMessage.ShowTips("请选择要禁用的账户！");
-                    return;
-                }
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
 
-                if (DXMessage.ShowYesNoAndWarning("确定禁用选择的账户吗？") == DialogResult.Yes)
+                if (DXMessage.ShowYesNoAndWarning("确定禁用选择的用户吗？") == DialogResult.Yes)
                 {
                     var userIds = new List<int>();
 
                     for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
                     {
                         userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+
+                        myView.UnselectRow(selectedHandles[rowhandle]);
+
                     }
 
                     this._userService.DisableUser(userIds.ToArray());
@@ -182,10 +183,6 @@ namespace CTM.Win.Forms.Admin.BaseData
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnDisable.Enabled = true;
             }
         }
 
@@ -203,6 +200,37 @@ namespace CTM.Win.Forms.Admin.BaseData
             finally
             {
                 this.btnAdd.Enabled = true;
+            }
+        }
+
+        private void btnResetPwd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnResetPwd.Enabled = false;
+                var myView = this.gridView1;
+
+                var selectedHandles = myView.GetSelectedRows();
+
+                if (DXMessage.ShowYesNoAndWarning("确定重置选择的用户密码吗？") == DialogResult.Yes)
+                {
+                    var userIds = new List<int>();
+
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                    {
+                        userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+
+                        myView.UnselectRow(selectedHandles[rowhandle]);
+                    }
+
+                    this._userService.ResetPwd(userIds.ToArray());
+
+                    DXMessage.ShowTips("密码重置成功！【新密码为用户编码】");
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
             }
         }
 
@@ -237,20 +265,22 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             if (selectedHandles.Length == 0)
             {
-                this.btnEdit.Enabled = false;
-                this.btnDisable.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDisable.Enabled = false;
+                btnResetPwd.Enabled = false;
             }
             else if (selectedHandles.Length > 0)
             {
                 btnDisable.Enabled = true;
+                btnResetPwd.Enabled = true;
 
                 if (selectedHandles.Length == 1)
                 {
-                    this.btnEdit.Enabled = true;
+                    btnEdit.Enabled = true;
                 }
                 else
                 {
-                    this.btnEdit.Enabled = false;
+                    btnEdit.Enabled = false;
                 }
             }
         }

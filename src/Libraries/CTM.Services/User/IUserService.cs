@@ -30,5 +30,7 @@ namespace CTM.Services.User
         void UpdateUserInfo(UserInfo user);
 
         void DisableUser(int[] userIds);
+
+        void ResetPwd(int[] userIds);
     }
 }
