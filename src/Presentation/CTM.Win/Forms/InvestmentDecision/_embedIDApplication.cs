@@ -34,7 +34,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
         private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
-        private bool _isExpanded = false;
+        //private bool _isExpanded = false;
         private bool _isGridDataSourceChanged = false;
         private int _defaultMasterFocusedRowHandle = 0;
 
