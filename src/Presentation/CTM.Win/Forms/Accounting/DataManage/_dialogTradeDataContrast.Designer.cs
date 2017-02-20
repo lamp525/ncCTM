@@ -226,6 +226,8 @@
             // colDealPrice_R
             // 
             this.colDealPrice_R.Caption = "成交价格";
+            this.colDealPrice_R.DisplayFormat.FormatString = "N3";
+            this.colDealPrice_R.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealPrice_R.FieldName = "DealPrice";
             this.colDealPrice_R.Name = "colDealPrice_R";
             this.colDealPrice_R.Visible = true;
@@ -235,7 +237,7 @@
             // colDealVolume_R
             // 
             this.colDealVolume_R.Caption = "成交数量";
-            this.colDealVolume_R.DisplayFormat.FormatString = "N";
+            this.colDealVolume_R.DisplayFormat.FormatString = "N0";
             this.colDealVolume_R.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealVolume_R.FieldName = "DealVolume";
             this.colDealVolume_R.Name = "colDealVolume_R";
@@ -377,6 +379,8 @@
             // colDealPrice_L
             // 
             this.colDealPrice_L.Caption = "成交价";
+            this.colDealPrice_L.DisplayFormat.FormatString = "N3";
+            this.colDealPrice_L.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealPrice_L.FieldName = "DealPrice";
             this.colDealPrice_L.Name = "colDealPrice_L";
             this.colDealPrice_L.Visible = true;
@@ -386,7 +390,7 @@
             // colDealVolume_L
             // 
             this.colDealVolume_L.Caption = "成交数量";
-            this.colDealVolume_L.DisplayFormat.FormatString = "N";
+            this.colDealVolume_L.DisplayFormat.FormatString = "N0";
             this.colDealVolume_L.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDealVolume_L.FieldName = "DealVolume";
             this.colDealVolume_L.Name = "colDealVolume_L";
