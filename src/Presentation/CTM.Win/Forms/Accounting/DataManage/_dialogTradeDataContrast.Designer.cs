@@ -110,7 +110,7 @@
             // 
             // cbTradeType
             // 
-            this.cbTradeType.Location = new System.Drawing.Point(483, 72);
+            this.cbTradeType.Location = new System.Drawing.Point(483, 70);
             this.cbTradeType.Name = "cbTradeType";
             this.cbTradeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -120,7 +120,7 @@
             // 
             // luBeneficiary
             // 
-            this.luBeneficiary.Location = new System.Drawing.Point(243, 72);
+            this.luBeneficiary.Location = new System.Drawing.Point(243, 70);
             this.luBeneficiary.Name = "luBeneficiary";
             this.luBeneficiary.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -133,7 +133,7 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(34, 72);
+            this.btnCopy.Location = new System.Drawing.Point(34, 70);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(132, 22);
             this.btnCopy.StyleController = this.layoutControl1;
@@ -143,10 +143,10 @@
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(667, 72);
+            this.gridControl2.Location = new System.Drawing.Point(667, 70);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(844, 619);
+            this.gridControl2.Size = new System.Drawing.Size(844, 621);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -253,7 +253,7 @@
             this.colActualAmount_R.Name = "colActualAmount_R";
             this.colActualAmount_R.Visible = true;
             this.colActualAmount_R.VisibleIndex = 6;
-            this.colActualAmount_R.Width = 100;
+            this.colActualAmount_R.Width = 104;
             // 
             // colDataTypeName_R
             // 
@@ -292,10 +292,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 98);
+            this.gridControl1.Location = new System.Drawing.Point(24, 96);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(615, 593);
+            this.gridControl1.Size = new System.Drawing.Size(615, 595);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -406,7 +406,7 @@
             this.colActualAmount_L.Name = "colActualAmount_L";
             this.colActualAmount_L.Visible = true;
             this.colActualAmount_L.VisibleIndex = 7;
-            this.colActualAmount_L.Width = 100;
+            this.colActualAmount_L.Width = 111;
             // 
             // layoutControlGroup1
             // 
@@ -463,7 +463,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(619, 597);
+            this.layoutControlItem1.Size = new System.Drawing.Size(619, 599);
             this.layoutControlItem1.Text = "财务核算交割单";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -550,7 +550,7 @@
             this.layoutControlItem2.Control = this.gridControl2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(848, 623);
+            this.layoutControlItem2.Size = new System.Drawing.Size(848, 625);
             this.layoutControlItem2.Text = "每日交易数据";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);

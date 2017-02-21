@@ -88,7 +88,7 @@
             // 
             this.btnSearch.Location = new System.Drawing.Point(442, 12);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(77, 22);
+            this.btnSearch.Size = new System.Drawing.Size(79, 22);
             this.btnSearch.StyleController = this.layoutControl1;
             this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "     查  询    ";
@@ -231,9 +231,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(511, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(513, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(216, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(214, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem2
@@ -279,7 +279,7 @@
             this.layoutControlItem4.Control = this.btnSearch;
             this.layoutControlItem4.Location = new System.Drawing.Point(430, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(81, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(83, 26);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
