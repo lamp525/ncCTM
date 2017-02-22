@@ -119,7 +119,10 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn column in this.gridView2.Columns)
             {
-                column.OptionsColumn.AllowEdit = column.Name == this.colPositionVolume.Name;
+                if (column.Name == this.colPositionVolume.Name || column.Name == this.colOperate.Name)
+                    column.OptionsColumn.AllowEdit = true;
+                else
+                    column.OptionsColumn.AllowEdit = false;
             }
         }
 
@@ -307,34 +310,6 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             }
         }
 
-        private void gridView2_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
-        {
-            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
-            {
-                e.Info.DisplayText = (e.RowHandle + 1).ToString();
-            }
-        }
-
-        private void gridView2_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
-        {
-            try
-            {
-                DataRowView drv = (DataRowView)e.Row;
-                DataRow row = drv.Row;
-                if (row.RowState == DataRowState.Modified)
-                {
-                    var positionId = Convert.ToInt32(row[colPositionId.FieldName]);
-                    var positionVolume = Convert.ToDecimal(row[colPositionVolume.FieldName]);
-
-                    _monthEndServer.UpdateAccountMonthlyPosition(positionId, positionVolume);
-                }
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -397,8 +372,6 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
                 if (stockInfo == null) return;
 
-
-
                 _monthEndServer.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, _yearMonth, stockInfo.FullCode, stockInfo.Name);
 
                 this.luStock.EditValue = null;
@@ -411,13 +384,53 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             }
         }
 
+        private void gridView2_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gridView2_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+            try
+            {
+                var currentRow = e.Row as AccountMonthlyPosition;
+
+                _monthEndServer.UpdateAccountMonthlyPosition(currentRow.Id, currentRow.PositionVolume);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void gridView2_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            var myView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            var dr = myView.GetRow(e.RowHandle) as AccountMonthlyPosition;
+
+            if (dr == null) return;
+
+            //操作
+            if (e.Column.Name == colOperate.Name)
+            {
+                DevExpress.XtraEditors.ViewInfo.ButtonEditViewInfo buttonVI = (DevExpress.XtraEditors.ViewInfo.ButtonEditViewInfo)((DevExpress.XtraGrid.Views.Grid.ViewInfo.GridCellInfo)e.Cell).ViewInfo;
+
+                buttonVI.RightButtons[0].Button.Enabled = true;
+                buttonVI.RightButtons[0].State = DevExpress.Utils.Drawing.ObjectState.Normal;
+            }
+        }
+
         private void repositoryItemButtonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
                 e.Button.Enabled = false;
 
-                var myView = this.gridView1;
+                var myView = this.gridView2;
 
                 if (myView.FocusedRowHandle < 0) return;
 

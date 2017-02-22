@@ -67,24 +67,29 @@ namespace CTM.Services.MonthlyProcess
 
         public virtual void AddAccountMonthlyPosition(int accountId, string accountCode, int yearMonth, string stockCode, string stockName)
         {
-            var dateFrom = new DateTime(yearMonth / 100, Convert.ToInt32(yearMonth.ToString().Substring(4, 2)), 1);
-            var dateTo = dateFrom.AddMonths(1).AddDays(-1);
+            var stockPosition = _accountMonthlyPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.YearMonth == yearMonth && x.StockCode == stockCode);
 
-            var deliveryRecords = _deliveryRecordService.GetDeliveryRecordsDetail(stockCode, accountId, null, dateFrom, dateTo, null, null, null);
-
-            decimal deliveryPositionVolume = deliveryRecords.Sum(x => x.DealVolume);
-
-            var positionInfo = new AccountMonthlyPosition
+            if (stockPosition == null)
             {
-                AccountCode = accountCode,
-                AccountId = accountId,
-                PositionVolume = deliveryPositionVolume,
-                StockCode = stockCode,
-                StockName = stockName,
-                YearMonth = yearMonth,
-            };
+                var dateFrom = new DateTime(yearMonth / 100, Convert.ToInt32(yearMonth.ToString().Substring(4, 2)), 1);
+                var dateTo = dateFrom.AddMonths(1).AddDays(-1);
 
-            _accountMonthlyPositionRepo.Insert(positionInfo);
+                var deliveryRecords = _deliveryRecordService.GetDeliveryRecordsDetail(stockCode, accountId, null, dateFrom, dateTo, null, null, null);
+
+                decimal deliveryPositionVolume = deliveryRecords.Sum(x => x.DealVolume);
+
+                var positionInfo = new AccountMonthlyPosition
+                {
+                    AccountCode = accountCode,
+                    AccountId = accountId,
+                    PositionVolume = deliveryPositionVolume,
+                    StockCode = stockCode,
+                    StockName = stockName,
+                    YearMonth = yearMonth,
+                };
+
+                _accountMonthlyPositionRepo.Insert(positionInfo);
+            }
         }
 
         public virtual void UpdateAccountMonthlyPosition(int positionId, decimal positionVolume)
