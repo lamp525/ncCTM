@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using CTM.Core;
@@ -47,7 +48,32 @@ namespace CTM.Win.Extensions
         /// <param name="displayAdditionalItem"></param>
         /// <param name="additionalItemText"></param>
         /// <param name="additionalItemValue"></param>
-        public static void Initialize(this ComboBoxEdit comboBox, List<ComboBoxItemModel> source, bool displayAdditionalItem = false, string additionalItemText = " 全部 ", string additionalItemValue = "0")
+        public static void Initialize(this ComboBoxEdit comboBox, IList<string> source, bool displayAdditionalItem = false, string additionalItemText = "全部")
+        {
+            var count = source.Count;
+
+            if (displayAdditionalItem)
+            {
+                
+                comboBox.Properties.Items.Add(additionalItemText);
+
+                count += 1;
+            }
+            comboBox.Properties.Items.AddRange(source.ToList());
+            comboBox.Properties.NullText = "请选择...";
+            comboBox.Properties.DropDownRows = count;
+            comboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
+        }
+
+        /// <summary>
+        ///   Initialize ComboBoxEdit
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="source"></param>
+        /// <param name="displayAdditionalItem"></param>
+        /// <param name="additionalItemText"></param>
+        /// <param name="additionalItemValue"></param>
+        public static void Initialize(this ComboBoxEdit comboBox, IList<ComboBoxItemModel> source, bool displayAdditionalItem = false, string additionalItemText = " 全部 ", string additionalItemValue = "0")
         {
             var count = source.Count;
 
@@ -62,7 +88,7 @@ namespace CTM.Win.Extensions
 
                 count += 1;
             }
-            comboBox.Properties.Items.AddRange(source);
+            comboBox.Properties.Items.AddRange(source.ToList());
             comboBox.Properties.NullText = "请选择...";
             comboBox.Properties.DropDownRows = count;
             comboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
@@ -76,7 +102,7 @@ namespace CTM.Win.Extensions
         /// <param name="displayAdditionalItem"></param>
         /// <param name="additionalItemText"></param>
         /// <param name="additionalItemValue"></param>
-        public static void Initialize(this ImageComboBoxEdit imageComboBox, List<ImageComboBoxItem> source, bool displayAdditionalItem = false, string additionalItemText = " 全部 ", string additionalItemValue = "0")
+        public static void Initialize(this ImageComboBoxEdit imageComboBox, IList<ImageComboBoxItem> source, bool displayAdditionalItem = false, string additionalItemText = " 全部 ", string additionalItemValue = "0")
         {
             var count = source.Count;
 
@@ -92,7 +118,7 @@ namespace CTM.Win.Extensions
                 imageComboBox.Properties.Items.Add(allSelect);
                 count += 1;
             }
-            imageComboBox.Properties.Items.AddRange(source);
+            imageComboBox.Properties.Items.AddRange(source.ToList ());
             imageComboBox.Properties.NullText = "请选择...";
             imageComboBox.Properties.DropDownRows = count;
             imageComboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;

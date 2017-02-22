@@ -89,6 +89,8 @@
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisSummary.cs" />
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisDetail.cs" />
     <Compile Include="Domain\InvestmentDecision\PositionStockAnalysisInfo.cs" />
+    <Compile Include="Domain\MonthlyProcess\AccountMonthlyFund.cs" />
+    <Compile Include="Domain\MonthlyProcess\AccountMonthlyPosition.cs" />
     <Compile Include="Util\AppConfigHelper.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Util\CommonHelper.cs" />
