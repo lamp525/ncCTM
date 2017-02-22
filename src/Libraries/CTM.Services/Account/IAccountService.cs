@@ -23,6 +23,8 @@ namespace CTM.Services.Account
 
         void AddAccountInfo(AccountInfo accountEntity);
 
+        IList<string> GetAllAccountNames(bool showDisabled = false);
+
         void UpdateAccountInfo(AccountInfo accountEntity);
 
         void AddAccountOperator(IList<AccountOperator> accountOperators);

@@ -85,6 +85,17 @@ namespace CTM.Services.Account
 
             return details.SingleOrDefault();
         }
+        public virtual IList<string> GetAllAccountNames(bool showDisabled = false)
+        {
+            var query =  _accountInfoRepository.TableNoTracking ;
+
+            if (!showDisabled)
+                query = query.Where(x => x.IsDisabled == false);
+
+            var result = query.Select(x => x.Name).Distinct().ToList();
+
+            return result;
+        }
 
         public virtual IList<AccountEntity> GetAccountDetails(
             int[] accountIds = null,
@@ -324,6 +335,7 @@ namespace CTM.Services.Account
             _dbContext.ExecuteSqlCommand(@"EXEC [dbo].[sp_AccountFundRevokeProcess]");
         }
 
+  
         #endregion Methods
     }
 }
