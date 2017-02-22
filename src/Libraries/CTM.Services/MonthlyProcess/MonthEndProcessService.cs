@@ -109,7 +109,7 @@ namespace CTM.Services.MonthlyProcess
 
         public virtual IList<AccountMonthlyPosition> GetAccountMonthlyPosition(int accountId, int yearMonth)
         {
-            var positionInfoCount = _accountMonthlyFundRepo.Table.Count(x => x.AccountId == accountId && x.YearMonth == yearMonth);
+            var positionInfoCount = _accountMonthlyPositionRepo.TableNoTracking.Count(x => x.AccountId == accountId && x.YearMonth == yearMonth);
 
             if (positionInfoCount == 0)
             {

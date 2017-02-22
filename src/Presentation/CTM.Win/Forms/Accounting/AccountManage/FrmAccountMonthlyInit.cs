@@ -95,7 +95,6 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 now = now.AddMonths(1);
 
             this.deInit.EditValue = now;
-            this.deInit.ReadOnly = true;
 
             this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -153,8 +152,6 @@ namespace CTM.Win.Forms.Accounting.AccountManage
         {
             this.txtAccountInfo.EditValue = _currentAccountInfo;
 
-   
-
             var fundInfo = _monthEndServer.GetAccountMonthlyFund(_currentAccountId, _yearMonth);
 
             if (fundInfo != null)
@@ -201,7 +198,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
             var source = _monthEndServer.GetAccountMonthlyPosition(_currentAccountId, _yearMonth);
 
-
+            this.gridControl2.DataSource = source;
         }
 
         private void SaveAccountMonthlyFund()
@@ -270,13 +267,17 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             {
                 var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
 
-                var row = gv.GetFocusedDataRow();
+                var row = gv.GetRow(gv.FocusedRowHandle) as AccountEntity;
 
                 if (row == null) return;
 
-                _currentAccountId = Convert.ToInt32(row[colAccountId.FieldName].ToString());
-                _currentAccountCode = row[colAccountCode.FieldName].ToString();
-                _currentAccountInfo = row[colAccountName.FieldName].ToString() + " - " + row[colSecurityCompany.FieldName].ToString() + " - " + row[colAttribute.FieldName].ToString();
+                _currentAccountId = row.Id;
+                _currentAccountCode = row.Code;
+                _currentAccountInfo = row.DisplayMember;
+
+                _yearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM"));
+
+                this.luStock.EditValue = null;
 
                 BindAccountMonthlyFund();
 
@@ -322,7 +323,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 DataRow row = drv.Row;
                 if (row.RowState == DataRowState.Modified)
                 {
-                    var positionId = Convert .ToInt32 (row[colPositionId .FieldName]);
+                    var positionId = Convert.ToInt32(row[colPositionId.FieldName]);
                     var positionVolume = Convert.ToDecimal(row[colPositionVolume.FieldName]);
 
                     _monthEndServer.UpdateAccountMonthlyPosition(positionId, positionVolume);
@@ -339,6 +340,12 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciSave.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+            this.txtTotalAsset.ReadOnly = false;
+            this.txtAvailableFund.ReadOnly = false;
+            this.txtPositionValue.ReadOnly = false;
+            this.txtFinancingLimit.ReadOnly = false;
+            this.txtFinancedAmount.ReadOnly = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -349,9 +356,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
                 SaveAccountMonthlyFund();
 
-                this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                this.lciSave.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                BindAccountMonthlyFund();
             }
             catch (Exception ex)
             {
@@ -392,11 +397,13 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
                 if (stockInfo == null) return;
 
-                var yearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM"));
 
-                _monthEndServer.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, yearMonth, stockInfo.FullCode, stockInfo.Name);
+
+                _monthEndServer.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, _yearMonth, stockInfo.FullCode, stockInfo.Name);
 
                 this.luStock.EditValue = null;
+
+                BindAccountMonthlyPosition();
             }
             catch (Exception ex)
             {
@@ -441,7 +448,5 @@ namespace CTM.Win.Forms.Accounting.AccountManage
         }
 
         #endregion Events
-
- 
     }
 }
