@@ -76,10 +76,7 @@ namespace CTM.Core.Util
         /// <returns></returns>
         public static int ConvertToPositive(int value)
         {
-            if (value < 0)
-                return -value;
-            else
-                return value;
+            return value < 0 ? -value : value;
         }
 
         /// <summary>
@@ -89,10 +86,7 @@ namespace CTM.Core.Util
         /// <returns></returns>
         public static decimal ConvertToPositive(decimal value)
         {
-            if (value < 0)
-                return -value;
-            else
-                return value;
+            return value < 0 ? -value : value;
         }
 
         /// <summary>
@@ -102,10 +96,7 @@ namespace CTM.Core.Util
         /// <returns></returns>
         public static int ConvertToNegtive(int value)
         {
-            if (value > 0)
-                return -value;
-            else
-                return value;
+            return value > 0 ? -value : value;
         }
 
         /// <summary>
@@ -115,10 +106,7 @@ namespace CTM.Core.Util
         /// <returns></returns>
         public static decimal ConvertToNegtive(decimal value)
         {
-            if (value > 0)
-                return -value;
-            else
-                return value;
+            return value > 0 ? -value : value;
         }
 
         /// <summary>

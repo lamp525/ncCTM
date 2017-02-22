@@ -163,6 +163,12 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountMonthlyInit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Accounting\AccountManage\FrmAccountMonthlyInit.Designer.cs">
+      <DependentUpon>FrmAccountMonthlyInit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -684,6 +690,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="stocks.ico" />
+    <EmbeddedResource Include="Forms\Accounting\AccountManage\FrmAccountMonthlyInit.resx">
+      <DependentUpon>FrmAccountMonthlyInit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.resx">
       <DependentUpon>_dialogTradeDataContrast.cs</DependentUpon>
     </EmbeddedResource>
@@ -882,6 +891,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
