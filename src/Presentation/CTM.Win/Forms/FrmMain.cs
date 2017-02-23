@@ -192,6 +192,18 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
         }
 
+        #region Month End Process
+
+        /// <summary>
+        /// 账户期初资金和持仓
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem36_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountMonthlyInit>("账户期初资金和持仓");
+        }
+
         /// <summary>
         /// 账户资金调拨
         /// </summary>
@@ -211,6 +223,10 @@ namespace CTM.Win.Forms
         {
             this.DisplayForm<FrmAccountFundMonthlyStatements>("账户资金月结");
         }
+
+        #endregion Month End Process
+
+
 
         #region Report
 
@@ -670,10 +686,5 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
-
-        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm<FrmAccountMonthlyInit>();
-        }
     }
 }
