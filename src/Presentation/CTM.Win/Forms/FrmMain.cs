@@ -202,7 +202,7 @@ namespace CTM.Win.Forms
         /// 账户期初资金和持仓
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e"><
         private void barButtonItem36_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             this.DisplayTabbedForm<FrmAccountMonthlyInit>("账户期初资金和持仓");
@@ -688,5 +688,10 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
+
+        private void barButtonItem37_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm < FrmAccountInitVerify>();
+        }
     }
 }

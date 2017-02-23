@@ -532,7 +532,7 @@
             this.layoutControlItem3.Location = new System.Drawing.Point(219, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(216, 24);
-            this.layoutControlItem3.Text = "证券公司：";
+            this.layoutControlItem3.Text = "开户券商：";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem5
