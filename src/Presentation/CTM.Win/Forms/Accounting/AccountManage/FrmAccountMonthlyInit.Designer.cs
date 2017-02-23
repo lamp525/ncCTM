@@ -611,7 +611,7 @@
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 24);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
             this.layoutControlGroup5.Size = new System.Drawing.Size(780, 93);
-            this.layoutControlGroup5.Text = "期初资金";
+            this.layoutControlGroup5.Text = "期初资金（万元）";
             // 
             // layoutControlItem10
             // 

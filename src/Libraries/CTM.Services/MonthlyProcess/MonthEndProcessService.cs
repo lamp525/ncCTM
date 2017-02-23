@@ -131,7 +131,7 @@ namespace CTM.Services.MonthlyProcess
                     {
                         AccountCode = null,
                         AccountId = accountId,
-                        PositionVolume = recordByStockCode.Sum(x => x.DealAmount),
+                        PositionVolume = recordByStockCode.Sum(x => x.DealVolume),
                         StockCode = firstRecord.StockCode,
                         StockName = firstRecord.StockName,
                         YearMonth = yearMonth,

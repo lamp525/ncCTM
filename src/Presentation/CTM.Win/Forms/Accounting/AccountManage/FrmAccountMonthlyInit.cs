@@ -96,6 +96,12 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
             this.deInit.EditValue = now;
 
+            this.txtTotalAsset.SetNumericMask(6);
+            this.txtAvailableFund.SetNumericMask(6);
+            this.txtPositionValue.SetNumericMask(6);
+            this.txtFinancingLimit.SetNumericMask(6);
+            this.txtFinancedAmount.SetNumericMask(6);
+
             this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciSave.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -169,11 +175,13 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 this.txtFinancingLimit.ReadOnly = true;
                 this.txtFinancedAmount.ReadOnly = true;
 
-                this.txtTotalAsset.EditValue = fundInfo.TotalAsset;
-                this.txtAvailableFund.EditValue = fundInfo.AvailableFund;
-                this.txtPositionValue.EditValue = fundInfo.PositionValue;
-                this.txtFinancingLimit.EditValue = fundInfo.FinancingLimit;
-                this.txtFinancedAmount.EditValue = fundInfo.FinancedAmount;
+                var unit = (int)EnumLibrary.NumericUnit.TenThousand;
+
+                this.txtTotalAsset.EditValue = CommonHelper.SetDecimalDigits(fundInfo.TotalAsset / unit, 6);
+                this.txtAvailableFund.EditValue = CommonHelper.SetDecimalDigits(fundInfo.AvailableFund / unit, 6);
+                this.txtPositionValue.EditValue = CommonHelper.SetDecimalDigits(fundInfo.PositionValue / unit, 6);
+                this.txtFinancingLimit.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancingLimit / unit, 6);
+                this.txtFinancedAmount.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancedAmount / unit, 6);
             }
             else
             {
@@ -187,11 +195,13 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 this.txtFinancingLimit.ReadOnly = false;
                 this.txtFinancedAmount.ReadOnly = false;
 
-                this.txtTotalAsset.EditValue = null;
-                this.txtAvailableFund.EditValue = null;
-                this.txtPositionValue.EditValue = null;
-                this.txtFinancingLimit.EditValue = null;
-                this.txtFinancedAmount.EditValue = null;
+                this.txtTotalAsset.Text = string.Empty;
+                this.txtAvailableFund.Text = string.Empty;
+                this.txtPositionValue.Text = string.Empty;
+                this.txtFinancingLimit.Text = string.Empty;
+                this.txtFinancedAmount.Text = string.Empty;
+
+                this.txtTotalAsset.Focus();
             }
         }
 
@@ -206,21 +216,60 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
         private void SaveAccountMonthlyFund()
         {
+            if (string.IsNullOrEmpty(txtTotalAsset.Text.Trim()))
+            {
+                DXMessage.ShowTips("请输入总资产！");
+                txtTotalAsset.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtAvailableFund.Text.Trim()))
+            {
+                DXMessage.ShowTips("请输入可用资金！");
+                txtAvailableFund.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtPositionValue.Text.Trim()))
+            {
+                DXMessage.ShowTips("请输入持仓市值！");
+                txtPositionValue.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtFinancingLimit.Text.Trim()))
+            {
+                DXMessage.ShowTips("请输入可融资额！");
+                txtFinancingLimit.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtFinancedAmount.Text.Trim()))
+            {
+                DXMessage.ShowTips("请输入已融资额！");
+                txtFinancedAmount.Focus();
+                return;
+            }
+
+            var unit = (int)EnumLibrary.NumericUnit.TenThousand;
+
             var fundInfo = new AccountMonthlyFund
             {
                 AccountCode = _currentAccountCode,
                 AccountId = _currentAccountId,
-                AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()),
-                FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()),
-                FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()),
-                PositionValue = Convert.ToDecimal(this.txtPositionValue.Text.Trim()),
-                TotalAsset = Convert.ToDecimal(this.txtTotalAsset.Text.Trim()),
+                AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()) * unit,
+                FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()) * unit,
+                FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()) * unit,
+                PositionValue = Convert.ToDecimal(this.txtPositionValue.Text.Trim()) * unit,
+                TotalAsset = Convert.ToDecimal(this.txtTotalAsset.Text.Trim()) * unit,
                 YearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM")),
             };
 
             _monthEndServer.SaveAccountMonthlyFund(fundInfo);
 
             DXMessage.ShowTips("保存成功！");
+
+            BindAccountMonthlyFund();
         }
 
         #endregion Utilities
@@ -321,6 +370,9 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             this.txtPositionValue.ReadOnly = false;
             this.txtFinancingLimit.ReadOnly = false;
             this.txtFinancedAmount.ReadOnly = false;
+
+
+            this.txtTotalAsset.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -330,8 +382,6 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 this.btnSave.Enabled = false;
 
                 SaveAccountMonthlyFund();
-
-                BindAccountMonthlyFund();
             }
             catch (Exception ex)
             {
