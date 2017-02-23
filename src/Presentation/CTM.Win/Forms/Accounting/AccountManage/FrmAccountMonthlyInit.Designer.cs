@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
@@ -177,9 +177,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(1412, 122);
+            this.btnCancel.Location = new System.Drawing.Point(1416, 122);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(73, 22);
+            this.btnCancel.Size = new System.Drawing.Size(75, 22);
             this.btnCancel.StyleController = this.layoutControl1;
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "    取  消    ";
@@ -187,9 +187,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1331, 122);
+            this.btnSave.Location = new System.Drawing.Point(1333, 122);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(77, 22);
+            this.btnSave.Size = new System.Drawing.Size(79, 22);
             this.btnSave.StyleController = this.layoutControl1;
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "     保  存    ";
@@ -199,7 +199,7 @@
             // 
             this.btnEdit.Location = new System.Drawing.Point(1254, 122);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(73, 22);
+            this.btnEdit.Size = new System.Drawing.Size(75, 22);
             this.btnEdit.StyleController = this.layoutControl1;
             this.btnEdit.TabIndex = 6;
             this.btnEdit.Text = "    修  改    ";
@@ -237,7 +237,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(1020, 191);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(73, 22);
+            this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
             this.btnAdd.TabIndex = 16;
             this.btnAdd.Text = "    添  加    ";
@@ -401,7 +401,7 @@
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Delete", null, true)});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -661,9 +661,9 @@
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(739, 24);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(745, 24);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(17, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lciEdit
@@ -671,25 +671,25 @@
             this.lciEdit.Control = this.btnEdit;
             this.lciEdit.Location = new System.Drawing.Point(504, 24);
             this.lciEdit.Name = "lciEdit";
-            this.lciEdit.Size = new System.Drawing.Size(77, 26);
+            this.lciEdit.Size = new System.Drawing.Size(79, 26);
             this.lciEdit.TextSize = new System.Drawing.Size(0, 0);
             this.lciEdit.TextVisible = false;
             // 
             // lciSave
             // 
             this.lciSave.Control = this.btnSave;
-            this.lciSave.Location = new System.Drawing.Point(581, 24);
+            this.lciSave.Location = new System.Drawing.Point(583, 24);
             this.lciSave.Name = "lciSave";
-            this.lciSave.Size = new System.Drawing.Size(81, 26);
+            this.lciSave.Size = new System.Drawing.Size(83, 26);
             this.lciSave.TextSize = new System.Drawing.Size(0, 0);
             this.lciSave.TextVisible = false;
             // 
             // lciCancel
             // 
             this.lciCancel.Control = this.btnCancel;
-            this.lciCancel.Location = new System.Drawing.Point(662, 24);
+            this.lciCancel.Location = new System.Drawing.Point(666, 24);
             this.lciCancel.Name = "lciCancel";
-            this.lciCancel.Size = new System.Drawing.Size(77, 26);
+            this.lciCancel.Size = new System.Drawing.Size(79, 26);
             this.lciCancel.TextSize = new System.Drawing.Size(0, 0);
             this.lciCancel.TextVisible = false;
             // 
@@ -739,9 +739,9 @@
             // emptySpaceItem7
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(347, 0);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(349, 0);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(409, 26);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(407, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem12
@@ -749,7 +749,7 @@
             this.layoutControlItem12.Control = this.btnAdd;
             this.layoutControlItem12.Location = new System.Drawing.Point(270, 0);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(77, 26);
+            this.layoutControlItem12.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem12.TextVisible = false;
             // 

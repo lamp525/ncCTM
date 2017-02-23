@@ -24,7 +24,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
         private readonly IAccountService _accountService;
         private readonly IStockService _stockService;
         private readonly ICommonService _commonService;
-        private readonly IMonthEndProcessService _monthEndServer;
+        private readonly IMonthEndProcessService _monthEndService;
 
         private int _currentAccountId;
         private string _currentAccountCode;
@@ -43,7 +43,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             IAccountService accountService,
             IStockService stockService,
             ICommonService commonService,
-            IMonthEndProcessService monthEndServer)
+            IMonthEndProcessService monthEndService)
         {
             InitializeComponent();
 
@@ -51,7 +51,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             this._accountService = accountService;
             this._stockService = stockService;
             this._commonService = commonService;
-            this._monthEndServer = monthEndServer;
+            this._monthEndService = monthEndService;
         }
 
         #endregion Constructors
@@ -161,7 +161,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
         {
             this.txtAccountInfo.EditValue = _currentAccountInfo;
 
-            var fundInfo = _monthEndServer.GetAccountMonthlyFund(_currentAccountId, _yearMonth);
+            var fundInfo = _monthEndService.GetAccountMonthlyFund(_currentAccountId, _yearMonth);
 
             if (fundInfo != null)
             {
@@ -209,7 +209,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
         {
             this.gridControl2.DataSource = null;
 
-            var source = _monthEndServer.GetAccountMonthlyPosition(_currentAccountId, _yearMonth);
+            var source = _monthEndService.GetAccountMonthlyPosition(_currentAccountId, _yearMonth);
 
             this.gridControl2.DataSource = source;
         }
@@ -265,7 +265,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 YearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM")),
             };
 
-            _monthEndServer.SaveAccountMonthlyFund(fundInfo);
+            _monthEndService.SaveAccountMonthlyFund(fundInfo);
 
             DXMessage.ShowTips("保存成功！");
 
@@ -422,7 +422,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
 
                 if (stockInfo == null) return;
 
-                _monthEndServer.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, _yearMonth, stockInfo.FullCode, stockInfo.Name);
+                _monthEndService.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, _yearMonth, stockInfo.FullCode, stockInfo.Name);
 
                 this.luStock.EditValue = null;
 
@@ -448,7 +448,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
             {
                 var currentRow = e.Row as AccountMonthlyPosition;
 
-                _monthEndServer.UpdateAccountMonthlyPosition(currentRow.Id, currentRow.PositionVolume);
+                _monthEndService.UpdateAccountMonthlyPosition(currentRow.Id, currentRow.PositionVolume);
             }
             catch (Exception ex)
             {
@@ -494,7 +494,7 @@ namespace CTM.Win.Forms.Accounting.AccountManage
                 {
                     if (DXMessage.ShowYesNoAndWarning("确定删除该股票持仓信息吗？") == System.Windows.Forms.DialogResult.Yes)
                     {
-                        this._monthEndServer.DeleteAccountMonthlyPosition(positionId);
+                        this._monthEndService.DeleteAccountMonthlyPosition(positionId);
 
                         BindAccountMonthlyPosition();
                     }
