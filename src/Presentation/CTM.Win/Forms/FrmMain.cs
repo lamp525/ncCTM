@@ -7,8 +7,8 @@ using CTM.Services.Common;
 using CTM.Services.MarginTrading;
 using CTM.Services.User;
 using CTM.Win.Extensions;
-using CTM.Win.Forms.Accounting.AccountManage;
 using CTM.Win.Forms.Accounting.DataManage;
+using CTM.Win.Forms.Accounting.MonthlyProcess;
 using CTM.Win.Forms.Accounting.StatisticsReport;
 using CTM.Win.Forms.Admin.BaseData;
 using CTM.Win.Forms.Admin.Log;
@@ -162,6 +162,8 @@ namespace CTM.Win.Forms
 
         #region Accounting
 
+        #region DataMange
+
         /// <summary>
         /// 交割单数据导入
         /// </summary>
@@ -192,7 +194,9 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
         }
 
-        #region Month End Process
+        #endregion DataMange
+
+        #region MonthlyProcess
 
         /// <summary>
         /// 账户期初资金和持仓
@@ -224,9 +228,7 @@ namespace CTM.Win.Forms
             this.DisplayForm<FrmAccountFundMonthlyStatements>("账户资金月结");
         }
 
-        #endregion Month End Process
-
-
+        #endregion MonthlyProcess
 
         #region Report
 

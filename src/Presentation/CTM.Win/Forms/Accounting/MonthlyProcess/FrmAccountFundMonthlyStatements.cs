@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CTM.Services.Account;
 using CTM.Win.Util;
 
-namespace CTM.Win.Forms.Accounting.AccountManage
+namespace CTM.Win.Forms.Accounting.MonthlyProcess
 {
     public partial class FrmAccountFundMonthlyStatements : BaseForm
     {
