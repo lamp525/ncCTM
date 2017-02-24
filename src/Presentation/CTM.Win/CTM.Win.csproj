@@ -163,16 +163,22 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountInitVerify.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountInitVerify.Designer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.Designer.cs">
+      <DependentUpon>FrmAccountInitVerify - 复制.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify.Designer.cs">
       <DependentUpon>FrmAccountInitVerify.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountMonthlyInit.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountMonthlyInit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountMonthlyInit.Designer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountMonthlyInit.Designer.cs">
       <DependentUpon>FrmAccountMonthlyInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.cs">
@@ -321,22 +327,22 @@
     <Compile Include="Models\StockPositionModel.cs" />
     <Compile Include="Models\StockInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountFundMonthlyStatements.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountFundMonthlyStatements.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountFundMonthlyStatements.Designer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountFundMonthlyStatements.Designer.cs">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountFundTransfer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountFundTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\FrmAccountFundTransfer.Designer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountFundTransfer.Designer.cs">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\_dialogAccountFundTransfer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\_dialogAccountFundTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyProcess\_dialogAccountFundTransfer.Designer.cs">
+    <Compile Include="Forms\Accounting\MonthlyStatement\_dialogAccountFundTransfer.Designer.cs">
       <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Accounting\DataManage\FrmDeliveryManage.cs">
@@ -697,10 +703,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="stocks.ico" />
-    <EmbeddedResource Include="Forms\Accounting\MonthlyProcess\FrmAccountInitVerify.resx">
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.resx">
+      <DependentUpon>FrmAccountInitVerify - 复制.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify.resx">
       <DependentUpon>FrmAccountInitVerify.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Accounting\MonthlyProcess\FrmAccountMonthlyInit.resx">
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountMonthlyInit.resx">
       <DependentUpon>FrmAccountMonthlyInit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Accounting\DataManage\_dialogTradeDataContrast.resx">
@@ -766,13 +775,13 @@
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogMTFEdit.resx">
       <DependentUpon>_dialogMTFEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Accounting\MonthlyProcess\FrmAccountFundMonthlyStatements.resx">
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountFundMonthlyStatements.resx">
       <DependentUpon>FrmAccountFundMonthlyStatements.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Accounting\MonthlyProcess\FrmAccountFundTransfer.resx">
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountFundTransfer.resx">
       <DependentUpon>FrmAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Accounting\MonthlyProcess\_dialogAccountFundTransfer.resx">
+    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\_dialogAccountFundTransfer.resx">
       <DependentUpon>_dialogAccountFundTransfer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Accounting\DataManage\FrmDeliveryManage.resx">

@@ -11,15 +11,15 @@ using CTM.Core;
 using CTM.Services.Account;
 using CTM.Services.Common;
 using CTM.Services.Dictionary;
-using CTM.Services.MonthlyProcess;
+using CTM.Services.MonthlyStatement;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraEditors.Controls;
 
-namespace CTM.Win.Forms.Accounting.MonthlyProcess
+namespace CTM.Win.Forms.Accounting.MonthlyStatement
 {
-    public partial class FrmAccountInitVerify : BaseForm
+    public partial class FrmAccountInitVerify2 : BaseForm
     {
 
         #region Fields
@@ -27,16 +27,16 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
         private readonly IDictionaryService _dictionaryService;
         private readonly IAccountService _accountService;
         private readonly ICommonService _commonService;
-        private readonly IMonthEndProcessService _monthEndService;
+        private readonly IMonthlyStatementService _monthEndService;
 
         private IList<AccountEntity> _accountInfos = null;
         #endregion
 
         #region Constructors
-        public FrmAccountInitVerify(IDictionaryService dictionaryService,
+        public FrmAccountInitVerify2(IDictionaryService dictionaryService,
             IAccountService accountService, 
             ICommonService commonService,
-            IMonthEndProcessService monthEndService)
+            IMonthlyStatementService monthEndService)
         {
             InitializeComponent();
 

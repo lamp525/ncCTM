@@ -8,7 +8,7 @@ using CTM.Services.MarginTrading;
 using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Forms.Accounting.DataManage;
-using CTM.Win.Forms.Accounting.MonthlyProcess;
+using CTM.Win.Forms.Accounting.MonthlyStatement;
 using CTM.Win.Forms.Accounting.StatisticsReport;
 using CTM.Win.Forms.Admin.BaseData;
 using CTM.Win.Forms.Admin.Log;
@@ -691,7 +691,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem37_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm < FrmAccountInitVerify>();
+            this.DisplayTabbedForm < FrmAccountInitVerify>("账户收益持仓核对");
         }
     }
 }

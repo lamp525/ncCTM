@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using CTM.Core;
-using CTM.Core.Domain.MonthlyProcess;
+using CTM.Core.Domain.MonthlyStatement;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Common;
 using CTM.Services.Dictionary;
-using CTM.Services.MonthlyProcess;
+using CTM.Services.MonthlyStatement;
 using CTM.Services.Stock;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.Forms.Accounting.MonthlyProcess
+namespace CTM.Win.Forms.Accounting.MonthlyStatement
 {
     public partial class FrmAccountMonthlyInit : BaseForm
     {
@@ -24,7 +24,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
         private readonly IAccountService _accountService;
         private readonly IStockService _stockService;
         private readonly ICommonService _commonService;
-        private readonly IMonthEndProcessService _monthEndService;
+        private readonly IMonthlyStatementService _statementService;
 
         private int _currentAccountId;
         private string _currentAccountCode;
@@ -32,7 +32,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
 
         private IList<AccountEntity> _accountInfos = null;
 
-        private int _yearMonth;
+        private int _currentYear;
+
+        private int _currentMonth;
 
         #endregion Fields
 
@@ -43,7 +45,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             IAccountService accountService,
             IStockService stockService,
             ICommonService commonService,
-            IMonthEndProcessService monthEndService)
+            IMonthlyStatementService statementService)
         {
             InitializeComponent();
 
@@ -51,7 +53,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             this._accountService = accountService;
             this._stockService = stockService;
             this._commonService = commonService;
-            this._monthEndService = monthEndService;
+            this._statementService = statementService;
         }
 
         #endregion Constructors
@@ -157,11 +159,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             this.gridControl1.DataSource = source;
         }
 
-        private void BindAccountMonthlyFund()
+        private void BindAMIFund()
         {
             this.txtAccountInfo.EditValue = _currentAccountInfo;
 
-            var fundInfo = _monthEndService.GetAccountMonthlyFund(_currentAccountId, _yearMonth);
+            var fundInfo = _statementService.GetMIAccountFund(_currentAccountId, _currentYear, _currentMonth);
 
             if (fundInfo != null)
             {
@@ -205,16 +207,16 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             }
         }
 
-        private void BindAccountMonthlyPosition()
+        private void BindAMIPosition()
         {
             this.gridControl2.DataSource = null;
 
-            var source = _monthEndService.GetAccountMonthlyPosition(_currentAccountId, _yearMonth);
+            var source = _statementService.GetMIAccountPosition(_currentAccountId, _currentYear, _currentMonth);
 
             this.gridControl2.DataSource = source;
         }
 
-        private void SaveAccountMonthlyFund()
+        private void SaveAMIFund()
         {
             if (string.IsNullOrEmpty(txtTotalAsset.Text.Trim()))
             {
@@ -253,23 +255,24 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
 
             var unit = (int)EnumLibrary.NumericUnit.TenThousand;
 
-            var fundInfo = new AccountMonthlyFund
+            var fundInfo = new MIAccountFund
             {
                 AccountCode = _currentAccountCode,
                 AccountId = _currentAccountId,
+                Year = _currentYear,
+                Month = _currentMonth,
                 AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()) * unit,
                 FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()) * unit,
                 FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()) * unit,
                 PositionValue = Convert.ToDecimal(this.txtPositionValue.Text.Trim()) * unit,
                 TotalAsset = Convert.ToDecimal(this.txtTotalAsset.Text.Trim()) * unit,
-                YearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM")),
             };
 
-            _monthEndService.SaveAccountMonthlyFund(fundInfo);
+            _statementService.SaveMIAccountFund(fundInfo);
 
             DXMessage.ShowTips("保存成功！");
 
-            BindAccountMonthlyFund();
+            BindAMIFund();
         }
 
         #endregion Utilities
@@ -327,13 +330,15 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
                 _currentAccountCode = row.Code;
                 _currentAccountInfo = row.DisplayMember;
 
-                _yearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM"));
+                var initDate = CommonHelper.StringToDateTime(this.deInit.EditValue.ToString());
+                _currentYear = initDate.Year;
+                _currentMonth = initDate.Month;
 
                 this.luStock.EditValue = null;
 
-                BindAccountMonthlyFund();
+                BindAMIFund();
 
-                BindAccountMonthlyPosition();
+                BindAMIPosition();
             }
             catch (Exception ex)
             {
@@ -347,11 +352,13 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             {
                 if (this.gridView1.GetFocusedDataSourceRowIndex() < 0) return;
 
-                _yearMonth = Convert.ToInt32(CommonHelper.StringToDateTime(this.deInit.EditValue.ToString()).ToString("yyyyMM"));
+                var initDate = CommonHelper.StringToDateTime(this.deInit.EditValue.ToString());
+                _currentYear = initDate.Year;
+                _currentMonth = initDate.Month;
 
-                BindAccountMonthlyFund();
+                BindAMIFund();
 
-                BindAccountMonthlyPosition();
+                BindAMIPosition();
             }
             catch (Exception)
             {
@@ -371,7 +378,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             this.txtFinancingLimit.ReadOnly = false;
             this.txtFinancedAmount.ReadOnly = false;
 
-
             this.txtTotalAsset.Focus();
         }
 
@@ -381,7 +387,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
             {
                 this.btnSave.Enabled = false;
 
-                SaveAccountMonthlyFund();
+                SaveAMIFund();
             }
             catch (Exception ex)
             {
@@ -397,7 +403,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
         {
             try
             {
-                BindAccountMonthlyFund();
+                BindAMIFund();
             }
             catch (Exception ex)
             {
@@ -422,11 +428,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
 
                 if (stockInfo == null) return;
 
-                _monthEndService.AddAccountMonthlyPosition(_currentAccountId, _currentAccountCode, _yearMonth, stockInfo.FullCode, stockInfo.Name);
+                _statementService.AddMIAccountPosition(_currentAccountId, _currentAccountCode, _currentYear, _currentMonth, stockInfo.FullCode, stockInfo.Name);
 
                 this.luStock.EditValue = null;
 
-                BindAccountMonthlyPosition();
+                BindAMIPosition();
             }
             catch (Exception ex)
             {
@@ -446,9 +452,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
         {
             try
             {
-                var currentRow = e.Row as AccountMonthlyPosition;
+                var currentRow = e.Row as MIAccountPosition;
 
-                _monthEndService.UpdateAccountMonthlyPosition(currentRow.Id, currentRow.PositionVolume);
+                _statementService.UpdateMIAccountPosition(currentRow.Id, currentRow.PositionVolume);
             }
             catch (Exception ex)
             {
@@ -460,7 +466,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
         {
             var myView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
 
-            var dr = myView.GetRow(e.RowHandle) as AccountMonthlyPosition;
+            var dr = myView.GetRow(e.RowHandle) as MIAccountPosition;
 
             if (dr == null) return;
 
@@ -494,9 +500,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyProcess
                 {
                     if (DXMessage.ShowYesNoAndWarning("确定删除该股票持仓信息吗？") == System.Windows.Forms.DialogResult.Yes)
                     {
-                        this._monthEndService.DeleteAccountMonthlyPosition(positionId);
+                        this._statementService.DeleteMIAccountPosition(positionId);
 
-                        BindAccountMonthlyPosition();
+                        BindAMIPosition();
                     }
                 }
             }

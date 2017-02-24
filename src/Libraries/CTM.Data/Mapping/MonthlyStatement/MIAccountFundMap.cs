@@ -1,13 +1,13 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using CTM.Core.Domain.MonthlyProcess;
+using CTM.Core.Domain.MonthlyStatement;
 
-namespace CTM.Data.Mapping.MonthlyProcess
+namespace CTM.Data.Mapping.MonthlyStatement
 {
-   public partial  class AccountMonthlyFundMap: EntityTypeConfiguration<AccountMonthlyFund >
+   public partial  class MIAccountFundMap: EntityTypeConfiguration<MIAccountFund >
     {
-        public AccountMonthlyFundMap()
+        public MIAccountFundMap()
         {
-            this.ToTable(nameof(AccountMonthlyFund));
+            this.ToTable(nameof(MIAccountFund));
             this.HasKey(p => p.Id);
 
             this.Property(p => p.TotalAsset).HasPrecision(24, 4);

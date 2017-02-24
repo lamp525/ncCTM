@@ -11,7 +11,7 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
-namespace CTM.Win.Forms.Accounting.MonthlyProcess
+namespace CTM.Win.Forms.Accounting.MonthlyStatement
 {
     public partial class FrmAccountFundTransfer : BaseForm
     {

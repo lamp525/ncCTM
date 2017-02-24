@@ -1,4 +1,4 @@
-﻿namespace CTM.Win.Forms.Accounting.MonthlyProcess
+﻿namespace CTM.Win.Forms.Accounting.MonthlyStatement
 {
     partial class FrmAccountFundTransfer
     {

@@ -1,12 +1,14 @@
-﻿namespace CTM.Core.Domain.MonthlyProcess
+﻿namespace CTM.Core.Domain.MonthlyStatement
 {
-    public class AccountMonthlyPosition : BaseEntity
+    public class MIAccountPosition : BaseEntity
     {
         public int AccountId { get; set; }
 
         public string AccountCode { get; set; }
 
-        public int YearMonth { get; set; }
+        public int Year { get; set; }
+
+        public int Month { get; set; }
 
         public string StockCode { get; set; }
 
