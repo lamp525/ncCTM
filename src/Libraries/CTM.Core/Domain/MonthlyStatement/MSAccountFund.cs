@@ -1,9 +1,6 @@
 ﻿namespace CTM.Core.Domain.MonthlyStatement
 {
-    /// <summary>
-    /// 每月期初账户资金
-    /// </summary>
-    public class MIAccountFund : BaseEntity
+    public class MSAccountFund : BaseEntity
     {
         public int AccountId { get; set; }
 
@@ -37,5 +34,20 @@
         /// 已融资额
         /// </summary>
         public decimal FinancedAmount { get; set; }
+
+        /// <summary>
+        /// 累计收益
+        /// </summary>
+        public decimal AccumulatedProfit { get; set; }
+
+        /// <summary>
+        /// 年度收益
+        /// </summary>
+        public decimal YearProfit { get; set; }
+
+        /// <summary>
+        /// 月度收益
+        /// </summary>
+        public decimal MonthProfit { get; set; }
     }
 }

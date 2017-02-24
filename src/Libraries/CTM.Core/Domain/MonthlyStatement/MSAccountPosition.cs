@@ -1,9 +1,6 @@
 ﻿namespace CTM.Core.Domain.MonthlyStatement
 {
-    /// <summary>
-    /// 每月期初账户持仓
-    /// </summary>
-    public class MIAccountPosition : BaseEntity
+    public class MSAccountPosition : BaseEntity
     {
         public int AccountId { get; set; }
 
@@ -18,5 +15,7 @@
         public string StockName { get; set; }
 
         public decimal PositionVolume { get; set; }
+
+        public decimal CostPrice { get; set; }
     }
 }
