@@ -88,8 +88,10 @@
     <Compile Include="Mapping\InvestmentDecision\MarketTrendForecastInfoMap.cs" />
     <Compile Include="Mapping\Log\LoginLogMap.cs" />
     <Compile Include="Mapping\MarginTrading\MarginTradingInfoMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSInvestorProfitMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MSAccountFundMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MIAccountFundMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSProfitDetailMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MSAccountPositionMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MIAccountPositionMap.cs" />
     <Compile Include="Mapping\Stock\StockPoolLogMap.cs" />
