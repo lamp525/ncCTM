@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using CTM.Core;
@@ -22,8 +21,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly IAccountService _accountService;
         private readonly ICommonService _commonService;
         private readonly IMonthlyStatementService _statementService;
-
-        private IList<AccountEntity> _accountInfos = null;
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
@@ -73,6 +70,15 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                         }).OrderBy(x => x.Text).ToList();
 
             this.cbSecurity.Initialize(securityCompanys, displayAdditionalItem: true);
+
+            this.gvPosition.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
+            this.gvPosition.SetColumnHeaderAppearance();
+
+            this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
+            this.gvAccountProfit.SetColumnHeaderAppearance();
+
+            this.gvStockProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
+            this.gvStockProfit.SetColumnHeaderAppearance();
         }
 
         private void LoadSelectedPage()
@@ -97,8 +103,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gcPosition.DataSource = ds.Tables[0];
-         
-
+            this.gvPosition.ExpandAllGroups();
         }
 
         #endregion Utilities
@@ -153,6 +158,31 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
+        private void gvPosition_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gvPosition_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAccountingVolume || e.Column == this.colDeliveryVolume || e.Column == this.colDeliveryDifference || e.Column == this.colDailyVolume || e.Column == this.colDailyDifference)
+            {
+                var cellValue = Convert.ToDecimal(e.CellValue);
+
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
         #endregion Events
+
+ 
     }
 }
