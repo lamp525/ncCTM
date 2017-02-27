@@ -65,18 +65,60 @@ namespace CTM.Services.MonthlyStatement
             }
         }
 
+        public virtual void ImportPositionInfoFromDelivery(int accountId, int year, int month, bool clearExisted)
+        {
+            if (clearExisted)
+            {
+                var existedPositions = _AMIPositionRepo.Table.Where(x => x.AccountId == accountId && x.Year == year && x.Month == month);
+
+                _AMIPositionRepo.Delete(existedPositions);
+            }
+
+            var dateFrom = new DateTime(year, month, 1).AddMonths(-1);
+            var dateTo = new DateTime(year, month, 1).AddDays(-1);
+            var deliveryRecords = _deliveryRecordService.GetDeliveryRecordsDetail(null, accountId, null, null, dateTo, null, null, null).GroupBy(x => x.StockCode);
+
+            foreach (var recordByStockCode in deliveryRecords)
+            {
+                var firstRecord = recordByStockCode.First();
+
+                var positionVolume = recordByStockCode.Sum(x => x.DealVolume);
+
+                if (positionVolume != 0)
+                {
+                    var entity = new MIAccountPosition
+                    {
+                        AccountCode = null,
+                        AccountId = accountId,
+                        Month = month,
+                        PositionVolume = positionVolume,
+                        StockCode = firstRecord.StockCode,
+                        StockName = firstRecord.StockName,
+                        Year = year,
+                    };
+
+                    _AMIPositionRepo.Insert(entity);
+                }
+            }
+        }
+
         public virtual void AddMIAccountPosition(int accountId, string accountCode, int year, int month, string stockCode, string stockName)
         {
             var stockPosition = _AMIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.Year == year && x.Month == month && x.StockCode == stockCode);
 
             if (stockPosition == null)
             {
-                var dateFrom = new DateTime(year, month, 1);
-                var dateTo = dateFrom.AddMonths(1).AddDays(-1);
+                var dateFrom = new DateTime(year, month, 1).AddMonths(-1);
+                var dateTo = new DateTime(year, month, 1).AddDays(-1);
 
-                var deliveryRecords = _deliveryRecordService.GetDeliveryRecordsDetail(stockCode, accountId, null, dateFrom, dateTo, null, null, null);
+                var lastInitPosition = _AMIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.Year == dateFrom.Year && x.Month == dateFrom.Month && x.StockCode == stockCode);
 
-                decimal deliveryPositionVolume = deliveryRecords.Sum(x => x.DealVolume);
+                decimal deliveryPositionVolume = 0;
+
+                if (lastInitPosition == null)
+                    deliveryPositionVolume = _deliveryRecordService.GetDeliveryRecordsDetail(stockCode, accountId, null, null, dateTo, null, null, null).Sum(x => x.DealVolume);
+                else
+                    deliveryPositionVolume = lastInitPosition.PositionVolume + _deliveryRecordService.GetDeliveryRecordsDetail(stockCode, accountId, null, dateFrom, dateTo, null, null, null).Sum(x => x.DealVolume);
 
                 var positionInfo = new MIAccountPosition
                 {
@@ -105,44 +147,18 @@ namespace CTM.Services.MonthlyStatement
             }
         }
 
-        public virtual void DeleteMIAccountPosition(int positionId)
+        public virtual void DeleteMIAccountPosition(IList<int> positionIds)
         {
-            var positionInfo = _AMIPositionRepo.GetById(positionId);
+            if (positionIds == null)
+                throw new ArgumentNullException(nameof(positionIds));
 
-            if (positionInfo != null)
-                _AMIPositionRepo.Delete(positionInfo);
+            var positionInfos = _AMIPositionRepo.Table.Where(x => positionIds.Contains(x.Id));
+
+            _AMIPositionRepo.Delete(positionInfos);
         }
 
         public virtual IList<MIAccountPosition> GetMIAccountPosition(int accountId, int year, int month)
         {
-            var positionInfoCount = _AMIPositionRepo.TableNoTracking.Count(x => x.AccountId == accountId && x.Year == year && x.Month == month);
-
-            if (positionInfoCount == 0)
-            {
-                var dateFrom = new DateTime(year, month, 1);
-                var dateTo = dateFrom.AddMonths(1).AddDays(-1);
-
-                var deliveryRecords = _deliveryRecordService.GetDeliveryRecordsDetail(null, accountId, null, dateFrom, dateTo, null, null, null).GroupBy(x => x.StockCode);
-
-                foreach (var recordByStockCode in deliveryRecords)
-                {
-                    var firstRecord = recordByStockCode.First();
-
-                    var entity = new MIAccountPosition
-                    {
-                        AccountCode = null,
-                        AccountId = accountId,
-                        Month = month,
-                        PositionVolume = recordByStockCode.Sum(x => x.DealVolume),
-                        StockCode = firstRecord.StockCode,
-                        StockName = firstRecord.StockName,
-                        Year = year,
-                    };
-
-                    _AMIPositionRepo.Insert(entity);
-                }
-            }
-
             var query = _AMIPositionRepo.Table.Where(x => x.AccountId == accountId && x.Year == year && x.Month == month);
 
             return query.ToList();

@@ -26,14 +26,12 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly ICommonService _commonService;
         private readonly IMonthlyStatementService _statementService;
 
+        private IList<AccountEntity> _accountInfos = null;
+
         private int _currentAccountId;
         private string _currentAccountCode;
         private string _currentAccountInfo;
-
-        private IList<AccountEntity> _accountInfos = null;
-
         private int _currentYear;
-
         private int _currentMonth;
 
         #endregion Fields
@@ -108,6 +106,8 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciSave.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
+            this.btnDelete.Enabled = false;
+
             //股票
             var stocks = _stockService.GetAllStocks(showDeleted: true)
                 .Select(x => new StockInfoModel
@@ -123,7 +123,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             this.btnAdd.Enabled = false;
 
-            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, editable: true, readOnly: false);
+            this.gridView2.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: true, editable: true, readOnly: false);
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn column in this.gridView2.Columns)
             {
@@ -211,7 +211,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             this.gridControl2.DataSource = null;
 
-            var source = _statementService.GetMIAccountPosition(_currentAccountId, _currentYear, _currentMonth);
+            var source = _statementService.GetMIAccountPosition(_currentAccountId, _currentYear, _currentMonth).OrderBy(x => x.StockCode).ToList();
 
             this.gridControl2.DataSource = source;
         }
@@ -428,11 +428,98 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
                 if (stockInfo == null) return;
 
+                this.luStock.EditValue = null;        
+
                 _statementService.AddMIAccountPosition(_currentAccountId, _currentAccountCode, _currentYear, _currentMonth, stockInfo.FullCode, stockInfo.Name);
 
-                this.luStock.EditValue = null;
+                BindAMIPosition();
+
+                var source = this.gridControl2.DataSource as List<MIAccountPosition>;
+
+                if (source != null && source.Any())
+                {
+                    for (int i = 0; i < source.Count; i++)
+                    {
+                        if (source[i].StockCode == stockInfo.FullCode)
+                        {
+                            this.gridView2.SelectRow(this.gridView2.GetRowHandle(i));
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnDelete.Enabled = false;
+
+                if (DXMessage.ShowYesNoAndTips("确认删除选择的股票持仓信息么？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    IList<int> positionIds = null;
+                    foreach (var handle in this.gridView2.GetSelectedRows())
+                    {
+                        positionIds.Add(Convert.ToInt32(this.gridView2.GetRowCellValue(handle, this.colPositionId)));
+                    }
+                    _statementService.DeleteMIAccountPosition(positionIds);
+
+                    BindAMIPosition();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnImport.Enabled = false;
+
+                var source = this.gridControl2.DataSource as List<MIAccountPosition>;
+
+                bool clearExisted = false;
+                if (source != null && source.Any())
+                {
+                    if (DXMessage.ShowYesNoAndWarning("从交割单导入持仓将会清空现有的持仓信息。是否继续？") == System.Windows.Forms.DialogResult.No)
+                        return;
+                    else
+                        clearExisted = true;
+                }
+
+                _statementService.ImportPositionInfoFromDelivery(_currentAccountId, _currentYear, _currentMonth, clearExisted);
 
                 BindAMIPosition();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnImport.Enabled = true;
+            }
+        }
+
+        private void gridView2_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+                var selectedHandles = gv.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                btnDelete.Enabled = selectedHandles.Any();
             }
             catch (Exception ex)
             {
@@ -490,17 +577,15 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
                 if (myView.FocusedRowHandle < 0) return;
 
-                var positionId = Convert.ToInt32(myView.GetRowCellValue(myView.FocusedRowHandle, colPositionId));
-
                 var buttonTag = e.Button.Tag.ToString().Trim();
 
-                if (string.IsNullOrEmpty(buttonTag)) return;
-
-                if (buttonTag == "Delete")
+                if (!string.IsNullOrEmpty(buttonTag) && buttonTag == "Delete")
                 {
                     if (DXMessage.ShowYesNoAndWarning("确定删除该股票持仓信息吗？") == System.Windows.Forms.DialogResult.Yes)
                     {
-                        this._statementService.DeleteMIAccountPosition(positionId);
+                        var positionId = Convert.ToInt32(myView.GetRowCellValue(myView.FocusedRowHandle, colPositionId));
+
+                        this._statementService.DeleteMIAccountPosition(new int[] { positionId });
 
                         BindAMIPosition();
                     }

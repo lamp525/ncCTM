@@ -13,8 +13,10 @@ namespace CTM.Services.MonthlyStatement
 
         void UpdateMIAccountPosition(int positionId, decimal positionVolume);
 
-        void DeleteMIAccountPosition(int positionId);
+        void DeleteMIAccountPosition(IList<int> positionIds);
 
         IList<MIAccountPosition> GetMIAccountPosition(int accountId, int year, int month);
+
+        void ImportPositionInfoFromDelivery(int accountId, int year, int month, bool clearExisted);
     }
 }
