@@ -163,12 +163,6 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.Designer.cs">
-      <DependentUpon>FrmAccountInitVerify - 复制.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -703,9 +697,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="stocks.ico" />
-    <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify - 复制.resx">
-      <DependentUpon>FrmAccountInitVerify - 复制.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Accounting\MonthlyStatement\FrmAccountInitVerify.resx">
       <DependentUpon>FrmAccountInitVerify.cs</DependentUpon>
     </EmbeddedResource>

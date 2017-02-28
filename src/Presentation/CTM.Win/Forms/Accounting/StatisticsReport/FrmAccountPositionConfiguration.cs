@@ -46,7 +46,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             var toDate = this.deTo.EditValue.ToString();
 
             var connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-            var commandText = $@"EXEC [dbo].[sp_GetAccountPositionConfiguration] @FromDate = '{fromDate}', @ToDate = '{toDate}' ";
+            var commandText = $@"EXEC [dbo].[sp_InvestmentSubjectProfit] @FromDate = '{fromDate}', @ToDate = '{toDate}' ";
 
             var ds = SqlHelper.ExecuteDataset(connString, CommandType.Text, commandText);
 
