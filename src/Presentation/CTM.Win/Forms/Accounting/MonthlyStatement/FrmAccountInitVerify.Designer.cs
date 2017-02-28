@@ -302,7 +302,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gcStockProfit);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1518, 668);
-            this.splitContainerControl1.SplitterPosition = 856;
+            this.splitContainerControl1.SplitterPosition = 906;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
@@ -312,7 +312,7 @@
             this.gcAccountProfit.Location = new System.Drawing.Point(0, 0);
             this.gcAccountProfit.MainView = this.gvAccountProfit;
             this.gcAccountProfit.Name = "gcAccountProfit";
-            this.gcAccountProfit.Size = new System.Drawing.Size(856, 668);
+            this.gcAccountProfit.Size = new System.Drawing.Size(906, 668);
             this.gcAccountProfit.TabIndex = 0;
             this.gcAccountProfit.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvAccountProfit});
@@ -345,6 +345,9 @@
             this.gvAccountProfit.OptionsView.ShowAutoFilterRow = true;
             this.gvAccountProfit.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gvAccountProfit.OptionsView.ShowGroupedColumns = true;
+            this.gvAccountProfit.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvAccountProfit_CustomDrawRowIndicator);
+            this.gvAccountProfit.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvAccountProfit_RowCellStyle);
+            this.gvAccountProfit.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvAccountProfit_FocusedRowChanged);
             // 
             // colAccountId_A1
             // 
@@ -446,7 +449,7 @@
             this.gcStockProfit.Location = new System.Drawing.Point(0, 0);
             this.gcStockProfit.MainView = this.gvStockProfit;
             this.gcStockProfit.Name = "gcStockProfit";
-            this.gcStockProfit.Size = new System.Drawing.Size(657, 668);
+            this.gcStockProfit.Size = new System.Drawing.Size(607, 668);
             this.gcStockProfit.TabIndex = 0;
             this.gcStockProfit.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvStockProfit});
@@ -455,6 +458,8 @@
             // 
             this.gvStockProfit.GridControl = this.gcStockProfit;
             this.gvStockProfit.Name = "gvStockProfit";
+            this.gvStockProfit.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvStockProfit_CustomDrawRowIndicator);
+            this.gvStockProfit.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvStockProfit_RowCellStyle);
             // 
             // cbAttribute
             // 

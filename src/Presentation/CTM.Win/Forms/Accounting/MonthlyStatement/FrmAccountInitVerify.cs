@@ -22,7 +22,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly ICommonService _commonService;
         private readonly IMonthlyStatementService _statementService;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();        
 
         #endregion Fields
 
@@ -74,10 +74,10 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gvPosition.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
             this.gvPosition.SetColumnHeaderAppearance();
 
-            this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
+            this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
             this.gvAccountProfit.SetColumnHeaderAppearance();
 
-            this.gvStockProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
+            this.gvStockProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
             this.gvStockProfit.SetColumnHeaderAppearance();
         }
 
@@ -99,7 +99,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gcAccountProfit.DataSource = ds.Tables[0];
-            this.gvAccountProfit.SaveLayout("1111");
         }
 
         private void DisplayPositionInfoList()
@@ -135,6 +134,20 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            try
+            {
+                LoadSelectedPage();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        #region Search
+
         private void cbAccount_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -155,17 +168,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
         }
 
-        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
-        {
-            try
-            {
-                LoadSelectedPage();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
+        #endregion Search
+
+        #region PagePosition
 
         private void gvPosition_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
@@ -179,10 +184,10 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colAccountingVolume_V 
-                || e.Column == this.colDeliveryVolume_V 
-                || e.Column == this.colDeliveryDifference_V 
-                || e.Column == this.colDailyVolume_V 
+            if (e.Column == this.colAccountingVolume_V
+                || e.Column == this.colDeliveryVolume_V
+                || e.Column == this.colDeliveryDifference_V
+                || e.Column == this.colDailyVolume_V
                 || e.Column == this.colDailyDifference_V)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
@@ -194,8 +199,68 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
-        #endregion Events
+        #endregion PagePosition
 
- 
+        #region PageProfit
+
+        private void gvAccountProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gvAccountProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colAccountingAmount_A1
+                || e.Column == this.colDeliveryAmount_A1
+                || e.Column == this.colDeliveryDifference_A1
+                || e.Column == this.colDailyAmount_A1
+                || e.Column == this.colDailyDifference_A1)
+            {
+                var cellValue = Convert.ToDecimal(e.CellValue);
+
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void gvAccountProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+                var row = gv.GetDataRow(e.FocusedRowHandle);
+
+                if (row == null) return;
+               
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void gvStockProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        private void gvStockProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+        }
+
+        #endregion PageProfit
+
+        #endregion Events
     }
 }
