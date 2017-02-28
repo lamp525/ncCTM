@@ -91,6 +91,15 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
         private void DisplayProfitInfoList()
         {
+            this.gcAccountProfit.DataSource = null;
+
+            var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={2016}, @Month={12}, @AccountIds='{@"4,58,60,61,66,68,69,101"}'";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            this.gcAccountProfit.DataSource = ds.Tables[0];
+            this.gvAccountProfit.SaveLayout("1111");
         }
 
         private void DisplayPositionInfoList()
@@ -170,7 +179,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colAccountingVolume || e.Column == this.colDeliveryVolume || e.Column == this.colDeliveryDifference || e.Column == this.colDailyVolume || e.Column == this.colDailyDifference)
+            if (e.Column == this.colAccountingVolume_V 
+                || e.Column == this.colDeliveryVolume_V 
+                || e.Column == this.colDeliveryDifference_V 
+                || e.Column == this.colDailyVolume_V 
+                || e.Column == this.colDailyDifference_V)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
 

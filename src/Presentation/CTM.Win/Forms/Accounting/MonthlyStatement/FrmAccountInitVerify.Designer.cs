@@ -34,19 +34,29 @@
             this.pagePosition = new DevExpress.XtraTab.XtraTabPage();
             this.gcPosition = new DevExpress.XtraGrid.GridControl();
             this.gvPosition = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccountDetail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOwnerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStockDetail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAccountingVolume = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDeliveryVolume = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDeliveryDifference = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDailyVolume = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDailyDifference = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountId_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountDetail_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOwnerName_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockDetail_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountingVolume_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDeliveryVolume_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDeliveryDifference_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDailyVolume_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDailyDifference_V = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pageProfit = new DevExpress.XtraTab.XtraTabPage();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gcAccountProfit = new DevExpress.XtraGrid.GridControl();
             this.gvAccountProfit = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colAccountId_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountName_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSecurityCompanyName_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAttributeName_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOwnerName_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAccountingAmount_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDeliveryAmount_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDeliveryDifference_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDailyAmount_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDailyDifference_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcStockProfit = new DevExpress.XtraGrid.GridControl();
             this.gvStockProfit = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.cbAttribute = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -161,119 +171,119 @@
             // gvPosition
             // 
             this.gvPosition.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colAccountId,
-            this.colAccountDetail,
-            this.colOwnerName,
-            this.colStockDetail,
-            this.colAccountingVolume,
-            this.colDeliveryVolume,
-            this.colDeliveryDifference,
-            this.colDailyVolume,
-            this.colDailyDifference});
+            this.colAccountId_V,
+            this.colAccountDetail_V,
+            this.colOwnerName_V,
+            this.colStockDetail_V,
+            this.colAccountingVolume_V,
+            this.colDeliveryVolume_V,
+            this.colDeliveryDifference_V,
+            this.colDailyVolume_V,
+            this.colDailyDifference_V});
             this.gvPosition.GridControl = this.gcPosition;
             this.gvPosition.GroupCount = 1;
             this.gvPosition.Name = "gvPosition";
             this.gvPosition.OptionsView.ColumnAutoWidth = false;
             this.gvPosition.OptionsView.ShowGroupedColumns = true;
             this.gvPosition.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colAccountDetail, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colAccountDetail_V, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvPosition.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvPosition_CustomDrawRowIndicator);
             this.gvPosition.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvPosition_RowCellStyle);
             // 
-            // colAccountId
+            // colAccountId_V
             // 
-            this.colAccountId.FieldName = "AccountId";
-            this.colAccountId.Name = "colAccountId";
+            this.colAccountId_V.FieldName = "AccountId";
+            this.colAccountId_V.Name = "colAccountId_V";
             // 
-            // colAccountDetail
+            // colAccountDetail_V
             // 
-            this.colAccountDetail.Caption = "账户信息";
-            this.colAccountDetail.FieldName = "AccountDetail";
-            this.colAccountDetail.Name = "colAccountDetail";
-            this.colAccountDetail.Visible = true;
-            this.colAccountDetail.VisibleIndex = 0;
-            this.colAccountDetail.Width = 250;
+            this.colAccountDetail_V.Caption = "账户信息";
+            this.colAccountDetail_V.FieldName = "AccountDetail";
+            this.colAccountDetail_V.Name = "colAccountDetail_V";
+            this.colAccountDetail_V.Visible = true;
+            this.colAccountDetail_V.VisibleIndex = 0;
+            this.colAccountDetail_V.Width = 250;
             // 
-            // colOwnerName
+            // colOwnerName_V
             // 
-            this.colOwnerName.Caption = "账户负责人";
-            this.colOwnerName.FieldName = "OwnerName";
-            this.colOwnerName.Name = "colOwnerName";
-            this.colOwnerName.Visible = true;
-            this.colOwnerName.VisibleIndex = 1;
-            this.colOwnerName.Width = 100;
+            this.colOwnerName_V.Caption = "账户负责人";
+            this.colOwnerName_V.FieldName = "OwnerName";
+            this.colOwnerName_V.Name = "colOwnerName_V";
+            this.colOwnerName_V.Visible = true;
+            this.colOwnerName_V.VisibleIndex = 1;
+            this.colOwnerName_V.Width = 100;
             // 
-            // colStockDetail
+            // colStockDetail_V
             // 
-            this.colStockDetail.Caption = "股票信息";
-            this.colStockDetail.FieldName = "StockDetail";
-            this.colStockDetail.Name = "colStockDetail";
-            this.colStockDetail.Visible = true;
-            this.colStockDetail.VisibleIndex = 2;
-            this.colStockDetail.Width = 180;
+            this.colStockDetail_V.Caption = "股票信息";
+            this.colStockDetail_V.FieldName = "StockDetail";
+            this.colStockDetail_V.Name = "colStockDetail_V";
+            this.colStockDetail_V.Visible = true;
+            this.colStockDetail_V.VisibleIndex = 2;
+            this.colStockDetail_V.Width = 180;
             // 
-            // colAccountingVolume
+            // colAccountingVolume_V
             // 
-            this.colAccountingVolume.Caption = "财务核算持仓";
-            this.colAccountingVolume.DisplayFormat.FormatString = "N0";
-            this.colAccountingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colAccountingVolume.FieldName = "AccountingVolume";
-            this.colAccountingVolume.Name = "colAccountingVolume";
-            this.colAccountingVolume.Visible = true;
-            this.colAccountingVolume.VisibleIndex = 3;
-            this.colAccountingVolume.Width = 150;
+            this.colAccountingVolume_V.Caption = "财务核算持仓";
+            this.colAccountingVolume_V.DisplayFormat.FormatString = "N0";
+            this.colAccountingVolume_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAccountingVolume_V.FieldName = "AccountingVolume";
+            this.colAccountingVolume_V.Name = "colAccountingVolume_V";
+            this.colAccountingVolume_V.Visible = true;
+            this.colAccountingVolume_V.VisibleIndex = 3;
+            this.colAccountingVolume_V.Width = 150;
             // 
-            // colDeliveryVolume
+            // colDeliveryVolume_V
             // 
-            this.colDeliveryVolume.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
-            this.colDeliveryVolume.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryVolume.Caption = "交割单持仓";
-            this.colDeliveryVolume.DisplayFormat.FormatString = "N0";
-            this.colDeliveryVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colDeliveryVolume.FieldName = "DeliveryVolume";
-            this.colDeliveryVolume.Name = "colDeliveryVolume";
-            this.colDeliveryVolume.Visible = true;
-            this.colDeliveryVolume.VisibleIndex = 4;
-            this.colDeliveryVolume.Width = 150;
+            this.colDeliveryVolume_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
+            this.colDeliveryVolume_V.AppearanceCell.Options.UseBackColor = true;
+            this.colDeliveryVolume_V.Caption = "交割单持仓";
+            this.colDeliveryVolume_V.DisplayFormat.FormatString = "N0";
+            this.colDeliveryVolume_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDeliveryVolume_V.FieldName = "DeliveryVolume";
+            this.colDeliveryVolume_V.Name = "colDeliveryVolume_V";
+            this.colDeliveryVolume_V.Visible = true;
+            this.colDeliveryVolume_V.VisibleIndex = 4;
+            this.colDeliveryVolume_V.Width = 150;
             // 
-            // colDeliveryDifference
+            // colDeliveryDifference_V
             // 
-            this.colDeliveryDifference.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
-            this.colDeliveryDifference.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryDifference.Caption = "交割单差额";
-            this.colDeliveryDifference.DisplayFormat.FormatString = "N0";
-            this.colDeliveryDifference.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colDeliveryDifference.FieldName = "DeliveryDifference";
-            this.colDeliveryDifference.Name = "colDeliveryDifference";
-            this.colDeliveryDifference.Visible = true;
-            this.colDeliveryDifference.VisibleIndex = 5;
-            this.colDeliveryDifference.Width = 150;
+            this.colDeliveryDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
+            this.colDeliveryDifference_V.AppearanceCell.Options.UseBackColor = true;
+            this.colDeliveryDifference_V.Caption = "交割单差额";
+            this.colDeliveryDifference_V.DisplayFormat.FormatString = "N0";
+            this.colDeliveryDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDeliveryDifference_V.FieldName = "DeliveryDifference";
+            this.colDeliveryDifference_V.Name = "colDeliveryDifference_V";
+            this.colDeliveryDifference_V.Visible = true;
+            this.colDeliveryDifference_V.VisibleIndex = 5;
+            this.colDeliveryDifference_V.Width = 150;
             // 
-            // colDailyVolume
+            // colDailyVolume_V
             // 
-            this.colDailyVolume.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
-            this.colDailyVolume.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyVolume.Caption = "当日委托持仓";
-            this.colDailyVolume.DisplayFormat.FormatString = "N0";
-            this.colDailyVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colDailyVolume.FieldName = "DailyVolume";
-            this.colDailyVolume.Name = "colDailyVolume";
-            this.colDailyVolume.Visible = true;
-            this.colDailyVolume.VisibleIndex = 6;
-            this.colDailyVolume.Width = 150;
+            this.colDailyVolume_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
+            this.colDailyVolume_V.AppearanceCell.Options.UseBackColor = true;
+            this.colDailyVolume_V.Caption = "当日委托持仓";
+            this.colDailyVolume_V.DisplayFormat.FormatString = "N0";
+            this.colDailyVolume_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDailyVolume_V.FieldName = "DailyVolume";
+            this.colDailyVolume_V.Name = "colDailyVolume_V";
+            this.colDailyVolume_V.Visible = true;
+            this.colDailyVolume_V.VisibleIndex = 6;
+            this.colDailyVolume_V.Width = 150;
             // 
-            // colDailyDifference
+            // colDailyDifference_V
             // 
-            this.colDailyDifference.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
-            this.colDailyDifference.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyDifference.Caption = "当日委托差额";
-            this.colDailyDifference.DisplayFormat.FormatString = "N0";
-            this.colDailyDifference.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colDailyDifference.FieldName = "DailyDifference";
-            this.colDailyDifference.Name = "colDailyDifference";
-            this.colDailyDifference.Visible = true;
-            this.colDailyDifference.VisibleIndex = 7;
-            this.colDailyDifference.Width = 150;
+            this.colDailyDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
+            this.colDailyDifference_V.AppearanceCell.Options.UseBackColor = true;
+            this.colDailyDifference_V.Caption = "当日委托差额";
+            this.colDailyDifference_V.DisplayFormat.FormatString = "N0";
+            this.colDailyDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDailyDifference_V.FieldName = "DailyDifference";
+            this.colDailyDifference_V.Name = "colDailyDifference_V";
+            this.colDailyDifference_V.Visible = true;
+            this.colDailyDifference_V.VisibleIndex = 7;
+            this.colDailyDifference_V.Width = 150;
             // 
             // pageProfit
             // 
@@ -292,7 +302,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gcStockProfit);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1518, 668);
-            this.splitContainerControl1.SplitterPosition = 716;
+            this.splitContainerControl1.SplitterPosition = 856;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
@@ -302,15 +312,133 @@
             this.gcAccountProfit.Location = new System.Drawing.Point(0, 0);
             this.gcAccountProfit.MainView = this.gvAccountProfit;
             this.gcAccountProfit.Name = "gcAccountProfit";
-            this.gcAccountProfit.Size = new System.Drawing.Size(716, 668);
+            this.gcAccountProfit.Size = new System.Drawing.Size(856, 668);
             this.gcAccountProfit.TabIndex = 0;
             this.gcAccountProfit.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvAccountProfit});
             // 
             // gvAccountProfit
             // 
+            this.gvAccountProfit.ColumnPanelRowHeight = 30;
+            this.gvAccountProfit.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colAccountId_A1,
+            this.colAccountName_A1,
+            this.colSecurityCompanyName_A1,
+            this.colAttributeName_A1,
+            this.colOwnerName_A1,
+            this.colAccountingAmount_A1,
+            this.colDeliveryAmount_A1,
+            this.colDeliveryDifference_A1,
+            this.colDailyAmount_A1,
+            this.colDailyDifference_A1});
             this.gvAccountProfit.GridControl = this.gcAccountProfit;
+            this.gvAccountProfit.IndicatorWidth = 40;
             this.gvAccountProfit.Name = "gvAccountProfit";
+            this.gvAccountProfit.OptionsBehavior.Editable = false;
+            this.gvAccountProfit.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gvAccountProfit.OptionsBehavior.ReadOnly = true;
+            this.gvAccountProfit.OptionsSelection.MultiSelect = true;
+            this.gvAccountProfit.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
+            this.gvAccountProfit.OptionsView.ColumnAutoWidth = false;
+            this.gvAccountProfit.OptionsView.EnableAppearanceEvenRow = true;
+            this.gvAccountProfit.OptionsView.EnableAppearanceOddRow = true;
+            this.gvAccountProfit.OptionsView.ShowAutoFilterRow = true;
+            this.gvAccountProfit.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.gvAccountProfit.OptionsView.ShowGroupedColumns = true;
+            // 
+            // colAccountId_A1
+            // 
+            this.colAccountId_A1.FieldName = "AccountId";
+            this.colAccountId_A1.Name = "colAccountId_A1";
+            // 
+            // colAccountName_A1
+            // 
+            this.colAccountName_A1.Caption = "账户名称";
+            this.colAccountName_A1.FieldName = "AccountName";
+            this.colAccountName_A1.Name = "colAccountName_A1";
+            this.colAccountName_A1.Visible = true;
+            this.colAccountName_A1.VisibleIndex = 0;
+            // 
+            // colSecurityCompanyName_A1
+            // 
+            this.colSecurityCompanyName_A1.Caption = "开户券商";
+            this.colSecurityCompanyName_A1.FieldName = "SecurityCompanyName";
+            this.colSecurityCompanyName_A1.Name = "colSecurityCompanyName_A1";
+            this.colSecurityCompanyName_A1.Visible = true;
+            this.colSecurityCompanyName_A1.VisibleIndex = 1;
+            this.colSecurityCompanyName_A1.Width = 90;
+            // 
+            // colAttributeName_A1
+            // 
+            this.colAttributeName_A1.Caption = "账号属性";
+            this.colAttributeName_A1.FieldName = "AttributeName";
+            this.colAttributeName_A1.Name = "colAttributeName_A1";
+            this.colAttributeName_A1.Visible = true;
+            this.colAttributeName_A1.VisibleIndex = 2;
+            this.colAttributeName_A1.Width = 60;
+            // 
+            // colOwnerName_A1
+            // 
+            this.colOwnerName_A1.Caption = "账号负责人";
+            this.colOwnerName_A1.FieldName = "OwnerName";
+            this.colOwnerName_A1.Name = "colOwnerName_A1";
+            this.colOwnerName_A1.Visible = true;
+            this.colOwnerName_A1.VisibleIndex = 3;
+            // 
+            // colAccountingAmount_A1
+            // 
+            this.colAccountingAmount_A1.Caption = "财务收益额";
+            this.colAccountingAmount_A1.DisplayFormat.FormatString = "N2";
+            this.colAccountingAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colAccountingAmount_A1.FieldName = "AccountingAmount";
+            this.colAccountingAmount_A1.Name = "colAccountingAmount_A1";
+            this.colAccountingAmount_A1.Visible = true;
+            this.colAccountingAmount_A1.VisibleIndex = 4;
+            this.colAccountingAmount_A1.Width = 105;
+            // 
+            // colDeliveryAmount_A1
+            // 
+            this.colDeliveryAmount_A1.Caption = "交割单收益额";
+            this.colDeliveryAmount_A1.DisplayFormat.FormatString = "N2";
+            this.colDeliveryAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDeliveryAmount_A1.FieldName = "DeliveryAmount";
+            this.colDeliveryAmount_A1.Name = "colDeliveryAmount_A1";
+            this.colDeliveryAmount_A1.Visible = true;
+            this.colDeliveryAmount_A1.VisibleIndex = 5;
+            this.colDeliveryAmount_A1.Width = 111;
+            // 
+            // colDeliveryDifference_A1
+            // 
+            this.colDeliveryDifference_A1.Caption = "交割单差额";
+            this.colDeliveryDifference_A1.DisplayFormat.FormatString = "N2";
+            this.colDeliveryDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDeliveryDifference_A1.FieldName = "DeliveryDifference";
+            this.colDeliveryDifference_A1.Name = "colDeliveryDifference_A1";
+            this.colDeliveryDifference_A1.Visible = true;
+            this.colDeliveryDifference_A1.VisibleIndex = 6;
+            this.colDeliveryDifference_A1.Width = 105;
+            // 
+            // colDailyAmount_A1
+            // 
+            this.colDailyAmount_A1.Caption = "当日委托收益额";
+            this.colDailyAmount_A1.DisplayFormat.FormatString = "N2";
+            this.colDailyAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDailyAmount_A1.FieldName = "DailyAmount";
+            this.colDailyAmount_A1.Name = "colDailyAmount_A1";
+            this.colDailyAmount_A1.Visible = true;
+            this.colDailyAmount_A1.VisibleIndex = 7;
+            this.colDailyAmount_A1.Width = 102;
+            // 
+            // colDailyDifference_A1
+            // 
+            this.colDailyDifference_A1.Caption = "当日委托差额";
+            this.colDailyDifference_A1.DisplayFormat.FormatString = "N2";
+            this.colDailyDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colDailyDifference_A1.FieldName = "DailyDifference";
+            this.colDailyDifference_A1.Name = "colDailyDifference_A1";
+            this.colDailyDifference_A1.Visible = true;
+            this.colDailyDifference_A1.VisibleIndex = 8;
+            this.colDailyDifference_A1.Width = 120;
             // 
             // gcStockProfit
             // 
@@ -318,7 +446,7 @@
             this.gcStockProfit.Location = new System.Drawing.Point(0, 0);
             this.gcStockProfit.MainView = this.gvStockProfit;
             this.gcStockProfit.Name = "gcStockProfit";
-            this.gcStockProfit.Size = new System.Drawing.Size(797, 668);
+            this.gcStockProfit.Size = new System.Drawing.Size(657, 668);
             this.gcStockProfit.TabIndex = 0;
             this.gcStockProfit.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvStockProfit});
@@ -586,14 +714,24 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccountId;
-        private DevExpress.XtraGrid.Columns.GridColumn colStockDetail;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccountingVolume;
-        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryVolume;
-        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryDifference;
-        private DevExpress.XtraGrid.Columns.GridColumn colDailyVolume;
-        private DevExpress.XtraGrid.Columns.GridColumn colDailyDifference;
-        private DevExpress.XtraGrid.Columns.GridColumn colOwnerName;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccountDetail;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountId_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockDetail_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountingVolume_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryVolume_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryDifference_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colDailyVolume_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colDailyDifference_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colOwnerName_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountDetail_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountId_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountName_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colSecurityCompanyName_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colAttributeName_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colOwnerName_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccountingAmount_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryAmount_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDeliveryDifference_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDailyAmount_A1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDailyDifference_A1;
     }
 }
