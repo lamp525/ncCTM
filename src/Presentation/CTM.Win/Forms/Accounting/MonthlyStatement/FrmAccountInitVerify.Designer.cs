@@ -312,20 +312,20 @@
             this.colDeliveryVolume_V.FieldName = "DeliveryVolume";
             this.colDeliveryVolume_V.Name = "colDeliveryVolume_V";
             this.colDeliveryVolume_V.Visible = true;
-            this.colDeliveryVolume_V.VisibleIndex = 4;
+            this.colDeliveryVolume_V.VisibleIndex = 5;
             this.colDeliveryVolume_V.Width = 150;
             // 
             // colDeliveryDifference_V
             // 
             this.colDeliveryDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
             this.colDeliveryDifference_V.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryDifference_V.Caption = "交割单差额";
+            this.colDeliveryDifference_V.Caption = "交割单与财务核算差额";
             this.colDeliveryDifference_V.DisplayFormat.FormatString = "N0";
             this.colDeliveryDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDeliveryDifference_V.FieldName = "DeliveryDifference";
             this.colDeliveryDifference_V.Name = "colDeliveryDifference_V";
             this.colDeliveryDifference_V.Visible = true;
-            this.colDeliveryDifference_V.VisibleIndex = 5;
+            this.colDeliveryDifference_V.VisibleIndex = 4;
             this.colDeliveryDifference_V.Width = 150;
             // 
             // colDailyVolume_V
@@ -338,20 +338,20 @@
             this.colDailyVolume_V.FieldName = "DailyVolume";
             this.colDailyVolume_V.Name = "colDailyVolume_V";
             this.colDailyVolume_V.Visible = true;
-            this.colDailyVolume_V.VisibleIndex = 6;
+            this.colDailyVolume_V.VisibleIndex = 7;
             this.colDailyVolume_V.Width = 150;
             // 
             // colDailyDifference_V
             // 
             this.colDailyDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
             this.colDailyDifference_V.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyDifference_V.Caption = "当日委托差额";
+            this.colDailyDifference_V.Caption = "当日委托与交割单差额";
             this.colDailyDifference_V.DisplayFormat.FormatString = "N0";
             this.colDailyDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDailyDifference_V.FieldName = "DailyDifference";
             this.colDailyDifference_V.Name = "colDailyDifference_V";
             this.colDailyDifference_V.Visible = true;
-            this.colDailyDifference_V.VisibleIndex = 7;
+            this.colDailyDifference_V.VisibleIndex = 6;
             this.colDailyDifference_V.Width = 150;
             // 
             // gridView1
@@ -538,7 +538,7 @@
             // 
             // colAccountingAmount_A1
             // 
-            this.colAccountingAmount_A1.Caption = "财务收益额";
+            this.colAccountingAmount_A1.Caption = "财务收益额(A)";
             this.colAccountingAmount_A1.DisplayFormat.FormatString = "N2";
             this.colAccountingAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colAccountingAmount_A1.FieldName = "AccountingAmount";
@@ -551,52 +551,52 @@
             // 
             this.colDeliveryAmount_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
             this.colDeliveryAmount_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryAmount_A1.Caption = "交割单收益额";
+            this.colDeliveryAmount_A1.Caption = "交割单收益额(B)";
             this.colDeliveryAmount_A1.DisplayFormat.FormatString = "N2";
             this.colDeliveryAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDeliveryAmount_A1.FieldName = "DeliveryAmount";
             this.colDeliveryAmount_A1.Name = "colDeliveryAmount_A1";
             this.colDeliveryAmount_A1.Visible = true;
-            this.colDeliveryAmount_A1.VisibleIndex = 5;
+            this.colDeliveryAmount_A1.VisibleIndex = 6;
             this.colDeliveryAmount_A1.Width = 110;
             // 
             // colDeliveryDifference_A1
             // 
             this.colDeliveryDifference_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
             this.colDeliveryDifference_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryDifference_A1.Caption = "交割单差额";
+            this.colDeliveryDifference_A1.Caption = "差额(B - A)";
             this.colDeliveryDifference_A1.DisplayFormat.FormatString = "N2";
             this.colDeliveryDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDeliveryDifference_A1.FieldName = "DeliveryDifference";
             this.colDeliveryDifference_A1.Name = "colDeliveryDifference_A1";
             this.colDeliveryDifference_A1.Visible = true;
-            this.colDeliveryDifference_A1.VisibleIndex = 6;
+            this.colDeliveryDifference_A1.VisibleIndex = 5;
             this.colDeliveryDifference_A1.Width = 110;
             // 
             // colDailyAmount_A1
             // 
             this.colDailyAmount_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
             this.colDailyAmount_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyAmount_A1.Caption = "当日委托收益额";
+            this.colDailyAmount_A1.Caption = "委托收益额(C)";
             this.colDailyAmount_A1.DisplayFormat.FormatString = "N2";
             this.colDailyAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDailyAmount_A1.FieldName = "DailyAmount";
             this.colDailyAmount_A1.Name = "colDailyAmount_A1";
             this.colDailyAmount_A1.Visible = true;
-            this.colDailyAmount_A1.VisibleIndex = 7;
+            this.colDailyAmount_A1.VisibleIndex = 8;
             this.colDailyAmount_A1.Width = 110;
             // 
             // colDailyDifference_A1
             // 
             this.colDailyDifference_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
             this.colDailyDifference_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyDifference_A1.Caption = "当日委托差额";
+            this.colDailyDifference_A1.Caption = "差额(C - B)";
             this.colDailyDifference_A1.DisplayFormat.FormatString = "N2";
             this.colDailyDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDailyDifference_A1.FieldName = "DailyDifference";
             this.colDailyDifference_A1.Name = "colDailyDifference_A1";
             this.colDailyDifference_A1.Visible = true;
-            this.colDailyDifference_A1.VisibleIndex = 8;
+            this.colDailyDifference_A1.VisibleIndex = 7;
             this.colDailyDifference_A1.Width = 110;
             // 
             // layoutControlGroup3
