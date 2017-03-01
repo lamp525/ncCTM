@@ -1118,6 +1118,9 @@
     <Content Include="DataTemplate\Delivery\ESSENCE_N.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DataTemplate\Entrust\ZheShang_C.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

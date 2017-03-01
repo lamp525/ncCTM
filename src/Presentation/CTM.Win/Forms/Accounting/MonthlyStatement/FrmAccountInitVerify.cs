@@ -22,13 +22,14 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly ICommonService _commonService;
         private readonly IMonthlyStatementService _statementService;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();        
+        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         #endregion Fields
 
         #region Constructors
 
-        public FrmAccountInitVerify(IDictionaryService dictionaryService,
+        public FrmAccountInitVerify(
+            IDictionaryService dictionaryService,
             IAccountService accountService,
             ICommonService commonService,
             IMonthlyStatementService statementService)
@@ -74,10 +75,10 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gvPosition.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
             this.gvPosition.SetColumnHeaderAppearance();
 
-            this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
+            this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
             this.gvAccountProfit.SetColumnHeaderAppearance();
 
-            this.gvStockProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 30);
+            this.gvStockProfit.SetLayout(showCheckBoxRowSelect: false);
             this.gvStockProfit.SetColumnHeaderAppearance();
         }
 
@@ -86,19 +87,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             if (this.xtraTabControl1.SelectedTabPage == this.pagePosition)
                 DisplayPositionInfoList();
             else
-                DisplayProfitInfoList();
-        }
-
-        private void DisplayProfitInfoList()
-        {
-            this.gcAccountProfit.DataSource = null;
-
-            var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={2016}, @Month={12}, @AccountIds='{@"4,58,60,61,66,68,69,101"}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
-
-            if (ds == null || ds.Tables.Count == 0) return;
-
-            this.gcAccountProfit.DataSource = ds.Tables[0];
+                DisplayAccountProfitInfoList();
         }
 
         private void DisplayPositionInfoList()
@@ -112,6 +101,30 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             this.gcPosition.DataSource = ds.Tables[0];
             this.gvPosition.ExpandAllGroups();
+        }
+
+        private void DisplayAccountProfitInfoList()
+        {
+            this.gcAccountProfit.DataSource = null;
+
+            var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={2016}, @Month={12}, @AccountIds='{@"4,58,60,61,66,68,69,101"}'";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            this.gcAccountProfit.DataSource = ds.Tables[0];
+        }
+
+        private void DisplayStockProfitInfoList(int accountId)
+        {
+            this.gcStockProfit.DataSource = null;
+
+            var commandText = $@"EXEC [dbo].[sp_GetStockProfitContrastData] @Year={2016}, @Month={12}, @AccountId={accountId}";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            this.gcStockProfit.DataSource = ds.Tables[0];      
         }
 
         #endregion Utilities
@@ -234,12 +247,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             try
             {
+                if (e.FocusedRowHandle < 0) return;
+
                 var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-
-                var row = gv.GetDataRow(e.FocusedRowHandle);
-
-                if (row == null) return;
-               
+                var accountId = Convert.ToInt32(gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountId_A1));
+                DisplayStockProfitInfoList(accountId);
             }
             catch (Exception ex)
             {
@@ -257,6 +269,19 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
         private void gvStockProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colDeliveryAmount_A2
+                || e.Column == this.colDailyAmount_A2 
+                || e.Column == this.colProfitDifference_A2)         
+            {
+                var cellValue = Convert.ToDecimal(e.CellValue);
+
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
         }
 
         #endregion PageProfit
