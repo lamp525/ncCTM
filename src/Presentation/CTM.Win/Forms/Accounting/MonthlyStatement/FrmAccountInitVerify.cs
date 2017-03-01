@@ -187,6 +187,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 _currentYear = searhDate.Year;
                 _currentMonth = searhDate.Month;
                 _currentAccountIds = GetSelectedAccountIds();
+                _isSearched = true;
 
                 LoadSelectedPage();
             }
@@ -247,11 +248,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colAccountingVolume_V
-                || e.Column == this.colDeliveryVolume_V
-                || e.Column == this.colDeliveryDifference_V
-                || e.Column == this.colDailyVolume_V
-                || e.Column == this.colDailyDifference_V)
+            if (e.Column == this.colDeliveryDifference_V || e.Column == this.colDailyDifference_V)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
 
@@ -278,11 +275,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colAccountingAmount_A1
-                || e.Column == this.colDeliveryAmount_A1
-                || e.Column == this.colDeliveryDifference_A1
-                || e.Column == this.colDailyAmount_A1
-                || e.Column == this.colDailyDifference_A1)
+            if (e.Column == this.colDeliveryDifference_A1 || e.Column == this.colDailyDifference_A1)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
 
@@ -323,9 +316,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colDeliveryAmount_A2
-                || e.Column == this.colDailyAmount_A2
-                || e.Column == this.colProfitDifference_A2)
+            if (e.Column == this.colProfitDifference_A2)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
 
