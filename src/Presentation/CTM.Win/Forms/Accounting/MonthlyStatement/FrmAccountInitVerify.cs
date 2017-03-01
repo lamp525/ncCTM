@@ -23,6 +23,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly IMonthlyStatementService _statementService;
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+        private bool _isExpanded = true;
 
         #endregion Fields
 
@@ -78,7 +79,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gvAccountProfit.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: false);
             this.gvAccountProfit.SetColumnHeaderAppearance();
 
-            this.gvStockProfit.SetLayout(showCheckBoxRowSelect: false);
+            this.gvStockProfit.SetLayout(showCheckBoxRowSelect: false, showFooter: true);
             this.gvStockProfit.SetColumnHeaderAppearance();
         }
 
@@ -113,6 +114,13 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gcAccountProfit.DataSource = ds.Tables[0];
+
+            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+
+            if (_isExpanded)
+                this.gvAccountProfit.ExpandAllGroups();
+            else
+                this.gvAccountProfit.CollapseAllGroups();
         }
 
         private void DisplayStockProfitInfoList(int accountId)
@@ -124,7 +132,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             if (ds == null || ds.Tables.Count == 0) return;
 
-            this.gcStockProfit.DataSource = ds.Tables[0];      
+            this.gcStockProfit.DataSource = ds.Tables[0];
         }
 
         #endregion Utilities
@@ -216,6 +224,43 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
         #region PageProfit
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnRefresh.Enabled = false;
+                DisplayAccountProfitInfoList();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnRefresh.Enabled = true;
+            }
+        }
+
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+                this._isExpanded = !_isExpanded;
+
+                if (_isExpanded)
+                    this.gvAccountProfit.ExpandAllGroups();
+                else
+                    this.gvAccountProfit.CollapseAllGroups();
+
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
+            }
+        }
+
         private void gvAccountProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle > -1)
@@ -250,6 +295,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 if (e.FocusedRowHandle < 0) return;
 
                 var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+                this.lciStockProfit.Text = @"当前账户：" + gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountName_A1).ToString() + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colSecurityCompanyName_A1) + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colAttributeName_A1);
+
                 var accountId = Convert.ToInt32(gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountId_A1));
                 DisplayStockProfitInfoList(accountId);
             }
@@ -272,8 +320,8 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
             if (e.Column == this.colDeliveryAmount_A2
-                || e.Column == this.colDailyAmount_A2 
-                || e.Column == this.colProfitDifference_A2)         
+                || e.Column == this.colDailyAmount_A2
+                || e.Column == this.colProfitDifference_A2)
             {
                 var cellValue = Convert.ToDecimal(e.CellValue);
 
