@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnImport = new DevExpress.XtraEditors.SimpleButton();
@@ -97,7 +97,6 @@
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -153,7 +152,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).BeginInit();
             this.SuspendLayout();
@@ -240,13 +238,13 @@
             // deInit
             // 
             this.deInit.EditValue = null;
-            this.deInit.Location = new System.Drawing.Point(1206, 45);
+            this.deInit.Location = new System.Drawing.Point(1063, 45);
             this.deInit.Name = "deInit";
             this.deInit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deInit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deInit.Size = new System.Drawing.Size(121, 20);
+            this.deInit.Size = new System.Drawing.Size(185, 20);
             this.deInit.StyleController = this.layoutControl1;
             this.deInit.TabIndex = 9;
             this.deInit.EditValueChanged += new System.EventHandler(this.deInit_EditValueChanged);
@@ -344,7 +342,7 @@
             this.txtAccountInfo.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.txtAccountInfo.Properties.Appearance.Options.UseFont = true;
             this.txtAccountInfo.Properties.ReadOnly = true;
-            this.txtAccountInfo.Size = new System.Drawing.Size(318, 20);
+            this.txtAccountInfo.Size = new System.Drawing.Size(185, 20);
             this.txtAccountInfo.StyleController = this.layoutControl1;
             this.txtAccountInfo.TabIndex = 5;
             // 
@@ -436,7 +434,7 @@
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", "Delete", null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", "Delete", null, true)});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -621,7 +619,6 @@
             this.layoutControlGroup3,
             this.layoutControlItem4,
             this.layoutControlItem5,
-            this.emptySpaceItem10,
             this.emptySpaceItem12,
             this.emptySpaceItem13});
             this.layoutControlGroup4.Location = new System.Drawing.Point(714, 0);
@@ -839,33 +836,25 @@
             this.layoutControlItem4.Control = this.txtAccountInfo;
             this.layoutControlItem4.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(385, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(252, 24);
             this.layoutControlItem4.Text = "当前账户:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.deInit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(405, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(262, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(188, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(252, 24);
             this.layoutControlItem5.Text = "期初日期：";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
-            // 
-            // emptySpaceItem10
-            // 
-            this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(395, 0);
-            this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(10, 24);
-            this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem12
             // 
             this.emptySpaceItem12.AllowHotTrack = false;
-            this.emptySpaceItem12.Location = new System.Drawing.Point(593, 0);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(514, 0);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(187, 24);
+            this.emptySpaceItem12.Size = new System.Drawing.Size(266, 24);
             this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem13
@@ -938,7 +927,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
             this.ResumeLayout(false);
@@ -1006,7 +994,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPositionVolume;
         private DevExpress.XtraGrid.Columns.GridColumn colOperate;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem12;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem13;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem14;
