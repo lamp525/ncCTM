@@ -43,11 +43,12 @@ namespace CTM.Services.Account
 
         IList<int> GetAccountIdByOperatorId(int operatorId);
 
-        KeyValuePair <int,bool> GetLatestAccountFundInitialInfo();
+        KeyValuePair<int, bool> GetLatestAccountFundInitialInfo();
 
         void AccountFundSettleProcess();
 
         void AccountFundRevokeProcess();
 
+        IList<int> GetAccountIds(string accountName, int securityCode, int attributeCode);
     }
 }

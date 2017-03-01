@@ -707,7 +707,7 @@ namespace CTM.Core.Util
         }
 
         /// <summary>
-        /// 将字符串数组转换为SQL条件字符串
+        /// 将数组转换为SQL条件字符串
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
@@ -721,6 +721,28 @@ namespace CTM.Core.Util
             foreach (var item in source)
             {
                 result = result + "'" + item + "'" + ",";
+            }
+
+            result = result.Substring(0, result.Length - 1);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 将数组转换为SQL条件字符串
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string ArrayListToSqlConditionString(IList<int> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            string result = string.Empty;
+
+            foreach (var item in source)
+            {
+                result = result + item + ",";
             }
 
             result = result.Substring(0, result.Length - 1);

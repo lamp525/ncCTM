@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using CTM.Core;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Account;
 using CTM.Services.Common;
@@ -23,7 +25,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly IMonthlyStatementService _statementService;
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+        private string _currentAccountIds = null;
+        private int _currentYear;
+        private int _currentMonth;
         private bool _isExpanded = true;
+        private bool _isSearched = false;
 
         #endregion Fields
 
@@ -49,6 +55,12 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
         private void FormInit()
         {
+            //期初日期
+            this.deYearMonth.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deYearMonth.SetFormat("yyyy年MM月");
+            var now = _commonService.GetCurrentServerTime().Date;
+            this.deYearMonth.EditValue = now;
+
             //账户名称
             var accountNames = _accountService.GetAllAccountNames(false).ToList();
             this.cbAccount.Initialize(accountNames, displayAdditionalItem: true);
@@ -83,6 +95,19 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gvStockProfit.SetColumnHeaderAppearance();
         }
 
+        private string GetSelectedAccountIds()
+        {
+            string accountName = this.cbAccount.SelectedItem as string;
+            if (accountName == "全部")
+                accountName = null;
+            int securityCode = string.IsNullOrEmpty(this.cbSecurity.SelectedValue()) ? 0 : int.Parse(this.cbSecurity.SelectedValue());
+            int attributeCode = string.IsNullOrEmpty(this.cbAttribute.SelectedValue()) ? 0 : int.Parse(this.cbAttribute.SelectedValue());
+
+            IList<int> accountIds = _accountService.GetAccountIds(accountName, securityCode, attributeCode);
+
+            return CommonHelper.ArrayListToSqlConditionString(accountIds);
+        }
+
         private void LoadSelectedPage()
         {
             if (this.xtraTabControl1.SelectedTabPage == this.pagePosition)
@@ -95,39 +120,38 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             this.gcPosition.DataSource = null;
 
-            var commandText = $@"EXEC [dbo].[sp_GetAccountPositionContrastData] @Year={2016}, @Month={12}, @AccountIds='{@"4,58,60,61,66,68,69,101"}'";
+            var commandText = $@"EXEC [dbo].[sp_GetAccountPositionContrastData] @Year={_currentYear}, @Month={_currentMonth}, @AccountIds='{_currentAccountIds}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gcPosition.DataSource = ds.Tables[0];
-            this.gvPosition.ExpandAllGroups();
+
+            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+
+            if (_isExpanded)
+                this.gvPosition.ExpandAllGroups();
+            else
+                this.gvPosition.CollapseAllGroups();
         }
 
         private void DisplayAccountProfitInfoList()
         {
             this.gcAccountProfit.DataSource = null;
 
-            var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={2016}, @Month={12}, @AccountIds='{@"4,58,60,61,66,68,69,101"}'";
+            var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={_currentYear}, @Month={_currentMonth}, @AccountIds='{_currentAccountIds}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gcAccountProfit.DataSource = ds.Tables[0];
-
-            this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
-
-            if (_isExpanded)
-                this.gvAccountProfit.ExpandAllGroups();
-            else
-                this.gvAccountProfit.CollapseAllGroups();
         }
 
         private void DisplayStockProfitInfoList(int accountId)
         {
             this.gcStockProfit.DataSource = null;
 
-            var commandText = $@"EXEC [dbo].[sp_GetStockProfitContrastData] @Year={2016}, @Month={12}, @AccountId={accountId}";
+            var commandText = $@"EXEC [dbo].[sp_GetStockProfitContrastData] @Year={_currentYear }, @Month={_currentMonth}, @AccountId={accountId}";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
@@ -146,12 +170,33 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 FormInit();
 
                 this.xtraTabControl1.SelectedTabPage = this.pagePosition;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnSearch.Enabled = false;
+
+                var searhDate = CommonHelper.StringToDateTime(this.deYearMonth.EditValue.ToString());
+                _currentYear = searhDate.Year;
+                _currentMonth = searhDate.Month;
+                _currentAccountIds = GetSelectedAccountIds();
 
                 LoadSelectedPage();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnSearch.Enabled = true;
             }
         }
 
@@ -159,7 +204,8 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         {
             try
             {
-                LoadSelectedPage();
+                if (_isSearched)
+                    LoadSelectedPage();
             }
             catch (Exception ex)
             {
@@ -167,31 +213,27 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
-        #region Search
-
-        private void cbAccount_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void cbSecurity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void cbAttribute_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void lbAccount_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-        }
-
-        #endregion Search
-
         #region PagePosition
+
+        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExpandOrCollapse.Enabled = false;
+                this._isExpanded = !_isExpanded;
+
+                if (_isExpanded)
+                    this.gvPosition.ExpandAllGroups();
+                else
+                    this.gvPosition.CollapseAllGroups();
+
+                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
+            }
+            finally
+            {
+                this.btnExpandOrCollapse.Enabled = true;
+            }
+        }
 
         private void gvPosition_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
@@ -223,43 +265,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         #endregion PagePosition
 
         #region PageProfit
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnRefresh.Enabled = false;
-                DisplayAccountProfitInfoList();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnRefresh.Enabled = true;
-            }
-        }
-
-        private void btnExpandOrCollapse_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.btnExpandOrCollapse.Enabled = false;
-                this._isExpanded = !_isExpanded;
-
-                if (_isExpanded)
-                    this.gvAccountProfit.ExpandAllGroups();
-                else
-                    this.gvAccountProfit.CollapseAllGroups();
-
-                this.btnExpandOrCollapse.Text = _isExpanded ? " 全部收起 " : " 全部展开 ";
-            }
-            finally
-            {
-                this.btnExpandOrCollapse.Enabled = true;
-            }
-        }
 
         private void gvAccountProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
@@ -295,8 +300,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 if (e.FocusedRowHandle < 0) return;
 
                 var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-
-                this.lciStockProfit.Text = @"当前账户：" + gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountName_A1).ToString() + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colSecurityCompanyName_A1) + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colAttributeName_A1);
+                this.esiStockProfitTitle.Text = @"当前账户：" + gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountName_A1).ToString() + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colSecurityCompanyName_A1) + " - " + gv.GetRowCellValue(e.FocusedRowHandle, this.colAttributeName_A1);
 
                 var accountId = Convert.ToInt32(gv.GetRowCellValue(e.FocusedRowHandle, this.colAccountId_A1));
                 DisplayStockProfitInfoList(accountId);

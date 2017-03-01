@@ -335,7 +335,25 @@ namespace CTM.Services.Account
             _dbContext.ExecuteSqlCommand(@"EXEC [dbo].[sp_AccountFundRevokeProcess]");
         }
 
-  
+        public virtual IList<int> GetAccountIds(string accountName, int securityCode, int attributeCode)
+        {
+            var query = _accountInfoRepository.Table;
+
+            if (!string.IsNullOrEmpty(accountName))
+                query = query.Where(x => x.Name == accountName);
+
+            if (securityCode > 0)
+                query = query.Where(x => x.SecurityCompanyCode == securityCode);
+
+            if (attributeCode > 0)
+                query = query.Where(x => x.AttributeCode == attributeCode);
+
+            var result = query.Select(x => x.Id).ToList();
+
+            return result;
+        }
+
+
         #endregion Methods
     }
 }

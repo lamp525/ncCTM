@@ -86,14 +86,12 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
 
+            //期初日期
             this.deInit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deInit.SetFormat("yyyy年MM月");
-
             var now = _commonService.GetCurrentServerTime().Date;
-
             if (now.AddDays(1).Month == now.Month + 1)
                 now = now.AddMonths(1);
-
             this.deInit.EditValue = now;
 
             this.txtTotalAsset.SetNumericMask(6);
