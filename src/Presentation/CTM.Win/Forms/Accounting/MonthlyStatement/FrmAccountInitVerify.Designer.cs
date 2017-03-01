@@ -157,10 +157,12 @@
             // 
             // pagePosition
             // 
+            this.pagePosition.Appearance.Header.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.pagePosition.Appearance.Header.Options.UseFont = true;
             this.pagePosition.Controls.Add(this.gcPosition);
             this.pagePosition.Name = "pagePosition";
             this.pagePosition.Size = new System.Drawing.Size(1518, 668);
-            this.pagePosition.Text = "持仓核对";
+            this.pagePosition.Text = "    持仓核对    ";
             // 
             // gcPosition
             // 
@@ -292,10 +294,12 @@
             // 
             // pageProfit
             // 
+            this.pageProfit.Appearance.Header.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.pageProfit.Appearance.Header.Options.UseFont = true;
             this.pageProfit.Controls.Add(this.splitContainerControl1);
             this.pageProfit.Name = "pageProfit";
             this.pageProfit.Size = new System.Drawing.Size(1518, 668);
-            this.pageProfit.Text = "收益核对";
+            this.pageProfit.Text = "    收益核对    ";
             // 
             // splitContainerControl1
             // 
