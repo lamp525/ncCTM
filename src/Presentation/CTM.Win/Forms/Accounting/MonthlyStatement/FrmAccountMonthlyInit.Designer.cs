@@ -319,18 +319,18 @@
             this.cbAccount.Name = "cbAccount";
             this.cbAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbAccount.Size = new System.Drawing.Size(132, 20);
+            this.cbAccount.Size = new System.Drawing.Size(133, 20);
             this.cbAccount.StyleController = this.layoutControl1;
             this.cbAccount.TabIndex = 0;
             this.cbAccount.SelectedIndexChanged += new System.EventHandler(this.cbAccount_SelectedIndexChanged);
             // 
             // cbAttribute
             // 
-            this.cbAttribute.Location = new System.Drawing.Point(532, 45);
+            this.cbAttribute.Location = new System.Drawing.Point(517, 45);
             this.cbAttribute.Name = "cbAttribute";
             this.cbAttribute.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbAttribute.Size = new System.Drawing.Size(79, 20);
+            this.cbAttribute.Size = new System.Drawing.Size(93, 20);
             this.cbAttribute.StyleController = this.layoutControl1;
             this.cbAttribute.TabIndex = 3;
             this.cbAttribute.SelectedIndexChanged += new System.EventHandler(this.cbAttribute_SelectedIndexChanged);
@@ -348,11 +348,11 @@
             // 
             // cbSecurity
             // 
-            this.cbSecurity.Location = new System.Drawing.Point(306, 45);
+            this.cbSecurity.Location = new System.Drawing.Point(307, 45);
             this.cbSecurity.Name = "cbSecurity";
             this.cbSecurity.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbSecurity.Size = new System.Drawing.Size(149, 20);
+            this.cbSecurity.Size = new System.Drawing.Size(133, 20);
             this.cbSecurity.StyleController = this.layoutControl1;
             this.cbSecurity.TabIndex = 2;
             this.cbSecurity.SelectedIndexChanged += new System.EventHandler(this.cbSecurity_SelectedIndexChanged);
@@ -562,16 +562,16 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.cbSecurity;
-            this.layoutControlItem3.Location = new System.Drawing.Point(219, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(220, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(216, 24);
+            this.layoutControlItem3.Size = new System.Drawing.Size(200, 24);
             this.layoutControlItem3.Text = "开户券商：";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(435, 0);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(420, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 24);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -579,18 +579,18 @@
             // lci
             // 
             this.lci.Control = this.cbAttribute;
-            this.lci.Location = new System.Drawing.Point(445, 0);
+            this.lci.Location = new System.Drawing.Point(430, 0);
             this.lci.Name = "lci";
-            this.lci.Size = new System.Drawing.Size(146, 24);
+            this.lci.Size = new System.Drawing.Size(160, 24);
             this.lci.Text = "账户属性：";
             this.lci.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(591, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(590, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(99, 24);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(100, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
@@ -598,14 +598,14 @@
             this.layoutControlItem6.Control = this.cbAccount;
             this.layoutControlItem6.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(199, 24);
+            this.layoutControlItem6.Size = new System.Drawing.Size(200, 24);
             this.layoutControlItem6.Text = "账户名称:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(209, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(210, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 24);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
