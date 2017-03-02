@@ -75,7 +75,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             //证券公司
             var securityCompanys = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.SecurityCompay)
-
                         .Select(x => new ComboBoxItemModel
                         {
                             Value = x.Code.ToString(),
@@ -94,11 +93,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 now = now.AddMonths(1);
             this.deInit.EditValue = now;
 
-            this.txtTotalAsset.SetNumericMask(6);
-            this.txtAvailableFund.SetNumericMask(6);
-            this.txtPositionValue.SetNumericMask(6);
-            this.txtFinancingLimit.SetNumericMask(6);
-            this.txtFinancedAmount.SetNumericMask(6);
+            this.txtTotalAsset.SetNumericMask(2);
+            this.txtAvailableFund.SetNumericMask(2);
+            this.txtPositionValue.SetNumericMask(2);
+            this.txtFinancingLimit.SetNumericMask(2);
+            this.txtFinancedAmount.SetNumericMask(2);
 
             this.lciCancel.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             this.lciEdit.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -175,13 +174,11 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 this.txtFinancingLimit.ReadOnly = true;
                 this.txtFinancedAmount.ReadOnly = true;
 
-                var unit = (int)EnumLibrary.NumericUnit.TenThousand;
-
-                this.txtTotalAsset.EditValue = CommonHelper.SetDecimalDigits(fundInfo.TotalAsset / unit, 6);
-                this.txtAvailableFund.EditValue = CommonHelper.SetDecimalDigits(fundInfo.AvailableFund / unit, 6);
-                this.txtPositionValue.EditValue = CommonHelper.SetDecimalDigits(fundInfo.PositionValue / unit, 6);
-                this.txtFinancingLimit.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancingLimit / unit, 6);
-                this.txtFinancedAmount.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancedAmount / unit, 6);
+                this.txtTotalAsset.EditValue = CommonHelper.SetDecimalDigits(fundInfo.TotalAsset, 2);
+                this.txtAvailableFund.EditValue = CommonHelper.SetDecimalDigits(fundInfo.AvailableFund, 2);
+                this.txtPositionValue.EditValue = CommonHelper.SetDecimalDigits(fundInfo.PositionValue, 2);
+                this.txtFinancingLimit.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancingLimit, 2);
+                this.txtFinancedAmount.EditValue = CommonHelper.SetDecimalDigits(fundInfo.FinancedAmount, 2);
             }
             else
             {
@@ -251,19 +248,17 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 return;
             }
 
-            var unit = (int)EnumLibrary.NumericUnit.TenThousand;
-
             var fundInfo = new MIAccountFund
             {
                 AccountCode = _currentAccountCode,
                 AccountId = _currentAccountId,
                 Year = _currentYear,
                 Month = _currentMonth,
-                AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()) * unit,
-                FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()) * unit,
-                FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()) * unit,
-                PositionValue = Convert.ToDecimal(this.txtPositionValue.Text.Trim()) * unit,
-                TotalAsset = Convert.ToDecimal(this.txtTotalAsset.Text.Trim()) * unit,
+                AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()),
+                FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()),
+                FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()),
+                PositionValue = Convert.ToDecimal(this.txtPositionValue.Text.Trim()),
+                TotalAsset = Convert.ToDecimal(this.txtTotalAsset.Text.Trim()),
             };
 
             _statementService.SaveMIAccountFund(fundInfo);
@@ -426,7 +421,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
                 if (stockInfo == null) return;
 
-                this.luStock.EditValue = null;        
+                this.luStock.EditValue = null;
 
                 _statementService.AddMIAccountPosition(_currentAccountId, _currentAccountCode, _currentYear, _currentMonth, stockInfo.FullCode, stockInfo.Name);
 

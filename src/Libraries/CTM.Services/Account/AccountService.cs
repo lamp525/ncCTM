@@ -339,6 +339,8 @@ namespace CTM.Services.Account
         {
             var query = _accountInfoRepository.Table;
 
+            query = query.Where(x => !x.IsDisabled);
+
             if (!string.IsNullOrEmpty(accountName))
                 query = query.Where(x => x.Name == accountName);
 
