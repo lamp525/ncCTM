@@ -263,7 +263,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             _statementService.SaveMIAccountFund(fundInfo);
 
-            DXMessage.ShowTips("保存成功！");
+            DXMessage.ShowTips("保存成功！");           
 
             BindAMIFund();
         }
@@ -353,9 +353,9 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
                 BindAMIPosition();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                DXMessage.ShowError(ex.Message);
             }
         }
 

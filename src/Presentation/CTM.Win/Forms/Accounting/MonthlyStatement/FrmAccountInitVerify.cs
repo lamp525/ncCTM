@@ -76,7 +76,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             //证券公司
             var securityCompanys = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.SecurityCompay)
-
                         .Select(x => new ComboBoxItemModel
                         {
                             Value = x.Code.ToString(),
