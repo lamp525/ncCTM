@@ -10,7 +10,7 @@
 
         public decimal BuyAmount { get; set; }
 
-        public decimal SellAmont { get; set; }
+        public decimal SellAmount { get; set; }
 
         public decimal DealAmount { get; set; }
 
