@@ -12,8 +12,8 @@ namespace CTM.Services.MonthlyStatement
     {
         #region Fields
 
-        private readonly IRepository<MIAccountFund> _AMIFundRepo;
-        private readonly IRepository<MIAccountPosition> _AMIPositionRepo;
+        private readonly IRepository<MIAccountFund> _MIFundRepo;
+        private readonly IRepository<MIAccountPosition> _MIPositionRepo;
 
         private readonly IDeliveryRecordService _deliveryRecordService;
 
@@ -22,12 +22,12 @@ namespace CTM.Services.MonthlyStatement
         #region Constructors
 
         public MonthlyStatementService(
-            IRepository<MIAccountFund> accountMonthlyFundRepo,
-            IRepository<MIAccountPosition> accountMonthlyPositionRepo,
+            IRepository<MIAccountFund> MIFundRepo,
+            IRepository<MIAccountPosition> MIPositionRepo,
             IDeliveryRecordService deliveryRecordService)
         {
-            this._AMIFundRepo = accountMonthlyFundRepo;
-            this._AMIPositionRepo = accountMonthlyPositionRepo;
+            this._MIFundRepo = MIFundRepo;
+            this._MIPositionRepo = MIPositionRepo;
             this._deliveryRecordService = deliveryRecordService;
         }
 
@@ -37,9 +37,9 @@ namespace CTM.Services.MonthlyStatement
 
         public virtual MIAccountFund GetMIAccountFund(int accountId, int year, int month)
         {
-            var query = _AMIFundRepo.Table;
+            var query = _MIFundRepo.Table;
 
-            var result = query.FirstOrDefault(x => x.AccountId == accountId && x.Year == year && x.Month == month);
+            var result = query.FirstOrDefault(x => x.AccountId == accountId && x.YearMonth == (year * 100 + month));
 
             return result;
         }
@@ -49,10 +49,10 @@ namespace CTM.Services.MonthlyStatement
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            var fundInfo = _AMIFundRepo.Table.FirstOrDefault(x => x.AccountId == entity.AccountId && x.Year == entity.Year && x.Month == entity.Month);
+            var fundInfo = _MIFundRepo.Table.FirstOrDefault(x => x.AccountId == entity.AccountId && x.YearMonth == entity.YearMonth);
 
             if (fundInfo == null)
-                _AMIFundRepo.Insert(entity);
+                _MIFundRepo.Insert(entity);
             else
             {
                 fundInfo.AvailableFund = entity.AvailableFund;
@@ -61,17 +61,19 @@ namespace CTM.Services.MonthlyStatement
                 fundInfo.PositionValue = entity.PositionValue;
                 fundInfo.TotalAsset = entity.TotalAsset;
 
-                _AMIFundRepo.Update(fundInfo);
+                _MIFundRepo.Update(fundInfo);
             }
         }
 
         public virtual void ImportPositionInfoFromDelivery(int accountId, int year, int month, bool clearExisted)
         {
+            var yearMonth = year * 100 + month;
+
             if (clearExisted)
             {
-                var existedPositions = _AMIPositionRepo.Table.Where(x => x.AccountId == accountId && x.Year == year && x.Month == month);
+                var existedPositions = _MIPositionRepo.Table.Where(x => x.AccountId == accountId && x.YearMonth == yearMonth);
 
-                _AMIPositionRepo.Delete(existedPositions);
+                _MIPositionRepo.Delete(existedPositions);
             }
 
             var dateFrom = new DateTime(year, month, 1).AddMonths(-1);
@@ -90,28 +92,29 @@ namespace CTM.Services.MonthlyStatement
                     {
                         AccountCode = null,
                         AccountId = accountId,
-                        Month = month,
                         PositionVolume = positionVolume,
                         StockCode = firstRecord.StockCode,
                         StockName = firstRecord.StockName,
-                        Year = year,
+                        YearMonth = yearMonth,
                     };
 
-                    _AMIPositionRepo.Insert(entity);
+                    _MIPositionRepo.Insert(entity);
                 }
             }
         }
 
         public virtual void AddMIAccountPosition(int accountId, string accountCode, int year, int month, string stockCode, string stockName)
         {
-            var stockPosition = _AMIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.Year == year && x.Month == month && x.StockCode == stockCode);
+            var yearMonth = year * 100 + month;
+
+            var stockPosition = _MIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.YearMonth == yearMonth && x.StockCode == stockCode);
 
             if (stockPosition == null)
             {
                 var dateFrom = new DateTime(year, month, 1).AddMonths(-1);
                 var dateTo = new DateTime(year, month, 1).AddDays(-1);
 
-                var lastInitPosition = _AMIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.Year == dateFrom.Year && x.Month == dateFrom.Month && x.StockCode == stockCode);
+                var lastInitPosition = _MIPositionRepo.TableNoTracking.FirstOrDefault(x => x.AccountId == accountId && x.YearMonth == (dateFrom.Year * 100 + dateFrom.Month) && x.StockCode == stockCode);
 
                 decimal deliveryPositionVolume = 0;
 
@@ -124,26 +127,25 @@ namespace CTM.Services.MonthlyStatement
                 {
                     AccountCode = accountCode,
                     AccountId = accountId,
-                    Month = month,
                     PositionVolume = deliveryPositionVolume,
                     StockCode = stockCode,
                     StockName = stockName,
-                    Year = year,
+                    YearMonth = yearMonth,
                 };
 
-                _AMIPositionRepo.Insert(positionInfo);
+                _MIPositionRepo.Insert(positionInfo);
             }
         }
 
         public virtual void UpdateMIAccountPosition(int positionId, decimal positionVolume)
         {
-            var positionInfo = _AMIPositionRepo.Table.FirstOrDefault(x => x.Id == positionId);
+            var positionInfo = _MIPositionRepo.Table.FirstOrDefault(x => x.Id == positionId);
 
             if (positionInfo != null)
             {
                 positionInfo.PositionVolume = positionVolume;
 
-                _AMIPositionRepo.Update(positionInfo);
+                _MIPositionRepo.Update(positionInfo);
             }
         }
 
@@ -152,14 +154,14 @@ namespace CTM.Services.MonthlyStatement
             if (positionIds == null)
                 throw new ArgumentNullException(nameof(positionIds));
 
-            var positionInfos = _AMIPositionRepo.Table.Where(x => positionIds.Contains(x.Id));
+            var positionInfos = _MIPositionRepo.Table.Where(x => positionIds.Contains(x.Id));
 
-            _AMIPositionRepo.Delete(positionInfos);
+            _MIPositionRepo.Delete(positionInfos);
         }
 
         public virtual IList<MIAccountPosition> GetMIAccountPosition(int accountId, int year, int month)
         {
-            var query = _AMIPositionRepo.Table.Where(x => x.AccountId == accountId && x.Year == year && x.Month == month);
+            var query = _MIPositionRepo.Table.Where(x => x.AccountId == accountId && x.YearMonth == year * 100 + month);
 
             return query.ToList();
         }

@@ -5,11 +5,7 @@
     /// </summary>
     public class MIAccountPosition : BaseEntity
     {
-        public int YearMonth { get; set; }
-
-        public int Year { get; set; }
-
-        public int Month { get; set; }
+        public int YearMonth { get; set; }   
 
         public int AccountId { get; set; }
 

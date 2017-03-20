@@ -252,8 +252,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             {
                 AccountCode = _currentAccountCode,
                 AccountId = _currentAccountId,
-                Year = _currentYear,
-                Month = _currentMonth,
+                YearMonth = _currentYear * 100 + _currentMonth,
                 AvailableFund = Convert.ToDecimal(this.txtAvailableFund.Text.Trim()),
                 FinancedAmount = Convert.ToDecimal(this.txtFinancedAmount.Text.Trim()),
                 FinancingLimit = Convert.ToDecimal(this.txtFinancingLimit.Text.Trim()),
@@ -263,7 +262,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
             _statementService.SaveMIAccountFund(fundInfo);
 
-            DXMessage.ShowTips("保存成功！");           
+            DXMessage.ShowTips("保存成功！");
 
             BindAMIFund();
         }
