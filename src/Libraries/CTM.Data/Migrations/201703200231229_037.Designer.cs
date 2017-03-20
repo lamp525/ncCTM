@@ -7,13 +7,13 @@ namespace CTM.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _038 : IMigrationMetadata
+    public sealed partial class _037 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_038));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_037));
         
         string IMigrationMetadata.Id
         {
-            get { return "201702240643111_038"; }
+            get { return "201703200231229_037"; }
         }
         
         string IMigrationMetadata.Source

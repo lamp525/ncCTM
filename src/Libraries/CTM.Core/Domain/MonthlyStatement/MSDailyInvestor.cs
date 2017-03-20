@@ -1,12 +1,26 @@
 ﻿namespace CTM.Core.Domain.MonthlyStatement
 {
-    public class MSInvestorProfit : BaseEntity
+    public class MSDailyInvestor : BaseEntity
     {
+        public int YearMonth { get; set; }
+
         public string InvestorCode { get; set; }
 
-        public int Year { get; set; }
+        public decimal PositionValue { get; set; }
 
-        public int Month { get; set; }
+        public decimal BuyAmount { get; set; }
+
+        public decimal SellAmont { get; set; }
+
+        public decimal DealAmount { get; set; }
+
+        public decimal MarginAmount { get; set; }
+
+        public decimal AccumulatedInterest { get; set; }
+
+        public decimal YearInterest { get; set; }
+
+        public decimal MonthInterest { get; set; }
 
         /// <summary>
         /// 累计收益

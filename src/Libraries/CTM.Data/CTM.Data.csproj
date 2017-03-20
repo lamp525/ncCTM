@@ -88,11 +88,15 @@
     <Compile Include="Mapping\InvestmentDecision\MarketTrendForecastInfoMap.cs" />
     <Compile Include="Mapping\Log\LoginLogMap.cs" />
     <Compile Include="Mapping\MarginTrading\MarginTradingInfoMap.cs" />
-    <Compile Include="Mapping\MonthlyStatement\MSInvestorProfitMap.cs" />
-    <Compile Include="Mapping\MonthlyStatement\MSAccountFundMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\DSDailyDetailMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\DSDailyInvestorMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSDailyInvestorMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\DSDeliveryAccountMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSDeliveryAccountMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MIAccountFundMap.cs" />
-    <Compile Include="Mapping\MonthlyStatement\MSProfitDetailMap.cs" />
-    <Compile Include="Mapping\MonthlyStatement\MSAccountPositionMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSDailyDetailMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\DSDeliveryDetailMap.cs" />
+    <Compile Include="Mapping\MonthlyStatement\MSDeliveryDetailMap.cs" />
     <Compile Include="Mapping\MonthlyStatement\MIAccountPositionMap.cs" />
     <Compile Include="Mapping\Stock\StockPoolLogMap.cs" />
     <Compile Include="Mapping\Stock\StockTransferInfoMap.cs" />
@@ -257,13 +261,9 @@
     <Compile Include="Migrations\201702090148334_036.Designer.cs">
       <DependentUpon>201702090148334_036.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702220759320_037.cs" />
-    <Compile Include="Migrations\201702220759320_037.Designer.cs">
-      <DependentUpon>201702220759320_037.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702240643111_038.cs" />
-    <Compile Include="Migrations\201702240643111_038.Designer.cs">
-      <DependentUpon>201702240643111_038.cs</DependentUpon>
+    <Compile Include="Migrations\201703200231229_037.cs" />
+    <Compile Include="Migrations\201703200231229_037.Designer.cs">
+      <DependentUpon>201703200231229_037.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -391,11 +391,8 @@
     <EmbeddedResource Include="Migrations\201702090148334_036.resx">
       <DependentUpon>201702090148334_036.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702220759320_037.resx">
-      <DependentUpon>201702220759320_037.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702240643111_038.resx">
-      <DependentUpon>201702240643111_038.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703200231229_037.resx">
+      <DependentUpon>201703200231229_037.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -1,14 +1,12 @@
 ﻿namespace CTM.Core.Domain.MonthlyStatement
 {
-    public class MSAccountFund : BaseEntity
+    public class MSDeliveryAccount : BaseEntity
     {
+        public int YearMonth { get; set; }
+
         public int AccountId { get; set; }
 
         public string AccountCode { get; set; }
-
-        public int Year { get; set; }
-
-        public int Month { get; set; }
 
         /// <summary>
         /// 总资产

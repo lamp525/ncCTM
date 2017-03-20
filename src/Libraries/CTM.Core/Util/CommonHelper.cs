@@ -745,7 +745,8 @@ namespace CTM.Core.Util
                 result = result + item + ",";
             }
 
-            result = result.Substring(0, result.Length - 1);
+            if (!string.IsNullOrEmpty(result))
+                result = result.Substring(0, result.Length - 1);
 
             return result;
         }

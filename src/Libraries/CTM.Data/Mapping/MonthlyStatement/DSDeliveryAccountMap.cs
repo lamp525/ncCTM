@@ -3,11 +3,11 @@ using CTM.Core.Domain.MonthlyStatement;
 
 namespace CTM.Data.Mapping.MonthlyStatement
 {
-    public partial class MIAccountFundMap : EntityTypeConfiguration<MIAccountFund>
+    public partial class DSDeliveryAccountMap : EntityTypeConfiguration<DSDeliveryAccount>
     {
-        public MIAccountFundMap()
+        public DSDeliveryAccountMap()
         {
-            this.ToTable(nameof(MIAccountFund));
+            this.ToTable(nameof(DSDeliveryAccount));
             this.HasKey(p => p.Id);
 
             this.Property(p => p.AccountCode).HasMaxLength(20);
@@ -17,6 +17,9 @@ namespace CTM.Data.Mapping.MonthlyStatement
             this.Property(p => p.PositionValue).HasPrecision(24, 4);
             this.Property(p => p.FinancedAmount).HasPrecision(24, 4);
             this.Property(p => p.FinancingLimit).HasPrecision(24, 4);
+            this.Property(p => p.AccumulatedProfit).HasPrecision(24, 4);
+            this.Property(p => p.YearProfit).HasPrecision(24, 4);
+            this.Property(p => p.DayProfit).HasPrecision(24, 4);
         }
     }
 }
