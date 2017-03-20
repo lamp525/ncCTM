@@ -12,7 +12,7 @@ namespace CTM.Core.Domain.MonthlyStatement
 
         public decimal BuyAmount { get; set; }
 
-        public decimal SellAmont { get; set; }
+        public decimal SellAmount { get; set; }
 
         public decimal DealAmount { get; set; }
 
@@ -22,7 +22,7 @@ namespace CTM.Core.Domain.MonthlyStatement
 
         public decimal YearInterest { get; set; }
 
-        public decimal MonthInterest { get; set; }
+        public decimal DayInterest { get; set; }
 
         /// <summary>
         /// 累计收益

@@ -666,6 +666,7 @@
     <Compile Include="Util\DataSourceHelper.cs" />
     <Compile Include="Util\NetHelper.cs" />
     <Compile Include="Util\IniConfigHelper.cs" />
+    <Content Include="App_Data\Install\DBMigration_038.sql" />
     <Content Include="App_Data\Install\DBMigration_037.sql" />
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
     <Content Include="App_Data\Install\DBMigration_036.sql" />
