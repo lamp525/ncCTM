@@ -317,7 +317,7 @@
             // 
             this.colDeliveryDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
             this.colDeliveryDifference_V.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryDifference_V.Caption = "交割单与财务核算差额";
+            this.colDeliveryDifference_V.Caption = "财务核算与交割单差额";
             this.colDeliveryDifference_V.DisplayFormat.FormatString = "N0";
             this.colDeliveryDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDeliveryDifference_V.FieldName = "DeliveryDifference";
@@ -341,7 +341,7 @@
             // 
             this.colDailyDifference_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
             this.colDailyDifference_V.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyDifference_V.Caption = "当日委托与交割单差额";
+            this.colDailyDifference_V.Caption = "交割单与当日委托差额";
             this.colDailyDifference_V.DisplayFormat.FormatString = "N0";
             this.colDailyDifference_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDailyDifference_V.FieldName = "DailyDifference";
