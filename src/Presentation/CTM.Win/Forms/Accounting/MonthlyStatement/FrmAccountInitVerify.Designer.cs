@@ -304,8 +304,6 @@
             // 
             // colDeliveryVolume_V
             // 
-            this.colDeliveryVolume_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
-            this.colDeliveryVolume_V.AppearanceCell.Options.UseBackColor = true;
             this.colDeliveryVolume_V.Caption = "交割单持仓";
             this.colDeliveryVolume_V.DisplayFormat.FormatString = "N0";
             this.colDeliveryVolume_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -330,8 +328,6 @@
             // 
             // colDailyVolume_V
             // 
-            this.colDailyVolume_V.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
-            this.colDailyVolume_V.AppearanceCell.Options.UseBackColor = true;
             this.colDailyVolume_V.Caption = "当日委托持仓";
             this.colDailyVolume_V.DisplayFormat.FormatString = "N0";
             this.colDailyVolume_V.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -549,8 +545,6 @@
             // 
             // colDeliveryAmount_A1
             // 
-            this.colDeliveryAmount_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
-            this.colDeliveryAmount_A1.AppearanceCell.Options.UseBackColor = true;
             this.colDeliveryAmount_A1.Caption = "交割单收益额(B)";
             this.colDeliveryAmount_A1.DisplayFormat.FormatString = "N2";
             this.colDeliveryAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -575,8 +569,6 @@
             // 
             // colDailyAmount_A1
             // 
-            this.colDailyAmount_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
-            this.colDailyAmount_A1.AppearanceCell.Options.UseBackColor = true;
             this.colDailyAmount_A1.Caption = "委托收益额(C)";
             this.colDailyAmount_A1.DisplayFormat.FormatString = "N2";
             this.colDailyAmount_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;

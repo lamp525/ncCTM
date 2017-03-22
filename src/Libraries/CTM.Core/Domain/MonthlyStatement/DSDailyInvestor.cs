@@ -6,6 +6,8 @@ namespace CTM.Core.Domain.MonthlyStatement
     {
         public DateTime TradeDate { get; set; }
 
+        public int WeekDay { get; set; }
+
         public string InvestorCode { get; set; }
 
         public decimal PositionValue { get; set; }
