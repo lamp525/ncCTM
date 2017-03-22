@@ -558,7 +558,7 @@
             // 
             this.colDeliveryDifference_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(244)))), ((int)(((byte)(255)))));
             this.colDeliveryDifference_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDeliveryDifference_A1.Caption = "差额(B - A)";
+            this.colDeliveryDifference_A1.Caption = "差额(A - B)";
             this.colDeliveryDifference_A1.DisplayFormat.FormatString = "N2";
             this.colDeliveryDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDeliveryDifference_A1.FieldName = "DeliveryDifference";
@@ -582,7 +582,7 @@
             // 
             this.colDailyDifference_A1.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(238)))), ((int)(((byte)(255)))));
             this.colDailyDifference_A1.AppearanceCell.Options.UseBackColor = true;
-            this.colDailyDifference_A1.Caption = "差额(C - B)";
+            this.colDailyDifference_A1.Caption = "差额(B - C)";
             this.colDailyDifference_A1.DisplayFormat.FormatString = "N2";
             this.colDailyDifference_A1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDailyDifference_A1.FieldName = "DailyDifference";
