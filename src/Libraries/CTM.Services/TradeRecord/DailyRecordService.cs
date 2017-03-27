@@ -123,12 +123,14 @@ namespace CTM.Services.TradeRecord
                                                                                                              && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
                                                                                                .ToList();
             }
-            //else
-            //{
-            //    validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
-            //                                                                                                 && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
-            //                                                                                  .ToList();
-            //}
+            else
+            {
+                //validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
+                //                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
+                //                                                                              .ToList();
+
+                validRecords = importDataTable.AsEnumerable().ToList();
+            }
 
             _skippedRecords = importDataTable.AsEnumerable().Where(x => !validRecords.Contains(x)).ToList();
 
