@@ -27,7 +27,7 @@ namespace CTM.Services.TradeRecord
 
         private IList<DataRow> _skippedRecords = null;
 
-        private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入","红股入帐","新股入帐","红股入账", "新股入账" };
+        private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入", "红股入帐", "新股入帐", "红股入账", "新股入账" };
         private readonly List<string> _sellTexts = new List<string> { "融券购回", "卖券还款" };
 
         #endregion Fields
@@ -123,12 +123,12 @@ namespace CTM.Services.TradeRecord
                                                                                                              && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
                                                                                                .ToList();
             }
-            else
-            {
-                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
-                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
-                                                                                              .ToList();
-            }
+            //else
+            //{
+            //    validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealPrice)]).Trim()) != 0
+            //                                                                                                 && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0)
+            //                                                                                  .ToList();
+            //}
 
             _skippedRecords = importDataTable.AsEnumerable().Where(x => !validRecords.Contains(x)).ToList();
 
@@ -211,6 +211,16 @@ namespace CTM.Services.TradeRecord
                 ///当日委托
                 else
                 {
+                    //委托数量
+                    record.EntrustVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.EntrustVolume)]].ToString().Trim());
+                    //委托价格
+                    record.EntrustPrice = CommonHelper.StringToDecimal(row[columnList[nameof(record.EntrustPrice)]].ToString().Trim());
+                    //委托金额
+                    if (string.IsNullOrEmpty(columnList[nameof(record.EntrustAmount)]))
+                        record.EntrustAmount = record.EntrustVolume * record.EntrustPrice;
+                    else
+                        record.EntrustAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.EntrustAmount)]].ToString().Trim());
+
                     //佣金
                     record.Commission = record.DealAmount * currentAccount.CommissionRate;
                     //印花税
@@ -254,6 +264,16 @@ namespace CTM.Services.TradeRecord
 
             switch (securityAccount)
             {
+                ////中银信用
+                //case EnumLibrary.SecurityAccount.BOCI_C:
+                //    result = EntrustImportBOCI_C(importOperation, importDataTable);
+                //    break;
+
+                //中银普通
+                case EnumLibrary.SecurityAccount.BOCI_N:
+                    result = EntrustImportBOCI_N(importOperation, importDataTable);
+                    break;
+
                 //财通信用
                 case EnumLibrary.SecurityAccount.CaiTong_C:
                     result = EntrustImportCaiTong_C(importOperation, importDataTable);
@@ -262,6 +282,16 @@ namespace CTM.Services.TradeRecord
                 //财通普通
                 case EnumLibrary.SecurityAccount.CaiTong_N:
                     result = EntrustImportCaiTong_N(importOperation, importDataTable);
+                    break;
+
+                //中信信用
+                case EnumLibrary.SecurityAccount.CITIC_C:
+                    result = EntrustImportCITIC_C(importOperation, importDataTable);
+                    break;
+
+                //中信普通
+                case EnumLibrary.SecurityAccount.CITIC_N:
+                    result = EntrustImportCITIC_N(importOperation, importDataTable);
                     break;
 
                 //方正普通
@@ -311,34 +341,12 @@ namespace CTM.Services.TradeRecord
 
                 //浙商信用
                 case EnumLibrary.SecurityAccount.ZheShang_C:
-                    result = EntrustImportZheShang_C(importOperation ,importDataTable );
+                    result = EntrustImportZheShang_C(importOperation, importDataTable);
                     break;
 
                 //浙商普通
                 case EnumLibrary.SecurityAccount.ZheShang_N:
                     result = EntrustImportZheShang_N(importOperation, importDataTable);
-                    break;
-
-                
-
-                //中信普通
-                case EnumLibrary.SecurityAccount.CITIC_N:
-                    result = EntrustImportCITIC_N(importOperation, importDataTable);
-                    break;
-
-                //中信信用
-                case EnumLibrary.SecurityAccount.CITIC_C:
-                    result = EntrustImportCITIC_C(importOperation, importDataTable);
-                    break;
-
-                ////中银信用
-                //case EnumLibrary.SecurityAccount.BOCI_C:
-                //    result = EntrustImportBOCI_C(importOperation, importDataTable);
-                //    break;
-
-                //中银普通
-                case EnumLibrary.SecurityAccount.BOCI_N:
-                    result = EntrustImportBOCI_N(importOperation, importDataTable);
                     break;
 
                 default:
@@ -367,6 +375,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -404,6 +415,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -441,6 +455,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -478,6 +495,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "买卖");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
@@ -515,6 +535,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "买卖");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -552,6 +575,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -589,6 +615,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
@@ -626,6 +655,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
@@ -663,6 +695,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "买卖标志");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "委托价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -700,6 +735,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -737,6 +775,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -774,6 +815,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -811,6 +855,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
@@ -848,6 +895,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "买卖标志");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -885,6 +935,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "订单类型");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -902,7 +955,7 @@ namespace CTM.Services.TradeRecord
             return tradeRecords;
         }
 
-        #endregion 当日委托--浙商证券（普通）
+        #endregion 当日委托--浙商证券（信用）
 
         #region 当日委托--浙商证券（普通）
 
@@ -922,6 +975,9 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
@@ -1368,7 +1424,7 @@ namespace CTM.Services.TradeRecord
             return tradeRecords;
         }
 
-        #endregion 交割单--财通证券（普通）
+        #endregion 交割单--安信证券（普通）
 
         #region 交割单--方正证券（普通）
 

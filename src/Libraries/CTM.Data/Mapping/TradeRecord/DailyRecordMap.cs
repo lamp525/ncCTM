@@ -22,6 +22,9 @@ namespace CTM.Data.Mapping.TradeRecord
             this.Property(p => p.UpdateUser).HasMaxLength(20);
             this.Property(p => p.Remarks).HasMaxLength(200);
 
+            this.Property(p => p.EntrustPrice).HasPrecision(18, 4);
+            this.Property(p => p.EntrustVolume).HasPrecision(24, 0);
+            this.Property(p => p.EntrustAmount).HasPrecision(24, 4);
             this.Property(p => p.DealPrice).HasPrecision(18, 4);
             this.Property(p => p.DealVolume).HasPrecision(24, 0);
             this.Property(p => p.DealAmount).HasPrecision(24, 4);

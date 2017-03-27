@@ -75,6 +75,21 @@ namespace CTM.Core.Domain.TradeRecord
         public string DealNo { get; set; }
 
         /// <summary>
+        /// 委托数量
+        /// </summary>
+        public decimal EntrustVolume { get; set; }
+
+        /// <summary>
+        /// 委托价格
+        /// </summary>
+        public decimal EntrustPrice { get; set; }
+
+        /// <summary>
+        /// 委托金额
+        /// </summary>
+        public decimal EntrustAmount { get; set; }
+
+        /// <summary>
         /// 成交价格
         /// </summary>
         public decimal DealPrice { get; set; }
