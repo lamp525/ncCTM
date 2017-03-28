@@ -115,7 +115,7 @@ namespace CTM.Services.TradeRecord
 
             List<DataRow> validRecords = new List<DataRow>();
 
-            ///过滤记录
+            //过滤记录
             if (isDelivery)
             {
                 validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsNumberAndAlphabet(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
@@ -181,8 +181,11 @@ namespace CTM.Services.TradeRecord
                 //成交价格
                 record.DealPrice = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
                 //成交数量
-                var dealVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
-                record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
+                if (record.DealPrice > 0)
+                {            
+                    var dealVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
+                    record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
+                }
                 //成交金额
                 if (string.IsNullOrEmpty(columnList[nameof(record.DealAmount)]))
                     record.DealAmount = record.DealPrice * Math.Abs(record.DealVolume);
