@@ -262,6 +262,22 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
 
         #region PageProfit
 
+        private void btnAccountAdjust_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnAccountAdjust.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnAccountAdjust.Enabled = true;
+            }
+        }
+
         private void gvAccountProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle > -1)
@@ -300,6 +316,22 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnStockAdjust_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnStockAdjust.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnStockAdjust.Enabled = true;
             }
         }
 
