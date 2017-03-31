@@ -30,6 +30,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
         private const string _layoutXmlName = "FrmUserInvestIncomeDaily";
 
+        private int _currentDeptId;
+
         #endregion Fields
 
         #region Constructors
@@ -204,9 +206,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.deTradeDate.EditValue = endDate;
 
                 //部门ID
-                var deptId = int.Parse(this.cbDepartment.SelectedValue());
+                this._currentDeptId = int.Parse(this.cbDepartment.SelectedValue());
 
-                var investIncomes = this.DataFormat(this.CalculateUserDailyInvestIncome(endDate, deptId)).OrderBy(x => x.Investor);
+                var investIncomes = this.DataFormat(this.CalculateUserDailyInvestIncome(endDate, this._currentDeptId)).OrderBy(x => x.Investor);
 
                 this.gridControl1.DataSource = investIncomes;
             }
@@ -253,6 +255,33 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     e.Appearance.ForeColor = System.Drawing.Color.Red;
                 else if (cellValue < 0)
                     e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+
+            if (e.Column == this.colCurrentIncomeRate)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                switch (this._currentDeptId)
+                {
+                    case (int)EnumLibrary.AccountingDepartment.Day:
+                        if (cellValue <= -0.003M)
+                        {
+                            e.Appearance.ForeColor = System.Drawing.Color.Black;
+                            if (cellValue > -0.005M)
+                                e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                            else
+                                e.Appearance.BackColor = System.Drawing.Color.Red;
+                        }
+                        break;
+
+                    case (int)EnumLibrary.AccountingDepartment.Band:
+                    case (int)EnumLibrary.AccountingDepartment.Target:
+                    case (int)EnumLibrary.AccountingDepartment.Independence:
+
+
+                    case (int)EnumLibrary.AccountingDepartment.All:
+                    default:
+                        break;
+                }
             }
         }
 
