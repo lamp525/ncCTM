@@ -241,6 +241,12 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.Designer.cs">
+      <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -739,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.resx">
+      <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.resx">
       <DependentUpon>FrmInvestmentPlanRecord.cs</DependentUpon>
