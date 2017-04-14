@@ -120,7 +120,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             try
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
+                this.gridView1.SetLayout(showGroupPanel:true,showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
                 this.gridView1.SetColumnHeaderAppearance();
 
                 BindSearchInfo();
