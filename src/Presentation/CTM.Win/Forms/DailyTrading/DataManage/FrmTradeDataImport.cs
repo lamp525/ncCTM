@@ -160,7 +160,8 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             };
 
             //波段负责人
-            var bandOperatorInfos = _userService.GetUserInfos(new int[] { (int)EnumLibrary.AccountingDepartment.Band, (int)EnumLibrary.AccountingDepartment.Independence }).Where(x => x.IsDeleted == false).ToList();
+            //var bandOperatorInfos = _userService.GetUserInfos(new int[] { (int)EnumLibrary.AccountingDepartment.Band, (int)EnumLibrary.AccountingDepartment.Independence }).Where(x => x.IsDeleted == false).ToList();
+            var bandOperatorInfos = _userService.GetAllOperators().ToList();
             bandOperatorInfos.Add(noneModel);
             bandOperatorInfos = bandOperatorInfos.OrderBy(x => x.Code).ToList();
             this.luBandPrincipal.Initialize(bandOperatorInfos, "Code", "Name", enableSearch: true);
