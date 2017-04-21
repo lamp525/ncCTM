@@ -241,10 +241,10 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.cs">
+    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.Designer.cs">
+    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.Designer.cs">
       <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.cs">
@@ -746,7 +746,7 @@
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmUserTradeIdentifier.resx">
+    <EmbeddedResource Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.resx">
       <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.resx">
@@ -920,6 +920,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

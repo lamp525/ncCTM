@@ -15,6 +15,7 @@ using CTM.Win.Forms.Admin.Log;
 using CTM.Win.Forms.DailyTrading.DataManage;
 using CTM.Win.Forms.DailyTrading.ReportExport;
 using CTM.Win.Forms.DailyTrading.StatisticsReport;
+using CTM.Win.Forms.DailyTrading.TradeIdentifier;
 using CTM.Win.Forms.InvestmentDecision;
 using CTM.Win.Forms.MarginTrading;
 using CTM.Win.Forms.Setting;
@@ -197,6 +198,11 @@ namespace CTM.Win.Forms
         #endregion DataMange
 
         #region MonthlyProcess
+
+        private void barButtonItem37_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountInitVerify>("账户收益持仓核对");
+        }
 
         /// <summary>
         /// 账户期初资金和持仓
@@ -689,9 +695,12 @@ namespace CTM.Win.Forms
 
         #endregion Events
 
-        private void barButtonItem37_ItemClick_1(object sender, ItemClickEventArgs e)
+    
+
+        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm < FrmAccountInitVerify>("账户收益持仓核对");
+            this.DisplayTabbedForm <FrmUserTradeIdentifier>("交易标识");
+            
         }
     }
 }

@@ -581,6 +581,28 @@ namespace CTM.Core.Util
         }
 
         /// <summary>
+        /// 字符串转化为Double
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double StringToDouble(string value)
+        {
+            double result;
+
+            try
+            {
+                result = Convert.ToDouble(value);
+            }
+            catch (Exception)
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
         /// 整数到字节数组的转换
         /// </summary>
         /// <param name="number"></param>
