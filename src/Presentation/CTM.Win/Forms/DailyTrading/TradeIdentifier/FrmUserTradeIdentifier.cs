@@ -62,25 +62,28 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             this.deEnd.EditValue = now;
 
             this.btnView.Enabled = false;
+
+            this.esiProfitTitle.Text = string.Empty;
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
         }
 
         private void ChartInit()
         {
             #region Chart
 
-            //ChartTitle chartTitle = new ChartTitle();
-            ////标题内容
-            //chartTitle.Text = "股票名称（股票代码） - 投资人员";
-            ////字体颜色
-            //chartTitle.TextColor = Color.OrangeRed;
-            ////字体类型字号
-            //chartTitle.Font = new Font("Tahoma", 14, FontStyle.Bold);
-            ////标题对齐方式
-            //chartTitle.Dock = ChartTitleDockStyle.Top;
-            //chartTitle.Alignment = StringAlignment.Center;
+            ChartTitle chartTitle = new ChartTitle();
+            //标题内容
+            chartTitle.Text = string.Empty;
+            //字体颜色
+            chartTitle.TextColor = Color.White;
+            //字体类型字号
+            chartTitle.Font = new Font("Tahoma", 9, FontStyle.Bold);
+            //标题对齐方式
+            chartTitle.Dock = ChartTitleDockStyle.Top;
+            chartTitle.Alignment = StringAlignment.Near;
 
-            //chartControl1.Titles.Clear();
-            //chartControl1.Titles.Add(chartTitle);
+            chartControl1.Titles.Clear();
+            chartControl1.Titles.Add(chartTitle);
 
             chartControl1.BackColor = Color.Black;
 
@@ -90,21 +93,21 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             chartControl1.RuntimeHitTesting = true;
 
             _crosshairFreePosition1.DockTargetName = "Default Pane";
-            _crosshairFreePosition1.DockCorner = DockCorner.LeftTop;
-            _crosshairFreePosition1.OffsetX = 45;
-            _crosshairFreePosition1.OffsetY = 12;
+            _crosshairFreePosition1.DockCorner = DockCorner.RightTop;
+            _crosshairFreePosition1.OffsetX = 50;
+            _crosshairFreePosition1.OffsetY = 30;
 
             chartControl1.CrosshairOptions.CommonLabelPosition = _crosshairFreePosition1;
             chartControl1.CrosshairOptions.ShowValueLine = true;
             chartControl1.CrosshairOptions.ShowValueLabels = true;
             chartControl1.CrosshairOptions.ShowArgumentLine = true;
-            chartControl1.CrosshairOptions.ShowArgumentLabels = true;
+            chartControl1.CrosshairOptions.ShowArgumentLabels = true;          
 
             #endregion Chart
 
             #region Series
 
-            _seriesDayKLine = new Series("日行情", ViewType.CandleStick);
+           _seriesDayKLine = new Series("日行情", ViewType.CandleStick);
 
             _seriesDayKLine.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
             CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayKLine.View;
@@ -126,7 +129,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myDiagram.DefaultPane.BorderColor = _redColor;
             myDiagram.EnableAxisXScrolling = true;
             myDiagram.EnableAxisXZooming = true;
-          
+
             #endregion XYDiagram
 
             #region AxisX
@@ -160,11 +163,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisY.WholeRange.Auto = false;
 
             #endregion AxisY
-        }
-
-        private void GirdInit()
-        {
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
         }
 
         private void GetIdentifierData()
@@ -309,8 +307,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 FormInit();
 
                 ChartInit();
-
-                GirdInit();
             }
             catch (Exception ex)
             {
@@ -403,6 +399,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 this._chartGenerated = false;
                 this.btnView.Enabled = false;
 
+                chartControl1.Titles[0].Text = luStock.Text;
+
                 var stockCode = luStock.SelectedValue();
                 _stockRecords = _investorRecords.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
                 _stockKLineData = _kLineData.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
@@ -460,7 +458,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (!_chartGenerated || _stockTradeAvg == null || _stockTradeAvg.Rows.Count == 0) return;
 
                 Graphics g = e.Graphics;
-                
+
                 Pen pArrow = new Pen(Color.White, 0.5f);
                 pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                 pArrow.EndCap = LineCap.ArrowAnchor;
@@ -515,7 +513,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             {
                 foreach (CrosshairElement element in elementGroup.CrosshairElements)
                 {
-                    element.LabelElement.TextColor = Color.OrangeRed;                   
+                    element.LabelElement.TextColor = Color.OrangeRed;
                 }
             }
         }
