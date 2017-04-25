@@ -19,7 +19,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
     {
         #region Fields
 
-        private Series _seriesDayMarketData;
+        private Series _seriesDayKLine;
         private CrosshairFreePosition _crosshairFreePosition1 = new CrosshairFreePosition();
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
@@ -105,10 +105,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
             #region Series
 
-            _seriesDayMarketData = new Series("日行情", ViewType.CandleStick);
+            _seriesDayKLine = new Series("日行情", ViewType.CandleStick);
 
-            _seriesDayMarketData.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
-            CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayMarketData.View;
+            _seriesDayKLine.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayKLine.View;
             myView.Color = _redColor;
             myView.LineThickness = 1;
             myView.LevelLineLength = 0.15;
@@ -116,7 +116,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myView.ReductionOptions.Color = Color.FromArgb(102, 255, 255);
             myView.ReductionOptions.Visible = true;
 
-            this.chartControl1.Series.Add(_seriesDayMarketData);
+            this.chartControl1.Series.Add(_seriesDayKLine);
 
             #endregion Series
 
@@ -127,7 +127,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myDiagram.DefaultPane.BorderColor = _redColor;
             myDiagram.EnableAxisXScrolling = true;
             myDiagram.EnableAxisXZooming = true;
-            myDiagram.ZoomingOptions.AxisXMaxZoomPercent = 300;
+            //myDiagram.ZoomingOptions.AxisXMaxZoomPercent = 300;
 
             #endregion XYDiagram
 
@@ -168,7 +168,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
         }
-
 
         private void GetIdentifierData()
         {
@@ -235,7 +234,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void DisplayChart()
         {
-            _seriesDayMarketData.Points.Clear();
+            _seriesDayKLine.Points.Clear();
 
             double low, high, open, close;
             foreach (DataRow row in _stockKLineData.Rows)
@@ -248,7 +247,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 close = CommonHelper.StringToDouble(row["Close"].ToString().Trim());
                 SeriesPoint spDayMD = new SeriesPoint(tradeDate, new double[] { low, high, open, close });
 
-                _seriesDayMarketData.Points.Add(spDayMD);
+                _seriesDayKLine.Points.Add(spDayMD);
             }
 
             //this.chartControl1.Series.Add(_seriesDayMarketData);
@@ -256,25 +255,50 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
 
             AxisX myAxisX = myDiagram.AxisX;
-            //myAxisX.WholeRange.AutoSideMargins = false;
-            //myAxisX.WholeRange.SideMarginsValue = 1D;
+            myAxisX.WholeRange.AutoSideMargins = false;
+            myAxisX.WholeRange.SideMarginsValue = 4D;
             myAxisX.WholeRange.SetMinMaxValues(_startDate, _endDate);
             myAxisX.VisualRange.Auto = false;
             myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-2), _endDate);
 
             AxisY myAxisY = myDiagram.AxisY;
-            _lowestPrice = _stockKLineData.AsEnumerable().Select(x => x.Field<decimal>("Low")).Min();
-            _highestPrice = _stockKLineData.AsEnumerable().Select(x => x.Field<decimal>("High")).Max();
-            myAxisY.WholeRange.SetMinMaxValues(_lowestPrice, _highestPrice);
+            var currentKLineData = _stockKLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= _endDate.AddMonths(-2) && x.Field<DateTime>("TradeDate") <= _endDate);
+            decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
+            decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
+            myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
         }
 
-
-        private void BindCurrentProfit()
+        private void BindDayPositionProfit(DateTime tradeDate)
         {
-            throw new NotImplementedException();
+            esiProfitTitle.Text = $@"{tradeDate.ToShortDateString()} - {luStock.Text} - {luInvestor.Text}";
+
+            var investorCode = luInvestor.SelectedValue();
+            var stockCode = luStock.SelectedValue();
+
+            var commandText = $@"EXEC [dbo].[sp_InvestorStockProfitDaily] @InvestorCode = '{investorCode}', @StockCode = '{stockCode}',	 @TradeDate = '{tradeDate}'";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds != null && ds.Tables.Count == 1)
+            {
+                DataRow profit = ds.Tables[0].Rows[0];
+
+                txtVolume.Text = CommonHelper.StringToDecimal(profit["PositionVolume"].ToString()).ToString("N0");
+                txtValue.Text = CommonHelper.StringToDecimal(profit["PositionValue"].ToString()).ToString("N4");
+                txtProfit.Text = CommonHelper.StringToDecimal(profit["DayProfit"].ToString()).ToString("n4");
+            }
         }
 
+        private void ReDrawAxisY(ChartControl chart, RangeInfo newXRange)
+        {
+            var minValueX = CommonHelper.StringToDateTime(newXRange.MinValue.ToString());
+            var maxValueX = CommonHelper.StringToDateTime(newXRange.MaxValue.ToString());
+            var currentKLineData = _stockKLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= minValueX && x.Field<DateTime>("TradeDate") <= maxValueX);
+            decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
+            decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
 
+            AxisY myAxisY = (chart.Diagram as XYDiagram).AxisY;
+            myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
+        }
 
         #endregion Utilities
 
@@ -295,7 +319,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 DXMessage.ShowError(ex.Message);
             }
         }
-
 
         private void deStart_EditValueChanged(object sender, EventArgs e)
         {
@@ -318,6 +341,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 _endDate = CommonHelper.StringToDateTime(deEnd.EditValue.ToString());
                 GetIdentifierData();
                 BindInvestor();
+                luStock.EditValue = null;
             }
             catch (Exception ex)
             {
@@ -400,14 +424,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
-  
-
         private void chartControl1_MouseMove(object sender, MouseEventArgs e)
-        {        
-
+        {
             ChartControl currentChart = sender as ChartControl;
             ChartHitInfo hitInfo = currentChart.CalcHitInfo(e.Location);
 
+            hitInfo.in 
             if (hitInfo.SeriesPoint != null)
             {
                 this.gridControl1.DataSource = null;
@@ -416,11 +438,24 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 this.gridControl1.DataSource = currentRecords.Count() > 0 ? currentRecords.CopyToDataTable() : null;
 
-                BindCurrentProfit();
+                BindDayPositionProfit(currentDate);
             }
         }
 
- 
+        private void chartControl1_Scroll(object sender, ChartScrollEventArgs e)
+        {
+            ChartControl chart = sender as ChartControl;
+
+            ReDrawAxisY(chart, e.NewXRange);
+        }
+
+        private void chartControl1_Zoom(object sender, ChartZoomEventArgs e)
+        {
+            ChartControl chart = sender as ChartControl;
+
+            ReDrawAxisY(chart, e.NewXRange);
+        }
+
         private void chartControl1_Paint(object sender, PaintEventArgs e)
         {
             try
@@ -433,8 +468,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                 pArrow.EndCap = LineCap.ArrowAnchor;
 
-                float lineLength = 30;
-                Font font = new Font("新宋体", 9, FontStyle.Regular);
+                float lineLength = 20;
+                Font font = new Font("新宋体", 8, FontStyle.Regular);
 
                 foreach (DataRow row in _stockTradeAvg.Rows)
                 {
@@ -443,7 +478,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     var dealPrice = CommonHelper.StringToDecimal(row["AvgPrice"].ToString().Trim()).ToString("f3");
                     var dealVolume = Math.Abs(CommonHelper.StringToDecimal(row["TotalVolume"].ToString().Trim()));
 
-                    var identifierText = (dealFlag ? "B" : "S") + ": " + dealPrice + " " + dealVolume + "股";
+                    var identifierText = (dealFlag ? "B" : "S") + ":" + dealPrice + " " + dealVolume + "股";
                     var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(tradeDate, CommonHelper.StringToDouble(dealPrice)).Point;
                     var dealPointX = dealPoint.X;
                     var dealPointY = dealPoint.Y;
@@ -453,12 +488,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     float posY;
                     if (dealFlag)
                     {
-                        pArrow.Color = Color.Silver;
+                        pArrow.Color = Color.AliceBlue;
                         g.DrawLine(pArrow, dealPointX - lineLength, dealPointY, dealPointX, dealPointY);
 
                         posX = dealPointX - lineLength - size.Width;
                         posY = dealPointY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.Silver, posX, posY);
+                        g.DrawString(identifierText, font, Brushes.AliceBlue, posX, posY);
                     }
                     else
                     {

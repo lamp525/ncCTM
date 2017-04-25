@@ -121,6 +121,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.barButtonItem38 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -195,9 +196,10 @@
             this.barButtonItem35,
             this.barButtonItem32,
             this.barButtonItem36,
-            this.barButtonItem37});
+            this.barButtonItem37,
+            this.barButtonItem38});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 46;
+            this.ribbonControl1.MaxItemId = 47;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -316,7 +318,6 @@
             this.barButtonItem16.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem16.LargeGlyph")));
             this.barButtonItem16.Name = "barButtonItem16";
             this.barButtonItem16.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonItem16.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem16_ItemClick);
             // 
             // barButtonItem17
             // 
@@ -618,7 +619,7 @@
             // 
             // bbiDailyTradeIdentification
             // 
-            this.bbiDailyTradeIdentification.Caption = "交易标识";
+            this.bbiDailyTradeIdentification.Caption = "分时交易标识";
             this.bbiDailyTradeIdentification.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDailyTradeIdentification.Glyph")));
             this.bbiDailyTradeIdentification.Id = 25;
             this.bbiDailyTradeIdentification.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDailyTradeIdentification.LargeGlyph")));
@@ -832,6 +833,7 @@
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.bbiDailyTradeIdentification);
+            this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem38);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             // 
             // ribbonPageGroup13
@@ -992,6 +994,16 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
+            // barButtonItem38
+            // 
+            this.barButtonItem38.Caption = "K线交易标识";
+            this.barButtonItem38.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem38.Glyph")));
+            this.barButtonItem38.Id = 46;
+            this.barButtonItem38.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem38.LargeGlyph")));
+            this.barButtonItem38.Name = "barButtonItem38";
+            this.barButtonItem38.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem38.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem38_ItemClick_1);
+            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
@@ -1109,6 +1121,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
         private DevExpress.XtraBars.BarButtonItem barButtonItem36;
         private DevExpress.XtraBars.BarButtonItem barButtonItem37;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem38;
     }
 }
 

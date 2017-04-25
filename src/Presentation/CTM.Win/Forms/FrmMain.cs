@@ -412,7 +412,7 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// 个人每日交易标识查询
+        /// 分时交易标识
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -428,6 +428,16 @@ namespace CTM.Win.Forms
             {
                 DXMessage.ShowError(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// K线交易标识
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem38_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmUserTradeIdentifier>("K线交易标识");
         }
 
         #region Reports
@@ -694,13 +704,5 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
-
-    
-
-        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.DisplayTabbedForm <FrmUserTradeIdentifier>("交易标识");
-            
-        }
     }
 }

@@ -560,16 +560,6 @@ namespace CTM.Win.Extensions
         /// <param name="textEdit"></param>
         public static void SetNumericMask(this TextEdit textEdit, int digits = 4)
         {
-            //var formatString = "#################0.0";
-
-            //if (digits > 1)
-            //{
-            //    for (int i = 0; i < digits - 1; i++)
-            //    {
-            //        formatString += "0";
-            //    }
-            //}
-
             var formatString = "f" + digits.ToString();
 
             textEdit.Properties.DisplayFormat.FormatString = formatString;
