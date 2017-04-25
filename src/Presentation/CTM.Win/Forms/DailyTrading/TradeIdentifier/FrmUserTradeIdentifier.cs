@@ -126,8 +126,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myDiagram.DefaultPane.BorderColor = _redColor;
             myDiagram.EnableAxisXScrolling = true;
             myDiagram.EnableAxisXZooming = true;
-            //myDiagram.ZoomingOptions.AxisXMaxZoomPercent = 300;
-
+          
             #endregion XYDiagram
 
             #region AxisX
@@ -274,7 +273,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var investorCode = luInvestor.SelectedValue();
             var stockCode = luStock.SelectedValue();
 
-            var commandText = $@"EXEC [dbo].[sp_InvestorStockProfitDaily] @InvestorCode = '{investorCode}', @StockCode = '{stockCode}',	 @TradeDate = '{tradeDate}'";
+            var commandText = $@"EXEC [dbo].[sp_InvestorStockProfitDaily] @InvestorCode = '{investorCode}', @StockCode = '{stockCode}',	@TradeDate = '{tradeDate}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
             if (ds != null && ds.Tables.Count == 1)
@@ -283,7 +282,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 txtVolume.Text = CommonHelper.StringToDecimal(profit["PositionVolume"].ToString()).ToString("N0");
                 txtValue.Text = CommonHelper.StringToDecimal(profit["PositionValue"].ToString()).ToString("N4");
-                txtProfit.Text = CommonHelper.StringToDecimal(profit["DayProfit"].ToString()).ToString("n4");
+                txtProfit.Text = CommonHelper.StringToDecimal(profit["DayProfit"].ToString()).ToString("N4");
             }
         }
 
@@ -461,7 +460,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (!_chartGenerated || _stockTradeAvg == null || _stockTradeAvg.Rows.Count == 0) return;
 
                 Graphics g = e.Graphics;
-
+                
                 Pen pArrow = new Pen(Color.White, 0.5f);
                 pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                 pArrow.EndCap = LineCap.ArrowAnchor;
