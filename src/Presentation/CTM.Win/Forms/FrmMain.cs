@@ -431,7 +431,7 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// K线交易标识
+        /// 日K线交易标识
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
