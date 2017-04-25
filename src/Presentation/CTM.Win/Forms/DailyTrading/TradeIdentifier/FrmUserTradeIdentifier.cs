@@ -23,19 +23,16 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private CrosshairFreePosition _crosshairFreePosition1 = new CrosshairFreePosition();
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-        private DataTable _kLineDate;
+        private DataTable _kLineData;
         private DataTable _tradeAvg;
-        private DataTable _profitDetail;
         private DataTable _tradeRecords;
 
         private DataTable _investorRecords;
         private DataTable _investorTradeAvg;
-        private DataTable _investorProfitDetail;
 
         private DataTable _stockRecords;
-        private DataTable _stockKLineDate;
+        private DataTable _stockKLineData;
         private DataTable _stockTradeAvg;
-        private DataTable _stockProfitDetail;
 
         private bool _chartGenerated = false;
 
@@ -64,26 +61,131 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var now = DateTime.Now.Date;
             this.deStart.EditValue = now.AddMonths(-3);
             this.deEnd.EditValue = now;
+
+            this.btnView.Enabled = false;
         }
+
+        private void ChartInit()
+        {
+            #region Chart
+
+            //ChartTitle chartTitle = new ChartTitle();
+            ////标题内容
+            //chartTitle.Text = "股票名称（股票代码） - 投资人员";
+            ////字体颜色
+            //chartTitle.TextColor = Color.OrangeRed;
+            ////字体类型字号
+            //chartTitle.Font = new Font("Tahoma", 14, FontStyle.Bold);
+            ////标题对齐方式
+            //chartTitle.Dock = ChartTitleDockStyle.Top;
+            //chartTitle.Alignment = StringAlignment.Center;
+
+            //chartControl1.Titles.Clear();
+            //chartControl1.Titles.Add(chartTitle);
+
+            chartControl1.BackColor = Color.Black;
+
+            chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
+
+            //RuntimeHitTesting设为True时，才可从ChartHitInfo中取得SeriesPoint
+            chartControl1.RuntimeHitTesting = true;
+
+            _crosshairFreePosition1.DockTargetName = "Default Pane";
+            _crosshairFreePosition1.DockCorner = DockCorner.LeftTop;
+            _crosshairFreePosition1.OffsetX = 45;
+            _crosshairFreePosition1.OffsetY = 12;
+
+            chartControl1.CrosshairOptions.CommonLabelPosition = _crosshairFreePosition1;
+            chartControl1.CrosshairOptions.ShowValueLine = true;
+            chartControl1.CrosshairOptions.ShowValueLabels = true;
+            chartControl1.CrosshairOptions.ShowArgumentLine = true;
+            chartControl1.CrosshairOptions.ShowArgumentLabels = true;
+
+            #endregion Chart
+
+            #region Series
+
+            _seriesDayMarketData = new Series("日行情", ViewType.CandleStick);
+
+            _seriesDayMarketData.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayMarketData.View;
+            myView.Color = _redColor;
+            myView.LineThickness = 1;
+            myView.LevelLineLength = 0.15;
+            myView.ReductionOptions.Level = StockLevel.Close;
+            myView.ReductionOptions.Color = Color.FromArgb(102, 255, 255);
+            myView.ReductionOptions.Visible = true;
+
+            this.chartControl1.Series.Add(_seriesDayMarketData);
+
+            #endregion Series
+
+            #region XYDiagram
+
+            XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
+            myDiagram.DefaultPane.BackColor = Color.Black;
+            myDiagram.DefaultPane.BorderColor = _redColor;
+            myDiagram.EnableAxisXScrolling = true;
+            myDiagram.EnableAxisXZooming = true;
+            myDiagram.ZoomingOptions.AxisXMaxZoomPercent = 300;
+
+            #endregion XYDiagram
+
+            #region AxisX
+
+            AxisX myAxisX = myDiagram.AxisX;
+            myAxisX.Color = _redColor;
+            myAxisX.Label.TextColor = _redColor;
+            myAxisX.Label.Staggered = false;
+            myAxisX.Label.Angle = -45;
+            myAxisX.Label.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+            myAxisX.Tickmarks.MinorVisible = false;
+            myAxisX.DateTimeScaleOptions.WorkdaysOnly = true;
+            myAxisX.DateTimeScaleOptions.ProcessMissingPoints = ProcessMissingPointsMode.Skip;
+            myAxisX.DateTimeScaleOptions.MeasureUnit = DateTimeMeasureUnit.Day;
+            myAxisX.DateTimeScaleOptions.GridAlignment = DateTimeGridAlignment.Day;
+            myAxisX.WholeRange.Auto = false;
+
+            #endregion AxisX
+
+            #region AxisY
+
+            AxisY myAxisY = myDiagram.AxisY;
+            myAxisY.Alignment = AxisAlignment.Far;
+            myAxisY.Color = _redColor;
+            myAxisY.Label.TextColor = _redColor;
+            myAxisY.Label.TextPattern = "{ V:F2}";
+            myAxisY.GridLines.Color = Color.FromArgb(165, 42, 42);
+            myAxisY.GridLines.LineStyle.Thickness = 1;
+            myAxisY.GridLines.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
+            myAxisY.Tickmarks.MinorVisible = false;
+            myAxisY.WholeRange.Auto = false;
+
+            #endregion AxisY
+        }
+
+        private void GirdInit()
+        {
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
+        }
+
 
         private void GetIdentifierData()
         {
             if (this.deStart.EditValue == null || this.deEnd.EditValue == null) return;
 
-            _kLineDate = null;
+            _kLineData = null;
             _tradeAvg = null;
-            _profitDetail = null;
             _tradeRecords = null;
 
             var commandText = $@"EXEC [dbo].[sp_TradeIdentifierDay] @StartDate ='{_startDate}', @EndDate='{_endDate}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
-            if (ds != null && ds.Tables.Count == 4)
+            if (ds != null && ds.Tables.Count == 3)
             {
-                _kLineDate = ds.Tables[0];
+                _kLineData = ds.Tables[0];
                 _tradeAvg = ds.Tables[1];
-                _profitDetail = ds.Tables[2];
-                _tradeRecords = ds.Tables[3];
+                _tradeRecords = ds.Tables[2];
             }
         }
 
@@ -131,40 +233,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             luStock.Initialize(stockInfo, "FullCode", "DisplayMember", enableSearch: true);
         }
 
-        private void GenerateChart()
+        private void DisplayChart()
         {
-            _crosshairFreePosition1.DockTargetName = "Default Pane";
-            _crosshairFreePosition1.DockCorner = DockCorner.LeftTop;
-            _crosshairFreePosition1.OffsetX = 45;
-            _crosshairFreePosition1.OffsetY = 12;
-
-            chartControl1.CrosshairOptions.CommonLabelPosition = _crosshairFreePosition1;
-            chartControl1.CrosshairOptions.ShowValueLine = true;
-            chartControl1.CrosshairOptions.ShowValueLabels = true;
-            chartControl1.CrosshairOptions.ShowArgumentLine = true;
-            chartControl1.CrosshairOptions.ShowArgumentLabels = true;
-
-            chartControl1.BackColor = Color.Black;
-
-            chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
-
-            //RuntimeHitTesting设为True时，才可从ChartHitInfo中取得SeriesPoint
-            chartControl1.RuntimeHitTesting = true;
-
-            _seriesDayMarketData = new Series("日行情", ViewType.CandleStick);
-
-            _seriesDayMarketData.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
-            CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayMarketData.View;
-            myView.Color = _redColor;
-            myView.LineThickness = 1;
-            myView.LevelLineLength = 0.15;
-            myView.ReductionOptions.Level = StockLevel.Close;
-            myView.ReductionOptions.Color = Color.FromArgb(102, 255, 255);
-            myView.ReductionOptions.Visible = true;
+            _seriesDayMarketData.Points.Clear();
 
             double low, high, open, close;
-
-            foreach (DataRow row in _kLineDate.Rows)
+            foreach (DataRow row in _stockKLineData.Rows)
             {
                 DateTime tradeDate = CommonHelper.StringToDateTime(row["TradeDate"].ToString().Trim()).Date;
 
@@ -173,32 +247,15 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 open = CommonHelper.StringToDouble(row["Open"].ToString().Trim());
                 close = CommonHelper.StringToDouble(row["Close"].ToString().Trim());
                 SeriesPoint spDayMD = new SeriesPoint(tradeDate, new double[] { low, high, open, close });
-                spDayMD.Color = close - open > 0 ? System.Drawing.Color.Red : System.Drawing.Color.Green;
 
                 _seriesDayMarketData.Points.Add(spDayMD);
             }
 
-            this.chartControl1.Series.Add(_seriesDayMarketData);
+            //this.chartControl1.Series.Add(_seriesDayMarketData);
 
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
-            myDiagram.DefaultPane.BackColor = Color.Black;
-            myDiagram.DefaultPane.BorderColor = _redColor;
-            myDiagram.EnableAxisXScrolling = true;
-            myDiagram.EnableAxisXZooming = true;
-            myDiagram.ZoomingOptions.AxisXMaxZoomPercent = 300;
 
             AxisX myAxisX = myDiagram.AxisX;
-            myAxisX.Color = _redColor;
-            myAxisX.Label.TextColor = _redColor;
-            myAxisX.Label.Staggered = false;
-            myAxisX.Label.Angle = -45;
-            myAxisX.Label.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
-            myAxisX.Tickmarks.MinorVisible = false;
-            myAxisX.DateTimeScaleOptions.WorkdaysOnly = true;
-            myAxisX.DateTimeScaleOptions.ProcessMissingPoints = ProcessMissingPointsMode.Skip;
-            myAxisX.DateTimeScaleOptions.MeasureUnit = DateTimeMeasureUnit.Day;
-            myAxisX.DateTimeScaleOptions.GridAlignment = DateTimeGridAlignment.Day;
-            myAxisX.WholeRange.Auto = false;
             //myAxisX.WholeRange.AutoSideMargins = false;
             //myAxisX.WholeRange.SideMarginsValue = 1D;
             myAxisX.WholeRange.SetMinMaxValues(_startDate, _endDate);
@@ -206,19 +263,18 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-2), _endDate);
 
             AxisY myAxisY = myDiagram.AxisY;
-            myAxisY.Alignment = AxisAlignment.Far;
-            myAxisY.Color = _redColor;
-            myAxisY.Label.TextColor = _redColor;
-            myAxisY.Label.TextPattern = "{ V:F2}";
-            myAxisY.GridLines.Color = Color.FromArgb(165, 42, 42);
-            myAxisY.GridLines.LineStyle.Thickness = 1;
-            myAxisY.GridLines.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
-            myAxisY.Tickmarks.MinorVisible = false;
-            myAxisY.WholeRange.Auto = false;
-            _lowestPrice = _stockRecords.AsEnumerable().Select(x => x.Field<decimal>("Low")).Min();
-            _highestPrice = _stockRecords.AsEnumerable().Select(x => x.Field<decimal>("High")).Max();
+            _lowestPrice = _stockKLineData.AsEnumerable().Select(x => x.Field<decimal>("Low")).Min();
+            _highestPrice = _stockKLineData.AsEnumerable().Select(x => x.Field<decimal>("High")).Max();
             myAxisY.WholeRange.SetMinMaxValues(_lowestPrice, _highestPrice);
         }
+
+
+        private void BindCurrentProfit()
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         #endregion Utilities
 
@@ -229,12 +285,17 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             try
             {
                 FormInit();
+
+                ChartInit();
+
+                GirdInit();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
             }
         }
+
 
         private void deStart_EditValueChanged(object sender, EventArgs e)
         {
@@ -270,16 +331,19 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             {
                 var investorCode = luInvestor.SelectedValue();
 
+                _investorRecords = null;
+                _investorTradeAvg = null;
+
                 if (!string.IsNullOrEmpty(investorCode))
                 {
+                    luStock.EditValue = null;
+
                     _investorRecords = _tradeRecords.AsEnumerable().Where(x => x.Field<string>("InvestorCode").Trim() == investorCode).CopyToDataTable();
-                    _investorProfitDetail = _profitDetail.AsEnumerable().Where(x => x.Field<string>("InvestorCode").Trim() == investorCode).CopyToDataTable();
                     _investorTradeAvg = _tradeAvg.AsEnumerable().Where(x => x.Field<string>("InvestorCode").Trim() == investorCode).CopyToDataTable();
                 }
                 else
                 {
                     _investorRecords = _tradeRecords.Copy();
-                    _investorProfitDetail = _profitDetail.Copy();
                     _investorTradeAvg = _tradeAvg.Copy();
                 }
 
@@ -319,11 +383,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 var stockCode = luStock.SelectedValue();
                 _stockRecords = _investorRecords.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
-                _stockKLineDate = _kLineDate.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
-                _stockProfitDetail = _investorProfitDetail.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
+                _stockKLineData = _kLineData.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
                 _stockTradeAvg = _investorTradeAvg.AsEnumerable().Where(x => x.Field<string>("StockCode").Trim() == stockCode).CopyToDataTable();
 
-                GenerateChart();
+                DisplayChart();
 
                 this._chartGenerated = true;
             }
@@ -337,22 +400,27 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
+  
+
         private void chartControl1_MouseMove(object sender, MouseEventArgs e)
-        {
-            //this.gridControl1.DataSource = null;
+        {        
 
             ChartControl currentChart = sender as ChartControl;
             ChartHitInfo hitInfo = currentChart.CalcHitInfo(e.Location);
 
             if (hitInfo.SeriesPoint != null)
             {
+                this.gridControl1.DataSource = null;
                 var currentDate = CommonHelper.StringToDateTime(hitInfo.SeriesPoint.Argument).Date;
-                var currentRecords = _tradeRecords.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate").Date == currentDate).OrderBy(x => x.Field<string>("TradeTime"));
+                var currentRecords = _stockRecords.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate").Date == currentDate).OrderBy(x => x.Field<string>("TradeTime"));
 
                 this.gridControl1.DataSource = currentRecords.Count() > 0 ? currentRecords.CopyToDataTable() : null;
+
+                BindCurrentProfit();
             }
         }
 
+ 
         private void chartControl1_Paint(object sender, PaintEventArgs e)
         {
             try
@@ -360,45 +428,60 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (!_chartGenerated || _stockTradeAvg == null || _stockTradeAvg.Rows.Count == 0) return;
 
                 Graphics g = e.Graphics;
-                Pen pBuy = new Pen(Color.Green, 0.5f);
-                pBuy.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-                pBuy.EndCap = LineCap.ArrowAnchor;
 
-                Pen pSell = new Pen(Color.Red, 0.5f);
-                pSell.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-                pSell.EndCap = LineCap.ArrowAnchor;
+                Pen pArrow = new Pen(Color.White, 0.5f);
+                pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                pArrow.EndCap = LineCap.ArrowAnchor;
+
+                float lineLength = 30;
+                Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                 foreach (DataRow row in _stockTradeAvg.Rows)
                 {
                     var tradeDate = row["TradeDate"].ToString().Trim();
                     var dealFlag = bool.Parse(row["DealFlag"].ToString().Trim());
-                    var dealPrice = row["AvgPrice"].ToString().Trim();
-                    var dealVolume = row["TotalVolume"].ToString().Trim();
+                    var dealPrice = CommonHelper.StringToDecimal(row["AvgPrice"].ToString().Trim()).ToString("f3");
+                    var dealVolume = Math.Abs(CommonHelper.StringToDecimal(row["TotalVolume"].ToString().Trim()));
 
-                    var identifierText = (dealFlag ? "B" : "S") + ":" + dealPrice + dealVolume + "股";
-
+                    var identifierText = (dealFlag ? "B" : "S") + ": " + dealPrice + " " + dealVolume + "股";
                     var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(tradeDate, CommonHelper.StringToDouble(dealPrice)).Point;
-
                     var dealPointX = dealPoint.X;
                     var dealPointY = dealPoint.Y;
-                    float lineLength = 50;
-
-                    g.DrawLine(pBuy, dealPointX - lineLength, dealPointY, dealPointX, dealPointY);
-
-                    Brush backBrush = Brushes.Green;
-                    Brush foreBrush = Brushes.Violet;
-                    Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                     SizeF size = g.MeasureString(identifierText, font);
-                    float posX = dealPointX - 50 - size.Width;
-                    float posY = dealPointY - size.Height / 2;
-                    //g.DrawString(identifierText, font, foreBrush, posX, posY);
-                    g.DrawString(identifierText, font, backBrush, posX, posY);
+                    float posX;
+                    float posY;
+                    if (dealFlag)
+                    {
+                        pArrow.Color = Color.Silver;
+                        g.DrawLine(pArrow, dealPointX - lineLength, dealPointY, dealPointX, dealPointY);
+
+                        posX = dealPointX - lineLength - size.Width;
+                        posY = dealPointY - size.Height / 2;
+                        g.DrawString(identifierText, font, Brushes.Silver, posX, posY);
+                    }
+                    else
+                    {
+                        pArrow.Color = Color.Orange;
+                        g.DrawLine(pArrow, dealPointX + lineLength, dealPointY, dealPointX, dealPointY);
+
+                        posX = dealPointX + lineLength;
+                        posY = dealPointY - size.Height / 2;
+                        g.DrawString(identifierText, font, Brushes.Orange, posX, posY);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
 
