@@ -351,6 +351,7 @@
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.chartControl1.Size = new System.Drawing.Size(1212, 431);
             this.chartControl1.TabIndex = 6;
+            this.chartControl1.CustomDrawCrosshair += new DevExpress.XtraCharts.CustomDrawCrosshairEventHandler(this.chartControl1_CustomDrawCrosshair);
             this.chartControl1.Scroll += new DevExpress.XtraCharts.ChartScrollEventHandler(this.chartControl1_Scroll);
             this.chartControl1.Zoom += new DevExpress.XtraCharts.ChartZoomEventHandler(this.chartControl1_Zoom);
             this.chartControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.chartControl1_Paint);

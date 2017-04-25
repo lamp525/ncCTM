@@ -37,7 +37,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private bool _chartGenerated = false;
 
         private DateTime _startDate, _endDate;
-        private decimal _lowestPrice, _highestPrice;
         private Color _redColor = Color.FromArgb(204, 51, 0);
 
         #endregion Fields
@@ -429,7 +428,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             ChartControl currentChart = sender as ChartControl;
             ChartHitInfo hitInfo = currentChart.CalcHitInfo(e.Location);
 
-            hitInfo.in 
             if (hitInfo.SeriesPoint != null)
             {
                 this.gridControl1.DataSource = null;
@@ -509,6 +507,17 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void chartControl1_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
+        {
+            foreach (CrosshairElementGroup elementGroup in e.CrosshairElementGroups)
+            {
+                foreach (CrosshairElement element in elementGroup.CrosshairElements)
+                {
+                    element.LabelElement.TextColor = Color.OrangeRed;                   
+                }
             }
         }
 
