@@ -82,13 +82,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var now = DateTime.Now.Date;
             this.deStart.EditValue = now.AddMonths(-3);
             this.deEnd.EditValue = now;
-
-            this.btnView.Enabled = false;
-
-            this.esiProfitTitle.Text = string.Empty;
+            this.btnView.Enabled = false;        
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
-
             this.colDealFlag.SetDisplayFormatToBoolean("买", "卖");
+            this.esiProfitTitle.Text = string.Empty;
         }
 
         private void ChartInit()
@@ -97,11 +94,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
             ChartTitle chartTitle = new ChartTitle();
             //标题内容
-            chartTitle.Text = string.Empty;
+            chartTitle.Text = "股票名称";
             //字体颜色
             chartTitle.TextColor = Color.White;
             //字体类型字号
-            chartTitle.Font = new Font("Tahoma", 9, FontStyle.Bold);
+            chartTitle.Font = new Font("新宋体", 11, FontStyle.Bold);
             //标题对齐方式
             chartTitle.Dock = ChartTitleDockStyle.Top;
             chartTitle.Alignment = StringAlignment.Near;
@@ -116,12 +113,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             //RuntimeHitTesting设为True时，才可从ChartHitInfo中取得SeriesPoint
             chartControl1.RuntimeHitTesting = true;
 
-            _crosshairFreePosition1.DockTargetName = "Default Pane";
-            _crosshairFreePosition1.DockCorner = DockCorner.RightTop;
-            _crosshairFreePosition1.OffsetX = 50;
-            _crosshairFreePosition1.OffsetY = 30;
+            //_crosshairFreePosition1.DockTargetName = "Default Pane";
+            //_crosshairFreePosition1.DockCorner = DockCorner.RightTop;
+            //_crosshairFreePosition1.OffsetX = 50;
+            //_crosshairFreePosition1.OffsetY = 30;
 
-            chartControl1.CrosshairOptions.CommonLabelPosition = _crosshairFreePosition1;
+            //chartControl1.CrosshairOptions.CommonLabelPosition = _crosshairFreePosition1;
             chartControl1.CrosshairOptions.ShowValueLine = true;
             chartControl1.CrosshairOptions.ShowValueLabels = true;
             chartControl1.CrosshairOptions.ShowArgumentLine = true;
@@ -239,7 +236,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
             AxisX myAxisX = myDiagram.AxisX;
             myAxisX.WholeRange.AutoSideMargins = false;
-            myAxisX.WholeRange.SideMarginsValue = 4D;
+            myAxisX.WholeRange.SideMarginsValue = 3D;
             myAxisX.WholeRange.SetMinMaxValues(_startDate, _endDate);
             myAxisX.VisualRange.Auto = false;
             myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-2), _endDate);
@@ -319,6 +316,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 this._chartGenerated = false;
                 this.btnView.Enabled = false;
 
+                this.esiProfitTitle.Text = string.Empty;
+
                 var tradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfo;
                 if (tradeInfo == null) return;
 
@@ -338,7 +337,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     .Select(x => new DealAvgInfo
                     {
                         DealFlag = x.Key.DealFlag,
-                        DealPrice = x.Sum(y => y.DealAmount) / x.Sum(y => Math.Abs(y.DealVolume)),
+                        DealPrice = CommonHelper.SetDecimalDigits( x.Sum(y => y.DealAmount) / x.Sum(y => Math.Abs(y.DealVolume)),3),
                         DealVolume = x.Sum(y => Math.Abs(y.DealVolume)),
                         TradeDate = x.Key.TradeDate,
                     }).ToList();
@@ -417,8 +416,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                 pArrow.EndCap = LineCap.ArrowAnchor;
 
-                float lineLength = 20;
-                Font font = new Font("新宋体", 8, FontStyle.Regular);
+                float lineLength = 30;
+                Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                 foreach (var item in _dealAvg)
                 {
