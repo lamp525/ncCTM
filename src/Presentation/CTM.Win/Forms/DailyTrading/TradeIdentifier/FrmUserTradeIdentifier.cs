@@ -45,6 +45,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
             public string StockName { get; set; }
 
+            public string TradeCode { get; set; }
+
             public string DisplayText { get; set; }
         }
 
@@ -204,10 +206,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                                         InvestorCode = x.Field<string>("InvestorCode").Trim(),
                                         InvestorName = x.Field<string>("InvestorName").Trim(),
                                         StockCode = x.Field<string>("StockCode").Trim(),
-                                        StockName = x.Field<string>("StockName").Trim()
+                                        StockName = x.Field<string>("StockName").Trim(),
+                                        TradeCode = x.Field<string>("TradeCode").Trim(),
                                     }).ToList();
 
-                luTradeInfo.Initialize(source, "StockCode", "DisplayText", enableSearch: true);
+                luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
             }
         }
 

@@ -134,7 +134,8 @@
             this.luTradeInfo.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("StockCode", "Name14", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("InvestorCode", "Name15", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name16")});
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name16"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TradeCode", "Name20", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default)});
             this.luTradeInfo.Size = new System.Drawing.Size(283, 20);
             this.luTradeInfo.StyleController = this.layoutControl1;
             this.luTradeInfo.TabIndex = 17;
