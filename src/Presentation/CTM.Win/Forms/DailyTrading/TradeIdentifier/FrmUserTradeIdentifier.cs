@@ -338,7 +338,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _startDate, tradeDateTo: _endDate)
                             .Where(x => x.DealVolume != 0)
-                            .ToList();
+                            .OrderBy(x => x.BeneficiaryName).ThenBy(x => x.TradeDate).ThenBy(x => x.TradeTime).ToList();
 
                 _dealAvg = _tradeRecords.GroupBy(x => new { TradeDate = x.TradeDate, DealFlag = x.DealFlag })
                     .Select(x => new DealAvgInfo
@@ -385,7 +385,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     if (_currentDate != dc.DateTimeArgument.Date)
                     {
                         _currentDate = dc.DateTimeArgument.Date;
-                        var currentDateRecords = _tradeRecords.Where(x => x.TradeDate == _currentDate).OrderBy(x => x.TradeTime).ToList();
+                        var currentDateRecords = _tradeRecords.Where(x => x.TradeDate == _currentDate).ToList();
                         this.gridControl1.DataSource = currentDateRecords;
 
                         esiProfitTitle.Text = $@"{_currentDate.ToShortDateString()} - {_currentTradeInfo.DisplayText}";
@@ -396,6 +396,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                             txtVolume.Text = CommonHelper.StringToDecimal(currentProfit["PositionVolume"].ToString()).ToString("N0");
                             txtValue.Text = CommonHelper.StringToDecimal(currentProfit["PositionValue"].ToString()).ToString("N4");
                             txtProfit.Text = CommonHelper.StringToDecimal(currentProfit["DayProfit"].ToString()).ToString("N4");
+                        }
+                        else
+                        {
+                            txtVolume.Text = string.Empty;
+                            txtValue.Text = string.Empty;
+                            txtProfit.Text = string.Empty;
                         }
                     }
                 }
@@ -437,7 +443,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 foreach (var item in _dealAvg)
                 {
-                    var identifierText = (item.DealFlag ? "B" : "S") + ":" + item.DealPrice + " " + item.DealVolume + "股";
+                    var identifierText = (item.DealFlag ? "B" : "S") + ":" + item.DealPrice + " " + item.DealVolume;
                     var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(item.TradeDate, (double)item.DealPrice).Point;
                     var dealPointX = dealPoint.X;
                     var dealPointY = dealPoint.Y;
