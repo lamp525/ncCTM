@@ -18,6 +18,7 @@ using CTM.Win.Forms.DailyTrading.StatisticsReport;
 using CTM.Win.Forms.DailyTrading.TradeIdentifier;
 using CTM.Win.Forms.InvestmentDecision;
 using CTM.Win.Forms.MarginTrading;
+using CTM.Win.Forms.Market;
 using CTM.Win.Forms.Setting;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -704,5 +705,10 @@ namespace CTM.Win.Forms
         #endregion SystemMenu
 
         #endregion Events
+
+        private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmIndexTrend5M>("大盘5分钟趋势预测");
+        }
     }
 }

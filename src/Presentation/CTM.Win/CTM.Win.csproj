@@ -331,6 +331,12 @@
     <Compile Include="Forms\InvestmentDecision\_embedIDOperationExecute.Designer.cs">
       <DependentUpon>_embedIDOperationExecute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Market\FrmIndexTrend5M.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Market\FrmIndexTrend5M.Designer.cs">
+      <DependentUpon>FrmIndexTrend5M.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\StatisticsReport\UserInvestIncomeAccountModel.cs" />
     <Compile Include="Models\StatisticsReport\StockInvestIncomeSummaryModel.cs" />
     <Compile Include="Models\StatisticsReport\UserInvestIncomeRankingModel.cs" />
@@ -914,12 +920,16 @@
     <EmbeddedResource Include="Forms\InvestmentDecision\_dialogTradeApplication.resx">
       <DependentUpon>_dialogTradeApplication.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Market\FrmIndexTrend5M.resx">
+      <DependentUpon>FrmIndexTrend5M.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\_dialogLogin.resx">
       <DependentUpon>_dialogLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
