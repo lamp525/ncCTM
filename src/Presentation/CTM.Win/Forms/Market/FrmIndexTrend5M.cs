@@ -202,11 +202,11 @@ namespace CTM.Win.Forms.Market
                 ChartInit();
 
                 deTrade.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-                var now = DateTime.Now.Date;
-                if (now.Hour > 15 && now.Minute > 12)
-                    deTrade.EditValue = now;
+                var now = DateTime.Now;
+                if (now.Hour >= 15)
+                    deTrade.EditValue = now.Date;
                 else
-                    deTrade.EditValue = now.AddDays(-1);
+                    deTrade.EditValue = now.AddDays(-1).Date;
             }
             catch (Exception ex)
             {
