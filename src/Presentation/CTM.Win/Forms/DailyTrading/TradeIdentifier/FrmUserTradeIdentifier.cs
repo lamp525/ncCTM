@@ -155,6 +155,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
             myDiagram.DefaultPane.BackColor = Color.Black;
             myDiagram.DefaultPane.BorderColor = _redColor;
+            myDiagram.DefaultPane.ScrollBarOptions.BackColor = Color.Black;
+            myDiagram.DefaultPane.ScrollBarOptions.BorderColor = _redColor;
+            myDiagram.DefaultPane.ScrollBarOptions.BarColor = _redColor;
             myDiagram.EnableAxisXScrolling = true;
             myDiagram.EnableAxisXZooming = true;
 
@@ -186,7 +189,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisY.Label.TextPattern = "{ V:F2}";
             myAxisY.GridLines.Color = Color.FromArgb(165, 42, 42);
             myAxisY.GridLines.LineStyle.Thickness = 1;
-            myAxisY.GridLines.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
+            myAxisY.GridLines.LineStyle.DashStyle = DashStyle.Dot;
             myAxisY.Tickmarks.MinorVisible = false;
             myAxisY.WholeRange.Auto = false;
 
@@ -238,8 +241,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 _seriesDayKLine.Points.Add(spDayMD);
             }
 
-            //this.chartControl1.Series.Add(_seriesDayMarketData);
-
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
 
             AxisX myAxisX = myDiagram.AxisX;
@@ -253,7 +254,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= _endDate.AddMonths(-2) && x.Field<DateTime>("TradeDate") <= _endDate);
             decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
             decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
-            myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
+            myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
         }
 
         private void ReDrawAxisY(ChartControl chart, RangeInfo newXRange)
@@ -265,7 +266,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
 
             AxisY myAxisY = (chart.Diagram as XYDiagram).AxisY;
-            myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
+            myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
         }
 
         #endregion Utilities
@@ -440,7 +441,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 Pen pArrow = new Pen(Color.White, 0.5f);
                 pArrow.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
 
-                float lineLength = 30;
                 Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                 float foldDX = 15f;
@@ -464,7 +464,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                     if (item.DealFlag)
                     {
-                        foldDY += upDeviant ? deviant : 0f;
+                        foldDY += upDeviant ? deviant : -deviant;
                         pArrow.Color = Color.AliceBlue;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
@@ -475,7 +475,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     }
                     else
                     {
-                        foldDY -= downDeviant ? deviant : 0f;
+                        foldDY -= downDeviant ? deviant : -deviant;
                         pArrow.Color = Color.Orange;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
                         textStartPoint.X = targetPoint.X + foldDX + straightDX;
