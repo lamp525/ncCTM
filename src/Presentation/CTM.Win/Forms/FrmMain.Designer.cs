@@ -97,9 +97,11 @@
             this.barButtonItem36 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem37 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem38 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem39 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup13 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -197,9 +199,10 @@
             this.barButtonItem32,
             this.barButtonItem36,
             this.barButtonItem37,
-            this.barButtonItem38});
+            this.barButtonItem38,
+            this.barButtonItem39});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 47;
+            this.ribbonControl1.MaxItemId = 48;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -625,7 +628,7 @@
             this.bbiDailyTradeIdentification.Id = 25;
             this.bbiDailyTradeIdentification.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDailyTradeIdentification.LargeGlyph")));
             this.bbiDailyTradeIdentification.Name = "bbiDailyTradeIdentification";
-            this.bbiDailyTradeIdentification.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.bbiDailyTradeIdentification.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.bbiDailyTradeIdentification.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDailyTradeIdentification_ItemClick);
             // 
             // bsiInstallUrl
@@ -814,14 +817,25 @@
             this.barButtonItem38.Id = 46;
             this.barButtonItem38.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem38.LargeGlyph")));
             this.barButtonItem38.Name = "barButtonItem38";
-            this.barButtonItem38.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem38.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.barButtonItem38.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem38_ItemClick_1);
+            // 
+            // barButtonItem39
+            // 
+            this.barButtonItem39.Caption = "大盘5分钟趋势";
+            this.barButtonItem39.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem39.Glyph")));
+            this.barButtonItem39.Id = 47;
+            this.barButtonItem39.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem39.LargeGlyph")));
+            this.barButtonItem39.Name = "barButtonItem39";
+            this.barButtonItem39.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem39.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem39_ItemClick_1);
             // 
             // ribbonPageTrade
             // 
             this.ribbonPageTrade.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup2,
             this.rpgInvestIncomeReport,
+            this.ribbonPageGroup7,
             this.ribbonPageGroup3,
             this.ribbonPageGroup13,
             this.ribbonPageGroup4,
@@ -840,6 +854,11 @@
             // 
             this.rpgInvestIncomeReport.ItemLinks.Add(this.bbiInvestIncomeReportExport);
             this.rpgInvestIncomeReport.Name = "rpgInvestIncomeReport";
+            // 
+            // ribbonPageGroup7
+            // 
+            this.ribbonPageGroup7.ItemLinks.Add(this.barButtonItem39);
+            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             // 
             // ribbonPageGroup3
             // 
@@ -1123,6 +1142,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem36;
         private DevExpress.XtraBars.BarButtonItem barButtonItem37;
         private DevExpress.XtraBars.BarButtonItem barButtonItem38;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem39;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
     }
 }
 

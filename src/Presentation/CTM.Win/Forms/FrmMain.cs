@@ -413,6 +413,16 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
+        /// 大盘5分钟趋势预测
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem39_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmIndexTrend5M>("大盘5分钟趋势预测");
+        }
+
+        /// <summary>
         /// 分时交易标识
         /// </summary>
         /// <param name="sender"></param>
@@ -708,7 +718,6 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmIndexTrend5M>("大盘5分钟趋势预测");
         }
     }
 }
