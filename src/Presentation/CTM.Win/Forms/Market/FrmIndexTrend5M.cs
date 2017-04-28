@@ -159,7 +159,6 @@ namespace CTM.Win.Forms.Market
 
         private void DisplayChart()
         {
-
             _seCurrent.Name = deTrade.Text;
 
             _seCurrent.Points.Clear();
