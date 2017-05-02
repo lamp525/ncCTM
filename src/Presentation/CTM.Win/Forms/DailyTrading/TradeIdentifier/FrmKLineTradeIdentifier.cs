@@ -15,7 +15,7 @@ using DevExpress.XtraCharts;
 
 namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 {
-    public partial class FrmUserTradeIdentifier : BaseForm
+    public partial class FrmKLineTradeIdentifier : BaseForm
     {
         #region Fields
 
@@ -70,7 +70,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         #region Constructors
 
-        public FrmUserTradeIdentifier(IDailyRecordService dailyRecordService)
+        public FrmKLineTradeIdentifier(IDailyRecordService dailyRecordService)
         {
             InitializeComponent();
 
@@ -273,7 +273,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         #region Events
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void FrmKLineTradeIdentifier_Load(object sender, EventArgs e)
         {
             try
             {

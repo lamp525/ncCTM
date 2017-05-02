@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 {
-    partial class FrmUserTradeIdentifier
+    partial class FrmKLineTradeIdentifier
     {
         /// <summary>
         /// Required designer variable.
@@ -557,7 +557,7 @@
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmUserTradeIdentifier";
             this.Text = "FrmUserTradeIdentifier";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Load += new System.EventHandler(this.FrmKLineTradeIdentifier_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.luTradeInfo.Properties)).EndInit();

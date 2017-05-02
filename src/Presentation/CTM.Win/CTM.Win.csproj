@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>43</ApplicationRevision>
     <ApplicationVersion>1.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -242,11 +242,17 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.Designer.cs">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.cs">
+    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmKLineTradeIdentifier.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.Designer.cs">
-      <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
+      <DependentUpon>FrmKLineTradeIdentifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmTimeSharingTradeIdentifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmTimeSharingTradeIdentifier.Designer.cs">
+      <DependentUpon>FrmTimeSharingTradeIdentifier.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.cs">
       <SubType>Form</SubType>
@@ -754,7 +760,10 @@
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\TradeIdentifier\FrmUserTradeIdentifier.resx">
-      <DependentUpon>FrmUserTradeIdentifier.cs</DependentUpon>
+      <DependentUpon>FrmKLineTradeIdentifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\TradeIdentifier\FrmTimeSharingTradeIdentifier.resx">
+      <DependentUpon>FrmTimeSharingTradeIdentifier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.resx">
       <DependentUpon>FrmInvestmentPlanRecord.cs</DependentUpon>
@@ -930,6 +939,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
