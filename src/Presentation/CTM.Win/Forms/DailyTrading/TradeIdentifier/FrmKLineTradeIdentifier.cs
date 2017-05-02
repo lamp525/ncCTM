@@ -337,8 +337,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_currentTradeInfo.InvestorCode}', @StockCode = '{_currentTradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
                 var dsKLine = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlText1);
 
-                if (dsKLine != null && dsKLine.Tables.Count == 1)
-                    _KLineData = dsKLine.Tables[0];
+                if (dsKLine == null || dsKLine.Tables.Count == 0) return;
+
+                _KLineData = dsKLine.Tables[0];
+                _startDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Min();
+                _endDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Max();
 
                 _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _startDate, tradeDateTo: _endDate)
                             .Where(x => x.DealVolume != 0)
