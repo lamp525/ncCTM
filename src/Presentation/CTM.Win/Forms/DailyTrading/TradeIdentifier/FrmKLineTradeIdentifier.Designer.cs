@@ -555,8 +555,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1434, 789);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "FrmUserTradeIdentifier";
-            this.Text = "FrmUserTradeIdentifier";
+            this.Name = "FrmKLineTradeIdentifier";
+            this.Text = "FrmKLineTradeIdentifier";
             this.Load += new System.EventHandler(this.FrmKLineTradeIdentifier_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
