@@ -66,33 +66,47 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1665, 898);
+            this.layoutControl1.Size = new System.Drawing.Size(1365, 678);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // chartControl1
             // 
             this.chartControl1.AutoLayout = false;
-            this.chartControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.chartControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.chartControl1.CrosshairOptions.HighlightPoints = false;
             this.chartControl1.CrosshairOptions.ShowArgumentLabels = true;
             this.chartControl1.CrosshairOptions.ShowOnlyInFocusedPane = false;
             this.chartControl1.CrosshairOptions.ShowValueLabels = true;
             this.chartControl1.CrosshairOptions.ShowValueLine = true;
+            xyDiagram1.AxisX.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisX.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
             xyDiagram1.AxisX.VisibleInPanesSerializable = "0";
+            xyDiagram1.AxisY.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisY.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisY.Label.TextPattern = "{V:F2}";
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.DefaultPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            xyDiagram1.DefaultPane.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagramPane1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            xyDiagramPane1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagramPane1.Name = "Pane 1";
             xyDiagramPane1.PaneID = 0;
             xyDiagramPane1.Weight = 0.26D;
             xyDiagram1.Panes.AddRange(new DevExpress.XtraCharts.XYDiagramPane[] {
             xyDiagramPane1});
             secondaryAxisY1.AxisID = 0;
+            secondaryAxisY1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            secondaryAxisY1.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            secondaryAxisY1.Label.TextPattern = "{V:0.00%}";
             secondaryAxisY1.Name = "Secondary AxisY 1";
             secondaryAxisY1.VisibleInPanesSerializable = "-1";
             secondaryAxisY2.Alignment = DevExpress.XtraCharts.AxisAlignment.Near;
             secondaryAxisY2.AxisID = 1;
+            secondaryAxisY2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            secondaryAxisY2.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             secondaryAxisY2.Name = "Secondary AxisY 2";
             secondaryAxisY2.VisibleInPanesSerializable = "0";
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
@@ -105,6 +119,8 @@
             series1.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series1.Name = "Price";
             series1.ShowInLegend = false;
+            lineSeriesView1.Color = System.Drawing.Color.White;
+            lineSeriesView1.LineStyle.Thickness = 1;
             series1.View = lineSeriesView1;
             series2.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series2.Name = "Volume";
@@ -119,13 +135,14 @@
             series3.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series3.Name = "AvgPrice";
             series3.ShowInLegend = false;
-            lineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(213)))), ((int)(((byte)(181)))));
+            lineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(192)))), ((int)(((byte)(143)))));
+            lineSeriesView2.LineStyle.Thickness = 1;
             series3.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1,
         series2,
         series3};
-            this.chartControl1.Size = new System.Drawing.Size(1641, 857);
+            this.chartControl1.Size = new System.Drawing.Size(1341, 637);
             this.chartControl1.TabIndex = 4;
             // 
             // layoutControlGroup1
@@ -136,7 +153,7 @@
             this.layoutControlItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1665, 898);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1365, 678);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -144,7 +161,7 @@
             this.layoutControlItem1.Control = this.chartControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1645, 878);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1345, 658);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(105, 14);
             // 
@@ -152,7 +169,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1665, 898);
+            this.ClientSize = new System.Drawing.Size(1365, 678);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmTimeSharingTradeIdentifier";
             this.Text = "FrmTimeSharingTradeIdentifier";
