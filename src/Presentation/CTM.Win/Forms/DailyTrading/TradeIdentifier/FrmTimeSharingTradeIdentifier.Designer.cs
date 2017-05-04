@@ -86,8 +86,6 @@
             this.chartControl1.CrosshairOptions.HighlightPoints = false;
             this.chartControl1.CrosshairOptions.ShowArgumentLabels = true;
             this.chartControl1.CrosshairOptions.ShowOnlyInFocusedPane = false;
-            this.chartControl1.CrosshairOptions.ShowValueLabels = true;
-            this.chartControl1.CrosshairOptions.ShowValueLine = true;
             this.chartControl1.CrosshairOptions.ValueLineColor = System.Drawing.Color.White;
             xyDiagram1.AxisX.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             constantLine1.AxisValueSerializable = "09:30";
@@ -141,14 +139,22 @@
             constantLine8});
             xyDiagram1.AxisX.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisX.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisX.Tag = "x";
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisX.Tickmarks.Visible = false;
             xyDiagram1.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
             xyDiagram1.AxisX.VisibleInPanesSerializable = "0";
+            xyDiagram1.AxisX.VisualRange.Auto = false;
+            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "J";
+            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "A";
+            xyDiagram1.AxisX.WholeRange.Auto = false;
+            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "J";
+            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "A";
             xyDiagram1.AxisY.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.Label.TextPattern = "{V:F2}";
+            xyDiagram1.AxisY.Tag = "y";
             xyDiagram1.AxisY.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisY.Tickmarks.Visible = false;
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
@@ -166,6 +172,7 @@
             secondaryAxisY1.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             secondaryAxisY1.Label.TextPattern = "{V:0.00%}";
             secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.Tag = "y1";
             secondaryAxisY1.Tickmarks.MinorVisible = false;
             secondaryAxisY1.Tickmarks.Visible = false;
             secondaryAxisY1.VisibleInPanesSerializable = "-1";
@@ -176,6 +183,7 @@
             secondaryAxisY2.GridLines.Visible = true;
             secondaryAxisY2.Label.TextColor = System.Drawing.Color.SkyBlue;
             secondaryAxisY2.Name = "Secondary AxisY 2";
+            secondaryAxisY2.Tag = "y2";
             secondaryAxisY2.Tickmarks.MinorVisible = false;
             secondaryAxisY2.Tickmarks.Visible = false;
             secondaryAxisY2.VisibleInPanesSerializable = "0";

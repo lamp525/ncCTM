@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using CTM.Core.Util;
 using CTM.Data;
@@ -44,6 +45,13 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void ChartInit()
         {
+            XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
+            AxisX myAxisX = myDiagram.AxisX;
+
+            foreach (ConstantLine cLine in myAxisX.ConstantLines)
+            {
+                cLine.Name = string.Empty;
+            }
         }
 
         private void DisplayChart()
@@ -117,19 +125,34 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             AxisBase axis = e.Item.Axis;
 
-            if (axis is AxisX)
-            {
-                string axisValue = e.Item.AxisValue.ToString().Trim();
+            var tag = axis.Tag.ToString();
 
-                if(_visibleAxisXLableText.Contains (axisValue  ))
-                    {
-                   
-                }
-                else
-                {
-                    e.Item.Text = string.Empty;
-                }
+            switch (tag )
+            {
+                case "x":
+                    string valueX = e.Item.AxisValue.ToString().Trim();
+                    if (!_visibleAxisXLableText.Contains(valueX))
+                    {                 
+                        e.Item.Text = string.Empty;
+                    }
+                    break;
+                case "y":
+                    decimal valueY =CommonHelper .StringToDecimal( e.Item.AxisValue.ToString ());
+                    if (valueY == _preClose)
+                        e.Item.TextColor = Color.White;
+                    else if (valueY < _preClose)
+                        e.Item.TextColor = Color.Green;
+                    else if (valueY > _preClose)
+                        e.Item.TextColor = Color.FromArgb(204, 51, 0);
+                    break;
+                case "y1":
+                    break;
+                case "y2":             
+                default:
+                    break;
             }
+
+           
         }
 
         #endregion Events
