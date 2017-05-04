@@ -82,7 +82,7 @@
             // 
             this.chartControl1.AutoLayout = false;
             this.chartControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.chartControl1.CrosshairOptions.ArgumentLineColor = System.Drawing.Color.White;
+            this.chartControl1.CrosshairOptions.ArgumentLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             this.chartControl1.CrosshairOptions.HighlightPoints = false;
             this.chartControl1.CrosshairOptions.ShowArgumentLabels = true;
             this.chartControl1.CrosshairOptions.ShowOnlyInFocusedPane = false;
@@ -95,6 +95,7 @@
             constantLine1.ShowInLegend = false;
             constantLine2.AxisValueSerializable = "10:00";
             constantLine2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine2.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
             constantLine2.Name = "Constant Line 2";
             constantLine2.ShowBehind = true;
             constantLine2.ShowInLegend = false;
@@ -105,16 +106,19 @@
             constantLine3.ShowInLegend = false;
             constantLine4.AxisValueSerializable = "11:00";
             constantLine4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine4.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
             constantLine4.Name = "Constant Line 4";
             constantLine4.ShowBehind = true;
             constantLine4.ShowInLegend = false;
             constantLine5.AxisValueSerializable = "11:30";
             constantLine5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine5.LineStyle.Thickness = 2;
             constantLine5.Name = "Constant Line 5";
             constantLine5.ShowBehind = true;
             constantLine5.ShowInLegend = false;
             constantLine6.AxisValueSerializable = "13:30";
             constantLine6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine6.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
             constantLine6.Name = "Constant Line 6";
             constantLine6.ShowBehind = true;
             constantLine6.ShowInLegend = false;
@@ -125,6 +129,7 @@
             constantLine7.ShowInLegend = false;
             constantLine8.AxisValueSerializable = "14:30";
             constantLine8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine8.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
             constantLine8.Name = "Constant Line 8";
             constantLine8.ShowBehind = true;
             constantLine8.ShowInLegend = false;
@@ -224,6 +229,7 @@
             this.chartControl1.Size = new System.Drawing.Size(1341, 637);
             this.chartControl1.TabIndex = 4;
             this.chartControl1.CustomDrawAxisLabel += new DevExpress.XtraCharts.CustomDrawAxisLabelEventHandler(this.chartControl1_CustomDrawAxisLabel);
+            this.chartControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.chartControl1_Paint);
             // 
             // layoutControlGroup1
             // 

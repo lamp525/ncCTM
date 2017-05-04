@@ -122,6 +122,19 @@ namespace CTM.Core.Util
             return result;
         }
 
+
+        /// <summary>
+        /// 保留小数点位数（默认两位）
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        public static double SetDoubelDigits(double value, int digits = 2)
+        {
+            var result = Math.Round(value, digits, MidpointRounding.AwayFromZero);
+
+            return result;
+        }
         /// <summary>
         /// 将数值转换为百分比字符串(默认保留小数点后两位）
         /// </summary>
