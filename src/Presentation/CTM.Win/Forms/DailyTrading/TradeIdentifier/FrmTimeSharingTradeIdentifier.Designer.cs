@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.ConstantLine constantLine1 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine2 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine3 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine4 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine5 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine6 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine7 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.ConstantLine constantLine8 = new DevExpress.XtraCharts.ConstantLine();
             DevExpress.XtraCharts.XYDiagramPane xyDiagramPane1 = new DevExpress.XtraCharts.XYDiagramPane();
             DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY1 = new DevExpress.XtraCharts.SecondaryAxisY();
             DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY2 = new DevExpress.XtraCharts.SecondaryAxisY();
@@ -74,40 +82,102 @@
             // 
             this.chartControl1.AutoLayout = false;
             this.chartControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.chartControl1.CrosshairOptions.ArgumentLineColor = System.Drawing.Color.White;
             this.chartControl1.CrosshairOptions.HighlightPoints = false;
             this.chartControl1.CrosshairOptions.ShowArgumentLabels = true;
             this.chartControl1.CrosshairOptions.ShowOnlyInFocusedPane = false;
             this.chartControl1.CrosshairOptions.ShowValueLabels = true;
             this.chartControl1.CrosshairOptions.ShowValueLine = true;
-            xyDiagram1.AxisX.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            this.chartControl1.CrosshairOptions.ValueLineColor = System.Drawing.Color.White;
+            xyDiagram1.AxisX.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine1.AxisValueSerializable = "09:30";
+            constantLine1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine1.Name = "Constant Line 1";
+            constantLine1.ShowBehind = true;
+            constantLine1.ShowInLegend = false;
+            constantLine2.AxisValueSerializable = "10:00";
+            constantLine2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine2.Name = "Constant Line 2";
+            constantLine2.ShowBehind = true;
+            constantLine2.ShowInLegend = false;
+            constantLine3.AxisValueSerializable = "10:30";
+            constantLine3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine3.Name = "Constant Line 3";
+            constantLine3.ShowBehind = true;
+            constantLine3.ShowInLegend = false;
+            constantLine4.AxisValueSerializable = "11:00";
+            constantLine4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine4.Name = "Constant Line 4";
+            constantLine4.ShowBehind = true;
+            constantLine4.ShowInLegend = false;
+            constantLine5.AxisValueSerializable = "11:30";
+            constantLine5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine5.Name = "Constant Line 5";
+            constantLine5.ShowBehind = true;
+            constantLine5.ShowInLegend = false;
+            constantLine6.AxisValueSerializable = "13:30";
+            constantLine6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine6.Name = "Constant Line 6";
+            constantLine6.ShowBehind = true;
+            constantLine6.ShowInLegend = false;
+            constantLine7.AxisValueSerializable = "14:00";
+            constantLine7.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine7.Name = "Constant Line 7";
+            constantLine7.ShowBehind = true;
+            constantLine7.ShowInLegend = false;
+            constantLine8.AxisValueSerializable = "14:30";
+            constantLine8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            constantLine8.Name = "Constant Line 8";
+            constantLine8.ShowBehind = true;
+            constantLine8.ShowInLegend = false;
+            xyDiagram1.AxisX.ConstantLines.AddRange(new DevExpress.XtraCharts.ConstantLine[] {
+            constantLine1,
+            constantLine2,
+            constantLine3,
+            constantLine4,
+            constantLine5,
+            constantLine6,
+            constantLine7,
+            constantLine8});
+            xyDiagram1.AxisX.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisX.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram1.AxisX.Tickmarks.Visible = false;
             xyDiagram1.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
             xyDiagram1.AxisX.VisibleInPanesSerializable = "0";
-            xyDiagram1.AxisY.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisY.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisY.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.Label.TextPattern = "{V:F2}";
+            xyDiagram1.AxisY.Tickmarks.MinorVisible = false;
+            xyDiagram1.AxisY.Tickmarks.Visible = false;
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
             xyDiagram1.DefaultPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            xyDiagram1.DefaultPane.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagram1.DefaultPane.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagramPane1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            xyDiagramPane1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            xyDiagramPane1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagramPane1.Name = "Pane 1";
             xyDiagramPane1.PaneID = 0;
             xyDiagramPane1.Weight = 0.26D;
             xyDiagram1.Panes.AddRange(new DevExpress.XtraCharts.XYDiagramPane[] {
             xyDiagramPane1});
             secondaryAxisY1.AxisID = 0;
-            secondaryAxisY1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            secondaryAxisY1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             secondaryAxisY1.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             secondaryAxisY1.Label.TextPattern = "{V:0.00%}";
             secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.Tickmarks.MinorVisible = false;
+            secondaryAxisY1.Tickmarks.Visible = false;
             secondaryAxisY1.VisibleInPanesSerializable = "-1";
             secondaryAxisY2.Alignment = DevExpress.XtraCharts.AxisAlignment.Near;
             secondaryAxisY2.AxisID = 1;
-            secondaryAxisY2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
-            secondaryAxisY2.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
+            secondaryAxisY2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            secondaryAxisY2.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            secondaryAxisY2.GridLines.Visible = true;
+            secondaryAxisY2.Label.TextColor = System.Drawing.Color.SkyBlue;
             secondaryAxisY2.Name = "Secondary AxisY 2";
+            secondaryAxisY2.Tickmarks.MinorVisible = false;
+            secondaryAxisY2.Tickmarks.Visible = false;
             secondaryAxisY2.VisibleInPanesSerializable = "0";
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1,
@@ -142,8 +212,10 @@
         series1,
         series2,
         series3};
+            this.chartControl1.SeriesTemplate.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             this.chartControl1.Size = new System.Drawing.Size(1341, 637);
             this.chartControl1.TabIndex = 4;
+            this.chartControl1.CustomDrawAxisLabel += new DevExpress.XtraCharts.CustomDrawAxisLabelEventHandler(this.chartControl1_CustomDrawAxisLabel);
             // 
             // layoutControlGroup1
             // 
