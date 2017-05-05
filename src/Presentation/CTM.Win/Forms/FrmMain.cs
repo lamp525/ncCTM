@@ -429,16 +429,19 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void bbiDailyTradeIdentification_ItemClick(object sender, ItemClickEventArgs e)
         {
-            try
-            {
-                var argument = LoginInfo.CurrentUser.IsAdmin ? string.Empty : LoginInfo.CurrentUser.DepartmentId.ToString();
+            //try
+            //{
+            //    var argument = LoginInfo.CurrentUser.IsAdmin ? string.Empty : LoginInfo.CurrentUser.DepartmentId.ToString();
 
-                ProcessHelper.StartExternalProgram("Client.exe", @".\External\DailyTradeIdentification", argument, System.Diagnostics.ProcessWindowStyle.Maximized);
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
+            //    ProcessHelper.StartExternalProgram("Client.exe", @".\External\DailyTradeIdentification", argument, System.Diagnostics.ProcessWindowStyle.Maximized);
+            //}
+            //catch (Exception ex)
+            //{
+            //    DXMessage.ShowError(ex.Message);
+            //}
+            var dialog = this.CreateDialog<FrmTimeSharingTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Maximized);
+            dialog.Text = "分时交易标识";
+            dialog.Show();
         }
 
         /// <summary>
@@ -448,7 +451,9 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem38_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmKLineTradeIdentifier>("K线交易标识");
+            var dialog = this.CreateDialog<FrmKLineTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Maximized);
+            dialog.Text = "K线交易标识";
+            dialog.Show();
         }
 
         #region Reports
@@ -718,7 +723,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmTimeSharingTradeIdentifier>();
+            //this.DisplayForm<FrmTimeSharingTradeIdentifier>();
         }
     }
 }

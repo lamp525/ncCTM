@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using CTM.Core.Infrastructure;
+using DevExpress.XtraRichEdit.API.Word;
 
 namespace CTM.Win.Extensions
 {
@@ -86,12 +87,13 @@ namespace CTM.Win.Extensions
         /// <param name="parentForm"></param>
         /// <param name="borderStyle"></param>
         /// <returns></returns>
-        public static T CreateDialog<T>(this Form parentForm, FormBorderStyle borderStyle = FormBorderStyle.FixedToolWindow) where T : BaseForm
+        public static T CreateDialog<T>(this Form parentForm, FormBorderStyle borderStyle = FormBorderStyle.FixedToolWindow , FormWindowState windowState = FormWindowState.Normal) where T : BaseForm
         {
             var dialog = EngineContext.Current.Resolve<T>();
             dialog.Owner = parentForm;
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.FormBorderStyle = borderStyle;
+            dialog.WindowState = windowState;
 
             return dialog;
         }
