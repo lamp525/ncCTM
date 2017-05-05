@@ -158,6 +158,7 @@
             // 
             this.chartControl1.AutoLayout = false;
             this.chartControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.chartControl1.BorderOptions.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartControl1.CrosshairOptions.ArgumentLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             this.chartControl1.CrosshairOptions.HighlightPoints = false;
             this.chartControl1.CrosshairOptions.ShowArgumentLabels = true;
@@ -286,7 +287,6 @@
             this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Location = new System.Drawing.Point(12, 38);
             this.chartControl1.Name = "chartControl1";
-            this.chartControl1.SelectionMode = DevExpress.XtraCharts.ElementSelectionMode.Single;
             series1.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series1.Name = "Price";
             series1.ShowInLegend = false;

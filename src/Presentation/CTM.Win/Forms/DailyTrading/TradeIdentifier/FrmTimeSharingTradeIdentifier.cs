@@ -69,12 +69,23 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void ChartInit()
         {
+            //RuntimeHitTesting设为True时，才可从ChartHitInfo中取得SeriesPoint
+            //chartControl1.RuntimeHitTesting = true;
+
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
             AxisX myAxisX = myDiagram.AxisX;
+            myAxisX.WholeRange.AutoSideMargins = false;
+            myAxisX.WholeRange.SideMarginsValue = 0;
             foreach (ConstantLine cLine in myAxisX.ConstantLines)
             {
                 cLine.Name = string.Empty;
             }
+
+            SecondaryAxisY myRateAxisY = myDiagram.SecondaryAxesY[0];
+            myRateAxisY.WholeRange.AutoSideMargins = false;
+            myRateAxisY.WholeRange.SideMarginsValue = 0;
+            myRateAxisY.Tickmarks.Visible = true;
+            myRateAxisY.Tickmarks.MinorVisible = false;
         }
 
         private void BindTradeInfo()
@@ -102,10 +113,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         }
 
         private void DisplayChart()
-        {  
+        {
             _sePrice.Points.Clear();
             _seVolume.Points.Clear();
             _seAvgPrice.Points.Clear();
+
+            if (_timeSharingData == null || _timeSharingData.Rows.Count == 0) return;
 
             foreach (DataRow row in _timeSharingData.Rows)
             {
@@ -139,12 +152,28 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             double maxValueY = _preClose + maxDiff;
             myAxisY.WholeRange.Auto = false;
             myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
+            myAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
             SecondaryAxisY mySecondaryAxisY = myDiagram.SecondaryAxesY[0];
             double minRate = (minValueY - _preClose) / _preClose;
             double maxRate = (maxValueY - _preClose) / _preClose;
             mySecondaryAxisY.WholeRange.Auto = false;
             mySecondaryAxisY.WholeRange.SetMinMaxValues(minRate, maxRate);
+            mySecondaryAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
+
+            double interval = Math.Round(maxDiff / 7, 2);
+            for (int i = 0; i < 22; i++)
+            {
+                double price = _preClose + (10 - i) * interval;
+                myAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString()));
+                myAxisY.CustomLabels[i].AxisValue = price;
+                myAxisY.CustomLabels[i].TextColor = Color.FromArgb(204, 51, 0);
+
+                //double rate = (price - _preClose) / _preClose;
+                //mySecondaryAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString()));
+                //mySecondaryAxisY.CustomLabels[i].AxisValue = rate;
+                //mySecondaryAxisY.CustomLabels[i].TextColor = Color.FromArgb(204, 51, 0);
+            }
         }
 
         #endregion Utilities
@@ -179,7 +208,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
                 if (_currentTradeInfo == null) return;
 
-                chartControl1.Titles[0].Text = " 分时图 " + _currentTradeInfo.StockName ;
+                chartControl1.Titles[0].Text = " 分时图 " + _currentTradeInfo.StockName;
 
                 _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _tradeDate, tradeDateTo: _tradeDate)
                        .Where(x => x.DealVolume != 0)
@@ -202,7 +231,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 decimal profit = _tradeRecords.Sum(x => x.DealVolume) * currentClose + _tradeRecords.Sum(x => x.ActualAmount);
 
-                chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString ("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
+                chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
 
                 var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
                 var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
@@ -267,6 +296,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 case "y":
                     double valueY = CommonHelper.StringToDouble(e.Item.AxisValue.ToString());
+                    e.Item.Text = valueY.ToString("F2");
                     if (valueY == _preClose)
                         e.Item.TextColor = Color.White;
                     else if (valueY < _preClose)
@@ -277,6 +307,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 case "y1":
                     double valueY1 = CommonHelper.StringToDouble(e.Item.AxisValue.ToString());
+                    //e.Item.Text = valueY1.ToString("P2");
                     if (valueY1 == 0)
                         e.Item.TextColor = Color.White;
                     else if (valueY1 < 0)
