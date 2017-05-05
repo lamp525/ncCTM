@@ -118,6 +118,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             chartControl1.CrosshairOptions.ShowValueLabels = true;
             chartControl1.CrosshairOptions.ShowArgumentLine = true;
             chartControl1.CrosshairOptions.ShowArgumentLabels = true;
+            chartControl1.Cursor = Cursors.Default;
 
             #endregion Chart
 
@@ -212,6 +213,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void DisplayChart()
         {
+            chartControl1.Cursor = Cursors.Default;
+
             _seriesDayKLine.Points.Clear();
             chartControl1.Titles[0].Text = luTradeInfo.Text;
 
@@ -368,16 +371,17 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             try
             {
+                chartControl1.Cursor = Cursors.Default;
+
                 if (!_chartGenerated || _tradeRecords == null || !_tradeRecords.Any()) return;
 
-                ChartControl currentChart = sender as ChartControl;
-                ChartHitInfo hitInfo = currentChart.CalcHitInfo(e.Location);
+                ChartHitInfo hitInfo = chartControl1.CalcHitInfo(e.Location);
 
                 if (hitInfo.InDiagram)
                 {
-                    DiagramCoordinates dc = (currentChart.Diagram as XYDiagram).PointToDiagram(e.Location);
+                    DiagramCoordinates dc = (chartControl1.Diagram as XYDiagram).PointToDiagram(e.Location);
 
-                    if (_currentDate != dc.DateTimeArgument.Date)
+                    if (!dc.IsEmpty && _currentDate != dc.DateTimeArgument.Date)
                     {
                         _currentDate = dc.DateTimeArgument.Date;
                         var currentDateRecords = _tradeRecords.Where(x => x.TradeDate == _currentDate).ToList();

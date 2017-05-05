@@ -325,6 +325,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
+        private void chartControl1_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
+        {
+            
+        }
+
         private void chartControl1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             try
@@ -405,5 +410,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         }
 
         #endregion Events
+
+  
     }
 }
