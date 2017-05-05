@@ -62,6 +62,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 deTrade.EditValue = now.AddDays(-1).Date;
             else
                 deTrade.EditValue = now.Date;
+
+            this.btnView.Enabled = false;
+            this.labelControl1.Text = string.Empty;
         }
 
         private void ChartInit()
@@ -99,8 +102,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         }
 
         private void DisplayChart()
-        {
-            chartControl1.Titles[0].Text = _currentTradeInfo.StockName + " 分时图 ";
+        {  
             _sePrice.Points.Clear();
             _seVolume.Points.Clear();
             _seAvgPrice.Points.Clear();
@@ -177,9 +179,30 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
                 if (_currentTradeInfo == null) return;
 
+                chartControl1.Titles[0].Text = " 分时图 " + _currentTradeInfo.StockName ;
+
                 _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _tradeDate, tradeDateTo: _tradeDate)
                        .Where(x => x.DealVolume != 0)
                        .OrderBy(x => x.TradeTime).ToList();
+
+                var buyRecords = _tradeRecords.Where(x => x.DealFlag == true);
+                var sellRecords = _tradeRecords.Where(x => x.DealFlag == false);
+
+                decimal buyVolume = buyRecords.Sum(x => x.DealVolume);
+                decimal sellVolume = sellRecords.Sum(x => x.DealVolume);
+
+                decimal currentClose = 0;
+
+                if ((buyVolume + sellVolume) != 0)
+                {
+                    var commandText = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
+                    var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+                    currentClose = CommonHelper.StringToDecimal(ds.Tables[0].Rows[0]["Close"].ToString().Trim());
+                }
+
+                decimal profit = _tradeRecords.Sum(x => x.DealVolume) * currentClose + _tradeRecords.Sum(x => x.ActualAmount);
+
+                chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString ("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
 
                 var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
                 var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
@@ -199,6 +222,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnView.Enabled = true;
             }
         }
 

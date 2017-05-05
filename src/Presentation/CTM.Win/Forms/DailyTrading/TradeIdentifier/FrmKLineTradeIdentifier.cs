@@ -79,6 +79,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
             this.colDealFlag.SetDisplayFormatToBoolean("买", "卖");
             this.esiProfitTitle.Text = string.Empty;
+
+            btnView.Enabled = false;
         }
 
         private void ChartInit()
