@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Util;
 using CTM.Data;
+using CTM.Services.TradeRecord;
 using CTM.Win.Extensions;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
@@ -15,7 +19,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         #region Fields
 
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-        private DataTable _tradeRecords;
+        private IDailyRecordService _dailyRecordService;
+        private IList<DailyRecord> _tradeRecords = null;
         private DataTable _timeSharingData;
         private double _preClose;
         private Series _sePrice;
@@ -30,9 +35,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         #region Constructors
 
-        public FrmTimeSharingTradeIdentifier()
+        public FrmTimeSharingTradeIdentifier(IDailyRecordService dailyRecordService)
         {
             InitializeComponent();
+
+            this._dailyRecordService = dailyRecordService;
 
             _sePrice = chartControl1.Series[0];
             _seVolume = chartControl1.Series[1];
@@ -74,11 +81,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 var volume = CommonHelper.StringToDouble(row["Volume"].ToString().Trim());
 
                 SeriesPoint spPrice = new SeriesPoint(tradeTime, closePrice);
-                _sePrice.Points.Add(spPrice);        
+                _sePrice.Points.Add(spPrice);
                 SeriesPoint spVolume = new SeriesPoint(tradeTime, volume);
                 _seVolume.Points.Add(spVolume);
 
-                if (string.Compare ( tradeTime , "09:30") >=0)
+                if (string.Compare(tradeTime, "09:30") >= 0)
                 {
                     SeriesPoint spAvgPrice = new SeriesPoint(tradeTime, avgPrice);
                     _seAvgPrice.Points.Add(spAvgPrice);
@@ -112,9 +119,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 FormInit();
 
                 ChartInit();
-                var commandText = $@"SELECT * FROM DailyRecord WHERE  TradeDate = '2017/05/03' AND StockCode = '000839.SZ' ";
-                var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
-                _tradeRecords = ds.Tables[0];
+
+                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: "000839.SZ", tradeDateFrom: CommonHelper.StringToDateTime("2017/05/03"), tradeDateTo: CommonHelper.StringToDateTime("2017/05/03"))
+                        .Where(x => x.DealVolume != 0)
+                        .OrderBy(x => x.TradeTime).ToList();
 
                 var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '2017/05/02' AND StockCode = '000839.SZ' ";
                 var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
@@ -178,7 +186,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             try
             {
-                if (!_chartGenerated || _tradeRecords == null || _tradeRecords.Rows.Count == 0) return;
+                if (!_chartGenerated || _tradeRecords == null || !_tradeRecords.Any()) return;
 
                 Graphics g = e.Graphics;
 
@@ -197,18 +205,31 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 bool downDeviant = false;
                 float deviant = 20f;
 
-                foreach (DataRow row in _tradeRecords.Rows)
+                var recordGroupByTimeAndFlag = _tradeRecords.GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
+                foreach (var group in recordGroupByTimeAndFlag)
                 {
-                    bool dealFlag = bool.Parse(row["DealFlag"].ToString().Trim());
+                    bool dealFlag = group.Key.DealFlag;
 
-                    string identifierText = (dealFlag ? "B" : "S") + ":" + row["DealPrice"] + " " + row["DealVolume"];
-                    string tradeTime = row["TradeTime"].ToString().Trim().Substring(0, 5);
-                    double dealPrice = CommonHelper.SetDoubelDigits( CommonHelper.StringToDouble(row["DealPrice"].ToString().Trim()));
+                    StringBuilder identifierText = new StringBuilder();
+                    identifierText.Append((dealFlag ? "B" : "S") + ":");
+                    foreach (var item in group)
+                    {
+                        identifierText.Append(item.DealPrice.ToString ("F2") );
+                        identifierText.Append(" ");
+                        identifierText.Append(Math.Abs(item.DealVolume).ToString("N0"));
+                        identifierText.AppendLine();
+                        identifierText.Append("  ");
+                    }
+
+                    identifierText.Remove(identifierText.Length - 2, 2);
+
+                    string tradeTime = group.Key.TradeTime;
+                    double dealPrice = (double)group.First().DealPrice;
                     Point dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(tradeTime, dealPrice).Point;
                     targetPoint.X = dealPoint.X;
                     targetPoint.Y = dealPoint.Y;
 
-                    SizeF size = g.MeasureString(identifierText, font);
+                    SizeF size = g.MeasureString(identifierText.ToString(), font);
 
                     if (dealFlag)
                     {
@@ -217,7 +238,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
                         textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.OrangeRed, textStartPoint);
+                        g.DrawString(identifierText.ToString(), font, Brushes.OrangeRed, textStartPoint);
 
                         upDeviant = !upDeviant;
                     }
@@ -228,7 +249,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
                         textStartPoint.X = targetPoint.X + foldDX + straightDX;
                         textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.Green, textStartPoint);
+                        g.DrawString(identifierText.ToString(), font, Brushes.Green, textStartPoint);
 
                         downDeviant = !downDeviant;
                     }
