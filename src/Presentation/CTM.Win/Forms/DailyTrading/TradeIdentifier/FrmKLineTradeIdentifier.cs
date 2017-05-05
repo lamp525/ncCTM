@@ -158,7 +158,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisX.Color = _redColor;
             myAxisX.Label.TextColor = _redColor;
             myAxisX.Label.Staggered = false;
-            myAxisX.Label.Angle = -45;
+            myAxisX.Label.TextPattern = "{A:MM/dd}";
+            myAxisX.Label.Angle = -60;
             myAxisX.Label.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
             myAxisX.Tickmarks.MinorVisible = false;
             myAxisX.DateTimeScaleOptions.WorkdaysOnly = true;
@@ -175,7 +176,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisY.Alignment = AxisAlignment.Far;
             myAxisY.Color = _redColor;
             myAxisY.Label.TextColor = _redColor;
-            myAxisY.Label.TextPattern = "{ V:F2}";
+            myAxisY.Label.TextPattern = "{V:F2}";
             myAxisY.GridLines.Color = Color.FromArgb(165, 42, 42);
             myAxisY.GridLines.LineStyle.Thickness = 1;
             myAxisY.GridLines.LineStyle.DashStyle = DashStyle.Dot;
