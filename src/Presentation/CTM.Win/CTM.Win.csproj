@@ -351,6 +351,7 @@
     <Compile Include="Models\StatisticsReport\UserInvestIncomeSummaryModel.cs" />
     <Compile Include="Models\StockPositionModel.cs" />
     <Compile Include="Models\StockInfoModel.cs" />
+    <Compile Include="Models\TradeInfoModel.cs" />
     <Compile Include="Models\TradeRecordModel.cs" />
     <Compile Include="Forms\Accounting\MonthlyStatement\FrmAccountFundMonthlyStatements.cs">
       <SubType>Form</SubType>

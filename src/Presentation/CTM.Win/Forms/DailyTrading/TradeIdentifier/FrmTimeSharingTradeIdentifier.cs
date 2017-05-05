@@ -9,6 +9,7 @@ using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.TradeRecord;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
 
@@ -22,11 +23,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private IDailyRecordService _dailyRecordService;
         private IList<DailyRecord> _tradeRecords = null;
         private DataTable _timeSharingData;
-        private double _preClose;
+        private DateTime _tradeDate;
+        private TradeInfoModel _currentTradeInfo = null;
         private Series _sePrice;
         private Series _seVolume;
         private Series _seAvgPrice;
-
+        private double _preClose;
         private string[] _visibleAxisXLableText = new string[] { "09:15", "09:30", "10:00", "10:30", "11:00", "11:30", "13:30", "14:00", "14:30", "15:00" };
 
         private bool _chartGenerated = false;
@@ -52,6 +54,14 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void FormInit()
         {
+            this.deTrade.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+
+            var now = DateTime.Now;
+
+            if (now.Hour < 15)
+                deTrade.EditValue = now.AddDays(-1).Date;
+            else
+                deTrade.EditValue = now.Date;
         }
 
         private void ChartInit()
@@ -62,6 +72,30 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             foreach (ConstantLine cLine in myAxisX.ConstantLines)
             {
                 cLine.Name = string.Empty;
+            }
+        }
+
+        private void BindTradeInfo()
+        {
+            luTradeInfo.Properties.DataSource = null;
+
+            var commandText = $@"EXEC [dbo].[sp_TITradeInfo] @StartDate ='{_tradeDate}', @EndDate='{_tradeDate}'";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count > 0)
+            {
+                var source = ds.Tables[0].AsEnumerable()
+                                    .Select(x => new TradeInfoModel
+                                    {
+                                        DisplayText = x.Field<string>("DisplayText").Trim(),
+                                        InvestorCode = x.Field<string>("InvestorCode").Trim(),
+                                        InvestorName = x.Field<string>("InvestorName").Trim(),
+                                        StockCode = x.Field<string>("StockCode").Trim(),
+                                        StockName = x.Field<string>("StockName").Trim(),
+                                        TradeCode = x.Field<string>("TradeCode").Trim(),
+                                    }).ToList();
+
+                luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
             }
         }
 
@@ -99,11 +133,16 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             double minClose = (double)_timeSharingData.AsEnumerable().Select(x => x.Field<decimal>("Close")).Min();
             double maxClose = (double)_timeSharingData.AsEnumerable().Select(x => x.Field<decimal>("Close")).Max();
             double maxDiff = Math.Abs(minClose - _preClose) > Math.Abs(maxClose - _preClose) ? Math.Abs(minClose - _preClose) : Math.Abs(maxClose - _preClose);
-
             double minValueY = _preClose - maxDiff;
             double maxValueY = _preClose + maxDiff;
             myAxisY.WholeRange.Auto = false;
             myAxisY.WholeRange.SetMinMaxValues(minValueY, maxValueY);
+
+            SecondaryAxisY mySecondaryAxisY = myDiagram.SecondaryAxesY[0];
+            double minRate = (minValueY - _preClose) / _preClose;
+            double maxRate = (maxValueY - _preClose) / _preClose;
+            mySecondaryAxisY.WholeRange.Auto = false;
+            mySecondaryAxisY.WholeRange.SetMinMaxValues(minRate, maxRate);
         }
 
         #endregion Utilities
@@ -114,21 +153,39 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             try
             {
-                _chartGenerated = false;
-
                 FormInit();
 
                 ChartInit();
 
-                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: "000839.SZ", tradeDateFrom: CommonHelper.StringToDateTime("2017/05/03"), tradeDateTo: CommonHelper.StringToDateTime("2017/05/03"))
-                        .Where(x => x.DealVolume != 0)
-                        .OrderBy(x => x.TradeTime).ToList();
+                luTradeInfo.Focus();
 
-                var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '2017/05/02' AND StockCode = '000839.SZ' ";
+                this.AcceptButton = this.btnView;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this._chartGenerated = false;
+                this.btnView.Enabled = false;
+
+                _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
+                if (_currentTradeInfo == null) return;
+
+                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _tradeDate, tradeDateTo: _tradeDate)
+                       .Where(x => x.DealVolume != 0)
+                       .OrderBy(x => x.TradeTime).ToList();
+
+                var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
                 var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
                 _preClose = CommonHelper.StringToDouble(ds1.Tables[0].Rows[0]["Close"].ToString().Trim());
 
-                var commandText2 = $@"SELECT *	FROM [FinancialCenter].[dbo].[TKLine_1Min] WHERE TradeDate = '{"2017/05/03"}' AND StockCode = '{"000839.SZ"}' ORDER BY TradeTime";
+                var commandText2 = $@"EXEC [dbo].[sp_TITimeSharingData] @TradeDate = '{_tradeDate}', @StockCode='{_currentTradeInfo.StockCode}', @FiveDay = 0";
                 var ds2 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText2);
 
                 if (ds2 == null || ds2.Tables.Count == 0) return;
@@ -137,7 +194,25 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 DisplayChart();
 
-                _chartGenerated = true;
+                this._chartGenerated = true;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void luTradeInfo_EditValueChanged(object sender, EventArgs e)
+        {
+            this.btnView.Enabled = !string.IsNullOrEmpty(luTradeInfo.SelectedValue());
+        }
+
+        private void deTrade_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _tradeDate = CommonHelper.StringToDateTime(deTrade.EditValue.ToString());
+                BindTradeInfo();
             }
             catch (Exception ex)
             {
@@ -174,6 +249,13 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     break;
 
                 case "y1":
+                    double valueY1 = CommonHelper.StringToDouble(e.Item.AxisValue.ToString());
+                    if (valueY1 == 0)
+                        e.Item.TextColor = Color.White;
+                    else if (valueY1 < 0)
+                        e.Item.TextColor = Color.Green;
+                    else if (valueY1 > 0)
+                        e.Item.TextColor = Color.FromArgb(204, 51, 0);
                     break;
 
                 case "y2":
@@ -196,14 +278,14 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                 float foldDX = 15f;
-                float foldDY = 30f;
+                float foldDY = 50f;
                 float straightDX = 15;
                 PointF targetPoint = new PointF();
                 PointF textStartPoint = new PointF();
 
                 bool upDeviant = false;
                 bool downDeviant = false;
-                float deviant = 20f;
+                float deviant = 30f;
 
                 var recordGroupByTimeAndFlag = _tradeRecords.GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
                 foreach (var group in recordGroupByTimeAndFlag)
@@ -214,7 +296,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     identifierText.Append((dealFlag ? "B" : "S") + ":");
                     foreach (var item in group)
                     {
-                        identifierText.Append(item.DealPrice.ToString ("F2") );
+                        identifierText.Append(item.DealPrice.ToString("F2"));
                         identifierText.Append(" ");
                         identifierText.Append(Math.Abs(item.DealVolume).ToString("N0"));
                         identifierText.AppendLine();

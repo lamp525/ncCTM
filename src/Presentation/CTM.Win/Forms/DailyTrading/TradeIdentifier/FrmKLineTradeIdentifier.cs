@@ -10,6 +10,7 @@ using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.TradeRecord;
 using CTM.Win.Extensions;
+using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
 
@@ -34,26 +35,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private DateTime _startDate, _endDate;
         private bool _chartGenerated = false;
         private DateTime _currentDate;
-        private TradeInfo _currentTradeInfo = null;
+        private TradeInfoModel _currentTradeInfo = null;
 
         #endregion Fields
 
         #region NestedClass
-
-        private class TradeInfo
-        {
-            public string InvestorCode { get; set; }
-
-            public string InvestorName { get; set; }
-
-            public string StockCode { get; set; }
-
-            public string StockName { get; set; }
-
-            public string TradeCode { get; set; }
-
-            public string DisplayText { get; set; }
-        }
 
         private class DealAvgInfo
         {
@@ -208,7 +194,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count > 0)
             {
                 var source = ds.Tables[0].AsEnumerable()
-                                    .Select(x => new TradeInfo
+                                    .Select(x => new TradeInfoModel
                                     {
                                         DisplayText = x.Field<string>("DisplayText").Trim(),
                                         InvestorCode = x.Field<string>("InvestorCode").Trim(),
@@ -331,7 +317,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 this.esiProfitTitle.Text = string.Empty;
 
-                _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfo;
+                _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
                 if (_currentTradeInfo == null) return;
 
                 var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_currentTradeInfo.InvestorCode}', @StockCode = '{_currentTradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
