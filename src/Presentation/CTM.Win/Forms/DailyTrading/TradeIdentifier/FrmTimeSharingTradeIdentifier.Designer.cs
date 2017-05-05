@@ -218,7 +218,7 @@
             series3.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series3.Name = "AvgPrice";
             series3.ShowInLegend = false;
-            lineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(192)))), ((int)(((byte)(143)))));
+            lineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(102)))));
             lineSeriesView2.LineStyle.Thickness = 1;
             series3.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {

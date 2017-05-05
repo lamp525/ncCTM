@@ -62,6 +62,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             _sePrice.Points.Clear();
             _seVolume.Points.Clear();
+            _seAvgPrice.Points.Clear();
 
             foreach (DataRow row in _timeSharingData.Rows)
             {
@@ -73,11 +74,15 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 var volume = CommonHelper.StringToDouble(row["Volume"].ToString().Trim());
 
                 SeriesPoint spPrice = new SeriesPoint(tradeTime, closePrice);
-                _sePrice.Points.Add(spPrice);
-                SeriesPoint spAvgPrice = new SeriesPoint(tradeTime, avgPrice);
-                _seAvgPrice.Points.Add(spAvgPrice);
+                _sePrice.Points.Add(spPrice);        
                 SeriesPoint spVolume = new SeriesPoint(tradeTime, volume);
                 _seVolume.Points.Add(spVolume);
+
+                if (string.Compare ( tradeTime , "09:30") >=0)
+                {
+                    SeriesPoint spAvgPrice = new SeriesPoint(tradeTime, avgPrice);
+                    _seAvgPrice.Points.Add(spAvgPrice);
+                }
             }
 
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
@@ -208,22 +213,22 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     if (dealFlag)
                     {
                         foldDY += upDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.AliceBlue;
+                        pArrow.Color = Color.OrangeRed;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
                         textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.AliceBlue, textStartPoint);
+                        g.DrawString(identifierText, font, Brushes.OrangeRed, textStartPoint);
 
                         upDeviant = !upDeviant;
                     }
                     else
                     {
                         foldDY -= downDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.Orange;
+                        pArrow.Color = Color.Green;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
                         textStartPoint.X = targetPoint.X + foldDX + straightDX;
                         textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.Orange, textStartPoint);
+                        g.DrawString(identifierText, font, Brushes.Green, textStartPoint);
 
                         downDeviant = !downDeviant;
                     }
