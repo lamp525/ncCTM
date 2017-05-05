@@ -68,7 +68,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             XYDiagram myDiagram = chartControl1.Diagram as XYDiagram;
             AxisX myAxisX = myDiagram.AxisX;
-
             foreach (ConstantLine cLine in myAxisX.ConstantLines)
             {
                 cLine.Name = string.Empty;
@@ -101,6 +100,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void DisplayChart()
         {
+            chartControl1.Titles[0].Text = _currentTradeInfo.StockName + " 分时图 ";
             _sePrice.Points.Clear();
             _seVolume.Points.Clear();
             _seAvgPrice.Points.Clear();
@@ -253,7 +253,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     if (valueY1 == 0)
                         e.Item.TextColor = Color.White;
                     else if (valueY1 < 0)
+                    {
+                        e.Item.Text = e.Item.Text.Substring(1, e.Item.Text.Length - 1);
                         e.Item.TextColor = Color.Green;
+                    }
                     else if (valueY1 > 0)
                         e.Item.TextColor = Color.FromArgb(204, 51, 0);
                     break;

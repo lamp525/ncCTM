@@ -47,6 +47,7 @@
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView1 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
             DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnView = new DevExpress.XtraEditors.SimpleButton();
             this.luTradeInfo = new DevExpress.XtraEditors.LookUpEdit();
@@ -115,7 +116,7 @@
             this.luTradeInfo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luTradeInfo.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "DisplayText"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("StockCode", "Name10", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("InvestorCode", "Name11", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TradeCode", "Name12", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default)});
@@ -203,6 +204,7 @@
             constantLine7,
             constantLine8});
             xyDiagram1.AxisX.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisX.Label.Font = new System.Drawing.Font("Tahoma", 9F);
             xyDiagram1.AxisX.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisX.Tag = "x";
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
@@ -217,6 +219,7 @@
             xyDiagram1.AxisX.WholeRange.MinValueSerializable = "A";
             xyDiagram1.AxisY.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
+            xyDiagram1.AxisY.Label.Font = new System.Drawing.Font("Tahoma", 9F);
             xyDiagram1.AxisY.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             xyDiagram1.AxisY.Label.TextPattern = "{V:F2}";
             xyDiagram1.AxisY.Tag = "y";
@@ -229,7 +232,7 @@
             xyDiagramPane1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             xyDiagramPane1.Name = "Pane 1";
             xyDiagramPane1.PaneID = 0;
-            xyDiagramPane1.Weight = 0.26D;
+            xyDiagramPane1.Weight = 0.27D;
             xyDiagram1.Panes.AddRange(new DevExpress.XtraCharts.XYDiagramPane[] {
             xyDiagramPane1});
             secondaryAxisY1.AxisID = 0;
@@ -242,6 +245,7 @@
             constantLine9.ShowInLegend = false;
             secondaryAxisY1.ConstantLines.AddRange(new DevExpress.XtraCharts.ConstantLine[] {
             constantLine9});
+            secondaryAxisY1.Label.Font = new System.Drawing.Font("Tahoma", 9F);
             secondaryAxisY1.Label.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(0)))));
             secondaryAxisY1.Label.TextPattern = "{V:0.00%}";
             secondaryAxisY1.Name = "Secondary AxisY 1";
@@ -254,6 +258,7 @@
             secondaryAxisY2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             secondaryAxisY2.GridLines.Color = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(37)))), ((int)(((byte)(0)))));
             secondaryAxisY2.GridLines.Visible = true;
+            secondaryAxisY2.Label.Font = new System.Drawing.Font("Tahoma", 9F);
             secondaryAxisY2.Label.TextColor = System.Drawing.Color.SkyBlue;
             secondaryAxisY2.Name = "Secondary AxisY 2";
             secondaryAxisY2.Tag = "y2";
@@ -296,6 +301,12 @@
             this.chartControl1.SeriesTemplate.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             this.chartControl1.Size = new System.Drawing.Size(1497, 739);
             this.chartControl1.TabIndex = 4;
+            chartTitle1.Alignment = System.Drawing.StringAlignment.Near;
+            chartTitle1.Font = new System.Drawing.Font("Tahoma", 14F);
+            chartTitle1.Text = "分时图";
+            chartTitle1.TextColor = System.Drawing.Color.White;
+            this.chartControl1.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle1});
             this.chartControl1.CustomDrawAxisLabel += new DevExpress.XtraCharts.CustomDrawAxisLabelEventHandler(this.chartControl1_CustomDrawAxisLabel);
             this.chartControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.chartControl1_Paint);
             // 
