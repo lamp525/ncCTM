@@ -343,64 +343,110 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 Font font = new Font("新宋体", 9, FontStyle.Regular);
 
                 float foldDX = 15f;
-                float foldDY = 50f;
+                float foldDY = 80f;
                 float straightDX = 15;
                 PointF targetPoint = new PointF();
+                PointF arrowStartPoint = new PointF();
                 PointF textStartPoint = new PointF();
 
                 bool upDeviant = false;
                 bool downDeviant = false;
-                float deviant = 30f;
+                float deviant = 40f;
 
                 var recordGroupByTimeAndFlag = _tradeRecords.GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
-                foreach (var group in recordGroupByTimeAndFlag)
+
+                for (int i = 0; i < _tradeRecords.Count(); i++)
                 {
-                    bool dealFlag = group.Key.DealFlag;
+                    var item = _tradeRecords.ElementAt(i);
+
+                    bool dealFlag = item.DealFlag;
+                    string tradeTime = item.TradeTime.Substring(0, 5);
+                    double dealPrice = (double)item.DealPrice;
+
+                    bool isUp = i % 2 ==0 ? true : false;
 
                     StringBuilder identifierText = new StringBuilder();
                     identifierText.Append((dealFlag ? "B" : "S") + ":");
-                    foreach (var item in group)
-                    {
-                        identifierText.Append(item.DealPrice.ToString("F2"));
-                        identifierText.Append(" ");
-                        identifierText.Append(Math.Abs(item.DealVolume).ToString("N0"));
-                        identifierText.AppendLine();
-                        identifierText.Append("  ");
-                    }
+                    identifierText.Append(item.DealPrice.ToString("F2"));
+                    identifierText.Append(" ");
+                    identifierText.Append(Math.Abs(item.DealVolume).ToString("N0"));
 
-                    identifierText.Remove(identifierText.Length - 2, 2);
-
-                    string tradeTime = group.Key.TradeTime;
-                    double dealPrice = (double)group.First().DealPrice;
                     Point dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(tradeTime, dealPrice).Point;
                     targetPoint.X = dealPoint.X;
                     targetPoint.Y = dealPoint.Y;
 
                     SizeF size = g.MeasureString(identifierText.ToString(), font);
 
-                    if (dealFlag)
+        
+                    pArrow.Color = dealFlag ? Color.OrangeRed : Color.Green;
+                
+                    if (isUp)
                     {
                         foldDY += upDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.OrangeRed;
-                        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
-                        textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
-                        textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
-                        g.DrawString(identifierText.ToString(), font, Brushes.OrangeRed, textStartPoint);
-
                         upDeviant = !upDeviant;
+                        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
+                        textStartPoint.X = targetPoint.X + foldDX + straightDX;
+                        textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
                     }
                     else
                     {
                         foldDY -= downDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.Green;
-                        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
-                        textStartPoint.X = targetPoint.X + foldDX + straightDX;
-                        textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
-                        g.DrawString(identifierText.ToString(), font, Brushes.Green, textStartPoint);
-
                         downDeviant = !downDeviant;
+                        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
+                        textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
+                        textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
                     }
+                    g.DrawString(identifierText.ToString(), font, dealFlag ? Brushes.OrangeRed : Brushes.Green, textStartPoint);
                 }
+
+                //foreach (var group in recordGroupByTimeAndFlag)
+                //{
+                //    bool dealFlag = group.Key.DealFlag;
+
+                //    StringBuilder identifierText = new StringBuilder();
+                //    identifierText.Append((dealFlag ? "B" : "S") + ":");
+                //    foreach (var item in group)
+                //    {
+                //        identifierText.Append(item.DealPrice.ToString("F2"));
+                //        identifierText.Append(" ");
+                //        identifierText.Append(Math.Abs(item.DealVolume).ToString("N0"));
+                //        identifierText.AppendLine();
+                //        identifierText.Append("  ");
+                //    }
+
+                //    identifierText.Remove(identifierText.Length - 2, 2);
+
+                //    string tradeTime = group.Key.TradeTime;
+                //    double dealPrice = (double)group.First().DealPrice;
+                //    Point dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(tradeTime, dealPrice).Point;
+                //    targetPoint.X = dealPoint.X;
+                //    targetPoint.Y = dealPoint.Y;
+
+                //    SizeF size = g.MeasureString(identifierText.ToString(), font);
+
+                //    if (dealFlag)
+                //    {
+                //        foldDY += upDeviant ? deviant : -deviant;
+                //        pArrow.Color = Color.OrangeRed;
+                //        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
+                //        textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
+                //        textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
+                //        g.DrawString(identifierText.ToString(), font, Brushes.OrangeRed, textStartPoint);
+
+                //        upDeviant = !upDeviant;
+                //    }
+                //    else
+                //    {
+                //        foldDY -= downDeviant ? deviant : -deviant;
+                //        pArrow.Color = Color.Green;
+                //        g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
+                //        textStartPoint.X = targetPoint.X + foldDX + straightDX;
+                //        textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
+                //        g.DrawString(identifierText.ToString(), font, Brushes.Green, textStartPoint);
+
+                //        downDeviant = !downDeviant;
+                //    }
+                //}
             }
             catch (Exception ex)
             {
