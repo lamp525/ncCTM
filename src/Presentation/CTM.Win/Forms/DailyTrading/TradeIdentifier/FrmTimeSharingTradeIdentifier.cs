@@ -59,9 +59,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var now = DateTime.Now;
 
             if (now.Hour < 15)
-                deTrade.EditValue = now.AddDays(-1).Date;
+                deTrade.EditValue = CommonHelper.GetPreviousWorkDay(DateTime.Now.AddDays(-1));
             else
-                deTrade.EditValue = now.Date;
+                deTrade.EditValue = CommonHelper.GetPreviousWorkDay(DateTime.Now);
 
             this.btnView.Enabled = false;
             this.labelControl1.Text = string.Empty;
@@ -123,7 +123,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             foreach (DataRow row in _timeSharingData.Rows)
             {
                 //var tradeTime = Regex.Replace(row["TradeTime"].ToString().Trim(), "[:]", "");
-                var tradeTime = row["TradeTime"].ToString().Trim().Substring(0, 5);
+                var tradeTime = row["TradeTime"].ToString().Trim();
 
                 var closePrice = CommonHelper.StringToDouble(row["Close"].ToString().Trim());
                 var avgPrice = CommonHelper.StringToDouble(row["AvgPrice"].ToString().Trim());
@@ -327,7 +327,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void chartControl1_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
         {
-            
         }
 
         private void chartControl1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -410,7 +409,5 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         }
 
         #endregion Events
-
-  
     }
 }
