@@ -23,8 +23,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private IDailyRecordService _dailyRecordService;
         private IList<DailyRecord> _tradeRecords = null;
         private DataTable _timeSharingData;
-        private DateTime _tradeDate;
-        private TradeInfoModel _currentTradeInfo = null;
+        private DateTime _tradeDate = DateTime.MinValue;
+        private TradeInfoModel _tradeInfo = null;
         private Series _sePrice;
         private Series _seVolume;
         private Series _seAvgPrice;
@@ -34,6 +34,22 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private bool _chartGenerated = false;
 
         #endregion Fields
+
+        #region Properties
+
+        public DateTime TradeDate
+        {
+            get { return _tradeDate; }
+            set { _tradeDate = value; }
+        }
+
+        public TradeInfoModel TradeInfo
+        {
+            get { return _tradeInfo; }
+            set { _tradeInfo = value; }
+        }
+
+        #endregion Properties
 
         #region Constructors
 
@@ -64,7 +80,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 deTrade.EditValue = CommonHelper.GetPreviousWorkDay(DateTime.Now);
 
             this.btnView.Enabled = false;
-            this.labelControl1.Text = string.Empty;
         }
 
         private void ChartInit()
@@ -110,6 +125,46 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
             }
+        }
+
+        private void GetViewData()
+        {
+            if (_tradeDate == DateTime.MinValue || _tradeInfo == null) return;
+
+            chartControl1.Titles[0].Text = "分时图:   "+ _tradeDate.ToShortDateString() + " - " + _tradeInfo.DisplayText;
+
+            var commandText = $@"EXEC [dbo].[sp_TITimeSharingData] @TradeDate = '{_tradeDate}', @StockCode='{_tradeInfo.StockCode}', @FiveDay = 0";
+            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+            _timeSharingData = ds.Tables[0];
+
+            _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _tradeInfo.StockCode, beneficiary: _tradeInfo.InvestorCode, tradeDateFrom: _tradeDate, tradeDateTo: _tradeDate)
+                   .Where(x => x.DealVolume != 0)
+                   .OrderBy(x => x.TradeTime).ToList();
+
+            var buyRecords = _tradeRecords.Where(x => x.DealFlag == true);
+            var sellRecords = _tradeRecords.Where(x => x.DealFlag == false);
+
+            decimal buyVolume = buyRecords.Sum(x => x.DealVolume);
+            decimal sellVolume = sellRecords.Sum(x => x.DealVolume);
+
+            decimal currentClose = 0;
+
+            if ((buyVolume + sellVolume) != 0)
+            {
+                var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate}' AND StockCode = '{_tradeInfo.StockCode}' ";
+                var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
+                currentClose = CommonHelper.StringToDecimal(ds1.Tables[0].Rows[0]["Close"].ToString().Trim());
+            }
+
+            decimal profit = _tradeRecords.Sum(x => x.DealVolume) * currentClose + _tradeRecords.Sum(x => x.ActualAmount);
+
+            chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
+
+            var commandText2 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_tradeInfo.StockCode}' ";
+            var ds2 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText2);
+            _preClose = CommonHelper.StringToDouble(ds2.Tables[0].Rows[0]["Close"].ToString().Trim());
         }
 
         private void DisplayChart()
@@ -184,13 +239,30 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             try
             {
-                FormInit();
-
                 ChartInit();
 
-                luTradeInfo.Focus();
+                if (_tradeDate != DateTime.MinValue && _tradeInfo != null)
+                {
+                    lcgFilter.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-                this.AcceptButton = this.btnView;
+                    this._chartGenerated = false;
+
+                    GetViewData();
+
+                    DisplayChart();
+
+                    this._chartGenerated = true;
+                }
+                else
+                {
+                    lcgFilter.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+                    FormInit();
+
+                    luTradeInfo.Focus();
+
+                    this.AcceptButton = this.btnView;
+                }
             }
             catch (Exception ex)
             {
@@ -205,44 +277,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 this._chartGenerated = false;
                 this.btnView.Enabled = false;
 
-                _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
-                if (_currentTradeInfo == null) return;
+                _tradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
 
-                chartControl1.Titles[0].Text = " 分时图 " + _currentTradeInfo.StockName;
-
-                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _tradeDate, tradeDateTo: _tradeDate)
-                       .Where(x => x.DealVolume != 0)
-                       .OrderBy(x => x.TradeTime).ToList();
-
-                var buyRecords = _tradeRecords.Where(x => x.DealFlag == true);
-                var sellRecords = _tradeRecords.Where(x => x.DealFlag == false);
-
-                decimal buyVolume = buyRecords.Sum(x => x.DealVolume);
-                decimal sellVolume = sellRecords.Sum(x => x.DealVolume);
-
-                decimal currentClose = 0;
-
-                if ((buyVolume + sellVolume) != 0)
-                {
-                    var commandText = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
-                    var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
-                    currentClose = CommonHelper.StringToDecimal(ds.Tables[0].Rows[0]["Close"].ToString().Trim());
-                }
-
-                decimal profit = _tradeRecords.Sum(x => x.DealVolume) * currentClose + _tradeRecords.Sum(x => x.ActualAmount);
-
-                chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
-
-                var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_currentTradeInfo.StockCode}' ";
-                var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
-                _preClose = CommonHelper.StringToDouble(ds1.Tables[0].Rows[0]["Close"].ToString().Trim());
-
-                var commandText2 = $@"EXEC [dbo].[sp_TITimeSharingData] @TradeDate = '{_tradeDate}', @StockCode='{_currentTradeInfo.StockCode}', @FiveDay = 0";
-                var ds2 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText2);
-
-                if (ds2 == null || ds2.Tables.Count == 0) return;
-
-                _timeSharingData = ds2.Tables[0];
+                GetViewData();
 
                 DisplayChart();
 
@@ -323,10 +360,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 default:
                     break;
             }
-        }
-
-        private void chartControl1_CustomDrawCrosshair(object sender, CustomDrawCrosshairEventArgs e)
-        {
         }
 
         private void chartControl1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)

@@ -35,7 +35,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private DateTime _startDate, _endDate;
         private bool _chartGenerated = false;
         private DateTime _currentDate;
-        private TradeInfoModel _currentTradeInfo = null;
+        private TradeInfoModel _tradeInfo = null;
 
         #endregion Fields
 
@@ -261,6 +261,15 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
         }
 
+        private void ShowTimeSharingForm(DateTime tradeDate, TradeInfoModel tradeInfo)
+        {
+            var dialog = this.CreateDialog<FrmTimeSharingTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Normal);
+            dialog.Text = "分时交易标识";
+            dialog.TradeDate = tradeDate.Date;
+            dialog.TradeInfo = tradeInfo;
+            dialog.Show();
+        }
+
         #endregion Utilities
 
         #region Events
@@ -323,10 +332,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 this.esiProfitTitle.Text = string.Empty;
 
-                _currentTradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
-                if (_currentTradeInfo == null) return;
+                _tradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
+                if (_tradeInfo == null) return;
 
-                var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_currentTradeInfo.InvestorCode}', @StockCode = '{_currentTradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
+                var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
                 var dsKLine = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlText1);
 
                 if (dsKLine == null || dsKLine.Tables.Count == 0) return;
@@ -335,7 +344,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 _startDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Min();
                 _endDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Max();
 
-                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _currentTradeInfo.StockCode, beneficiary: _currentTradeInfo.InvestorCode, tradeDateFrom: _startDate, tradeDateTo: _endDate)
+                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _tradeInfo.StockCode, beneficiary: _tradeInfo.InvestorCode, tradeDateFrom: _startDate, tradeDateTo: _endDate)
                             .Where(x => x.DealVolume != 0)
                             .OrderBy(x => x.BeneficiaryName).ThenBy(x => x.TradeDate).ThenBy(x => x.TradeTime).ToList();
 
@@ -348,7 +357,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         TradeDate = x.Key.TradeDate,
                     }).ToList();
 
-                var sqlText2 = $@"EXEC [dbo].[sp_TIPositionProfit] @InvestorCode = '{_currentTradeInfo.InvestorCode}', @StockCode = '{_currentTradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
+                var sqlText2 = $@"EXEC [dbo].[sp_TIPositionProfit] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
                 var dsProfit = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlText2);
 
                 if (dsProfit != null && dsProfit.Tables.Count == 1)
@@ -388,7 +397,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         var currentDateRecords = _tradeRecords.Where(x => x.TradeDate == _currentDate).ToList();
                         this.gridControl1.DataSource = currentDateRecords;
 
-                        esiProfitTitle.Text = $@"{_currentDate.ToShortDateString()} - {_currentTradeInfo.DisplayText}";
+                        esiProfitTitle.Text = $@"{_currentDate.ToShortDateString()} - {_tradeInfo.DisplayText}";
 
                         DataRow currentProfit = _positionProfit.AsEnumerable().SingleOrDefault(x => x.Field<DateTime>("TradeDate") == _currentDate);
                         if (currentProfit != null)
@@ -402,6 +411,30 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                             txtVolume.Text = string.Empty;
                             txtValue.Text = string.Empty;
                             txtProfit.Text = string.Empty;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void chartControl1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    ChartHitInfo hitInfo = chartControl1.CalcHitInfo(e.Location);
+
+                    if (hitInfo.InDiagram)
+                    {
+                        DiagramCoordinates dc = (chartControl1.Diagram as XYDiagram).PointToDiagram(e.Location);
+                        if (!dc.IsEmpty)
+                        {
+                            ShowTimeSharingForm(dc.DateTimeArgument, _tradeInfo);
                         }
                     }
                 }
@@ -451,7 +484,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 foreach (var item in _dealAvg)
                 {
-                    var identifierText = (item.DealFlag ? "B" : "S") + ":" + item.DealPrice + " " + item.DealVolume;
+                    var identifierText = (item.DealFlag ? "B" : "S") + ":" + item.DealPrice.ToString("F2") + " " + item.DealVolume.ToString("N0");
                     var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(item.TradeDate, (double)item.DealPrice).Point;
                     targetPoint.X = dealPoint.X;
                     targetPoint.Y = dealPoint.Y;
@@ -461,22 +494,22 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     if (item.DealFlag)
                     {
                         foldDY += upDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.AliceBlue;
+                        pArrow.Color = Color.OrangeRed ;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
                         textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.AliceBlue, textStartPoint);
+                        g.DrawString(identifierText, font, Brushes.OrangeRed, textStartPoint);
 
                         upDeviant = !upDeviant;
                     }
                     else
                     {
                         foldDY -= downDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.Orange;
+                        pArrow.Color = Color.Green;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, foldDX, -foldDY, straightDX);
                         textStartPoint.X = targetPoint.X + foldDX + straightDX;
                         textStartPoint.Y = targetPoint.Y - foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.Orange, textStartPoint);
+                        g.DrawString(identifierText, font, Brushes.Green, textStartPoint);
 
                         downDeviant = !downDeviant;
                     }

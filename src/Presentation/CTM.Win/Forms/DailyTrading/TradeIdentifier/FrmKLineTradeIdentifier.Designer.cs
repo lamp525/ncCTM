@@ -353,6 +353,7 @@
             this.chartControl1.Scroll += new DevExpress.XtraCharts.ChartScrollEventHandler(this.chartControl1_Scroll);
             this.chartControl1.Zoom += new DevExpress.XtraCharts.ChartZoomEventHandler(this.chartControl1_Zoom);
             this.chartControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.chartControl1_Paint);
+            this.chartControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDoubleClick);
             this.chartControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseMove);
             // 
             // layoutControlGroup1
