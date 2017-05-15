@@ -209,7 +209,7 @@
             this.colInvestor.Name = "colInvestor";
             this.colInvestor.Visible = true;
             this.colInvestor.VisibleIndex = 2;
-            this.colInvestor.Width = 88;
+            this.colInvestor.Width = 110;
             // 
             // colAnnualProfit
             // 
