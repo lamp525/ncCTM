@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>49</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -63,10 +63,10 @@
     <StartupObject>CTM.Win.Startup</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>BC86D135AA12D0AC7CA14B4CF999A1FBD5F49C88</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>757BE3DB9DFF7BDE1FD09F8F1355D12E44F00AF1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CTM.Win_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>NCGroupDevCert.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -1159,6 +1159,7 @@
     <Content Include="DataTemplate\Entrust\ZheShang_C.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="NCGroupDevCert.pfx" />
     <None Include="packages.config" />
     <Content Include="ReportTemplate\UserDailyProfitFlow\DayReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
