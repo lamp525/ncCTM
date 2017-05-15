@@ -699,9 +699,6 @@
     <Compile Include="Util\NetHelper.cs" />
     <Compile Include="Util\IniConfigHelper.cs" />
     <Content Include="App_Data\Install\SqlServer.Views.sql" />
-    <Content Include="External\DailyTradeIdentification\Client.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="LayoutXml\FrmAccountFundTransfer_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -940,6 +937,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -1070,9 +1068,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataTemplate\Delivery\GuoTai_C.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="External\DailyTradeIdentification\dbaddr.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataTemplate\Entrust\Galaxy_N.xlsx">

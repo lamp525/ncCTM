@@ -429,16 +429,6 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void bbiDailyTradeIdentification_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //try
-            //{
-            //    var argument = LoginInfo.CurrentUser.IsAdmin ? string.Empty : LoginInfo.CurrentUser.DepartmentId.ToString();
-
-            //    ProcessHelper.StartExternalProgram("Client.exe", @".\External\DailyTradeIdentification", argument, System.Diagnostics.ProcessWindowStyle.Maximized);
-            //}
-            //catch (Exception ex)
-            //{
-            //    DXMessage.ShowError(ex.Message);
-            //}
             var dialog = this.CreateDialog<FrmTimeSharingTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Maximized);
             dialog.Text = "分时交易标识";
             dialog.Show();
