@@ -382,7 +382,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 float deviant = 35f;
 
-                var recordGroupByTimeAndFlag = _tradeRecords.GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
+                var recordGroupByTimeAndFlag = _tradeRecords.Where (x=>!string.IsNullOrEmpty(x.TradeTime)).GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
 
                 for (int i = 0; i < recordGroupByTimeAndFlag.Count(); i++)
                 {
