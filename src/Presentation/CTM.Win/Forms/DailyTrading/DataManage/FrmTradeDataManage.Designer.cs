@@ -57,9 +57,6 @@
             this.colImportTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUpdateUser = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUpdateTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuditFlag = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuditNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuditTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRemarks = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDataType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDataTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -302,9 +299,6 @@
             this.colImportTime,
             this.colUpdateUser,
             this.colUpdateTime,
-            this.colAuditFlag,
-            this.colAuditNo,
-            this.colAuditTime,
             this.colRemarks,
             this.colDataType,
             this.colDataTypeName,
@@ -340,7 +334,7 @@
             this.colSplitNo.FieldName = "SplitNo";
             this.colSplitNo.Name = "colSplitNo";
             this.colSplitNo.Visible = true;
-            this.colSplitNo.VisibleIndex = 25;
+            this.colSplitNo.VisibleIndex = 26;
             // 
             // colRecordId
             // 
@@ -535,34 +529,13 @@
             this.colUpdateTime.VisibleIndex = 24;
             this.colUpdateTime.Width = 139;
             // 
-            // colAuditFlag
-            // 
-            this.colAuditFlag.Caption = "钩稽标志";
-            this.colAuditFlag.FieldName = "AuditFlag";
-            this.colAuditFlag.Name = "colAuditFlag";
-            // 
-            // colAuditNo
-            // 
-            this.colAuditNo.Caption = "钩稽单号";
-            this.colAuditNo.FieldName = "AuditNo";
-            this.colAuditNo.Name = "colAuditNo";
-            // 
-            // colAuditTime
-            // 
-            this.colAuditTime.Caption = "钩稽时间";
-            this.colAuditTime.DisplayFormat.FormatString = "s";
-            this.colAuditTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colAuditTime.FieldName = "AuditTime";
-            this.colAuditTime.Name = "colAuditTime";
-            this.colAuditTime.Width = 135;
-            // 
             // colRemarks
             // 
             this.colRemarks.Caption = "备注";
             this.colRemarks.FieldName = "Remarks";
             this.colRemarks.Name = "colRemarks";
             this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 26;
+            this.colRemarks.VisibleIndex = 25;
             this.colRemarks.Width = 113;
             // 
             // colDataType
@@ -1434,9 +1407,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colImportTime;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateUser;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuditFlag;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuditNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuditTime;
         private DevExpress.XtraGrid.Columns.GridColumn colRemarks;
         private DevExpress.XtraGrid.Columns.GridColumn colDataType;
         private DevExpress.XtraGrid.Columns.GridColumn colDataTypeName;
