@@ -122,7 +122,6 @@ namespace CTM.Core.Util
             return result;
         }
 
-
         /// <summary>
         /// 保留小数点位数（默认两位）
         /// </summary>
@@ -135,6 +134,7 @@ namespace CTM.Core.Util
 
             return result;
         }
+
         /// <summary>
         /// 将数值转换为百分比字符串(默认保留小数点后两位）
         /// </summary>
@@ -614,7 +614,6 @@ namespace CTM.Core.Util
             return result;
         }
 
-
         /// <summary>
         /// 整数到字节数组的转换
         /// </summary>
@@ -696,7 +695,7 @@ namespace CTM.Core.Util
                 {
                     if (Math.Truncate(tempValue) > 50000)
                     {
-                        if (value.Length == 8) value = "0" + value;
+                        if (value.Length == 8 || value.Length == 5) value = "0" + value;
 
                         var resultTime = value.Substring(0, 2) + ":" + value.Substring(2, 2) + ":" + value.Substring(4, 2);
 

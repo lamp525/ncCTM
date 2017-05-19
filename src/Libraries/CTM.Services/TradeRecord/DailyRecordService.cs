@@ -584,17 +584,17 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
-            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealFlag), "买卖标志");
             columnList.Add(nameof(record.EntrustVolume), "委托数量");
             columnList.Add(nameof(record.EntrustPrice), "委托价格");
             columnList.Add(nameof(record.EntrustAmount), null);
-            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
             columnList.Add(nameof(record.StockHolderCode), null);
-            columnList.Add(nameof(record.DealNo), "合同编号");
-            columnList.Add(nameof(record.ContractNo), "合同编号");
-            columnList.Add(nameof(record.Remarks), "操作");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "买卖标志");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
