@@ -253,7 +253,7 @@
             this.colBeneficiaryName.Name = "colBeneficiaryName";
             this.colBeneficiaryName.Visible = true;
             this.colBeneficiaryName.VisibleIndex = 0;
-            this.colBeneficiaryName.Width = 90;
+            this.colBeneficiaryName.Width = 150;
             // 
             // colTradeDate
             // 
