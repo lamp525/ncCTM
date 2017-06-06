@@ -181,7 +181,7 @@ namespace CTM.Core.Util
                     IRow headerRow = sheet.GetRow(sheet.FirstRowNum);
 
                     int cellCount = headerRow.Cells.Count;
-                    for (int j = headerRow.FirstCellNum; j < cellCount; j++)
+                    for (int j = headerRow.FirstCellNum; j < cellCount + 1; j++)
                     {
                         string cellValue = headerRow.GetCellValue(j) == null ? null : headerRow.GetCellValue(j).ToString().Trim();
 
@@ -197,7 +197,7 @@ namespace CTM.Core.Util
                             if (row == null) continue;
 
                             DataRow dr = result.NewRow();
-                            for (int b = row.FirstCellNum; b < cellCount; b++)
+                            for (int b = row.FirstCellNum; b < cellCount + 1; b++)
                             {
                                 dr[b] = row.GetCellValue(b);
                             }
