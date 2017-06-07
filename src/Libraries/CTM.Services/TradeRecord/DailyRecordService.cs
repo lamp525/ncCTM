@@ -118,9 +118,12 @@ namespace CTM.Services.TradeRecord
             //过滤记录
             if (isDelivery)
             {
-                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsNumberAndAlphabet(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
-                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
-                                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
+                //validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.IsNumberAndAlphabet(x.Field<string>(columnList[nameof(record.ContractNo)]).Trim())
+                //                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
+                //                                                                                             && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
+                //                                                                               .ToList();
+                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.DealVolume)]).Trim()) != 0
+                                                                                                            && CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0)
                                                                                                .ToList();
             }
             else
