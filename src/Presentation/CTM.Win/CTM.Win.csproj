@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>60</ApplicationRevision>
+    <ApplicationRevision>61</ApplicationRevision>
     <ApplicationVersion>1.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -235,6 +235,12 @@
     </Compile>
     <Compile Include="Forms\DailyTrading\DataManage\_dialogStockTransfer.Designer.cs">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.Designer.cs">
+      <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.cs">
       <SubType>Form</SubType>
@@ -754,6 +760,9 @@
     <EmbeddedResource Include="Forms\DailyTrading\DataManage\_dialogStockTransfer.resx">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.resx">
+      <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
     </EmbeddedResource>
@@ -937,6 +946,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
