@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using CTM.Core.Util;
 using CTM.Data;
-using CTM.Win.Extensions;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
 
@@ -27,7 +20,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             InitializeComponent();
         }
+
         #region Utilities
+
         private void ChartInit()
         {
             //#region Title
@@ -57,15 +52,16 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             _seAccumulateProfit = new Series("累计收益额（万元）", ViewType.Line);
             _seAccumulateProfit.ArgumentScaleType = ScaleType.Qualitative;
             _seAccumulateProfit.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            _seAccumulateProfit.LabelsVisibility = DevExpress.Utils.DefaultBoolean.False;
             LineSeriesView myView1 = (LineSeriesView)_seAccumulateProfit.View;
             myView1.Color = Color.DeepSkyBlue;
 
             _seDayProfit = new Series("日收益额（万元）", ViewType.Line);
             _seDayProfit.ArgumentScaleType = ScaleType.Qualitative;
             _seDayProfit.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            _seDayProfit.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             LineSeriesView myView2 = (LineSeriesView)_seDayProfit.View;
             myView2.Color = Color.OrangeRed;
-
 
             this.chartControl1.Series.Add(_seAccumulateProfit);
             this.chartControl1.Series.Add(_seDayProfit);
@@ -103,7 +99,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             myAxisY.Tickmarks.MinorVisible = false;
             myAxisY.WholeRange.Auto = true;
 
-
             myAxisY.ConstantLines.Add(_clZero);
 
             #endregion AxisY
@@ -128,19 +123,19 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             if (_profitData == null || _profitData.Rows.Count == 0) return;
 
             var argument = string.Empty;
-            double accumulateProfit,dayProfit;
+            double accumulateProfit, dayProfit;
 
-            foreach  (DataRow row in _profitData.Rows)
+            foreach (DataRow row in _profitData.Rows)
             {
                 argument = row["TradeDate"].ToString().Trim();
-                accumulateProfit = CommonHelper.StringToDouble(row["AccumulateProfit"].ToString().ToString ());
-                _seAccumulateProfit.Points.Add(new SeriesPoint(argument,accumulateProfit));
+                accumulateProfit = CommonHelper.StringToDouble(row["AccumulateProfit"].ToString().ToString());
+                _seAccumulateProfit.Points.Add(new SeriesPoint(argument, accumulateProfit));
                 dayProfit = CommonHelper.StringToDouble(row["DayProfit"].ToString().ToString());
                 _seDayProfit.Points.Add(new SeriesPoint(argument, dayProfit));
             }
         }
 
-        #endregion
+        #endregion Utilities
 
         private void FrmFundTeamStrategyProfit_Load(object sender, EventArgs e)
         {
@@ -154,11 +149,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             }
             catch (Exception ex)
             {
-
-                DXMessage.ShowError (ex.Message);
+                DXMessage.ShowError(ex.Message);
             }
         }
-
-
     }
 }
