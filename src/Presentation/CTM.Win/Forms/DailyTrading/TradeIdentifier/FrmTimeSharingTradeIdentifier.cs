@@ -219,6 +219,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             mySecondaryAxisY.WholeRange.SetMinMaxValues(minRate, maxRate);
             mySecondaryAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
+
+            myAxisX.CustomLabels.Clear();
+            mySecondaryAxisY.CustomLabels.Clear();
             double priceInterval = Math.Round(maxDiff / 7, 2);
             for (int i = 0; i < 20; i++)
             {
