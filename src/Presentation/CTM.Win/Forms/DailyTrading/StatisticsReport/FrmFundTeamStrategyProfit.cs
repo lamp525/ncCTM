@@ -19,7 +19,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
     {
         private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
         private DataTable _profitData = null;
-        private Series _seProfit;
+        private ConstantLine _clZero;
+        private Series _seAccumulateProfit;
+        private Series _seDayProfit;
 
         public FrmFundTeamStrategyProfit()
         {
@@ -45,17 +47,28 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             //chartControl1.Titles.Add(chartTitle);
             //#endregion
 
+            _clZero = new ConstantLine(string.Empty, 0);
+            _clZero.Color = Color.Black;
+            _clZero.ShowInLegend = false;
+            _clZero.ShowBehind = true;
+
             #region Series
 
-            _seProfit = new Series("累计收益额（万元）", ViewType.Line);
-            _seProfit.ArgumentScaleType = ScaleType.Qualitative;
-            _seProfit.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
-            LineSeriesView myView1 = (LineSeriesView)_seProfit.View;
+            _seAccumulateProfit = new Series("累计收益额（万元）", ViewType.Line);
+            _seAccumulateProfit.ArgumentScaleType = ScaleType.Qualitative;
+            _seAccumulateProfit.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            LineSeriesView myView1 = (LineSeriesView)_seAccumulateProfit.View;
             myView1.Color = Color.DeepSkyBlue;
-            
 
-            this.chartControl1.Series.Add(_seProfit);
-     
+            _seDayProfit = new Series("日收益额（万元）", ViewType.Line);
+            _seDayProfit.ArgumentScaleType = ScaleType.Qualitative;
+            _seDayProfit.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
+            LineSeriesView myView2 = (LineSeriesView)_seDayProfit.View;
+            myView2.Color = Color.OrangeRed;
+
+
+            this.chartControl1.Series.Add(_seAccumulateProfit);
+            this.chartControl1.Series.Add(_seDayProfit);
 
             #endregion Series
 
@@ -90,6 +103,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             myAxisY.Tickmarks.MinorVisible = false;
             myAxisY.WholeRange.Auto = true;
 
+
+            myAxisY.ConstantLines.Add(_clZero);
+
             #endregion AxisY
         }
 
@@ -100,25 +116,27 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             if (ds != null && ds.Tables.Count > 0)
             {
-                _profitData = ds.Tables[0];
+                _profitData = ds.Tables[1];
             }
         }
 
         private void DisplayChart()
         {
-            _seProfit.Points.Clear();
+            _seAccumulateProfit.Points.Clear();
+            _seDayProfit.Points.Clear();
 
             if (_profitData == null || _profitData.Rows.Count == 0) return;
 
             var argument = string.Empty;
-            double profit;
+            double accumulateProfit,dayProfit;
 
             foreach  (DataRow row in _profitData.Rows)
             {
                 argument = row["TradeDate"].ToString().Trim();
-                profit = CommonHelper.StringToDouble(row["AccumulateProfit"].ToString().ToString ());
-
-                _seProfit.Points.Add(new SeriesPoint(argument,profit));
+                accumulateProfit = CommonHelper.StringToDouble(row["AccumulateProfit"].ToString().ToString ());
+                _seAccumulateProfit.Points.Add(new SeriesPoint(argument,accumulateProfit));
+                dayProfit = CommonHelper.StringToDouble(row["DayProfit"].ToString().ToString());
+                _seDayProfit.Points.Add(new SeriesPoint(argument, dayProfit));
             }
         }
 
