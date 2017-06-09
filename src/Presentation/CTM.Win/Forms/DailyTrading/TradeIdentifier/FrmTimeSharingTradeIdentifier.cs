@@ -95,10 +95,13 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             {
                 cLine.Name = string.Empty;
             }
+            AxisY myAxisY = myDiagram.AxisY;
+            myAxisY.WholeRange.AutoSideMargins = true;        
+            myAxisY.Tickmarks.Visible = false;
+            myAxisY.Tickmarks.MinorVisible = false;
 
             SecondaryAxisY myRateAxisY = myDiagram.SecondaryAxesY[0];
-            myRateAxisY.WholeRange.AutoSideMargins = false;
-            myRateAxisY.WholeRange.SideMarginsValue = 0;
+            myRateAxisY.WholeRange.AutoSideMargins = true;       
             myRateAxisY.Tickmarks.Visible = true;
             myRateAxisY.Tickmarks.MinorVisible = false;
         }
@@ -131,7 +134,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             if (_tradeDate == DateTime.MinValue || _tradeInfo == null) return;
 
-            chartControl1.Titles[0].Text = "分时图:   "+ _tradeDate.ToShortDateString() + " - " + _tradeInfo.DisplayText;
+            chartControl1.Titles[0].Text = "分时图:   " + _tradeDate.ToShortDateString() + " - " + _tradeInfo.DisplayText;
 
             var commandText = $@"EXEC [dbo].[sp_TITimeSharingData] @TradeDate = '{_tradeDate}', @StockCode='{_tradeInfo.StockCode}', @FiveDay = 0";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
@@ -210,24 +213,22 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
             SecondaryAxisY mySecondaryAxisY = myDiagram.SecondaryAxesY[0];
-            double minRate = (minValueY - _preClose) / _preClose;
-            double maxRate = (maxValueY - _preClose) / _preClose;
+            double minRate = -maxDiff / _preClose;
+            double maxRate = maxDiff / _preClose;
             mySecondaryAxisY.WholeRange.Auto = false;
             mySecondaryAxisY.WholeRange.SetMinMaxValues(minRate, maxRate);
             mySecondaryAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
-            double interval = Math.Round(maxDiff / 7, 2);
-            for (int i = 0; i < 22; i++)
+            double priceInterval = Math.Round(maxDiff / 7, 2);
+            for (int i = 0; i < 20; i++)
             {
-                double price = _preClose + (10 - i) * interval;
-                myAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString()));
-                myAxisY.CustomLabels[i].AxisValue = price;
+                double price = _preClose + (10 - i) * priceInterval;
+                myAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString(), price));
                 myAxisY.CustomLabels[i].TextColor = Color.FromArgb(204, 51, 0);
 
-                //double rate = (price - _preClose) / _preClose;
-                //mySecondaryAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString()));
-                //mySecondaryAxisY.CustomLabels[i].AxisValue = rate;
-                //mySecondaryAxisY.CustomLabels[i].TextColor = Color.FromArgb(204, 51, 0);
+                double rate = (10 - i) * priceInterval / _preClose;
+                mySecondaryAxisY.CustomLabels.Add(new CustomAxisLabel(i.ToString(), rate));
+                mySecondaryAxisY.CustomLabels[i].TextColor = Color.FromArgb(204, 51, 0);
             }
         }
 
@@ -344,7 +345,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 case "y1":
                     double valueY1 = CommonHelper.StringToDouble(e.Item.AxisValue.ToString());
-                    //e.Item.Text = valueY1.ToString("P2");
+                    e.Item.Text = valueY1.ToString("P2");
                     if (valueY1 == 0)
                         e.Item.TextColor = Color.White;
                     else if (valueY1 < 0)
@@ -382,7 +383,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 float deviant = 35f;
 
-                var recordGroupByTimeAndFlag = _tradeRecords.Where (x=>!string.IsNullOrEmpty(x.TradeTime)).GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
+                var recordGroupByTimeAndFlag = _tradeRecords.Where(x => !string.IsNullOrEmpty(x.TradeTime)).GroupBy(x => new { TradeTime = x.TradeTime.Trim().Substring(0, 5), DealFlag = x.DealFlag });
 
                 for (int i = 0; i < recordGroupByTimeAndFlag.Count(); i++)
                 {
