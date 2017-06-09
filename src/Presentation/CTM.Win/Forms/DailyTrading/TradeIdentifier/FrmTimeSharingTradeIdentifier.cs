@@ -220,7 +220,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             mySecondaryAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
 
-            myAxisX.CustomLabels.Clear();
+            myAxisY.CustomLabels.Clear();        
             mySecondaryAxisY.CustomLabels.Clear();
             double priceInterval = Math.Round(maxDiff / 7, 2);
             for (int i = 0; i < 20; i++)
