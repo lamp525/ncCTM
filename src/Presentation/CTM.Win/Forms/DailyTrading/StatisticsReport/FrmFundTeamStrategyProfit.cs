@@ -101,7 +101,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             myAxisY.ConstantLines.Add(_clZero);
 
-            #endregion AxisY
+            #endregion AxisY      
         }
 
         private void GetProfitData()
