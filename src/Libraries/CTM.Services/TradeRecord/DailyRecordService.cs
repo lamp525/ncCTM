@@ -1678,15 +1678,15 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.ActualAmount), "发生金额");
-            columnList.Add(nameof(record.Commission), "手续费");
-            columnList.Add(nameof(record.StampDuty), "印花税");
-            columnList.Add(nameof(record.Incidentals), "过户费");
-            columnList.Add("OtherFee1", "其他杂费");
+            columnList.Add(nameof(record.Commission), null);
+            columnList.Add(nameof(record.StampDuty), null);
+            columnList.Add(nameof(record.Incidentals), null);
+            columnList.Add("OtherFee1", null);
             columnList.Add("OtherFee2", null);
             columnList.Add("OtherFee3", null);
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
-            columnList.Add(nameof(record.DealNo), "合同编号");
-            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.DealNo), "成交编号");
+            columnList.Add(nameof(record.ContractNo), "成交编号");
             columnList.Add(nameof(record.Remarks), "操作");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
