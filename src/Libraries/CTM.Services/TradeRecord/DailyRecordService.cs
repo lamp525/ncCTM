@@ -240,9 +240,11 @@ namespace CTM.Services.TradeRecord
                 }
 
                 //成交编号
-                record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
+                if (!string.IsNullOrEmpty(columnList[nameof(record.DealNo)]))
+                    record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
                 //合同编号
-                record.ContractNo = row[columnList[nameof(record.ContractNo)]].ToString().Trim();
+                if (!string.IsNullOrEmpty(columnList[nameof(record.ContractNo)]))
+                    record.ContractNo = row[columnList[nameof(record.ContractNo)]].ToString().Trim();
                 //股东代码
                 if (!string.IsNullOrEmpty(columnList[nameof(record.StockHolderCode)]))
                     record.StockHolderCode = row[columnList[nameof(record.StockHolderCode)]].ToString().Trim();
@@ -1846,24 +1848,24 @@ namespace CTM.Services.TradeRecord
             DailyRecord record = null;
 
             columnList.Add(nameof(record.TradeDate), "成交日期");
-            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.TradeTime), "成交时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
-            columnList.Add(nameof(record.DealFlag), "买卖标志");
-            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.ActualAmount), "发生金额");
-            columnList.Add(nameof(record.Commission), "佣金");
+            columnList.Add(nameof(record.Commission), "手续费");
             columnList.Add(nameof(record.StampDuty), "印花税");
             columnList.Add(nameof(record.Incidentals), "过户费");
-            columnList.Add("OtherFee1", null);
+            columnList.Add("OtherFee1", "其他费用");
             columnList.Add("OtherFee2", null);
             columnList.Add("OtherFee3", null);
-            columnList.Add(nameof(record.StockHolderCode), "股东代码");
-            columnList.Add(nameof(record.DealNo), "成交编号");
-            columnList.Add(nameof(record.ContractNo), "成交编号");
-            columnList.Add(nameof(record.Remarks), "备注");
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), null);
+            columnList.Add(nameof(record.ContractNo), null);
+            columnList.Add(nameof(record.Remarks), "操作");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
