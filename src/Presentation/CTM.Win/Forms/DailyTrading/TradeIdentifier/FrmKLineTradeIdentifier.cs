@@ -208,6 +208,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                                         TradeCode = x.Field<string>("TradeCode").Trim(),
                                     }).ToList();
 
+                if (!LoginInfo.CurrentUser.IsAdmin)
+                    source = source.Where(x => x.InvestorCode == LoginInfo.CurrentUser.UserCode).ToList();
+
                 luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
             }
         }
