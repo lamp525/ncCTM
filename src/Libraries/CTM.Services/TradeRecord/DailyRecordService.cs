@@ -1935,23 +1935,23 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeDate), "成交日期");
             columnList.Add(nameof(record.TradeTime), null);
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
-            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.ActualAmount), "发生金额");
             columnList.Add(nameof(record.Commission), "佣金");
             columnList.Add(nameof(record.StampDuty), "印花税");
-            columnList.Add(nameof(record.Incidentals), "其他杂费");
-            columnList.Add("OtherFee1", "过户费");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", null);
             columnList.Add("OtherFee2", null);
             columnList.Add("OtherFee3", null);
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
-            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.DealNo), "成交编号");
             columnList.Add(nameof(record.ContractNo), "合同编号");
             columnList.Add(nameof(record.Remarks), "操作");
             columnList.Add(nameof(record.TradeType), "交易类别");

@@ -325,7 +325,7 @@
             this.colInitHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colInitHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colInitHoldingVolume.Caption = "期初持仓量";
-            this.colInitHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colInitHoldingVolume.DisplayFormat.FormatString = "N0";
             this.colInitHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitHoldingVolume.FieldName = "InitHoldingVolume";
             this.colInitHoldingVolume.Name = "colInitHoldingVolume";
@@ -380,7 +380,7 @@
             this.colCurrentHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
             this.colCurrentHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colCurrentHoldingVolume.Caption = "期末持仓量";
-            this.colCurrentHoldingVolume.DisplayFormat.FormatString = "N";
+            this.colCurrentHoldingVolume.DisplayFormat.FormatString = "N0";
             this.colCurrentHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentHoldingVolume.FieldName = "CurrentHoldingVolume";
             this.colCurrentHoldingVolume.Name = "colCurrentHoldingVolume";
