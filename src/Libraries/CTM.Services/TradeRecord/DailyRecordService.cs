@@ -515,11 +515,11 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
-            columnList.Add(nameof(record.DealAmount), "成交金额");
-            columnList.Add(nameof(record.StockHolderCode), "资金帐号");
+            columnList.Add(nameof(record.DealAmount), null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
             columnList.Add(nameof(record.DealNo), "委托编号");
             columnList.Add(nameof(record.ContractNo), "委托编号");
-            columnList.Add(nameof(record.Remarks), "业务名称");
+            columnList.Add(nameof(record.Remarks), "买卖");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
