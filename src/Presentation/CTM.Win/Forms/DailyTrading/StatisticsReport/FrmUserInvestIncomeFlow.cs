@@ -430,6 +430,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     Value = x.Code.ToString(),
                 }).ToList();
             this.cbTradeType.Initialize(tradeTypes, displayAdditionalItem: true);
+            this.cbTradeType.DefaultSelected("0");
 
             //报表类型
             var reportTypes = new List<ComboBoxItemModel>();
@@ -1306,9 +1307,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             var souce = this._investors.Where(x => x.IsDeleted == !isOnWorking).OrderBy(x => x.Code).ToList();
             this.luInvestor.Initialize(souce, "Code", "Name", showHeader: true, enableSearch: true);
 
-            var tradeType = (int)CTMHelper.GetTradeTypeByDepartment(selectedDeptId);
+            //var tradeType = (int)CTMHelper.GetTradeTypeByDepartment(selectedDeptId);
 
-            this.cbTradeType.DefaultSelected(tradeType.ToString());
+            //this.cbTradeType.DefaultSelected(tradeType.ToString());
         }
 
         private void chkWorkingTop_CheckedChanged(object sender, EventArgs e)
