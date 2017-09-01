@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.TradeRecord;
+using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.TradeRecord;
@@ -35,6 +36,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private DateTime _startDate, _endDate;
         private bool _chartGenerated = false;
         private DateTime _currentDate;
+        private IList<TradeInfoModel> _tradeInfoList = null;
         private TradeInfoModel _tradeInfo = null;
 
         #endregion Fields
@@ -73,14 +75,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             this.deEnd.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
 
             var now = DateTime.Now.Date;
-            this.deStart.EditValue = now.AddMonths(-6);
+            this.deStart.EditValue = new DateTime(now.Year, 1, 1);
             this.deEnd.EditValue = now;
-            this.btnView.Enabled = false;
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
             this.colDealFlag.SetDisplayFormatToBoolean("买", "卖");
             this.esiProfitTitle.Text = string.Empty;
-
-            btnView.Enabled = false;
         }
 
         private void ChartInit()
@@ -190,14 +189,15 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             if (this.deStart.EditValue == null || this.deEnd.EditValue == null) return;
 
-            luTradeInfo.Properties.DataSource = null;
+            luInvestor.Properties.DataSource = null;
+            luStock.Properties.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_TITradeInfo] @StartDate ='{_startDate}', @EndDate='{_endDate}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
-            if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                var source = ds.Tables[0].AsEnumerable()
+                _tradeInfoList = ds.Tables[0].AsEnumerable()
                                     .Select(x => new TradeInfoModel
                                     {
                                         DisplayText = x.Field<string>("DisplayText").Trim(),
@@ -208,10 +208,59 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                                         TradeCode = x.Field<string>("TradeCode").Trim(),
                                     }).ToList();
 
+                var investorInfo = ds.Tables[1].AsEnumerable()
+                                                .Select(x => new UserInfo
+                                                {
+                                                    Code = x.Field<string>("InvestorCode").Trim(),
+                                                    Name = x.Field<string>("InvestorName").Trim(),
+                                                }).ToList();
+
+                var stockInfo = ds.Tables[2].AsEnumerable()
+                                .Select(x => new StockInfoModel
+                                {
+                                    FullCode = x.Field<string>("StockCode").Trim(),
+                                    Name = x.Field<string>("StockName").Trim(),
+                                    DisplayMember = x.Field<string>("StockCode").Trim() + " - " + x.Field<string>("StockName").Trim(),
+                                }).ToList();
+
                 if (!LoginInfo.CurrentUser.IsAdmin)
-                    source = source.Where(x => x.InvestorCode == LoginInfo.CurrentUser.UserCode).ToList();
+                {
+                    luInvestor.Properties.ReadOnly = true;
+                    luStock.Properties.ReadOnly = true;
+                    _tradeInfoList = _tradeInfoList.Where(x => x.InvestorCode == LoginInfo.CurrentUser.UserCode).ToList();
+                    investorInfo = investorInfo.Where(x => x.Code == LoginInfo.CurrentUser.UserCode).ToList();
+                }
+
+                luInvestor.Initialize(investorInfo, "Code", "Name", enableSearch: true);
+                luInvestor.EditValue = LoginInfo.CurrentUser.UserCode;
+                luStock.Initialize(stockInfo, "FullCode", "DisplayMember", enableSearch: true);
+                //luTradeInfo.Initialize(_tradeInfoList, "TradeCode", "DisplayText", enableSearch: true);
+            }
+        }
+
+        private void TradeInfoFilter()
+        {
+            try
+            {
+                if (this.luInvestor.EditValue == null && this.luStock.EditValue == null) return;
+
+                var investorCode = luInvestor.SelectedValue();
+                var stockCode = luStock.SelectedValue();
+
+                luTradeInfo.Properties.DataSource = null;
+
+                var source = _tradeInfoList;
+                if (!string.IsNullOrEmpty(investorCode))
+                    source = _tradeInfoList.Where(x => x.InvestorCode == investorCode).ToList();
+
+                if (!string.IsNullOrEmpty(stockCode))
+                    source = source.Where(x => x.StockCode == stockCode).ToList();
 
                 luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
             }
         }
 
@@ -220,7 +269,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             chartControl1.Cursor = Cursors.Default;
 
             _seriesDayKLine.Points.Clear();
-            chartControl1.Titles[0].Text = luTradeInfo.Text;
+            chartControl1.Titles[0].Text = "";
 
             double low, high, open, close;
             foreach (DataRow row in _KLineData.Rows)
@@ -284,10 +333,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 FormInit();
 
                 ChartInit();
-
-                luTradeInfo.Focus();
-
-                this.AcceptButton = this.btnView;
             }
             catch (Exception ex)
             {
@@ -321,17 +366,23 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
-        private void luTradeInfo_EditValueChanged(object sender, EventArgs e)
+        private void luInvestor_EditValueChanged(object sender, EventArgs e)
         {
-            this.btnView.Enabled = !string.IsNullOrEmpty(luTradeInfo.SelectedValue());
+            TradeInfoFilter();
         }
 
-        private void btnView_Click(object sender, EventArgs e)
+        private void luStock_EditValueChanged(object sender, EventArgs e)
+        {
+            TradeInfoFilter();
+        }
+
+        private void luTradeInfo_EditValueChanged(object sender, EventArgs e)
         {
             try
             {
                 this._chartGenerated = false;
-                this.btnView.Enabled = false;
+
+                chartControl1.Titles[0].Text = luTradeInfo.Text;
 
                 this.esiProfitTitle.Text = string.Empty;
 
@@ -373,10 +424,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                this.btnView.Enabled = true;
             }
         }
 
@@ -497,7 +544,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     if (item.DealFlag)
                     {
                         foldDY += upDeviant ? deviant : -deviant;
-                        pArrow.Color = Color.OrangeRed ;
+                        pArrow.Color = Color.OrangeRed;
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
                         textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;

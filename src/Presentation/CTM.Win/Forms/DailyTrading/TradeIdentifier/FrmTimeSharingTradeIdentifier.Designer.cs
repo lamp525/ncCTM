@@ -49,7 +49,6 @@
             DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.btnView = new DevExpress.XtraEditors.SimpleButton();
             this.luTradeInfo = new DevExpress.XtraEditors.LookUpEdit();
             this.deTrade = new DevExpress.XtraEditors.DateEdit();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
@@ -57,9 +56,7 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lcgFilter = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -81,15 +78,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.btnView);
             this.layoutControl1.Controls.Add(this.luTradeInfo);
             this.layoutControl1.Controls.Add(this.deTrade);
             this.layoutControl1.Controls.Add(this.chartControl1);
@@ -100,16 +94,6 @@
             this.layoutControl1.Size = new System.Drawing.Size(1521, 789);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
-            // 
-            // btnView
-            // 
-            this.btnView.Location = new System.Drawing.Point(575, 43);
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(75, 22);
-            this.btnView.StyleController = this.layoutControl1;
-            this.btnView.TabIndex = 8;
-            this.btnView.Text = "    查  看    ";
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // luTradeInfo
             // 
@@ -272,7 +256,7 @@
             secondaryAxisY1,
             secondaryAxisY2});
             this.chartControl1.Diagram = xyDiagram1;
-            this.chartControl1.Location = new System.Drawing.Point(12, 81);
+            this.chartControl1.Location = new System.Drawing.Point(12, 79);
             this.chartControl1.Name = "chartControl1";
             series1.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series1.Name = "Price";
@@ -301,7 +285,7 @@
         series2,
         series3};
             this.chartControl1.SeriesTemplate.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            this.chartControl1.Size = new System.Drawing.Size(1497, 696);
+            this.chartControl1.Size = new System.Drawing.Size(1497, 698);
             this.chartControl1.TabIndex = 4;
             chartTitle1.Alignment = System.Drawing.StringAlignment.Near;
             chartTitle1.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -327,9 +311,9 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chartControl1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 67);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1501, 700);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1501, 702);
             this.layoutControlItem1.Text = "分时图";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -341,55 +325,36 @@
             this.lcgFilter.AppearanceGroup.Options.UseFont = true;
             this.lcgFilter.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem3,
-            this.layoutControlItem5,
             this.layoutControlItem3,
-            this.emptySpaceItem2,
             this.layoutControlItem2});
             this.lcgFilter.Location = new System.Drawing.Point(0, 0);
             this.lcgFilter.Name = "lcgFilter";
-            this.lcgFilter.Size = new System.Drawing.Size(1501, 69);
+            this.lcgFilter.Size = new System.Drawing.Size(1501, 67);
             this.lcgFilter.Text = "筛选条件";
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(630, 0);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(541, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(847, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(936, 24);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.btnView;
-            this.layoutControlItem5.Location = new System.Drawing.Point(551, 0);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(79, 26);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.luTradeInfo;
             this.layoutControlItem3.Location = new System.Drawing.Point(197, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(344, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(344, 24);
             this.layoutControlItem3.Text = "交易信息：";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(541, 0);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.deTrade;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(197, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(197, 24);
             this.layoutControlItem2.Text = "交易日期：";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -422,9 +387,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcgFilter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 
@@ -440,9 +403,6 @@
         private DevExpress.XtraEditors.DateEdit deTrade;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private DevExpress.XtraEditors.SimpleButton btnView;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.LayoutControlGroup lcgFilter;
     }

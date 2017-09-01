@@ -78,8 +78,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 deTrade.EditValue = CommonHelper.GetPreviousWorkDay(DateTime.Now.AddDays(-1));
             else
                 deTrade.EditValue = CommonHelper.GetPreviousWorkDay(DateTime.Now);
-
-            this.btnView.Enabled = false;
         }
 
         private void ChartInit()
@@ -96,12 +94,12 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 cLine.Name = string.Empty;
             }
             AxisY myAxisY = myDiagram.AxisY;
-            myAxisY.WholeRange.AutoSideMargins = true;        
+            myAxisY.WholeRange.AutoSideMargins = true;
             myAxisY.Tickmarks.Visible = false;
             myAxisY.Tickmarks.MinorVisible = false;
 
             SecondaryAxisY myRateAxisY = myDiagram.SecondaryAxesY[0];
-            myRateAxisY.WholeRange.AutoSideMargins = true;       
+            myRateAxisY.WholeRange.AutoSideMargins = true;
             myRateAxisY.Tickmarks.Visible = true;
             myRateAxisY.Tickmarks.MinorVisible = false;
         }
@@ -113,7 +111,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             var commandText = $@"EXEC [dbo].[sp_TITradeInfo] @StartDate ='{_tradeDate}', @EndDate='{_tradeDate}'";
             var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
 
-            if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 var source = ds.Tables[0].AsEnumerable()
                                     .Select(x => new TradeInfoModel
@@ -222,8 +220,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             mySecondaryAxisY.WholeRange.SetMinMaxValues(minRate, maxRate);
             mySecondaryAxisY.LabelVisibilityMode = AxisLabelVisibilityMode.Default;
 
-
-            myAxisY.CustomLabels.Clear();        
+            myAxisY.CustomLabels.Clear();
             mySecondaryAxisY.CustomLabels.Clear();
             double priceInterval = Math.Round(maxDiff / 7, 2);
             for (int i = 0; i < 20; i++)
@@ -267,8 +264,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     FormInit();
 
                     luTradeInfo.Focus();
-
-                    this.AcceptButton = this.btnView;
                 }
             }
             catch (Exception ex)
@@ -277,12 +272,11 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
-        private void btnView_Click(object sender, EventArgs e)
+        private void luTradeInfo_EditValueChanged(object sender, EventArgs e)
         {
             try
             {
                 this._chartGenerated = false;
-                this.btnView.Enabled = false;
 
                 _tradeInfo = luTradeInfo.GetSelectedDataRow() as TradeInfoModel;
 
@@ -296,15 +290,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             {
                 DXMessage.ShowError(ex.Message);
             }
-            finally
-            {
-                this.btnView.Enabled = true;
-            }
-        }
-
-        private void luTradeInfo_EditValueChanged(object sender, EventArgs e)
-        {
-            this.btnView.Enabled = !string.IsNullOrEmpty(luTradeInfo.SelectedValue());
         }
 
         private void deTrade_EditValueChanged(object sender, EventArgs e)
