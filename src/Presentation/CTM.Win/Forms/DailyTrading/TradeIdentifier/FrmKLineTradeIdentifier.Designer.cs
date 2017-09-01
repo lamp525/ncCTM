@@ -70,6 +70,10 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
+            this.luStock = new DevExpress.XtraLayout.LayoutControlItem();
+            this.luInvestor = new DevExpress.XtraEditors.LookUpEdit();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.luTradeInfo.Properties)).BeginInit();
@@ -103,10 +107,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.luStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.luInvestor);
+            this.layoutControl1.Controls.Add(this.lookUpEdit1);
             this.layoutControl1.Controls.Add(this.luTradeInfo);
             this.layoutControl1.Controls.Add(this.btnView);
             this.layoutControl1.Controls.Add(this.txtProfitRate);
@@ -127,7 +137,7 @@
             // 
             // luTradeInfo
             // 
-            this.luTradeInfo.Location = new System.Drawing.Point(487, 43);
+            this.luTradeInfo.Location = new System.Drawing.Point(748, 43);
             this.luTradeInfo.Name = "luTradeInfo";
             this.luTradeInfo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -136,14 +146,14 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("InvestorCode", "Name15", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name16"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TradeCode", "Name20", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default)});
-            this.luTradeInfo.Size = new System.Drawing.Size(283, 20);
+            this.luTradeInfo.Size = new System.Drawing.Size(200, 20);
             this.luTradeInfo.StyleController = this.layoutControl1;
             this.luTradeInfo.TabIndex = 17;
             this.luTradeInfo.EditValueChanged += new System.EventHandler(this.luTradeInfo_EditValueChanged);
             // 
             // btnView
             // 
-            this.btnView.Location = new System.Drawing.Point(784, 43);
+            this.btnView.Location = new System.Drawing.Point(962, 43);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(75, 22);
             this.btnView.StyleController = this.layoutControl1;
@@ -474,7 +484,9 @@
             this.emptySpaceItem2,
             this.layoutControlItem13,
             this.emptySpaceItem3,
-            this.emptySpaceItem4});
+            this.emptySpaceItem4,
+            this.luStock,
+            this.layoutControlItem2});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Size = new System.Drawing.Size(1526, 530);
@@ -511,16 +523,16 @@
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.luTradeInfo;
-            this.layoutControlItem11.Location = new System.Drawing.Point(400, 0);
+            this.layoutControlItem11.Location = new System.Drawing.Point(661, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(350, 26);
+            this.layoutControlItem11.Size = new System.Drawing.Size(267, 26);
             this.layoutControlItem11.Text = "交易信息：";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(750, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(928, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -528,7 +540,7 @@
             // layoutControlItem13
             // 
             this.layoutControlItem13.Control = this.btnView;
-            this.layoutControlItem13.Location = new System.Drawing.Point(760, 0);
+            this.layoutControlItem13.Location = new System.Drawing.Point(938, 0);
             this.layoutControlItem13.Name = "layoutControlItem13";
             this.layoutControlItem13.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
@@ -537,9 +549,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(839, 0);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(1017, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(663, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(485, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
@@ -549,6 +561,44 @@
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(1502, 10);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // lookUpEdit1
+            // 
+            this.lookUpEdit1.Location = new System.Drawing.Point(604, 43);
+            this.lookUpEdit1.Name = "lookUpEdit1";
+            this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit1.Size = new System.Drawing.Size(77, 20);
+            this.lookUpEdit1.StyleController = this.layoutControl1;
+            this.lookUpEdit1.TabIndex = 18;
+            // 
+            // luStock
+            // 
+            this.luStock.Control = this.lookUpEdit1;
+            this.luStock.Location = new System.Drawing.Point(517, 0);
+            this.luStock.Name = "luStock";
+            this.luStock.Size = new System.Drawing.Size(144, 26);
+            this.luStock.Text = "股票信息：";
+            this.luStock.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // luInvestor
+            // 
+            this.luInvestor.Location = new System.Drawing.Point(487, 43);
+            this.luInvestor.Name = "luInvestor";
+            this.luInvestor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.luInvestor.Size = new System.Drawing.Size(50, 20);
+            this.luInvestor.StyleController = this.layoutControl1;
+            this.luInvestor.TabIndex = 19;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.luInvestor;
+            this.layoutControlItem2.Location = new System.Drawing.Point(400, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(117, 26);
+            this.layoutControlItem2.Text = "投资人员：";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
             // 
             // FrmKLineTradeIdentifier
             // 
@@ -592,6 +642,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.luStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -640,5 +694,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
+        private DevExpress.XtraEditors.LookUpEdit luInvestor;
+        private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
+        private DevExpress.XtraLayout.LayoutControlItem luStock;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
     }
 }
