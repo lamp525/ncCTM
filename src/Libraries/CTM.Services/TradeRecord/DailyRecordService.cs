@@ -2072,7 +2072,7 @@ namespace CTM.Services.TradeRecord
             if (beneficiaries != null)
                 query = query.Where(x => beneficiaries.Contains(x.Beneficiary));
 
-            return query.ToList();
+            return query.Where (x=>x.ActualAmount !=0 || x.DealVolume !=0) .ToList();
         }
 
         public virtual IList<DailyRecord> GetDailyRecordsBySearchCondition(
