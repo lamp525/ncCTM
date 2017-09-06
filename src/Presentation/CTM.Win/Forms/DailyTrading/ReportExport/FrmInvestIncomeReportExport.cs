@@ -225,8 +225,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         //日期
                         worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
 
-                        //累计收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AccumulatedActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+                        //本年累计收益额（万元）
+                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualProfit   / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //当日收益率
                         worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
@@ -234,8 +234,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         //日收益额（万元）
                         worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
-                        //累计收益率
-                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AccumulatedIncomeRate;
+                        //本年累计收益率
+                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AnnualIncomeRate ;
                     }
                 }
 
