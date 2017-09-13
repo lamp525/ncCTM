@@ -226,13 +226,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
 
                         //本年累计收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualProfit    / (int)EnumLibrary.NumericUnit.TenThousand;
+                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualActualProfit    / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //当日收益率
                         worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
 
                         //日收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentProfit / (int)EnumLibrary.NumericUnit.TenThousand;
+                        worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //本年累计收益率
                         worksheet.Cells[startRowIndex + i, 8] = investInfo.AnnualIncomeRate ;
