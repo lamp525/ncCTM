@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
+using CTM.Data;
 using CTM.Services.Department;
 using CTM.Services.StatisticsReport;
 using CTM.Services.TKLine;
@@ -69,14 +70,20 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             else
                 this.deEnd.EditValue = now.Date;
 
-            //部门
-            var deptInfos = this._departmentService.GetAllAccountingDepartmentInfo()
+            //投资小组
+            string sqlText = @" SELECT TeamId,TeamName FROM TeamInfo WHERE IsDeleted = 0 ORDER BY TeamId ";
+
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            var teamInfos = ds.Tables[0].AsEnumerable()
                 .Select(x => new ComboBoxItemModel
                 {
-                    Text = x.Name,
-                    Value = x.Id.ToString(),
+                    Text = x.Field<string>("TeamName"),
+                    Value = x.Field<int>("TeamId").ToString(),
                 }).ToList();
-            this.cbDepartment.Initialize(deptInfos, displayAdditionalItem: false);
+            this.cbDepartment.Initialize(teamInfos, displayAdditionalItem: false);
             this.cbDepartment.DefaultSelected(((int)EnumLibrary.AccountingDepartment.Day).ToString());
 
             //报表类型
@@ -94,27 +101,31 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
-        private string GetReportTemplateFilePath(int deptId)
+        private string GetReportTemplateFilePath(int teamId)
         {
-            string directoryName = "ReportTemplate\\UserDailyProfitFlow";
+            string directoryName = "ReportTemplate\\DailyProfit";
             string fileName = string.Empty;
 
-            switch ((EnumLibrary.AccountingDepartment)deptId)
+            switch (teamId)
             {
-                case EnumLibrary.AccountingDepartment.Independence:
-                    fileName = "IndependenceReport.xlsx";
+                case 1:
+                    fileName = "TeamLJH.xlsx";
                     break;
 
-                case EnumLibrary.AccountingDepartment.Target:
-                    fileName = "TargetReport.xlsx";
+                case 2:
+                    fileName = "TeamLWK.xlsx";
                     break;
 
-                case EnumLibrary.AccountingDepartment.Band:
-                    fileName = "BandReport.xlsx";
+                case 3:
+                    fileName = "TeamCW.xlsx";
                     break;
 
-                case EnumLibrary.AccountingDepartment.Day:
-                    fileName = "DayReport.xlsx";
+                case 4:
+                    fileName = "TeamQT.xlsx";
+                    break;
+
+                case 5:
+                    fileName = "TeamGS.xlsx";
                     break;
 
                 default:
@@ -124,53 +135,35 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             return Path.Combine(Application.StartupPath, directoryName, fileName);
         }
 
-        private string GetReportDestinyFilePath(int deptId, string savePath)
+        private string GetReportDestinyFilePath(int teamId, string savePath)
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string typeName = string.Empty;
 
-            switch ((EnumLibrary.AccountingDepartment)deptId)
-            {
-                case EnumLibrary.AccountingDepartment.Independence:
-                    typeName = "独立核算";
-                    break;
+            //投资小组
+            string sqlText = $@" SELECT TeamName FROM TeamInfo WHERE TeamId = {teamId} ";
 
-                case EnumLibrary.AccountingDepartment.Target:
-                    typeName = "目标";
-                    break;
+            string teamName = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText).ToString();
 
-                case EnumLibrary.AccountingDepartment.Band:
-                    typeName = "波段";
-                    break;
-
-                case EnumLibrary.AccountingDepartment.Day:
-                    typeName = "短差";
-                    break;
-
-                default:
-                    break;
-            }
-
-            var fileName = $"证券投资部收益报表({typeName})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
+            var fileName = $"证券投资部收益报表({teamName})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
 
             return Path.Combine(directoryName, fileName);
         }
 
-        private void CreateReport(DateTime endDate, int deptId, string reportType, string savePath)
+        private void CreateReport(DateTime endDate, int teamId, string reportType, string savePath)
         {
             // var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
-            var templateFilePath = GetReportTemplateFilePath(deptId);
+            var templateFilePath = GetReportTemplateFilePath(teamId);
 
             if (!File.Exists(templateFilePath))
             {
                 throw new FileNotFoundException("报表模板Excel文件不存在！");
             }
 
-            var destinyFileName = GetReportDestinyFilePath(deptId, savePath);
+            var destinyFileName = GetReportDestinyFilePath(teamId, savePath);
 
-            var reportData = GetReportData(endDate, deptId, reportType);
+            var reportData = GetReportData(endDate, teamId, reportType);
 
-            WriteDataToExcel(reportData, deptId, templateFilePath, destinyFileName);
+            WriteDataToExcel(reportData, teamId, templateFilePath, destinyFileName);
         }
 
         private void WriteDataToExcel(IDictionary<string, IList<UserInvestIncomeEntity>> reportData, int deptId, string templateFilePath, string destinyFilePath)
@@ -226,7 +219,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
 
                         //本年累计收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualActualProfit    / (int)EnumLibrary.NumericUnit.TenThousand;
+                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //当日收益率
                         worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
@@ -235,7 +228,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
 
                         //本年累计收益率
-                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AnnualIncomeRate ;
+                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AnnualIncomeRate;
                     }
                 }
 
@@ -427,13 +420,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 //查询截至交易日
                 var endDate = CommonHelper.StringToDateTime(this.deEnd.EditValue.ToString());
 
-                var deptId = int.Parse(this.cbDepartment.SelectedValue());
+                var teamId = int.Parse(this.cbDepartment.SelectedValue());
 
                 var reportType = this.cbReportType.SelectedValue();
 
                 var savePath = this.txtSavePath.Text.Trim();
 
-                CreateReport(endDate, deptId, reportType, savePath);
+                CreateReport(endDate, teamId, reportType, savePath);
             }
             catch (Exception ex)
             {

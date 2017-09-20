@@ -32,7 +32,6 @@ namespace CTM.Win.Forms.InvestmentDecision
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
 
-        private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         //private bool _isExpanded = false;
         private bool _isGridDataSourceChanged = false;
@@ -188,7 +187,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var commandText = $@"EXEC [dbo].[sp_GetIDIdentify] @InvestorCode = '{LoginInfo.CurrentUser.UserCode}' ,@ApplyNo = '{applyNo}'";
 
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0) return;
 
@@ -531,7 +530,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             commandText = commandText + whereCondition;
 
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             this._isGridDataSourceChanged = false;
 

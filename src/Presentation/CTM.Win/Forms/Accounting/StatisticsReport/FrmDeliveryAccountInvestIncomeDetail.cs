@@ -61,7 +61,7 @@ namespace CTM.Win.Forms.Accounting.StatisticsReport
             this.gridView1.LoadLayout(_layoutXmlName);
             this.gridView1.SetLayout(showGroupPanel: true, showFilterPanel: true, showCheckBoxRowSelect: false, rowIndicatorWidth: 60);
             this.gridView1.SetColumnHeaderAppearance();
-           gridView1.OptionsBehavior.AllowPartialGroups = DefaultBoolean.True;
+            gridView1.OptionsBehavior.AllowPartialGroups = DefaultBoolean.True;
 
             this.ActiveControl = this.btnSearch;
         }

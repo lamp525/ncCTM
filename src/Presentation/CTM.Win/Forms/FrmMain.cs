@@ -458,6 +458,11 @@ namespace CTM.Win.Forms
             this.DisplayForm<FrmInvestIncomeReportExport>("投资收益报表导出");
         }
 
+        private void bbiDailyProfitReportExport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmDailyReportExport>("投资收益报表导出2");
+        }
+
         /// <summary>
         /// 部门投资收益报表
         /// </summary>
@@ -715,5 +720,7 @@ namespace CTM.Win.Forms
         {
             this.DisplayForm<FrmFundTeamStrategyProfit>();
         }
+
+
     }
 }

@@ -21,8 +21,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private readonly IDictionaryService _dictionaryService;
         private readonly IDeliveryRecordService _deliveryService;
 
-        private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
-
         #endregion Fields
 
         #region Properties
@@ -93,7 +91,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @FromDate = '{FromDate}' , @ToDate = '{ToDate}' , @DealFlag = {DealFlag}";
 
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 

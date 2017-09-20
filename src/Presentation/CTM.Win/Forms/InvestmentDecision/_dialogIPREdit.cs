@@ -27,7 +27,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private RepositoryItemImageComboBox riImageComboBoxOperateScheme;
         private RepositoryItemImageComboBox riImageComboBoxOperateMode;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
 
         #region Properties
 
@@ -216,7 +216,7 @@ namespace CTM.Win.Forms.InvestmentDecision
             this.gridControl1.DataSource = null;
 
             string commandText = $@"SELECT * FROM [dbo].[v_IPRDetail] WHERE InvestorCode = '{LoginInfo.CurrentUser.UserCode }' AND AnalysisDate = '{AnalysisDate}' ORDER BY StockName, Probability DESC, CreateTime";
-            DataSet ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
             if (ds == null || ds.Tables.Count == 0) return;
             this.gridControl1.DataSource = ds.Tables[0];
         }

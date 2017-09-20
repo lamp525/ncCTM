@@ -23,7 +23,6 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IInvestmentDecisionService _IDService;
         private readonly ICommonService _commonService;
 
-        private readonly string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         private IList<StockInfo> _stocks;
 
@@ -53,7 +52,7 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.gridControl1.DataSource = null;
 
             var commandText = $@" SELECT *  FROM [dbo].[v_IDStockPool] ORDER BY Principal";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
@@ -136,7 +135,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             sqlScript += $@" ORDER BY OperateTime DESC ";
 
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlScript);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlScript);
 
             if (ds == null || ds.Tables.Count == 0) return;
 

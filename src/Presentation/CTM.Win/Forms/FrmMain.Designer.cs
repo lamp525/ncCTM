@@ -98,6 +98,7 @@
             this.barButtonItem37 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem38 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem39 = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDailyProfitReportExport = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -200,9 +201,10 @@
             this.barButtonItem36,
             this.barButtonItem37,
             this.barButtonItem38,
-            this.barButtonItem39});
+            this.barButtonItem39,
+            this.bbiDailyProfitReportExport});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 48;
+            this.ribbonControl1.MaxItemId = 49;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -830,6 +832,16 @@
             this.barButtonItem39.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem39.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem39_ItemClick_1);
             // 
+            // bbiDailyProfitReportExport
+            // 
+            this.bbiDailyProfitReportExport.Caption = "收益报表导出2";
+            this.bbiDailyProfitReportExport.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiDailyProfitReportExport.Glyph")));
+            this.bbiDailyProfitReportExport.Id = 48;
+            this.bbiDailyProfitReportExport.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiDailyProfitReportExport.LargeGlyph")));
+            this.bbiDailyProfitReportExport.Name = "bbiDailyProfitReportExport";
+            this.bbiDailyProfitReportExport.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.bbiDailyProfitReportExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDailyProfitReportExport_ItemClick);
+            // 
             // ribbonPageTrade
             // 
             this.ribbonPageTrade.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -853,6 +865,7 @@
             // rpgInvestIncomeReport
             // 
             this.rpgInvestIncomeReport.ItemLinks.Add(this.bbiInvestIncomeReportExport);
+            this.rpgInvestIncomeReport.ItemLinks.Add(this.bbiDailyProfitReportExport);
             this.rpgInvestIncomeReport.Name = "rpgInvestIncomeReport";
             // 
             // ribbonPageGroup7
@@ -1144,6 +1157,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem38;
         private DevExpress.XtraBars.BarButtonItem barButtonItem39;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
+        private DevExpress.XtraBars.BarButtonItem bbiDailyProfitReportExport;
     }
 }
 

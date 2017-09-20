@@ -10,7 +10,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 {
     public partial class FrmFundTeamStrategyProfit : BaseForm
     {
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+   
         private DataTable _profitData = null;
         private ConstantLine _clZero;
         private Series _seAccumulateProfit;
@@ -107,7 +107,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private void GetProfitData()
         {
             var commandText = $@"EXEC [dbo].[sp_FundTeamStrategyProfit] ";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds != null && ds.Tables.Count > 0)
             {

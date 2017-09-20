@@ -35,7 +35,7 @@ namespace CTM.Win.Forms.InvestmentDecision
         private RepositoryItemImageComboBox riImageComboBoxOperateScheme;
         private RepositoryItemImageComboBox riImageComboBoxOperateMode;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
 
         private bool _isExpanded = true;
 
@@ -227,7 +227,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
             var commandText = $@"SELECT TOP 25 * FROM [dbo].[InvestmentPlanRecordSummary] ORDER BY AnalysisDate DESC";
 
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
@@ -307,7 +307,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     //股票信息
                     var stockCommandText = $@"SELECT DISTINCT StockCode, StockName FROM [dbo].[v_IPRDetail] ";
 
-                    var dsStock = SqlHelper.ExecuteDataset(_connString, CommandType.Text, stockCommandText);
+                    var dsStock = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, stockCommandText);
 
                     if (dsStock == null || dsStock.Tables.Count == 0) return;
 
@@ -333,7 +333,7 @@ namespace CTM.Win.Forms.InvestmentDecision
                     //投资人员
                     var investorCommandText = $@"SELECT DISTINCT InvestorCode , InvestorName FROM [dbo].[v_IPRDetail] ";
 
-                    var dsInvestor = SqlHelper.ExecuteDataset(_connString, CommandType.Text, investorCommandText);
+                    var dsInvestor = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, investorCommandText);
 
                     if (dsInvestor == null || dsInvestor.Tables.Count == 0) return;
 
@@ -371,7 +371,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 var analysisDate = CommonHelper.StringToDateTime(this.deTradeDate.EditValue.ToString());
                 var commandText = $@"EXEC [dbo].[sp_GenerateIPRSummary]  @AnalysisDate = '{analysisDate}'";
-                SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
+                SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, commandText);
 
                 BindIPRSummary();
             }
@@ -499,7 +499,7 @@ namespace CTM.Win.Forms.InvestmentDecision
 
                 commandText += $@" ORDER BY StockCode, AnalysisDate DESC, InvestorName ";
 
-                var dsStock = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+                var dsStock = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
                 this.gridControl2.DataSource = dsStock?.Tables?[0];
 

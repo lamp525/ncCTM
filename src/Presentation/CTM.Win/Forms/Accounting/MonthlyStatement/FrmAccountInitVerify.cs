@@ -24,7 +24,6 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private readonly ICommonService _commonService;
         private readonly IMonthlyStatementService _statementService;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
         private string _currentAccountIds = null;
         private int _currentYear;
         private int _currentMonth;
@@ -120,7 +119,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gcPosition.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_GetAccountPositionContrastData] @Year={_currentYear}, @Month={_currentMonth}, @AccountIds='{_currentAccountIds}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
@@ -139,7 +138,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gcAccountProfit.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_GetAccountProfitContrastData] @Year={_currentYear}, @Month={_currentMonth}, @AccountIds='{_currentAccountIds}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
@@ -151,7 +150,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             this.gcStockProfit.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_GetStockProfitContrastData] @Year={_currentYear }, @Month={_currentMonth}, @AccountId={accountId}";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
 

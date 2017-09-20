@@ -93,7 +93,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 if (!string.IsNullOrEmpty(this.cbSecurity.SelectedValue()))
                     source = source?.Where(x => x.SecurityCompanyCode == int.Parse(this.cbSecurity.SelectedValue())).ToList();
 
-                this.luAccount.Properties.DataSource = source;    
+                this.luAccount.Properties.DataSource = source;
             }
         }
 
@@ -120,7 +120,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             try
             {
                 this.gridView1.LoadLayout(_layoutXmlName);
-                this.gridView1.SetLayout(showGroupPanel:true,showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
+                this.gridView1.SetLayout(showGroupPanel: true, showCheckBoxRowSelect: true, showFilterPanel: true, showAutoFilterRow: true, rowIndicatorWidth: 50);
                 this.gridView1.SetColumnHeaderAppearance();
 
                 BindSearchInfo();
@@ -268,11 +268,12 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+
         private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colTransferAmount )
+            if (e.Column == this.colTransferAmount)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
@@ -281,8 +282,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                     e.Appearance.ForeColor = System.Drawing.Color.Green;
             }
         }
+
         #endregion Events
-
-
     }
 }

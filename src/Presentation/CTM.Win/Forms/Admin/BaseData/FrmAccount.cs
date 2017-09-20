@@ -23,7 +23,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IIndustryService _industryService;
         private readonly IAccountService _accountService;
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
         private const string _layoutXmlName = "FrmAccount";
         private bool _firstFocused = true;
         private int _industryId;
@@ -97,7 +97,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 var sql = $@"SELECT * FROM [dbo].[v_InvestmentSubject] WHERE IndustryId = {industryId}";
 
-                var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sql);
+                var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sql);
 
                 var dr = ds?.Tables?[0].Rows?[0];
 
@@ -162,7 +162,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             var sql = $@" EXEC [dbo].[sp_InvestmentSubjectEditProcess] @IndustryId={_industryId}, @InvestFund={investFund * unit}, @NetAsset={netAsset * unit}, @FinancingAmount={financingAmount * unit}, @Remarks='{txtRemarks.Text.Trim()}' ";
 
-            SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, sql);
+            SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, sql);
 
             return true;
         }
@@ -351,7 +351,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
             var commandText = $@"UPDATE IndustryInfo SET ParentId = {newParentId} WHERE Id = {Convert.ToInt32(dragNode.GetValue(tcId))}";
 
-            SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
+            SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, commandText);
 
             this.tlIndustry.ExpandAll();
         }
@@ -370,7 +370,7 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 var commandText = $@"UPDATE IndustryInfo SET Name = '{name}' WHERE Id = {id }";
 
-                SqlHelper.ExecuteNonQuery(_connString, CommandType.Text, commandText);
+                SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, commandText);
             }
         }
 

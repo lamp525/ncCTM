@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Account;
@@ -392,8 +391,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             else
                 this.btnDelete.Enabled = true;
         }
-
-       
 
         /// <summary>
         /// 显示数据行号

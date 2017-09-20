@@ -631,6 +631,7 @@
     </Compile>
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Models\ComboBoxItemModel.cs" />
+    <Compile Include="Util\AppConfig.cs" />
     <Compile Include="Util\DXMessage.cs" />
     <Compile Include="Extensions\FormExtensions.cs" />
     <Compile Include="Infrastructure\DependencyRegistrar.cs" />
@@ -1187,6 +1188,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ReportTemplate\UserDailyProfitFlow\IndependenceReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportTemplate\DailyProfit\TeamCW.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportTemplate\DailyProfit\TeamGS.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportTemplate\DailyProfit\TeamLJH.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportTemplate\DailyProfit\TeamLWK.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportTemplate\DailyProfit\TeamQT.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

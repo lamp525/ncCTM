@@ -25,7 +25,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private CrosshairFreePosition _crosshairFreePosition1 = new CrosshairFreePosition();
         private Color _redColor = Color.FromArgb(204, 51, 0);
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
 
         private IDailyRecordService _dailyRecordService;
         private IList<DailyRecord> _tradeRecords = null;
@@ -193,7 +192,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             luStock.Properties.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_TITradeInfo] @StartDate ='{_startDate}', @EndDate='{_endDate}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -390,7 +389,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (_tradeInfo == null) return;
 
                 var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
-                var dsKLine = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlText1);
+                var dsKLine = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
 
                 if (dsKLine == null || dsKLine.Tables.Count == 0) return;
 
@@ -412,7 +411,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     }).ToList();
 
                 var sqlText2 = $@"EXEC [dbo].[sp_TIPositionProfit] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
-                var dsProfit = SqlHelper.ExecuteDataset(_connString, CommandType.Text, sqlText2);
+                var dsProfit = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
 
                 if (dsProfit != null && dsProfit.Tables.Count == 1)
                     _positionProfit = dsProfit.Tables[0];

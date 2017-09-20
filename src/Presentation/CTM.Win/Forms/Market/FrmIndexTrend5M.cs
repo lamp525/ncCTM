@@ -14,7 +14,7 @@ namespace CTM.Win.Forms.Market
     {
         #region Fields
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+
         private Series _seCurrent;
         private Series _seCorrected;
 
@@ -147,7 +147,7 @@ namespace CTM.Win.Forms.Market
             var date = CommonHelper.StringToDateTime(deTrade.EditValue.ToString());
 
             var commandText = $@"EXEC [dbo].[sp_MTIndex5M_{marketName}] @TradeDate ='{date}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds != null && ds.Tables.Count > 0)
             {

@@ -19,7 +19,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
     {
         #region Fields
 
-        private string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["CTMContext"].ToString();
+    
         private IDailyRecordService _dailyRecordService;
         private IList<DailyRecord> _tradeRecords = null;
         private DataTable _timeSharingData;
@@ -109,7 +109,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             luTradeInfo.Properties.DataSource = null;
 
             var commandText = $@"EXEC [dbo].[sp_TITradeInfo] @StartDate ='{_tradeDate}', @EndDate='{_tradeDate}'";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -138,7 +138,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             chartControl1.Titles[0].Text = "分时图:   " + _tradeDate.ToShortDateString() + " - " + _tradeInfo.DisplayText;
 
             var commandText = $@"EXEC [dbo].[sp_TITimeSharingData] @TradeDate = '{_tradeDate}', @StockCode='{_tradeInfo.StockCode}', @FiveDay = 0";
-            var ds = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
 
             if (ds == null || ds.Tables.Count == 0) return;
             _timeSharingData = ds.Tables[0];
@@ -158,7 +158,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             if ((buyVolume + sellVolume) != 0)
             {
                 var commandText1 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate}' AND StockCode = '{_tradeInfo.StockCode}' ";
-                var ds1 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText1);
+                var ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText1);
                 currentClose = CommonHelper.StringToDecimal(ds1.Tables[0].Rows[0]["Close"].ToString().Trim());
             }
 
@@ -167,7 +167,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             chartControl1.Titles[0].Text += $@"    [买入：{buyVolume.ToString("N0")}股  卖出：{Math.Abs(sellVolume).ToString("N0")}股  收益：{profit.ToString("N4")}]";
 
             var commandText2 = $@"SELECT * FROM TKLineToday WHERE  TradeDate = '{_tradeDate.AddDays(-1)}' AND StockCode = '{_tradeInfo.StockCode}' ";
-            var ds2 = SqlHelper.ExecuteDataset(_connString, CommandType.Text, commandText2);
+            var ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText2);
             _preClose = CommonHelper.StringToDouble(ds2.Tables[0].Rows[0]["Close"].ToString().Trim());
         }
 
