@@ -236,6 +236,12 @@
     <Compile Include="Forms\DailyTrading\DataManage\_dialogStockTransfer.Designer.cs">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DailyTrading\ReportExport\FrmDailyReportExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\ReportExport\FrmDailyReportExport.Designer.cs">
+      <DependentUpon>FrmDailyReportExport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -760,6 +766,9 @@
     <EmbeddedResource Include="Forms\DailyTrading\DataManage\_dialogStockTransfer.resx">
       <DependentUpon>_dialogStockTransfer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\ReportExport\FrmDailyReportExport.resx">
+      <DependentUpon>FrmDailyReportExport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.resx">
       <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
     </EmbeddedResource>
@@ -946,6 +955,7 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
