@@ -6,6 +6,7 @@ using CTM.Core.Domain.TKLine;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
+using CTM.Data;
 using CTM.Services.Account;
 using CTM.Services.MarginTrading;
 using CTM.Services.TKLine;
@@ -16,7 +17,7 @@ namespace CTM.Services.StatisticsReport
     public partial class DailyStatisticsReportService : IDailyStatisticsReportService
     {
         #region Fields
-
+        private readonly IDbContext _dbContext;
         private readonly ITKLineService _tKLineService;
         private readonly IDailyRecordService _dailyRecordService;
         private readonly IMarginTradingService _marginService;
@@ -26,11 +27,13 @@ namespace CTM.Services.StatisticsReport
         #region Constructorss
 
         public DailyStatisticsReportService(
+            IDbContext dbContext,
             IDailyRecordService dailyRecordService,
             ITKLineService tKLineService,
             IMarginTradingService marginService
             )
         {
+            this._dbContext = dbContext;
             this._dailyRecordService = dailyRecordService;
             this._tKLineService = tKLineService;
             this._marginService = marginService;
@@ -1024,6 +1027,15 @@ namespace CTM.Services.StatisticsReport
                 result.Add(incomeModel);
             }
             return result;
+        }
+
+        public IList<TradeTypeProfitEntity> CalculateTradeTypeProfit(int teamId, DateTime startDate, DateTime endDate)
+        {
+            var commanText =  $@" EXEC [dbo].[sp_GetTradeTypeDailyProfit] 	@TeamId = {teamId}	,@StartDate =  '{startDate}'	,@endDate = '{endDate}'";
+
+            var query = this._dbContext.SqlQuery<TradeTypeProfitEntity>(commanText);
+
+            return query.ToList();
         }
 
         #endregion Methods

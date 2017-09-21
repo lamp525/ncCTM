@@ -12,5 +12,7 @@ namespace CTM.Services.StatisticsReport
         IList<UserInvestIncomeEntity> CalculateUserInvestIncome(UserInfo investorInfo, IList<string> statisticalInvestorCodes, IList<DailyRecord> tradeRecords, IList<DateTime> statisticalDates, IList<TKLineToday> stockClosePrices);
 
         IList<AccountInvestIncomeEntity> CalculateAccountInvestIncome(IList<DailyRecord> records, IList<DateTime> queryDates, IList<TKLineToday> stockClosePrices, AccountEntity accountInfo);
+
+        IList<TradeTypeProfitEntity> CalculateTradeTypeProfit(int teamId, DateTime startDate, DateTime endDate);
     }
 }

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Department;
@@ -26,6 +25,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
     public partial class FrmDailyReportExport : BaseForm
     {
         #region Fields
+
+        private readonly int _WanYuan = (int)EnumLibrary.NumericUnit.TenThousand;
 
         private readonly IDailyRecordService _dailyRecordService;
         private readonly IDepartmentService _departmentService;
@@ -104,33 +105,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private string GetReportTemplateFilePath(int teamId)
         {
             string directoryName = "ReportTemplate\\DailyProfit";
-            string fileName = string.Empty;
-
-            switch (teamId)
-            {
-                case 1:
-                    fileName = "TeamLJH.xlsx";
-                    break;
-
-                case 2:
-                    fileName = "TeamLWK.xlsx";
-                    break;
-
-                case 3:
-                    fileName = "TeamCW.xlsx";
-                    break;
-
-                case 4:
-                    fileName = "TeamQT.xlsx";
-                    break;
-
-                case 5:
-                    fileName = "TeamGS.xlsx";
-                    break;
-
-                default:
-                    break;
-            }
+            string fileName = AppConfig._ReportTemplateTradeTypeProfit;
 
             return Path.Combine(Application.StartupPath, directoryName, fileName);
         }
@@ -163,74 +138,37 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             var reportData = GetReportData(endDate, teamId, reportType);
 
+            if (!reportData.Any())
+                throw new Exception("收益报表数据读取失败！");
+
             WriteDataToExcel(reportData, teamId, templateFilePath, destinyFileName);
         }
 
-        private void WriteDataToExcel(IDictionary<string, IList<UserInvestIncomeEntity>> reportData, int deptId, string templateFilePath, string destinyFilePath)
+        private void WriteDataToExcel(IList<TradeTypeProfitEntity> reportData, int teamId, string templateFilePath, string destinyFilePath)
         {
             if (reportData == null)
                 throw new NullReferenceException(nameof(reportData));
 
             Excel.Application excelApp = new Excel.Application();
-
-            Excel.Workbook workbook = excelApp.Workbooks.Open(templateFilePath);
+            Excel.Workbook workbook = null;      
 
             try
             {
-                foreach (var item in reportData)
-                {
-                    var investorName = item.Key;
-                    Excel._Worksheet worksheet = null;
+                workbook = excelApp.Workbooks.Open(templateFilePath);
+                if (workbook == null)
+                    throw new Exception("报表模板文件打开失败！");
 
-                    foreach (Excel.Worksheet sheet in workbook.Sheets)
-                    {
-                        if (sheet.Name == investorName)
-                            worksheet = sheet;
-                    }
+                Excel.Worksheet sheetSummary = workbook.Sheets["Summary"];
+                if (sheetSummary == null)
+                    throw new Exception("报表模板文件缺少投资汇总Sheet！");
 
-                    if (worksheet == null) continue;
+            
 
-                    WorksheetFormatting(worksheet);
+                            
+                GenerateSubjectSheet(reportData, workbook);
 
-                    var startRowIndex = 34;
+                //GenerateSummarySheet();
 
-                    var data = item.Value;
-
-                    for (int i = 0; i < data.Count; i++)
-                    {
-                        var investInfo = data[i];
-
-                        if (deptId != (int)EnumLibrary.AccountingDepartment.Day)
-                        {
-                            //周一（万元）
-                            worksheet.Cells[startRowIndex + i, 3] = investInfo.MondayPositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                            //净资产（万元）
-                            worksheet.Cells[startRowIndex + i, 4] = investInfo.CurrentAsset / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                            //持仓市值（万元）
-                            worksheet.Cells[startRowIndex + i, 9] = investInfo.PositionValue / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                            //持仓仓位
-                            worksheet.Cells[startRowIndex + i, 12] = investInfo.PositionRate;
-                        }
-
-                        //日期
-                        worksheet.Cells[startRowIndex + i, 2] = investInfo.TradeTime;
-
-                        //本年累计收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 5] = investInfo.AnnualActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                        //当日收益率
-                        worksheet.Cells[startRowIndex + i, 6] = investInfo.CurrentIncomeRate;
-
-                        //日收益额（万元）
-                        worksheet.Cells[startRowIndex + i, 7] = investInfo.CurrentActualProfit / (int)EnumLibrary.NumericUnit.TenThousand;
-
-                        //本年累计收益率
-                        worksheet.Cells[startRowIndex + i, 8] = investInfo.AnnualIncomeRate;
-                    }
-                }
 
                 workbook.SaveAs(destinyFilePath, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
             }
@@ -245,6 +183,63 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 excelApp = null;
             }
         }
+
+        private void GenerateSubjectSheet(IList<TradeTypeProfitEntity> reportData, Excel.Workbook workbook)
+        {
+            Excel.Worksheet sheetSubject = workbook.Sheets["Subject"];
+            if (sheetSubject == null)
+                throw new Exception("报表模板文件缺少投资对象收益Sheet！");
+
+            foreach (var group in reportData.GroupBy(x=>x.InvestorName ))
+            {
+                sheetSubject.Name = group.Key;
+
+                //日总收益数据
+                var totalProfitData = group.Where(x => x.TradeType == (int)EnumLibrary.TradeType.All).OrderBy(x => x.TradeDate).ToList();
+                int totalProfitStartRow = 34;
+                for (int i = 0; i < totalProfitData.Count; i++)
+                {
+                    int index = totalProfitStartRow + i;
+                    var data = totalProfitData[i];
+
+                    //序号
+                    sheetSubject.Cells["A" + index.ToString()] = index.ToString();
+                    //日期
+                    sheetSubject.Cells["B" + index.ToString()] = data.TradeDate;
+                    //周一市值
+                    sheetSubject.Cells["C" + index.ToString()] = data.MondayValue / _WanYuan;
+                    //净资产
+                    sheetSubject.Cells["D" + index.ToString()] = (data.YearProfit + Math.Abs(data.CurValue)) / _WanYuan;
+                    //本年收益额
+                    sheetSubject.Cells["E" + index.ToString()] = data.YearProfit / _WanYuan;
+                    //当日收益率
+                    sheetSubject.Cells["E" + index.ToString()] = data.DayRate;
+                    //当日收益额
+                    sheetSubject.Cells["G" + index.ToString()] = data.DayProfit / _WanYuan;
+                    //本年收益率
+                    sheetSubject.Cells["H" + index.ToString()] = data.YearRate;
+                    //持仓市值
+                    sheetSubject.Cells["I" + index.ToString()] = data.CurValue / _WanYuan;
+                    //投入资金线
+                    sheetSubject.Cells["J" + index.ToString()] = data.YearAvgFund / _WanYuan;
+                    //资金可用额度
+                    sheetSubject.Cells["K" + index.ToString()] = data.YearAvgFund * 1.2 / _WanYuan;
+                    //持仓仓位
+                    sheetSubject.Cells["L" + index.ToString()] = data.YearAvgFund== 0 ? 0.0 : data.CurValue / data.YearAvgFund ;
+
+                }
+
+            }
+
+
+        }
+
+        private void GenerateSummarySheet()
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         private void WorksheetFormatting(Excel._Worksheet worksheet)
         {
@@ -285,21 +280,9 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             //rngColL.NumberFormatLocal = @"0.00";
         }
 
-        private IDictionary<string, IList<UserInvestIncomeEntity>> GetReportData(DateTime endDate, int deptId, string reportType)
+        private List<TradeTypeProfitEntity> GetReportData(DateTime endDate, int teamId, string reportType)
         {
-            IDictionary<string, IList<UserInvestIncomeEntity>> result = new Dictionary<string, IList<UserInvestIncomeEntity>>();
-
-            IList<UserInfo> investors = _userService.GetUserInfos(departmentIds: new int[] { deptId }).Where(x => x.IsDeleted == false).ToList();
-
-            //合计
-            var summation = new UserInfo
-            {
-                Code = string.Empty,
-                Name = "合计",
-                AllotFund = investors.Sum(x => x.AllotFund),
-            };
-
-            investors.Add(summation);
+            List<TradeTypeProfitEntity> result = new List<TradeTypeProfitEntity>();
 
             var queryDates = new List<DateTime>();
 
@@ -310,35 +293,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             else
                 return result;
 
-            foreach (var investor in investors)
-            {
-                var statisticalInvestorCodes = new List<string>();
 
-                if (string.IsNullOrEmpty(investor.Code))
-
-                    statisticalInvestorCodes = investors.Where(x => !string.IsNullOrEmpty(x.Code)).Select(x => x.Code).ToList();
-                else
-                    statisticalInvestorCodes.Add(investor.Code);
-
-                //交易记录
-                var tradeRecords = _dailyRecordService.GetDailyRecords(tradeType: 0, beneficiaries: statisticalInvestorCodes.ToArray(), tradeDateFrom: _initDate, tradeDateTo: endDate).ToList();
-
-                IList<UserInvestIncomeEntity> investIncome = new List<UserInvestIncomeEntity>();
-                if (tradeRecords.Any())
-                {
-                    //交易记录中的所有股票代码
-                    var stockFullCodes = tradeRecords.Select(x => x.StockCode).Distinct().ToArray();
-                    //所有交易日期
-                    var tradeDates = CommonHelper.GetAllWorkDays(tradeRecords.Min(x => x.TradeDate).AddDays(-1), endDate);
-
-                    //各交易日所有股票收盘价
-                    var stockClosePrices = this._tKLineService.GetStockClosePrices(tradeDates, stockFullCodes);
-
-                    investIncome = this._statisticsReportService.CalculateUserInvestIncome(investor, statisticalInvestorCodes, tradeRecords, queryDates, stockClosePrices);
-                }
-
-                result.Add(new KeyValuePair<string, IList<UserInvestIncomeEntity>>(investor.Name, investIncome));
-            }
+            result = this._statisticsReportService.CalculateTradeTypeProfit(teamId, queryDates.Min(), queryDates.Max()).ToList();
 
             return result;
         }

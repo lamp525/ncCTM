@@ -85,6 +85,7 @@
     <Compile Include="StatisticsReport\IDeliveryStatisticsReportService.cs" />
     <Compile Include="StatisticsReport\InvestStatisticsCommonEntity.cs" />
     <Compile Include="StatisticsReport\DailyStatisticsReportService.cs" />
+    <Compile Include="StatisticsReport\TradeTypeProfitEntity.cs" />
     <Compile Include="StatisticsReport\UserInvestIncomeEntity.cs" />
     <Compile Include="StatisticsReport\UserInvestIncomeExtensions.cs" />
     <Compile Include="StatisticsReport\UserMarginTradingInterestEntity.cs" />
