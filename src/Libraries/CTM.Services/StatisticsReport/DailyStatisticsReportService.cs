@@ -1031,7 +1031,7 @@ namespace CTM.Services.StatisticsReport
 
         public IList<TradeTypeProfitEntity> CalculateTradeTypeProfit(int teamId, DateTime startDate, DateTime endDate)
         {
-            var commanText =  $@" EXEC [dbo].[sp_GetTradeTypeDailyProfit] 	@TeamId = {teamId}	,@StartDate =  '{startDate}'	,@endDate = '{endDate}'";
+            var commanText =  $@" EXEC [dbo].[sp_GetTradeTypeDailyProfit] @TeamId ={teamId} ,@StartDate = '{startDate}' ,@endDate ='{endDate}'";
 
             var query = this._dbContext.SqlQuery<TradeTypeProfitEntity>(commanText);
 

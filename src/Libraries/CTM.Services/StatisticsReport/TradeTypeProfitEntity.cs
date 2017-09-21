@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTM.Services.StatisticsReport
 {
-   public struct  TradeTypeProfitEntity
+    public class TradeTypeProfitEntity
     {
-        public int TeamId;
-        public string TeamName;
-        public int DataType;
-        public string InvestorCode;
-        public string InvestorName;
-        public int TradeType;
-        public string TradeTypeName;
-        public DateTime TradeDate;
-        public double CurValue;
-        public double MondayValue;
-        public double DayFund;
-        public double DayProfit;
-        public double DayRate;
-        public double YearAvgFund;
-        public double YearProfit;
-        public double YearRate;
-        public double AccAvgFund;
-        public double AccProfit;
-        public double AccRate;
+        public int TeamId { get; set; }
+        public string TeamName { get; set; }
+        public int DataType { get; set; }
+        public string InvestorCode { get; set; }
+        public string InvestorName { get; set; }
+        public int TradeType { get; set; }
+        public string TradeTypeName { get; set; }
+        public DateTime TradeDate { get; set; }
+        public double CurValue { get; set; }
+        public double MondayValue { get; set; }
+        public double DayFund { get; set; }
+        public double DayProfit { get; set; }
+        public double DayRate { get; set; }
+        public double YearAvgFund { get; set; }
+        public double YearProfit { get; set; }
+        public double YearRate { get; set; }
+        public double AccAvgFund { get; set; }
+        public double AccProfit { get; set; }
+        public double AccRate { get; set; }
     }
 }

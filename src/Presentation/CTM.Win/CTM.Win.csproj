@@ -639,6 +639,7 @@
     <Compile Include="Models\DepartmentInfoModel.cs" />
     <Compile Include="Models\DictionaryInfoModel.cs" />
     <Compile Include="Models\StockPoolInfoModel.cs" />
+    <Compile Include="Util\ExcelHelper.cs" />
     <Compile Include="Util\LoginHelper.cs" />
     <Compile Include="Forms\Admin\BaseData\FrmAccount.cs">
       <SubType>Form</SubType>
@@ -1190,19 +1191,7 @@
     <Content Include="ReportTemplate\UserDailyProfitFlow\IndependenceReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ReportTemplate\DailyProfit\TeamCW.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReportTemplate\DailyProfit\TeamGS.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReportTemplate\DailyProfit\TeamLJH.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReportTemplate\DailyProfit\TeamLWK.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReportTemplate\DailyProfit\TeamQT.xlsx">
+    <Content Include="ReportTemplate\TradeTypeProfit.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
