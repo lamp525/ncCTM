@@ -1,13 +1,14 @@
 ﻿using System;
 using Excel = Microsoft.Office.Interop.Excel;
+
 namespace CTM.Win.Util
 {
     public class ExcelHelper
     {
         public string mFilename;
-        public  Excel.Application app;
-        public  Excel.Workbooks wbs;
-        public  Excel.Workbook wb;
+        public Excel.Application app;
+        public Excel.Workbooks wbs;
+        public Excel.Workbook wb;
         //public  Excel.Worksheets wss;
         //public  Excel.Worksheet ws;
 
@@ -18,64 +19,89 @@ namespace CTM.Win.Util
             //
         }
 
-        public void Create()//创建一个 Excel对象
+        /// <summary>
+        /// 创建一个 Excel对象
+        /// </summary>
+        public void Create()
         {
-            app = new  Excel.Application();
+            app = new Excel.Application();
             wbs = app.Workbooks;
             wb = wbs.Add(true);
         }
 
-        public void Open(string FileName)//打开一个 Excel文件
+        /// <summary>
+        /// 打开一个 Excel文件
+        /// </summary>
+        /// <param name="FileName"></param>
+        public void Open(string FileName)
         {
-            app = new  Excel.Application();
+            app = new Excel.Application();
             wbs = app.Workbooks;
             wb = wbs.Add(FileName);
 
             mFilename = FileName;
         }
 
-        public  Excel.Worksheet GetSheet(string SheetName)
-        //获取一个工作表
+        /// <summary>
+        ///  获取一个工作表
+        /// </summary>
+        /// <param name="SheetName"></param>
+        /// <returns></returns>
+        public Excel.Worksheet GetSheet(string SheetName)
         {
-             Excel.Worksheet s = ( Excel.Worksheet)wb.Worksheets[SheetName];
+            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets[SheetName];
             return s;
         }
 
-        public void CopySheetToEnd(Excel.Worksheet  sourceSheet)
-        //拷贝一个工作表
+        /// <summary>
+        /// 拷贝一个工作表
+        /// </summary>
+        /// <param name="sourceSheet"></param>
+        public void CopySheetToEnd(Excel.Worksheet sourceSheet) 
         {
             int sheetCount = wb.Sheets.Count;
-            sourceSheet.Copy(Type.Missing, wb.Sheets[sheetCount]);
+
+            Excel.Worksheet targetSheet = wb.Sheets[sheetCount] as Excel.Worksheet;
+
+            sourceSheet.Copy(Type.Missing, targetSheet);
         }
 
-        public  Excel.Worksheet AddSheet(string SheetName)
-        //添加一个工作表
+        /// <summary>
+        /// 添加一个工作表
+        /// </summary>
+        /// <param name="SheetName"></param>
+        /// <returns></returns>
+        public Excel.Worksheet AddSheet(string SheetName)      
         {
-             Excel.Worksheet s = ( Excel.Worksheet)wb.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            s.Name = SheetName;   
+            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            s.Name = SheetName;
             return s;
         }
 
-        public void DeleteSheet(string SheetName)//删除一个工作表
+        /// <summary>
+        /// 删除一个工作表
+        /// </summary>
+        /// <param name="SheetName"></param>
+        public void DeleteSheet(string SheetName)
         {
-            (( Excel.Worksheet)wb.Worksheets[SheetName]).Delete();
+            ((Excel.Worksheet)wb.Worksheets[SheetName]).Delete();
         }
 
-        public  Excel.Worksheet ReNameSheet(string OldSheetName, string NewSheetName)//重命名一个工作表一
+        public Excel.Worksheet ReNameSheet(string OldSheetName, string NewSheetName)//重命名一个工作表一
         {
-             Excel.Worksheet s = ( Excel.Worksheet)wb.Worksheets[OldSheetName];
+            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets[OldSheetName];
             s.Name = NewSheetName;
             return s;
         }
 
-        public  Excel.Worksheet ReNameSheet( Excel.Worksheet Sheet, string NewSheetName)//重命名一个工作表二
+        public Excel.Worksheet ReNameSheet(Excel.Worksheet Sheet, string NewSheetName)//重命名一个工作表二
         {
-            Sheet.Name = NewSheetName;         
+            Sheet.Name = NewSheetName;
 
             return Sheet;
         }
 
-        public void SetCellValue( Excel.Worksheet ws, int x, int y, object value)
+        public void SetCellValue(Excel.Worksheet ws, int x, int y, object value)
         //ws：要设值的工作表     X行Y列     value   值
         {
             ws.Cells[x, y] = value;
@@ -87,27 +113,27 @@ namespace CTM.Win.Util
             GetSheet(ws).Cells[x, y] = value;
         }
 
-        public void SetCellProperty( Excel.Worksheet ws, int Startx, int Starty, int Endx, int Endy, int size, string name,  Excel.Constants color,  Excel.Constants HorizontalAlignment)
+        public void SetCellProperty(Excel.Worksheet ws, int Startx, int Starty, int Endx, int Endy, int size, string name, Excel.Constants color, Excel.Constants HorizontalAlignment)
         //设置一个单元格的属性   字体，   大小，颜色   ，对齐方式
         {
             name = "宋体";
             size = 12;
-            color =  Excel.Constants.xlAutomatic;
-            HorizontalAlignment =  Excel.Constants.xlRight;
+            color = Excel.Constants.xlAutomatic;
+            HorizontalAlignment = Excel.Constants.xlRight;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Name = name;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Size = size;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Color = color;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).HorizontalAlignment = HorizontalAlignment;
         }
 
-        public void SetCellProperty(string wsn, int Startx, int Starty, int Endx, int Endy, int size, string name,  Excel.Constants color,  Excel.Constants HorizontalAlignment)
+        public void SetCellProperty(string wsn, int Startx, int Starty, int Endx, int Endy, int size, string name, Excel.Constants color, Excel.Constants HorizontalAlignment)
         {
             //name = "宋体";
             //size = 12;
             //color =  Excel.Constants.xlAutomatic;
             //HorizontalAlignment =  Excel.Constants.xlRight;
 
-             Excel.Worksheet ws = GetSheet(wsn);
+            Excel.Worksheet ws = GetSheet(wsn);
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Name = name;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Size = size;
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).Font.Color = color;
@@ -115,7 +141,7 @@ namespace CTM.Win.Util
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).HorizontalAlignment = HorizontalAlignment;
         }
 
-        public void UniteCells( Excel.Worksheet ws, int x1, int y1, int x2, int y2)
+        public void UniteCells(Excel.Worksheet ws, int x1, int y1, int x2, int y2)
         //合并单元格
         {
             ws.get_Range(ws.Cells[x1, y1], ws.Cells[x2, y2]).Merge(Type.Missing);
@@ -139,7 +165,7 @@ namespace CTM.Win.Util
             }
         }
 
-        public void InsertTable(System.Data.DataTable dt,  Excel.Worksheet ws, int startX, int startY)
+        public void InsertTable(System.Data.DataTable dt, Excel.Worksheet ws, int startX, int startY)
         //将内存中数据表格插入到 Excel指定工作表的指定位置二
         {
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
@@ -163,7 +189,7 @@ namespace CTM.Win.Util
             }
         }
 
-        public void AddTable(System.Data.DataTable dt,  Excel.Worksheet ws, int startX, int startY)
+        public void AddTable(System.Data.DataTable dt, Excel.Worksheet ws, int startX, int startY)
         //将内存中数据表格添加到 Excel指定工作表的指定位置二
         {
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
@@ -175,15 +201,15 @@ namespace CTM.Win.Util
             }
         }
 
-        public void InsertActiveChart( Excel.XlChartType ChartType, string ws, int DataSourcesX1, int DataSourcesY1, int DataSourcesX2, int DataSourcesY2,  Excel.XlRowCol ChartDataType)
+        public void InsertActiveChart(Excel.XlChartType ChartType, string ws, int DataSourcesX1, int DataSourcesY1, int DataSourcesX2, int DataSourcesY2, Excel.XlRowCol ChartDataType)
         //插入图表操作
         {
-            ChartDataType =  Excel.XlRowCol.xlColumns;
+            ChartDataType = Excel.XlRowCol.xlColumns;
             wb.Charts.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             {
                 wb.ActiveChart.ChartType = ChartType;
                 wb.ActiveChart.SetSourceData(GetSheet(ws).get_Range(GetSheet(ws).Cells[DataSourcesX1, DataSourcesY1], GetSheet(ws).Cells[DataSourcesX2, DataSourcesY2]), ChartDataType);
-                wb.ActiveChart.Location( Excel.XlChartLocation.xlLocationAsObject, ws);
+                wb.ActiveChart.Location(Excel.XlChartLocation.xlLocationAsObject, ws);
             }
         }
 
@@ -213,7 +239,7 @@ namespace CTM.Win.Util
         {
             try
             {
-                wb.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,  Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                wb.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 return true;
             }
             catch (Exception ex)

@@ -43,7 +43,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             IDepartmentService departmentService,
             IDailyStatisticsReportService statisticsReportService,
             ITKLineService tKLineService,
-            IUserService userService  
+            IUserService userService
             )
         {
             InitializeComponent();
@@ -134,39 +134,37 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             var destinyFileName = GetReportDestinyFilePath(teamId, savePath);
 
-            File.Copy(templateFilePath, destinyFileName,overwrite:true);
-
-            if (!File.Exists(destinyFileName))
-                throw new FileNotFoundException("模板Excel文件复制失败！");
+            if (File.Exists(destinyFileName))
+                File.Delete(destinyFileName);
 
             var reportData = GetReportData(endDate, teamId, reportType);
 
             if (!reportData.Any())
                 throw new Exception("收益报表数据读取失败！");
 
-            WriteDataToExcel(reportData, teamId, destinyFileName);
+            WriteDataToExcel(reportData, teamId, templateFilePath, destinyFileName);
         }
 
-        private void WriteDataToExcel(IList<TradeTypeProfitEntity> reportData, int teamId, string exportFileName)
+        private void WriteDataToExcel(IList<TradeTypeProfitEntity> reportData, int teamId, string templateFileName, string exportFileName)
         {
             if (reportData == null)
                 throw new NullReferenceException(nameof(reportData));
 
             try
             {
-                _excelEdit.Open(exportFileName);
+                _excelEdit.Open(templateFileName);
 
                 //投资主体模板Sheet
                 Excel.Worksheet subjectSheet = _excelEdit.GetSheet("Subject");
                 if (subjectSheet != null)
                     GenerateSubjectSheet(reportData, subjectSheet);
 
-                //汇总图表模板Sheet
-                Excel.Worksheet summarySheet = _excelEdit.GetSheet("Summary");
-                if (summarySheet != null)
-                    GenerateSummarySheet(summarySheet);
+                ////汇总图表模板Sheet
+                //Excel.Worksheet summarySheet = _excelEdit.GetSheet("Summary");
+                //if (summarySheet != null)
+                //    GenerateSummarySheet(summarySheet);
 
-                _excelEdit.Save();
+                _excelEdit.SaveAs(exportFileName);
             }
             catch (Exception ex)
             {
@@ -181,7 +179,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private void GenerateSubjectSheet(IList<TradeTypeProfitEntity> reportData, Excel.Worksheet subjectSheet)
         {
             //删除投资主体模板Sheet
-            _excelEdit.DeleteSheet(subjectSheet.Name);
+            //_excelEdit.DeleteSheet(subjectSheet.Name);
 
             //投资对象数据
             var subjectDataList = reportData.GroupBy(x => x.InvestorName);
@@ -254,14 +252,14 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         _excelEdit.SetCellValue(subjectSheet, rowIndex, 10, data.YearAvgFund);
 
                         //资金可用额度
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 11, data.YearAvgFund * 1.2);
+                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 11, data.YearAvgFund * (decimal)1.2);
 
                         //持仓仓位
                         _excelEdit.SetCellValue(subjectSheet, rowIndex, 12, data.CurValue / data.YearAvgFund);
 
                         subjectSheet.Name = subjectData.Key;
 
-                        _excelEdit.CopySheetToEnd(subjectSheet);
+                        // _excelEdit.CopySheetToEnd(subjectSheet);
                     }
                 }
             }
@@ -272,45 +270,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             return;
         }
 
-        private void WorksheetFormatting(Excel._Worksheet worksheet)
-        {
-            //日期
-            Excel.Range rngColB = worksheet.Columns["B", Type.Missing];
-            rngColB.NumberFormatLocal = @"yy/mm/dd";
-
-            //周一（万元）
-            Excel.Range rngColC = worksheet.Columns["C", Type.Missing];
-            rngColC.NumberFormatLocal = @"0";
-
-            //净资产（万元）
-            Excel.Range rngColD = worksheet.Columns["D", Type.Missing];
-            rngColD.NumberFormatLocal = @"0.00";
-
-            //累计收益额（万元）
-            Excel.Range rngColE = worksheet.Columns["E", Type.Missing];
-            rngColE.NumberFormatLocal = @"0.00";
-
-            ////当日收益率
-            //Excel.Range rngColF = worksheet.Columns["F", Type.Missing];
-            //rngColF.NumberFormatLocal = @"0.00";
-
-            //日收益额（万元）
-            Excel.Range rngColG = worksheet.Columns["G", Type.Missing];
-            rngColG.NumberFormatLocal = @"0.00";
-
-            ////累计收益率
-            //Excel.Range rngColH = worksheet.Columns["H", Type.Missing];
-            //rngColH.NumberFormatLocal = @"0.00";
-
-            ////持仓市值（万元）
-            //Excel.Range rngColI = worksheet.Columns["I", Type.Missing];
-            //rngColI.NumberFormatLocal = @"0.0";
-
-            ////持仓仓位
-            //Excel.Range rngColL = worksheet.Columns["L", Type.Missing];
-            //rngColL.NumberFormatLocal = @"0.00";
-        }
-
         private List<TradeTypeProfitEntity> GetReportData(DateTime endDate, int teamId, string reportType)
         {
             List<TradeTypeProfitEntity> result = new List<TradeTypeProfitEntity>();
@@ -319,8 +278,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             //日报表
             if (reportType == EnumLibrary.ReportType.Day.ToString())
-                //取得26个交易日日期
-                queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate, 26).OrderBy(x => x).ToList();
+                //取得25个交易日日期
+                queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate).OrderBy(x => x).ToList();
             else
                 return result;
 
