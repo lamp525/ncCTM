@@ -57,13 +57,14 @@ namespace CTM.Win.Util
         /// 拷贝一个工作表
         /// </summary>
         /// <param name="sourceSheet"></param>
-        public void CopySheetToEnd(Excel.Worksheet sourceSheet) 
+        public void CopySheetToEnd(Excel.Worksheet sourceSheet, string newSheetName)
         {
             int sheetCount = wb.Sheets.Count;
 
             Excel.Worksheet targetSheet = wb.Sheets[sheetCount] as Excel.Worksheet;
-
             sourceSheet.Copy(Type.Missing, targetSheet);
+            Excel.Worksheet newSheet = wb.Sheets[sheetCount + 1] as Excel.Worksheet;
+            newSheet.Name = newSheetName;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="SheetName"></param>
         /// <returns></returns>
-        public Excel.Worksheet AddSheet(string SheetName)      
+        public Excel.Worksheet AddSheet(string SheetName)
         {
             Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             s.Name = SheetName;

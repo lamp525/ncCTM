@@ -185,36 +185,15 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             var subjectDataList = reportData.GroupBy(x => x.InvestorName);
             foreach (var subjectData in subjectDataList)
             {
+                _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
+
+                Excel.Worksheet curSheet = _excelEdit.GetSheet(subjectData.Key);
+
                 //交易类别数据
                 var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
                 foreach (var tradeTypeData in tradeTypeDataList)
-                {
-                    int tradeType = tradeTypeData.Key;
-
-                    //日总收益数据
-                    int startRow = 0;
-
-                    switch (tradeType)
-                    {
-                        case (int)EnumLibrary.TradeType.All:
-                            startRow = 34;
-                            break;
-
-                        case (int)EnumLibrary.TradeType.Target:
-                            startRow = 62;
-                            break;
-
-                        case (int)EnumLibrary.TradeType.Band:
-                            startRow = 90;
-                            break;
-
-                        case (int)EnumLibrary.TradeType.Day:
-                            startRow = 118;
-                            break;
-
-                        default:
-                            throw new Exception("收益报表数据中的交易类别有误！");
-                    }
+                {     
+                    int startRow = GetStartRowIndex(tradeTypeData.Key);
 
                     for (int i = 0; i < tradeTypeData.Count(); i++)
                     {
@@ -222,47 +201,75 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         int rowIndex = startRow + i;
 
                         //序号
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 1, rowIndex);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 1, i + 1);
 
                         //日期
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 2, data.TradeDate);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 2, data.TradeDate);
 
                         //周一市值
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 3, data.MondayValue);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 3, data.MondayValue);
 
                         //净资产
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 4, data.YearProfit + Math.Abs(data.CurValue));
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 4, data.YearProfit + Math.Abs(data.CurValue));
 
                         //本年收益额
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 5, data.YearProfit);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 5, data.YearProfit);
 
                         //当日收益率
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 6, data.DayRate);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 6, data.DayRate);
 
                         //当日收益额
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 7, data.DayProfit);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 7, data.DayProfit);
 
                         //本年收益率
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 8, data.YearRate);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 8, data.YearRate);
 
                         //持仓市值
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 9, data.CurValue);
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 9, data.CurValue);
 
                         //投入资金线
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 10, data.YearAvgFund);
+                        // _excelEdit.SetCellValue(curSheet, rowIndex, 10, data.YearAvgFund);
 
                         //资金可用额度
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 11, data.YearAvgFund * (decimal)1.2);
+                        //_excelEdit.SetCellValue(curSheet, rowIndex, 11, data.YearAvgFund * (decimal)1.2);
 
                         //持仓仓位
-                        _excelEdit.SetCellValue(subjectSheet, rowIndex, 12, data.CurValue / data.YearAvgFund);
-
-                        subjectSheet.Name = subjectData.Key;
-
-                        // _excelEdit.CopySheetToEnd(subjectSheet);
+                        //_excelEdit.SetCellValue(curSheet, rowIndex, 12, data.CurValue / (Math.Abs(data.YearProfit) + Math.Abs(data.CurValue)));
                     }
                 }
+
+
+
             }
+        }
+
+        private static int GetStartRowIndex(int tradeType)
+        {
+            int startRow = 0;
+
+            switch (tradeType)
+            {
+                case (int)EnumLibrary.TradeType.All:
+                    startRow = 34;
+                    break;
+
+                case (int)EnumLibrary.TradeType.Target:
+                    startRow = 62;
+                    break;
+
+                case (int)EnumLibrary.TradeType.Band:
+                    startRow = 90;
+                    break;
+
+                case (int)EnumLibrary.TradeType.Day:
+                    startRow = 118;
+                    break;
+
+                default:
+                    throw new Exception("收益报表数据中的交易类别有误！");
+            }
+
+            return startRow;
         }
 
         private void GenerateSummarySheet(Excel.Worksheet summarySheet)
