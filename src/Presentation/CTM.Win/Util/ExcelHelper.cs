@@ -5,10 +5,10 @@ namespace CTM.Win.Util
 {
     public class ExcelHelper
     {
-        public string mFilename;
-        public Excel.Application app;
-        public Excel.Workbooks wbs;
-        public Excel.Workbook wb;
+        public string _fileName;
+        public Excel.Application _app;
+        public Excel.Workbooks _wbs;
+        public Excel.Workbook _wb;
         //public  Excel.Worksheets wss;
         //public  Excel.Worksheet ws;
 
@@ -24,9 +24,10 @@ namespace CTM.Win.Util
         /// </summary>
         public void Create()
         {
-            app = new Excel.Application();
-            wbs = app.Workbooks;
-            wb = wbs.Add(true);
+            _app = new Excel.Application();
+            _app.DisplayAlerts = false;
+            _wbs = _app.Workbooks;
+            _wb = _wbs.Add(true);
         }
 
         /// <summary>
@@ -35,11 +36,12 @@ namespace CTM.Win.Util
         /// <param name="FileName"></param>
         public void Open(string FileName)
         {
-            app = new Excel.Application();
-            wbs = app.Workbooks;
-            wb = wbs.Add(FileName);
+            _app = new Excel.Application();
+            _app.DisplayAlerts = false;
+            _wbs = _app.Workbooks;
+            _wb = _wbs.Add(FileName);
 
-            mFilename = FileName;
+            _fileName = FileName;
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace CTM.Win.Util
         /// <returns></returns>
         public Excel.Worksheet GetSheet(string SheetName)
         {
-            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets[SheetName];
+            Excel.Worksheet s = (Excel.Worksheet)_wb.Worksheets[SheetName];
             return s;
         }
 
@@ -59,11 +61,11 @@ namespace CTM.Win.Util
         /// <param name="sourceSheet"></param>
         public void CopySheetToEnd(Excel.Worksheet sourceSheet, string newSheetName)
         {
-            int sheetCount = wb.Sheets.Count;
+            int sheetCount = _wb.Sheets.Count;
 
-            Excel.Worksheet targetSheet = wb.Sheets[sheetCount] as Excel.Worksheet;
+            Excel.Worksheet targetSheet = _wb.Sheets[sheetCount] as Excel.Worksheet;
             sourceSheet.Copy(Type.Missing, targetSheet);
-            Excel.Worksheet newSheet = wb.Sheets[sheetCount + 1] as Excel.Worksheet;
+            Excel.Worksheet newSheet = _wb.Sheets[sheetCount + 1] as Excel.Worksheet;
             newSheet.Name = newSheetName;
         }
 
@@ -74,7 +76,7 @@ namespace CTM.Win.Util
         /// <returns></returns>
         public Excel.Worksheet AddSheet(string SheetName)
         {
-            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            Excel.Worksheet s = (Excel.Worksheet)_wb.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             s.Name = SheetName;
             return s;
         }
@@ -85,25 +87,43 @@ namespace CTM.Win.Util
         /// <param name="SheetName"></param>
         public void DeleteSheet(string SheetName)
         {
-            ((Excel.Worksheet)wb.Worksheets[SheetName]).Delete();
+            ((Excel.Worksheet)_wb.Worksheets[SheetName]).Delete();
         }
 
-        public Excel.Worksheet ReNameSheet(string OldSheetName, string NewSheetName)//重命名一个工作表一
+        /// <summary>
+        /// 重命名一个工作表
+        /// </summary>
+        /// <param name="OldSheetName"></param>
+        /// <param name="NewSheetName"></param>
+        /// <returns></returns>
+        public Excel.Worksheet ReNameSheet(string OldSheetName, string NewSheetName)
         {
-            Excel.Worksheet s = (Excel.Worksheet)wb.Worksheets[OldSheetName];
+            Excel.Worksheet s = (Excel.Worksheet)_wb.Worksheets[OldSheetName];
             s.Name = NewSheetName;
             return s;
         }
 
-        public Excel.Worksheet ReNameSheet(Excel.Worksheet Sheet, string NewSheetName)//重命名一个工作表二
+        /// <summary>
+        /// 重命名一个工作表
+        /// </summary>
+        /// <param name="Sheet"></param>
+        /// <param name="NewSheetName"></param>
+        /// <returns></returns>
+        public Excel.Worksheet ReNameSheet(Excel.Worksheet Sheet, string NewSheetName)
         {
             Sheet.Name = NewSheetName;
 
             return Sheet;
         }
 
-        public void SetCellValue(Excel.Worksheet ws, int x, int y, object value)
-        //ws：要设值的工作表     X行Y列     value   值
+        /// <summary>
+        /// 设置单元格值
+        /// </summary>
+        /// <param name="ws">要设值的工作表</param>
+        /// <param name="x"> X行</param>
+        /// <param name="y">Y列 </param>
+        /// <param name="value">值</param>
+        public void SetCellValue(Excel.Worksheet ws, int x, int y, object value) 
         {
             ws.Cells[x, y] = value;
         }
@@ -142,20 +162,40 @@ namespace CTM.Win.Util
             ws.get_Range(ws.Cells[Startx, Starty], ws.Cells[Endx, Endy]).HorizontalAlignment = HorizontalAlignment;
         }
 
-        public void UniteCells(Excel.Worksheet ws, int x1, int y1, int x2, int y2)
-        //合并单元格
+        /// <summary>
+        /// 合并单元格
+        /// </summary>
+        /// <param name="ws"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        public void UniteCells(Excel.Worksheet ws, int x1, int y1, int x2, int y2)        
         {
             ws.get_Range(ws.Cells[x1, y1], ws.Cells[x2, y2]).Merge(Type.Missing);
         }
 
+        /// <summary>
+        /// 合并单元格
+        /// </summary>
+        /// <param name="ws"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
         public void UniteCells(string ws, int x1, int y1, int x2, int y2)
-        //合并单元格
         {
             GetSheet(ws).get_Range(GetSheet(ws).Cells[x1, y1], GetSheet(ws).Cells[x2, y2]).Merge(Type.Missing);
         }
 
-        public void InsertTable(System.Data.DataTable dt, string ws, int startX, int startY)
-        //将内存中数据表格插入到 Excel指定工作表的指定位置 为在使用模板时控制格式时使用一
+        /// <summary>
+        ///   将内存中数据表格插入到 Excel指定工作表的指定位置 为在使用模板时控制格式时使用一
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="ws"></param>
+        /// <param name="startX"></param>
+        /// <param name="startY"></param>
+        public void InsertTable(System.Data.DataTable dt, string ws, int startX, int startY)      
         {
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
             {
@@ -206,18 +246,21 @@ namespace CTM.Win.Util
         //插入图表操作
         {
             ChartDataType = Excel.XlRowCol.xlColumns;
-            wb.Charts.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            _wb.Charts.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             {
-                wb.ActiveChart.ChartType = ChartType;
-                wb.ActiveChart.SetSourceData(GetSheet(ws).get_Range(GetSheet(ws).Cells[DataSourcesX1, DataSourcesY1], GetSheet(ws).Cells[DataSourcesX2, DataSourcesY2]), ChartDataType);
-                wb.ActiveChart.Location(Excel.XlChartLocation.xlLocationAsObject, ws);
+                _wb.ActiveChart.ChartType = ChartType;
+                _wb.ActiveChart.SetSourceData(GetSheet(ws).get_Range(GetSheet(ws).Cells[DataSourcesX1, DataSourcesY1], GetSheet(ws).Cells[DataSourcesX2, DataSourcesY2]), ChartDataType);
+                _wb.ActiveChart.Location(Excel.XlChartLocation.xlLocationAsObject, ws);
             }
         }
 
+        /// <summary>
+        /// 保存文档
+        /// </summary>
+        /// <returns></returns>
         public bool Save()
-        //保存文档
         {
-            if (mFilename == "")
+            if (_fileName == "")
             {
                 return false;
             }
@@ -225,7 +268,7 @@ namespace CTM.Win.Util
             {
                 try
                 {
-                    wb.Save();
+                    _wb.Save();
                     return true;
                 }
                 catch (Exception ex)
@@ -235,12 +278,16 @@ namespace CTM.Win.Util
             }
         }
 
-        public bool SaveAs(object FileName)
-        //文档另存为
+        /// <summary>
+        /// 文档另存为
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <returns></returns>
+        public bool SaveAs(object FileName)        
         {
             try
             {
-                wb.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                _wb.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 return true;
             }
             catch (Exception ex)
@@ -249,16 +296,18 @@ namespace CTM.Win.Util
             }
         }
 
-        public void Close()
-        //关闭一个 Excel对象，销毁对象
+        /// <summary>
+        /// 关闭一个 Excel对象，销毁对象
+        /// </summary>
+        public void Close()        
         {
             //wb.Save();
-            wb.Close(Type.Missing, Type.Missing, Type.Missing);
-            wbs.Close();
-            app.Quit();
-            wb = null;
-            wbs = null;
-            app = null;
+            _wb.Close(Type.Missing, Type.Missing, Type.Missing);
+            _wbs.Close();
+            _app.Quit();
+            _wb = null;
+            _wbs = null;
+            _app = null;
             GC.Collect();
         }
     }

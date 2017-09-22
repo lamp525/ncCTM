@@ -83,13 +83,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                     Value = x.Field<int>("TeamId").ToString(),
                 }).ToList();
             this.cbDepartment.Initialize(teamInfos, displayAdditionalItem: false);
-            this.cbDepartment.DefaultSelected(((int)EnumLibrary.AccountingDepartment.Day).ToString());
+            this.cbDepartment.DefaultSelected("1");
 
             //保存路径
             this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
-        private string GetReportTemplateFilePath(int teamId)
+        private string GetReportTemplateFileName(int teamId)
         {
             string directoryName = "ReportTemplate";
             string fileName = AppConfig._ReportTemplateTradeTypeProfit;
@@ -101,12 +101,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            //投资小组
-            string sqlText = $@" SELECT TeamName FROM TeamInfo WHERE TeamId = {teamId} ";
-
-            string teamName = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText).ToString();
-
-            var fileName = $"日收益报表({teamName})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
+            var fileName = $"日收益报表({this.cbDepartment.Text})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
 
             return Path.Combine(directoryName, fileName);
         }
@@ -114,24 +109,24 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private void CreateReport(DateTime endDate, int teamId, string savePath)
         {
             // var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
-            var templateFilePath = GetReportTemplateFilePath(teamId);
+            var templateFileName = GetReportTemplateFileName(teamId);
 
-            if (!File.Exists(templateFilePath))
-            {
+            if (!File.Exists(templateFileName))
                 throw new FileNotFoundException("报表模板Excel文件不存在！");
-            }
 
             var destinyFileName = GetReportDestinyFilePath(teamId, savePath);
 
             if (File.Exists(destinyFileName))
                 File.Delete(destinyFileName);
 
+            //File.Copy(templateFileName, destinyFileName, overwrite: true);
+
             var reportData = GetReportData(endDate, teamId);
 
             if (!reportData.Any())
                 throw new Exception("收益报表数据读取失败！");
 
-            WriteDataToExcel(reportData, teamId, templateFilePath, destinyFileName);
+            WriteDataToExcel(reportData, teamId, templateFileName, destinyFileName);
         }
 
         private void WriteDataToExcel(IList<TradeTypeProfitEntity> reportData, int teamId, string templateFileName, string exportFileName)
@@ -148,13 +143,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 if (subjectSheet != null)
                     GenerateSubjectSheet(reportData, subjectSheet);
 
+                //删除投资主体模板Sheet
+                _excelEdit.DeleteSheet(subjectSheet.Name);
+
                 //汇总图表模板Sheet
                 Excel.Worksheet summarySheet = _excelEdit.GetSheet("Summary");
                 if (summarySheet != null)
                     GenerateSummarySheet(summarySheet);
-
-                //删除投资主体模板Sheet
-                _excelEdit.DeleteSheet(subjectSheet.Name);
 
                 _excelEdit.SaveAs(exportFileName);
             }
@@ -177,6 +172,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
 
                 Excel.Worksheet curSheet = _excelEdit.GetSheet(subjectData.Key);
+
+                Excel.ChartObject chartObj = curSheet.ChartObjects(1);
+
+                string chartCaption = chartObj.Chart.ChartTitle.Caption;
+                chartObj.Chart.ChartTitle.Caption = string.Format(chartCaption, curSheet.Name);
+
+                continue;
 
                 //交易类别数据
                 var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
@@ -229,6 +231,48 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             }
         }
 
+        private void GenerateSummarySheet(Excel.Worksheet summarySheet)
+        {
+            summarySheet.Name = "收益图表汇总";
+
+            int totalChartCount = 0;
+
+            Excel.Worksheet curSheet = null;
+            Excel.ChartObject chartObj = null;
+
+            //第一个sheet为汇总Sheet，所以 i 初始之为2
+            for (int i = 2; i <= _excelEdit._wb.Sheets.Count; i++)
+            {
+                curSheet = _excelEdit._wb.Sheets[i];
+                if (curSheet == null) continue;
+
+                chartObj = curSheet.ChartObjects(1);
+                if (chartObj == null) continue;
+
+                int startRowIndex = 37 * (i - 2) + 2;
+                chartObj.Chart.ChartArea.Copy();
+                Excel.Range range = summarySheet.Cells[startRowIndex, 2];
+                summarySheet.Paste(range, Type.Missing);
+
+                totalChartCount++;
+            }
+
+            Excel.ChartArea chartArea = null;
+            //设置summarySheet的ChartArea大小
+            for (int i = 1; i <= totalChartCount; i++)
+            {
+                chartObj = summarySheet.ChartObjects(i);
+                chartArea = chartObj.Chart.ChartArea;
+                chartArea.Height = 520;
+                chartArea.Width = 730;
+            }
+
+            //设置summarySheet的打印范围
+            string startCell = "$A$1";
+            string endCell = "$O$" + (totalChartCount * 37).ToString();
+            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
+        }
+
         private static int GetStartRowIndex(int tradeType)
         {
             int startRow = 0;
@@ -256,11 +300,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             }
 
             return startRow;
-        }
-
-        private void GenerateSummarySheet(Excel.Worksheet summarySheet)
-        {
-            return;
         }
 
         private List<TradeTypeProfitEntity> GetReportData(DateTime endDate, int teamId)
