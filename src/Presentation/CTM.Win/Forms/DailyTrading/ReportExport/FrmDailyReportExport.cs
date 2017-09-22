@@ -186,13 +186,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                     int startRow = GetStartRowIndex(tradeTypeData.Key);
 
                     TradeTypeProfitEntity data = null;
-                    for (int i = tradeTypeData.Count(); i >0; i--)
+                    for (int i = tradeTypeData.Count(); i > 0; i--)
                     {
-                        data = tradeTypeData.ElementAt(i);
-                        int rowIndex = startRow + i;
+                        data = tradeTypeData.ElementAt(i - 1);
+                        int rowIndex = startRow + i - 1;
 
                         //序号
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 1, i );
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 1, i);
                         //日期
                         _excelEdit.SetCellValue(curSheet, rowIndex, 2, data.TradeDate);
                         //当日净资产
@@ -210,7 +210,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         //持仓市值
                         _excelEdit.SetCellValue(curSheet, rowIndex, 9, data.CurValue);
                         //周一累计本年收益额
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 10, data.MondayYearProfit ==0 ? "":data.MondayYearProfit.ToString());
+                        _excelEdit.SetCellValue(curSheet, rowIndex, 10, data.MondayYearProfit == 0 ? "" : data.MondayYearProfit.ToString());
                         //资金可用额度
                         _excelEdit.SetCellValue(curSheet, rowIndex, 11, data.InvestFund * (decimal)1.2);
                         //持仓仓位
