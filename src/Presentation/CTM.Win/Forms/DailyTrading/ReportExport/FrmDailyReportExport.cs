@@ -108,7 +108,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMddHHmm")}.xlsx";
+            var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMdd")}.xlsx";
 
             return Path.Combine(directoryName, fileName);
         }
@@ -223,27 +223,27 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         //序号
                         ss[i, 0] = i + 1;
                         //日期
-                        ss[i, 1] = data.TradeDate.ToString("yy/MM/dd");
+                        ss[i, 1] = data.TradeDate;
                         //当日净资产
-                        ss[i, 2] = (data.AccProfit + Math.Abs(data.CurValue)).ToString();
+                        ss[i, 2] = data.AccProfit + Math.Abs(data.CurValue);
                         //投入资金
-                        ss[i, 3] = data.InvestFund.ToString();
+                        ss[i, 3] = data.InvestFund;
                         //本年收益额
-                        ss[i, 4] = data.YearProfit.ToString();
+                        ss[i, 4] = data.YearProfit;
                         //当日收益率
-                        ss[i, 5] = data.DayRate.ToString();
+                        ss[i, 5] = data.DayRate;
                         //当日收益额
-                        ss[i, 6] = data.DayProfit.ToString();
+                        ss[i, 6] = data.DayProfit;
                         //本年收益率
-                        ss[i, 7] = data.YearRate.ToString();
+                        ss[i, 7] = data.YearRate;
                         //持仓市值
-                        ss[i, 8] = data.CurValue.ToString();
+                        ss[i, 8] = data.CurValue;
                         //周一累计本年收益额
                         ss[i, 9] = data.MondayYearProfit == 0 ? "" : data.MondayYearProfit.ToString();
                         //资金可用额度
-                        ss[i, 10] = (data.InvestFund * (decimal)1.2).ToString();
+                        ss[i, 10] = data.InvestFund * (decimal)1.2;
                         //持仓仓位
-                        ss[i, 11] = data.InvestFund == 0 ? "0" : (data.CurValue / data.InvestFund).ToString();
+                        ss[i, 11] = data.InvestFund == 0 ? 0 : (data.CurValue / data.InvestFund);
                     }
 
                     Excel.Range dataRang = curSheet.Range[curSheet.Cells[startRow, 1], curSheet.Cells[startRow + 24, 12]];
