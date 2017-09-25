@@ -258,22 +258,21 @@ namespace CTM.Win.Util
         /// 保存文档
         /// </summary>
         /// <returns></returns>
-        public bool Save()
+        public void Save()
         {
             if (_fileName == "")
             {
-                return false;
+                throw new Exception("File name is null!");
             }
             else
             {
                 try
                 {
                     _wb.Save();
-                    return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return false;
+                    throw ex;
                 }
             }
         }
@@ -283,16 +282,15 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public bool SaveAsExcel(object fileName)
+        public void SaveAsExcel(object fileName)
         {
             try
             {
                 _wb.SaveAs(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
 
@@ -301,16 +299,15 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public bool SaveAsPDF(object fileName)
+        public void SaveAsPDF(object fileName)
         {
             try
-            {  
-                _wb.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, fileName, Excel.XlFixedFormatQuality.xlQualityStandard, true, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                return true;
-            }
-            catch (Exception)
             {
-                return false;
+                _wb.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, fileName, Excel.XlFixedFormatQuality.xlQualityStandard, true, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

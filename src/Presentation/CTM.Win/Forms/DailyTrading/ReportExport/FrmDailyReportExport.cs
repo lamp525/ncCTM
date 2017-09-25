@@ -158,8 +158,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 if (summarySheet != null)
                     GenerateSummarySheet(summarySheet);
 
-                summarySheet.Select();
-
                 if (this.rgFileType.SelectedIndex == 0)
                     _excelEdit.SaveAsExcel(exportFileName);
                 else if (this.rgFileType.SelectedIndex == 1)
@@ -261,6 +259,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             Excel.Worksheet curSheet = null;
             Excel.ChartObject chartObj = null;
             int totalChartCount = 0;
+            int rowNumOfPage = 40;
+
             //第一个sheet为汇总Sheet，所以 i 初始之为2
             for (int i = 2; i <= _excelEdit._wb.Sheets.Count; i++)
             {
@@ -270,7 +270,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartObj = curSheet.ChartObjects(1);
                 if (chartObj == null) continue;
 
-                int startRowIndex = 40 * (i - 2) + 2;
+                int startRowIndex = rowNumOfPage * (i - 2) + 2;
                 chartObj.Chart.ChartArea.Copy();
                 Excel.Range range = summarySheet.Cells[startRowIndex, 2];
                 summarySheet.Paste(range, Type.Missing);
@@ -284,9 +284,16 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             {
                 chartObj = summarySheet.ChartObjects(i);
                 chartArea = chartObj.Chart.ChartArea;
-                chartArea.Height = 520;
-                chartArea.Width = 730;
+                chartArea.Height = 510;
+                chartArea.Width = 780;
             }
+
+            summarySheet.Select();
+
+            //设置summarySheet的打印范围
+            string startCell = "A1";
+            string endCell = "P" + (totalChartCount * rowNumOfPage).ToString();
+            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
         }
 
         private static int GetStartRowIndex(int tradeType)
