@@ -31,8 +31,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private readonly IUserService _userService;
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
 
-        private readonly DateTime _initDate = AppConfigHelper.StatisticsInitDate;
-
         #endregion Fields
 
         #region Constructors
@@ -78,7 +76,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             if (ds == null || ds.Tables.Count == 0) return;
 
             List<ComboBoxItemModel> teamInfos = new List<ComboBoxItemModel>();
-            var allTeam = new ComboBoxItemModel { Text = "投资部所有小组", Value = "-1" };
+            var allTeam = new ComboBoxItemModel { Text = "全部小组", Value = "-1" };
             teamInfos.Add(allTeam);
 
             teamInfos.AddRange(ds.Tables[0].AsEnumerable()
@@ -107,7 +105,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            var fileName = $"日收益报表({this.cbDepartment.Text})" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx";
+            var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMddHHmm")}.xlsx";
 
             return Path.Combine(directoryName, fileName);
         }
@@ -157,6 +155,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 if (summarySheet != null)
                     GenerateSummarySheet(summarySheet);
 
+                summarySheet.Select();
+
                 _excelEdit.SaveAs(exportFileName);
             }
             catch (Exception ex)
@@ -174,11 +174,30 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             //投资对象数据
             var subjectDataList = reportData.GroupBy(x => x.InvestorName);
 
+            int curTeamId = -99;
+            int preTeamId = -99;
+            int teamNo = 0;
+            int dataType = 0;
+            string curSheetName = string.Empty;
             foreach (var subjectData in subjectDataList)
             {
-                _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
+                var firstData = subjectData.First();
+                dataType = firstData.DataType;
+                curTeamId = firstData.TeamId;
+                if ((dataType == 1 || dataType == 2) && curTeamId != preTeamId)
+                {
+                    teamNo++;
+                    preTeamId = curTeamId;
+                }
 
-                Excel.Worksheet curSheet = _excelEdit.GetSheet(subjectData.Key);
+                if (dataType == 3)
+                    curSheetName = subjectData.Key;
+                else
+                    curSheetName = teamNo.ToString() + "." + subjectData.Key;
+
+                _excelEdit.CopySheetToEnd(subjectSheet, curSheetName);
+
+                Excel.Worksheet curSheet = _excelEdit.GetSheet(curSheetName);
                 Excel.ChartObject chartObj = curSheet.ChartObjects(1);
 
                 //设置Chart标题
@@ -229,63 +248,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             }
         }
 
-        private void GenerateSubjectSheet222(IList<TradeTypeProfitEntity> reportData, Excel.Worksheet subjectSheet)
-        {
-            //投资对象数据
-            var subjectDataList = reportData.GroupBy(x => x.InvestorName);
-
-            foreach (var subjectData in subjectDataList)
-            {
-                _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
-
-                Excel.Worksheet curSheet = _excelEdit.GetSheet(subjectData.Key);
-                Excel.ChartObject chartObj = curSheet.ChartObjects(1);
-
-                //设置Chart标题
-                string chartCaption = chartObj.Chart.ChartTitle.Caption;
-                chartObj.Chart.ChartTitle.Caption = string.Format(chartCaption, curSheet.Name);
-
-                //交易类别数据
-                var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
-                foreach (var tradeTypeData in tradeTypeDataList)
-                {
-                    int startRow = GetStartRowIndex(tradeTypeData.Key);
-
-                    TradeTypeProfitEntity data = null;
-                    for (int i = tradeTypeData.Count(); i > 0; i--)
-                    {
-                        data = tradeTypeData.ElementAt(i - 1);
-                        int rowIndex = startRow + i - 1;
-
-                        //序号
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 1, i);
-                        //日期
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 2, data.TradeDate);
-                        //当日净资产
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 3, data.AccProfit + Math.Abs(data.CurValue));
-                        //投入资金
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 4, data.InvestFund);
-                        //本年收益额
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 5, data.YearProfit);
-                        //当日收益率
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 6, data.DayRate);
-                        //当日收益额
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 7, data.DayProfit);
-                        //本年收益率
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 8, data.YearRate);
-                        //持仓市值
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 9, data.CurValue);
-                        //周一累计本年收益额
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 10, data.MondayYearProfit == 0 ? "" : data.MondayYearProfit.ToString());
-                        //资金可用额度
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 11, data.InvestFund * (decimal)1.2);
-                        //持仓仓位
-                        _excelEdit.SetCellValue(curSheet, rowIndex, 12, data.CurValue / data.InvestFund);
-                    }
-                }
-            }
-        }
-
         private void GenerateSummarySheet(Excel.Worksheet summarySheet)
         {
             summarySheet.Name = "收益图表汇总";
@@ -319,12 +281,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartArea.Height = 520;
                 chartArea.Width = 730;
             }
-
-            ////设置summarySheet的打印范围
-            //string startCell = "$A$1";
-            //string endCell = "$O$" + (totalChartCount * 37).ToString();
-            //summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
-            //_excelEdit.Save();
         }
 
         private static int GetStartRowIndex(int tradeType)
