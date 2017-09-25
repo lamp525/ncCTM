@@ -168,6 +168,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             //投资对象数据
             var subjectDataList = reportData.GroupBy(x => x.InvestorName);
 
+            Excel.Range r = null;
+
             foreach (var subjectData in subjectDataList)
             {
                 _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
@@ -236,7 +238,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartObj = curSheet.ChartObjects(1);
                 if (chartObj == null) continue;
 
-                int startRowIndex = 37 * (i - 2) + 2;
+                int startRowIndex = 40 * (i - 2) + 2;
                 chartObj.Chart.ChartArea.Copy();
                 Excel.Range range = summarySheet.Cells[startRowIndex, 2];
                 summarySheet.Paste(range, Type.Missing);
