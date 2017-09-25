@@ -52,7 +52,7 @@ namespace CTM.Win.Util
                 Directory.CreateDirectory(_directoryPath);
 
             var filePath = Path.Combine(_directoryPath, _fileName);
-      
+
             FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
 
             byte[] arrEncryptByte = Serialize.EncryptToBytes(loginInfo);

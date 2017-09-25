@@ -318,10 +318,10 @@ namespace CTM.Win.Util
         {
             //wb.Save();
             _wb.Close(Type.Missing, Type.Missing, Type.Missing);
-            _wbs.Close();
-            _app.Quit();
             _wb = null;
+            _wbs.Close();
             _wbs = null;
+            _app.Quit();
             _app = null;
             GC.Collect();
         }

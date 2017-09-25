@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 
-
 namespace CTM.Win.Util
 {
     public class AppConfig
