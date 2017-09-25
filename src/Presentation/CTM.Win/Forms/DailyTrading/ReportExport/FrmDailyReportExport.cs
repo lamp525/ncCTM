@@ -89,6 +89,9 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             this.cbDepartment.Initialize(teamInfos, displayAdditionalItem: false);
             this.cbDepartment.DefaultSelected("-1");
 
+            //导出类型
+            this.rgFileType.SelectedIndex = 0;
+
             //保存路径
             this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
@@ -157,7 +160,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
                 summarySheet.Select();
 
-                _excelEdit.SaveAs(exportFileName);
+                if (this.rgFileType.SelectedIndex == 0)
+                    _excelEdit.SaveAsExcel(exportFileName);
+                else if (this.rgFileType.SelectedIndex == 1)
+                    _excelEdit.SaveAsPDF(exportFileName);
             }
             catch (Exception ex)
             {

@@ -123,7 +123,7 @@ namespace CTM.Win.Util
         /// <param name="x"> X行</param>
         /// <param name="y">Y列 </param>
         /// <param name="value">值</param>
-        public void SetCellValue(Excel.Worksheet ws, int x, int y, object value) 
+        public void SetCellValue(Excel.Worksheet ws, int x, int y, object value)
         {
             ws.Cells[x, y] = value;
         }
@@ -170,7 +170,7 @@ namespace CTM.Win.Util
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        public void UniteCells(Excel.Worksheet ws, int x1, int y1, int x2, int y2)        
+        public void UniteCells(Excel.Worksheet ws, int x1, int y1, int x2, int y2)
         {
             ws.get_Range(ws.Cells[x1, y1], ws.Cells[x2, y2]).Merge(Type.Missing);
         }
@@ -195,7 +195,7 @@ namespace CTM.Win.Util
         /// <param name="ws"></param>
         /// <param name="startX"></param>
         /// <param name="startY"></param>
-        public void InsertTable(System.Data.DataTable dt, string ws, int startX, int startY)      
+        public void InsertTable(System.Data.DataTable dt, string ws, int startX, int startY)
         {
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
             {
@@ -271,7 +271,7 @@ namespace CTM.Win.Util
                     _wb.Save();
                     return true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -279,18 +279,36 @@ namespace CTM.Win.Util
         }
 
         /// <summary>
-        /// 文档另存为
+        /// 文档另存为Excel
         /// </summary>
-        /// <param name="FileName"></param>
+        /// <param name="fileName"></param>
         /// <returns></returns>
-        public bool SaveAs(object FileName)        
+        public bool SaveAsExcel(object fileName)
         {
             try
             {
-                _wb.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                _wb.SaveAs(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 文档另存为PDF
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public bool SaveAsPDF(object fileName)
+        {
+            try
+            {  
+                _wb.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, fileName, Excel.XlFixedFormatQuality.xlQualityStandard, true, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -299,7 +317,7 @@ namespace CTM.Win.Util
         /// <summary>
         /// 关闭一个 Excel对象，销毁对象
         /// </summary>
-        public void Close()        
+        public void Close()
         {
             //wb.Save();
             _wb.Close(Type.Missing, Type.Missing, Type.Missing);
