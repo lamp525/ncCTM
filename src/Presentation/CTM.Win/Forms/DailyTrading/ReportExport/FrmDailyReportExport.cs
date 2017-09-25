@@ -168,7 +168,65 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             //投资对象数据
             var subjectDataList = reportData.GroupBy(x => x.InvestorName);
 
-            Excel.Range r = null;
+            foreach (var subjectData in subjectDataList)
+            {
+                _excelEdit.CopySheetToEnd(subjectSheet, subjectData.Key);
+
+                Excel.Worksheet curSheet = _excelEdit.GetSheet(subjectData.Key);
+                Excel.ChartObject chartObj = curSheet.ChartObjects(1);
+
+                //设置Chart标题
+                string chartCaption = chartObj.Chart.ChartTitle.Caption;
+                chartObj.Chart.ChartTitle.Caption = string.Format(chartCaption, curSheet.Name);
+
+                //交易类别数据
+                var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
+                foreach (var tradeTypeData in tradeTypeDataList)
+                {
+                    int startRow = GetStartRowIndex(tradeTypeData.Key);
+                    object[,] ss = new object[tradeTypeData.Count(), 12];
+                    TradeTypeProfitEntity data = null;
+
+                    for (int i = 0; i < tradeTypeData.Count(); i++)
+                    {
+                        data = tradeTypeData.ElementAt(i);
+
+                        //序号
+                        ss[i, 0] = i + 1;
+                        //日期
+                        ss[i, 1] = data.TradeDate.ToString("yy/MM/dd");
+                        //当日净资产
+                        ss[i, 2] = (data.AccProfit + Math.Abs(data.CurValue)).ToString();
+                        //投入资金
+                        ss[i, 3] = data.InvestFund.ToString();
+                        //本年收益额
+                        ss[i, 4] = data.YearProfit.ToString();
+                        //当日收益率
+                        ss[i, 5] = data.DayRate.ToString();
+                        //当日收益额
+                        ss[i, 6] = data.DayProfit.ToString();
+                        //本年收益率
+                        ss[i, 7] = data.YearRate.ToString();
+                        //持仓市值
+                        ss[i, 8] = data.CurValue.ToString();
+                        //周一累计本年收益额
+                        ss[i, 9] = data.MondayYearProfit == 0 ? "" : data.MondayYearProfit.ToString();
+                        //资金可用额度
+                        ss[i, 10] = (data.InvestFund * (decimal)1.2).ToString();
+                        //持仓仓位
+                        ss[i, 11] = data.InvestFund == 0 ? "0" : (data.CurValue / data.InvestFund).ToString();
+                    }
+
+                    Excel.Range dataRang = curSheet.Range[curSheet.Cells[startRow, 1], curSheet.Cells[startRow + 24, 12]];
+                    dataRang.Value = ss;
+                }
+            }
+        }
+
+        private void GenerateSubjectSheet222(IList<TradeTypeProfitEntity> reportData, Excel.Worksheet subjectSheet)
+        {
+            //投资对象数据
+            var subjectDataList = reportData.GroupBy(x => x.InvestorName);
 
             foreach (var subjectData in subjectDataList)
             {
