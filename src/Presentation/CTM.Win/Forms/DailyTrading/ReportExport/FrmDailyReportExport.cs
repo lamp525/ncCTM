@@ -16,7 +16,6 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
-using DevExpress.Utils;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CTM.Win.Forms.DailyTrading.ReportExport
@@ -62,28 +61,35 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private void BindSearchInfo()
         {
             //截至交易日
-            this.deEnd.Properties.AllowNullInput = DefaultBoolean.False;
-            var now = DateTime.Now;
-            if (now.Hour < 15)
-                this.deEnd.EditValue = now.Date.AddDays(-1);
+            string sqlText1 = $@"SELECT MAX(TradeDate) FROM InvestorTradeTypeProfit";
+
+            var maxDate = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText1);
+
+            if (maxDate == null)
+                this.deEnd.EditValue = DateTime.Now.Date;
             else
-                this.deEnd.EditValue = now.Date;
+                this.deEnd.EditValue = maxDate;
 
             //投资小组
-            string sqlText = @" SELECT TeamId,TeamName FROM TeamInfo WHERE IsDeleted = 0 ORDER BY TeamId ";
+            string sqlText2 = @" SELECT TeamId,TeamName FROM TeamInfo WHERE IsDeleted = 0 ORDER BY TeamId ";
 
-            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
 
             if (ds == null || ds.Tables.Count == 0) return;
 
-            var teamInfos = ds.Tables[0].AsEnumerable()
+            List<ComboBoxItemModel> teamInfos = new List<ComboBoxItemModel>();
+            var allTeam = new ComboBoxItemModel { Text = "投资部所有小组", Value = "-1" };
+            teamInfos.Add(allTeam);
+
+            teamInfos.AddRange(ds.Tables[0].AsEnumerable()
                 .Select(x => new ComboBoxItemModel
                 {
                     Text = x.Field<string>("TeamName"),
                     Value = x.Field<int>("TeamId").ToString(),
-                }).ToList();
+                }));
+
             this.cbDepartment.Initialize(teamInfos, displayAdditionalItem: false);
-            this.cbDepartment.DefaultSelected("1");
+            this.cbDepartment.DefaultSelected("-1");
 
             //保存路径
             this.txtSavePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
