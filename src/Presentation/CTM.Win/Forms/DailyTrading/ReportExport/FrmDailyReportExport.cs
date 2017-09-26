@@ -30,6 +30,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private readonly ITKLineService _tKLineService;
         private readonly IUserService _userService;
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
+        private IList<DateTime> _queryDates = new List<DateTime>();
 
         #endregion Fields
 
@@ -107,7 +108,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private string GetReportDestinyFilePath(int teamId, string savePath)
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
             var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMdd")}.xlsx";
 
             return Path.Combine(directoryName, fileName);
@@ -115,21 +115,17 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
         private void CreateReport(DateTime endDate, int teamId, string savePath)
         {
-            // var tradeType = CTMHelper.GetTradeTypeByDepartment(deptId);
             var templateFileName = GetReportTemplateFileName(teamId);
-
             if (!File.Exists(templateFileName))
                 throw new FileNotFoundException("报表模板Excel文件不存在！");
 
             var destinyFileName = GetReportDestinyFilePath(teamId, savePath);
-
             if (File.Exists(destinyFileName))
                 File.Delete(destinyFileName);
 
             //File.Copy(templateFileName, destinyFileName, overwrite: true);
 
             var reportData = GetReportData(endDate, teamId);
-
             if (!reportData.Any())
                 throw new Exception("收益报表数据读取失败！");
 
@@ -157,6 +153,9 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 Excel.Worksheet summarySheet = _excelEdit.GetSheet("Summary");
                 if (summarySheet != null)
                     GenerateSummarySheet(summarySheet);
+
+                //默认选中汇总Sheet
+                summarySheet.Select();
 
                 if (this.rgFileType.SelectedIndex == 0)
                     _excelEdit.SaveAsExcel(exportFileName);
@@ -212,13 +211,26 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
                 foreach (var tradeTypeData in tradeTypeDataList)
                 {
-                    int startRow = GetStartRowIndex(tradeTypeData.Key);
-                    object[,] ss = new object[tradeTypeData.Count(), 12];
                     TradeTypeProfitEntity data = null;
+                    int startRow = GetStartRowIndex(tradeTypeData.Key);
+                    var dataList = tradeTypeData.ToList();
 
-                    for (int i = 0; i < tradeTypeData.Count(); i++)
+                    int count = tradeTypeData.Count();
+                    if (count > 0 && count < 25)
                     {
-                        data = tradeTypeData.ElementAt(i);
+                        for (int i = 0; i < 25 - count; i++)
+                        {
+                            data = new TradeTypeProfitEntity { TradeDate = _queryDates.ElementAt(i) };
+                            dataList.Add(data);
+                        }
+                    }
+
+                    dataList = dataList.OrderBy(x => x.TradeDate).ToList();
+
+                    object[,] ss = new object[dataList.Count(), 12];
+                    for (int i = 0; i < dataList.Count(); i++)
+                    {
+                        data = dataList.ElementAt(i);
 
                         //序号
                         ss[i, 0] = i + 1;
@@ -261,7 +273,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             int totalChartCount = 0;
             int rowNumOfPage = 40;
 
-            //第一个sheet为汇总Sheet，所以 i 初始之为2
+            //第一个Sheet为汇总Sheet，所以 i 初始值为2
             for (int i = 2; i <= _excelEdit._wb.Sheets.Count; i++)
             {
                 curSheet = _excelEdit._wb.Sheets[i];
@@ -287,8 +299,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartArea.Height = 510;
                 chartArea.Width = 780;
             }
-
-            summarySheet.Select();
 
             //设置summarySheet的打印范围
             string startCell = "A1";
@@ -330,9 +340,9 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             List<TradeTypeProfitEntity> result = new List<TradeTypeProfitEntity>();
 
             //取得25个交易日日期
-            var queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate).OrderBy(x => x).ToList();
+            _queryDates = CommonHelper.GetWorkdaysBeforeCurrentDay(endDate).OrderBy(x => x).ToList();
 
-            result = this._statisticsReportService.CalculateTradeTypeProfit(teamId, queryDates.Min(), queryDates.Max()).ToList();
+            result = this._statisticsReportService.CalculateTradeTypeProfit(teamId, _queryDates.Min(), _queryDates.Max()).ToList();
 
             return result;
         }

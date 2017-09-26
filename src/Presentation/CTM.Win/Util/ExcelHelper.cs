@@ -316,7 +316,7 @@ namespace CTM.Win.Util
         /// </summary>
         public void Close()
         {
-            //wb.Save();
+            System.Threading.Thread.Sleep(2000);
             _wb.Close(Type.Missing, Type.Missing, Type.Missing);
             _wb = null;
             _wbs.Close();
