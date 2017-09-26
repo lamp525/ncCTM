@@ -201,11 +201,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 _excelEdit.CopySheetToEnd(subjectSheet, curSheetName);
 
                 Excel.Worksheet curSheet = _excelEdit.GetSheet(curSheetName);
-                Excel.ChartObject chartObj = curSheet.ChartObjects(1);
 
                 //设置Chart标题
-                string chartCaption = chartObj.Chart.ChartTitle.Caption;
-                chartObj.Chart.ChartTitle.Caption = string.Format(chartCaption, curSheet.Name);
+                foreach (Excel.ChartObject chartObj in curSheet.ChartObjects())
+                {
+                    string chartCaption = chartObj.Chart.ChartTitle.Caption;
+                    chartObj.Chart.ChartTitle.Caption = string.Format(chartCaption, curSheet.Name);
+                }
 
                 //交易类别数据
                 var tradeTypeDataList = subjectData.GroupBy(x => x.TradeType);
@@ -279,12 +281,13 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             string endCell = "$P$" + ((sheetCount - 1) * rowNumOfPage).ToString();
             summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
 
-            //第一个Sheet为汇总Sheet，所以 i 初始值为2
-            for (int i = 2; i <= sheetCount; i++)
+            //拷贝所有SubjectSheet的合计收益Chart
+            for (int i = 2; i <= sheetCount; i++)     //第一个Sheet为汇总Sheet，所以 i 初始值为2
             {
                 curSheet = _excelEdit._wb.Sheets[i];
                 if (curSheet == null) continue;
 
+                //合计收益Chart
                 chartObj = curSheet.ChartObjects(1);
                 if (chartObj == null) continue;
 
@@ -320,11 +323,11 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                     break;
 
                 case (int)EnumLibrary.TradeType.Band:
-                    startRow = 99;
+                    startRow = 106;
                     break;
 
                 case (int)EnumLibrary.TradeType.Day:
-                    startRow = 128;
+                    startRow = 142;
                     break;
 
                 default:
