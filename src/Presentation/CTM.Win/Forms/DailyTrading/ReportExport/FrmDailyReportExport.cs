@@ -167,7 +167,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 throw ex;
             }
             finally
-            {
+            {       
                 _excelEdit.Close();
             }
         }
@@ -290,6 +290,11 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 totalChartCount++;
             }
 
+            //设置summarySheet的打印范围
+            string startCell = "A1";
+            string endCell = "P" + (totalChartCount * rowNumOfPage).ToString();
+            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
+
             Excel.ChartArea chartArea = null;
             //设置summarySheet的ChartArea大小
             for (int i = 1; i <= totalChartCount; i++)
@@ -299,11 +304,6 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartArea.Height = 510;
                 chartArea.Width = 780;
             }
-
-            //设置summarySheet的打印范围
-            string startCell = "A1";
-            string endCell = "P" + (totalChartCount * rowNumOfPage).ToString();
-            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
         }
 
         private static int GetStartRowIndex(int tradeType)
