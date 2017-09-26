@@ -167,7 +167,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 throw ex;
             }
             finally
-            {       
+            {
                 _excelEdit.Close();
             }
         }
@@ -270,11 +270,17 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             Excel.Worksheet curSheet = null;
             Excel.ChartObject chartObj = null;
-            int totalChartCount = 0;
             int rowNumOfPage = 40;
 
+            int sheetCount = _excelEdit._wb.Sheets.Count;
+
+            //设置summarySheet的打印范围
+            string startCell = "$A$1";
+            string endCell = "$P$" + ((sheetCount - 1) * rowNumOfPage).ToString();
+            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
+
             //第一个Sheet为汇总Sheet，所以 i 初始值为2
-            for (int i = 2; i <= _excelEdit._wb.Sheets.Count; i++)
+            for (int i = 2; i <= sheetCount; i++)
             {
                 curSheet = _excelEdit._wb.Sheets[i];
                 if (curSheet == null) continue;
@@ -286,18 +292,11 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 chartObj.Chart.ChartArea.Copy();
                 Excel.Range range = summarySheet.Cells[startRowIndex, 2];
                 summarySheet.Paste(range, Type.Missing);
-
-                totalChartCount++;
             }
 
-            //设置summarySheet的打印范围
-            string startCell = "A1";
-            string endCell = "P" + (totalChartCount * rowNumOfPage).ToString();
-            summarySheet.PageSetup.PrintArea = startCell + ":" + endCell;
-
-            Excel.ChartArea chartArea = null;
             //设置summarySheet的ChartArea大小
-            for (int i = 1; i <= totalChartCount; i++)
+            Excel.ChartArea chartArea = null;
+            for (int i = 1; i < sheetCount; i++)
             {
                 chartObj = summarySheet.ChartObjects(i);
                 chartArea = chartObj.Chart.ChartArea;
