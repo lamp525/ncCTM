@@ -60,7 +60,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private void BindSearchInfo()
         {
             //截至交易日
-            string sqlText1 = $@"SELECT MAX(TradeDate) FROM InvestorTradeTypeProfit";
+            string sqlText1 = $@"SELECT MAX(TradeDate) FROM DSTradeTypeProfit";
 
             var maxDate = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText1);
 
