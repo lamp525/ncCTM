@@ -35,16 +35,32 @@ namespace CTM.Win.Util
         /// <summary>
         /// 打开一个 Excel文件
         /// </summary>
-        /// <param name="FileName"></param>
-        public void Open(string FileName)
+        /// <param name="fileName"></param>
+        public void Open(string fileName)
         {
             _app = new Excel.Application();
             _app.ScreenUpdating = false;
             _app.DisplayAlerts = false;
             _wbs = _app.Workbooks;
-            _wb = _wbs.Add(FileName);
+            _wb = _wbs.Open(
+                                            Filename: fileName
+                                            , UpdateLinks: Type.Missing
+                                            , ReadOnly: Type.Missing
+                                            , Format: Type.Missing
+                                            , Password: Type.Missing
+                                            , WriteResPassword: Type.Missing
+                                            , IgnoreReadOnlyRecommended: Type.Missing
+                                            , Origin: Type.Missing
+                                            , Delimiter: Type.Missing
+                                            , Editable: Type.Missing
+                                            , Notify: Type.Missing
+                                            , Converter: Type.Missing
+                                            , AddToMru: Type.Missing
+                                            , Local: Type.Missing
+                                            , CorruptLoad: Type.Missing
+                                         );
 
-            _fileName = FileName;
+            _fileName = fileName;
         }
 
         /// <summary>
@@ -291,18 +307,19 @@ namespace CTM.Win.Util
             {
                 //fileName = fileName + ".xls" + (_wb.HasVBProject ? 'm' : 'x');
                 _wb.SaveAs(
-                                    Filename: fileName
-                                    , FileFormat: Type.Missing
-                                    , Password: Type.Missing
-                                    , WriteResPassword: Type.Missing
-                                    , ReadOnlyRecommended: Type.Missing
-                                    , CreateBackup: Type.Missing
-                                    , AccessMode: Excel.XlSaveAsAccessMode.xlExclusive
-                                    , ConflictResolution: Type.Missing
-                                    , AddToMru: Type.Missing
-                                    , TextCodepage: Type.Missing
-                                    , TextVisualLayout: Type.Missing
-                                    , Local: Type.Missing);
+                                        Filename: fileName
+                                        , FileFormat: Type.Missing
+                                        , Password: Type.Missing
+                                        , WriteResPassword: Type.Missing
+                                        , ReadOnlyRecommended: Type.Missing
+                                        , CreateBackup: Type.Missing
+                                        , AccessMode: Excel.XlSaveAsAccessMode.xlExclusive
+                                        , ConflictResolution: Type.Missing
+                                        , AddToMru: Type.Missing
+                                        , TextCodepage: Type.Missing
+                                        , TextVisualLayout: Type.Missing
+                                        , Local: Type.Missing
+                                    );
             }
             catch (Exception ex)
             {
@@ -324,15 +341,16 @@ namespace CTM.Win.Util
                 //SaveAsExcel(tmpExcel);
 
                 _wb.ExportAsFixedFormat(
-                                                           Type: Excel.XlFixedFormatType.xlTypePDF
-                                                           , Filename: fileName
-                                                           , Quality: Excel.XlFixedFormatQuality.xlQualityStandard
-                                                           , IncludeDocProperties: true
-                                                           , IgnorePrintAreas: false
-                                                           , From: Type.Missing
-                                                           , To: Type.Missing
-                                                           , OpenAfterPublish: Type.Missing
-                                                           , FixedFormatExtClassPtr: Type.Missing);
+                                                               Type: Excel.XlFixedFormatType.xlTypePDF
+                                                               , Filename: fileName
+                                                               , Quality: Excel.XlFixedFormatQuality.xlQualityStandard
+                                                               , IncludeDocProperties: true
+                                                               , IgnorePrintAreas: false
+                                                               , From: Type.Missing
+                                                               , To: Type.Missing
+                                                               , OpenAfterPublish: Type.Missing
+                                                               , FixedFormatExtClassPtr: Type.Missing
+                                                           );
             }
             catch (Exception ex)
             {
@@ -359,13 +377,14 @@ namespace CTM.Win.Util
             }
             if (_app != null)
             {
+                // 关闭前必须重置为True，不然Exce进程无法正确释放
+                _app.ScreenUpdating = true;
                 _app.Quit();
                 Marshal.ReleaseComObject(_app);
                 _app = null;
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
         }
     }
 }

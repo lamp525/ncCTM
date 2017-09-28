@@ -166,7 +166,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                     _excelEdit.SaveAsExcel(exportFileName);
                 else if (this.rgFileType.SelectedIndex == 1)
                 {
-                    string pdfFileName = exportFileName.Replace(".pdf",string.Empty);
+                    string pdfFileName = exportFileName.Replace(".pdf", string.Empty);
                     _excelEdit.SaveAsPDF(pdfFileName);
                 }
             }
@@ -432,6 +432,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
 
