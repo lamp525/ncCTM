@@ -110,6 +110,11 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMdd")}";
 
+            if (this.rgFileType.SelectedIndex == 0)
+                fileName += ".xlsx";
+            else if (this.rgFileType.SelectedIndex == 1)
+                fileName += ".pdf";
+
             return Path.Combine(directoryName, fileName);
         }
 
@@ -160,7 +165,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                 if (this.rgFileType.SelectedIndex == 0)
                     _excelEdit.SaveAsExcel(exportFileName);
                 else if (this.rgFileType.SelectedIndex == 1)
-                    _excelEdit.SaveAsPDF(exportFileName);
+                {
+                    string pdfFileName = exportFileName.Replace(".pdf",string.Empty);
+                    _excelEdit.SaveAsPDF(pdfFileName);
+                }
             }
             catch (Exception ex)
             {
@@ -370,12 +378,10 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
         private void rgFileType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (this.rgFileType.SelectedIndex == 0)
                 this.btnExport2Excel.Text = "导出至Excel";
             else if (this.rgFileType.SelectedIndex == 1)
                 this.btnExport2Excel.Text = "导出至PDF";
-
         }
 
         private void btnChangeSavePath_Click(object sender, EventArgs e)
@@ -466,7 +472,5 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         }
 
         #endregion Events
-
- 
     }
 }

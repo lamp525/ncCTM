@@ -289,8 +289,7 @@ namespace CTM.Win.Util
         {
             try
             {
-
-                fileName = fileName + ".xls" + (_wb.HasVBProject ? 'm' : 'x'); 
+                //fileName = fileName + ".xls" + (_wb.HasVBProject ? 'm' : 'x');
                 _wb.SaveAs(
                                     Filename: fileName
                                     , FileFormat: Type.Missing
@@ -324,8 +323,6 @@ namespace CTM.Win.Util
                 //string tmpExcel = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".xls" + (_wb.HasVBProject ? 'm' : 'x');
                 //SaveAsExcel(tmpExcel);
 
-((Excel.Worksheet)_wb.Sheets[0]).print
-
                 _wb.ExportAsFixedFormat(
                                                            Type: Excel.XlFixedFormatType.xlTypePDF
                                                            , Filename: fileName
@@ -336,8 +333,6 @@ namespace CTM.Win.Util
                                                            , To: Type.Missing
                                                            , OpenAfterPublish: Type.Missing
                                                            , FixedFormatExtClassPtr: Type.Missing);
-
-
             }
             catch (Exception ex)
             {
@@ -368,8 +363,7 @@ namespace CTM.Win.Util
                 Marshal.ReleaseComObject(_app);
                 _app = null;
             }
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            GC.Collect();    
         }
     }
 }
