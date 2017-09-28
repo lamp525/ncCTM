@@ -30,6 +30,7 @@
         {
             this.pageUserInvestIncomeFlow = new System.Windows.Forms.TabPage();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.rgFileType = new DevExpress.XtraEditors.RadioGroup();
             this.mpbUserInvestIncomeFlow = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.btnChangeSavePath = new DevExpress.XtraEditors.SimpleButton();
             this.txtSavePath = new DevExpress.XtraEditors.TextEdit();
@@ -52,14 +53,14 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciProgress = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.rgFileType = new DevExpress.XtraEditors.RadioGroup();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pageUserInvestIncomeFlow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rgFileType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSavePath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).BeginInit();
@@ -81,11 +82,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rgFileType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pageUserInvestIncomeFlow
@@ -116,6 +116,18 @@
             this.layoutControl1.Size = new System.Drawing.Size(638, 298);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // rgFileType
+            // 
+            this.rgFileType.Location = new System.Drawing.Point(63, 80);
+            this.rgFileType.Name = "rgFileType";
+            this.rgFileType.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("EXCEL", "Excel文件", true, ((short)(0))),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("PDF", "PDF文件", true, ((short)(1)))});
+            this.rgFileType.Size = new System.Drawing.Size(254, 25);
+            this.rgFileType.StyleController = this.layoutControl1;
+            this.rgFileType.TabIndex = 8;
+            this.rgFileType.SelectedIndexChanged += new System.EventHandler(this.rgFileType_SelectedIndexChanged);
             // 
             // mpbUserInvestIncomeFlow
             // 
@@ -335,6 +347,15 @@
             this.emptySpaceItem9.Size = new System.Drawing.Size(618, 10);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.rgFileType;
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 68);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(309, 29);
+            this.layoutControlItem5.Text = "导出类型";
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(48, 14);
+            // 
             // emptySpaceItem10
             // 
             this.emptySpaceItem10.AllowHotTrack = false;
@@ -342,6 +363,14 @@
             this.emptySpaceItem10.Name = "emptySpaceItem10";
             this.emptySpaceItem10.Size = new System.Drawing.Size(618, 10);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem11
+            // 
+            this.emptySpaceItem11.AllowHotTrack = false;
+            this.emptySpaceItem11.Location = new System.Drawing.Point(309, 68);
+            this.emptySpaceItem11.Name = "emptySpaceItem11";
+            this.emptySpaceItem11.Size = new System.Drawing.Size(309, 29);
+            this.emptySpaceItem11.TextSize = new System.Drawing.Size(0, 0);
             // 
             // tabControl1
             // 
@@ -352,34 +381,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(652, 331);
             this.tabControl1.TabIndex = 0;
-            // 
-            // rgFileType
-            // 
-            this.rgFileType.Location = new System.Drawing.Point(63, 80);
-            this.rgFileType.Name = "rgFileType";
-            this.rgFileType.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem("EXCEL", "Excel文件", true, ((short)(0))),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem("PDF", "PDF文件", true, ((short)(1)))});
-            this.rgFileType.Size = new System.Drawing.Size(254, 25);
-            this.rgFileType.StyleController = this.layoutControl1;
-            this.rgFileType.TabIndex = 8;
-            // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.rgFileType;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 68);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(309, 29);
-            this.layoutControlItem5.Text = "导出类型";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(48, 14);
-            // 
-            // emptySpaceItem11
-            // 
-            this.emptySpaceItem11.AllowHotTrack = false;
-            this.emptySpaceItem11.Location = new System.Drawing.Point(309, 68);
-            this.emptySpaceItem11.Name = "emptySpaceItem11";
-            this.emptySpaceItem11.Size = new System.Drawing.Size(309, 29);
-            this.emptySpaceItem11.TextSize = new System.Drawing.Size(0, 0);
             // 
             // FrmDailyReportExport
             // 
@@ -393,6 +394,7 @@
             this.pageUserInvestIncomeFlow.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rgFileType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mpbUserInvestIncomeFlow.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSavePath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).EndInit();
@@ -414,11 +416,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rgFileType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

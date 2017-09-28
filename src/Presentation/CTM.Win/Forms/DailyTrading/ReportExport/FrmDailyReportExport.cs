@@ -368,6 +368,16 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             }
         }
 
+        private void rgFileType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (this.rgFileType.SelectedIndex == 0)
+                this.btnExport2Excel.Text = "导出至Excel";
+            else if (this.rgFileType.SelectedIndex == 1)
+                this.btnExport2Excel.Text = "导出至PDF";
+
+        }
+
         private void btnChangeSavePath_Click(object sender, EventArgs e)
         {
             try
@@ -456,5 +466,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         }
 
         #endregion Events
+
+ 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CTM.Win.Util
@@ -25,6 +26,7 @@ namespace CTM.Win.Util
         public void Create()
         {
             _app = new Excel.Application();
+            _app.ScreenUpdating = false;
             _app.DisplayAlerts = false;
             _wbs = _app.Workbooks;
             _wb = _wbs.Add(true);
@@ -37,6 +39,7 @@ namespace CTM.Win.Util
         public void Open(string FileName)
         {
             _app = new Excel.Application();
+            _app.ScreenUpdating = false;
             _app.DisplayAlerts = false;
             _wbs = _app.Workbooks;
             _wb = _wbs.Add(FileName);
@@ -282,11 +285,23 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public void SaveAsExcel(object fileName)
+        public void SaveAsExcel(string fileName)
         {
             try
             {
-                _wb.SaveAs(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                _wb.SaveAs(
+                                    Filename: fileName
+                                    , FileFormat: Type.Missing
+                                    , Password: Type.Missing
+                                    , WriteResPassword: Type.Missing
+                                    , ReadOnlyRecommended: Type.Missing
+                                    , CreateBackup: Type.Missing
+                                    , AccessMode: Excel.XlSaveAsAccessMode.xlExclusive
+                                    , ConflictResolution: Type.Missing
+                                    , AddToMru: Type.Missing
+                                    , TextCodepage: Type.Missing
+                                    , TextVisualLayout: Type.Missing
+                                    , Local: Type.Missing);
             }
             catch (Exception ex)
             {
@@ -299,11 +314,22 @@ namespace CTM.Win.Util
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public void SaveAsPDF(object fileName)
+        public void SaveAsPDF(string fileName)
         {
             try
             {
-                _wb.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, fileName, Excel.XlFixedFormatQuality.xlQualityStandard, true, true, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //string tmpExcel = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".xls" + (_wb.HasVBProject ? 'm' : 'x');
+                //_wb.SaveAs(tmpExcel, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                _wb.ExportAsFixedFormat(
+                                                           Type: Excel.XlFixedFormatType.xlTypePDF
+                                                           , Filename: fileName
+                                                           , Quality: Excel.XlFixedFormatQuality.xlQualityStandard
+                                                           , IncludeDocProperties: true
+                                                           , IgnorePrintAreas: false
+                                                           , From: Type.Missing
+                                                           , To: Type.Missing
+                                                           , OpenAfterPublish: Type.Missing
+                                                           , FixedFormatExtClassPtr: Type.Missing);
             }
             catch (Exception ex)
             {
@@ -316,13 +342,26 @@ namespace CTM.Win.Util
         /// </summary>
         public void Close()
         {
-            _wb.Close(Type.Missing, Type.Missing, Type.Missing);
-            _wb = null;
-            _wbs.Close();
-            _wbs = null;
-            _app.Quit();
-            _app = null;
+            if (_wb != null)
+            {
+                _wb.Close(Type.Missing, Type.Missing, Type.Missing);
+                Marshal.ReleaseComObject(_wb);
+                _wb = null;
+            }
+            if (_wbs != null)
+            {
+                _wbs.Close();
+                Marshal.ReleaseComObject(_wbs);
+                _wbs = null;
+            }
+            if (_app != null)
+            {
+                _app.Quit();
+                Marshal.ReleaseComObject(_app);
+                _app = null;
+            }
             GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }
