@@ -108,7 +108,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
         private string GetReportDestinyFilePath(int teamId, string savePath)
         {
             string directoryName = savePath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMdd")}.xlsx";
+            var fileName = $"日收益报表({this.cbDepartment.Text}){DateTime.Now.ToString("yyMMdd")}";
 
             return Path.Combine(directoryName, fileName);
         }
