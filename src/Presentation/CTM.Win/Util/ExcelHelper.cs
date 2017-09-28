@@ -363,7 +363,9 @@ namespace CTM.Win.Util
                 Marshal.ReleaseComObject(_app);
                 _app = null;
             }
-            GC.Collect();    
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
         }
     }
 }
