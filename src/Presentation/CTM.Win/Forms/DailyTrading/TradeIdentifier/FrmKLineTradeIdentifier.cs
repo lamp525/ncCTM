@@ -256,6 +256,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     source = source.Where(x => x.StockCode == stockCode).ToList();
 
                 luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
+
+                if (source.Any())
+                    luTradeInfo.EditValue = source.First().TradeCode;
+                
             }
             catch (Exception ex)
             {
