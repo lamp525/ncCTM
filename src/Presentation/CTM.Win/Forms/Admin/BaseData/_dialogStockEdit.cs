@@ -202,6 +202,24 @@ namespace CTM.Win.Forms.Admin.BaseData
             this.Close();
         }
 
+        private void txtStockCode_EditValueChanged(object sender, EventArgs e)
+        {
+            if (txtStockCode.Text.Length == 0)
+            {
+                cbTradeMarket.SelectedIndex = 0;
+                return;
+            }
+
+            string firstChar = txtStockCode.Text.Substring(0, 1);
+
+            if (firstChar == "6")
+                cbTradeMarket.SelectedIndex = 1;
+            else if (firstChar == "0" || firstChar == "3")
+                cbTradeMarket.SelectedIndex = 2;
+            else
+                cbTradeMarket.SelectedIndex = 0;
+        }
+
         #endregion Events
     }
 }
