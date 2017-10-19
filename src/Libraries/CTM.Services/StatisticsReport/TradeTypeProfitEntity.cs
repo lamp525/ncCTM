@@ -22,7 +22,7 @@ namespace CTM.Services.StatisticsReport
 
         public decimal CurValue { get; set; }
 
-        public decimal MondayYearProfit { get; set; }      
+        public decimal FridayYearProfit { get; set; }      
 
         public decimal DayFund { get; set; }
 

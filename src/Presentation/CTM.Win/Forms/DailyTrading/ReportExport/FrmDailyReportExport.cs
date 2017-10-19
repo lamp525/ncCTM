@@ -260,8 +260,8 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
                         ss[i, 7] = data.YearRate;
                         //持仓市值
                         ss[i, 8] = data.CurValue;
-                        //周一累计本年收益额
-                        ss[i, 9] = data.MondayYearProfit == 0 ? "" : data.MondayYearProfit.ToString();
+                        //周五累计本年收益额
+                        ss[i, 9] = data.FridayYearProfit == 0 ? "" : data.FridayYearProfit.ToString();
                         //资金可用额度
                         ss[i, 10] = data.InvestFund * (decimal)1.2;
                         //持仓仓位
