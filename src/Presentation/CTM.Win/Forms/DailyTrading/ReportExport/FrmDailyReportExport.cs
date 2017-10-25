@@ -8,11 +8,7 @@ using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
-using CTM.Services.Department;
 using CTM.Services.StatisticsReport;
-using CTM.Services.TKLine;
-using CTM.Services.TradeRecord;
-using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -24,11 +20,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
     {
         #region Fields
 
-        private readonly IDailyRecordService _dailyRecordService;
-        private readonly IDepartmentService _departmentService;
         private readonly IDailyStatisticsReportService _statisticsReportService;
-        private readonly ITKLineService _tKLineService;
-        private readonly IUserService _userService;
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
         private IList<DateTime> _queryDates = new List<DateTime>();
 
@@ -36,21 +28,11 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
         #region Constructors
 
-        public FrmDailyReportExport(
-            IDailyRecordService dailyRecordService,
-            IDepartmentService departmentService,
-            IDailyStatisticsReportService statisticsReportService,
-            ITKLineService tKLineService,
-            IUserService userService
-            )
+        public FrmDailyReportExport(IDailyStatisticsReportService statisticsReportService)
         {
             InitializeComponent();
 
-            this._dailyRecordService = dailyRecordService;
-            this._departmentService = departmentService;
             this._statisticsReportService = statisticsReportService;
-            this._tKLineService = tKLineService;
-            this._userService = userService;
         }
 
         #endregion Constructors
