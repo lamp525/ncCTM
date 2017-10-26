@@ -232,17 +232,22 @@
             this.bandedGridView1.OptionsSelection.MultiSelect = true;
             this.bandedGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
+            this.bandedGridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
             this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.bandedGridView1.OptionsView.EnableAppearanceOddRow = true;
             this.bandedGridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
+            this.bandedGridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.bandedGridView1_CustomDrawCell);
+            this.bandedGridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.bandedGridView1_RowCellStyle);
+            this.bandedGridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.bandedGridView1_RowStyle);
             // 
             // gridBand8
             // 
             this.gridBand8.Columns.Add(this.colRowNumber);
+            this.gridBand8.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.gridBand8.Name = "gridBand8";
             this.gridBand8.VisibleIndex = 0;
-            this.gridBand8.Width = 75;
+            this.gridBand8.Width = 40;
             // 
             // colRowNumber
             // 
@@ -250,6 +255,7 @@
             this.colRowNumber.FieldName = "RowNumber";
             this.colRowNumber.Name = "colRowNumber";
             this.colRowNumber.Visible = true;
+            this.colRowNumber.Width = 40;
             // 
             // gridBand1
             // 
@@ -267,6 +273,7 @@
             this.gridBand1.Columns.Add(this.colAllocateFund);
             this.gridBand1.Columns.Add(this.colStockCode);
             this.gridBand1.Columns.Add(this.colStockName);
+            this.gridBand1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 1;
             this.gridBand1.Width = 450;
@@ -344,6 +351,8 @@
             // colPreVolume
             // 
             this.colPreVolume.Caption = "数量";
+            this.colPreVolume.DisplayFormat.FormatString = "N0";
+            this.colPreVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colPreVolume.FieldName = "PreVolume";
             this.colPreVolume.Name = "colPreVolume";
             this.colPreVolume.Visible = true;
@@ -351,6 +360,8 @@
             // colPreValue
             // 
             this.colPreValue.Caption = "市值";
+            this.colPreValue.DisplayFormat.FormatString = "N";
+            this.colPreValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colPreValue.FieldName = "PreValue";
             this.colPreValue.Name = "colPreValue";
             this.colPreValue.Visible = true;
@@ -371,6 +382,8 @@
             // colCurVolume
             // 
             this.colCurVolume.Caption = "数量";
+            this.colCurVolume.DisplayFormat.FormatString = "N0";
+            this.colCurVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCurVolume.FieldName = "CurVolume";
             this.colCurVolume.Name = "colCurVolume";
             this.colCurVolume.Visible = true;
@@ -378,6 +391,8 @@
             // colCurValue
             // 
             this.colCurValue.Caption = "市值";
+            this.colCurValue.DisplayFormat.FormatString = "N";
+            this.colCurValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCurValue.FieldName = "CurValue";
             this.colCurValue.Name = "colCurValue";
             this.colCurValue.Visible = true;
@@ -400,6 +415,8 @@
             // colBuyVolume
             // 
             this.colBuyVolume.Caption = "买入数量";
+            this.colBuyVolume.DisplayFormat.FormatString = "N0";
+            this.colBuyVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colBuyVolume.FieldName = "BuyVolume";
             this.colBuyVolume.Name = "colBuyVolume";
             this.colBuyVolume.Visible = true;
@@ -407,6 +424,8 @@
             // colBuyAmount
             // 
             this.colBuyAmount.Caption = "买入金额";
+            this.colBuyAmount.DisplayFormat.FormatString = "N";
+            this.colBuyAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colBuyAmount.FieldName = "BuyAmount";
             this.colBuyAmount.Name = "colBuyAmount";
             this.colBuyAmount.Visible = true;
@@ -414,6 +433,8 @@
             // colSellVolume
             // 
             this.colSellVolume.Caption = "卖出数量";
+            this.colSellVolume.DisplayFormat.FormatString = "N0";
+            this.colSellVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colSellVolume.FieldName = "SellVolume";
             this.colSellVolume.Name = "colSellVolume";
             this.colSellVolume.Visible = true;
@@ -421,6 +442,8 @@
             // colSellAmount
             // 
             this.colSellAmount.Caption = "卖出金额";
+            this.colSellAmount.DisplayFormat.FormatString = "N";
+            this.colSellAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colSellAmount.FieldName = "SellAmount";
             this.colSellAmount.Name = "colSellAmount";
             this.colSellAmount.Visible = true;
@@ -447,6 +470,8 @@
             // colDayFund
             // 
             this.colDayFund.Caption = "投入资金";
+            this.colDayFund.DisplayFormat.FormatString = "N";
+            this.colDayFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colDayFund.FieldName = "DayFund";
             this.colDayFund.Name = "colDayFund";
             this.colDayFund.Visible = true;
@@ -454,6 +479,8 @@
             // colDayProfit
             // 
             this.colDayProfit.Caption = "日收益额";
+            this.colDayProfit.DisplayFormat.FormatString = "N";
+            this.colDayProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colDayProfit.FieldName = "DayProfit";
             this.colDayProfit.Name = "colDayProfit";
             this.colDayProfit.Visible = true;
@@ -467,6 +494,8 @@
             // colDayRate
             // 
             this.colDayRate.Caption = "日收益率";
+            this.colDayRate.DisplayFormat.FormatString = "P2";
+            this.colDayRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colDayRate.FieldName = "DayRate";
             this.colDayRate.Name = "colDayRate";
             this.colDayRate.Visible = true;
@@ -479,6 +508,8 @@
             // colDayAllocateRate
             // 
             this.colDayAllocateRate.Caption = "占用资金日收益率";
+            this.colDayAllocateRate.DisplayFormat.FormatString = "P2";
+            this.colDayAllocateRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colDayAllocateRate.FieldName = "DayAllocateRate";
             this.colDayAllocateRate.Name = "colDayAllocateRate";
             this.colDayAllocateRate.Visible = true;
@@ -491,6 +522,8 @@
             // colIndexDay
             // 
             this.colIndexDay.Caption = "综合指数";
+            this.colIndexDay.DisplayFormat.FormatString = "N";
+            this.colIndexDay.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colIndexDay.FieldName = "IndexDay";
             this.colIndexDay.Name = "colIndexDay";
             this.colIndexDay.Visible = true;
@@ -517,6 +550,8 @@
             // colWeekAvgFund
             // 
             this.colWeekAvgFund.Caption = "日均投入资金";
+            this.colWeekAvgFund.DisplayFormat.FormatString = "N";
+            this.colWeekAvgFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colWeekAvgFund.FieldName = "WeekAvgFund";
             this.colWeekAvgFund.Name = "colWeekAvgFund";
             this.colWeekAvgFund.Visible = true;
@@ -524,6 +559,8 @@
             // colWeekProfit
             // 
             this.colWeekProfit.Caption = "周收益额";
+            this.colWeekProfit.DisplayFormat.FormatString = "N";
+            this.colWeekProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colWeekProfit.FieldName = "WeekProfit";
             this.colWeekProfit.Name = "colWeekProfit";
             this.colWeekProfit.Visible = true;
@@ -536,6 +573,8 @@
             // colWeekRate
             // 
             this.colWeekRate.Caption = "周收益率";
+            this.colWeekRate.DisplayFormat.FormatString = "P2";
+            this.colWeekRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colWeekRate.FieldName = "WeekRate";
             this.colWeekRate.Name = "colWeekRate";
             this.colWeekRate.Visible = true;
@@ -550,6 +589,8 @@
             this.colWeekAllocateRate.AppearanceHeader.Options.UseTextOptions = true;
             this.colWeekAllocateRate.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.colWeekAllocateRate.Caption = "占用资金周收益率";
+            this.colWeekAllocateRate.DisplayFormat.FormatString = "P2";
+            this.colWeekAllocateRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colWeekAllocateRate.FieldName = "WeekAllocateRate";
             this.colWeekAllocateRate.Name = "colWeekAllocateRate";
             this.colWeekAllocateRate.Visible = true;
@@ -562,6 +603,8 @@
             // colIndexWeek
             // 
             this.colIndexWeek.Caption = "综合指数";
+            this.colIndexWeek.DisplayFormat.FormatString = "N";
+            this.colIndexWeek.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colIndexWeek.FieldName = "IndexWeek";
             this.colIndexWeek.Name = "colIndexWeek";
             this.colIndexWeek.Visible = true;
@@ -582,6 +625,8 @@
             // colAccProfit
             // 
             this.colAccProfit.Caption = "收益额";
+            this.colAccProfit.DisplayFormat.FormatString = "N";
+            this.colAccProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colAccProfit.FieldName = "AccProfit";
             this.colAccProfit.Name = "colAccProfit";
             this.colAccProfit.Visible = true;
@@ -589,6 +634,8 @@
             // colBonusLimit
             // 
             this.colBonusLimit.Caption = "奖金限额";
+            this.colBonusLimit.DisplayFormat.FormatString = "N";
+            this.colBonusLimit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colBonusLimit.FieldName = "BonusLimit";
             this.colBonusLimit.Name = "colBonusLimit";
             this.colBonusLimit.Visible = true;

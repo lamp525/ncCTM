@@ -61,12 +61,12 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 }
                 cbTeam.ReadOnly = true;
             }
-            else            
+            else
                 defaultTeam = "-1";
 
             this.cbTeam.DefaultSelected(defaultTeam);
 
-            this.bandedGridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+            this.bandedGridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: false);
             this.bandedGridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
@@ -153,6 +153,47 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             {
                 btnSearch.Enabled = true;
             }
+        }
+
+        private void bandedGridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void bandedGridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.Name.IndexOf("Profit") > 0 || e.Column.Name.IndexOf("Rate") > 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void bandedGridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
+
+            int dataType = int.Parse(this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colDataType).ToString());
+
+            if (dataType == 1)
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
+            else if (dataType == 2)
+                e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
+            else if (dataType == 88)
+                e.Appearance.BackColor = System.Drawing.Color.DeepSkyBlue;
         }
     }
 }
