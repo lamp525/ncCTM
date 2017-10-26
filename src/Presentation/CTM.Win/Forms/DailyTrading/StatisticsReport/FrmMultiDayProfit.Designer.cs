@@ -32,7 +32,51 @@
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
+            this.gridBand8 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colRowNumber = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colDataType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colTradeDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colTeamId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colTeamName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colInvestorCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colInvestorName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colAllocateFund = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colPreVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPreValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colCurVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colCurValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colBuyVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colBuyAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colSellVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colSellAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colDayFund = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDayProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankDP = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDayRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankDR = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDayAllocateRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankDAR = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colIndexDay = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand6 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colWeekAvgFund = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colWeekProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankWP = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colWeekRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankWR = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colWeekAllocateRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colRankWAR = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colIndexWeek = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand7 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.colAccProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colBonusLimit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.luInvestor = new DevExpress.XtraEditors.LookUpEdit();
             this.cbTeam = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -58,7 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbTeam.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).BeginInit();
@@ -123,17 +167,431 @@
             // gridControl1
             // 
             this.gridControl1.Location = new System.Drawing.Point(24, 138);
-            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1377, 567);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.bandedGridView1});
             // 
-            // gridView1
+            // bandedGridView1
             // 
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
+            this.bandedGridView1.Bands.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.GridBand[] {
+            this.gridBand8,
+            this.gridBand1,
+            this.gridBand2,
+            this.gridBand3,
+            this.gridBand4,
+            this.gridBand5,
+            this.gridBand6,
+            this.gridBand7});
+            this.bandedGridView1.ColumnPanelRowHeight = 30;
+            this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
+            this.colRowNumber,
+            this.colDataType,
+            this.colTradeDate,
+            this.colTeamId,
+            this.colTeamName,
+            this.colInvestorCode,
+            this.colInvestorName,
+            this.colAllocateFund,
+            this.colStockCode,
+            this.colStockName,
+            this.colPreVolume,
+            this.colPreValue,
+            this.colCurVolume,
+            this.colCurValue,
+            this.colBuyVolume,
+            this.colBuyAmount,
+            this.colSellVolume,
+            this.colSellAmount,
+            this.colDayFund,
+            this.colDayProfit,
+            this.colRankDP,
+            this.colDayRate,
+            this.colRankDR,
+            this.colDayAllocateRate,
+            this.colRankDAR,
+            this.colIndexDay,
+            this.colWeekAvgFund,
+            this.colWeekProfit,
+            this.colRankWP,
+            this.colWeekRate,
+            this.colRankWR,
+            this.colWeekAllocateRate,
+            this.colRankWAR,
+            this.colIndexWeek,
+            this.colAccProfit,
+            this.colBonusLimit});
+            this.bandedGridView1.GridControl = this.gridControl1;
+            this.bandedGridView1.IndicatorWidth = 40;
+            this.bandedGridView1.Name = "bandedGridView1";
+            this.bandedGridView1.OptionsBehavior.Editable = false;
+            this.bandedGridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.bandedGridView1.OptionsBehavior.ReadOnly = true;
+            this.bandedGridView1.OptionsSelection.MultiSelect = true;
+            this.bandedGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
+            this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
+            this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = true;
+            this.bandedGridView1.OptionsView.EnableAppearanceOddRow = true;
+            this.bandedGridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.bandedGridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridBand8
+            // 
+            this.gridBand8.Columns.Add(this.colRowNumber);
+            this.gridBand8.Name = "gridBand8";
+            this.gridBand8.VisibleIndex = 0;
+            this.gridBand8.Width = 75;
+            // 
+            // colRowNumber
+            // 
+            this.colRowNumber.Caption = "序号";
+            this.colRowNumber.FieldName = "RowNumber";
+            this.colRowNumber.Name = "colRowNumber";
+            this.colRowNumber.Visible = true;
+            // 
+            // gridBand1
+            // 
+            this.gridBand1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand1.AppearanceHeader.Options.UseFont = true;
+            this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand1.Caption = "基础信息";
+            this.gridBand1.Columns.Add(this.colDataType);
+            this.gridBand1.Columns.Add(this.colTradeDate);
+            this.gridBand1.Columns.Add(this.colTeamId);
+            this.gridBand1.Columns.Add(this.colTeamName);
+            this.gridBand1.Columns.Add(this.colInvestorCode);
+            this.gridBand1.Columns.Add(this.colInvestorName);
+            this.gridBand1.Columns.Add(this.colAllocateFund);
+            this.gridBand1.Columns.Add(this.colStockCode);
+            this.gridBand1.Columns.Add(this.colStockName);
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 1;
+            this.gridBand1.Width = 450;
+            // 
+            // colDataType
+            // 
+            this.colDataType.FieldName = "DataType";
+            this.colDataType.Name = "colDataType";
+            // 
+            // colTradeDate
+            // 
+            this.colTradeDate.Caption = "日期";
+            this.colTradeDate.FieldName = "TradeDate";
+            this.colTradeDate.Name = "colTradeDate";
+            this.colTradeDate.Visible = true;
+            // 
+            // colTeamId
+            // 
+            this.colTeamId.FieldName = "TeamId";
+            this.colTeamId.Name = "colTeamId";
+            // 
+            // colTeamName
+            // 
+            this.colTeamName.Caption = "投资小组";
+            this.colTeamName.FieldName = "TeamName";
+            this.colTeamName.Name = "colTeamName";
+            this.colTeamName.Visible = true;
+            // 
+            // colInvestorCode
+            // 
+            this.colInvestorCode.FieldName = "InvestorCode";
+            this.colInvestorCode.Name = "colInvestorCode";
+            // 
+            // colInvestorName
+            // 
+            this.colInvestorName.Caption = "投资人员";
+            this.colInvestorName.FieldName = "InvestorName";
+            this.colInvestorName.Name = "colInvestorName";
+            this.colInvestorName.Visible = true;
+            // 
+            // colAllocateFund
+            // 
+            this.colAllocateFund.Caption = "占用资金";
+            this.colAllocateFund.FieldName = "AllocateFund";
+            this.colAllocateFund.Name = "colAllocateFund";
+            this.colAllocateFund.Visible = true;
+            // 
+            // colStockCode
+            // 
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
+            // 
+            // colStockName
+            // 
+            this.colStockName.Caption = "股票名称";
+            this.colStockName.FieldName = "StockName";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.Visible = true;
+            // 
+            // gridBand2
+            // 
+            this.gridBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand2.AppearanceHeader.Options.UseFont = true;
+            this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand2.Caption = "昨日持仓";
+            this.gridBand2.Columns.Add(this.colPreVolume);
+            this.gridBand2.Columns.Add(this.colPreValue);
+            this.gridBand2.Name = "gridBand2";
+            this.gridBand2.VisibleIndex = 2;
+            this.gridBand2.Width = 150;
+            // 
+            // colPreVolume
+            // 
+            this.colPreVolume.Caption = "数量";
+            this.colPreVolume.FieldName = "PreVolume";
+            this.colPreVolume.Name = "colPreVolume";
+            this.colPreVolume.Visible = true;
+            // 
+            // colPreValue
+            // 
+            this.colPreValue.Caption = "市值";
+            this.colPreValue.FieldName = "PreValue";
+            this.colPreValue.Name = "colPreValue";
+            this.colPreValue.Visible = true;
+            // 
+            // gridBand3
+            // 
+            this.gridBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand3.AppearanceHeader.Options.UseFont = true;
+            this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand3.Caption = "当日持仓";
+            this.gridBand3.Columns.Add(this.colCurVolume);
+            this.gridBand3.Columns.Add(this.colCurValue);
+            this.gridBand3.Name = "gridBand3";
+            this.gridBand3.VisibleIndex = 3;
+            this.gridBand3.Width = 150;
+            // 
+            // colCurVolume
+            // 
+            this.colCurVolume.Caption = "数量";
+            this.colCurVolume.FieldName = "CurVolume";
+            this.colCurVolume.Name = "colCurVolume";
+            this.colCurVolume.Visible = true;
+            // 
+            // colCurValue
+            // 
+            this.colCurValue.Caption = "市值";
+            this.colCurValue.FieldName = "CurValue";
+            this.colCurValue.Name = "colCurValue";
+            this.colCurValue.Visible = true;
+            // 
+            // gridBand4
+            // 
+            this.gridBand4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand4.AppearanceHeader.Options.UseFont = true;
+            this.gridBand4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand4.Caption = "当日成交";
+            this.gridBand4.Columns.Add(this.colBuyVolume);
+            this.gridBand4.Columns.Add(this.colBuyAmount);
+            this.gridBand4.Columns.Add(this.colSellVolume);
+            this.gridBand4.Columns.Add(this.colSellAmount);
+            this.gridBand4.Name = "gridBand4";
+            this.gridBand4.VisibleIndex = 4;
+            this.gridBand4.Width = 300;
+            // 
+            // colBuyVolume
+            // 
+            this.colBuyVolume.Caption = "买入数量";
+            this.colBuyVolume.FieldName = "BuyVolume";
+            this.colBuyVolume.Name = "colBuyVolume";
+            this.colBuyVolume.Visible = true;
+            // 
+            // colBuyAmount
+            // 
+            this.colBuyAmount.Caption = "买入金额";
+            this.colBuyAmount.FieldName = "BuyAmount";
+            this.colBuyAmount.Name = "colBuyAmount";
+            this.colBuyAmount.Visible = true;
+            // 
+            // colSellVolume
+            // 
+            this.colSellVolume.Caption = "卖出数量";
+            this.colSellVolume.FieldName = "SellVolume";
+            this.colSellVolume.Name = "colSellVolume";
+            this.colSellVolume.Visible = true;
+            // 
+            // colSellAmount
+            // 
+            this.colSellAmount.Caption = "卖出金额";
+            this.colSellAmount.FieldName = "SellAmount";
+            this.colSellAmount.Name = "colSellAmount";
+            this.colSellAmount.Visible = true;
+            // 
+            // gridBand5
+            // 
+            this.gridBand5.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand5.AppearanceHeader.Options.UseFont = true;
+            this.gridBand5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand5.Caption = "当日收益";
+            this.gridBand5.Columns.Add(this.colDayFund);
+            this.gridBand5.Columns.Add(this.colDayProfit);
+            this.gridBand5.Columns.Add(this.colRankDP);
+            this.gridBand5.Columns.Add(this.colDayRate);
+            this.gridBand5.Columns.Add(this.colRankDR);
+            this.gridBand5.Columns.Add(this.colDayAllocateRate);
+            this.gridBand5.Columns.Add(this.colRankDAR);
+            this.gridBand5.Columns.Add(this.colIndexDay);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.VisibleIndex = 5;
+            this.gridBand5.Width = 375;
+            // 
+            // colDayFund
+            // 
+            this.colDayFund.Caption = "投入资金";
+            this.colDayFund.FieldName = "DayFund";
+            this.colDayFund.Name = "colDayFund";
+            this.colDayFund.Visible = true;
+            // 
+            // colDayProfit
+            // 
+            this.colDayProfit.Caption = "日收益额";
+            this.colDayProfit.FieldName = "DayProfit";
+            this.colDayProfit.Name = "colDayProfit";
+            this.colDayProfit.Visible = true;
+            // 
+            // colRankDP
+            // 
+            this.colRankDP.Caption = "排序";
+            this.colRankDP.FieldName = "RankDP";
+            this.colRankDP.Name = "colRankDP";
+            // 
+            // colDayRate
+            // 
+            this.colDayRate.Caption = "日收益率";
+            this.colDayRate.FieldName = "DayRate";
+            this.colDayRate.Name = "colDayRate";
+            this.colDayRate.Visible = true;
+            // 
+            // colRankDR
+            // 
+            this.colRankDR.FieldName = "RankDR";
+            this.colRankDR.Name = "colRankDR";
+            // 
+            // colDayAllocateRate
+            // 
+            this.colDayAllocateRate.Caption = "占用资金日收益率";
+            this.colDayAllocateRate.FieldName = "DayAllocateRate";
+            this.colDayAllocateRate.Name = "colDayAllocateRate";
+            this.colDayAllocateRate.Visible = true;
+            // 
+            // colRankDAR
+            // 
+            this.colRankDAR.FieldName = "RankDAR";
+            this.colRankDAR.Name = "colRankDAR";
+            // 
+            // colIndexDay
+            // 
+            this.colIndexDay.Caption = "综合指数";
+            this.colIndexDay.FieldName = "IndexDay";
+            this.colIndexDay.Name = "colIndexDay";
+            this.colIndexDay.Visible = true;
+            // 
+            // gridBand6
+            // 
+            this.gridBand6.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand6.AppearanceHeader.Options.UseFont = true;
+            this.gridBand6.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand6.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand6.Caption = "本周收益";
+            this.gridBand6.Columns.Add(this.colWeekAvgFund);
+            this.gridBand6.Columns.Add(this.colWeekProfit);
+            this.gridBand6.Columns.Add(this.colRankWP);
+            this.gridBand6.Columns.Add(this.colWeekRate);
+            this.gridBand6.Columns.Add(this.colRankWR);
+            this.gridBand6.Columns.Add(this.colWeekAllocateRate);
+            this.gridBand6.Columns.Add(this.colRankWAR);
+            this.gridBand6.Columns.Add(this.colIndexWeek);
+            this.gridBand6.Name = "gridBand6";
+            this.gridBand6.VisibleIndex = 6;
+            this.gridBand6.Width = 375;
+            // 
+            // colWeekAvgFund
+            // 
+            this.colWeekAvgFund.Caption = "日均投入资金";
+            this.colWeekAvgFund.FieldName = "WeekAvgFund";
+            this.colWeekAvgFund.Name = "colWeekAvgFund";
+            this.colWeekAvgFund.Visible = true;
+            // 
+            // colWeekProfit
+            // 
+            this.colWeekProfit.Caption = "周收益额";
+            this.colWeekProfit.FieldName = "WeekProfit";
+            this.colWeekProfit.Name = "colWeekProfit";
+            this.colWeekProfit.Visible = true;
+            // 
+            // colRankWP
+            // 
+            this.colRankWP.FieldName = "RankWP";
+            this.colRankWP.Name = "colRankWP";
+            // 
+            // colWeekRate
+            // 
+            this.colWeekRate.Caption = "周收益率";
+            this.colWeekRate.FieldName = "WeekRate";
+            this.colWeekRate.Name = "colWeekRate";
+            this.colWeekRate.Visible = true;
+            // 
+            // colRankWR
+            // 
+            this.colRankWR.FieldName = "RankWR";
+            this.colRankWR.Name = "colRankWR";
+            // 
+            // colWeekAllocateRate
+            // 
+            this.colWeekAllocateRate.AppearanceHeader.Options.UseTextOptions = true;
+            this.colWeekAllocateRate.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.colWeekAllocateRate.Caption = "占用资金周收益率";
+            this.colWeekAllocateRate.FieldName = "WeekAllocateRate";
+            this.colWeekAllocateRate.Name = "colWeekAllocateRate";
+            this.colWeekAllocateRate.Visible = true;
+            // 
+            // colRankWAR
+            // 
+            this.colRankWAR.FieldName = "RankWAR";
+            this.colRankWAR.Name = "colRankWAR";
+            // 
+            // colIndexWeek
+            // 
+            this.colIndexWeek.Caption = "综合指数";
+            this.colIndexWeek.FieldName = "IndexWeek";
+            this.colIndexWeek.Name = "colIndexWeek";
+            this.colIndexWeek.Visible = true;
+            // 
+            // gridBand7
+            // 
+            this.gridBand7.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.gridBand7.AppearanceHeader.Options.UseFont = true;
+            this.gridBand7.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridBand7.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridBand7.Caption = "累计";
+            this.gridBand7.Columns.Add(this.colAccProfit);
+            this.gridBand7.Columns.Add(this.colBonusLimit);
+            this.gridBand7.Name = "gridBand7";
+            this.gridBand7.VisibleIndex = 7;
+            this.gridBand7.Width = 150;
+            // 
+            // colAccProfit
+            // 
+            this.colAccProfit.Caption = "收益额";
+            this.colAccProfit.FieldName = "AccProfit";
+            this.colAccProfit.Name = "colAccProfit";
+            this.colAccProfit.Visible = true;
+            // 
+            // colBonusLimit
+            // 
+            this.colBonusLimit.Caption = "奖金限额";
+            this.colBonusLimit.FieldName = "BonusLimit";
+            this.colBonusLimit.Name = "colBonusLimit";
+            this.colBonusLimit.Visible = true;
             // 
             // btnSearch
             // 
@@ -370,7 +828,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bandedGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.luInvestor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbTeam.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).EndInit();
@@ -402,7 +860,6 @@
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.XtraEditors.LookUpEdit luInvestor;
         private DevExpress.XtraEditors.ComboBoxEdit cbTeam;
@@ -427,5 +884,50 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bandedGridView1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRowNumber;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDataType;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTradeDate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTeamId;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTeamName;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInvestorCode;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInvestorName;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAllocateFund;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockCode;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockName;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPreVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPreValue;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurValue;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colBuyVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colBuyAmount;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colSellVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colSellAmount;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDayFund;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDayProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankDP;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDayRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankDR;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDayAllocateRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankDAR;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colIndexDay;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colWeekAvgFund;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colWeekProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankWP;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colWeekRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankWR;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colWeekAllocateRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colRankWAR;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colIndexWeek;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAccProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colBonusLimit;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand8;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand6;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand7;
     }
 }

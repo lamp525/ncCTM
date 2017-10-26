@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using CTM.Core.Util;
 using CTM.Data;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
@@ -58,14 +59,15 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     btnSearch.Enabled = false;
                     return;
                 }
+                cbTeam.ReadOnly = true;
             }
-            else
+            else            
                 defaultTeam = "-1";
 
             this.cbTeam.DefaultSelected(defaultTeam);
 
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
-            this.gridView1.SetColumnHeaderAppearance();
+            this.bandedGridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false);
+            this.bandedGridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
         }
@@ -99,7 +101,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 if (ds == null || ds.Tables.Count == 0) return;
 
                 List<ComboBoxItemModel> investorInfos = new List<ComboBoxItemModel>();
-                var allInvestor = new ComboBoxItemModel { Text = "全部小组", Value = string.Empty };
+                var allInvestor = new ComboBoxItemModel { Text = "全部人员", Value = "All" };
                 investorInfos.Add(allInvestor);
 
                 investorInfos.AddRange(ds.Tables[0].AsEnumerable()
@@ -110,10 +112,15 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     }));
                 luInvestor.Initialize(investorInfos, "Value", "Text");
 
-                if (teamId == -1)
-                    luInvestor.EditValue = string.Empty;
+                if (LoginInfo.CurrentUser.IsAdmin)
+                {
+                    luInvestor.EditValue = "All";
+                }
                 else
+                {
+                    luInvestor.ReadOnly = true;
                     luInvestor.EditValue = LoginInfo.CurrentUser.UserCode;
+                }
             }
             catch (Exception ex)
             {
@@ -127,9 +134,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             {
                 btnSearch.Enabled = false;
 
+                DateTime dtStart = CommonHelper.StringToDateTime(deStart.EditValue.ToString());
+                DateTime dtEnd = CommonHelper.StringToDateTime(deEnd.EditValue.ToString());
                 int teamId = int.Parse(this.cbTeam.SelectedValue());
                 string InvestorCode = this.luInvestor.SelectedValue();
-                string sqlText = $@"";
+                string sqlText = $@"EXEC [dbo].[sp_GetMultiDayProfit] @StartDate = '{dtStart}',@EndDate = '{dtEnd}',@TeamId = {teamId},@InvestorCode = N'{InvestorCode}'";
 
                 var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
                 if (ds == null || ds.Tables.Count == 0) return;
