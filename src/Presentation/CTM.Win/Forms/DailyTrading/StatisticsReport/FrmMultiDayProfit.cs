@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Win.Extensions;
@@ -18,7 +21,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             InitializeComponent();
         }
 
-        private void FormInit()
+        private void BindSearchInfo()
         {
             this.deStart.Properties.AllowNullInput = DefaultBoolean.False;
             this.deEnd.Properties.AllowNullInput = DefaultBoolean.False;
@@ -66,17 +69,59 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             this.cbTeam.DefaultSelected(defaultTeam);
 
-            this.bandedGridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: false);
+            this.bandedGridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: false,setAlternateRowColor:false);
             this.bandedGridView1.SetColumnHeaderAppearance();
+            this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = false;
+            this.bandedGridView1.OptionsView.EnableAppearanceOddRow  = false;
 
             this.ActiveControl = this.btnSearch;
         }
+        private void Export2ExcelProcess(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                DataTable dtProfit = this.bandedGridView1.DataSource as DataTable;
+                string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string directoryName = "ReportTemplate";
+                string fileName = AppConfig._ReportTemplateTradeTypeProfit;
+                string templateFileName = Path.Combine(Application.StartupPath, directoryName, fileName);
+  
+
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
+        }
+
+
+
+        private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.mpbExport.Properties.Stopped = true;
+            this.mpbExport.Enabled = false;
+
+            var msg = string.Empty;
+            if (e.Error == null && e.Result == null)
+                msg = "报表导出成功！已保存到桌面！";
+            else
+                msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
+
+            DXMessage.ShowTips(msg);
+
+            this.btnExport.Enabled = true;
+        }
+
 
         private void FrmMultiDayProfit_Load(object sender, EventArgs e)
         {
             try
             {
-                FormInit();
+                BindSearchInfo();
+
+                this.mpbExport.Enabled = false;
+                this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
             catch (Exception ex)
             {
@@ -193,7 +238,40 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             else if (dataType == 2)
                 e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
             else if (dataType == 88)
-                e.Appearance.BackColor = System.Drawing.Color.DeepSkyBlue;
+                e.Appearance.BackColor = System.Drawing.Color.SteelBlue;
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.bandedGridView1.DataSource == null) return;
+
+                btnExport.Enabled = false;
+
+                this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                this.mpbExport.Enabled = true;
+                this.mpbExport.Properties.Stopped = false;
+                this.mpbExport.Text = "报表生成中...请稍后...";
+                this.mpbExport.Properties.ShowTitle = true;
+
+                var bw = new BackgroundWorker();
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(Export2ExcelProcess);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Export2ExcelCompleted);
+                bw.RunWorkerAsync();
+
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+
     }
 }

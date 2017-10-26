@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnExport = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBonus = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
             this.gridBand8 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
@@ -99,6 +99,11 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.mpbExport = new DevExpress.XtraEditors.MarqueeProgressBarControl();
+            this.lciProgress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -126,12 +131,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mpbExport.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.simpleButton2);
-            this.layoutControl1.Controls.Add(this.simpleButton1);
+            this.layoutControl1.Controls.Add(this.mpbExport);
+            this.layoutControl1.Controls.Add(this.btnExport);
+            this.layoutControl1.Controls.Add(this.btnBonus);
             this.layoutControl1.Controls.Add(this.gridControl1);
             this.layoutControl1.Controls.Add(this.btnSearch);
             this.layoutControl1.Controls.Add(this.luInvestor);
@@ -146,23 +157,24 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // simpleButton2
+            // btnExport
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(117, 112);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(89, 22);
-            this.simpleButton2.StyleController = this.layoutControl1;
-            this.simpleButton2.TabIndex = 11;
-            this.simpleButton2.Text = "simpleButton2";
+            this.btnExport.Location = new System.Drawing.Point(135, 112);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(105, 22);
+            this.btnExport.StyleController = this.layoutControl1;
+            this.btnExport.TabIndex = 11;
+            this.btnExport.Text = "    导出至Excel    ";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // simpleButton1
+            // btnBonus
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(24, 112);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(89, 22);
-            this.simpleButton1.StyleController = this.layoutControl1;
-            this.simpleButton1.TabIndex = 10;
-            this.simpleButton1.Text = "simpleButton1";
+            this.btnBonus.Location = new System.Drawing.Point(34, 112);
+            this.btnBonus.Name = "btnBonus";
+            this.btnBonus.Size = new System.Drawing.Size(87, 22);
+            this.btnBonus.StyleController = this.layoutControl1;
+            this.btnBonus.TabIndex = 10;
+            this.btnBonus.Text = "simpleButton1";
             // 
             // gridControl1
             // 
@@ -821,7 +833,11 @@
             this.layoutControlItem6,
             this.emptySpaceItem2,
             this.layoutControlItem7,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.emptySpaceItem7,
+            this.emptySpaceItem8,
+            this.lciProgress,
+            this.emptySpaceItem9});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Size = new System.Drawing.Size(1405, 640);
@@ -840,28 +856,69 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(186, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(680, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1195, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(701, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
-            this.layoutControlItem7.Control = this.simpleButton1;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem7.Control = this.btnBonus;
+            this.layoutControlItem7.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(93, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(91, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // layoutControlItem8
             // 
-            this.layoutControlItem8.Control = this.simpleButton2;
-            this.layoutControlItem8.Location = new System.Drawing.Point(93, 0);
+            this.layoutControlItem8.Control = this.btnExport;
+            this.layoutControlItem8.Location = new System.Drawing.Point(111, 0);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(93, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(109, 26);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
+            // 
+            // emptySpaceItem7
+            // 
+            this.emptySpaceItem7.AllowHotTrack = false;
+            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem7.Name = "emptySpaceItem7";
+            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem8
+            // 
+            this.emptySpaceItem8.AllowHotTrack = false;
+            this.emptySpaceItem8.Location = new System.Drawing.Point(101, 0);
+            this.emptySpaceItem8.Name = "emptySpaceItem8";
+            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // mpbExport
+            // 
+            this.mpbExport.Location = new System.Drawing.Point(254, 112);
+            this.mpbExport.Name = "mpbExport";
+            this.mpbExport.Size = new System.Drawing.Size(446, 18);
+            this.mpbExport.StyleController = this.layoutControl1;
+            this.mpbExport.TabIndex = 12;
+            // 
+            // lciProgress
+            // 
+            this.lciProgress.Control = this.mpbExport;
+            this.lciProgress.Location = new System.Drawing.Point(230, 0);
+            this.lciProgress.Name = "lciProgress";
+            this.lciProgress.Size = new System.Drawing.Size(450, 26);
+            this.lciProgress.TextSize = new System.Drawing.Size(0, 0);
+            this.lciProgress.TextVisible = false;
+            // 
+            // emptySpaceItem9
+            // 
+            this.emptySpaceItem9.AllowHotTrack = false;
+            this.emptySpaceItem9.Location = new System.Drawing.Point(220, 0);
+            this.emptySpaceItem9.Name = "emptySpaceItem9";
+            this.emptySpaceItem9.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // FrmMultiDayProfit
             // 
@@ -899,6 +956,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mpbExport.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -926,8 +988,8 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnExport;
+        private DevExpress.XtraEditors.SimpleButton btnBonus;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
@@ -976,5 +1038,10 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand6;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand7;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
+        private DevExpress.XtraEditors.MarqueeProgressBarControl mpbExport;
+        private DevExpress.XtraLayout.LayoutControlItem lciProgress;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
     }
 }
