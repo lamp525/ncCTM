@@ -713,7 +713,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmFundTeamStrategyProfit>();
+            this.DisplayForm<FrmMultiDayProfit>();
         }
     }
 }
