@@ -248,6 +248,12 @@
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.Designer.cs">
       <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmMultiDayProfit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\StatisticsReport\FrmMultiDayProfit.Designer.cs">
+      <DependentUpon>FrmMultiDayProfit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -773,6 +779,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.resx">
       <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmMultiDayProfit.resx">
+      <DependentUpon>FrmMultiDayProfit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmStockPositionQuery.resx">
       <DependentUpon>FrmStockPositionQuery.cs</DependentUpon>
