@@ -589,6 +589,16 @@ namespace CTM.Win.Forms
             this.DisplayTabbedForm<FrmUserInvestIncomeAccount>("个人账户投资收益查询");
         }
 
+        /// <summary>
+        /// 隔日短差收益查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiMultiDayProfit_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmMultiDayProfit>("隔日短差收益查询");
+        }
+
         #endregion Reports
 
         #endregion DailyTrading
@@ -605,7 +615,7 @@ namespace CTM.Win.Forms
 
                 DisplayMenu();
 
-                DisplayStartupPage();
+               // DisplayStartupPage();
             }
             catch (Exception ex)
             {
@@ -713,7 +723,9 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmMultiDayProfit>();
+
         }
+
+ 
     }
 }

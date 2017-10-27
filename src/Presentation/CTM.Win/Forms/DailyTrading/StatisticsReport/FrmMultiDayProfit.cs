@@ -17,6 +17,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 {
     public partial class FrmMultiDayProfit : BaseForm
     {
+        #region Fields
+
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
 
         //数值列（无小数位）
@@ -28,10 +30,18 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         //百分比列（2位小数位）
         private readonly string _percentFormat = @"0.00%";
 
+        #endregion Fields
+
+        #region Constructors
+
         public FrmMultiDayProfit()
         {
             InitializeComponent();
         }
+
+        #endregion Constructors
+
+        #region Utilities
 
         private void BindSearchInfo()
         {
@@ -41,7 +51,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             deStart.EditValue = "2017/08/04";
             deEnd.EditValue = DateTime.Now;
 
-            string sqlText1 = $@"SELECT TeamId,TeamName FROM TeamInfo WHERE IsDeleted =0 ORDER BY TeamName ";
+            string sqlText1 = $@"SELECT TeamId,TeamName FROM TeamInfo WHERE IsDeleted = 0 ORDER BY TeamName ";
             var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
 
             if (ds == null || ds.Tables.Count == 0) return;
@@ -81,36 +91,12 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             this.cbTeam.DefaultSelected(defaultTeam);
 
-            this.bandedGridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: false, setAlternateRowColor: false);
+            this.bandedGridView1.SetLayout(showAutoFilterRow: true, showCheckBoxRowSelect: false, setAlternateRowColor: false, rowIndicatorWidth: 1);
             this.bandedGridView1.SetColumnHeaderAppearance();
             this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = false;
             this.bandedGridView1.OptionsView.EnableAppearanceOddRow = false;
 
             this.ActiveControl = this.btnSearch;
-        }
-
-        private void Export2ExcelProcess(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string directoryName = "ReportTemplate";
-                string templateFileName = Path.Combine(Application.StartupPath, directoryName, AppConfig._ReportTemplateMultiDayProfit);
-
-                if (!File.Exists(templateFileName))
-                    throw new FileNotFoundException("报表模板Excel文件不存在！");
-
-                string destinyFileName = $@"隔日短差收益表({DateTime.Now.ToString("yyMMdd")}).xlsx";
-                destinyFileName = Path.Combine(savePath, destinyFileName);
-                if (File.Exists(destinyFileName))
-                    File.Delete(destinyFileName);
-
-                WriteDataToExcel(templateFileName, destinyFileName);
-            }
-            catch (Exception ex)
-            {
-                e.Result = ex.Message;
-            }
         }
 
         private void WriteDataToExcel(string templateFileName, string destinyFileName)
@@ -529,7 +515,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             Excel.Range rngW = printSheet.Columns["W", Type.Missing];
             rngW.NumberFormat = _intFormat;
             //占用资金周收益率
-            Excel.Range rngX= printSheet.Columns["X", Type.Missing];
+            Excel.Range rngX = printSheet.Columns["X", Type.Missing];
             rngX.NumberFormat = _percentFormat;
             //占用资金周收益率排行
             Excel.Range rngY = printSheet.Columns["Y", Type.Missing];
@@ -546,27 +532,16 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             rngAB.NumberFormat = _numericFormat;
         }
 
-        private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            this.mpbExport.Properties.Stopped = true;
-            this.mpbExport.Enabled = false;
+        #endregion Utilities
 
-            var msg = string.Empty;
-            if (e.Error == null && e.Result == null)
-                msg = "报表导出成功！已保存到桌面！";
-            else
-                msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
-
-            DXMessage.ShowTips(msg);
-
-            this.btnExport.Enabled = true;
-        }
+        #region Events
 
         private void FrmMultiDayProfit_Load(object sender, EventArgs e)
         {
             try
             {
+                lblMemo.Text = @"每日收益自动核算开始时间为15：35，之后每30分钟核算一次，请确认本日交易数据已正确导入！";
+
                 BindSearchInfo();
 
                 this.btnExport.Enabled = false;
@@ -725,5 +700,52 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 GC.Collect();
             }
         }
+
+        private void Export2ExcelProcess(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string directoryName = "ReportTemplate";
+                string templateFileName = Path.Combine(Application.StartupPath, directoryName, AppConfig._ReportTemplateMultiDayProfit);
+
+                if (!File.Exists(templateFileName))
+                    throw new FileNotFoundException("报表模板Excel文件不存在！");
+
+                string destinyFileName = @"隔日短差收益表" + "-" + this.cbTeam.Text;
+                if (this.luInvestor.SelectedValue() != "All")
+                    destinyFileName += "-" + this.luInvestor.Text;
+
+                destinyFileName += $@"({DateTime.Now.ToString("yyMMdd")}).xlsx";
+                destinyFileName = Path.Combine(savePath, destinyFileName);
+                if (File.Exists(destinyFileName))
+                    File.Delete(destinyFileName);
+
+                WriteDataToExcel(templateFileName, destinyFileName);
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
+        }
+
+        private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.mpbExport.Properties.Stopped = true;
+            this.mpbExport.Enabled = false;
+
+            var msg = string.Empty;
+            if (e.Error == null && e.Result == null)
+                msg = "报表导出成功！已保存到桌面！";
+            else
+                msg = e.Error == null ? e.Result?.ToString() : e.Error.Message;
+
+            DXMessage.ShowTips(msg);
+
+            this.btnExport.Enabled = true;
+        }
+
+        #endregion Events
     }
 }

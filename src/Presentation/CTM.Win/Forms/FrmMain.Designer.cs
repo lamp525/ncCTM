@@ -124,6 +124,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.bbiMultiDayProfit = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -200,9 +201,10 @@
             this.barButtonItem36,
             this.barButtonItem37,
             this.barButtonItem38,
-            this.barButtonItem39});
+            this.barButtonItem39,
+            this.bbiMultiDayProfit});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 49;
+            this.ribbonControl1.MaxItemId = 50;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -874,6 +876,7 @@
             this.ribbonPageGroup13.ItemLinks.Add(this.bbiUserInvestIncomeRetracement);
             this.ribbonPageGroup13.ItemLinks.Add(this.bbiUserInvestIncomSummary);
             this.ribbonPageGroup13.ItemLinks.Add(this.bbiUserInvestIncomeAccount);
+            this.ribbonPageGroup13.ItemLinks.Add(this.bbiMultiDayProfit);
             this.ribbonPageGroup13.Name = "ribbonPageGroup13";
             // 
             // ribbonPageGroup4
@@ -1024,6 +1027,16 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
+            // bbiMultiDayProfit
+            // 
+            this.bbiMultiDayProfit.Caption = "隔日短差收益查询";
+            this.bbiMultiDayProfit.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.Glyph")));
+            this.bbiMultiDayProfit.Id = 49;
+            this.bbiMultiDayProfit.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.LargeGlyph")));
+            this.bbiMultiDayProfit.Name = "bbiMultiDayProfit";
+            this.bbiMultiDayProfit.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.bbiMultiDayProfit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiMultiDayProfit_ItemClick);
+            // 
             // FrmMain
             // 
             this.AllowMdiBar = true;
@@ -1144,6 +1157,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem38;
         private DevExpress.XtraBars.BarButtonItem barButtonItem39;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
+        private DevExpress.XtraBars.BarButtonItem bbiMultiDayProfit;
     }
 }
 

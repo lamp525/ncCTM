@@ -36,6 +36,7 @@
             this.treeColLevel = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeColCode = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnResetPwd = new DevExpress.XtraEditors.SimpleButton();
             this.btnDisable = new DevExpress.XtraEditors.SimpleButton();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
@@ -46,7 +47,6 @@
             this.colCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRandomKey = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPassword = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPositionCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSuperior = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -74,7 +74,6 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnResetPwd = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
@@ -181,15 +180,25 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1276, 740);
+            this.layoutControl1.Size = new System.Drawing.Size(1269, 740);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // btnResetPwd
+            // 
+            this.btnResetPwd.Location = new System.Drawing.Point(300, 43);
+            this.btnResetPwd.Name = "btnResetPwd";
+            this.btnResetPwd.Size = new System.Drawing.Size(75, 22);
+            this.btnResetPwd.StyleController = this.layoutControl1;
+            this.btnResetPwd.TabIndex = 9;
+            this.btnResetPwd.Text = "  重置密码  ";
+            this.btnResetPwd.Click += new System.EventHandler(this.btnResetPwd_Click);
+            // 
             // btnDisable
             // 
-            this.btnDisable.Location = new System.Drawing.Point(212, 45);
+            this.btnDisable.Location = new System.Drawing.Point(212, 43);
             this.btnDisable.Name = "btnDisable";
-            this.btnDisable.Size = new System.Drawing.Size(75, 22);
+            this.btnDisable.Size = new System.Drawing.Size(74, 22);
             this.btnDisable.StyleController = this.layoutControl1;
             this.btnDisable.TabIndex = 8;
             this.btnDisable.Text = "    禁  用    ";
@@ -197,7 +206,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(123, 45);
+            this.btnEdit.Location = new System.Drawing.Point(123, 43);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 22);
             this.btnEdit.StyleController = this.layoutControl1;
@@ -207,7 +216,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(34, 45);
+            this.btnAdd.Location = new System.Drawing.Point(34, 43);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.StyleController = this.layoutControl1;
@@ -217,7 +226,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1185, 45);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1178, 43);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -227,10 +236,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 71);
+            this.gridControl1.Location = new System.Drawing.Point(24, 69);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1228, 645);
+            this.gridControl1.Size = new System.Drawing.Size(1221, 647);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -242,7 +251,6 @@
             this.colCode,
             this.colName,
             this.colRandomKey,
-            this.colPassword,
             this.colPositionCode,
             this.colDepartmentId,
             this.colSuperior,
@@ -303,11 +311,6 @@
             this.colRandomKey.FieldName = "RandomKey";
             this.colRandomKey.Name = "colRandomKey";
             this.colRandomKey.Width = 109;
-            // 
-            // colPassword
-            // 
-            this.colPassword.FieldName = "Password";
-            this.colPassword.Name = "colPassword";
             // 
             // colPositionCode
             // 
@@ -441,7 +444,7 @@
             this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1276, 740);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1269, 740);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlGroup3
@@ -462,7 +465,7 @@
             this.emptySpaceItem1});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1256, 720);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1249, 720);
             this.layoutControlGroup3.Text = "用户信息";
             // 
             // layoutControlItem1
@@ -470,7 +473,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1232, 649);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1225, 651);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -489,7 +492,7 @@
             this.layoutControlItem5.Control = this.btnDisable;
             this.layoutControlItem5.Location = new System.Drawing.Point(188, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(79, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(78, 26);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -512,9 +515,9 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(356, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(355, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(805, 26);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(799, 26);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3
@@ -537,26 +540,16 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnSaveLayout;
-            this.layoutControlItem2.Location = new System.Drawing.Point(1161, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(1154, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(71, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
-            // btnResetPwd
-            // 
-            this.btnResetPwd.Location = new System.Drawing.Point(301, 45);
-            this.btnResetPwd.Name = "btnResetPwd";
-            this.btnResetPwd.Size = new System.Drawing.Size(75, 22);
-            this.btnResetPwd.StyleController = this.layoutControl1;
-            this.btnResetPwd.TabIndex = 9;
-            this.btnResetPwd.Text = "  重置密码  ";
-            this.btnResetPwd.Click += new System.EventHandler(this.btnResetPwd_Click);
-            // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnResetPwd;
-            this.layoutControlItem6.Location = new System.Drawing.Point(277, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(276, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -565,7 +558,7 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(267, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(266, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -634,7 +627,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCode;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colRandomKey;
-        private DevExpress.XtraGrid.Columns.GridColumn colPassword;
         private DevExpress.XtraGrid.Columns.GridColumn colPositionCode;
         private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
         private DevExpress.XtraGrid.Columns.GridColumn colSuperior;
