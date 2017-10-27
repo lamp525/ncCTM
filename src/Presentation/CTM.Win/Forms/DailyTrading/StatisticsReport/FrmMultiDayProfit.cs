@@ -19,6 +19,15 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
     {
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
 
+        //数值列（无小数位）
+        private readonly string _intFormat = @"_ * #,##0_ ;_ * -#,##0_ ;_ * ""-""_ ;_ @_ ";
+
+        //数值列（2位小数位）
+        private readonly string _numericFormat = @"_ * #,##0.00_ ;_ * -#,##0.00_ ;_ * ""-""??_ ;_ @_ ";
+
+        //百分比列（2位小数位）
+        private readonly string _percentFormat = @"0.00%";
+
         public FrmMultiDayProfit()
         {
             InitializeComponent();
@@ -242,6 +251,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             //设置数据区字体
             dataRange.Font.Name = "Calibri";
+
+            //设置单元格格式
+            detailSheetFormat(detailSheet);
         }
 
         private void GeneratePrintSheet(DataTable dtProfit, Excel.Worksheet printSheet)
@@ -352,6 +364,102 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             //设置数据区字体
             dataRange.Font.Name = "Calibri";
+        }
+
+        private void detailSheetFormat(Excel.Worksheet detailSheet)
+        {
+            //占用资金
+            Excel.Range rngE = detailSheet.Columns["E", Type.Missing];
+            rngE.NumberFormatLocal = _numericFormat;
+
+            /*昨日持仓 */
+            //数量
+            Excel.Range rngH = detailSheet.Columns["H", Type.Missing];
+            rngH.NumberFormatLocal = _intFormat;
+            //市值
+            Excel.Range rngI = detailSheet.Columns["I", Type.Missing];
+            rngI.NumberFormatLocal = _numericFormat;
+
+            /*当日持仓 */
+            //数量
+            Excel.Range rngJ = detailSheet.Columns["J", Type.Missing];
+            rngJ.NumberFormatLocal = _intFormat;
+            //市值
+            Excel.Range rngK = detailSheet.Columns["K", Type.Missing];
+            rngK.NumberFormatLocal = _numericFormat;
+
+            /*当日成交 */
+            //买入数量
+            Excel.Range rngL = detailSheet.Columns["L", Type.Missing];
+            rngL.NumberFormatLocal = _intFormat;
+            //买入金额
+            Excel.Range rngM = detailSheet.Columns["M", Type.Missing];
+            rngM.NumberFormatLocal = _numericFormat;
+            //卖出数量
+            Excel.Range rngN = detailSheet.Columns["N", Type.Missing];
+            rngN.NumberFormatLocal = _intFormat;
+            //卖出金额
+            Excel.Range rngO = detailSheet.Columns["O", Type.Missing];
+            rngO.NumberFormatLocal = _numericFormat;
+
+            /*当日收益 */
+            //投入资金
+            Excel.Range rngP = detailSheet.Columns["P", Type.Missing];
+            rngP.NumberFormatLocal = _numericFormat;
+            //日收益额
+            Excel.Range rngQ = detailSheet.Columns["Q", Type.Missing];
+            rngQ.NumberFormatLocal = _numericFormat;
+            //日收益额排行
+            Excel.Range rngR = detailSheet.Columns["R", Type.Missing];
+            rngR.NumberFormatLocal = _intFormat;
+            //日收益率
+            Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            rngS.NumberFormatLocal = _percentFormat;
+            ////日收益率排行
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////占用资金日收益率
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////占用资金日收益率排行
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////综合指数
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+
+            ///*本周收益 */
+            ////日均投入资金
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////周收益额
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////周收益额排行
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////周收益率
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////周收益率排行
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////占用资金周收益率
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////占用资金周收益率排行
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////综合指数
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+
+            ////累计收益额
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
+            ////累计奖金限额
+            //Excel.Range rngS = detailSheet.Columns["S", Type.Missing];
+            //rngS.NumberFormatLocal = _percentFormat;
         }
 
         private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
