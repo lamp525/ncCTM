@@ -124,8 +124,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
                 //默认选中汇总Sheet
                 printSheet.Select();
-
-                _excelEdit.SaveAsExcel(destinyFileName);
             }
             catch (Exception ex)
             {
@@ -145,103 +143,100 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             int dataRowCount = dtProfit.Rows.Count;
             int dataColumnCount = 33;
 
+            //数据输入区
+            Excel.Range dataRange = detailSheet.Range[detailSheet.Cells[startRow, 1], detailSheet.Cells[startRow + dataRowCount - 1, dataColumnCount]];
+
+            //设置数据区边框线(实线)
+            dataRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
             object[,] ss = new object[dataRowCount, dataColumnCount];
             for (int i = 0; i < dataRowCount; i++)
             {
                 DataRow data = dtProfit.Rows[i];
 
                 //序号
-                ss[i, 0] = data[this.colRowNumber.FieldName];
+                ss[i, 0] = data[this.colRowNumber.Name];
 
                 /*基础信息*/
                 //日期
-                ss[i, 1] = data[this.colTradeDate.FieldName];
+                ss[i, 1] = data[this.colTradeDate.Name];
                 //投资小组
-                ss[i, 2] = data[this.colTeamName.FieldName];
+                ss[i, 2] = data[this.colTeamName.Name];
                 //投资人员
-                ss[i, 3] = data[this.colInvestorName.FieldName];
+                ss[i, 3] = data[this.colInvestorName.Name];
                 //占用资金
-                ss[i, 4] = data[this.colAllocateFund.FieldName];
+                ss[i, 4] = data[this.colAllocateFund.Name];
                 //股票代码
-                ss[i, 5] = data[this.colStockCode.FieldName];
+                ss[i, 5] = data[this.colStockCode.Name];
                 //股票名称
-                ss[i, 6] = data[this.colStockName.FieldName];
+                ss[i, 6] = data[this.colStockName.Name];
 
                 /*昨日持仓 */
                 //数量
-                ss[i, 7] = data[this.colPreVolume.FieldName];
+                ss[i, 7] = data[this.colPreVolume.Name];
                 //市值
-                ss[i, 8] = data[this.colPreValue.FieldName];
+                ss[i, 8] = data[this.colPreValue.Name];
 
                 /*当日持仓 */
                 //数量
-                ss[i, 9] = data[this.colCurVolume.FieldName];
+                ss[i, 9] = data[this.colCurVolume.Name];
                 //市值
-                ss[i, 10] = data[this.colCurValue.FieldName];
+                ss[i, 10] = data[this.colCurValue.Name];
 
                 /*当日成交 */
                 //买入数量
-                ss[i, 11] = data[this.colBuyVolume.FieldName];
+                ss[i, 11] = data[this.colBuyVolume.Name];
                 //买入金额
-                ss[i, 12] = data[this.colBuyAmount.FieldName];
+                ss[i, 12] = data[this.colBuyAmount.Name];
                 //卖出数量
-                ss[i, 13] = data[this.colSellVolume.FieldName];
+                ss[i, 13] = data[this.colSellVolume.Name];
                 //卖出金额
-                ss[i, 14] = data[this.colSellAmount.FieldName];
+                ss[i, 14] = data[this.colSellAmount.Name];
 
                 /*当日收益 */
                 //投入资金
-                ss[i, 15] = data[this.colDayFund.FieldName];
+                ss[i, 15] = data[this.colDayFund.Name];
                 //日收益额
-                ss[i, 16] = data[this.colDayProfit.FieldName];
+                ss[i, 16] = data[this.colDayProfit.Name];
                 //日收益额排行
-                ss[i, 17] = data[this.colRankDP.FieldName];
+                ss[i, 17] = data[this.colRankDP.Name];
                 //日收益率
-                ss[i, 18] = data[this.colDayRate.FieldName];
+                ss[i, 18] = data[this.colDayRate.Name];
                 //日收益率排行
-                ss[i, 19] = data[this.colRankDR.FieldName];
+                ss[i, 19] = data[this.colRankDR.Name];
                 //占用资金日收益率
-                ss[i, 20] = data[this.colDayAllocateRate.FieldName];
+                ss[i, 20] = data[this.colDayAllocateRate.Name];
                 //占用资金日收益率排行
-                ss[i, 21] = data[this.colRankDAR.FieldName];
+                ss[i, 21] = data[this.colRankDAR.Name];
                 //综合指数
-                ss[i, 22] = data[this.colIndexDay.FieldName];
+                ss[i, 22] = data[this.colIndexDay.Name];
 
                 /*本周收益 */
                 //日均投入资金
-                ss[i, 23] = data[this.colWeekAvgFund.FieldName];
+                ss[i, 23] = data[this.colWeekAvgFund.Name];
                 //周收益额
-                ss[i, 24] = data[this.colWeekProfit.FieldName];
+                ss[i, 24] = data[this.colWeekProfit.Name];
                 //周收益额排行
-                ss[i, 25] = data[this.colRankWP.FieldName];
+                ss[i, 25] = data[this.colRankWP.Name];
                 //周收益率
-                ss[i, 26] = data[this.colWeekRate.FieldName];
+                ss[i, 26] = data[this.colWeekRate.Name];
                 //周收益率排行
-                ss[i, 27] = data[this.colRankWR.FieldName];
+                ss[i, 27] = data[this.colRankWR.Name];
                 //占用资金周收益率
-                ss[i, 28] = data[this.colWeekAllocateRate.FieldName];
+                ss[i, 28] = data[this.colWeekAllocateRate.Name];
                 //占用资金周收益率排行
-                ss[i, 29] = data[this.colRankWAR.FieldName];
+                ss[i, 29] = data[this.colRankWAR.Name];
                 //综合指数
-                ss[i, 30] = data[this.colIndexWeek.FieldName];
+                ss[i, 30] = data[this.colIndexWeek.Name];
 
                 //累计收益额
-                ss[i, 31] = data[this.colAccProfit.FieldName];
+                ss[i, 31] = data[this.colAccProfit.Name];
                 //累计奖金限额
-                ss[i, 32] = data[this.colBonusLimit.FieldName];
+                ss[i, 32] = data[this.colBonusLimit.Name];
             }
-
-            //数据输入区
-            Excel.Range dataRange = detailSheet.Range[detailSheet.Cells[startRow, 1], detailSheet.Cells[startRow + dataRowCount - 1, dataColumnCount]];
 
             //填充数据
             dataRange.Value = ss;
-
-            //设置数据区边框线(实线)
-            dataRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-            //设置数据区字体
-            dataRange.Font.Name = "Calibri";
         }
 
         private void GeneratePrintSheet(DataTable dtProfit, Excel.Worksheet printSheet)
@@ -249,21 +244,21 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             int teamId = int.Parse(this.cbTeam.SelectedValue());
             string InvestorCode = this.luInvestor.SelectedValue();
 
-            if (teamId == -1 && InvestorCode == "All")
+            if (teamId == -1 && string.IsNullOrEmpty(InvestorCode))
             {
                 //最近交易日
-                var tradeDate = dtProfit.AsEnumerable().Max(x => x.Field<DateTime>(colTradeDate.FieldName));
+                var tradeDate = dtProfit.AsEnumerable().Max(x => x.Field<string>(colTradeDate.Name).Trim());
 
                 //该日部门汇总数据
-                DataRow[] deptData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 88).ToArray();
+                DataRow[] deptData = dtProfit.AsEnumerable().Where(x => x.Field<string>(colTradeDate.Name).Trim() == tradeDate && x.Field<int>(colDataType.Name) == 88).ToArray();
                 PrintSheetDataFill(printSheet, deptData, 5);
 
                 //该日投资小组汇总数据
-                DataRow[] teamData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 2).ToArray();
+                DataRow[] teamData = dtProfit.AsEnumerable().Where(x => x.Field<string>(colTradeDate.Name).Trim() == tradeDate && x.Field<int>(colDataType.Name) == 2).ToArray();
                 PrintSheetDataFill(printSheet, teamData, 11);
 
                 //该日投资人员汇总数据
-                DataRow[] investorData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 1).ToArray();
+                DataRow[] investorData = dtProfit.AsEnumerable().Where(x => x.Field<string>(colTradeDate.Name).Trim() == tradeDate && x.Field<int>(colDataType.Name) == 1).ToArray();
                 PrintSheetDataFill(printSheet, investorData, 19);
             }
         }
@@ -272,6 +267,12 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             int dataRowCount = dataList.Count();
             int dataColumnCount = 27;
+
+            //数据输入区
+            Excel.Range dataRange = printSheet.Range[printSheet.Cells[startRow, 1], printSheet.Cells[startRow + dataRowCount - 1, dataColumnCount]];
+
+            //设置数据区边框线(实线)
+            dataRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
             object[,] ss = new object[dataRowCount, dataColumnCount];
             for (int i = 0; i < dataRowCount; i++)
@@ -282,76 +283,68 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 ss[i, 0] = i + 1;
 
                 //日期
-                ss[i, 1] = data[this.colTradeDate.FieldName];
+                ss[i, 1] = data[this.colTradeDate.Name];
                 //投资小组
-                ss[i, 2] = data[this.colTeamName.FieldName];
+                ss[i, 2] = data[this.colTeamName.Name];
                 //投资人员
-                ss[i, 3] = data[this.colInvestorName.FieldName];
+                ss[i, 3] = data[this.colInvestorName.Name];
                 //占用资金
-                ss[i, 4] = data[this.colAllocateFund.FieldName];
+                ss[i, 4] = data[this.colAllocateFund.Name];
 
                 //昨日持仓市值
-                ss[i, 5] = data[this.colPreValue.FieldName];
+                ss[i, 5] = data[this.colPreValue.Name];
                 //当日持仓市值
-                ss[i, 6] = data[this.colCurValue.FieldName];
+                ss[i, 6] = data[this.colCurValue.Name];
 
                 //买入金额
-                ss[i, 7] = data[this.colBuyAmount.FieldName];
+                ss[i, 7] = data[this.colBuyAmount.Name];
                 //卖出金额
-                ss[i, 8] = data[this.colSellAmount.FieldName];
+                ss[i, 8] = data[this.colSellAmount.Name];
 
                 /*当日收益 */
                 //投入资金
-                ss[i, 9] = data[this.colDayFund.FieldName];
+                ss[i, 9] = data[this.colDayFund.Name];
                 //日收益额
-                ss[i, 10] = data[this.colDayProfit.FieldName];
+                ss[i, 10] = data[this.colDayProfit.Name];
                 //日收益额排行
-                ss[i, 11] = data[this.colRankDP.FieldName];
+                ss[i, 11] = data[this.colRankDP.Name];
                 //日收益率
-                ss[i, 12] = data[this.colDayRate.FieldName];
+                ss[i, 12] = data[this.colDayRate.Name];
                 //日收益率排行
-                ss[i, 13] = data[this.colRankDR.FieldName];
+                ss[i, 13] = data[this.colRankDR.Name];
                 //占用资金日收益率
-                ss[i, 14] = data[this.colDayAllocateRate.FieldName];
+                ss[i, 14] = data[this.colDayAllocateRate.Name];
                 //占用资金日收益率排行
-                ss[i, 15] = data[this.colRankDAR.FieldName];
+                ss[i, 15] = data[this.colRankDAR.Name];
                 //综合指数
-                ss[i, 16] = data[this.colIndexDay.FieldName];
+                ss[i, 16] = data[this.colIndexDay.Name];
 
                 /*本周收益 */
                 //日均投入资金
-                ss[i, 17] = data[this.colWeekAvgFund.FieldName];
+                ss[i, 17] = data[this.colWeekAvgFund.Name];
                 //周收益额
-                ss[i, 18] = data[this.colWeekProfit.FieldName];
+                ss[i, 18] = data[this.colWeekProfit.Name];
                 //周收益额排行
-                ss[i, 19] = data[this.colRankWP.FieldName];
+                ss[i, 19] = data[this.colRankWP.Name];
                 //周收益率
-                ss[i, 20] = data[this.colWeekRate.FieldName];
+                ss[i, 20] = data[this.colWeekRate.Name];
                 //周收益率排行
-                ss[i, 21] = data[this.colRankWR.FieldName];
+                ss[i, 21] = data[this.colRankWR.Name];
                 //占用资金周收益率
-                ss[i, 22] = data[this.colWeekAllocateRate.FieldName];
+                ss[i, 22] = data[this.colWeekAllocateRate.Name];
                 //占用资金周收益率排行
-                ss[i, 23] = data[this.colRankWAR.FieldName];
+                ss[i, 23] = data[this.colRankWAR.Name];
                 //综合指数
-                ss[i, 24] = data[this.colIndexWeek.FieldName];
+                ss[i, 24] = data[this.colIndexWeek.Name];
 
                 //累计收益额
-                ss[i, 25] = data[this.colAccProfit.FieldName];
+                ss[i, 25] = data[this.colAccProfit.Name];
                 //累计奖金限额
-                ss[i, 26] = data[this.colBonusLimit.FieldName];
+                ss[i, 26] = data[this.colBonusLimit.Name];
             }
-            //数据输入区
-            Excel.Range dataRange = printSheet.Range[printSheet.Cells[startRow, 2], printSheet.Cells[startRow + dataRowCount - 1, dataColumnCount + 1]];
 
             //填充数据
             dataRange.Value = ss;
-
-            //设置数据区边框线(实线)
-            dataRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-            //设置数据区字体
-            dataRange.Font.Name = "Calibri";
         }
 
         private void Export2ExcelCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -377,7 +370,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             {
                 BindSearchInfo();
 
-                this.btnExport.Enabled = false;
                 this.mpbExport.Enabled = false;
                 this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
@@ -447,11 +439,6 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 if (ds == null || ds.Tables.Count == 0) return;
 
                 this.gridControl1.DataSource = ds.Tables[0];
-
-                if (ds.Tables[0].Rows.Count > 0)
-                    this.btnExport.Enabled = true;
-                else
-                    this.btnExport.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -480,7 +467,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column.FieldName.IndexOf("Profit") > 0 || e.Column.FieldName.IndexOf("Rate") > 0)
+            if (e.Column.Name.IndexOf("Profit") > 0 || e.Column.Name.IndexOf("Rate") > 0)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
