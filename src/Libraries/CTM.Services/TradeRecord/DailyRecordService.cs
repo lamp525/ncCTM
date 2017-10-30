@@ -274,10 +274,10 @@ namespace CTM.Services.TradeRecord
 
             switch (securityAccount)
             {
-                ////中银信用
-                //case EnumLibrary.SecurityAccount.BOCI_C:
-                //    result = EntrustImportBOCI_C(importOperation, importDataTable);
-                //    break;
+                //中银信用
+                case EnumLibrary.SecurityAccount.BOCI_C:
+                    result = EntrustImportBOCI_C(importOperation, importDataTable);
+                    break;
 
                 //中银普通
                 case EnumLibrary.SecurityAccount.BOCI_N:
@@ -371,6 +371,45 @@ namespace CTM.Services.TradeRecord
         }
 
         #endregion 当日委托--券商选择
+        #region 当日委托--中银证券（信用）
+
+        /// <summary>
+        /// 当日委托--中银证券（普通）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DailyRecord> EntrustImportBOCI_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DailyRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), null);
+            columnList.Add(nameof(record.TradeTime), "委托时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "买卖方向");
+            columnList.Add(nameof(record.EntrustVolume), "委托数量");
+            columnList.Add(nameof(record.EntrustPrice), "委托价格");
+            columnList.Add(nameof(record.EntrustAmount), null);
+            columnList.Add(nameof(record.DealPrice), "成交均价");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), null);
+            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.DealNo), "合同编号");
+            columnList.Add(nameof(record.ContractNo), "合同编号");
+            columnList.Add(nameof(record.Remarks), "买卖方向");
+            columnList.Add(nameof(record.TradeType), "交易类别");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(false, importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 当日委托--中银证券（信用）
 
         #region 当日委托--中银证券（普通）
 
