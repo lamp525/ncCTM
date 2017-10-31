@@ -22,13 +22,13 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         private readonly ExcelHelper _excelEdit = new ExcelHelper();
 
         //数值列（无小数位）
-        private readonly string _intFormat = @"_ * #,##0_ ;_ * -#,##0_ ;_ * ""-""_ ;_ @_ ";
+        private const string _intFormat = @"_ * #,##0_ ;_ * -#,##0_ ;_ * ""-""_ ;_ @_ ";
 
         //数值列（2位小数位）
-        private readonly string _numericFormat = @"_ * #,##0.00_ ;_ * -#,##0.00_ ;_ * ""-""??_ ;_ @_ ";
+        private const string _numericFormat = @"_ * #,##0.00_ ;_ * -#,##0.00_ ;_ * ""-""??_ ;_ @_ ";
 
         //百分比列（2位小数位）
-        private readonly string _percentFormat = @"0.00%";
+        private const string _percentFormat = @"0.00%";
 
         #endregion Fields
 
