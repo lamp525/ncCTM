@@ -540,6 +540,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         {
             try
             {
+                if (LoginInfo.CurrentUser.IsAdmin)
+                    lciAccounting.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                else
+                    lciAccounting.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
                 lblMemo.Text = @"每日收益自动核算开始时间为15：35，之后每30分钟核算一次，请确认本日交易数据已正确导入！";
 
                 BindSearchInfo();
@@ -551,6 +556,28 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnAccounting_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnAccounting.Enabled = false;
+
+                string sqlText = @"EXEC [dbo].[sp_Job_OverNightProfit]";
+
+                SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, sqlText);
+
+                DXMessage.ShowTips("收益核算完成！");
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                btnAccounting.Enabled = true;
             }
         }
 
@@ -747,5 +774,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         }
 
         #endregion Events
+
+
     }
 }
