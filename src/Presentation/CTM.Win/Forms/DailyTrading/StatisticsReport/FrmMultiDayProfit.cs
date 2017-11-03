@@ -364,12 +364,11 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                     teamData = teamData.OrderBy(x => x.Field<decimal>(colIndexWeek.FieldName)).ToArray();
                 else
                     teamData = teamData.OrderBy(x => x.Field<decimal>(colIndexDay.FieldName)).ToArray();
-
                 PrintSheetDataFill(printSheet, teamData, 11);
 
                 //该日投资人员汇总数据
                 DataRow[] investorData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 1).ToArray();
-                if(weekDay == DayOfWeek.Friday)
+                if (weekDay == DayOfWeek.Friday)
                     investorData = investorData.OrderBy(x => x.Field<decimal>(colIndexWeek.FieldName)).ToArray();
                 else
                     investorData = investorData.OrderBy(x => x.Field<decimal>(colIndexDay.FieldName)).ToArray();
@@ -786,7 +785,5 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         }
 
         #endregion Events
-
-
     }
 }
