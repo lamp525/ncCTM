@@ -99,6 +99,25 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             this.ActiveControl = this.btnSearch;
         }
 
+        private void SearchProcess()
+        {
+            DateTime dtStart = CommonHelper.StringToDateTime(deStart.EditValue.ToString());
+            DateTime dtEnd = CommonHelper.StringToDateTime(deEnd.EditValue.ToString());
+            int teamId = int.Parse(this.cbTeam.SelectedValue());
+            string InvestorCode = this.luInvestor.SelectedValue();
+            string sqlText = $@"EXEC [dbo].[sp_GetMultiDayProfit] @StartDate = '{dtStart}',@EndDate = '{dtEnd}',@TeamId = {teamId},@InvestorCode = N'{InvestorCode}'";
+
+            var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            if (ds == null || ds.Tables.Count == 0) return;
+
+            this.gridControl1.DataSource = ds.Tables[0];
+
+            if (ds.Tables[0].Rows.Count > 0)
+                this.btnExport.Enabled = true;
+            else
+                this.btnExport.Enabled = false;
+        }
+
         private void WriteDataToExcel(string templateFileName, string destinyFileName)
         {
             try
@@ -563,6 +582,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.btnExport.Enabled = false;
                 this.mpbExport.Enabled = false;
                 this.lciProgress.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+                SearchProcess();
             }
             catch (Exception ex)
             {
@@ -642,21 +663,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             {
                 btnSearch.Enabled = false;
 
-                DateTime dtStart = CommonHelper.StringToDateTime(deStart.EditValue.ToString());
-                DateTime dtEnd = CommonHelper.StringToDateTime(deEnd.EditValue.ToString());
-                int teamId = int.Parse(this.cbTeam.SelectedValue());
-                string InvestorCode = this.luInvestor.SelectedValue();
-                string sqlText = $@"EXEC [dbo].[sp_GetMultiDayProfit] @StartDate = '{dtStart}',@EndDate = '{dtEnd}',@TeamId = {teamId},@InvestorCode = N'{InvestorCode}'";
-
-                var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
-                if (ds == null || ds.Tables.Count == 0) return;
-
-                this.gridControl1.DataSource = ds.Tables[0];
-
-                if (ds.Tables[0].Rows.Count > 0)
-                    this.btnExport.Enabled = true;
-                else
-                    this.btnExport.Enabled = false;
+                SearchProcess();
             }
             catch (Exception ex)
             {
