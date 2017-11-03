@@ -351,16 +351,28 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 //最近交易日
                 var tradeDate = dtProfit.AsEnumerable().Max(x => x.Field<DateTime>(colTradeDate.FieldName));
 
+                //星期
+                var weekDay = tradeDate.DayOfWeek;
+
                 //该日部门汇总数据
                 DataRow[] deptData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 88).ToArray();
                 PrintSheetDataFill(printSheet, deptData, 5);
 
                 //该日投资小组汇总数据
                 DataRow[] teamData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 2).ToArray();
+                if (weekDay == DayOfWeek.Friday)
+                    teamData = teamData.OrderBy(x => x.Field<decimal>(colIndexWeek.FieldName)).ToArray();
+                else
+                    teamData = teamData.OrderBy(x => x.Field<decimal>(colIndexDay.FieldName)).ToArray();
+
                 PrintSheetDataFill(printSheet, teamData, 11);
 
                 //该日投资人员汇总数据
                 DataRow[] investorData = dtProfit.AsEnumerable().Where(x => x.Field<DateTime>(colTradeDate.FieldName) == tradeDate && x.Field<int>(colDataType.FieldName) == 1).ToArray();
+                if(weekDay == DayOfWeek.Friday)
+                    investorData = investorData.OrderBy(x => x.Field<decimal>(colIndexWeek.FieldName)).ToArray();
+                else
+                    investorData = investorData.OrderBy(x => x.Field<decimal>(colIndexDay.FieldName)).ToArray();
                 PrintSheetDataFill(printSheet, investorData, 19);
             }
         }
