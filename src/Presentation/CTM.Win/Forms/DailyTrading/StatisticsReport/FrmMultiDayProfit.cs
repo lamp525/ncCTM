@@ -19,14 +19,12 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
     {
         #region Fields
 
-        private readonly ExcelHelper _excelEdit = new ExcelHelper();
+        private readonly ExcelHelper _excelEdit;
 
         //数值列（无小数位）
         private const string _intFormat = @"_ * #,##0_ ;_ * -#,##0_ ;_ * ""-""_ ;_ @_ ";
-
         //数值列（2位小数位）
         private const string _numericFormat = @"_ * #,##0.00_ ;_ * -#,##0.00_ ;_ * ""-""??_ ;_ @_ ";
-
         //百分比列（2位小数位）
         private const string _percentFormat = @"0.00%";
 
@@ -37,6 +35,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
         public FrmMultiDayProfit()
         {
             InitializeComponent();
+
+            _excelEdit = new ExcelHelper();
         }
 
         #endregion Constructors
