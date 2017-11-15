@@ -239,6 +239,7 @@ namespace CTM.Services.User
             {
                 x.Password = x.Code;
             });
+            _userInfoRepository.Update(query);
         }
 
         #endregion Method
