@@ -196,6 +196,7 @@
             this.mpbExport.EditValue = 0;
             this.mpbExport.Location = new System.Drawing.Point(165, 152);
             this.mpbExport.Name = "mpbExport";
+            this.mpbExport.Properties.MarqueeAnimationSpeed = 30;
             this.mpbExport.Size = new System.Drawing.Size(535, 18);
             this.mpbExport.StyleController = this.layoutControl1;
             this.mpbExport.TabIndex = 12;
