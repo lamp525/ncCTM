@@ -103,6 +103,8 @@ namespace CTM.Core.Util
                             string cellValue = headerRow.GetCellValue(j) == null ? null : headerRow.GetCellValue(j).ToString().Trim();
 
                             DataColumn column = new DataColumn(cellValue);
+                            if (dt.Columns.Contains(column.ColumnName))
+                                column.ColumnName += "1";
                             dt.Columns.Add(column);
                         }
 
@@ -186,6 +188,8 @@ namespace CTM.Core.Util
                         string cellValue = headerRow.GetCellValue(j) == null ? null : headerRow.GetCellValue(j).ToString().Trim();
 
                         DataColumn column = new DataColumn(cellValue);
+                        if (result.Columns.Contains(column.ColumnName))
+                            column.ColumnName += "1";
                         result.Columns.Add(column);
                     }
 
