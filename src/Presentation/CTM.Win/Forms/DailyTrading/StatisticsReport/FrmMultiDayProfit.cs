@@ -713,7 +713,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             else if (dataType == 2)
                 e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
             else if (dataType == 88)
-                e.Appearance.BackColor = System.Drawing.Color.SteelBlue;
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 211, 155);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
