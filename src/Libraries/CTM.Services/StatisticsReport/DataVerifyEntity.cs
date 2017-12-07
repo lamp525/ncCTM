@@ -9,6 +9,8 @@ namespace CTM.Services.StatisticsReport
         public int AccountId { get; set; }
         public string AccountInfo { get; set; }
 
+        public Int64 SerialNo { get; set; }
+
         public DateTime? DE_TradeDate { get; set; }
 
         public string DE_StockCode { get; set; }

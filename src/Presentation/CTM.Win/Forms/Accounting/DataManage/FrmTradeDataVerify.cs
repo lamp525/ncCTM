@@ -329,7 +329,18 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 }
             }
         }
+        private void bandedGridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle < 0) return;
 
+            var currentSerialNo = int.Parse(this.bandedGridView1.GetRowCellValue(e.RowHandle, this.col_SerialNo).ToString());
+            if (currentSerialNo % 2 == 1)
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
+
+            e.HighPriority = true;
+        }
         #endregion Events
+
+
     }
 }

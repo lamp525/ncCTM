@@ -57,6 +57,8 @@
             this.colDA_StockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDA_TradeDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDA_DealFlag = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.col_SerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.col_AccountId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.cbAccountAttribute = new DevExpress.XtraEditors.ComboBoxEdit();
             this.luAccount = new DevExpress.XtraEditors.LookUpEdit();
             this.cbSecurity = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -79,8 +81,6 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.col_AccountId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.col_SerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgDisplayType.Properties)).BeginInit();
@@ -245,6 +245,7 @@
             this.bandedGridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.ShowAlways;
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
             this.bandedGridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.bandedGridView1_CustomDrawCell);
+            this.bandedGridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.bandedGridView1_RowStyle);
             this.bandedGridView1.DoubleClick += new System.EventHandler(this.bandedGridView1_DoubleClick);
             // 
             // gridBand1
@@ -253,7 +254,7 @@
             this.gridBand1.Columns.Add(this.colDE_DealFlag);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 150;
+            this.gridBand1.Width = 200;
             // 
             // col_AccountInfo
             // 
@@ -261,7 +262,7 @@
             this.col_AccountInfo.FieldName = "AccountInfo";
             this.col_AccountInfo.Name = "col_AccountInfo";
             this.col_AccountInfo.Visible = true;
-            this.col_AccountInfo.Width = 150;
+            this.col_AccountInfo.Width = 200;
             // 
             // colDE_DealFlag
             // 
@@ -449,6 +450,18 @@
             // 
             this.colDA_DealFlag.FieldName = "DA_DealFlag";
             this.colDA_DealFlag.Name = "colDA_DealFlag";
+            // 
+            // col_SerialNo
+            // 
+            this.col_SerialNo.Caption = "bandedGridColumn1";
+            this.col_SerialNo.FieldName = "SerialNo";
+            this.col_SerialNo.Name = "col_SerialNo";
+            // 
+            // col_AccountId
+            // 
+            this.col_AccountId.Caption = "bandedGridColumn1";
+            this.col_AccountId.FieldName = "AccountId";
+            this.col_AccountId.Name = "col_AccountId";
             // 
             // cbAccountAttribute
             // 
@@ -676,18 +689,6 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(71, 29);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
-            // 
-            // col_AccountId
-            // 
-            this.col_AccountId.Caption = "bandedGridColumn1";
-            this.col_AccountId.FieldName = "AccountId";
-            this.col_AccountId.Name = "col_AccountId";
-            // 
-            // col_SerialNo
-            // 
-            this.col_SerialNo.Caption = "bandedGridColumn1";
-            this.col_SerialNo.FieldName = "SerialNo";
-            this.col_SerialNo.Name = "col_SerialNo";
             // 
             // FrmTradeDataVerify
             // 
