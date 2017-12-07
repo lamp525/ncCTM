@@ -29,8 +29,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private const string _layoutXmlName = "FrmTradeDataVerify";
 
         private bool _isSearched = false;
-        private string _currentAccountInfo = null;
-        private int _currentAccountId = -1;
 
         #endregion Fields
 
@@ -75,7 +73,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     Value = x.Code.ToString(),
                     Text = x.Name
                 }).ToList();
-                this.cbAccountAttribute.Initialize(accountAttributes);
+                this.cbAccountAttribute.Initialize(accountAttributes,displayAdditionalItem:true);
+                this.cbAccountAttribute.SelectedIndex = -1;
 
                 //证券公司信息
                 var securityCompanys = _dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.SecurityCompay)
@@ -86,7 +85,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                                 Text = x.Name
                             }).OrderBy(x => x.Text).ToList();
 
-                this.cbSecurity.Initialize(securityCompanys);
+                this.cbSecurity.Initialize(securityCompanys,displayAdditionalItem:true);
+                this.cbSecurity.SelectedIndex = -1;
 
                 this.lciAttribute.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 this.lciSecurity.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
@@ -115,7 +115,18 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 }
             }
 
+            var allAccount = new AccountEntity
+            {
+               Id = 0,
+               Name = " 全部 ",
+               DisplayMember = " 全部 ",
+            };
+
+            _accounts.Add(allAccount);
+            _accounts = _accounts.OrderBy(x => x.Name).ToList();
+
             this.luAccount.Initialize(_accounts, "Id", "DisplayMember", showHeader: true, enableSearch: true);
+            this.luAccount.EditValue = 0;
 
             var date = DateTime.Now.Date.AddMonths(-1);
 
@@ -151,11 +162,18 @@ namespace CTM.Win.Forms.Accounting.DataManage
             var displayType = this.rgDisplayType.SelectedIndex;
             var dateFrom = CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             var dateTo = CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-            var accountId = int.Parse(this.luAccount.SelectedValue());
 
-            var diffInfos = _dataVerifyService.GetDiffBetweenDeliveryAndDailyData(displayType, accountId, dateFrom, dateTo);
+            var curAccountId = int.Parse(this.luAccount.SelectedValue());
+            IList<int> accountIds = new List<int>();
 
-            this.gridControl1.DataSource = diffInfos;
+            if (curAccountId == 0)
+                accountIds = (this.luAccount.Properties.DataSource as IList<AccountEntity>).Select(x => x.Id).ToList();
+            else
+                accountIds .Add(curAccountId);
+
+            var diffData = _dataVerifyService.sp_GetDeliveryAndEntrustDiffData(displayType, accountIds, dateFrom, dateTo);
+
+            this.gridControl1.DataSource = diffData;
         }
 
         private void DisplayDataContrast(DataVerifyEntity entity)
@@ -164,8 +182,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
             dialog.Owner = this.ParentForm;
             dialog.Text = "交易数据对照";
             dialog.StartPosition = FormStartPosition.CenterScreen;
-            dialog.AccountInfo = _currentAccountInfo;
-            dialog.AccountId = _currentAccountId;
+            dialog.AccountInfo = entity.AccountInfo;
+            dialog.AccountId = entity.AccountId;
             dialog.StockCode = string.IsNullOrEmpty(entity.DE_StockCode) ? entity.DA_StockCode : entity.DE_StockCode;
             dialog.StockName = string.IsNullOrEmpty(entity.DE_StockName) ? entity.DA_StockName : entity.DE_StockName;
             dialog.FromDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
@@ -217,8 +235,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     DXMessage.ShowTips("请选择账号信息！");
                     return;
                 }
-                _currentAccountInfo = this.luAccount.Text.Trim();
-                _currentAccountId = int.Parse(this.luAccount.SelectedValue());
+
                 BindDiffInfo();
             }
             catch (Exception ex)

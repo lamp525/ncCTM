@@ -36,11 +36,13 @@
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.col_AccountInfo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDE_DealFlag = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBandDeleivery = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colDE_TradeDate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDE_StockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDE_StockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colDE_DealFlag = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDE_DealName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDE_TotalActualAmount = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colDE_TotalDealVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -77,6 +79,8 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.col_AccountId = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.col_SerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgDisplayType.Properties)).BeginInit();
@@ -131,7 +135,7 @@
             // 
             // rgDisplayType
             // 
-            this.rgDisplayType.Location = new System.Drawing.Point(87, 112);
+            this.rgDisplayType.Location = new System.Drawing.Point(87, 116);
             this.rgDisplayType.Name = "rgDisplayType";
             this.rgDisplayType.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem("detail", "明细"),
@@ -144,7 +148,7 @@
             // deTo
             // 
             this.deTo.EditValue = null;
-            this.deTo.Location = new System.Drawing.Point(257, 43);
+            this.deTo.Location = new System.Drawing.Point(257, 45);
             this.deTo.Name = "deTo";
             this.deTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -157,7 +161,7 @@
             // deFrom
             // 
             this.deFrom.EditValue = null;
-            this.deFrom.Location = new System.Drawing.Point(87, 43);
+            this.deFrom.Location = new System.Drawing.Point(87, 45);
             this.deFrom.Name = "deFrom";
             this.deFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -169,7 +173,7 @@
             // 
             // btnSaveLayout
             // 
-            this.btnSaveLayout.Location = new System.Drawing.Point(1443, 112);
+            this.btnSaveLayout.Location = new System.Drawing.Point(1443, 116);
             this.btnSaveLayout.Name = "btnSaveLayout";
             this.btnSaveLayout.Size = new System.Drawing.Size(67, 22);
             this.btnSaveLayout.StyleController = this.layoutControl1;
@@ -179,7 +183,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1074, 43);
+            this.btnSearch.Location = new System.Drawing.Point(1074, 45);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -189,10 +193,10 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(24, 141);
+            this.gridControl1.Location = new System.Drawing.Point(24, 145);
             this.gridControl1.MainView = this.bandedGridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1486, 644);
+            this.gridControl1.Size = new System.Drawing.Size(1486, 640);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.bandedGridView1});
@@ -201,10 +205,14 @@
             // 
             this.bandedGridView1.ActiveFilterString = "[DE_StockName] Not Like \'GC%\'";
             this.bandedGridView1.Bands.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.GridBand[] {
+            this.gridBand1,
             this.gridBandDeleivery,
             this.gridBandDiff,
             this.gridBandDaily});
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
+            this.col_SerialNo,
+            this.col_AccountId,
+            this.col_AccountInfo,
             this.colDE_TradeDate,
             this.colDE_StockCode,
             this.colDE_StockName,
@@ -239,6 +247,27 @@
             this.bandedGridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.bandedGridView1_CustomDrawCell);
             this.bandedGridView1.DoubleClick += new System.EventHandler(this.bandedGridView1_DoubleClick);
             // 
+            // gridBand1
+            // 
+            this.gridBand1.Columns.Add(this.col_AccountInfo);
+            this.gridBand1.Columns.Add(this.colDE_DealFlag);
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 0;
+            this.gridBand1.Width = 150;
+            // 
+            // col_AccountInfo
+            // 
+            this.col_AccountInfo.Caption = "账户信息";
+            this.col_AccountInfo.FieldName = "AccountInfo";
+            this.col_AccountInfo.Name = "col_AccountInfo";
+            this.col_AccountInfo.Visible = true;
+            this.col_AccountInfo.Width = 150;
+            // 
+            // colDE_DealFlag
+            // 
+            this.colDE_DealFlag.FieldName = "DE_DealFlag";
+            this.colDE_DealFlag.Name = "colDE_DealFlag";
+            // 
             // gridBandDeleivery
             // 
             this.gridBandDeleivery.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -249,14 +278,13 @@
             this.gridBandDeleivery.Columns.Add(this.colDE_TradeDate);
             this.gridBandDeleivery.Columns.Add(this.colDE_StockCode);
             this.gridBandDeleivery.Columns.Add(this.colDE_StockName);
-            this.gridBandDeleivery.Columns.Add(this.colDE_DealFlag);
             this.gridBandDeleivery.Columns.Add(this.colDE_DealName);
             this.gridBandDeleivery.Columns.Add(this.colDE_TotalActualAmount);
             this.gridBandDeleivery.Columns.Add(this.colDE_TotalDealVolume);
             this.gridBandDeleivery.Name = "gridBandDeleivery";
             this.gridBandDeleivery.RowCount = 2;
-            this.gridBandDeleivery.VisibleIndex = 0;
-            this.gridBandDeleivery.Width = 590;
+            this.gridBandDeleivery.VisibleIndex = 1;
+            this.gridBandDeleivery.Width = 550;
             // 
             // colDE_TradeDate
             // 
@@ -282,11 +310,6 @@
             this.colDE_StockName.Visible = true;
             this.colDE_StockName.Width = 90;
             // 
-            // colDE_DealFlag
-            // 
-            this.colDE_DealFlag.FieldName = "DE_DealFlag";
-            this.colDE_DealFlag.Name = "colDE_DealFlag";
-            // 
             // colDE_DealName
             // 
             this.colDE_DealName.Caption = "操作";
@@ -303,7 +326,7 @@
             this.colDE_TotalActualAmount.FieldName = "DE_TotalActualAmount";
             this.colDE_TotalActualAmount.Name = "colDE_TotalActualAmount";
             this.colDE_TotalActualAmount.Visible = true;
-            this.colDE_TotalActualAmount.Width = 120;
+            this.colDE_TotalActualAmount.Width = 100;
             // 
             // colDE_TotalDealVolume
             // 
@@ -313,7 +336,7 @@
             this.colDE_TotalDealVolume.FieldName = "DE_TotalDealVolume";
             this.colDE_TotalDealVolume.Name = "colDE_TotalDealVolume";
             this.colDE_TotalDealVolume.Visible = true;
-            this.colDE_TotalDealVolume.Width = 120;
+            this.colDE_TotalDealVolume.Width = 100;
             // 
             // gridBandDiff
             // 
@@ -325,8 +348,8 @@
             this.gridBandDiff.Columns.Add(this.colAmountDiff);
             this.gridBandDiff.Columns.Add(this.colVolumeDiff);
             this.gridBandDiff.Name = "gridBandDiff";
-            this.gridBandDiff.VisibleIndex = 1;
-            this.gridBandDiff.Width = 240;
+            this.gridBandDiff.VisibleIndex = 2;
+            this.gridBandDiff.Width = 200;
             // 
             // colAmountDiff
             // 
@@ -338,7 +361,7 @@
             this.colAmountDiff.FieldName = "AmountDiff";
             this.colAmountDiff.Name = "colAmountDiff";
             this.colAmountDiff.Visible = true;
-            this.colAmountDiff.Width = 120;
+            this.colAmountDiff.Width = 100;
             // 
             // colVolumeDiff
             // 
@@ -350,7 +373,7 @@
             this.colVolumeDiff.FieldName = "VolumeDiff";
             this.colVolumeDiff.Name = "colVolumeDiff";
             this.colVolumeDiff.Visible = true;
-            this.colVolumeDiff.Width = 120;
+            this.colVolumeDiff.Width = 100;
             // 
             // gridBandDaily
             // 
@@ -367,8 +390,8 @@
             this.gridBandDaily.Columns.Add(this.colDA_TradeDate);
             this.gridBandDaily.Columns.Add(this.colDA_DealFlag);
             this.gridBandDaily.Name = "gridBandDaily";
-            this.gridBandDaily.VisibleIndex = 2;
-            this.gridBandDaily.Width = 590;
+            this.gridBandDaily.VisibleIndex = 3;
+            this.gridBandDaily.Width = 550;
             // 
             // colDA_TotalDealVolume
             // 
@@ -378,7 +401,7 @@
             this.colDA_TotalDealVolume.FieldName = "DA_TotalDealVolume";
             this.colDA_TotalDealVolume.Name = "colDA_TotalDealVolume";
             this.colDA_TotalDealVolume.Visible = true;
-            this.colDA_TotalDealVolume.Width = 120;
+            this.colDA_TotalDealVolume.Width = 100;
             // 
             // colDA_TotalActualAmount
             // 
@@ -388,7 +411,7 @@
             this.colDA_TotalActualAmount.FieldName = "DA_TotalActualAmount";
             this.colDA_TotalActualAmount.Name = "colDA_TotalActualAmount";
             this.colDA_TotalActualAmount.Visible = true;
-            this.colDA_TotalActualAmount.Width = 120;
+            this.colDA_TotalActualAmount.Width = 100;
             // 
             // colDA_DealName
             // 
@@ -429,7 +452,7 @@
             // 
             // cbAccountAttribute
             // 
-            this.cbAccountAttribute.Location = new System.Drawing.Point(617, 43);
+            this.cbAccountAttribute.Location = new System.Drawing.Point(617, 45);
             this.cbAccountAttribute.Name = "cbAccountAttribute";
             this.cbAccountAttribute.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -440,7 +463,7 @@
             // 
             // luAccount
             // 
-            this.luAccount.Location = new System.Drawing.Point(777, 43);
+            this.luAccount.Location = new System.Drawing.Point(777, 45);
             this.luAccount.Name = "luAccount";
             this.luAccount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -456,7 +479,7 @@
             // 
             // cbSecurity
             // 
-            this.cbSecurity.Location = new System.Drawing.Point(427, 43);
+            this.cbSecurity.Location = new System.Drawing.Point(427, 45);
             this.cbSecurity.Name = "cbSecurity";
             this.cbSecurity.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -496,7 +519,7 @@
             this.emptySpaceItem7});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1514, 69);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1514, 71);
             this.layoutControlGroup2.Text = "查询条件";
             // 
             // lciSecurity
@@ -611,9 +634,9 @@
             this.emptySpaceItem2,
             this.layoutControlItem7,
             this.layoutControlItem6});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 71);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1514, 720);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1514, 718);
             this.layoutControlGroup3.Text = "账户交割单数据与每日交易数据对比明细";
             // 
             // layoutControlItem3
@@ -621,7 +644,7 @@
             this.layoutControlItem3.Control = this.gridControl1;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 29);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1490, 648);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1490, 644);
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
@@ -653,6 +676,18 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(71, 29);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
+            // 
+            // col_AccountId
+            // 
+            this.col_AccountId.Caption = "bandedGridColumn1";
+            this.col_AccountId.FieldName = "AccountId";
+            this.col_AccountId.Name = "col_AccountId";
+            // 
+            // col_SerialNo
+            // 
+            this.col_SerialNo.Caption = "bandedGridColumn1";
+            this.col_SerialNo.FieldName = "SerialNo";
+            this.col_SerialNo.Name = "col_SerialNo";
             // 
             // FrmTradeDataVerify
             // 
@@ -743,11 +778,15 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDA_DealName;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDA_TotalActualAmount;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDA_TotalDealVolume;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDeleivery;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDiff;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDaily;
         private DevExpress.XtraEditors.RadioGroup rgDisplayType;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn col_AccountInfo;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDeleivery;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDiff;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandDaily;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn col_SerialNo;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn col_AccountId;
     }
 }

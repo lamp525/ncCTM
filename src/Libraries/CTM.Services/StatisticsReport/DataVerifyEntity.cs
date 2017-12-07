@@ -6,6 +6,9 @@ namespace CTM.Services.StatisticsReport
     {
         #region DeliveryData
 
+        public int AccountId { get; set; }
+        public string AccountInfo { get; set; }
+
         public DateTime? DE_TradeDate { get; set; }
 
         public string DE_StockCode { get; set; }

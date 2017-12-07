@@ -5,6 +5,6 @@ namespace CTM.Services.StatisticsReport
 {
     public partial interface IDataVerifyService : IBaseService
     {
-        IList<DataVerifyEntity> GetDiffBetweenDeliveryAndDailyData(int displayType, int accountId, DateTime dateFrom, DateTime dateTo);
+        IList<DataVerifyEntity> sp_GetDeliveryAndEntrustDiffData(int displayType, IList<int> accountIds, DateTime dateFrom, DateTime dateTo);
     }
 }

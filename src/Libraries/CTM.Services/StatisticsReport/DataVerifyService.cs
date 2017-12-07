@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CTM.Core.Util;
 using CTM.Data;
 
 namespace CTM.Services.StatisticsReport
@@ -24,9 +25,10 @@ namespace CTM.Services.StatisticsReport
 
         #region Methods
 
-        public virtual IList<DataVerifyEntity> GetDiffBetweenDeliveryAndDailyData(int displayType, int accountId, DateTime dateFrom, DateTime dateTo)
+        public virtual IList<DataVerifyEntity> sp_GetDeliveryAndEntrustDiffData(int displayType, IList<int> accountIds, DateTime dateFrom, DateTime dateTo)
         {
-            var commanText = $@"EXEC [dbo].[sp_GetDiffBetweenDeliveryAndDailyData] @DisplayType= {displayType}, @AccountId = {accountId}, @DateFrom = '{dateFrom}', @DateTo = '{dateTo}'";
+            string ids = CommonHelper.ArrayListToSqlConditionString(accountIds);
+            var commanText = $@"EXEC [dbo].[sp_GetDeliveryAndEntrustDiffData] @DisplayType= {displayType}, @AccountIds = '{ids}', @DateFrom = '{dateFrom}', @DateTo = '{dateTo}'";
             var result = _dbContext.SqlQuery<DataVerifyEntity>(commanText).ToList();
 
             return result;
