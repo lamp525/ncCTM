@@ -142,14 +142,28 @@ namespace CTM.Services.TradeRecord
                 record = new DailyRecord();
 
                 //买卖标志
-                if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买") > -1)
-                    record.DealFlag = true;
-                else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖") > -1)
-                    record.DealFlag = false;
+                if (!string.IsNullOrEmpty(columnList[nameof(record.DealFlag)]))
+                {
+                    if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买") > -1)
+                        record.DealFlag = true;
+                    else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖") > -1)
+                        record.DealFlag = false;
+                    else
+                    {
+                        _skippedRecords.Add(row);
+                        continue;
+                    }
+                }
                 else
                 {
-                    _skippedRecords.Add(row);
-                    continue;
+                    if (!string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
+                    {
+                        if (CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0)
+                            record.DealFlag = false;
+                        else
+                            record.DealFlag = true;
+                    }
+
                 }
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
@@ -249,7 +263,8 @@ namespace CTM.Services.TradeRecord
                 if (!string.IsNullOrEmpty(columnList[nameof(record.StockHolderCode)]))
                     record.StockHolderCode = row[columnList[nameof(record.StockHolderCode)]].ToString().Trim();
                 //备注
-                record.Remarks = row[columnList[nameof(record.Remarks)]].ToString().Trim();
+                if (!string.IsNullOrEmpty(columnList[nameof(record.Remarks)]))
+                    record.Remarks = row[columnList[nameof(record.Remarks)]].ToString().Trim();
 
                 tradeRecords.Add(record);
             }
@@ -1976,9 +1991,9 @@ namespace CTM.Services.TradeRecord
 
             columnList.Add(nameof(record.TradeDate), "成交日期");
             columnList.Add(nameof(record.TradeTime), null);
-            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockCode), null);
             columnList.Add(nameof(record.StockName), "证券名称");
-            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealFlag), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
@@ -1992,7 +2007,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
             columnList.Add(nameof(record.DealNo), "成交编号");
             columnList.Add(nameof(record.ContractNo), "合同编号");
-            columnList.Add(nameof(record.Remarks), "操作");
+            columnList.Add(nameof(record.Remarks), null);
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
