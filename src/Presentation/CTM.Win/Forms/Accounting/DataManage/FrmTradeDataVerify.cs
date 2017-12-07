@@ -174,7 +174,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             var diffData = _dataVerifyService.sp_GetDeliveryAndEntrustDiffData(displayType, accountIds, dateFrom, dateTo);
 
             this.gridControl1.DataSource = diffData;
-        }
+        }     
 
         private void DisplayDataContrast(DataVerifyEntity entity)
         {
@@ -189,8 +189,10 @@ namespace CTM.Win.Forms.Accounting.DataManage
             dialog.FromDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             dialog.ToDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
             dialog.DealFlag = entity.DE_DealFlag.HasValue ? entity.DE_DealFlag.Value : entity.DA_DealFlag.Value;
+            dialog.RefreshEvent += BindDiffInfo;
             dialog.Show();
         }
+
 
         #endregion Utilities
 

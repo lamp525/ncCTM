@@ -23,6 +23,14 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         #endregion Fields
 
+        #region Delegates
+
+        public delegate void RefreshParentForm();
+
+        public event RefreshParentForm RefreshEvent;
+
+        #endregion Delegates
+
         #region Properties
 
         public int AccountId { get; set; }
@@ -192,6 +200,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     CopyProcess();
 
                     BindTradeDate();
+
+                    this.RefreshEvent?.Invoke();
                 }
             }
             catch (Exception ex)
