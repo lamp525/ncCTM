@@ -145,24 +145,24 @@
             // 
             // cbTradeType
             // 
-            this.cbTradeType.Location = new System.Drawing.Point(352, 103);
+            this.cbTradeType.Location = new System.Drawing.Point(340, 103);
             this.cbTradeType.Name = "cbTradeType";
             this.cbTradeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbTradeType.Size = new System.Drawing.Size(90, 20);
+            this.cbTradeType.Size = new System.Drawing.Size(102, 20);
             this.cbTradeType.StyleController = this.layoutControl1;
             this.cbTradeType.TabIndex = 8;
             // 
             // luBeneficiary
             // 
-            this.luBeneficiary.Location = new System.Drawing.Point(99, 103);
+            this.luBeneficiary.Location = new System.Drawing.Point(87, 103);
             this.luBeneficiary.Name = "luBeneficiary";
             this.luBeneficiary.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luBeneficiary.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Code", "Code"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
-            this.luBeneficiary.Size = new System.Drawing.Size(175, 20);
+            this.luBeneficiary.Size = new System.Drawing.Size(187, 20);
             this.luBeneficiary.StyleController = this.layoutControl1;
             this.luBeneficiary.TabIndex = 7;
             // 
@@ -493,7 +493,7 @@
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
             this.esiTitle.Size = new System.Drawing.Size(1643, 27);
-            this.esiTitle.TextSize = new System.Drawing.Size(60, 0);
+            this.esiTitle.TextSize = new System.Drawing.Size(48, 0);
             this.esiTitle.TextVisible = true;
             // 
             // layoutControlGroup2
@@ -575,8 +575,8 @@
             this.layoutControlItem5.Location = new System.Drawing.Point(253, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(157, 26);
-            this.layoutControlItem5.Text = "交易类别：";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
+            this.layoutControlItem5.Text = "交易类别";
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(48, 14);
             // 
             // emptySpaceItem4
             // 
@@ -592,8 +592,8 @@
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(242, 26);
-            this.layoutControlItem4.Text = "受益人：";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
+            this.layoutControlItem4.Text = "受益人";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem6
             // 
