@@ -102,13 +102,10 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private void BindTradeDate()
         {
             var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @FromDate = '{FromDate}' , @ToDate = '{ToDate}' , @DealFlag = {DealFlag}";
-
             var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
-
             if (ds == null || ds.Tables.Count == 0) return;
 
             this.gridControl1.DataSource = ds.Tables[0];
-
             this.gridControl2.DataSource = ds.Tables[1];
         }
 
@@ -116,7 +113,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             var beneficiary = luBeneficiary.SelectedValue();
             var tradeType = Convert.ToInt32(cbTradeType.SelectedValue());
-
             var deliveryRecordIds = new List<int>();
             var selectedHandles = this.gridView1.GetSelectedRows();
             for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
@@ -214,6 +210,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             try
             {
+                btnCopy.Enabled = false;
+
                 if (string.IsNullOrEmpty(this.luBeneficiary.SelectedValue()))
                 {
                     DXMessage.ShowTips("请选择实际受益人！");
@@ -231,6 +229,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
                     BindTradeDate();
                 }
+                else
+                    btnCopy.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -256,6 +256,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
                     BindTradeDate();
                 }
+                else
+                    btnDelete_L.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -281,6 +283,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
                     BindTradeDate();
                 }
+                else
+                    btnDelete_R.Enabled = true;
             }
             catch (Exception ex)
             {
