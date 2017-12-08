@@ -1219,7 +1219,6 @@ namespace CTM.Services.TradeRecord
 
             var now = _commonService.GetCurrentServerTime();
 
-
             IList<DailyRecord> dailyRecords = new List<DailyRecord>();
 
             foreach (var item in deliveryRecords)
@@ -1259,7 +1258,6 @@ namespace CTM.Services.TradeRecord
 
             if (dailyRecords.Any())
                 _dailyRepository.Insert(dailyRecords);
-
         }
 
         #endregion Methods

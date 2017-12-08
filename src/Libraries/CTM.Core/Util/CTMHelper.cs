@@ -1,7 +1,4 @@
-﻿using CTM.Core;
-using CTM.Core.Util;
-
-namespace CTM.Core.Util
+﻿namespace CTM.Core.Util
 {
     public class CTMHelper
     {

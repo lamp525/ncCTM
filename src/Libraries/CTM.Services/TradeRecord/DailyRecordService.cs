@@ -163,7 +163,6 @@ namespace CTM.Services.TradeRecord
                         else
                             record.DealFlag = true;
                     }
-
                 }
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
@@ -199,7 +198,7 @@ namespace CTM.Services.TradeRecord
                 record.DealPrice = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealPrice)]].ToString().Trim());
                 //成交数量
                 if (record.DealPrice > 0)
-                {            
+                {
                     var dealVolume = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealVolume)]].ToString().Trim());
                     record.DealVolume = record.DealFlag ? CommonHelper.ConvertToPositive(dealVolume) : CommonHelper.ConvertToNegtive(dealVolume);
                 }
@@ -386,6 +385,7 @@ namespace CTM.Services.TradeRecord
         }
 
         #endregion 当日委托--券商选择
+
         #region 当日委托--中银证券（信用）
 
         /// <summary>
@@ -729,7 +729,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.EntrustAmount), null);
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
-            columnList.Add(nameof(record.DealAmount),"成交金额");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
             columnList.Add(nameof(record.StockHolderCode), "股东代码");
             columnList.Add(nameof(record.DealNo), "成交编号");
             columnList.Add(nameof(record.ContractNo), "成交编号");
@@ -2126,7 +2126,7 @@ namespace CTM.Services.TradeRecord
             if (beneficiaries != null)
                 query = query.Where(x => beneficiaries.Contains(x.Beneficiary));
 
-            return query.Where (x=>x.ActualAmount !=0 || x.DealVolume !=0) .ToList();
+            return query.Where(x => x.ActualAmount != 0 || x.DealVolume != 0).ToList();
         }
 
         public virtual IList<DailyRecord> GetDailyRecordsBySearchCondition(

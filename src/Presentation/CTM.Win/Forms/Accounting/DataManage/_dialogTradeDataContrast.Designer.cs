@@ -43,6 +43,7 @@
             this.colDealVolume_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActualAmount_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDataTypeName_R = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colContractNo_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeTypeName_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBeneficaryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImportUserName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -57,6 +58,7 @@
             this.colDealPrice_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDealVolume_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActualAmount_L = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colContractNo_L = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.esiTitle = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -104,38 +106,38 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1535, 715);
+            this.layoutControl1.Size = new System.Drawing.Size(1665, 715);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // cbTradeType
             // 
-            this.cbTradeType.Location = new System.Drawing.Point(327, 72);
+            this.cbTradeType.Location = new System.Drawing.Point(349, 72);
             this.cbTradeType.Name = "cbTradeType";
             this.cbTradeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbTradeType.Size = new System.Drawing.Size(83, 20);
+            this.cbTradeType.Size = new System.Drawing.Size(96, 20);
             this.cbTradeType.StyleController = this.layoutControl1;
             this.cbTradeType.TabIndex = 8;
             // 
             // luBeneficiary
             // 
-            this.luBeneficiary.Location = new System.Drawing.Point(97, 72);
+            this.luBeneficiary.Location = new System.Drawing.Point(98, 72);
             this.luBeneficiary.Name = "luBeneficiary";
             this.luBeneficiary.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.luBeneficiary.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Code", "Code"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
-            this.luBeneficiary.Size = new System.Drawing.Size(153, 20);
+            this.luBeneficiary.Size = new System.Drawing.Size(173, 20);
             this.luBeneficiary.StyleController = this.layoutControl1;
             this.luBeneficiary.TabIndex = 7;
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(424, 72);
+            this.btnCopy.Location = new System.Drawing.Point(460, 72);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(127, 22);
+            this.btnCopy.Size = new System.Drawing.Size(138, 22);
             this.btnCopy.StyleController = this.layoutControl1;
             this.btnCopy.TabIndex = 6;
             this.btnCopy.Text = " 导入至个人交易数据 ";
@@ -143,10 +145,10 @@
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(667, 72);
+            this.gridControl2.Location = new System.Drawing.Point(722, 72);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(844, 619);
+            this.gridControl2.Size = new System.Drawing.Size(919, 619);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -163,6 +165,7 @@
             this.colDealVolume_R,
             this.colActualAmount_R,
             this.colDataTypeName_R,
+            this.colContractNo_R,
             this.colTradeTypeName_R,
             this.colBeneficaryName,
             this.colImportUserName});
@@ -263,6 +266,14 @@
             this.colDataTypeName_R.Visible = true;
             this.colDataTypeName_R.VisibleIndex = 7;
             // 
+            // colContractNo_R
+            // 
+            this.colContractNo_R.Caption = "合同编号";
+            this.colContractNo_R.FieldName = "ContractNo";
+            this.colContractNo_R.Name = "colContractNo_R";
+            this.colContractNo_R.Visible = true;
+            this.colContractNo_R.VisibleIndex = 9;
+            // 
             // colTradeTypeName_R
             // 
             this.colTradeTypeName_R.Caption = "交易类别";
@@ -278,7 +289,7 @@
             this.colBeneficaryName.FieldName = "BeneficiaryName";
             this.colBeneficaryName.Name = "colBeneficaryName";
             this.colBeneficaryName.Visible = true;
-            this.colBeneficaryName.VisibleIndex = 9;
+            this.colBeneficaryName.VisibleIndex = 10;
             this.colBeneficaryName.Width = 70;
             // 
             // colImportUserName
@@ -287,7 +298,7 @@
             this.colImportUserName.FieldName = "ImportUserName";
             this.colImportUserName.Name = "colImportUserName";
             this.colImportUserName.Visible = true;
-            this.colImportUserName.VisibleIndex = 10;
+            this.colImportUserName.VisibleIndex = 11;
             this.colImportUserName.Width = 70;
             // 
             // gridControl1
@@ -295,7 +306,7 @@
             this.gridControl1.Location = new System.Drawing.Point(24, 98);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(615, 593);
+            this.gridControl1.Size = new System.Drawing.Size(670, 593);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -311,7 +322,8 @@
             this.colDealFlagName_L,
             this.colDealPrice_L,
             this.colDealVolume_L,
-            this.colActualAmount_L});
+            this.colActualAmount_L,
+            this.colContractNo_L});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 40;
             this.gridView1.Name = "gridView1";
@@ -369,12 +381,12 @@
             // 
             // colDealFlagName_L
             // 
-            this.colDealFlagName_L.Caption = "买卖标志";
+            this.colDealFlagName_L.Caption = "买卖";
             this.colDealFlagName_L.FieldName = "DealFlagName";
             this.colDealFlagName_L.Name = "colDealFlagName_L";
             this.colDealFlagName_L.Visible = true;
             this.colDealFlagName_L.VisibleIndex = 4;
-            this.colDealFlagName_L.Width = 60;
+            this.colDealFlagName_L.Width = 44;
             // 
             // colDealPrice_L
             // 
@@ -408,6 +420,14 @@
             this.colActualAmount_L.VisibleIndex = 7;
             this.colActualAmount_L.Width = 111;
             // 
+            // colContractNo_L
+            // 
+            this.colContractNo_L.Caption = "合同编号";
+            this.colContractNo_L.FieldName = "ContractNo";
+            this.colContractNo_L.Name = "colContractNo_L";
+            this.colContractNo_L.Visible = true;
+            this.colContractNo_L.VisibleIndex = 8;
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -418,7 +438,7 @@
             this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1535, 715);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1665, 715);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // esiTitle
@@ -430,7 +450,7 @@
             this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
-            this.esiTitle.Size = new System.Drawing.Size(1515, 27);
+            this.esiTitle.Size = new System.Drawing.Size(1645, 27);
             this.esiTitle.TextSize = new System.Drawing.Size(60, 0);
             this.esiTitle.TextVisible = true;
             // 
@@ -451,7 +471,7 @@
             this.emptySpaceItem3});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 27);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(643, 668);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(698, 668);
             this.layoutControlGroup2.Text = "财务核算交割单";
             // 
             // layoutControlItem1
@@ -463,7 +483,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(619, 597);
+            this.layoutControlItem1.Size = new System.Drawing.Size(674, 597);
             this.layoutControlItem1.Text = "财务核算交割单";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -472,17 +492,17 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(531, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(578, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(88, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(96, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.luBeneficiary;
-            this.layoutControlItem4.Location = new System.Drawing.Point(10, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(11, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(220, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(240, 26);
             this.layoutControlItem4.Text = "受益人：";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -491,41 +511,41 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(230, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(251, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.cbTradeType;
-            this.layoutControlItem5.Location = new System.Drawing.Point(240, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(262, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(150, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(163, 26);
             this.layoutControlItem5.Text = "交易类别：";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnCopy;
-            this.layoutControlItem3.Location = new System.Drawing.Point(400, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(436, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(131, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(142, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(390, 0);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(425, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlGroup3
@@ -536,10 +556,10 @@
             this.layoutControlGroup3.AppearanceGroup.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(643, 27);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(698, 27);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(872, 668);
-            this.layoutControlGroup3.Text = "每日交易数据";
+            this.layoutControlGroup3.Size = new System.Drawing.Size(947, 668);
+            this.layoutControlGroup3.Text = "投资人员交易数据";
             // 
             // layoutControlItem2
             // 
@@ -550,7 +570,7 @@
             this.layoutControlItem2.Control = this.gridControl2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(848, 623);
+            this.layoutControlItem2.Size = new System.Drawing.Size(923, 623);
             this.layoutControlItem2.Text = "每日交易数据";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -560,7 +580,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1535, 715);
+            this.ClientSize = new System.Drawing.Size(1665, 715);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogTradeDataContrast";
             this.Text = "交易数据对照";
@@ -634,5 +654,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraGrid.Columns.GridColumn colId_L;
+        private DevExpress.XtraGrid.Columns.GridColumn colContractNo_L;
+        private DevExpress.XtraGrid.Columns.GridColumn colContractNo_R;
     }
 }

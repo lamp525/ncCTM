@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Account;
@@ -270,7 +269,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                     var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
                     if (row != null)
                     {
-                        var dialog = this.CreateDialog<FrmTradeDataVerify>();         
+                        var dialog = this.CreateDialog<FrmTradeDataVerify>();
 
                         dialog.IsExternalRequested = true;
                         dialog.AccountId = int.Parse(row[colAccountId_V.FieldName].ToString());
@@ -409,7 +408,5 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         #endregion PageProfit
 
         #endregion Events
-
-
     }
 }

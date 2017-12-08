@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CTM.Core;
-using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Services.Account;
 using CTM.Services.Dictionary;

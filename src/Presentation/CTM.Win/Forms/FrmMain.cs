@@ -167,13 +167,13 @@ namespace CTM.Win.Forms
         #region DataMange
 
         /// <summary>
-        /// 交割单数据导入
+        /// 财务交割单数据导入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bbiDeliveryDataImport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmDeliveryImport>("交割单数据导入");
+            this.DisplayForm<FrmDeliveryImport>("财务交割单数据导入");
         }
 
         /// <summary>
@@ -187,13 +187,13 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// 交割单数据管理
+        /// 财务交割单数据维护
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bbiDeliveryManage_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmDeliveryManage>("交割单数据维护");
+            this.DisplayTabbedForm<FrmDeliveryManage>("财务交割单数据维护");
         }
 
         #endregion DataMange
@@ -393,13 +393,13 @@ namespace CTM.Win.Forms
         #region DailyTrading
 
         /// <summary>
-        /// 交易数据导入
+        /// 投资人员交易数据导入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmTradeDataImport>("交易数据导入");
+            this.DisplayForm<FrmTradeDataImport>("投资人员交易数据导入");
         }
 
         /// <summary>
@@ -478,13 +478,13 @@ namespace CTM.Win.Forms
         }
 
         /// <summary>
-        /// 数据维护
+        /// 投资人员数据维护
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bbiTradeDataManage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmTradeDataManage>("交易数据维护");
+            this.DisplayTabbedForm<FrmTradeDataManage>("投资人员交易数据维护");
         }
 
         /// <summary>
