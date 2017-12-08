@@ -187,10 +187,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private void DisplayDataContrast(DataVerifyEntity entity)
         {
-            var dialog = EngineContext.Current.Resolve<_dialogTradeDataContrast>();
-            dialog.Owner = this;
-            dialog.Text = "交易数据对照";
-            dialog.StartPosition = FormStartPosition.CenterScreen;
+            var dialog = this.CreateDialog<_dialogTradeDataContrast>();
+
             dialog.AccountInfo = entity.AccountInfo;
             dialog.AccountId = entity.AccountId;
             dialog.StockCode = string.IsNullOrEmpty(entity.DE_StockCode) ? entity.DA_StockCode : entity.DE_StockCode;

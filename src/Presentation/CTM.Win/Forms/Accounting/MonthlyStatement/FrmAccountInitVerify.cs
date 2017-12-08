@@ -270,9 +270,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                     var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
                     if (row != null)
                     {
-                        var dialog = EngineContext.Current.Resolve<FrmTradeDataVerify>();
-                        dialog.Owner = this;              
-                        dialog.StartPosition = FormStartPosition.CenterScreen;
+                        var dialog = this.CreateDialog<FrmTradeDataVerify>();         
 
                         dialog.IsExternalRequested = true;
                         dialog.AccountId = int.Parse(row[colAccountId_V.FieldName].ToString());
@@ -356,9 +354,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                     var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
                     if (row != null)
                     {
-                        var dialog = EngineContext.Current.Resolve<FrmTradeDataVerify>();
-                        dialog.Owner = this;                    
-                        dialog.StartPosition = FormStartPosition.CenterScreen;
+                        var dialog = this.CreateDialog<FrmTradeDataVerify>();
 
                         dialog.IsExternalRequested = true;
                         dialog.AccountId = int.Parse(row[colAccountId_A1.FieldName].ToString());
