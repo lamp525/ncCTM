@@ -36,6 +36,7 @@
             this.btnCopy = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colId_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName_R = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradeDate_R = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -78,7 +79,6 @@
             this.lcgRight = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colId_R = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbTradeType.Properties)).BeginInit();
@@ -218,6 +218,13 @@
             this.gridView2.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
+            this.gridView2.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView2_SelectionChanged);
+            // 
+            // colId_R
+            // 
+            this.colId_R.Caption = "gridColumn1";
+            this.colId_R.FieldName = "Id";
+            this.colId_R.Name = "colId_R";
             // 
             // colStockCode_R
             // 
@@ -656,12 +663,6 @@
             this.layoutControlItem7.Size = new System.Drawing.Size(88, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
-            // 
-            // colId_R
-            // 
-            this.colId_R.Caption = "gridColumn1";
-            this.colId_R.FieldName = "Id";
-            this.colId_R.Name = "colId_R";
             // 
             // _dialogTradeDataContrast
             // 

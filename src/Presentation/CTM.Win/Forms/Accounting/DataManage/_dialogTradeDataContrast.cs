@@ -186,6 +186,30 @@ namespace CTM.Win.Forms.Accounting.DataManage
             }
         }
 
+        private void gridView2_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var myView = this.gridView2;
+                var selectedHandles = myView.GetSelectedRows();
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                if (selectedHandles.Length == 0)
+                {
+                    this.btnDelete_R.Enabled = false;
+                }
+                else
+                {
+                    btnDelete_R.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
         private void btnCopy_Click(object sender, EventArgs e)
         {
             try
@@ -237,10 +261,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 DXMessage.ShowError(ex.Message);
             }
-            finally
-            {
-                btnDelete_L.Enabled = true;
-            }
         }
 
         private void btnDelete_R_Click(object sender, EventArgs e)
@@ -265,10 +285,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                btnDelete_R.Enabled = true;
             }
         }
 
