@@ -20,6 +20,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private readonly IAccountService _accountService;
         private readonly IDictionaryService _dictionaryService;
         private readonly IDeliveryRecordService _deliveryService;
+        private readonly IDailyRecordService _dailyService;
 
         #endregion Fields
 
@@ -51,13 +52,14 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         #region Constructors
 
-        public _dialogTradeDataContrast(IAccountService accountService, IDictionaryService dictionaryService, IDeliveryRecordService deliveryService)
+        public _dialogTradeDataContrast(IAccountService accountService, IDictionaryService dictionaryService, IDeliveryRecordService deliveryService, IDailyRecordService dailyService)
         {
             InitializeComponent();
 
             this._accountService = accountService;
             this._dictionaryService = dictionaryService;
             this._deliveryService = deliveryService;
+            this._dailyService = dailyService;
         }
 
         #endregion Constructors
@@ -85,14 +87,16 @@ namespace CTM.Win.Forms.Accounting.DataManage
             }
             else
             {
-                this.luBeneficiary.Enabled = false;
-                this.cbTradeType.Enabled = false;
+                lcgLeft.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                lcgRight.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             }
 
             this.btnCopy.Enabled = false;
+            this.btnDelete_L.Enabled = false;
+            this.btnDelete_R.Enabled = false;
 
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, rowIndicatorWidth: 40);
-            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 40);
+            this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, rowIndicatorWidth: 40);
         }
 
         private void BindTradeDate()
@@ -168,10 +172,12 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 if (selectedHandles.Length == 0)
                 {
                     this.btnCopy.Enabled = false;
+                    this.btnDelete_L.Enabled = false;
                 }
                 else
                 {
                     btnCopy.Enabled = true;
+                    btnDelete_L.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -200,14 +206,75 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     CopyProcess();
 
                     BindTradeDate();
-
-                    this.RefreshEvent?.Invoke();
                 }
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
             }
+        }
+
+        private void btnDelete_L_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnDelete_L.Enabled = false;
+                if (DXMessage.ShowYesNoAndTips("是否确定删除选择的交割单？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    IList<int> recordIds = new List<int>();
+                    var rowHandles = gridView1.GetSelectedRows();
+                    foreach (var rowIndex in rowHandles)
+                    {
+                        var curId = int.Parse(gridView1.GetRowCellValue(rowIndex, this.colId_L).ToString());
+                        recordIds.Add(curId);
+                    }
+                    _deliveryService.DeleteDeliveryRecords(recordIds.ToArray());
+
+                    BindTradeDate();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                btnDelete_L.Enabled = true;
+            }
+        }
+
+        private void btnDelete_R_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnDelete_R.Enabled = false;
+                if (DXMessage.ShowYesNoAndTips("是否确定删除选择的交割单？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    IList<int> recordIds = new List<int>();
+                    var rowHandles = gridView2.GetSelectedRows();
+                    foreach (var rowIndex in rowHandles)
+                    {
+                        var curId = int.Parse(gridView2.GetRowCellValue(rowIndex, this.colId_R).ToString());
+                        recordIds.Add(curId);
+                    }
+                    _dailyService.DeleteDailyRecords(recordIds.ToArray());
+
+                    BindTradeDate();
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                btnDelete_R.Enabled = true;
+            }
+        }
+
+        private void _dialogTradeDataContrast_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            this.RefreshEvent?.Invoke();
         }
 
         #endregion Events
