@@ -37,6 +37,8 @@
             this.gcPosition = new DevExpress.XtraGrid.GridControl();
             this.gvPosition = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colAccountId_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockCode_V = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockName_V = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccountDetail_V = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOwnerName_V = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockDetail_V = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -55,6 +57,7 @@
             this.pageProfit = new DevExpress.XtraTab.XtraTabPage();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnAccountAdjust = new DevExpress.XtraEditors.SimpleButton();
             this.gcAccountProfit = new DevExpress.XtraGrid.GridControl();
             this.gvAccountProfit = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colAccountId_A1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -70,7 +73,11 @@
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnStockAdjust = new DevExpress.XtraEditors.SimpleButton();
             this.gcStockProfit = new DevExpress.XtraGrid.GridControl();
             this.gvStockProfit = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colStockCode_A2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -82,6 +89,9 @@
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciStockProfit = new DevExpress.XtraLayout.LayoutControlItem();
             this.esiStockProfitTitle = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.cbAttribute = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbSecurity = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbAccount = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -101,14 +111,6 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnAccountAdjust = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.btnStockAdjust = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -135,6 +137,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcStockProfit)).BeginInit();
@@ -143,6 +148,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciStockProfit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiStockProfitTitle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAttribute.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSecurity.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAccount.Properties)).BeginInit();
@@ -163,12 +171,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -255,6 +257,8 @@
             // 
             this.gvPosition.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colAccountId_V,
+            this.colStockCode_V,
+            this.colStockName_V,
             this.colAccountDetail_V,
             this.colOwnerName_V,
             this.colStockDetail_V,
@@ -272,11 +276,24 @@
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colAccountDetail_V, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvPosition.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvPosition_CustomDrawRowIndicator);
             this.gvPosition.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvPosition_RowCellStyle);
+            this.gvPosition.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gvPosition_MouseDown);
             // 
             // colAccountId_V
             // 
             this.colAccountId_V.FieldName = "AccountId";
             this.colAccountId_V.Name = "colAccountId_V";
+            // 
+            // colStockCode_V
+            // 
+            this.colStockCode_V.Caption = "gridColumn2";
+            this.colStockCode_V.FieldName = "StockCode";
+            this.colStockCode_V.Name = "colStockCode_V";
+            // 
+            // colStockName_V
+            // 
+            this.colStockName_V.Caption = "gridColumn1";
+            this.colStockName_V.FieldName = "StockName";
+            this.colStockName_V.Name = "colStockName_V";
             // 
             // colAccountDetail_V
             // 
@@ -464,6 +481,16 @@
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
+            // btnAccountAdjust
+            // 
+            this.btnAccountAdjust.Location = new System.Drawing.Point(34, 43);
+            this.btnAccountAdjust.Name = "btnAccountAdjust";
+            this.btnAccountAdjust.Size = new System.Drawing.Size(91, 22);
+            this.btnAccountAdjust.StyleController = this.layoutControl2;
+            this.btnAccountAdjust.TabIndex = 4;
+            this.btnAccountAdjust.Text = " 账户收益调整 ";
+            this.btnAccountAdjust.Click += new System.EventHandler(this.btnAccountAdjust_Click);
+            // 
             // gcAccountProfit
             // 
             this.gcAccountProfit.Location = new System.Drawing.Point(24, 69);
@@ -505,6 +532,7 @@
             this.gvAccountProfit.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvAccountProfit_CustomDrawRowIndicator);
             this.gvAccountProfit.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvAccountProfit_RowCellStyle);
             this.gvAccountProfit.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvAccountProfit_FocusedRowChanged);
+            this.gvAccountProfit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gvAccountProfit_MouseDown);
             // 
             // colAccountId_A1
             // 
@@ -641,6 +669,31 @@
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.btnAccountAdjust;
+            this.layoutControlItem9.Location = new System.Drawing.Point(10, 0);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(95, 26);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
+            // 
+            // emptySpaceItem7
+            // 
+            this.emptySpaceItem7.AllowHotTrack = false;
+            this.emptySpaceItem7.Location = new System.Drawing.Point(105, 0);
+            this.emptySpaceItem7.Name = "emptySpaceItem7";
+            this.emptySpaceItem7.Size = new System.Drawing.Size(793, 26);
+            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem8
+            // 
+            this.emptySpaceItem8.AllowHotTrack = false;
+            this.emptySpaceItem8.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem8.Name = "emptySpaceItem8";
+            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // layoutControl3
             // 
             this.layoutControl3.Controls.Add(this.btnStockAdjust);
@@ -652,6 +705,16 @@
             this.layoutControl3.Size = new System.Drawing.Size(571, 714);
             this.layoutControl3.TabIndex = 1;
             this.layoutControl3.Text = "layoutControl3";
+            // 
+            // btnStockAdjust
+            // 
+            this.btnStockAdjust.Location = new System.Drawing.Point(34, 81);
+            this.btnStockAdjust.Name = "btnStockAdjust";
+            this.btnStockAdjust.Size = new System.Drawing.Size(91, 22);
+            this.btnStockAdjust.StyleController = this.layoutControl3;
+            this.btnStockAdjust.TabIndex = 4;
+            this.btnStockAdjust.Text = " 股票收益调整 ";
+            this.btnStockAdjust.Click += new System.EventHandler(this.btnStockAdjust_Click);
             // 
             // gcStockProfit
             // 
@@ -798,6 +861,31 @@
             this.esiStockProfitTitle.Text = "当前账号：";
             this.esiStockProfitTitle.TextSize = new System.Drawing.Size(0, 0);
             this.esiStockProfitTitle.TextVisible = true;
+            // 
+            // emptySpaceItem9
+            // 
+            this.emptySpaceItem9.AllowHotTrack = false;
+            this.emptySpaceItem9.Location = new System.Drawing.Point(105, 38);
+            this.emptySpaceItem9.Name = "emptySpaceItem9";
+            this.emptySpaceItem9.Size = new System.Drawing.Size(422, 26);
+            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.btnStockAdjust;
+            this.layoutControlItem12.Location = new System.Drawing.Point(10, 38);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(95, 26);
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextVisible = false;
+            // 
+            // emptySpaceItem12
+            // 
+            this.emptySpaceItem12.AllowHotTrack = false;
+            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 38);
+            this.emptySpaceItem12.Name = "emptySpaceItem12";
+            this.emptySpaceItem12.Size = new System.Drawing.Size(10, 26);
+            this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
             // 
             // cbAttribute
             // 
@@ -989,76 +1077,6 @@
             this.layoutControlItem10.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem10.TextSize = new System.Drawing.Size(112, 14);
             // 
-            // btnAccountAdjust
-            // 
-            this.btnAccountAdjust.Location = new System.Drawing.Point(34, 43);
-            this.btnAccountAdjust.Name = "btnAccountAdjust";
-            this.btnAccountAdjust.Size = new System.Drawing.Size(91, 22);
-            this.btnAccountAdjust.StyleController = this.layoutControl2;
-            this.btnAccountAdjust.TabIndex = 4;
-            this.btnAccountAdjust.Text = " 账户收益调整 ";
-            this.btnAccountAdjust.Click += new System.EventHandler(this.btnAccountAdjust_Click);
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.Control = this.btnAccountAdjust;
-            this.layoutControlItem9.Location = new System.Drawing.Point(10, 0);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(95, 26);
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem9.TextVisible = false;
-            // 
-            // emptySpaceItem7
-            // 
-            this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(105, 0);
-            this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(793, 26);
-            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem8
-            // 
-            this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem9
-            // 
-            this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(105, 38);
-            this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(422, 26);
-            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // btnStockAdjust
-            // 
-            this.btnStockAdjust.Location = new System.Drawing.Point(34, 81);
-            this.btnStockAdjust.Name = "btnStockAdjust";
-            this.btnStockAdjust.Size = new System.Drawing.Size(91, 22);
-            this.btnStockAdjust.StyleController = this.layoutControl3;
-            this.btnStockAdjust.TabIndex = 4;
-            this.btnStockAdjust.Text = " 股票收益调整 ";
-            this.btnStockAdjust.Click += new System.EventHandler(this.btnStockAdjust_Click);
-            // 
-            // layoutControlItem12
-            // 
-            this.layoutControlItem12.Control = this.btnStockAdjust;
-            this.layoutControlItem12.Location = new System.Drawing.Point(10, 38);
-            this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(95, 26);
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem12.TextVisible = false;
-            // 
-            // emptySpaceItem12
-            // 
-            this.emptySpaceItem12.AllowHotTrack = false;
-            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 38);
-            this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(10, 26);
-            this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // FrmAccountInitVerify
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1094,6 +1112,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcStockProfit)).EndInit();
@@ -1102,6 +1123,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciStockProfit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.esiStockProfitTitle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAttribute.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSecurity.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAccount.Properties)).EndInit();
@@ -1122,12 +1146,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1214,5 +1232,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem12;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockCode_V;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockName_V;
     }
 }

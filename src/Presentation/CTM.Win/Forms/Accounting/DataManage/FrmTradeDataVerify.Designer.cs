@@ -697,7 +697,7 @@
             this.ClientSize = new System.Drawing.Size(1534, 809);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmTradeDataVerify";
-            this.Text = "FrmTradeDataVerify";
+            this.Text = "账户收益持仓核对";
             this.Load += new System.EventHandler(this.FrmTradeDataVerify_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

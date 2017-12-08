@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 using CTM.Core;
+using CTM.Core.Infrastructure;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Account;
@@ -10,6 +12,7 @@ using CTM.Services.Common;
 using CTM.Services.Dictionary;
 using CTM.Services.MonthlyStatement;
 using CTM.Win.Extensions;
+using CTM.Win.Forms.Accounting.DataManage;
 using CTM.Win.Models;
 using CTM.Win.Util;
 
@@ -257,6 +260,31 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
+        private void gvPosition_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                var ghi = gvPosition.CalcHitInfo(e.Location);
+                if (ghi.InRow)
+                {
+                    var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
+                    if (row != null)
+                    {
+                        var dialog = EngineContext.Current.Resolve<FrmTradeDataVerify>();
+                        dialog.Owner = this;              
+                        dialog.StartPosition = FormStartPosition.CenterScreen;
+
+                        dialog.IsExternalRequested = true;
+                        dialog.AccountId = int.Parse(row[colAccountId_V.FieldName].ToString());
+                        DateTime date = CommonHelper.StringToDateTime(deYearMonth.EditValue.ToString());
+                        dialog.FromDate = CommonHelper.GetFirstDayOfMonth(date);
+                        dialog.ToDate = CommonHelper.GetLastDayOfMonth(date);
+                        dialog.Show();
+                    }
+                }
+            }
+        }
+
         #endregion PagePosition
 
         #region PageProfit
@@ -318,6 +346,31 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
             }
         }
 
+        private void gvAccountProfit_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                var ghi = gvPosition.CalcHitInfo(e.Location);
+                if (ghi.InRow)
+                {
+                    var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
+                    if (row != null)
+                    {
+                        var dialog = EngineContext.Current.Resolve<FrmTradeDataVerify>();
+                        dialog.Owner = this;                    
+                        dialog.StartPosition = FormStartPosition.CenterScreen;
+
+                        dialog.IsExternalRequested = true;
+                        dialog.AccountId = int.Parse(row[colAccountId_A1.FieldName].ToString());
+                        DateTime date = CommonHelper.StringToDateTime(deYearMonth.EditValue.ToString());
+                        dialog.FromDate = CommonHelper.GetFirstDayOfMonth(date);
+                        dialog.ToDate = CommonHelper.GetLastDayOfMonth(date);
+                        dialog.Show();
+                    }
+                }
+            }
+        }
+
         private void btnStockAdjust_Click(object sender, EventArgs e)
         {
             try
@@ -360,5 +413,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         #endregion PageProfit
 
         #endregion Events
+
+
     }
 }

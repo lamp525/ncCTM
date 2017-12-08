@@ -32,6 +32,15 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         #endregion Fields
 
+        #region Properties
+
+        public bool IsExternalRequested { internal get; set; }
+        public int AccountId { internal get; set; }
+        public DateTime FromDate { internal get; set; }
+        public DateTime ToDate { internal get; set; }
+
+        #endregion Properties
+
         #region Enums
 
         private enum ResultDisplayType
@@ -73,7 +82,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     Value = x.Code.ToString(),
                     Text = x.Name
                 }).ToList();
-                this.cbAccountAttribute.Initialize(accountAttributes,displayAdditionalItem:true);
+                this.cbAccountAttribute.Initialize(accountAttributes, displayAdditionalItem: true);
                 this.cbAccountAttribute.SelectedIndex = -1;
 
                 //证券公司信息
@@ -85,7 +94,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                                 Text = x.Name
                             }).OrderBy(x => x.Text).ToList();
 
-                this.cbSecurity.Initialize(securityCompanys,displayAdditionalItem:true);
+                this.cbSecurity.Initialize(securityCompanys, displayAdditionalItem: true);
                 this.cbSecurity.SelectedIndex = -1;
 
                 this.lciAttribute.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
@@ -117,9 +126,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
             var allAccount = new AccountEntity
             {
-               Id = 0,
-               Name = " 全部 ",
-               DisplayMember = " 全部 ",
+                Id = 0,
+                Name = " 全部 ",
+                DisplayMember = " 全部 ",
             };
 
             _accounts.Add(allAccount);
@@ -169,17 +178,17 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (curAccountId == 0)
                 accountIds = (this.luAccount.Properties.DataSource as IList<AccountEntity>).Select(x => x.Id).ToList();
             else
-                accountIds .Add(curAccountId);
+                accountIds.Add(curAccountId);
 
             var diffData = _dataVerifyService.sp_GetDeliveryAndEntrustDiffData(displayType, accountIds, dateFrom, dateTo);
 
             this.gridControl1.DataSource = diffData;
-        }     
+        }
 
         private void DisplayDataContrast(DataVerifyEntity entity)
         {
             var dialog = EngineContext.Current.Resolve<_dialogTradeDataContrast>();
-            dialog.Owner = this.ParentForm;
+            dialog.Owner = this;
             dialog.Text = "交易数据对照";
             dialog.StartPosition = FormStartPosition.CenterScreen;
             dialog.AccountInfo = entity.AccountInfo;
@@ -192,7 +201,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             dialog.RefreshEvent += BindDiffInfo;
             dialog.Show();
         }
-
 
         #endregion Utilities
 
@@ -208,6 +216,17 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 BindSearchInfo();
 
                 this.rgDisplayType.SelectedIndex = 0;
+
+                if (IsExternalRequested)
+                {
+                    deFrom.EditValue = FromDate;
+                    deTo.EditValue = ToDate;
+                    luAccount.EditValue = AccountId;
+
+                    BindDiffInfo();
+
+                    _isSearched = true;
+                }
             }
             catch (Exception ex)
             {
@@ -320,17 +339,16 @@ namespace CTM.Win.Forms.Accounting.DataManage
             Point pt = bandedGridView1.GridControl.PointToClient(Control.MousePosition);
 
             var ghi = this.bandedGridView1.CalcHitInfo(pt);
-
             if (ghi.InRow)
             {
                 var row = this.bandedGridView1.GetRow(ghi.RowHandle) as DataVerifyEntity;
-
                 if (row != null)
                 {
                     DisplayDataContrast(row);
                 }
             }
         }
+
         private void bandedGridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
             if (e.RowHandle < 0) return;
@@ -341,8 +359,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
             e.HighPriority = true;
         }
+
         #endregion Events
-
-
     }
 }
