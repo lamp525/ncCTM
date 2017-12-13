@@ -599,6 +599,12 @@ namespace CTM.Core
             ShenWan_N,
 
             /// <summary>
+            /// 申万证券（信用）
+            /// </summary>
+            [Description("申万证券（信用）")]
+            ShenWan_C,
+
+            /// <summary>
             /// 国金证券（普通）
             /// </summary>
             [Description("国金证券（普通）")]

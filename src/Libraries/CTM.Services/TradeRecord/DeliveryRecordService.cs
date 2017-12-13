@@ -798,6 +798,49 @@ namespace CTM.Services.TradeRecord
 
         #endregion 交割单--申万证券（普通）
 
+        #region 交割单--申万证券（信用）
+
+        /// <summary>
+        /// 交割单--申万证券（信用）
+        /// </summary>
+        /// <param name="importOperation"></param>
+        /// <param name="importDataTable"></param>
+        /// <returns></returns>
+        private IList<DeliveryRecord> DeliveryImportShenWan_C(RecordImportOperationEntity importOperation, DataTable importDataTable)
+        {
+            Dictionary<string, string> columnList = new Dictionary<string, string>();
+            DeliveryRecord record = null;
+
+            columnList.Add(nameof(record.TradeDate), "发生日期");
+            columnList.Add(nameof(record.TradeTime),"成交时间");
+            columnList.Add(nameof(record.StockCode), "证券代码");
+            columnList.Add(nameof(record.StockName), "证券名称");
+            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealPrice), "成交价格");
+            columnList.Add(nameof(record.DealVolume), "成交数量");
+            columnList.Add(nameof(record.DealAmount), "成交金额");
+            columnList.Add(nameof(record.ActualAmount), "发生金额");
+            columnList.Add(nameof(record.Commission), "手续费");
+            columnList.Add(nameof(record.StampDuty), "印花税");
+            columnList.Add(nameof(record.Incidentals), "过户费");
+            columnList.Add("OtherFee1", "其他费");
+            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee3", null);
+            columnList.Add(nameof(record.StockHolderCode), "股东代码");
+            columnList.Add(nameof(record.DealNo), "委托编号");
+            columnList.Add(nameof(record.ContractNo), "委托编号");
+            columnList.Add(nameof(record.Remarks), "业务名称");
+
+            List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
+            this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
+
+            var tradeRecords = ObtainTradeDataFromImportDataTable(importOperation, importDataTable, columnList);
+
+            return tradeRecords;
+        }
+
+        #endregion 交割单--申万证券（信用）
+
         #region 交割单--国金证券（普通）
 
         /// <summary>
@@ -1039,6 +1082,11 @@ namespace CTM.Services.TradeRecord
                     records = DeliveryImportShenWan_N(importOperation, importDataTable);
                     break;
 
+                //申万信用
+                case EnumLibrary.SecurityAccount.ShenWan_C:
+                    records = DeliveryImportShenWan_C(importOperation, importDataTable);
+                    break;
+
                 //银河普通
                 case EnumLibrary.SecurityAccount.Galaxy_N:
                     records = DeliveryImportGalaxy_N(importOperation, importDataTable);
@@ -1078,6 +1126,9 @@ namespace CTM.Services.TradeRecord
                 case EnumLibrary.SecurityAccount.BOCI_N:
                     records = DeliveryImportBOCI_N(importOperation, importDataTable);
                     break;
+
+                default:
+                    throw new Exception($@"券商【{CTMHelper.GetSecurityAccountName((int)securityAccount)}】的委托数据导入功能未实现，请联系管理员！");
             }
 
             BatchInsertDeliveryRecords(records);

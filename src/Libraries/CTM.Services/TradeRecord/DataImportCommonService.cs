@@ -165,6 +165,11 @@ namespace CTM.Services.TradeRecord
                 securityAccount = EnumLibrary.SecurityAccount.ShenWan_N;
             }
 
+            if (securityCompanyName == "申万宏源" && accountAttributeName == "信用")
+            {
+                securityAccount = EnumLibrary.SecurityAccount.ShenWan_C;
+            }
+
             if (securityCompanyName == "财通证券" && accountAttributeName == "信用")
             {
                 securityAccount = EnumLibrary.SecurityAccount.CaiTong_C;

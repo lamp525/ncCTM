@@ -194,7 +194,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             dialog.StockName = string.IsNullOrEmpty(entity.DE_StockName) ? entity.DA_StockName : entity.DE_StockName;
             dialog.FromDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deFrom.EditValue.ToString());
             dialog.ToDate = entity.DE_TradeDate.HasValue ? entity.DE_TradeDate.Value : CommonHelper.StringToDateTime(this.deTo.EditValue.ToString());
-            dialog.DealFlag = entity.DE_DealFlag.HasValue ? entity.DE_DealFlag.Value : entity.DA_DealFlag.Value;
+            dialog.DealFlag = entity.DE_DealFlag.HasValue ? entity.DE_DealFlag.Value : entity.DA_DealFlag.Value; 
             dialog.RefreshEvent += BindDiffInfo;
             dialog.Show();
         }
@@ -335,10 +335,10 @@ namespace CTM.Win.Forms.Accounting.DataManage
         {
             Point pt = bandedGridView1.GridControl.PointToClient(Control.MousePosition);
 
-            var ghi = this.bandedGridView1.CalcHitInfo(pt);
-            if (ghi.InRow)
+            var hi = this.bandedGridView1.CalcHitInfo(pt);
+            if (hi.InRow)
             {
-                var row = this.bandedGridView1.GetRow(ghi.RowHandle) as DataVerifyEntity;
+                var row = this.bandedGridView1.GetRow(hi.RowHandle) as DataVerifyEntity;
                 if (row != null)
                 {
                     DisplayDataContrast(row);

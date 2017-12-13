@@ -125,9 +125,9 @@
             // 
             // btnDelete_R
             // 
-            this.btnDelete_R.Location = new System.Drawing.Point(1543, 103);
+            this.btnDelete_R.Location = new System.Drawing.Point(1431, 103);
             this.btnDelete_R.Name = "btnDelete_R";
-            this.btnDelete_R.Size = new System.Drawing.Size(84, 22);
+            this.btnDelete_R.Size = new System.Drawing.Size(196, 22);
             this.btnDelete_R.StyleController = this.layoutControl1;
             this.btnDelete_R.TabIndex = 10;
             this.btnDelete_R.Text = "    删  除    ";
@@ -137,7 +137,7 @@
             // 
             this.btnDelete_L.Location = new System.Drawing.Point(592, 103);
             this.btnDelete_L.Name = "btnDelete_L";
-            this.btnDelete_L.Size = new System.Drawing.Size(82, 22);
+            this.btnDelete_L.Size = new System.Drawing.Size(83, 22);
             this.btnDelete_L.StyleController = this.layoutControl1;
             this.btnDelete_L.TabIndex = 9;
             this.btnDelete_L.Text = "    删  除    ";
@@ -178,10 +178,10 @@
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(714, 141);
+            this.gridControl2.Location = new System.Drawing.Point(715, 141);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(925, 550);
+            this.gridControl2.Size = new System.Drawing.Size(924, 550);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -348,7 +348,7 @@
             this.gridControl1.Location = new System.Drawing.Point(24, 141);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(662, 550);
+            this.gridControl1.Size = new System.Drawing.Size(663, 550);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -382,6 +382,7 @@
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
+            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colId_L
             // 
@@ -507,7 +508,7 @@
             this.lcgLeft});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 27);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(690, 668);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(691, 668);
             this.layoutControlGroup2.Text = "财务核算交割单";
             // 
             // layoutControlItem1
@@ -519,7 +520,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 69);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(666, 554);
+            this.layoutControlItem1.Size = new System.Drawing.Size(667, 554);
             this.layoutControlItem1.Text = "财务核算交割单";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -541,7 +542,7 @@
             this.layoutControlItem6});
             this.lcgLeft.Location = new System.Drawing.Point(0, 0);
             this.lcgLeft.Name = "lcgLeft";
-            this.lcgLeft.Size = new System.Drawing.Size(666, 69);
+            this.lcgLeft.Size = new System.Drawing.Size(667, 69);
             this.lcgLeft.Text = "操作";
             // 
             // emptySpaceItem1
@@ -600,7 +601,7 @@
             this.layoutControlItem6.Control = this.btnDelete_L;
             this.layoutControlItem6.Location = new System.Drawing.Point(556, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(86, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(87, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -613,9 +614,9 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2,
             this.lcgRight});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(690, 27);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(691, 27);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(953, 668);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(952, 668);
             this.layoutControlGroup3.Text = "投资人员交易数据";
             // 
             // layoutControlItem2
@@ -627,7 +628,7 @@
             this.layoutControlItem2.Control = this.gridControl2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 69);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(929, 554);
+            this.layoutControlItem2.Size = new System.Drawing.Size(928, 554);
             this.layoutControlItem2.Text = "每日交易数据";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -644,7 +645,7 @@
             this.layoutControlItem7});
             this.lcgRight.Location = new System.Drawing.Point(0, 0);
             this.lcgRight.Name = "lcgRight";
-            this.lcgRight.Size = new System.Drawing.Size(929, 69);
+            this.lcgRight.Size = new System.Drawing.Size(928, 69);
             this.lcgRight.Text = "操作";
             // 
             // emptySpaceItem2
@@ -652,15 +653,15 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(817, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(704, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.btnDelete_R;
-            this.layoutControlItem7.Location = new System.Drawing.Point(817, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(704, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(88, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(200, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using CTM.Core;
 using CTM.Data;
@@ -21,6 +22,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private readonly IDictionaryService _dictionaryService;
         private readonly IDeliveryRecordService _deliveryService;
         private readonly IDailyRecordService _dailyService;
+
+        private bool _modifiedFlag = false;
 
         #endregion Fields
 
@@ -99,14 +102,15 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this.gridView2.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: LoginInfo.CurrentUser.IsAdmin, rowIndicatorWidth: 40);
         }
 
-        private void BindTradeDate()
+        private void BindTradeData()
         {
             var commandText = $@"EXEC [dbo].[sp_GetDeliveryAndDailyContrastData] @AccountId = {AccountId} , @StockCode = '{StockCode}' , @FromDate = '{FromDate}' , @ToDate = '{ToDate}' , @DealFlag = {DealFlag}";
             var ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, commandText);
-            if (ds == null || ds.Tables.Count == 0) return;
-
-            this.gridControl1.DataSource = ds.Tables[0];
-            this.gridControl2.DataSource = ds.Tables[1];
+            if (ds != null && ds.Tables.Count == 2)
+            {
+                this.gridControl1.DataSource = ds.Tables[0];
+                this.gridControl2.DataSource = ds.Tables[1];
+            }
         }
 
         private void CopyProcess()
@@ -132,7 +136,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             try
             {
                 FormInit();
-                BindTradeDate();
+                BindTradeData();
             }
             catch (Exception ex)
             {
@@ -141,14 +145,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         }
 
         private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
-        {
-            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
-            {
-                e.Info.DisplayText = (e.RowHandle + 1).ToString();
-            }
-        }
-
-        private void gridView2_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
@@ -172,13 +168,105 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 }
                 else
                 {
-                    btnCopy.Enabled = true;
-                    btnDelete_L.Enabled = true;
+                    this.btnCopy.Enabled = true;
+                    this.btnDelete_L.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void gridView1_DoubleClick(object sender, EventArgs e)
+        {
+            Point pt = gridView1.GridControl.PointToClient(MousePosition);
+
+            var hi = gridView1.CalcHitInfo(pt);
+            if (hi.InRow)
+            {
+                var row = gridView1.GetRow(hi.RowHandle) as DataRowView;
+                if (row != null)
+                {
+                    var dialog = this.CreateDialog<_dialogAmountSplit>();
+                    dialog.DeliveryId = int.Parse(row[this.colId_L.FieldName].ToString());
+                    dialog.AccountId = AccountId;
+                    dialog.AccountInfo = AccountInfo;
+                    dialog.StockCode = StockCode;
+                    dialog.StockName = StockName;
+                    dialog.TradeDate = row[this.colTradeDate_L.FieldName].ToString();
+                    dialog.ActualAmount = decimal.Parse(row[this.colActualAmount_L.FieldName].ToString());
+                    dialog.DealVolume = decimal.Parse(row[this.colDealVolume_L.FieldName].ToString());
+                    dialog.RefreshEvent +=BindTradeData;
+                    dialog.ShowDialog();
+                }
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnCopy.Enabled = false;
+
+                if (string.IsNullOrEmpty(this.luBeneficiary.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择实际受益人！");
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.cbTradeType.SelectedValue()))
+                {
+                    DXMessage.ShowTips("请选择交易类别！");
+                    return;
+                }
+
+                if (DXMessage.ShowYesNoAndTips("是否确定导入？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    CopyProcess();
+                    BindTradeData();
+                    this._modifiedFlag = true;
+                }
+                else
+                    btnCopy.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void btnDelete_L_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnDelete_L.Enabled = false;
+                if (DXMessage.ShowYesNoAndTips("是否确定删除选择的交割单？") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    IList<int> recordIds = new List<int>();
+                    var rowHandles = gridView1.GetSelectedRows();
+                    foreach (var rowIndex in rowHandles)
+                    {
+                        var curId = int.Parse(gridView1.GetRowCellValue(rowIndex, this.colId_L).ToString());
+                        recordIds.Add(curId);
+                    }
+                    _deliveryService.DeleteDeliveryRecords(recordIds.ToArray());
+                    BindTradeData();
+                    this._modifiedFlag = true;
+                }
+                else
+                    btnDelete_L.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void gridView2_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle >= 0)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
 
@@ -206,65 +294,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
             }
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnCopy.Enabled = false;
-
-                if (string.IsNullOrEmpty(this.luBeneficiary.SelectedValue()))
-                {
-                    DXMessage.ShowTips("请选择实际受益人！");
-                    return;
-                }
-                if (string.IsNullOrEmpty(this.cbTradeType.SelectedValue()))
-                {
-                    DXMessage.ShowTips("请选择交易类别！");
-                    return;
-                }
-
-                if (DXMessage.ShowYesNoAndTips("是否确定导入？") == System.Windows.Forms.DialogResult.Yes)
-                {
-                    CopyProcess();
-
-                    BindTradeDate();
-                }
-                else
-                    btnCopy.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
-        private void btnDelete_L_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnDelete_L.Enabled = false;
-                if (DXMessage.ShowYesNoAndTips("是否确定删除选择的交割单？") == System.Windows.Forms.DialogResult.Yes)
-                {
-                    IList<int> recordIds = new List<int>();
-                    var rowHandles = gridView1.GetSelectedRows();
-                    foreach (var rowIndex in rowHandles)
-                    {
-                        var curId = int.Parse(gridView1.GetRowCellValue(rowIndex, this.colId_L).ToString());
-                        recordIds.Add(curId);
-                    }
-                    _deliveryService.DeleteDeliveryRecords(recordIds.ToArray());
-
-                    BindTradeDate();
-                }
-                else
-                    btnDelete_L.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-        }
-
         private void btnDelete_R_Click(object sender, EventArgs e)
         {
             try
@@ -280,8 +309,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                         recordIds.Add(curId);
                     }
                     _dailyService.DeleteDailyRecords(recordIds.ToArray());
-
-                    BindTradeDate();
+                    BindTradeData();
+                    this._modifiedFlag = true;
                 }
                 else
                     btnDelete_R.Enabled = true;
@@ -294,7 +323,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         private void _dialogTradeDataContrast_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            this.RefreshEvent?.Invoke();
+            if (this._modifiedFlag)
+                this.RefreshEvent?.Invoke();
         }
 
         #endregion Events

@@ -544,9 +544,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
         private void gridView2_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
             var myView = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-
             var dr = myView.GetRow(e.RowHandle) as MIAccountPosition;
-
             if (dr == null) return;
 
             //操作

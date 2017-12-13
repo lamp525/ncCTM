@@ -266,7 +266,7 @@ namespace CTM.Win.Forms.Accounting.MonthlyStatement
                 var ghi = gvPosition.CalcHitInfo(e.Location);
                 if (ghi.InRow)
                 {
-                    var row = gvPosition.GetDataRow(ghi.RowHandle) as DataRow;
+                    var row = gvPosition.GetDataRow(ghi.RowHandle);
                     if (row != null)
                     {
                         var dialog = this.CreateDialog<FrmTradeDataVerify>();
