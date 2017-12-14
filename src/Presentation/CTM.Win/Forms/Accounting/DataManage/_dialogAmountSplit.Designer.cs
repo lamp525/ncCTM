@@ -99,12 +99,12 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(12, 60);
+            this.gridControl1.Location = new System.Drawing.Point(12, 63);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(584, 252);
+            this.gridControl1.Size = new System.Drawing.Size(584, 249);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -250,13 +250,15 @@
             // 
             // layoutControlItem1
             // 
+            this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 31);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(588, 273);
-            this.layoutControlItem1.Text = "持仓明细";
+            this.layoutControlItem1.Text = "昨日持仓明细";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(48, 14);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(90, 17);
             // 
             // esiTitle
             // 
@@ -268,7 +270,7 @@
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
             this.esiTitle.Size = new System.Drawing.Size(588, 31);
-            this.esiTitle.TextSize = new System.Drawing.Size(48, 0);
+            this.esiTitle.TextSize = new System.Drawing.Size(90, 0);
             this.esiTitle.TextVisible = true;
             // 
             // emptySpaceItem2

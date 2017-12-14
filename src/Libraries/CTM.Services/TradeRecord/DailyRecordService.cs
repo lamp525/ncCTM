@@ -1124,7 +1124,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), null);
+            columnList.Add(nameof(record.TradeDate), "委托日期");
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -1135,7 +1135,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
-            columnList.Add(nameof(record.StockHolderCode), "股东帐户");
+            columnList.Add(nameof(record.StockHolderCode), null);
             columnList.Add(nameof(record.DealNo), "合同编号");
             columnList.Add(nameof(record.ContractNo), "合同编号");
             columnList.Add(nameof(record.Remarks), "操作");

@@ -296,7 +296,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 else
                 {
                     var diffRate = CommonHelper.CalculateRate(Math.Abs(row.AmountDiff), Math.Abs(row.DE_TotalActualAmount == null ? 0 : row.DE_TotalActualAmount.Value));
-
                     if (diffRate > 0.001M)
                         e.Appearance.ForeColor = Color.Red;
                 }

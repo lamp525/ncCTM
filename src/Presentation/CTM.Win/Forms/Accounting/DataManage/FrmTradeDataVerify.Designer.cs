@@ -203,6 +203,7 @@
             // 
             // bandedGridView1
             // 
+            this.bandedGridView1.ActiveFilterEnabled = false;
             this.bandedGridView1.ActiveFilterString = "[DE_StockName] Not Like \'GC%\'";
             this.bandedGridView1.Bands.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.GridBand[] {
             this.gridBand1,
