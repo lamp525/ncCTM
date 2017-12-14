@@ -186,7 +186,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             if (hi.InRow)
             {
                 var row = gridView1.GetRow(hi.RowHandle) as DataRowView;
-                if (row != null)
+                if (row != null && decimal.Parse(row[this.colDealVolume_L.FieldName].ToString()) == 0)
                 {
                     var dialog = this.CreateDialog<_dialogAmountSplit>();
                     dialog.DeliveryId = int.Parse(row[this.colId_L.FieldName].ToString());
@@ -197,8 +197,9 @@ namespace CTM.Win.Forms.Accounting.DataManage
                     dialog.TradeDate = row[this.colTradeDate_L.FieldName].ToString();
                     dialog.ActualAmount = decimal.Parse(row[this.colActualAmount_L.FieldName].ToString());
                     dialog.DealVolume = decimal.Parse(row[this.colDealVolume_L.FieldName].ToString());
-                    dialog.RefreshEvent +=BindTradeData;
+                    dialog.RefreshEvent += BindTradeData;
                     dialog.ShowDialog();
+                    this._modifiedFlag = dialog.SplitFlag;
                 }
             }
         }

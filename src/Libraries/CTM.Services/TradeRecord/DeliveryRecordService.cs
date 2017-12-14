@@ -1019,6 +1019,13 @@ namespace CTM.Services.TradeRecord
 
         #region Methods
 
+        public virtual DeliveryRecord GetDeliveryRecordById(int Id)
+        {
+            var info = _deliveryRepository.GetById(Id);
+
+            return info;
+        }
+
         public virtual bool DataImportProcess(EnumLibrary.SecurityAccount securityAccount, DataTable importDataTable, RecordImportOperationEntity importOperation, out IList<DataRow> skippedRecords)
         {
             _skippedRecords = null;

@@ -33,9 +33,11 @@
             this.btnOk = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBeneficiaryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBeneficiary = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradeTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPositionVol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotalVol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -111,9 +113,11 @@
             // 
             this.gridView1.ColumnPanelRowHeight = 30;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName,
+            this.colBeneficiaryName,
             this.colStockCode,
             this.colBeneficiary,
+            this.colTradeType,
+            this.colTradeTypeName,
             this.colPositionVol,
             this.colTotalVol,
             this.colRate,
@@ -135,13 +139,14 @@
             this.gridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView1_CustomDrawCell);
             this.gridView1.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView1_InvalidValueException);
             // 
-            // colName
+            // colBeneficiaryName
             // 
-            this.colName.Caption = "投资人员";
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 0;
+            this.colBeneficiaryName.Caption = "投资人员";
+            this.colBeneficiaryName.FieldName = "BeneficiaryName";
+            this.colBeneficiaryName.Name = "colBeneficiaryName";
+            this.colBeneficiaryName.Visible = true;
+            this.colBeneficiaryName.VisibleIndex = 0;
+            this.colBeneficiaryName.Width = 120;
             // 
             // colStockCode
             // 
@@ -153,6 +158,22 @@
             this.colBeneficiary.FieldName = "Beneficiary";
             this.colBeneficiary.Name = "colBeneficiary";
             // 
+            // colTradeType
+            // 
+            this.colTradeType.FieldName = "TradeType";
+            this.colTradeType.Name = "colTradeType";
+            // 
+            // colTradeTypeName
+            // 
+            this.colTradeTypeName.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTypeName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colTradeTypeName.Caption = "交易类别";
+            this.colTradeTypeName.FieldName = "TradeTypeName";
+            this.colTradeTypeName.Name = "colTradeTypeName";
+            this.colTradeTypeName.Visible = true;
+            this.colTradeTypeName.VisibleIndex = 1;
+            this.colTradeTypeName.Width = 60;
+            // 
             // colPositionVol
             // 
             this.colPositionVol.Caption = "持仓数量";
@@ -161,7 +182,8 @@
             this.colPositionVol.FieldName = "PositionVol";
             this.colPositionVol.Name = "colPositionVol";
             this.colPositionVol.Visible = true;
-            this.colPositionVol.VisibleIndex = 1;
+            this.colPositionVol.VisibleIndex = 2;
+            this.colPositionVol.Width = 95;
             // 
             // colTotalVol
             // 
@@ -171,7 +193,8 @@
             this.colTotalVol.FieldName = "TotalVol";
             this.colTotalVol.Name = "colTotalVol";
             this.colTotalVol.Visible = true;
-            this.colTotalVol.VisibleIndex = 2;
+            this.colTotalVol.VisibleIndex = 3;
+            this.colTotalVol.Width = 95;
             // 
             // colRate
             // 
@@ -180,21 +203,27 @@
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 3;
+            this.colRate.VisibleIndex = 4;
+            this.colRate.Width = 65;
             // 
             // colSplitAmount
             // 
+            this.colSplitAmount.AppearanceCell.Options.UseTextOptions = true;
+            this.colSplitAmount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colSplitAmount.Caption = "分配金额";
             this.colSplitAmount.ColumnEdit = this.repositoryItemTextEdit1;
             this.colSplitAmount.DisplayFormat.FormatString = "N2";
             this.colSplitAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSplitAmount.FieldName = "SplitAmount";
             this.colSplitAmount.Name = "colSplitAmount";
             this.colSplitAmount.Visible = true;
-            this.colSplitAmount.VisibleIndex = 4;
-            this.colSplitAmount.Width = 98;
+            this.colSplitAmount.VisibleIndex = 5;
+            this.colSplitAmount.Width = 100;
             // 
             // repositoryItemTextEdit1
             // 
+            this.repositoryItemTextEdit1.Appearance.Options.UseTextOptions = true;
+            this.repositoryItemTextEdit1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.repositoryItemTextEdit1.AutoHeight = false;
             this.repositoryItemTextEdit1.DisplayFormat.FormatString = "N2";
             this.repositoryItemTextEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -308,7 +337,7 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
+        private DevExpress.XtraGrid.Columns.GridColumn colBeneficiaryName;
         private DevExpress.XtraGrid.Columns.GridColumn colStockCode;
         private DevExpress.XtraGrid.Columns.GridColumn colBeneficiary;
         private DevExpress.XtraGrid.Columns.GridColumn colPositionVol;
@@ -323,5 +352,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeType;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeTypeName;
     }
 }
