@@ -248,7 +248,7 @@
             this.colTradeDate.FieldName = "TradeDate";
             this.colTradeDate.Name = "colTradeDate";
             this.colTradeDate.Visible = true;
-            this.colTradeDate.VisibleIndex = 19;
+            this.colTradeDate.VisibleIndex = 1;
             // 
             // colTradeTime
             // 
@@ -256,7 +256,7 @@
             this.colTradeTime.FieldName = "TradeTime";
             this.colTradeTime.Name = "colTradeTime";
             this.colTradeTime.Visible = true;
-            this.colTradeTime.VisibleIndex = 18;
+            this.colTradeTime.VisibleIndex = 2;
             this.colTradeTime.Width = 69;
             // 
             // colAccountCode
@@ -276,7 +276,7 @@
             this.colStockCode.FieldName = "StockCode";
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 2;
+            this.colStockCode.VisibleIndex = 4;
             this.colStockCode.Width = 74;
             // 
             // colStockName
@@ -285,7 +285,7 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 3;
+            this.colStockName.VisibleIndex = 5;
             this.colStockName.Width = 68;
             // 
             // colDealFlag
@@ -296,7 +296,7 @@
             this.colDealFlag.FieldName = "DealFlag";
             this.colDealFlag.Name = "colDealFlag";
             this.colDealFlag.Visible = true;
-            this.colDealFlag.VisibleIndex = 4;
+            this.colDealFlag.VisibleIndex = 6;
             this.colDealFlag.Width = 64;
             // 
             // colDealNo
@@ -304,8 +304,6 @@
             this.colDealNo.Caption = "交易编号";
             this.colDealNo.FieldName = "DealNo";
             this.colDealNo.Name = "colDealNo";
-            this.colDealNo.Visible = true;
-            this.colDealNo.VisibleIndex = 12;
             // 
             // colDealPrice
             // 
@@ -313,7 +311,7 @@
             this.colDealPrice.FieldName = "DealPrice";
             this.colDealPrice.Name = "colDealPrice";
             this.colDealPrice.Visible = true;
-            this.colDealPrice.VisibleIndex = 6;
+            this.colDealPrice.VisibleIndex = 8;
             this.colDealPrice.Width = 56;
             // 
             // colDealVolume
@@ -324,7 +322,7 @@
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 5;
+            this.colDealVolume.VisibleIndex = 7;
             // 
             // colDealAmount
             // 
@@ -334,7 +332,7 @@
             this.colDealAmount.FieldName = "DealAmount";
             this.colDealAmount.Name = "colDealAmount";
             this.colDealAmount.Visible = true;
-            this.colDealAmount.VisibleIndex = 7;
+            this.colDealAmount.VisibleIndex = 9;
             this.colDealAmount.Width = 96;
             // 
             // colActualAmount
@@ -345,7 +343,7 @@
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
             this.colActualAmount.Visible = true;
-            this.colActualAmount.VisibleIndex = 8;
+            this.colActualAmount.VisibleIndex = 10;
             this.colActualAmount.Width = 96;
             // 
             // colStampDuty
@@ -356,7 +354,7 @@
             this.colStampDuty.FieldName = "StampDuty";
             this.colStampDuty.Name = "colStampDuty";
             this.colStampDuty.Visible = true;
-            this.colStampDuty.VisibleIndex = 9;
+            this.colStampDuty.VisibleIndex = 11;
             // 
             // colCommission
             // 
@@ -366,7 +364,7 @@
             this.colCommission.FieldName = "Commission";
             this.colCommission.Name = "colCommission";
             this.colCommission.Visible = true;
-            this.colCommission.VisibleIndex = 10;
+            this.colCommission.VisibleIndex = 12;
             this.colCommission.Width = 62;
             // 
             // colIncidentals
@@ -377,7 +375,7 @@
             this.colIncidentals.FieldName = "Incidentals";
             this.colIncidentals.Name = "colIncidentals";
             this.colIncidentals.Visible = true;
-            this.colIncidentals.VisibleIndex = 11;
+            this.colIncidentals.VisibleIndex = 13;
             this.colIncidentals.Width = 67;
             // 
             // colStockHolderCode
@@ -385,8 +383,6 @@
             this.colStockHolderCode.Caption = "股东账户/代码";
             this.colStockHolderCode.FieldName = "StockHolderCode";
             this.colStockHolderCode.Name = "colStockHolderCode";
-            this.colStockHolderCode.Visible = true;
-            this.colStockHolderCode.VisibleIndex = 14;
             this.colStockHolderCode.Width = 123;
             // 
             // colContractNo
@@ -395,7 +391,7 @@
             this.colContractNo.FieldName = "ContractNo";
             this.colContractNo.Name = "colContractNo";
             this.colContractNo.Visible = true;
-            this.colContractNo.VisibleIndex = 13;
+            this.colContractNo.VisibleIndex = 14;
             // 
             // colImportUser
             // 
@@ -447,7 +443,7 @@
             this.colAccountName.FieldName = "AccountName";
             this.colAccountName.Name = "colAccountName";
             this.colAccountName.Visible = true;
-            this.colAccountName.VisibleIndex = 1;
+            this.colAccountName.VisibleIndex = 3;
             this.colAccountName.Width = 140;
             // 
             // colImportUserName
