@@ -23,7 +23,6 @@ namespace CTM.Win.Forms.Accounting.DataManage
         #region Delegates
 
         public delegate void RefreshParentForm();
-
         public event RefreshParentForm RefreshEvent;
 
         #endregion Delegates
@@ -46,7 +45,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
 
         public decimal DealVolume { get; set; }
 
-        public bool SplitFlag { get; set; }
+        public bool SplitFlag { get; set; }       
 
         #endregion Properties
 

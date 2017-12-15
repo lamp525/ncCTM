@@ -200,6 +200,7 @@
             // 
             this.colRate.Caption = "持仓比例";
             this.colRate.DisplayFormat.FormatString = "P2";
+            this.colRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;

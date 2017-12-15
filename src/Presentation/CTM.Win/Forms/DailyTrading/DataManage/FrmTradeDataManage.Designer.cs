@@ -334,7 +334,7 @@
             this.colSplitNo.FieldName = "SplitNo";
             this.colSplitNo.Name = "colSplitNo";
             this.colSplitNo.Visible = true;
-            this.colSplitNo.VisibleIndex = 26;
+            this.colSplitNo.VisibleIndex = 24;
             // 
             // colRecordId
             // 
@@ -392,7 +392,9 @@
             // 
             // colDealFlagName
             // 
-            this.colDealFlagName.Caption = "买卖标志";
+            this.colDealFlagName.AppearanceCell.Options.UseTextOptions = true;
+            this.colDealFlagName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colDealFlagName.Caption = "买卖";
             this.colDealFlagName.FieldName = "DealFlagName";
             this.colDealFlagName.Name = "colDealFlagName";
             this.colDealFlagName.Visible = true;
@@ -404,8 +406,6 @@
             this.colDealNo.Caption = "交易编号";
             this.colDealNo.FieldName = "DealNo";
             this.colDealNo.Name = "colDealNo";
-            this.colDealNo.Visible = true;
-            this.colDealNo.VisibleIndex = 17;
             // 
             // colDealPrice
             // 
@@ -485,8 +485,6 @@
             this.colStockHolderCode.Caption = "股东账户/代码";
             this.colStockHolderCode.FieldName = "StockHolderCode";
             this.colStockHolderCode.Name = "colStockHolderCode";
-            this.colStockHolderCode.Visible = true;
-            this.colStockHolderCode.VisibleIndex = 19;
             this.colStockHolderCode.Width = 123;
             // 
             // colContractNo
@@ -495,7 +493,7 @@
             this.colContractNo.FieldName = "ContractNo";
             this.colContractNo.Name = "colContractNo";
             this.colContractNo.Visible = true;
-            this.colContractNo.VisibleIndex = 18;
+            this.colContractNo.VisibleIndex = 17;
             // 
             // colImportUser
             // 
@@ -510,7 +508,7 @@
             this.colImportTime.FieldName = "ImportTime";
             this.colImportTime.Name = "colImportTime";
             this.colImportTime.Visible = true;
-            this.colImportTime.VisibleIndex = 22;
+            this.colImportTime.VisibleIndex = 20;
             this.colImportTime.Width = 138;
             // 
             // colUpdateUser
@@ -526,7 +524,7 @@
             this.colUpdateTime.FieldName = "UpdateTime";
             this.colUpdateTime.Name = "colUpdateTime";
             this.colUpdateTime.Visible = true;
-            this.colUpdateTime.VisibleIndex = 24;
+            this.colUpdateTime.VisibleIndex = 22;
             this.colUpdateTime.Width = 139;
             // 
             // colRemarks
@@ -535,7 +533,7 @@
             this.colRemarks.FieldName = "Remarks";
             this.colRemarks.Name = "colRemarks";
             this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 25;
+            this.colRemarks.VisibleIndex = 23;
             this.colRemarks.Width = 113;
             // 
             // colDataType
@@ -549,7 +547,7 @@
             this.colDataTypeName.FieldName = "DataTypeName";
             this.colDataTypeName.Name = "colDataTypeName";
             this.colDataTypeName.Visible = true;
-            this.colDataTypeName.VisibleIndex = 20;
+            this.colDataTypeName.VisibleIndex = 18;
             this.colDataTypeName.Width = 90;
             // 
             // colTradeType
@@ -559,6 +557,8 @@
             // 
             // colTradeTypeName
             // 
+            this.colTradeTypeName.AppearanceCell.Options.UseTextOptions = true;
+            this.colTradeTypeName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTradeTypeName.Caption = "交易类别";
             this.colTradeTypeName.FieldName = "TradeTypeName";
             this.colTradeTypeName.Name = "colTradeTypeName";
@@ -580,6 +580,7 @@
             // 
             this.colAccountName.Caption = "账户信息";
             this.colAccountName.FieldName = "AccountName";
+            this.colAccountName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colAccountName.Name = "colAccountName";
             this.colAccountName.Visible = true;
             this.colAccountName.VisibleIndex = 4;
@@ -589,10 +590,11 @@
             // 
             this.colBeneficiaryName.Caption = "实际受益人";
             this.colBeneficiaryName.FieldName = "BeneficiaryName";
+            this.colBeneficiaryName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colBeneficiaryName.Name = "colBeneficiaryName";
             this.colBeneficiaryName.Visible = true;
             this.colBeneficiaryName.VisibleIndex = 5;
-            this.colBeneficiaryName.Width = 70;
+            this.colBeneficiaryName.Width = 100;
             // 
             // colImportUserName
             // 
@@ -600,7 +602,7 @@
             this.colImportUserName.FieldName = "ImportUserName";
             this.colImportUserName.Name = "colImportUserName";
             this.colImportUserName.Visible = true;
-            this.colImportUserName.VisibleIndex = 21;
+            this.colImportUserName.VisibleIndex = 19;
             // 
             // colOperatorName
             // 
@@ -617,7 +619,7 @@
             this.colUpdateUserName.FieldName = "UpdateUserName";
             this.colUpdateUserName.Name = "colUpdateUserName";
             this.colUpdateUserName.Visible = true;
-            this.colUpdateUserName.VisibleIndex = 23;
+            this.colUpdateUserName.VisibleIndex = 21;
             this.colUpdateUserName.Width = 78;
             // 
             // btnSplit

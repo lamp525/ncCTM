@@ -246,19 +246,17 @@
             this.colTradeDate.DisplayFormat.FormatString = "d";
             this.colTradeDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.colTradeDate.FieldName = "TradeDate";
-            this.colTradeDate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colTradeDate.Name = "colTradeDate";
             this.colTradeDate.Visible = true;
-            this.colTradeDate.VisibleIndex = 1;
+            this.colTradeDate.VisibleIndex = 19;
             // 
             // colTradeTime
             // 
             this.colTradeTime.Caption = "交易时间";
             this.colTradeTime.FieldName = "TradeTime";
-            this.colTradeTime.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colTradeTime.Name = "colTradeTime";
             this.colTradeTime.Visible = true;
-            this.colTradeTime.VisibleIndex = 2;
+            this.colTradeTime.VisibleIndex = 18;
             this.colTradeTime.Width = 69;
             // 
             // colAccountCode
@@ -278,7 +276,7 @@
             this.colStockCode.FieldName = "StockCode";
             this.colStockCode.Name = "colStockCode";
             this.colStockCode.Visible = true;
-            this.colStockCode.VisibleIndex = 4;
+            this.colStockCode.VisibleIndex = 2;
             this.colStockCode.Width = 74;
             // 
             // colStockName
@@ -287,18 +285,18 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 5;
+            this.colStockName.VisibleIndex = 3;
             this.colStockName.Width = 68;
             // 
             // colDealFlag
             // 
             this.colDealFlag.AppearanceCell.Options.UseTextOptions = true;
             this.colDealFlag.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colDealFlag.Caption = "买卖标志";
+            this.colDealFlag.Caption = "买卖";
             this.colDealFlag.FieldName = "DealFlag";
             this.colDealFlag.Name = "colDealFlag";
             this.colDealFlag.Visible = true;
-            this.colDealFlag.VisibleIndex = 6;
+            this.colDealFlag.VisibleIndex = 4;
             this.colDealFlag.Width = 64;
             // 
             // colDealNo
@@ -307,7 +305,7 @@
             this.colDealNo.FieldName = "DealNo";
             this.colDealNo.Name = "colDealNo";
             this.colDealNo.Visible = true;
-            this.colDealNo.VisibleIndex = 14;
+            this.colDealNo.VisibleIndex = 12;
             // 
             // colDealPrice
             // 
@@ -315,7 +313,7 @@
             this.colDealPrice.FieldName = "DealPrice";
             this.colDealPrice.Name = "colDealPrice";
             this.colDealPrice.Visible = true;
-            this.colDealPrice.VisibleIndex = 8;
+            this.colDealPrice.VisibleIndex = 6;
             this.colDealPrice.Width = 56;
             // 
             // colDealVolume
@@ -326,7 +324,7 @@
             this.colDealVolume.FieldName = "DealVolume";
             this.colDealVolume.Name = "colDealVolume";
             this.colDealVolume.Visible = true;
-            this.colDealVolume.VisibleIndex = 7;
+            this.colDealVolume.VisibleIndex = 5;
             // 
             // colDealAmount
             // 
@@ -336,7 +334,7 @@
             this.colDealAmount.FieldName = "DealAmount";
             this.colDealAmount.Name = "colDealAmount";
             this.colDealAmount.Visible = true;
-            this.colDealAmount.VisibleIndex = 9;
+            this.colDealAmount.VisibleIndex = 7;
             this.colDealAmount.Width = 96;
             // 
             // colActualAmount
@@ -347,7 +345,7 @@
             this.colActualAmount.FieldName = "ActualAmount";
             this.colActualAmount.Name = "colActualAmount";
             this.colActualAmount.Visible = true;
-            this.colActualAmount.VisibleIndex = 10;
+            this.colActualAmount.VisibleIndex = 8;
             this.colActualAmount.Width = 96;
             // 
             // colStampDuty
@@ -358,7 +356,7 @@
             this.colStampDuty.FieldName = "StampDuty";
             this.colStampDuty.Name = "colStampDuty";
             this.colStampDuty.Visible = true;
-            this.colStampDuty.VisibleIndex = 11;
+            this.colStampDuty.VisibleIndex = 9;
             // 
             // colCommission
             // 
@@ -368,7 +366,7 @@
             this.colCommission.FieldName = "Commission";
             this.colCommission.Name = "colCommission";
             this.colCommission.Visible = true;
-            this.colCommission.VisibleIndex = 12;
+            this.colCommission.VisibleIndex = 10;
             this.colCommission.Width = 62;
             // 
             // colIncidentals
@@ -379,7 +377,7 @@
             this.colIncidentals.FieldName = "Incidentals";
             this.colIncidentals.Name = "colIncidentals";
             this.colIncidentals.Visible = true;
-            this.colIncidentals.VisibleIndex = 13;
+            this.colIncidentals.VisibleIndex = 11;
             this.colIncidentals.Width = 67;
             // 
             // colStockHolderCode
@@ -388,7 +386,7 @@
             this.colStockHolderCode.FieldName = "StockHolderCode";
             this.colStockHolderCode.Name = "colStockHolderCode";
             this.colStockHolderCode.Visible = true;
-            this.colStockHolderCode.VisibleIndex = 16;
+            this.colStockHolderCode.VisibleIndex = 14;
             this.colStockHolderCode.Width = 123;
             // 
             // colContractNo
@@ -397,7 +395,7 @@
             this.colContractNo.FieldName = "ContractNo";
             this.colContractNo.Name = "colContractNo";
             this.colContractNo.Visible = true;
-            this.colContractNo.VisibleIndex = 15;
+            this.colContractNo.VisibleIndex = 13;
             // 
             // colImportUser
             // 
@@ -412,7 +410,7 @@
             this.colImportTime.FieldName = "ImportTime";
             this.colImportTime.Name = "colImportTime";
             this.colImportTime.Visible = true;
-            this.colImportTime.VisibleIndex = 18;
+            this.colImportTime.VisibleIndex = 16;
             this.colImportTime.Width = 138;
             // 
             // colUpdateUser
@@ -435,7 +433,7 @@
             this.colRemarks.FieldName = "Remarks";
             this.colRemarks.Name = "colRemarks";
             this.colRemarks.Visible = true;
-            this.colRemarks.VisibleIndex = 19;
+            this.colRemarks.VisibleIndex = 17;
             this.colRemarks.Width = 113;
             // 
             // colDataType
@@ -449,7 +447,7 @@
             this.colAccountName.FieldName = "AccountName";
             this.colAccountName.Name = "colAccountName";
             this.colAccountName.Visible = true;
-            this.colAccountName.VisibleIndex = 3;
+            this.colAccountName.VisibleIndex = 1;
             this.colAccountName.Width = 140;
             // 
             // colImportUserName
@@ -458,7 +456,7 @@
             this.colImportUserName.FieldName = "ImportUserName";
             this.colImportUserName.Name = "colImportUserName";
             this.colImportUserName.Visible = true;
-            this.colImportUserName.VisibleIndex = 17;
+            this.colImportUserName.VisibleIndex = 15;
             // 
             // colUpdateUserName
             // 
