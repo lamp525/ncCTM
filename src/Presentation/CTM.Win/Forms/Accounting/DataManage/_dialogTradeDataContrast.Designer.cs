@@ -119,15 +119,15 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1663, 715);
+            this.layoutControl1.Size = new System.Drawing.Size(1679, 715);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // btnDelete_R
             // 
-            this.btnDelete_R.Location = new System.Drawing.Point(1552, 103);
+            this.btnDelete_R.Location = new System.Drawing.Point(1567, 103);
             this.btnDelete_R.Name = "btnDelete_R";
-            this.btnDelete_R.Size = new System.Drawing.Size(75, 22);
+            this.btnDelete_R.Size = new System.Drawing.Size(76, 22);
             this.btnDelete_R.StyleController = this.layoutControl1;
             this.btnDelete_R.TabIndex = 10;
             this.btnDelete_R.Text = "    删  除    ";
@@ -135,9 +135,9 @@
             // 
             // btnDelete_L
             // 
-            this.btnDelete_L.Location = new System.Drawing.Point(592, 103);
+            this.btnDelete_L.Location = new System.Drawing.Point(598, 103);
             this.btnDelete_L.Name = "btnDelete_L";
-            this.btnDelete_L.Size = new System.Drawing.Size(85, 22);
+            this.btnDelete_L.Size = new System.Drawing.Size(86, 22);
             this.btnDelete_L.StyleController = this.layoutControl1;
             this.btnDelete_L.TabIndex = 9;
             this.btnDelete_L.Text = "    删  除    ";
@@ -145,11 +145,11 @@
             // 
             // cbTradeType
             // 
-            this.cbTradeType.Location = new System.Drawing.Point(340, 103);
+            this.cbTradeType.Location = new System.Drawing.Point(343, 103);
             this.cbTradeType.Name = "cbTradeType";
             this.cbTradeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbTradeType.Size = new System.Drawing.Size(102, 20);
+            this.cbTradeType.Size = new System.Drawing.Size(104, 20);
             this.cbTradeType.StyleController = this.layoutControl1;
             this.cbTradeType.TabIndex = 8;
             // 
@@ -162,15 +162,15 @@
             this.luBeneficiary.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Code", "Code"),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name")});
-            this.luBeneficiary.Size = new System.Drawing.Size(187, 20);
+            this.luBeneficiary.Size = new System.Drawing.Size(190, 20);
             this.luBeneficiary.StyleController = this.layoutControl1;
             this.luBeneficiary.TabIndex = 7;
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(457, 103);
+            this.btnCopy.Location = new System.Drawing.Point(462, 103);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(99, 22);
+            this.btnCopy.Size = new System.Drawing.Size(100, 22);
             this.btnCopy.StyleController = this.layoutControl1;
             this.btnCopy.TabIndex = 6;
             this.btnCopy.Text = " 导入至投资人员";
@@ -178,10 +178,10 @@
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(717, 141);
+            this.gridControl2.Location = new System.Drawing.Point(724, 141);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(922, 550);
+            this.gridControl2.Size = new System.Drawing.Size(931, 550);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -348,7 +348,7 @@
             this.gridControl1.Location = new System.Drawing.Point(24, 141);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(665, 550);
+            this.gridControl1.Size = new System.Drawing.Size(672, 550);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -481,7 +481,7 @@
             this.layoutControlGroup3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1663, 715);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1679, 715);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // esiTitle
@@ -493,7 +493,7 @@
             this.esiTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.esiTitle.Location = new System.Drawing.Point(0, 0);
             this.esiTitle.Name = "esiTitle";
-            this.esiTitle.Size = new System.Drawing.Size(1643, 27);
+            this.esiTitle.Size = new System.Drawing.Size(1659, 27);
             this.esiTitle.TextSize = new System.Drawing.Size(48, 0);
             this.esiTitle.TextVisible = true;
             // 
@@ -508,7 +508,7 @@
             this.lcgLeft});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 27);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(693, 668);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(700, 668);
             this.layoutControlGroup2.Text = "财务核算交割单";
             // 
             // layoutControlItem1
@@ -520,7 +520,7 @@
             this.layoutControlItem1.Control = this.gridControl1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 69);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(669, 554);
+            this.layoutControlItem1.Size = new System.Drawing.Size(676, 554);
             this.layoutControlItem1.Text = "财务核算交割单";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -542,13 +542,13 @@
             this.layoutControlItem6});
             this.lcgLeft.Location = new System.Drawing.Point(0, 0);
             this.lcgLeft.Name = "lcgLeft";
-            this.lcgLeft.Size = new System.Drawing.Size(669, 69);
+            this.lcgLeft.Size = new System.Drawing.Size(676, 69);
             this.lcgLeft.Text = "操作";
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(524, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(530, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(32, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -556,16 +556,16 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnCopy;
-            this.layoutControlItem3.Location = new System.Drawing.Point(421, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(426, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(103, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(104, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(410, 0);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(415, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -573,16 +573,16 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.cbTradeType;
-            this.layoutControlItem5.Location = new System.Drawing.Point(253, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(256, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(157, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(159, 26);
             this.layoutControlItem5.Text = "交易类别";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(48, 14);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(242, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(245, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(11, 26);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -592,16 +592,16 @@
             this.layoutControlItem4.Control = this.luBeneficiary;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(242, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(245, 26);
             this.layoutControlItem4.Text = "受益人";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(48, 14);
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnDelete_L;
-            this.layoutControlItem6.Location = new System.Drawing.Point(556, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(562, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(89, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(90, 26);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -614,9 +614,9 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2,
             this.lcgRight});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(693, 27);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(700, 27);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(950, 668);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(959, 668);
             this.layoutControlGroup3.Text = "投资人员交易数据";
             // 
             // layoutControlItem2
@@ -628,7 +628,7 @@
             this.layoutControlItem2.Control = this.gridControl2;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 69);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(926, 554);
+            this.layoutControlItem2.Size = new System.Drawing.Size(935, 554);
             this.layoutControlItem2.Text = "每日交易数据";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -645,7 +645,7 @@
             this.layoutControlItem7});
             this.lcgRight.Location = new System.Drawing.Point(0, 0);
             this.lcgRight.Name = "lcgRight";
-            this.lcgRight.Size = new System.Drawing.Size(926, 69);
+            this.lcgRight.Size = new System.Drawing.Size(935, 69);
             this.lcgRight.Text = "操作";
             // 
             // emptySpaceItem2
@@ -653,15 +653,15 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(823, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(831, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.btnDelete_R;
-            this.layoutControlItem7.Location = new System.Drawing.Point(823, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(831, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(79, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(80, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -669,7 +669,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1663, 715);
+            this.ClientSize = new System.Drawing.Size(1679, 715);
             this.Controls.Add(this.layoutControl1);
             this.Name = "_dialogTradeDataContrast";
             this.Text = "交易数据对照";

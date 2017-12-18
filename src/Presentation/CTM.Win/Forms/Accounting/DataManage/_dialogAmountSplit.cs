@@ -75,7 +75,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
         private void FormInit()
         {
             this.esiTitle.Text = $@"{TradeDate.Split(' ')[0]}  [{AccountInfo}] - [{StockCode} - {StockName}] （总金额：{ActualAmount}）";
-            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, editable: false, readOnly: true, rowIndicatorWidth: 30);
+            this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: true, editable: false, readOnly: true, rowIndicatorWidth: 30);
             this.btnOk.Enabled = false;
         }
 
@@ -86,6 +86,8 @@ namespace CTM.Win.Forms.Accounting.DataManage
                 FormInit();
 
                 DisplayYestodayPosition();
+
+                this.AcceptButton = btnOk;
             }
             catch (Exception ex)
             {
@@ -111,6 +113,10 @@ namespace CTM.Win.Forms.Accounting.DataManage
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
+        }
+        private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+
         }
 
         private void repositoryItemTextEdit1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -139,7 +145,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
                         {
                             AccountCode = deliveryRecord.AccountCode,
                             AccountId = deliveryRecord.AccountId,
-                            ActualAmount =CommonHelper.SetDecimalDigits( decimal.Parse(dr[this.colRate.FieldName].ToString()) * deliveryRecord.ActualAmount),
+                            ActualAmount = CommonHelper.SetDecimalDigits(decimal.Parse(dr[this.colRate.FieldName].ToString()) * deliveryRecord.ActualAmount),
                             Beneficiary = dr[this.colBeneficiary.FieldName].ToString(),
                             Commission = deliveryRecord.Commission,
                             ContractNo = deliveryRecord.ContractNo,
@@ -165,13 +171,15 @@ namespace CTM.Win.Forms.Accounting.DataManage
                             UpdateUser = LoginInfo.CurrentUser.UserCode
                         };
 
-                        dailyRecords .Add(dailyRecord);
+                        dailyRecords.Add(dailyRecord);
                     }
                     _dailyService.InsertDailyRecords(dailyRecords);
                     this.SplitFlag = true;
                     this.Close();
                     this.RefreshEvent?.Invoke();
                 }
+                else
+                    this.btnOk.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -184,5 +192,7 @@ namespace CTM.Win.Forms.Accounting.DataManage
             this.SplitFlag = false;
             this.Close();
         }
+
+
     }
 }

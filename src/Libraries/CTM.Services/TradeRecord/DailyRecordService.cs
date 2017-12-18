@@ -684,7 +684,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "操作日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -724,7 +724,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "成交时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -764,7 +764,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "成交时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -844,7 +844,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -884,7 +884,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -1004,7 +1004,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
@@ -1124,7 +1124,7 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DailyRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "委托日期");
+            columnList.Add(nameof(record.TradeDate), null);
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
