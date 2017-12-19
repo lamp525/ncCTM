@@ -463,7 +463,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(125, 164);
+            this.btnImport.Location = new System.Drawing.Point(36, 164);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(79, 22);
             this.btnImport.StyleController = this.layoutControl1;
@@ -473,7 +473,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(36, 164);
+            this.btnDelete.Location = new System.Drawing.Point(129, 164);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 22);
             this.btnDelete.StyleController = this.layoutControl1;
@@ -860,10 +860,10 @@
             this.layoutControlItem7,
             this.emptySpaceItem5,
             this.emptySpaceItem6,
-            this.lciImport,
             this.layoutControlItem23,
-            this.emptySpaceItem1,
-            this.layoutControlItem22});
+            this.layoutControlItem22,
+            this.lciImport,
+            this.emptySpaceItem1});
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 119);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
             this.layoutControlGroup5.Size = new System.Drawing.Size(1565, 707);
@@ -898,7 +898,7 @@
             // lciImport
             // 
             this.lciImport.Control = this.btnImport;
-            this.lciImport.Location = new System.Drawing.Point(101, 0);
+            this.lciImport.Location = new System.Drawing.Point(12, 0);
             this.lciImport.Name = "lciImport";
             this.lciImport.Size = new System.Drawing.Size(83, 26);
             this.lciImport.TextSize = new System.Drawing.Size(0, 0);
@@ -907,7 +907,7 @@
             // layoutControlItem23
             // 
             this.layoutControlItem23.Control = this.btnDelete;
-            this.layoutControlItem23.Location = new System.Drawing.Point(12, 0);
+            this.layoutControlItem23.Location = new System.Drawing.Point(105, 0);
             this.layoutControlItem23.Name = "layoutControlItem23";
             this.layoutControlItem23.Size = new System.Drawing.Size(79, 26);
             this.layoutControlItem23.TextSize = new System.Drawing.Size(0, 0);
@@ -916,7 +916,7 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(91, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(95, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);

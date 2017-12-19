@@ -134,7 +134,16 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
         private void _dialogDailyRecordSplit_Load(object sender, EventArgs e)
         {
-            BindRecordInfo();
+            try
+            {
+                BindRecordInfo();
+
+                this.AcceptButton = btnOk;
+            }
+            catch(Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
