@@ -2079,7 +2079,7 @@ namespace CTM.Services.TradeRecord
             DailyRecord record = null;
 
             columnList.Add(nameof(record.TradeDate), "成交日期");
-            columnList.Add(nameof(record.TradeTime), null);
+            columnList.Add(nameof(record.TradeTime), "成交时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
             columnList.Add(nameof(record.DealFlag), "操作");
@@ -2090,13 +2090,13 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.Commission), "佣金");
             columnList.Add(nameof(record.StampDuty), "印花税");
             columnList.Add(nameof(record.Incidentals), "过户费");
-            columnList.Add("OtherFee1", null);
-            columnList.Add("OtherFee2", null);
+            columnList.Add("OtherFee1", "手续费");
+            columnList.Add("OtherFee2", "其他杂费");
             columnList.Add("OtherFee3", null);
             columnList.Add(nameof(record.StockHolderCode), "股东帐户");
             columnList.Add(nameof(record.DealNo), "成交编号");
             columnList.Add(nameof(record.ContractNo), "合同编号");
-            columnList.Add(nameof(record.Remarks), "备注");
+            columnList.Add(nameof(record.Remarks), "操作");
             columnList.Add(nameof(record.TradeType), "交易类别");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();

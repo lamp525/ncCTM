@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CTM.Win.Util;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
@@ -16,5 +17,21 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             InitializeComponent();
         }
+
+        private void FrmInvestorStudio_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                    
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+                    }
     }
 }

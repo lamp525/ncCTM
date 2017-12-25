@@ -17,6 +17,7 @@ using CTM.Win.Forms.DailyTrading.ReportExport;
 using CTM.Win.Forms.DailyTrading.StatisticsReport;
 using CTM.Win.Forms.DailyTrading.TradeIdentifier;
 using CTM.Win.Forms.InvestmentDecision;
+using CTM.Win.Forms.InvestorStudio;
 using CTM.Win.Forms.MarginTrading;
 using CTM.Win.Forms.Market;
 using CTM.Win.Forms.Setting;
@@ -145,17 +146,10 @@ namespace CTM.Win.Forms
 
         private void DisplayStartupPage()
         {
-            if (!LoginInfo.CurrentUser.IsAdmin && this._loginUserInfo.DepartmentId == (int)EnumLibrary.AccountingDepartment.Day)
-            {
-                var now = this._commonService.GetCurrentServerTime().Date;
-                if (now.DayOfWeek != DayOfWeek.Saturday && now.DayOfWeek != DayOfWeek.Sunday)
-                {
-                    var todaySecuritiesLoanInfo = this._marginService.GetUserInMarginTradingInfo(new string[] { _loginUserInfo.UserCode }, (int)EnumLibrary.TradeType.Day, now, now);
 
-                    if (todaySecuritiesLoanInfo?.Count == 0)
-                        this.DisplayTabbedForm<FrmUserMarginTrading>("用户融资融券信息");
-                }
-            }
+                        this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
+                
+            
         }
 
         #endregion Utilities
@@ -615,7 +609,7 @@ namespace CTM.Win.Forms
 
                 DisplayMenu();
 
-               // DisplayStartupPage();
+                DisplayStartupPage();
             }
             catch (Exception ex)
             {
