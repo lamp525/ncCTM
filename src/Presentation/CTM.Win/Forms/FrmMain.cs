@@ -147,7 +147,7 @@ namespace CTM.Win.Forms
         private void DisplayStartupPage()
         {
 
-                        this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
+                //        this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
                 
             
         }
@@ -609,7 +609,7 @@ namespace CTM.Win.Forms
 
                 DisplayMenu();
 
-                DisplayStartupPage();
+               DisplayStartupPage();
             }
             catch (Exception ex)
             {
@@ -717,9 +717,10 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
+            this.DisplayForm<FrmInvestorStudio>("个人工作室");
 
         }
 
- 
+
     }
 }
