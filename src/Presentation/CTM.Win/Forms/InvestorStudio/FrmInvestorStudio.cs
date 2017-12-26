@@ -105,8 +105,8 @@ namespace CTM.Win.Forms.InvestorStudio
                             break;
                     }
 
-                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x=>x.Profit).ToList();
-                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x=>x.Profit).ToList();
+                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x=>x.Profit).Take(10).OrderByDescending(x=>x.Profit).ToList();
+                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x=>x.Profit).Take(10).OrderBy(x=>x.Profit).ToList();
 
                     string argument = string.Empty;
                     decimal fund;
@@ -147,7 +147,7 @@ namespace CTM.Win.Forms.InvestorStudio
             seProfit.Points.Clear();
             seRate.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]		@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/01'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/01'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
 
             if (ds != null && ds.Tables.Count == 1)

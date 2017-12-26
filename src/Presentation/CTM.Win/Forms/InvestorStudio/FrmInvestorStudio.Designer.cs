@@ -368,13 +368,17 @@
             // 
             // chartProfitTrend
             // 
+            xyDiagram1.AxisX.Label.Angle = 45;
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
             xyDiagram1.AxisY.GridLines.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.DashDot;
+            xyDiagram1.AxisY.GridLines.Visible = false;
+            xyDiagram1.AxisY.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
             secondaryAxisY1.AxisID = 0;
             secondaryAxisY1.Label.TextPattern = "{V:0.0%}";
             secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.Tickmarks.MinorVisible = false;
             secondaryAxisY1.VisibleInPanesSerializable = "-1";
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1});
@@ -394,8 +398,8 @@
             pointSeriesLabel1.TextPattern = "{S}: {V:n2}";
             series2.Label = pointSeriesLabel1;
             series2.Name = "Series 2";
-            splineSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(150)))), ((int)(((byte)(70)))));
-            splineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(150)))), ((int)(((byte)(70)))));
+            splineSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(172)))), ((int)(((byte)(198)))));
+            splineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(172)))), ((int)(((byte)(198)))));
             splineSeriesView1.LineMarkerOptions.Size = 7;
             splineSeriesView1.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
             series2.View = splineSeriesView1;
@@ -406,8 +410,8 @@
             series3.Label = pointSeriesLabel2;
             series3.Name = "Series 3";
             splineSeriesView2.AxisYName = "Secondary AxisY 1";
-            splineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(172)))), ((int)(((byte)(198)))));
-            splineSeriesView2.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(172)))), ((int)(((byte)(198)))));
+            splineSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(150)))), ((int)(((byte)(70)))));
+            splineSeriesView2.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(150)))), ((int)(((byte)(70)))));
             splineSeriesView2.LineMarkerOptions.Size = 5;
             splineSeriesView2.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
             series3.View = splineSeriesView2;
@@ -420,10 +424,14 @@
             // 
             // chartGain
             // 
+            xyDiagram2.AxisX.Label.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            xyDiagram2.AxisX.Label.TextColor = System.Drawing.Color.Black;
             xyDiagram2.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram2.AxisX.Tickmarks.Visible = false;
             xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
             xyDiagram2.AxisY.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
             xyDiagram2.AxisY.GridLines.Visible = false;
+            xyDiagram2.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.False;
             xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
             xyDiagram2.Rotated = true;
             this.chartGain.Diagram = xyDiagram2;
@@ -434,13 +442,17 @@
             this.chartGain.Name = "chartGain";
             series4.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series4.CrosshairEnabled = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            sideBySideBarSeriesLabel1.Border.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel1.FillStyle.FillMode = DevExpress.XtraCharts.FillMode.Empty;
+            sideBySideBarSeriesLabel1.LineVisibility = DevExpress.Utils.DefaultBoolean.False;
             sideBySideBarSeriesLabel1.Position = DevExpress.XtraCharts.BarSeriesLabelPosition.Top;
-            sideBySideBarSeriesLabel1.TextPattern = "{V:n2}";
+            sideBySideBarSeriesLabel1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(80)))), ((int)(((byte)(77)))));
+            sideBySideBarSeriesLabel1.TextPattern = "{V:N0}";
             series4.Label = sideBySideBarSeriesLabel1;
             series4.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series4.Name = "Series 1";
-            series4.SeriesPointsSorting = DevExpress.XtraCharts.SortingMode.Descending;
-            sideBySideBarSeriesView2.BarWidth = 0.2D;
+            sideBySideBarSeriesView2.BarWidth = 0.5D;
             sideBySideBarSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(80)))), ((int)(((byte)(77)))));
             series4.View = sideBySideBarSeriesView2;
             this.chartGain.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
@@ -451,14 +463,15 @@
             // chartLoss
             // 
             xyDiagram3.AxisX.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
+            xyDiagram3.AxisX.Label.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            xyDiagram3.AxisX.Label.TextColor = System.Drawing.Color.Black;
             xyDiagram3.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram3.AxisX.Tickmarks.Visible = false;
             xyDiagram3.AxisX.VisibleInPanesSerializable = "-1";
             xyDiagram3.AxisY.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
             xyDiagram3.AxisY.GridLines.Visible = false;
+            xyDiagram3.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.False;
             xyDiagram3.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram3.AxisY.WholeRange.Auto = false;
-            xyDiagram3.AxisY.WholeRange.MaxValueSerializable = "0";
-            xyDiagram3.AxisY.WholeRange.MinValueSerializable = "-5";
             xyDiagram3.Rotated = true;
             this.chartLoss.Diagram = xyDiagram3;
             this.chartLoss.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
@@ -468,12 +481,17 @@
             this.chartLoss.Name = "chartLoss";
             series5.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series5.CrosshairEnabled = DevExpress.Utils.DefaultBoolean.False;
-            sideBySideBarSeriesLabel2.TextPattern = "{V:n2}";
+            sideBySideBarSeriesLabel2.BackColor = System.Drawing.Color.White;
+            sideBySideBarSeriesLabel2.Border.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel2.FillStyle.FillMode = DevExpress.XtraCharts.FillMode.Empty;
+            sideBySideBarSeriesLabel2.LineVisibility = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel2.Position = DevExpress.XtraCharts.BarSeriesLabelPosition.Top;
+            sideBySideBarSeriesLabel2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(187)))), ((int)(((byte)(89)))));
+            sideBySideBarSeriesLabel2.TextPattern = "{V:N0}";
             series5.Label = sideBySideBarSeriesLabel2;
             series5.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series5.Name = "Series 1";
-            series5.SeriesPointsSorting = DevExpress.XtraCharts.SortingMode.Ascending;
-            sideBySideBarSeriesView3.BarWidth = 0.2D;
+            sideBySideBarSeriesView3.BarWidth = 0.5D;
             sideBySideBarSeriesView3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(187)))), ((int)(((byte)(89)))));
             series5.View = sideBySideBarSeriesView3;
             this.chartLoss.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
@@ -557,81 +575,91 @@
             // 
             // textEdit14
             // 
-            this.textEdit14.Location = new System.Drawing.Point(1394, 67);
+            this.textEdit14.Location = new System.Drawing.Point(1366, 67);
             this.textEdit14.Name = "textEdit14";
-            this.textEdit14.Size = new System.Drawing.Size(80, 20);
+            this.textEdit14.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit14.Size = new System.Drawing.Size(108, 20);
             this.textEdit14.StyleController = this.layoutControl1;
             this.textEdit14.TabIndex = 17;
             // 
             // textEdit12
             // 
-            this.textEdit12.Location = new System.Drawing.Point(1157, 67);
+            this.textEdit12.Location = new System.Drawing.Point(1129, 67);
             this.textEdit12.Name = "textEdit12";
-            this.textEdit12.Size = new System.Drawing.Size(94, 20);
+            this.textEdit12.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit12.Size = new System.Drawing.Size(122, 20);
             this.textEdit12.StyleController = this.layoutControl1;
             this.textEdit12.TabIndex = 15;
             // 
             // textEdit10
             // 
-            this.textEdit10.Location = new System.Drawing.Point(827, 67);
+            this.textEdit10.Location = new System.Drawing.Point(799, 67);
             this.textEdit10.Name = "textEdit10";
-            this.textEdit10.Size = new System.Drawing.Size(187, 20);
+            this.textEdit10.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit10.Size = new System.Drawing.Size(215, 20);
             this.textEdit10.StyleController = this.layoutControl1;
             this.textEdit10.TabIndex = 13;
             // 
             // textEdit8
             // 
-            this.textEdit8.Location = new System.Drawing.Point(536, 67);
+            this.textEdit8.Location = new System.Drawing.Point(411, 67);
             this.textEdit8.Name = "textEdit8";
-            this.textEdit8.Size = new System.Drawing.Size(148, 20);
+            this.textEdit8.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit8.Size = new System.Drawing.Size(273, 20);
             this.textEdit8.StyleController = this.layoutControl1;
             this.textEdit8.TabIndex = 11;
             // 
             // textEdit6
             // 
-            this.textEdit6.Location = new System.Drawing.Point(139, 67);
+            this.textEdit6.Location = new System.Drawing.Point(123, 67);
             this.textEdit6.Name = "textEdit6";
-            this.textEdit6.Size = new System.Drawing.Size(254, 20);
+            this.textEdit6.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit6.Size = new System.Drawing.Size(173, 20);
             this.textEdit6.StyleController = this.layoutControl1;
             this.textEdit6.TabIndex = 9;
             // 
             // textEdit5
             // 
-            this.textEdit5.Location = new System.Drawing.Point(139, 43);
+            this.textEdit5.Location = new System.Drawing.Point(123, 43);
             this.textEdit5.Name = "textEdit5";
-            this.textEdit5.Size = new System.Drawing.Size(254, 20);
+            this.textEdit5.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit5.Size = new System.Drawing.Size(173, 20);
             this.textEdit5.StyleController = this.layoutControl1;
             this.textEdit5.TabIndex = 8;
             // 
             // textEdit4
             // 
-            this.textEdit4.Location = new System.Drawing.Point(1157, 43);
+            this.textEdit4.Location = new System.Drawing.Point(1129, 43);
             this.textEdit4.Name = "textEdit4";
-            this.textEdit4.Size = new System.Drawing.Size(94, 20);
+            this.textEdit4.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit4.Size = new System.Drawing.Size(122, 20);
             this.textEdit4.StyleController = this.layoutControl1;
             this.textEdit4.TabIndex = 7;
             // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(536, 43);
+            this.textEdit3.Location = new System.Drawing.Point(411, 43);
             this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Size = new System.Drawing.Size(148, 20);
+            this.textEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit3.Size = new System.Drawing.Size(273, 20);
             this.textEdit3.StyleController = this.layoutControl1;
             this.textEdit3.TabIndex = 6;
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(1394, 43);
+            this.textEdit2.Location = new System.Drawing.Point(1366, 43);
             this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Size = new System.Drawing.Size(80, 20);
+            this.textEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit2.Size = new System.Drawing.Size(108, 20);
             this.textEdit2.StyleController = this.layoutControl1;
             this.textEdit2.TabIndex = 5;
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(827, 43);
+            this.textEdit1.Location = new System.Drawing.Point(799, 43);
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(187, 20);
+            this.textEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.textEdit1.Size = new System.Drawing.Size(215, 20);
             this.textEdit1.StyleController = this.layoutControl1;
             this.textEdit1.TabIndex = 4;
             // 
@@ -656,12 +684,16 @@
             // 
             // layoutControlGroup2
             // 
+            this.layoutControlGroup2.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup2.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.layoutControlItem10});
             this.layoutControlGroup2.Location = new System.Drawing.Point(688, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
+            this.layoutControlGroup2.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
             this.layoutControlGroup2.Size = new System.Drawing.Size(330, 91);
+            this.layoutControlGroup2.Text = "周收益";
             // 
             // layoutControlItem1
             // 
@@ -669,7 +701,8 @@
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(306, 24);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem1.Text = "收益额（万元）";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlItem10
             // 
@@ -677,16 +710,21 @@
             this.layoutControlItem10.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Size = new System.Drawing.Size(306, 24);
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem10.Text = "收益率";
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlGroup3
             // 
+            this.layoutControlGroup3.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup3.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2,
             this.layoutControlItem14});
             this.layoutControlGroup3.Location = new System.Drawing.Point(1255, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
             this.layoutControlGroup3.Size = new System.Drawing.Size(223, 91);
+            this.layoutControlGroup3.Text = "年收益";
             // 
             // layoutControlItem2
             // 
@@ -694,7 +732,8 @@
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(199, 24);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem2.Text = "收益额（万元）";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlItem14
             // 
@@ -702,41 +741,52 @@
             this.layoutControlItem14.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem14.Name = "layoutControlItem14";
             this.layoutControlItem14.Size = new System.Drawing.Size(199, 24);
-            this.layoutControlItem14.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem14.Text = "收益率";
+            this.layoutControlItem14.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlGroup4
             // 
+            this.layoutControlGroup4.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup4.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3,
             this.layoutControlItem8});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(397, 0);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(300, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(291, 91);
+            this.layoutControlGroup4.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
+            this.layoutControlGroup4.Size = new System.Drawing.Size(388, 91);
+            this.layoutControlGroup4.Text = "日收益";
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.textEdit3;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(267, 24);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem3.Size = new System.Drawing.Size(364, 24);
+            this.layoutControlItem3.Text = "收益额（万元）";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.textEdit8;
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(267, 24);
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem8.Size = new System.Drawing.Size(364, 24);
+            this.layoutControlItem8.Text = "收益率";
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlGroup5
             // 
+            this.layoutControlGroup5.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup5.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4,
             this.layoutControlItem12});
             this.layoutControlGroup5.Location = new System.Drawing.Point(1018, 0);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
+            this.layoutControlGroup5.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
             this.layoutControlGroup5.Size = new System.Drawing.Size(237, 91);
+            this.layoutControlGroup5.Text = "月收益";
             // 
             // layoutControlItem4
             // 
@@ -744,7 +794,8 @@
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(213, 24);
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem4.Text = "收益额（万元）";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlItem12
             // 
@@ -752,32 +803,43 @@
             this.layoutControlItem12.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem12.Name = "layoutControlItem12";
             this.layoutControlItem12.Size = new System.Drawing.Size(213, 24);
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem12.Text = "收益率";
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(84, 14);
             // 
             // layoutControlGroup6
             // 
+            this.layoutControlGroup6.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup6.AppearanceGroup.Options.UseFont = true;
             this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem5,
             this.layoutControlItem6});
             this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(397, 91);
+            this.layoutControlGroup6.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
+            this.layoutControlGroup6.Size = new System.Drawing.Size(300, 91);
+            this.layoutControlGroup6.Text = "投资人员";
             // 
             // layoutControlItem5
             // 
+            this.layoutControlItem5.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.layoutControlItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.layoutControlItem5.Control = this.textEdit5;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(373, 24);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem5.Size = new System.Drawing.Size(276, 24);
+            this.layoutControlItem5.Text = "姓名";
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(96, 14);
             // 
             // layoutControlItem6
             // 
+            this.layoutControlItem6.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.layoutControlItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.layoutControlItem6.Control = this.textEdit6;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(373, 24);
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(112, 14);
+            this.layoutControlItem6.Size = new System.Drawing.Size(276, 24);
+            this.layoutControlItem6.Text = "当前持仓（万元）";
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(96, 14);
             // 
             // emptySpaceItem5
             // 
