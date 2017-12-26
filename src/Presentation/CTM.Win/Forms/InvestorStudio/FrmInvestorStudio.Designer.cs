@@ -41,9 +41,11 @@
             DevExpress.XtraCharts.SplineSeriesView splineSeriesView2 = new DevExpress.XtraCharts.SplineSeriesView();
             DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel1 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView2 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
             DevExpress.XtraCharts.XYDiagram xyDiagram3 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.Series series5 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel2 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView3 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.dateEdit1 = new DevExpress.XtraEditors.DateEdit();
@@ -61,8 +63,8 @@
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.chartProfitTrend = new DevExpress.XtraCharts.ChartControl();
-            this.chartControl2 = new DevExpress.XtraCharts.ChartControl();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.chartGain = new DevExpress.XtraCharts.ChartControl();
+            this.chartLoss = new DevExpress.XtraCharts.ChartControl();
             this.layoutControlGroup8 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -143,13 +145,15 @@
             ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(splineSeriesView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartLoss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(series5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
@@ -352,8 +356,8 @@
             // layoutControl2
             // 
             this.layoutControl2.Controls.Add(this.chartProfitTrend);
-            this.layoutControl2.Controls.Add(this.chartControl2);
-            this.layoutControl2.Controls.Add(this.chartControl1);
+            this.layoutControl2.Controls.Add(this.chartGain);
+            this.layoutControl2.Controls.Add(this.chartLoss);
             this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
@@ -375,7 +379,7 @@
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1});
             this.chartProfitTrend.Diagram = xyDiagram1;
-            this.chartProfitTrend.Location = new System.Drawing.Point(413, 29);
+            this.chartProfitTrend.Location = new System.Drawing.Point(612, 29);
             this.chartProfitTrend.Name = "chartProfitTrend";
             series1.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series1.CrosshairLabelPattern = "{S}: {V:n2}";
@@ -411,56 +415,71 @@
         series1,
         series2,
         series3};
-            this.chartProfitTrend.Size = new System.Drawing.Size(1058, 347);
+            this.chartProfitTrend.Size = new System.Drawing.Size(859, 347);
             this.chartProfitTrend.TabIndex = 6;
             // 
-            // chartControl2
+            // chartGain
             // 
             xyDiagram2.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
             xyDiagram2.AxisY.GridLines.Visible = false;
-            xyDiagram2.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.False;
             xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
             xyDiagram2.Rotated = true;
-            this.chartControl2.Diagram = xyDiagram2;
-            this.chartControl2.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Left;
-            this.chartControl2.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
-            this.chartControl2.Location = new System.Drawing.Point(213, 29);
-            this.chartControl2.Name = "chartControl2";
+            this.chartGain.Diagram = xyDiagram2;
+            this.chartGain.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Left;
+            this.chartGain.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
+            this.chartGain.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            this.chartGain.Location = new System.Drawing.Point(312, 29);
+            this.chartGain.Name = "chartGain";
             series4.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series4.CrosshairEnabled = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel1.Position = DevExpress.XtraCharts.BarSeriesLabelPosition.Top;
+            sideBySideBarSeriesLabel1.TextPattern = "{V:n2}";
+            series4.Label = sideBySideBarSeriesLabel1;
+            series4.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series4.Name = "Series 1";
+            series4.SeriesPointsSorting = DevExpress.XtraCharts.SortingMode.Descending;
             sideBySideBarSeriesView2.BarWidth = 0.2D;
             sideBySideBarSeriesView2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(80)))), ((int)(((byte)(77)))));
             series4.View = sideBySideBarSeriesView2;
-            this.chartControl2.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+            this.chartGain.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series4};
-            this.chartControl2.Size = new System.Drawing.Size(196, 347);
-            this.chartControl2.TabIndex = 5;
+            this.chartGain.Size = new System.Drawing.Size(296, 347);
+            this.chartGain.TabIndex = 5;
             // 
-            // chartControl1
+            // chartLoss
             // 
             xyDiagram3.AxisX.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
             xyDiagram3.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram3.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram3.AxisY.Alignment = DevExpress.XtraCharts.AxisAlignment.Far;
             xyDiagram3.AxisY.GridLines.Visible = false;
-            xyDiagram3.AxisY.Reverse = true;
-            xyDiagram3.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.False;
             xyDiagram3.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram3.AxisY.WholeRange.Auto = false;
+            xyDiagram3.AxisY.WholeRange.MaxValueSerializable = "0";
+            xyDiagram3.AxisY.WholeRange.MinValueSerializable = "-5";
             xyDiagram3.Rotated = true;
-            this.chartControl1.Diagram = xyDiagram3;
-            this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
-            this.chartControl1.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
-            this.chartControl1.Location = new System.Drawing.Point(12, 29);
-            this.chartControl1.Name = "chartControl1";
+            this.chartLoss.Diagram = xyDiagram3;
+            this.chartLoss.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
+            this.chartLoss.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
+            this.chartLoss.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            this.chartLoss.Location = new System.Drawing.Point(12, 29);
+            this.chartLoss.Name = "chartLoss";
             series5.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series5.CrosshairEnabled = DevExpress.Utils.DefaultBoolean.False;
+            sideBySideBarSeriesLabel2.TextPattern = "{V:n2}";
+            series5.Label = sideBySideBarSeriesLabel2;
+            series5.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series5.Name = "Series 1";
+            series5.SeriesPointsSorting = DevExpress.XtraCharts.SortingMode.Ascending;
             sideBySideBarSeriesView3.BarWidth = 0.2D;
             sideBySideBarSeriesView3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(187)))), ((int)(((byte)(89)))));
             series5.View = sideBySideBarSeriesView3;
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+            this.chartLoss.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series5};
-            this.chartControl1.Size = new System.Drawing.Size(197, 347);
-            this.chartControl1.TabIndex = 4;
+            this.chartLoss.Size = new System.Drawing.Size(296, 347);
+            this.chartLoss.TabIndex = 4;
             // 
             // layoutControlGroup8
             // 
@@ -479,10 +498,10 @@
             // 
             this.layoutControlItem11.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlItem11.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.layoutControlItem11.Control = this.chartControl1;
+            this.layoutControlItem11.Control = this.chartLoss;
             this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(201, 368);
+            this.layoutControlItem11.Size = new System.Drawing.Size(300, 368);
             this.layoutControlItem11.Text = "亏损股票";
             this.layoutControlItem11.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem11.TextSize = new System.Drawing.Size(60, 14);
@@ -491,10 +510,10 @@
             // 
             this.layoutControlItem13.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlItem13.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.layoutControlItem13.Control = this.chartControl2;
-            this.layoutControlItem13.Location = new System.Drawing.Point(201, 0);
+            this.layoutControlItem13.Control = this.chartGain;
+            this.layoutControlItem13.Location = new System.Drawing.Point(300, 0);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(200, 368);
+            this.layoutControlItem13.Size = new System.Drawing.Size(300, 368);
             this.layoutControlItem13.Text = "盈利股票";
             this.layoutControlItem13.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem13.TextSize = new System.Drawing.Size(60, 14);
@@ -502,9 +521,9 @@
             // layoutControlItem15
             // 
             this.layoutControlItem15.Control = this.chartProfitTrend;
-            this.layoutControlItem15.Location = new System.Drawing.Point(401, 0);
+            this.layoutControlItem15.Location = new System.Drawing.Point(600, 0);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(1062, 368);
+            this.layoutControlItem15.Size = new System.Drawing.Size(863, 368);
             this.layoutControlItem15.Text = "收益趋势图";
             this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(60, 14);
@@ -960,13 +979,15 @@
             ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartProfitTrend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(series5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartLoss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
@@ -1057,8 +1078,8 @@
         private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
         private DevExpress.XtraLayout.LayoutControl layoutControl2;
         private DevExpress.XtraCharts.ChartControl chartProfitTrend;
-        private DevExpress.XtraCharts.ChartControl chartControl2;
-        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevExpress.XtraCharts.ChartControl chartGain;
+        private DevExpress.XtraCharts.ChartControl chartLoss;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
