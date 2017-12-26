@@ -26,6 +26,40 @@ namespace CTM.Win.Forms.InvestorStudio
             InitializeComponent();
         }
 
+        private void DisplayLatestProfit()
+        {
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026'";
+            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            if (ds != null && ds.Tables.Count == 1)
+            {
+                if(ds.Tables[0].Rows.Count == 1)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+
+                    //txtCurValue.Text = dr.Field<decimal>("CurValue").ToString ();
+                    //txtDayP.Text = dr.Field<decimal>("DayProfit").ToString ();
+                    //txtDayR .Text = dr.Field<decimal>("DayRate").ToString ();
+                    //txtWeekP.Text = dr.Field<decimal>("WeekProfit").ToString ();
+                    //txtWeekR .Text = dr.Field<decimal>("WeekRate").ToString ();
+                    //txtMonthP.Text = dr.Field<decimal>("MonthProfit").ToString ();
+                    //txtMonthR .Text = dr.Field<decimal>("MonthRate").ToString ();
+                    //txtYearP.Text = dr.Field<decimal>("YearProfit").ToString ();
+                    //txtYearR.Text = dr.Field<decimal>("YearRate").ToString ();
+
+
+                    txtCurValue.EditValue = dr.Field<decimal>("CurValue");
+                    txtDayP.EditValue = dr.Field<decimal>("DayProfit");
+                    txtDayR.EditValue = dr.Field<decimal>("DayRate");
+                    txtWeekP.EditValue = dr.Field<decimal>("WeekProfit");
+                    txtWeekR.EditValue = dr.Field<decimal>("WeekRate");
+                    txtMonthP.EditValue = dr.Field<decimal>("MonthProfit");
+                    txtMonthR.EditValue = dr.Field<decimal>("MonthRate");
+                    txtYearP.EditValue = dr.Field<decimal>("YearProfit");
+                    txtYearR.EditValue = dr.Field<decimal>("YearRate");
+                }
+            }
+        }
+
         private void DisplayProfitContrastChart()
         {
             //亏损
@@ -180,6 +214,7 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             try
             {
+                DisplayLatestProfit();
                 DisplayProfitContrastChart();
                 DisplayProfitTrendChart();
             }
