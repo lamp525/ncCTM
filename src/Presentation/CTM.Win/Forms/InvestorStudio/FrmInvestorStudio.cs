@@ -5,13 +5,18 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
+using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
-    public partial class FrmInvestorStudio : BaseForm
+    public partial class FrmInvestorStudio : BaseForm       
     {
+
+        private DataTable _dtPositionData = null;
+        private IList<DataRow> _filteredPosition = null;
+
         private class StockProfit
         {
             public string StockCode { get; set; }
@@ -28,34 +33,25 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void DisplayLatestProfit()
         {
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026'";
+            lblInvestor.Text = LoginInfo.CurrentUser.UserName;
+
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026',@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
-                if(ds.Tables[0].Rows.Count == 1)
+                if (ds.Tables[0].Rows.Count == 1)
                 {
                     DataRow dr = ds.Tables[0].Rows[0];
 
-                    //txtCurValue.Text = dr.Field<decimal>("CurValue").ToString ();
-                    //txtDayP.Text = dr.Field<decimal>("DayProfit").ToString ();
-                    //txtDayR .Text = dr.Field<decimal>("DayRate").ToString ();
-                    //txtWeekP.Text = dr.Field<decimal>("WeekProfit").ToString ();
-                    //txtWeekR .Text = dr.Field<decimal>("WeekRate").ToString ();
-                    //txtMonthP.Text = dr.Field<decimal>("MonthProfit").ToString ();
-                    //txtMonthR .Text = dr.Field<decimal>("MonthRate").ToString ();
-                    //txtYearP.Text = dr.Field<decimal>("YearProfit").ToString ();
-                    //txtYearR.Text = dr.Field<decimal>("YearRate").ToString ();
-
-
-                    txtCurValue.EditValue = dr.Field<decimal>("CurValue");
-                    txtDayP.EditValue = dr.Field<decimal>("DayProfit");
-                    txtDayR.EditValue = dr.Field<decimal>("DayRate");
-                    txtWeekP.EditValue = dr.Field<decimal>("WeekProfit");
-                    txtWeekR.EditValue = dr.Field<decimal>("WeekRate");
-                    txtMonthP.EditValue = dr.Field<decimal>("MonthProfit");
-                    txtMonthR.EditValue = dr.Field<decimal>("MonthRate");
-                    txtYearP.EditValue = dr.Field<decimal>("YearProfit");
-                    txtYearR.EditValue = dr.Field<decimal>("YearRate");
+                    lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
+                    lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
+                    lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
+                    lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
+                    lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
+                    lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
+                    lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
+                    lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
+                    lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
                 }
             }
         }
@@ -70,7 +66,7 @@ namespace CTM.Win.Forms.InvestorStudio
             seLoss.Points.Clear();
             seGain.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/01'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
 
             if (ds != null && ds.Tables.Count == 1)
@@ -86,14 +82,14 @@ namespace CTM.Win.Forms.InvestorStudio
                         case "D":
                             contrastList = profitList
                                 .Select(x => new StockProfit
-                                { 
-                                        Fund = x.Field<decimal>("DayFund"),
-                                        Profit = x.Field<decimal>("DayProfit"),
-                                        Rate = x.Field<decimal>("DayRate"),
-                                        StockCode = x.Field<string>("StockCode"),
-                                        StockName = x.Field<string>("StockName"),
-                                   }
-                                ).ToList(); 
+                                {
+                                    Fund = x.Field<decimal>("DayFund"),
+                                    Profit = x.Field<decimal>("DayProfit"),
+                                    Rate = x.Field<decimal>("DayRate"),
+                                    StockCode = x.Field<string>("StockCode"),
+                                    StockName = x.Field<string>("StockName"),
+                                }
+                                ).ToList();
                             break;
 
                         case "W":
@@ -139,8 +135,8 @@ namespace CTM.Win.Forms.InvestorStudio
                             break;
                     }
 
-                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x=>x.Profit).Take(10).OrderByDescending(x=>x.Profit).ToList();
-                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x=>x.Profit).Take(10).OrderBy(x=>x.Profit).ToList();
+                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x => x.Profit).Take(10).OrderByDescending(x => x.Profit).ToList();
+                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x => x.Profit).Take(10).OrderBy(x => x.Profit).ToList();
 
                     string argument = string.Empty;
                     decimal fund;
@@ -153,7 +149,7 @@ namespace CTM.Win.Forms.InvestorStudio
                         fund = item.Fund;
                         profit = item.Profit;
                         rate = item.Rate;
-                        seLoss.Points.Add(new SeriesPoint(argument, profit));              
+                        seLoss.Points.Add(new SeriesPoint(argument, profit));
                     }
 
                     foreach (var item in gainList)
@@ -181,11 +177,12 @@ namespace CTM.Win.Forms.InvestorStudio
             seProfit.Points.Clear();
             seRate.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/01'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
 
             if (ds != null && ds.Tables.Count == 1)
-            {
+            { 
+
                 var profitList = ds.Tables[0].AsEnumerable()
                                         .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All && x.Field<string>("ReportType") == "D")
                                         .OrderBy(x => x.Field<string>("ReportDate"))
@@ -210,6 +207,57 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        private void DisplayPositionChart()
+        {
+            Series sePosition = chartPosition.Series[0];
+            sePosition.Points.Clear();
+
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = 'nctz001', @TradeDate = '2017/12/27'";
+            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            if (ds != null && ds.Tables.Count == 1)
+            {
+                _dtPositionData = ds.Tables[0];
+
+                _filteredPosition  = _dtPositionData.AsEnumerable()
+                                            .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All)
+                                            .OrderByDescending (x => x.Field<decimal>("CurValue")).ToArray();
+
+                string argument = string.Empty;
+                decimal positionValue;
+                decimal otherValue = 0;
+                for (int i = 0; i < _filteredPosition.Count; i++)
+                {
+                    DataRow row = _filteredPosition[i];
+
+                    if (i < 7)
+                    {
+                        argument = row["StockName"].ToString().Trim();
+                        positionValue = Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
+                        sePosition.Points.Add(new SeriesPoint(argument, positionValue));
+                    }
+                    else
+                    {
+                        otherValue += Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
+
+                        if (i == _filteredPosition.Count - 1)
+                        {
+                            argument = "其它";
+                            sePosition.Points.Add(new SeriesPoint(argument, otherValue));
+                        }
+                    }
+                }
+
+                //sePosition.Points.OrderBy(x => x.QualitativeArgument);
+
+            }
+        }
+
+        private void BindPositionGrid()
+        {
+            gcPosition.DataSource = _filteredPosition.CopyToDataTable ();
+            gvPosition.PopulateColumns();
+        }
+
         private void FrmInvestorStudio_Load(object sender, EventArgs e)
         {
             try
@@ -217,6 +265,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 DisplayLatestProfit();
                 DisplayProfitContrastChart();
                 DisplayProfitTrendChart();
+                DisplayPositionChart();
+                BindPositionGrid();
             }
             catch (Exception ex)
             {
