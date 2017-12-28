@@ -5,6 +5,7 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
+using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
@@ -31,9 +32,14 @@ namespace CTM.Win.Forms.InvestorStudio
             InitializeComponent();
         }
 
-        private void DisplayLatestProfit()
+
+        private void FormInit()
         {
-            lblInvestor.Text = LoginInfo.CurrentUser.UserName;
+            esiInvestor.Text = LoginInfo.CurrentUser.UserName;
+        }
+
+        private void DisplayLatestProfit()
+        {     
 
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026',@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
@@ -66,7 +72,7 @@ namespace CTM.Win.Forms.InvestorStudio
             seLoss.Points.Clear();
             seGain.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/27'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = 'nctz046'	,@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
 
             if (ds != null && ds.Tables.Count == 1)
@@ -135,8 +141,8 @@ namespace CTM.Win.Forms.InvestorStudio
                             break;
                     }
 
-                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x => x.Profit).Take(10).OrderByDescending(x => x.Profit).ToList();
-                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x => x.Profit).Take(10).OrderBy(x => x.Profit).ToList();
+                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x => x.Profit).Take(10).ToList();
+                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x => x.Profit).Take(10).ToList();
 
                     string argument = string.Empty;
                     decimal fund;
@@ -152,6 +158,11 @@ namespace CTM.Win.Forms.InvestorStudio
                         seLoss.Points.Add(new SeriesPoint(argument, profit));
                     }
 
+                    //for (int i = 0; i < 10 - seLoss.Points.Count ; i++)
+                    //{
+                    //    seLoss.Points.Add(new SeriesPoint("11 ", 0));
+                    //}
+
                     foreach (var item in gainList)
                     {
                         argument = item.StockName;
@@ -160,6 +171,11 @@ namespace CTM.Win.Forms.InvestorStudio
                         rate = item.Rate;
                         seGain.Points.Add(new SeriesPoint(argument, profit));
                     }
+
+                    //for (int i = 0; i < 10 - seGain.Points.Count; i++)
+                    //{
+                    //    seGain.Points.Add(new SeriesPoint("11 ", 0));
+                    //}
                 }
             }
         }
@@ -255,13 +271,15 @@ namespace CTM.Win.Forms.InvestorStudio
         private void BindPositionGrid()
         {
             gcPosition.DataSource = _filteredPosition.CopyToDataTable ();
-            gvPosition.PopulateColumns();
+
         }
 
         private void FrmInvestorStudio_Load(object sender, EventArgs e)
         {
             try
             {
+                FormInit();
+
                 DisplayLatestProfit();
                 DisplayProfitContrastChart();
                 DisplayProfitTrendChart();
@@ -274,8 +292,5 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
     }
 }
