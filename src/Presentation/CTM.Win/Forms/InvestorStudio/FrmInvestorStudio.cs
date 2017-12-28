@@ -36,6 +36,8 @@ namespace CTM.Win.Forms.InvestorStudio
         private void FormInit()
         {
             esiInvestor.Text = LoginInfo.CurrentUser.UserName;
+
+
         }
 
         private void DisplayLatestProfit()
@@ -45,20 +47,23 @@ namespace CTM.Win.Forms.InvestorStudio
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
-                if (ds.Tables[0].Rows.Count == 1)
-                {
-                    DataRow dr = ds.Tables[0].Rows[0];
+                gcCurrent.DataSource = ds.Tables[0];
+                cvCurrent.PopulateColumns();
+                cvCurrent.SaveLayoutToXml ("111.xml");
+                //if (ds.Tables[0].Rows.Count == 1)
+                //{
+                //    DataRow dr = ds.Tables[0].Rows[0];
 
-                    lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
-                    lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
-                    lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
-                    lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
-                    lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
-                    lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
-                    lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
-                    lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
-                    lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
-                }
+                //    lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
+                //    lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
+                //    lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
+                //    lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
+                //    lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
+                //    lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
+                //    lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
+                //    lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
+                //    lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
+                //}
             }
         }
 
