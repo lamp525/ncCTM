@@ -23,7 +23,8 @@ namespace CTM.Win.Forms.InvestorStudio
         private string _currentDate = null;
         private DataRow _drInvestorProfit = null;
         private DataTable _dtPositionData = null;
-        private DataTable _dtProfitData = null;
+        private DataTable _dtProfitContrastData = null;
+        private DataTable _dtProfitTrendData = null;
 
         #endregion Fields
 
@@ -55,6 +56,16 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void FormInit()
         {
+            string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit";
+            var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
+            _currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
+
+            var bwInvestorProfit = new BackgroundWorker();
+            bwInvestorProfit.WorkerSupportsCancellation = true;
+            bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
+            bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
+            bwInvestorProfit.RunWorkerAsync();
+
             esiInvestor.Text = LoginInfo.CurrentUser.UserName;
 
             dePosition.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -156,7 +167,7 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void BindPositionData()
+        private void BindPositionRelateData()
         {
             Series sePosition = chartPosition.Series[0];
             sePosition.Points.Clear();
@@ -167,7 +178,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x => x.Field<decimal>("CurValue")).ToArray();
 
-            if (data.Count == 0) return;
+            if (!data.Any()) return;
 
             //持仓变动Grid
             gcPosition.DataSource = data.CopyToDataTable();
@@ -201,7 +212,31 @@ namespace CTM.Win.Forms.InvestorStudio
             //sePosition.Points.OrderBy(x => x.QualitativeArgument);
         }
 
-        private void DisplayProfitContrastChart()
+        private void GetProfitRelateData()
+        {
+            string date = dePosition.Text.Trim();
+
+            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
+            if (ds1 != null && ds1.Tables.Count == 1)
+                _dtProfitContrastData = ds1.Tables[0];
+
+            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
+            if (ds2 != null && ds2.Tables.Count == 1)
+                _dtProfitTrendData = ds2.Tables[0];
+        }
+
+        private void BindProfitRelateData()
+        {
+            int tradeType = int.Parse(cbTradeTypeProfit.SelectedValue());
+            string reportType = string.Empty;
+
+            DisplayProfitContrastChart(tradeType, reportType);
+            DisplayProfitTrendChart(tradeType, reportType);
+        }
+
+        private void DisplayProfitContrastChart(int tradeType, string reportType)
         {
             //亏损
             Series seLoss = chartLoss.Series[0];
@@ -211,115 +246,110 @@ namespace CTM.Win.Forms.InvestorStudio
             seLoss.Points.Clear();
             seGain.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = 'nctz046'	,@TradeDate = '2017/12/27'";
-            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            IList<DataRow> profitList = _dtProfitContrastData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).ToList();
 
-            if (ds != null && ds.Tables.Count == 1)
+            if (!profitList.Any()) return;
+
+            IList<StockProfit> contrastList = null;
+            if (profitList.Count > 0)
             {
-                string reportType = "D";
-
-                IList<DataRow> profitList = ds.Tables[0].AsEnumerable().Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All).ToList();
-                IList<StockProfit> contrastList = null;
-                if (profitList.Count > 0)
+                switch (reportType)
                 {
-                    switch (reportType)
-                    {
-                        case "D":
-                            contrastList = profitList
-                                .Select(x => new StockProfit
-                                {
-                                    Fund = x.Field<decimal>("DayFund"),
-                                    Profit = x.Field<decimal>("DayProfit"),
-                                    Rate = x.Field<decimal>("DayRate"),
-                                    StockCode = x.Field<string>("StockCode"),
-                                    StockName = x.Field<string>("StockName"),
-                                }
-                                ).ToList();
-                            break;
+                    case "D":
+                        contrastList = profitList
+                            .Select(x => new StockProfit
+                            {
+                                Fund = x.Field<decimal>("DayFund"),
+                                Profit = x.Field<decimal>("DayProfit"),
+                                Rate = x.Field<decimal>("DayRate"),
+                                StockCode = x.Field<string>("StockCode"),
+                                StockName = x.Field<string>("StockName"),
+                            }
+                            ).ToList();
+                        break;
 
-                        case "W":
-                            contrastList = profitList
-                                .Select(x => new StockProfit
-                                {
-                                    Fund = x.Field<decimal>("WeekAvgFund"),
-                                    Profit = x.Field<decimal>("WeekProfit"),
-                                    Rate = x.Field<decimal>("WeekRate"),
-                                    StockCode = x.Field<string>("StockCode"),
-                                    StockName = x.Field<string>("StockName"),
-                                }
-                                ).ToList();
-                            break;
+                    case "W":
+                        contrastList = profitList
+                            .Select(x => new StockProfit
+                            {
+                                Fund = x.Field<decimal>("WeekAvgFund"),
+                                Profit = x.Field<decimal>("WeekProfit"),
+                                Rate = x.Field<decimal>("WeekRate"),
+                                StockCode = x.Field<string>("StockCode"),
+                                StockName = x.Field<string>("StockName"),
+                            }
+                            ).ToList();
+                        break;
 
-                        case "M":
-                            contrastList = profitList
-                                .Select(x => new StockProfit
-                                {
-                                    Fund = x.Field<decimal>("MonthAvgFund"),
-                                    Profit = x.Field<decimal>("MonthProfit"),
-                                    Rate = x.Field<decimal>("MonthRate"),
-                                    StockCode = x.Field<string>("StockCode"),
-                                    StockName = x.Field<string>("StockName"),
-                                }
-                                ).ToList();
-                            break;
+                    case "M":
+                        contrastList = profitList
+                            .Select(x => new StockProfit
+                            {
+                                Fund = x.Field<decimal>("MonthAvgFund"),
+                                Profit = x.Field<decimal>("MonthProfit"),
+                                Rate = x.Field<decimal>("MonthRate"),
+                                StockCode = x.Field<string>("StockCode"),
+                                StockName = x.Field<string>("StockName"),
+                            }
+                            ).ToList();
+                        break;
 
-                        case "Y":
-                            contrastList = profitList
-                                .Select(x => new StockProfit
-                                {
-                                    Fund = x.Field<decimal>("YearAvgFund"),
-                                    Profit = x.Field<decimal>("YearProfit"),
-                                    Rate = x.Field<decimal>("YearRate"),
-                                    StockCode = x.Field<string>("StockCode"),
-                                    StockName = x.Field<string>("StockName"),
-                                }
-                                ).ToList();
-                            break;
+                    case "Y":
+                        contrastList = profitList
+                            .Select(x => new StockProfit
+                            {
+                                Fund = x.Field<decimal>("YearAvgFund"),
+                                Profit = x.Field<decimal>("YearProfit"),
+                                Rate = x.Field<decimal>("YearRate"),
+                                StockCode = x.Field<string>("StockCode"),
+                                StockName = x.Field<string>("StockName"),
+                            }
+                            ).ToList();
+                        break;
 
-                        default:
-                            break;
-                    }
-
-                    IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x => x.Profit).Take(10).ToList();
-                    IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x => x.Profit).Take(10).ToList();
-
-                    string argument = string.Empty;
-                    decimal fund;
-                    decimal profit;
-                    decimal rate;
-
-                    foreach (var item in lossList)
-                    {
-                        argument = item.StockName;
-                        fund = item.Fund;
-                        profit = item.Profit;
-                        rate = item.Rate;
-                        seLoss.Points.Add(new SeriesPoint(argument, profit));
-                    }
-
-                    //for (int i = 0; i < 10 - seLoss.Points.Count ; i++)
-                    //{
-                    //    seLoss.Points.Add(new SeriesPoint("11 ", 0));
-                    //}
-
-                    foreach (var item in gainList)
-                    {
-                        argument = item.StockName;
-                        fund = item.Fund;
-                        profit = item.Profit;
-                        rate = item.Rate;
-                        seGain.Points.Add(new SeriesPoint(argument, profit));
-                    }
-
-                    //for (int i = 0; i < 10 - seGain.Points.Count; i++)
-                    //{
-                    //    seGain.Points.Add(new SeriesPoint("11 ", 0));
-                    //}
+                    default:
+                        break;
                 }
+
+                IList<StockProfit> lossList = contrastList.Where(x => x.Profit < 0).OrderBy(x => x.Profit).Take(10).ToList();
+                IList<StockProfit> gainList = contrastList.Where(x => x.Profit > 0).OrderByDescending(x => x.Profit).Take(10).ToList();
+
+                string argument = string.Empty;
+                decimal fund;
+                decimal profit;
+                decimal rate;
+
+                foreach (var item in lossList)
+                {
+                    argument = item.StockName;
+                    fund = item.Fund;
+                    profit = item.Profit;
+                    rate = item.Rate;
+                    seLoss.Points.Add(new SeriesPoint(argument, profit));
+                }
+
+                //for (int i = 0; i < 10 - seLoss.Points.Count ; i++)
+                //{
+                //    seLoss.Points.Add(new SeriesPoint("11 ", 0));
+                //}
+
+                foreach (var item in gainList)
+                {
+                    argument = item.StockName;
+                    fund = item.Fund;
+                    profit = item.Profit;
+                    rate = item.Rate;
+                    seGain.Points.Add(new SeriesPoint(argument, profit));
+                }
+
+                //for (int i = 0; i < 10 - seGain.Points.Count; i++)
+                //{
+                //    seGain.Points.Add(new SeriesPoint("11 ", 0));
+                //}
             }
         }
 
-        private void DisplayProfitTrendChart()
+        private void DisplayProfitTrendChart(int tradeType, string reportType)
         {
             //使用资金
             Series seFund = chartProfitTrend.Series[0];
@@ -341,41 +371,37 @@ namespace CTM.Win.Forms.InvestorStudio
             seYearRate.Points.Clear();
             seAvgFund.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz046'	,@TradeDate = '2017/12/27'";
-            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            var profitList = _dtProfitTrendData.AsEnumerable()
+                                    .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
+                                    .OrderBy(x => x.Field<string>("ReportDate"))
+                                    .ToList();
 
-            if (ds != null && ds.Tables.Count == 1)
+            if (!profitList.Any()) return;
+
+            string argument = string.Empty;
+            decimal fund;
+            decimal profit;
+            decimal rate;
+            decimal yearProfit;
+            decimal yearRate;
+            decimal avgFund;
+
+            foreach (DataRow row in profitList)
             {
-                var profitList = ds.Tables[0].AsEnumerable()
-                                        .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All && x.Field<string>("ReportType") == "D")
-                                        .OrderBy(x => x.Field<string>("ReportDate"))
-                                        .ToList();
+                argument = row["ReportDate"].ToString().Trim();
+                fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
+                profit = CommonHelper.StringToDecimal(row["Profit"].ToString().Trim());
+                rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
+                yearProfit = CommonHelper.StringToDecimal(row["YearProfit"].ToString().Trim());
+                yearRate = CommonHelper.StringToDecimal(row["YearRate"].ToString().Trim());
+                avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim());
 
-                string argument = string.Empty;
-                decimal fund;
-                decimal profit;
-                decimal rate;
-                decimal yearProfit;
-                decimal yearRate;
-                decimal avgFund;
-
-                foreach (DataRow row in profitList)
-                {
-                    argument = row["ReportDate"].ToString().Trim();
-                    fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
-                    profit = CommonHelper.StringToDecimal(row["Profit"].ToString().Trim());
-                    rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
-                    yearProfit = CommonHelper.StringToDecimal(row["YearProfit"].ToString().Trim());
-                    yearRate = CommonHelper.StringToDecimal(row["YearRate"].ToString().Trim());
-                    avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim());
-
-                    seFund.Points.Add(new SeriesPoint(argument, fund));
-                    seProfit.Points.Add(new SeriesPoint(argument, profit));
-                    seRate.Points.Add(new SeriesPoint(argument, rate));
-                    seYearProfit.Points.Add(new SeriesPoint(argument, yearProfit));
-                    seYearRate.Points.Add(new SeriesPoint(argument, yearRate));
-                    seAvgFund.Points.Add(new SeriesPoint(argument, avgFund));
-                }
+                seFund.Points.Add(new SeriesPoint(argument, fund));
+                seProfit.Points.Add(new SeriesPoint(argument, profit));
+                seRate.Points.Add(new SeriesPoint(argument, rate));
+                seYearProfit.Points.Add(new SeriesPoint(argument, yearProfit));
+                seYearRate.Points.Add(new SeriesPoint(argument, yearRate));
+                seAvgFund.Points.Add(new SeriesPoint(argument, avgFund));
             }
         }
 
@@ -387,16 +413,6 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             try
             {
-                string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit";
-                var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
-                _currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
-
-                var bwInvestorProfit = new BackgroundWorker();
-                bwInvestorProfit.WorkerSupportsCancellation = true;
-                bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
-                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
-                bwInvestorProfit.RunWorkerAsync();
-
                 FormInit();
             }
             catch (Exception ex)
@@ -446,8 +462,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 dePosition.Enabled = false;
 
                 var bwPosition = new BackgroundWorker();
-                bwPosition.DoWork += BwPosition_DoWork;
-                bwPosition.RunWorkerCompleted += BwPosition_RunWorkerCompleted;
+                bwPosition.DoWork += bwPosition_DoWork;
+                bwPosition.RunWorkerCompleted += bwPosition_RunWorkerCompleted;
                 bwPosition.RunWorkerAsync();
             }
             catch (Exception ex)
@@ -456,7 +472,7 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void BwPosition_DoWork(object sender, DoWorkEventArgs e)
+        private void bwPosition_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -468,7 +484,7 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void BwPosition_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void bwPosition_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
@@ -497,7 +513,7 @@ namespace CTM.Win.Forms.InvestorStudio
             try
             {
                 cbTradeTypePosition.Enabled = false;
-                BindPositionData();
+                BindPositionRelateData();
             }
             catch (Exception ex)
             {
@@ -511,6 +527,36 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void deProfit_EditValueChanged(object sender, EventArgs e)
         {
+            try
+            {
+                deProfit.Enabled = false;
+
+                var bwProfit = new BackgroundWorker();
+                bwProfit.DoWork += bwProfit_DoWork;
+                bwProfit.RunWorkerCompleted += BwProfit_RunWorkerCompleted;
+                bwProfit.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void bwProfit_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                GetProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void BwProfit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void cbTradeTypeProfit_SelectedIndexChanged(object sender, EventArgs e)
