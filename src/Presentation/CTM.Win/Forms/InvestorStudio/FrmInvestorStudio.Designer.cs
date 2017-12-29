@@ -508,8 +508,7 @@
             this.cbTradeTypeProfit.Size = new System.Drawing.Size(95, 20);
             this.cbTradeTypeProfit.StyleController = this.layoutControl1;
             this.cbTradeTypeProfit.TabIndex = 27;
-            this.cbTradeTypeProfit.SelectedIndexChanged += new System.EventHandler(this.cbTradeTypeProfit_SelectedIndexChanged);
-            this.cbTradeTypeProfit.EditValueChanged += new System.EventHandler(this.cbTradeTypePosition_EditValueChanged);
+            this.cbTradeTypeProfit.SelectedIndexChanged += new System.EventHandler(this.cbTradeTypeProfit_SelectedIndexChanged);      
             // 
             // chbDay
             // 

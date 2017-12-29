@@ -158,6 +158,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void GetPositionRelateData()
         {
+            _dtPositionData = null;
             string date = dePosition.Text.Trim();
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
@@ -231,6 +232,15 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             int tradeType = int.Parse(cbTradeTypeProfit.SelectedValue());
             string reportType = string.Empty;
+
+            if (chbDay.Checked)
+                reportType = "D";
+            else if (chbWeek.Checked)
+                reportType = "W";
+            else if (chbMonth.Checked)
+                reportType = "M";
+            else if (chbYear.Checked)
+                reportType = "Y";
 
             DisplayProfitContrastChart(tradeType, reportType);
             DisplayProfitTrendChart(tradeType, reportType);
@@ -455,11 +465,14 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        #region Position
+
         private void dePosition_EditValueChanged(object sender, EventArgs e)
         {
             try
             {
                 dePosition.Enabled = false;
+                cbTradeTypePosition.Enabled = false;
 
                 var bwPosition = new BackgroundWorker();
                 bwPosition.DoWork += bwPosition_DoWork;
@@ -491,7 +504,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 if (e.Result == null && e.Error == null)
                 {
                     dePosition.Enabled = true;
-                    cbTradeTypePosition.DefaultSelected("0");
+                    if (cbTradeTypePosition.EditValue == null)
+                        cbTradeTypeProfit.DefaultSelected("0");
                     cbTradeTypePosition.Enabled = true;
                 }
                 else
@@ -525,11 +539,20 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        #endregion Position
+
+        #region Profit
+
         private void deProfit_EditValueChanged(object sender, EventArgs e)
         {
             try
             {
                 deProfit.Enabled = false;
+                cbTradeTypeProfit.Enabled = false;
+                chbDay.Enabled = false;
+                chbWeek.Enabled = false;
+                chbMonth.Enabled = false;
+                chbYear.Enabled = false;
 
                 var bwProfit = new BackgroundWorker();
                 bwProfit.DoWork += bwProfit_DoWork;
@@ -556,32 +579,164 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BwProfit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (e.Result == null && e.Error == null)
+                {
+                    deProfit.Enabled = true;
+                    if (cbTradeTypeProfit.EditValue == null)
+                        cbTradeTypeProfit.DefaultSelected("0");
+                    cbTradeTypeProfit.Enabled = true;
+                    chbDay.Enabled = true;
+                    chbWeek.Enabled = true;
+                    chbMonth.Enabled = true;
+                    chbYear.Enabled = true;
+                }
+                else
+                {
+                    if (e.Result != null)
+                        throw new Exception(e.Result.ToString());
+                    else if (e.Error != null)
+                        throw e.Error;
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void cbTradeTypeProfit_SelectedIndexChanged(object sender, EventArgs e)
         {
-        }
+            try
+            {
+                cbTradeTypeProfit.Enabled = false;
 
-        private void cbTradeTypePosition_EditValueChanged(object sender, EventArgs e)
-        {
+                BindProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                cbTradeTypeProfit.Enabled = true;
+            }
         }
 
         private void chbDay_CheckedChanged(object sender, EventArgs e)
         {
+            try
+            {
+                chbDay.Enabled = false;
+                chbWeek.Enabled = false;
+                chbMonth.Enabled = false;
+                chbYear.Enabled = false;
+
+                chbWeek.Checked = !chbDay.Checked;
+                chbMonth.Checked = !chbDay.Checked;
+                chbYear.Checked = !chbDay.Checked;
+
+                BindProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                chbDay.Enabled = true;
+                chbWeek.Enabled = true;
+                chbMonth.Enabled = true;
+                chbYear.Enabled = true;
+            }
         }
 
         private void chbWeek_CheckedChanged(object sender, EventArgs e)
         {
+            try
+            {
+                chbDay.Enabled = false;
+                chbWeek.Enabled = false;
+                chbMonth.Enabled = false;
+                chbYear.Enabled = false;
+
+                chbDay.Checked = !chbWeek.Checked;
+                chbMonth.Checked = !chbWeek.Checked;
+                chbYear.Checked = !chbWeek.Checked;
+
+                BindProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                chbDay.Enabled = true;
+                chbWeek.Enabled = true;
+                chbMonth.Enabled = true;
+                chbYear.Enabled = true;
+            }
         }
 
         private void chbMonth_CheckedChanged(object sender, EventArgs e)
         {
+            try
+            {
+                chbDay.Enabled = false;
+                chbWeek.Enabled = false;
+                chbMonth.Enabled = false;
+                chbYear.Enabled = false;
+
+                chbDay.Checked = !chbMonth.Checked;
+                chbWeek.Checked = !chbMonth.Checked;
+                chbYear.Checked = !chbMonth.Checked;
+
+                BindProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                chbDay.Enabled = true;
+                chbWeek.Enabled = true;
+                chbMonth.Enabled = true;
+                chbYear.Enabled = true;
+            }
         }
 
         private void chbYear_CheckedChanged(object sender, EventArgs e)
         {
+            try
+            {
+                chbDay.Enabled = false;
+                chbWeek.Enabled = false;
+                chbMonth.Enabled = false;
+                chbYear.Enabled = false;
+
+                chbDay.Checked = !chbYear.Checked;
+                chbWeek.Checked = !chbYear.Checked;
+                chbMonth.Checked = !chbYear.Checked;
+
+                BindProfitRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                chbDay.Enabled = true;
+                chbWeek.Enabled = true;
+                chbMonth.Enabled = true;
+                chbYear.Enabled = true;
+            }
         }
+
+        #endregion Profit
 
         #endregion Events
     }
