@@ -5,16 +5,14 @@ using System.Linq;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
-using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
-    public partial class FrmInvestorStudio : BaseForm       
+    public partial class FrmInvestorStudio : BaseForm
     {
-
         private DataTable _dtPositionData = null;
         private IList<DataRow> _filteredPosition = null;
 
@@ -32,24 +30,17 @@ namespace CTM.Win.Forms.InvestorStudio
             InitializeComponent();
         }
 
-
         private void FormInit()
         {
             esiInvestor.Text = LoginInfo.CurrentUser.UserName;
-
-
         }
 
         private void DisplayLatestProfit()
-        {     
-
+        {
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026',@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
-                gcCurrent.DataSource = ds.Tables[0];
-                cvCurrent.PopulateColumns();
-                cvCurrent.SaveLayoutToXml ("111.xml");
                 //if (ds.Tables[0].Rows.Count == 1)
                 //{
                 //    DataRow dr = ds.Tables[0].Rows[0];
@@ -193,17 +184,25 @@ namespace CTM.Win.Forms.InvestorStudio
             Series seProfit = chartProfitTrend.Series[1];
             //收益率
             Series seRate = chartProfitTrend.Series[2];
+            //年收益额
+            Series seYearProfit = chartProfitTrend.Series[3];
+            //年收益率
+            Series seYearRate = chartProfitTrend.Series[4];
+            //日均投入资金
+            Series seAvgFund = chartProfitTrend.Series[5];
 
             seFund.Points.Clear();
             seProfit.Points.Clear();
             seRate.Points.Clear();
+            seYearProfit.Points.Clear();
+            seYearRate.Points.Clear();
+            seAvgFund.Points.Clear();
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz026'	,@TradeDate = '2017/12/27'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = 'nctz046'	,@TradeDate = '2017/12/27'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
 
             if (ds != null && ds.Tables.Count == 1)
-            { 
-
+            {
                 var profitList = ds.Tables[0].AsEnumerable()
                                         .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All && x.Field<string>("ReportType") == "D")
                                         .OrderBy(x => x.Field<string>("ReportDate"))
@@ -213,6 +212,9 @@ namespace CTM.Win.Forms.InvestorStudio
                 decimal fund;
                 decimal profit;
                 decimal rate;
+                decimal yearProfit;
+                decimal yearRate;
+                decimal avgFund;
 
                 foreach (DataRow row in profitList)
                 {
@@ -220,10 +222,16 @@ namespace CTM.Win.Forms.InvestorStudio
                     fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
                     profit = CommonHelper.StringToDecimal(row["Profit"].ToString().Trim());
                     rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
+                    yearProfit = CommonHelper.StringToDecimal(row["YearProfit"].ToString().Trim());
+                    yearRate = CommonHelper.StringToDecimal(row["YearRate"].ToString().Trim());
+                    avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim());
 
                     seFund.Points.Add(new SeriesPoint(argument, fund));
                     seProfit.Points.Add(new SeriesPoint(argument, profit));
                     seRate.Points.Add(new SeriesPoint(argument, rate));
+                    seYearProfit.Points.Add(new SeriesPoint(argument, yearProfit));
+                    seYearRate.Points.Add(new SeriesPoint(argument, yearRate));
+                    seAvgFund.Points.Add(new SeriesPoint(argument, avgFund));
                 }
             }
         }
@@ -239,9 +247,9 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 _dtPositionData = ds.Tables[0];
 
-                _filteredPosition  = _dtPositionData.AsEnumerable()
+                _filteredPosition = _dtPositionData.AsEnumerable()
                                             .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All)
-                                            .OrderByDescending (x => x.Field<decimal>("CurValue")).ToArray();
+                                            .OrderByDescending(x => x.Field<decimal>("CurValue")).ToArray();
 
                 string argument = string.Empty;
                 decimal positionValue;
@@ -269,14 +277,12 @@ namespace CTM.Win.Forms.InvestorStudio
                 }
 
                 //sePosition.Points.OrderBy(x => x.QualitativeArgument);
-
             }
         }
 
         private void BindPositionGrid()
         {
-            gcPosition.DataSource = _filteredPosition.CopyToDataTable ();
-
+            gcPosition.DataSource = _filteredPosition.CopyToDataTable();
         }
 
         private void FrmInvestorStudio_Load(object sender, EventArgs e)
@@ -296,6 +302,5 @@ namespace CTM.Win.Forms.InvestorStudio
                 DXMessage.ShowError(ex.Message);
             }
         }
-
     }
 }
