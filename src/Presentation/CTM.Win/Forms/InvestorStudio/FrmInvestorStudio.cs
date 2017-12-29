@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
+using CTM.Services.Dictionary;
+using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
@@ -13,8 +16,18 @@ namespace CTM.Win.Forms.InvestorStudio
 {
     public partial class FrmInvestorStudio : BaseForm
     {
+        #region Fields
+
+        private readonly IDictionaryService _dictionaryService;
+
+        private string _currentDate = null;
+        private DataRow _drInvestorProfit = null;
         private DataTable _dtPositionData = null;
-        private IList<DataRow> _filteredPosition = null;
+        private DataTable _dtProfitData = null;
+
+        #endregion Fields
+
+        #region Models
 
         private class StockProfit
         {
@@ -25,37 +38,167 @@ namespace CTM.Win.Forms.InvestorStudio
             public decimal Fund { get; set; }
         }
 
-        public FrmInvestorStudio()
+        #endregion Models
+
+        #region Constructors
+
+        public FrmInvestorStudio(IDictionaryService dictionaryService)
         {
             InitializeComponent();
+
+            _dictionaryService = dictionaryService;
         }
+
+        #endregion Constructors
+
+        #region Utilities
 
         private void FormInit()
         {
             esiInvestor.Text = LoginInfo.CurrentUser.UserName;
+
+            dePosition.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            dePosition.Enabled = false;
+            deProfit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            deProfit.Enabled = false;
+            dePosition.EditValue = _currentDate;
+            deProfit.EditValue = _currentDate;
+
+            //交易类别
+            var tradeTypes = this._dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
+                .Select(x => new ComboBoxItemModel
+                {
+                    Text = x.Name,
+                    Value = x.Code.ToString(),
+                }).ToList();
+            this.cbTradeTypePosition.Initialize(tradeTypes, displayAdditionalItem: true);
+            this.cbTradeTypeProfit.Initialize(tradeTypes, displayAdditionalItem: true);
         }
 
-        private void DisplayLatestProfit()
+        private void GetInvestorProfit()
         {
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = 'nctz026',@TradeDate = '2017/12/27'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{_currentDate}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
-                //if (ds.Tables[0].Rows.Count == 1)
-                //{
-                //    DataRow dr = ds.Tables[0].Rows[0];
-
-                //    lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
-                //    lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
-                //    lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
-                //    lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
-                //    lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
-                //    lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
-                //    lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
-                //    lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
-                //    lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
-                //}
+                if (ds.Tables[0].Rows.Count == 1)
+                {
+                    _drInvestorProfit = ds.Tables[0].Rows[0];
+                }
             }
+        }
+
+        private void BindInvestorProfit()
+        {
+            if (_drInvestorProfit == null) return;
+
+            DataRow dr = _drInvestorProfit;
+
+            lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
+
+            lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
+            if (dr.Field<decimal>("DayProfit") > 0)
+                lblDayP.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("DayProfit") < 0)
+                lblDayP.ForeColor = System.Drawing.Color.Green;
+
+            lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
+            if (dr.Field<decimal>("DayRate") > 0)
+                lblDayR.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("DayRate") < 0)
+                lblDayR.ForeColor = System.Drawing.Color.Green;
+
+            lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
+            if (dr.Field<decimal>("WeekProfit") > 0)
+                lblWeekP.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("WeekProfit") < 0)
+                lblWeekP.ForeColor = System.Drawing.Color.Green;
+
+            lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
+            if (dr.Field<decimal>("WeekRate") > 0)
+                lblWeekR.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("WeekRate") < 0)
+                lblWeekR.ForeColor = System.Drawing.Color.Green;
+
+            lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
+            if (dr.Field<decimal>("MonthProfit") > 0)
+                lblMonthP.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("MonthProfit") < 0)
+                lblMonthP.ForeColor = System.Drawing.Color.Green;
+
+            lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
+            if (dr.Field<decimal>("DayProfit") > 0)
+                lblMonthR.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("DayProfit") < 0)
+                lblMonthR.ForeColor = System.Drawing.Color.Green;
+
+            lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
+            if (dr.Field<decimal>("MonthRate") > 0)
+                lblYearP.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("MonthRate") < 0)
+                lblYearP.ForeColor = System.Drawing.Color.Green;
+
+            lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
+            if (dr.Field<decimal>("YearRate") > 0)
+                lblYearR.ForeColor = System.Drawing.Color.Red;
+            else if (dr.Field<decimal>("YearRate") < 0)
+                lblYearR.ForeColor = System.Drawing.Color.Green;
+        }
+
+        private void GetPositionRelateData()
+        {
+            string date = dePosition.Text.Trim();
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+            if (ds != null && ds.Tables.Count == 1)
+            {
+                _dtPositionData = ds.Tables[0];
+            }
+        }
+
+        private void BindPositionData()
+        {
+            Series sePosition = chartPosition.Series[0];
+            sePosition.Points.Clear();
+
+            gcPosition.DataSource = null;
+
+            int tradeType = int.Parse(cbTradeTypePosition.SelectedValue());
+
+            IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x => x.Field<decimal>("CurValue")).ToArray();
+
+            if (data.Count == 0) return;
+
+            //持仓变动Grid
+            gcPosition.DataSource = data.CopyToDataTable();
+
+            //持仓分布图
+            string argument = string.Empty;
+            decimal positionValue;
+            decimal otherValue = 0;
+            for (int i = 0; i < data.Count; i++)
+            {
+                DataRow row = data[i];
+
+                if (i < 7)
+                {
+                    argument = row["StockName"].ToString().Trim();
+                    positionValue = Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
+                    sePosition.Points.Add(new SeriesPoint(argument, positionValue));
+                }
+                else
+                {
+                    otherValue += Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
+
+                    if (i == data.Count - 1)
+                    {
+                        argument = "其它";
+                        sePosition.Points.Add(new SeriesPoint(argument, otherValue));
+                    }
+                }
+            }
+
+            //sePosition.Points.OrderBy(x => x.QualitativeArgument);
         }
 
         private void DisplayProfitContrastChart()
@@ -236,71 +379,164 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void DisplayPositionChart()
-        {
-            Series sePosition = chartPosition.Series[0];
-            sePosition.Points.Clear();
+        #endregion Utilities
 
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = 'nctz001', @TradeDate = '2017/12/27'";
-            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
-            if (ds != null && ds.Tables.Count == 1)
-            {
-                _dtPositionData = ds.Tables[0];
-
-                _filteredPosition = _dtPositionData.AsEnumerable()
-                                            .Where(x => x.Field<int>("TradeType") == (int)EnumLibrary.TradeType.All)
-                                            .OrderByDescending(x => x.Field<decimal>("CurValue")).ToArray();
-
-                string argument = string.Empty;
-                decimal positionValue;
-                decimal otherValue = 0;
-                for (int i = 0; i < _filteredPosition.Count; i++)
-                {
-                    DataRow row = _filteredPosition[i];
-
-                    if (i < 7)
-                    {
-                        argument = row["StockName"].ToString().Trim();
-                        positionValue = Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
-                        sePosition.Points.Add(new SeriesPoint(argument, positionValue));
-                    }
-                    else
-                    {
-                        otherValue += Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
-
-                        if (i == _filteredPosition.Count - 1)
-                        {
-                            argument = "其它";
-                            sePosition.Points.Add(new SeriesPoint(argument, otherValue));
-                        }
-                    }
-                }
-
-                //sePosition.Points.OrderBy(x => x.QualitativeArgument);
-            }
-        }
-
-        private void BindPositionGrid()
-        {
-            gcPosition.DataSource = _filteredPosition.CopyToDataTable();
-        }
+        #region Events
 
         private void FrmInvestorStudio_Load(object sender, EventArgs e)
         {
             try
             {
-                FormInit();
+                string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit";
+                var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
+                _currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
 
-                DisplayLatestProfit();
-                DisplayProfitContrastChart();
-                DisplayProfitTrendChart();
-                DisplayPositionChart();
-                BindPositionGrid();
+                var bwInvestorProfit = new BackgroundWorker();
+                bwInvestorProfit.WorkerSupportsCancellation = true;
+                bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
+                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
+                bwInvestorProfit.RunWorkerAsync();
+
+                FormInit();
             }
             catch (Exception ex)
             {
                 DXMessage.ShowError(ex.Message);
             }
         }
+
+        private void BwInvestorProfit_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                GetInvestorProfit();
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex.Message;
+            }
+        }
+
+        private void BwInvestorProfit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Result == null && e.Error == null)
+                {
+                    BindInvestorProfit();
+                }
+                else
+                {
+                    if (e.Result != null)
+                        throw new Exception(e.Result.ToString());
+                    else if (e.Error != null)
+                        throw e.Error;
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void dePosition_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dePosition.Enabled = false;
+
+                var bwPosition = new BackgroundWorker();
+                bwPosition.DoWork += BwPosition_DoWork;
+                bwPosition.RunWorkerCompleted += BwPosition_RunWorkerCompleted;
+                bwPosition.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void BwPosition_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                GetPositionRelateData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void BwPosition_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Result == null && e.Error == null)
+                {
+                    dePosition.Enabled = true;
+                    cbTradeTypePosition.DefaultSelected("0");
+                    cbTradeTypePosition.Enabled = true;
+                }
+                else
+                {
+                    if (e.Result != null)
+                        throw new Exception(e.Result.ToString());
+                    else if (e.Error != null)
+                        throw e.Error;
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void cbTradeTypePosition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                cbTradeTypePosition.Enabled = false;
+                BindPositionData();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                cbTradeTypePosition.Enabled = true;
+            }
+        }
+
+        private void deProfit_EditValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cbTradeTypeProfit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cbTradeTypePosition_EditValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void chbDay_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void chbWeek_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void chbMonth_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void chbYear_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        #endregion Events
     }
 }
