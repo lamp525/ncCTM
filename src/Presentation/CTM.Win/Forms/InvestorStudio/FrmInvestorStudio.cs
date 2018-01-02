@@ -252,16 +252,22 @@ namespace CTM.Win.Forms.InvestorStudio
                     break;
 
                 default:
+                    reportType = "D";
                     break;
             }
 
-            if (!string.IsNullOrEmpty(reportType))
+            if (tabProfit.SelectedTabPage == tpProfitChart)
             {
                 DisplayProfitContrastChart(tradeType, reportType);
                 DisplayProfitTrendChart(tradeType, reportType);
             }
+            else
+            {
+                BindInvestorProfitList(tradeType, reportType);
+            }
         }
 
+   
         private void DisplayProfitContrastChart(int tradeType, string reportType)
         {
             //亏损
@@ -429,6 +435,16 @@ namespace CTM.Win.Forms.InvestorStudio
                 seYearRate.Points.Add(new SeriesPoint(argument, yearRate));
                 seAvgFund.Points.Add(new SeriesPoint(argument, avgFund));
             }
+        }
+
+        private void BindInvestorProfitList(int tradeType, string reportType)
+        {
+           
+        }
+
+        private void BindStockProfitList()
+        {
+
         }
 
         #endregion Utilities
@@ -647,6 +663,44 @@ namespace CTM.Win.Forms.InvestorStudio
             finally
             {
                 rgReportType.Enabled = true;
+            }
+        }
+        private void tabProfit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            try
+            {
+                tabProfit.Enabled = false;
+
+                BindProfitRelateData();
+
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                tabProfit.Enabled = true;
+            }
+
+        }
+
+        private void gvInvestorProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                var gv = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+                DataRow row = gv.GetDataRow(gv.FocusedRowHandle);
+
+                if (row == null) return;
+
+                BindStockProfitList();
+            }
+            catch (Exception ex)
+            {
+
+                DXMessage.ShowError(ex.Message);
+          
             }
         }
 

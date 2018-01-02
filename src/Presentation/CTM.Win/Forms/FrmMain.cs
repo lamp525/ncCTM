@@ -388,6 +388,16 @@ namespace CTM.Win.Forms
         #region DailyTrading
 
         /// <summary>
+        /// 投资人员个人首页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem40_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayForm<FrmInvestorStudio>("投资人员个人首页");
+        }
+
+        /// <summary>
         /// 投资人员交易数据导入
         /// </summary>
         /// <param name="sender"></param>

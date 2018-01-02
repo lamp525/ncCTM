@@ -125,7 +125,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.barButtonItem40 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -203,9 +203,10 @@
             this.barButtonItem37,
             this.barButtonItem38,
             this.barButtonItem39,
-            this.bbiMultiDayProfit});
+            this.bbiMultiDayProfit,
+            this.barButtonItem40});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 50;
+            this.ribbonControl1.MaxItemId = 51;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -213,8 +214,7 @@
             this.ribbonPageInvestmentDecision,
             this.ribbonPageAccounting,
             this.ribbonPageAdmin,
-            this.ribbonPageSetting,
-            this.ribbonPage1});
+            this.ribbonPageSetting});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbonControl1.Size = new System.Drawing.Size(1557, 151);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
@@ -859,6 +859,7 @@
             // 
             // ribbonPageGroup2
             // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem40);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem4);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem35);
             this.ribbonPageGroup2.ItemLinks.Add(this.bbiTradeDataManage);
@@ -1039,10 +1040,15 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // ribbonPage1
+            // barButtonItem40
             // 
-            this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "ribbonPage1";
+            this.barButtonItem40.Caption = "个人首页";
+            this.barButtonItem40.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem40.Glyph")));
+            this.barButtonItem40.Id = 50;
+            this.barButtonItem40.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem40.LargeGlyph")));
+            this.barButtonItem40.Name = "barButtonItem40";
+            this.barButtonItem40.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem40.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem40_ItemClick_1);
             // 
             // FrmMain
             // 
@@ -1165,7 +1171,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem39;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.BarButtonItem bbiMultiDayProfit;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem40;
     }
 }
 
