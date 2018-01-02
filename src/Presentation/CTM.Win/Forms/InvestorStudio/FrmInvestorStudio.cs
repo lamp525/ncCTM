@@ -233,17 +233,33 @@ namespace CTM.Win.Forms.InvestorStudio
             int tradeType = int.Parse(cbTradeTypeProfit.SelectedValue());
             string reportType = string.Empty;
 
-            if (chbDay.Checked)
-                reportType = "D";
-            else if (chbWeek.Checked)
-                reportType = "W";
-            else if (chbMonth.Checked)
-                reportType = "M";
-            else if (chbYear.Checked)
-                reportType = "Y";
+            switch (rgReportType.SelectedIndex)
+            {
+                case 0:
+                    reportType = "D";
+                    break;
 
-            DisplayProfitContrastChart(tradeType, reportType);
-            DisplayProfitTrendChart(tradeType, reportType);
+                case 1:
+                    reportType = "W";
+                    break;
+
+                case 2:
+                    reportType = "M";
+                    break;
+
+                case 3:
+                    reportType = "Y";
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(reportType))
+            {
+                DisplayProfitContrastChart(tradeType, reportType);
+                DisplayProfitTrendChart(tradeType, reportType);
+            }
         }
 
         private void DisplayProfitContrastChart(int tradeType, string reportType)
@@ -549,10 +565,7 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 deProfit.Enabled = false;
                 cbTradeTypeProfit.Enabled = false;
-                chbDay.Enabled = false;
-                chbWeek.Enabled = false;
-                chbMonth.Enabled = false;
-                chbYear.Enabled = false;
+                rgReportType.Enabled = false;
 
                 var bwProfit = new BackgroundWorker();
                 bwProfit.DoWork += bwProfit_DoWork;
@@ -587,10 +600,7 @@ namespace CTM.Win.Forms.InvestorStudio
                     if (cbTradeTypeProfit.EditValue == null)
                         cbTradeTypeProfit.DefaultSelected("0");
                     cbTradeTypeProfit.Enabled = true;
-                    chbDay.Enabled = true;
-                    chbWeek.Enabled = true;
-                    chbMonth.Enabled = true;
-                    chbYear.Enabled = true;
+                    rgReportType.Enabled = true;
                 }
                 else
                 {
@@ -611,7 +621,6 @@ namespace CTM.Win.Forms.InvestorStudio
             try
             {
                 cbTradeTypeProfit.Enabled = false;
-
                 BindProfitRelateData();
             }
             catch (Exception ex)
@@ -624,19 +633,11 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void chbDay_CheckedChanged(object sender, EventArgs e)
+        private void rgReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                chbDay.Enabled = false;
-                chbWeek.Enabled = false;
-                chbMonth.Enabled = false;
-                chbYear.Enabled = false;
-
-                chbWeek.Checked = !chbDay.Checked;
-                chbMonth.Checked = !chbDay.Checked;
-                chbYear.Checked = !chbDay.Checked;
-
+                rgReportType.Enabled = false;
                 BindProfitRelateData();
             }
             catch (Exception ex)
@@ -645,94 +646,7 @@ namespace CTM.Win.Forms.InvestorStudio
             }
             finally
             {
-                chbDay.Enabled = true;
-                chbWeek.Enabled = true;
-                chbMonth.Enabled = true;
-                chbYear.Enabled = true;
-            }
-        }
-
-        private void chbWeek_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                chbDay.Enabled = false;
-                chbWeek.Enabled = false;
-                chbMonth.Enabled = false;
-                chbYear.Enabled = false;
-
-                chbDay.Checked = !chbWeek.Checked;
-                chbMonth.Checked = !chbWeek.Checked;
-                chbYear.Checked = !chbWeek.Checked;
-
-                BindProfitRelateData();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                chbDay.Enabled = true;
-                chbWeek.Enabled = true;
-                chbMonth.Enabled = true;
-                chbYear.Enabled = true;
-            }
-        }
-
-        private void chbMonth_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                chbDay.Enabled = false;
-                chbWeek.Enabled = false;
-                chbMonth.Enabled = false;
-                chbYear.Enabled = false;
-
-                chbDay.Checked = !chbMonth.Checked;
-                chbWeek.Checked = !chbMonth.Checked;
-                chbYear.Checked = !chbMonth.Checked;
-
-                BindProfitRelateData();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                chbDay.Enabled = true;
-                chbWeek.Enabled = true;
-                chbMonth.Enabled = true;
-                chbYear.Enabled = true;
-            }
-        }
-
-        private void chbYear_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                chbDay.Enabled = false;
-                chbWeek.Enabled = false;
-                chbMonth.Enabled = false;
-                chbYear.Enabled = false;
-
-                chbDay.Checked = !chbYear.Checked;
-                chbWeek.Checked = !chbYear.Checked;
-                chbMonth.Checked = !chbYear.Checked;
-
-                BindProfitRelateData();
-            }
-            catch (Exception ex)
-            {
-                DXMessage.ShowError(ex.Message);
-            }
-            finally
-            {
-                chbDay.Enabled = true;
-                chbWeek.Enabled = true;
-                chbMonth.Enabled = true;
-                chbYear.Enabled = true;
+                rgReportType.Enabled = true;
             }
         }
 
