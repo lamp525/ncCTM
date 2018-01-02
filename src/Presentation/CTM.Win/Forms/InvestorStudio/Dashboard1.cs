@@ -8,9 +8,9 @@ using DevExpress.DashboardCommon;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
-    public partial class Dashboard1 : DevExpress.DashboardCommon.Dashboard
+    public partial class DashBoard1 : DevExpress.DashboardCommon.Dashboard
     {
-        public Dashboard1()
+        public DashBoard1()
         {
             InitializeComponent();
         }
