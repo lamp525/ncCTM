@@ -708,7 +708,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
                 if (row == null) return;
 
-                BindStockProfitList();
+               // BindStockProfitList();
             }
             catch (Exception ex)
             {
