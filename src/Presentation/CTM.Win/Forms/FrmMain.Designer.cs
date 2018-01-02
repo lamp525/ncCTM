@@ -98,6 +98,7 @@
             this.barButtonItem37 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem38 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem39 = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiMultiDayProfit = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -124,7 +125,7 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.defaultLookAndFeelMainForm = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.bbiMultiDayProfit = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -212,7 +213,8 @@
             this.ribbonPageInvestmentDecision,
             this.ribbonPageAccounting,
             this.ribbonPageAdmin,
-            this.ribbonPageSetting});
+            this.ribbonPageSetting,
+            this.ribbonPage1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbonControl1.Size = new System.Drawing.Size(1557, 151);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
@@ -832,6 +834,16 @@
             this.barButtonItem39.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem39.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem39_ItemClick_1);
             // 
+            // bbiMultiDayProfit
+            // 
+            this.bbiMultiDayProfit.Caption = "隔日短差收益查询";
+            this.bbiMultiDayProfit.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.Glyph")));
+            this.bbiMultiDayProfit.Id = 49;
+            this.bbiMultiDayProfit.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.LargeGlyph")));
+            this.bbiMultiDayProfit.Name = "bbiMultiDayProfit";
+            this.bbiMultiDayProfit.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.bbiMultiDayProfit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiMultiDayProfit_ItemClick);
+            // 
             // ribbonPageTrade
             // 
             this.ribbonPageTrade.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -1027,15 +1039,10 @@
             this.xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InActiveTabPageHeaderAndOnMouseHover;
             this.xtraTabbedMdiManager1.MdiParent = this;
             // 
-            // bbiMultiDayProfit
+            // ribbonPage1
             // 
-            this.bbiMultiDayProfit.Caption = "隔日短差收益查询";
-            this.bbiMultiDayProfit.Glyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.Glyph")));
-            this.bbiMultiDayProfit.Id = 49;
-            this.bbiMultiDayProfit.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.LargeGlyph")));
-            this.bbiMultiDayProfit.Name = "bbiMultiDayProfit";
-            this.bbiMultiDayProfit.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
-            this.bbiMultiDayProfit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiMultiDayProfit_ItemClick);
+            this.ribbonPage1.Name = "ribbonPage1";
+            this.ribbonPage1.Text = "ribbonPage1";
             // 
             // FrmMain
             // 
@@ -1158,6 +1165,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem39;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.BarButtonItem bbiMultiDayProfit;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
     }
 }
 
