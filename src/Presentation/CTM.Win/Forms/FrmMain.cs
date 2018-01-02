@@ -146,10 +146,11 @@ namespace CTM.Win.Forms
 
         private void DisplayStartupPage()
         {
-
-                //        this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
-                
-            
+            if (LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Day
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
+                this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
         }
 
         #endregion Utilities
@@ -609,7 +610,7 @@ namespace CTM.Win.Forms
 
                 DisplayMenu();
 
-               DisplayStartupPage();
+                DisplayStartupPage();
             }
             catch (Exception ex)
             {
@@ -718,9 +719,6 @@ namespace CTM.Win.Forms
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.DisplayForm<FrmInvestorStudio>("个人工作室");
-
         }
-
-
     }
 }
