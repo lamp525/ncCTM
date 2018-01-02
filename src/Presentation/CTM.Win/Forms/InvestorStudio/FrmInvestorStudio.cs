@@ -25,6 +25,7 @@ namespace CTM.Win.Forms.InvestorStudio
         private DataTable _dtPositionData = null;
         private DataTable _dtProfitContrastData = null;
         private DataTable _dtProfitTrendData = null;
+        private DataTable _dtStockProfitDate = null;
 
         #endregion Fields
 
@@ -224,8 +225,11 @@ namespace CTM.Win.Forms.InvestorStudio
 
             string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
-            if (ds2 != null && ds2.Tables.Count == 1)
+            if (ds2 != null && ds2.Tables.Count == 2)
+            {
                 _dtProfitTrendData = ds2.Tables[0];
+                _dtStockProfitDate = ds2.Tables[1];
+            }
         }
 
         private void BindProfitRelateData()
@@ -267,7 +271,6 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-   
         private void DisplayProfitContrastChart(int tradeType, string reportType)
         {
             //亏损
@@ -439,12 +442,24 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindInvestorProfitList(int tradeType, string reportType)
         {
-           
+            var profitList = _dtProfitTrendData.AsEnumerable()
+                        .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
+                        .OrderBy(x => x.Field<string>("ReportDate"))
+                        .ToList();
+
+            gcInvestorProfit.DataSource = profitList;
+            gvInvestorProfit.PopulateColumns();
         }
 
-        private void BindStockProfitList()
+        private void BindStockProfitList(int tradeType, string reportType,string date)
         {
+            var profitList = _dtStockProfitDate.AsEnumerable()
+            .Where(x =>x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
+            .OrderBy(x => x.Field<string>("StockCode"))
+            .ToList();
 
+            gcInvestorProfit.DataSource = profitList;
+            gvInvestorProfit.PopulateColumns();
         }
 
         #endregion Utilities
@@ -665,6 +680,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 rgReportType.Enabled = true;
             }
         }
+
         private void tabProfit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             try
@@ -672,7 +688,6 @@ namespace CTM.Win.Forms.InvestorStudio
                 tabProfit.Enabled = false;
 
                 BindProfitRelateData();
-
             }
             catch (Exception ex)
             {
@@ -682,7 +697,6 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 tabProfit.Enabled = true;
             }
-
         }
 
         private void gvInvestorProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
@@ -698,16 +712,12 @@ namespace CTM.Win.Forms.InvestorStudio
             }
             catch (Exception ex)
             {
-
                 DXMessage.ShowError(ex.Message);
-          
             }
         }
 
         #endregion Profit
 
         #endregion Events
-
-
     }
 }
