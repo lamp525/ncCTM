@@ -150,7 +150,7 @@ namespace CTM.Win.Forms
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
-                this.DisplayTabbedForm<FrmInvestorStudio>("个人工作室");
+                this.DisplayForm<FrmInvestorStudio>("个人工作室");
         }
 
         #endregion Utilities

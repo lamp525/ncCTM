@@ -225,10 +225,10 @@ namespace CTM.Win.Forms.InvestorStudio
 
             string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
-            if (ds2 != null && ds2.Tables.Count == 2)
+            if (ds2 != null && ds2.Tables.Count == 1)
             {
-                _dtProfitTrendData = ds2.Tables[0];
-                _dtStockProfitDate = ds2.Tables[1];
+                _dtProfitTrendData = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 1).CopyToDataTable();
+                _dtStockProfitDate = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 99).CopyToDataTable();
             }
         }
 
@@ -442,24 +442,26 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindInvestorProfitList(int tradeType, string reportType)
         {
-            var profitList = _dtProfitTrendData.AsEnumerable()
-                        .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
-                        .OrderBy(x => x.Field<string>("ReportDate"))
-                        .ToList();
+            gcInvestorProfit.DataSource = null;
 
-            gcInvestorProfit.DataSource = profitList;
-            gvInvestorProfit.PopulateColumns();
+            var data = _dtProfitTrendData.AsEnumerable()
+                        .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
+                        .OrderByDescending(x => x.Field<string>("ReportDate"));
+
+            if (data.Any())
+                gcInvestorProfit.DataSource = data.CopyToDataTable();
         }
 
-        private void BindStockProfitList(int tradeType, string reportType,string date)
+        private void BindStockProfitList(int tradeType, string reportType, string date)
         {
-            var profitList = _dtStockProfitDate.AsEnumerable()
-            .Where(x =>x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
-            .OrderBy(x => x.Field<string>("StockCode"))
-            .ToList();
+            gcStockProfit.DataSource = null;
 
-            gcInvestorProfit.DataSource = profitList;
-            gvInvestorProfit.PopulateColumns();
+            var data = _dtStockProfitDate.AsEnumerable()
+            .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Profit") != 0)
+            .OrderBy(x => x.Field<string>("StockCode"));
+
+            if (data.Any())
+                gcStockProfit.DataSource = data.CopyToDataTable();
         }
 
         #endregion Utilities
@@ -552,7 +554,9 @@ namespace CTM.Win.Forms.InvestorStudio
                 {
                     dePosition.Enabled = true;
                     if (cbTradeTypePosition.EditValue == null)
-                        cbTradeTypeProfit.DefaultSelected("0");
+                        cbTradeTypePosition.DefaultSelected("0");
+                    else
+                        BindPositionRelateData();
                     cbTradeTypePosition.Enabled = true;
                 }
                 else
@@ -597,6 +601,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 deProfit.Enabled = false;
                 cbTradeTypeProfit.Enabled = false;
                 rgReportType.Enabled = false;
+                tabProfit.Enabled = false;
 
                 var bwProfit = new BackgroundWorker();
                 bwProfit.DoWork += bwProfit_DoWork;
@@ -630,8 +635,11 @@ namespace CTM.Win.Forms.InvestorStudio
                     deProfit.Enabled = true;
                     if (cbTradeTypeProfit.EditValue == null)
                         cbTradeTypeProfit.DefaultSelected("0");
+                    else
+                        BindProfitRelateData();
                     cbTradeTypeProfit.Enabled = true;
                     rgReportType.Enabled = true;
+                    tabProfit.Enabled = true;
                 }
                 else
                 {
@@ -708,7 +716,10 @@ namespace CTM.Win.Forms.InvestorStudio
 
                 if (row == null) return;
 
-               // BindStockProfitList();
+                string tradeDate = row["TradeDate"].ToString();
+                int tradeType = int.Parse(row["TradeType"].ToString());
+                string reportType = row["ReportType"].ToString();
+                BindStockProfitList(tradeType, reportType, tradeDate);
             }
             catch (Exception ex)
             {
