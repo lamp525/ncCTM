@@ -178,7 +178,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             int tradeType = int.Parse(cbTradeTypePosition.SelectedValue());
 
-            IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x => x.Field<decimal>("CurValue")).ToArray();
+            IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x =>Math.Abs( x.Field<decimal>("CurValue"))).ToArray();
 
             if (!data.Any()) return;
 
@@ -590,6 +590,11 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        private void gvPosition_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            gvPosition.DrawRowIndicator(e);
+        }
+
         #endregion Position
 
         #region Profit
@@ -727,8 +732,19 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        private void gvInvestorProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            gvInvestorProfit.DrawRowIndicator(e);
+        }
+
+        private void gvStockProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            gvStockProfit.DrawRowIndicator(e);
+        }
         #endregion Profit
 
         #endregion Events
+
+
     }
 }
