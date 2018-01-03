@@ -593,7 +593,7 @@
             // 
             // chartProfitTrend
             // 
-            xyDiagram1.AxisX.Label.Angle = -45;
+            xyDiagram1.AxisX.Label.Angle = 45;
             xyDiagram1.AxisX.Label.Font = new System.Drawing.Font("Tahoma", 7F);
             xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
