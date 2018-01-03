@@ -24,6 +24,9 @@ namespace CTM.Win
                 var currentProcess = Process.GetCurrentProcess();
                 ProcessHelper.RepetitionStartManage(currentProcess);
 
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-Hans");
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-Hans");
+
                 BonusSkins.Register();
                 SkinManager.EnableFormSkins();
                 SkinManager.EnableMdiFormSkins();
