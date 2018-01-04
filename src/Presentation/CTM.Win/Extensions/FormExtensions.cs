@@ -78,6 +78,7 @@ namespace CTM.Win.Extensions
             form.Text = title;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
+            form.Activate();
         }
 
         /// <summary>

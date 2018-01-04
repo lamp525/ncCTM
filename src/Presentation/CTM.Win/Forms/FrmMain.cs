@@ -162,7 +162,9 @@ namespace CTM.Win.Forms
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
-                this.DisplayForm<FrmInvestorStudio>("个人工作室");
+            {
+                this.DisplayTabbedForm<FrmInvestorStudio>("个人首页");
+            }
         }
 
         #endregion Utilities
@@ -740,7 +742,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmInvestorStudio>("个人工作室");
+            this.DisplayForm<FrmInvestorStudio>("个人首页");
         }
     }
 }

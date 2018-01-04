@@ -178,6 +178,8 @@ namespace CTM.Win.Forms.InvestorStudio
 
             int tradeType = int.Parse(cbTradeTypePosition.SelectedValue());
 
+            if (_dtPositionData == null) return;
+
             IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x => Math.Abs(x.Field<decimal>("CurValue"))).ToArray();
 
             if (!data.Any()) return;
@@ -272,7 +274,8 @@ namespace CTM.Win.Forms.InvestorStudio
         }
 
         private void DisplayProfitContrastChart(int tradeType, string reportType)
-        {
+        {        
+
             //亏损
             Series seLoss = chartLoss.Series[0];
             //盈利
@@ -280,6 +283,8 @@ namespace CTM.Win.Forms.InvestorStudio
 
             seLoss.Points.Clear();
             seGain.Points.Clear();
+
+            if (_dtProfitContrastData == null) return;
 
             IList<DataRow> profitList = _dtProfitContrastData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).ToList();
 
@@ -409,6 +414,8 @@ namespace CTM.Win.Forms.InvestorStudio
             seYearRate.Points.Clear();
             seAvgFund.Points.Clear();
 
+            if (_dtProfitTrendData == null) return;
+
             var profitList = _dtProfitTrendData.AsEnumerable()
                                     .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
                                     .OrderBy(x => x.Field<string>("ReportDate"))
@@ -458,6 +465,8 @@ namespace CTM.Win.Forms.InvestorStudio
         private void BindStockProfitList(int tradeType, string reportType, string date)
         {
             gcStockProfit.DataSource = null;
+
+            if (_dtStockProfitDate == null) return;
 
             var data = _dtStockProfitDate.AsEnumerable()
             .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Profit") != 0)
