@@ -322,10 +322,10 @@
             // 
             // gcPosition
             // 
-            this.gcPosition.Location = new System.Drawing.Point(535, 187);
+            this.gcPosition.Location = new System.Drawing.Point(545, 187);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
-            this.gcPosition.Size = new System.Drawing.Size(953, 302);
+            this.gcPosition.Size = new System.Drawing.Size(943, 302);
             this.gcPosition.TabIndex = 31;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -400,7 +400,7 @@
             this.colPreVolume.Name = "colPreVolume";
             this.colPreVolume.Visible = true;
             this.colPreVolume.VisibleIndex = 3;
-            this.colPreVolume.Width = 90;
+            this.colPreVolume.Width = 85;
             // 
             // colPreValue
             // 
@@ -413,7 +413,7 @@
             this.colPreValue.Name = "colPreValue";
             this.colPreValue.Visible = true;
             this.colPreValue.VisibleIndex = 4;
-            this.colPreValue.Width = 90;
+            this.colPreValue.Width = 85;
             // 
             // colCurVolume
             // 
@@ -426,7 +426,7 @@
             this.colCurVolume.Name = "colCurVolume";
             this.colCurVolume.Visible = true;
             this.colCurVolume.VisibleIndex = 5;
-            this.colCurVolume.Width = 90;
+            this.colCurVolume.Width = 85;
             // 
             // colCurValue
             // 
@@ -439,7 +439,7 @@
             this.colCurValue.Name = "colCurValue";
             this.colCurValue.Visible = true;
             this.colCurValue.VisibleIndex = 6;
-            this.colCurValue.Width = 90;
+            this.colCurValue.Width = 85;
             // 
             // colBuyVolume
             // 
@@ -498,7 +498,7 @@
             this.chartPosition.AppearanceNameSerializable = "Light";
             this.chartPosition.BorderOptions.Visibility = DevExpress.Utils.DefaultBoolean.True;
             this.chartPosition.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.LeftOutside;
-            this.chartPosition.Legend.Border.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            this.chartPosition.Legend.Border.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartPosition.Legend.MarkerSize = new System.Drawing.Size(15, 12);
             this.chartPosition.Legend.Name = "Default Legend";
             this.chartPosition.Location = new System.Drawing.Point(24, 187);
@@ -508,15 +508,15 @@
             series1.CrosshairLabelVisibility = DevExpress.Utils.DefaultBoolean.True;
             pieSeriesLabel1.Border.Visibility = DevExpress.Utils.DefaultBoolean.False;
             pieSeriesLabel1.LineLength = 5;
-            pieSeriesLabel1.Position = DevExpress.XtraCharts.PieSeriesLabelPosition.TwoColumns;
             pieSeriesLabel1.TextPattern = "{A}: {VP:0.00%}";
             series1.Label = pieSeriesLabel1;
+            series1.LegendName = "Default Legend";
             series1.LegendTextPattern = "{A}: {V:n2}";
             series1.Name = "Series 1";
             series1.View = pieSeriesView1;
             this.chartPosition.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1};
-            this.chartPosition.Size = new System.Drawing.Size(497, 302);
+            this.chartPosition.Size = new System.Drawing.Size(507, 302);
             this.chartPosition.TabIndex = 30;
             chartTitle1.Alignment = System.Drawing.StringAlignment.Near;
             chartTitle1.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -1567,7 +1567,7 @@
             this.layoutControlItem1.Control = this.chartPosition;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(501, 323);
+            this.layoutControlItem1.Size = new System.Drawing.Size(511, 323);
             this.layoutControlItem1.Text = "持仓分布(金额：万元)";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(127, 14);
@@ -1579,9 +1579,9 @@
             this.layoutControlItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.layoutControlItem2.Control = this.gcPosition;
-            this.layoutControlItem2.Location = new System.Drawing.Point(511, 24);
+            this.layoutControlItem2.Location = new System.Drawing.Point(521, 24);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(957, 323);
+            this.layoutControlItem2.Size = new System.Drawing.Size(947, 323);
             this.layoutControlItem2.Text = "持仓变动(金额：万元)";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(127, 14);
@@ -1616,7 +1616,7 @@
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(501, 24);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(511, 24);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 323);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
@@ -1629,6 +1629,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.FireScrollEventOnMouseWheel = true;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.Margin = new System.Windows.Forms.Padding(0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1516, 1000);
             this.panelControl1.TabIndex = 1;
