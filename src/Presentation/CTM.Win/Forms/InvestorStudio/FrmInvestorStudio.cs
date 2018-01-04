@@ -106,9 +106,11 @@ namespace CTM.Win.Forms.InvestorStudio
 
             DataRow dr = _drInvestorProfit;
 
-            lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2");
+            string unit = " 万元";
 
-            lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2");
+            lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2") + unit;
+
+            lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2") + unit;
             if (dr.Field<decimal>("DayProfit") > 0)
                 lblDayP.ForeColor = System.Drawing.Color.Red;
             else if (dr.Field<decimal>("DayProfit") < 0)
@@ -120,7 +122,7 @@ namespace CTM.Win.Forms.InvestorStudio
             else if (dr.Field<decimal>("DayRate") < 0)
                 lblDayR.ForeColor = System.Drawing.Color.Green;
 
-            lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2");
+            lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2") + unit;
             if (dr.Field<decimal>("WeekProfit") > 0)
                 lblWeekP.ForeColor = System.Drawing.Color.Red;
             else if (dr.Field<decimal>("WeekProfit") < 0)
@@ -132,7 +134,7 @@ namespace CTM.Win.Forms.InvestorStudio
             else if (dr.Field<decimal>("WeekRate") < 0)
                 lblWeekR.ForeColor = System.Drawing.Color.Green;
 
-            lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2");
+            lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2") + unit;
             if (dr.Field<decimal>("MonthProfit") > 0)
                 lblMonthP.ForeColor = System.Drawing.Color.Red;
             else if (dr.Field<decimal>("MonthProfit") < 0)
@@ -144,7 +146,7 @@ namespace CTM.Win.Forms.InvestorStudio
             else if (dr.Field<decimal>("MonthRate") < 0)
                 lblMonthR.ForeColor = System.Drawing.Color.Green;
 
-            lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
+            lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2") + unit;
             if (dr.Field<decimal>("YearProfit") > 0)
                 lblYearP.ForeColor = System.Drawing.Color.Red;
             else if (dr.Field<decimal>("YearProfit") < 0)
@@ -369,9 +371,10 @@ namespace CTM.Win.Forms.InvestorStudio
                     seLoss.Points.Add(new SeriesPoint(argument, profit, i));
                 }
 
-                for (int i = seLoss.Points.Count; i < 10; i++)
+                int lossPointCount = seLoss.Points.Count;
+                for (int i = 10; i > lossPointCount; i--)
                 {
-                    seLoss.Points.Add(new SeriesPoint(i + 1, 0, i));
+                    seLoss.Points.Add(new SeriesPoint("NA" + i.ToString(), 0, i));
                 }
 
                 for (int i = 0; i < gainList.Count; i++)
@@ -384,9 +387,10 @@ namespace CTM.Win.Forms.InvestorStudio
                     seGain.Points.Add(new SeriesPoint(argument, profit, i));
                 }
 
-                for (int i = seGain.Points.Count; i < 10; i++)
+                int gainPointCount = seGain.Points.Count;
+                for (int i = 10; i > gainPointCount; i--)
                 {
-                    seGain.Points.Add(new SeriesPoint(i + 1, 0, i));
+                    seGain.Points.Add(new SeriesPoint("NA" + i.ToString(), 0, i));
                 }
             }
         }
