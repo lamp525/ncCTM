@@ -371,7 +371,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
                 for (int i = seLoss.Points.Count; i < 10; i++)
                 {
-                    seLoss.Points.Add(new SeriesPoint(" ", 0, i));
+                    seLoss.Points.Add(new SeriesPoint(i + 1, 0, i));
                 }
 
                 for (int i = 0; i < gainList.Count; i++)
@@ -386,7 +386,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
                 for (int i = seGain.Points.Count; i < 10; i++)
                 {
-                    seGain.Points.Add(new SeriesPoint(" ", 0, i));
+                    seGain.Points.Add(new SeriesPoint(i + 1, 0, i));
                 }
             }
         }
@@ -468,8 +468,8 @@ namespace CTM.Win.Forms.InvestorStudio
             if (_dtStockProfitDate == null) return;
 
             var data = _dtStockProfitDate.AsEnumerable()
-            .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Profit") != 0)
-            .OrderBy(x => x.Field<string>("StockCode"));
+                        .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Profit") != 0)
+                        .OrderBy(x => x.Field<string>("StockCode"));
 
             if (data.Any())
                 gcStockProfit.DataSource = data.CopyToDataTable();
@@ -528,6 +528,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 if (e.Result == null && e.Error == null)
                 {
                     BindInvestorProfit();
+                    deInvestor.Enabled = true;
                 }
                 else
                 {
@@ -581,11 +582,12 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 if (e.Result == null && e.Error == null)
                 {
-                    dePosition.Enabled = true;
                     if (cbTradeTypePosition.EditValue == null)
                         cbTradeTypePosition.DefaultSelected("0");
                     else
                         BindPositionRelateData();
+
+                    dePosition.Enabled = true;
                     cbTradeTypePosition.Enabled = true;
                 }
                 else
@@ -666,11 +668,12 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 if (e.Result == null && e.Error == null)
                 {
-                    deProfit.Enabled = true;
                     if (cbTradeTypeProfit.EditValue == null)
                         cbTradeTypeProfit.DefaultSelected("0");
                     else
                         BindProfitRelateData();
+
+                    deProfit.Enabled = true;
                     cbTradeTypeProfit.Enabled = true;
                     rgReportType.Enabled = true;
                     tabProfit.Enabled = true;
