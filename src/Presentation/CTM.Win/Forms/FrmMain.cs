@@ -408,7 +408,7 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem40_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmInvestorStudio>("投资人员个人首页");
+            this.DisplayTabbedForm<FrmInvestorStudio>("个人首页");
         }
 
         /// <summary>
@@ -742,7 +742,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayForm<FrmInvestorStudio>("个人首页");
+           
         }
     }
 }
