@@ -139,15 +139,15 @@ namespace CTM.Win.Forms.InvestorStudio
                 lblMonthP.ForeColor = System.Drawing.Color.Green;
 
             lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
-            if (dr.Field<decimal>("MonthRate") > 0)
+            if (dr.Field<decimal>("DayProfit") > 0)
                 lblMonthR.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("MonthRate") < 0)
+            else if (dr.Field<decimal>("DayProfit") < 0)
                 lblMonthR.ForeColor = System.Drawing.Color.Green;
 
             lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2");
-            if (dr.Field<decimal>("YearProfit") > 0)
+            if (dr.Field<decimal>("MonthRate") > 0)
                 lblYearP.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("YearProfit") < 0)
+            else if (dr.Field<decimal>("MonthRate") < 0)
                 lblYearP.ForeColor = System.Drawing.Color.Green;
 
             lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
@@ -178,7 +178,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             int tradeType = int.Parse(cbTradeTypePosition.SelectedValue());
 
-            IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x => Math.Abs(x.Field<decimal>("CurValue"))).ToArray();
+            IList<DataRow> data = _dtPositionData.AsEnumerable().Where(x => x.Field<int>("TradeType") == tradeType).OrderByDescending(x =>Math.Abs( x.Field<decimal>("CurValue"))).ToArray();
 
             if (!data.Any()) return;
 
@@ -354,36 +354,33 @@ namespace CTM.Win.Forms.InvestorStudio
                 decimal profit;
                 decimal rate;
 
-                StockProfit item = null;
-                for (int i = 0; i < lossList.Count; i++)
+                foreach (var item in lossList)
                 {
-                    item = lossList[i];
                     argument = item.StockName;
                     fund = item.Fund;
                     profit = item.Profit;
                     rate = item.Rate;
-                    seLoss.Points.Add(new SeriesPoint(argument, profit, i));
+                    seLoss.Points.Add(new SeriesPoint(argument, profit));
                 }
 
-                for (int i = seLoss.Points.Count; i < 10; i++)
-                {
-                    seLoss.Points.Add(new SeriesPoint(" ", 0, i));
-                }
+                //for (int i = 0; i < 10 - seLoss.Points.Count ; i++)
+                //{
+                //    seLoss.Points.Add(new SeriesPoint("11 ", 0));
+                //}
 
-                for (int i = 0; i < gainList.Count; i++)
+                foreach (var item in gainList)
                 {
-                    item = gainList[i];
                     argument = item.StockName;
                     fund = item.Fund;
                     profit = item.Profit;
                     rate = item.Rate;
-                    seGain.Points.Add(new SeriesPoint(argument, profit, i));
+                    seGain.Points.Add(new SeriesPoint(argument, profit));
                 }
 
-                for (int i = seGain.Points.Count; i < 10; i++)
-                {
-                    seGain.Points.Add(new SeriesPoint(" ", 0, i));
-                }
+                //for (int i = 0; i < 10 - seGain.Points.Count; i++)
+                //{
+                //    seGain.Points.Add(new SeriesPoint("11 ", 0));
+                //}
             }
         }
 
@@ -744,9 +741,10 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             gvStockProfit.DrawRowIndicator(e);
         }
-
         #endregion Profit
 
         #endregion Events
+
+
     }
 }

@@ -124,6 +124,18 @@ namespace CTM.Win.Forms
                 //个人账户投资收益查询
                 this.bbiUserInvestIncomeAccount.Visibility = BarItemVisibility.Always;
             }
+
+            if (LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Day
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
+                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
+            {
+                this.bbiInvestorHome.Visibility = BarItemVisibility.Always;
+            }
+            else
+            {
+                this.bbiInvestorHome.Visibility = BarItemVisibility.Never;
+            }
         }
 
         private void RefreshForm()
