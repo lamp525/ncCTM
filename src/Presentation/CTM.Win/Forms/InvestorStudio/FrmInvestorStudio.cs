@@ -20,7 +20,6 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private readonly IDictionaryService _dictionaryService;
 
-        private string _currentDate = null;
         private DataRow _drInvestorProfit = null;
         private DataTable _dtPositionData = null;
         private DataTable _dtProfitContrastData = null;
@@ -59,22 +58,22 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit";
             var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
-            _currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
-
-            var bwInvestorProfit = new BackgroundWorker();
-            bwInvestorProfit.WorkerSupportsCancellation = true;
-            bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
-            bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
-            bwInvestorProfit.RunWorkerAsync();
+            string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
 
             esiInvestor.Text = LoginInfo.CurrentUser.UserName;
 
+            deInvestor.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            deInvestor.Enabled = false;
+            deInvestor.EditValue = currentDate;
+
+            deProfit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             dePosition.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             dePosition.Enabled = false;
+            dePosition.EditValue = currentDate;
+
             deProfit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             deProfit.Enabled = false;
-            dePosition.EditValue = _currentDate;
-            deProfit.EditValue = _currentDate;
+            deProfit.EditValue = currentDate;
 
             //交易类别
             var tradeTypes = this._dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
@@ -89,7 +88,8 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void GetInvestorProfit()
         {
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{_currentDate}'";
+            string date = deInvestor.Text.Trim();
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
@@ -274,8 +274,7 @@ namespace CTM.Win.Forms.InvestorStudio
         }
 
         private void DisplayProfitContrastChart(int tradeType, string reportType)
-        {        
-
+        {
             //亏损
             Series seLoss = chartLoss.Series[0];
             //盈利
@@ -485,6 +484,24 @@ namespace CTM.Win.Forms.InvestorStudio
             try
             {
                 FormInit();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
+        private void deInvestor_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                deInvestor.Enabled = false;
+
+                var bwInvestorProfit = new BackgroundWorker();
+                bwInvestorProfit.WorkerSupportsCancellation = true;
+                bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
+                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
+                bwInvestorProfit.RunWorkerAsync();
             }
             catch (Exception ex)
             {
