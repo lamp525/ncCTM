@@ -630,6 +630,37 @@ namespace CTM.Win.Forms.InvestorStudio
             gvPosition.DrawRowIndicator(e);
         }
 
+        private void gvPosition_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void gvPosition_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column == this.colBuyVolume)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+            }
+            else if (e.Column == this.colSellVolume)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
         #endregion Position
 
         #region Profit
@@ -768,9 +799,63 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        private void gvInvestorProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void gvInvestorProfit_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
         private void gvInvestorProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             gvInvestorProfit.DrawRowIndicator(e);
+        }
+
+        private void gvStockProfit_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void gvStockProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
         }
 
         private void gvStockProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
