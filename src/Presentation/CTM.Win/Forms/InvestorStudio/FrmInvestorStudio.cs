@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
@@ -60,7 +62,7 @@ namespace CTM.Win.Forms.InvestorStudio
             var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
             string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
 
-            esiInvestor.Text = LoginInfo.CurrentUser.UserName;
+            lblInvestor.Text = "   " +LoginInfo.CurrentUser.UserName;
 
             deInvestor.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             deInvestor.Enabled = false;
@@ -482,6 +484,10 @@ namespace CTM.Win.Forms.InvestorStudio
         #endregion Utilities
 
         #region Events
+        protected override Point ScrollToControl(Control activeControl)
+        {
+            return this.AutoScrollPosition;
+        }
 
         private void FrmInvestorStudio_Load(object sender, EventArgs e)
         {
