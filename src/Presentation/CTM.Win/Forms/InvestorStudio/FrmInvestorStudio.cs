@@ -504,8 +504,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 var bwInvestorProfit = new BackgroundWorker();
                 bwInvestorProfit.WorkerSupportsCancellation = true;
                 bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
-                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;
-                bwInvestorProfit.RunWorkerAsync();
+                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;                bwInvestorProfit.RunWorkerAsync();
+
             }
             catch (Exception ex)
             {
@@ -532,7 +532,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 if (e.Result == null && e.Error == null)
                 {
                     BindInvestorProfit();
-                    deInvestor.Enabled = true;
+                    deInvestor.Enabled = true;            
                 }
                 else
                 {
