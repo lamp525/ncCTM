@@ -1385,11 +1385,11 @@
             this.layoutControlItem33,
             this.layoutControlItem24,
             this.emptySpaceItem7,
-            this.emptySpaceItem9,
             this.emptySpaceItem5,
             this.layoutControlItem8,
             this.layoutControlItem26,
-            this.layoutControlItem10});
+            this.layoutControlItem10,
+            this.emptySpaceItem9});
             this.lcgInvestor.Location = new System.Drawing.Point(0, 0);
             this.lcgInvestor.Name = "lcgInvestor";
             this.lcgInvestor.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignWithChildren;
@@ -1495,7 +1495,7 @@
             this.layoutControlItem24.MaxSize = new System.Drawing.Size(180, 30);
             this.layoutControlItem24.MinSize = new System.Drawing.Size(180, 30);
             this.layoutControlItem24.Name = "layoutControlItem24";
-            this.layoutControlItem24.Size = new System.Drawing.Size(561, 30);
+            this.layoutControlItem24.Size = new System.Drawing.Size(180, 30);
             this.layoutControlItem24.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem24.Text = "年收益率";
             this.layoutControlItem24.TextSize = new System.Drawing.Size(52, 14);
@@ -1516,7 +1516,7 @@
             this.emptySpaceItem9.AllowHotTrack = false;
             this.emptySpaceItem9.Location = new System.Drawing.Point(1125, 0);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(381, 30);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(381, 60);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem5
