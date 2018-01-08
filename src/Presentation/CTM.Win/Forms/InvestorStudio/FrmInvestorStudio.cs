@@ -62,7 +62,7 @@ namespace CTM.Win.Forms.InvestorStudio
             var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
             string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
 
-            lblInvestor.Text = "   " +LoginInfo.CurrentUser.UserName;
+            lblInvestor.Text = "   " + LoginInfo.CurrentUser.UserName;
 
             deInvestor.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             deInvestor.Enabled = false;
@@ -484,6 +484,7 @@ namespace CTM.Win.Forms.InvestorStudio
         #endregion Utilities
 
         #region Events
+
         protected override Point ScrollToControl(Control activeControl)
         {
             return this.AutoScrollPosition;
@@ -510,8 +511,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 var bwInvestorProfit = new BackgroundWorker();
                 bwInvestorProfit.WorkerSupportsCancellation = true;
                 bwInvestorProfit.DoWork += BwInvestorProfit_DoWork;
-                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted;                bwInvestorProfit.RunWorkerAsync();
-
+                bwInvestorProfit.RunWorkerCompleted += BwInvestorProfit_RunWorkerCompleted; bwInvestorProfit.RunWorkerAsync();
             }
             catch (Exception ex)
             {
@@ -538,7 +538,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 if (e.Result == null && e.Error == null)
                 {
                     BindInvestorProfit();
-                    deInvestor.Enabled = true;            
+                    deInvestor.Enabled = true;
                 }
                 else
                 {
@@ -646,6 +646,17 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 if (cellValue == 0)
                     e.DisplayText = "-";
+                else
+                {
+                    if (e.Column == colDiffVol)
+                    {
+                        e.DisplayText = (cellValue > 0 ? "+ " : "- ") + Math.Abs(cellValue).ToString("N0");
+                    }
+                    else if (e.Column == colDiffValue)
+                    {
+                        e.DisplayText = (cellValue > 0 ? "+ " : "- ") + Math.Abs(cellValue).ToString("N2");
+                    }
+                }
             }
         }
 
@@ -653,7 +664,15 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column == this.colBuyVolume)
+            if (e.Column == colDiffVol || e.Column == colDiffValue)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = Color.Green;
+            }
+            else if (e.Column == this.colBuyVolume)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
