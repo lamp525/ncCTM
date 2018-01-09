@@ -711,6 +711,7 @@
             constantLine2.AxisValueSerializable = "0";
             constantLine2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             constantLine2.Name = "Constant Line 1";
+            constantLine2.ShowBehind = true;
             constantLine2.ShowInLegend = false;
             constantLine2.Title.Text = "基准线";
             constantLine2.Title.Visible = false;
@@ -783,6 +784,7 @@
             series7.CrosshairLabelPattern = "{S}: {V:n2}";
             series7.CrosshairLabelVisibility = DevExpress.Utils.DefaultBoolean.True;
             series7.Name = "日均投入资金(十万元)";
+            series7.ToolTipPointPattern = "{S}{V}";
             splineSeriesView5.Color = System.Drawing.Color.DarkBlue;
             splineSeriesView5.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dash;
             splineSeriesView5.LineStyle.Thickness = 1;
