@@ -830,7 +830,7 @@
             sideBySideBarSeriesLabel1.LineVisibility = DevExpress.Utils.DefaultBoolean.False;
             sideBySideBarSeriesLabel1.Position = DevExpress.XtraCharts.BarSeriesLabelPosition.Top;
             sideBySideBarSeriesLabel1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(80)))), ((int)(((byte)(77)))));
-            sideBySideBarSeriesLabel1.TextPattern = "{V:N0}";
+            sideBySideBarSeriesLabel1.TextPattern = "{V:N2}";
             series8.Label = sideBySideBarSeriesLabel1;
             series8.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series8.Name = "Series 1";
@@ -879,7 +879,7 @@
             sideBySideBarSeriesLabel2.LineVisibility = DevExpress.Utils.DefaultBoolean.False;
             sideBySideBarSeriesLabel2.Position = DevExpress.XtraCharts.BarSeriesLabelPosition.Top;
             sideBySideBarSeriesLabel2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(187)))), ((int)(((byte)(89)))));
-            sideBySideBarSeriesLabel2.TextPattern = "{V:N0}";
+            sideBySideBarSeriesLabel2.TextPattern = "{V:N2}";
             series9.Label = sideBySideBarSeriesLabel2;
             series9.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series9.Name = "Series 1";
