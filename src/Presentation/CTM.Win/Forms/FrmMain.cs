@@ -163,7 +163,7 @@ namespace CTM.Win.Forms
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
                 || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
             {
-                this.DisplayTabbedForm<FrmInvestorStudio>("个人首页");
+                this.DisplayTabbedForm<FrmHomePage>("个人首页");
             }
         }
 
@@ -408,7 +408,7 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem40_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmInvestorStudio>("个人首页");
+            this.DisplayTabbedForm<FrmHomePage>("个人首页");
         }
 
         /// <summary>

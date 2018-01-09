@@ -16,7 +16,7 @@ using DevExpress.XtraCharts;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
-    public partial class FrmInvestorStudio : BaseForm
+    public partial class FrmHomePage : BaseForm
     {
         #region Fields
 
@@ -45,7 +45,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
         #region Constructors
 
-        public FrmInvestorStudio(IDictionaryService dictionaryService)
+        public FrmHomePage(IDictionaryService dictionaryService)
         {
             InitializeComponent();
 

@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>1.2.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -304,11 +304,11 @@
     <Compile Include="Forms\InvestorStudio\DashBoard1.Designer.cs">
       <DependentUpon>DashBoard1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InvestorStudio\FrmInvestorStudio.cs">
+    <Compile Include="Forms\InvestorStudio\FrmHomePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\InvestorStudio\FrmInvestorStudio.Designer.cs">
-      <DependentUpon>FrmInvestorStudio.cs</DependentUpon>
+    <Compile Include="Forms\InvestorStudio\FrmHomePage.Designer.cs">
+      <DependentUpon>FrmHomePage.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.cs">
       <SubType>Form</SubType>
@@ -1088,8 +1088,8 @@
     <EmbeddedResource Include="Forms\InvestorStudio\DashBoard1.resx">
       <DependentUpon>DashBoard1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestorStudio\FrmInvestorStudio.resx">
-      <DependentUpon>FrmInvestorStudio.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\InvestorStudio\FrmHomePage.resx">
+      <DependentUpon>FrmHomePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestmentDecision\FrmInvestmentPlanRecord.resx">
       <DependentUpon>FrmInvestmentPlanRecord.cs</DependentUpon>

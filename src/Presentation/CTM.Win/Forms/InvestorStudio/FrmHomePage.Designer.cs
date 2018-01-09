@@ -1,6 +1,6 @@
 ﻿namespace CTM.Win.Forms.InvestorStudio
 {
-    partial class FrmInvestorStudio
+    partial class FrmHomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInvestorStudio));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHomePage));
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.PieSeriesLabel pieSeriesLabel1 = new DevExpress.XtraCharts.PieSeriesLabel();
             DevExpress.XtraCharts.PieSeriesView pieSeriesView1 = new DevExpress.XtraCharts.PieSeriesView();
@@ -1763,8 +1763,8 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1550, 898);
             this.Controls.Add(this.lcMain);
-            this.Name = "FrmInvestorStudio";
-            this.Text = "FrmInvestorStudio";
+            this.Name = "FrmHomePage";
+            this.Text = "FrmHomePage";
             this.Load += new System.EventHandler(this.FrmInvestorStudio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lcMain)).EndInit();
             this.lcMain.ResumeLayout(false);
