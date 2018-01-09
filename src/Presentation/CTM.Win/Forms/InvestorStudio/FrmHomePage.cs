@@ -399,18 +399,19 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void DisplayProfitTrendChart(int tradeType, string reportType)
         {
-            //使用资金
-            Series seFund = chartProfitTrend.Series[0];
-            //收益额
-            Series seProfit = chartProfitTrend.Series[1];
-            //收益率
-            Series seRate = chartProfitTrend.Series[2];
-            //年收益额
-            Series seYearProfit = chartProfitTrend.Series[3];
-            //年收益率
-            Series seYearRate = chartProfitTrend.Series[4];
             //日均投入资金
-            Series seAvgFund = chartProfitTrend.Series[5];
+            Series seAvgFund = chartProfitTrend.Series[0];
+            //使用资金
+            Series seFund = chartProfitTrend.Series[1];
+            //收益额
+            Series seProfit = chartProfitTrend.Series[2];
+            //收益率
+            Series seRate = chartProfitTrend.Series[3];
+            //年收益额
+            Series seYearProfit = chartProfitTrend.Series[4];
+            //年收益率
+            Series seYearRate = chartProfitTrend.Series[5];
+     
 
             seFund.Points.Clear();
             seProfit.Points.Clear();
