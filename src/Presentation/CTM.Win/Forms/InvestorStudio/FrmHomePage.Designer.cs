@@ -432,7 +432,7 @@
             this.colTradeTypeName.Name = "colTradeTypeName";
             this.colTradeTypeName.Visible = true;
             this.colTradeTypeName.VisibleIndex = 2;
-            this.colTradeTypeName.Width = 60;
+            this.colTradeTypeName.Width = 65;
             // 
             // colPreVolume
             // 
@@ -484,6 +484,7 @@
             this.colDiffVol.Name = "colDiffVol";
             this.colDiffVol.Visible = true;
             this.colDiffVol.VisibleIndex = 4;
+            this.colDiffVol.Width = 85;
             // 
             // colCurValue
             // 
@@ -506,13 +507,14 @@
             this.colDiffValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.colDiffValue.AppearanceHeader.Options.UseTextOptions = true;
             this.colDiffValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colDiffValue.Caption = "金额变动";
+            this.colDiffValue.Caption = "市值变动";
             this.colDiffValue.DisplayFormat.FormatString = "N2";
             this.colDiffValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colDiffValue.FieldName = "DiffValue";
             this.colDiffValue.Name = "colDiffValue";
             this.colDiffValue.Visible = true;
             this.colDiffValue.VisibleIndex = 6;
+            this.colDiffValue.Width = 85;
             // 
             // colBuyVolume
             // 
@@ -527,7 +529,7 @@
             this.colBuyVolume.Name = "colBuyVolume";
             this.colBuyVolume.Visible = true;
             this.colBuyVolume.VisibleIndex = 7;
-            this.colBuyVolume.Width = 80;
+            this.colBuyVolume.Width = 85;
             // 
             // colBuyValue
             // 
@@ -557,7 +559,7 @@
             this.colSellVolume.Name = "colSellVolume";
             this.colSellVolume.Visible = true;
             this.colSellVolume.VisibleIndex = 9;
-            this.colSellVolume.Width = 80;
+            this.colSellVolume.Width = 85;
             // 
             // colSellValue
             // 
@@ -1756,7 +1758,7 @@
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 263);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // FrmInvestorStudio
+            // FrmHomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
