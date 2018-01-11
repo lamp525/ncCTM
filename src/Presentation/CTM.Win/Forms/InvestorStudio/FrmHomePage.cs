@@ -229,7 +229,7 @@ namespace CTM.Win.Forms.InvestorStudio
             if (ds1 != null && ds1.Tables.Count == 1)
                 _dtProfitContrastData = ds1.Tables[0];
 
-            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit2]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
             if (ds2 != null && ds2.Tables.Count == 1)
             {
@@ -424,7 +424,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             var profitList = _dtProfitTrendData.AsEnumerable()
                                     .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
-                                    .OrderBy(x => x.Field<string>("ReportDate"))
+                                    .OrderBy(x => x.Field<string>("TradeDate"))
                                     .ToList();
 
             if (!profitList.Any()) return;
@@ -439,7 +439,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             foreach (DataRow row in profitList)
             {
-                argument = row["ReportDate"].ToString().Trim();
+                argument = CommonHelper.StringToDateTime(row["TradeDate"].ToString()).ToString("yy/MM/dd");
                 fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
                 profit = CommonHelper.StringToDecimal(row["Profit"].ToString().Trim());
                 rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
@@ -462,7 +462,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             var data = _dtProfitTrendData.AsEnumerable()
                         .Where(x => x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType)
-                        .OrderByDescending(x => x.Field<string>("ReportDate"));
+                        .OrderByDescending(x => x.Field<string>("TradeDate"));
 
             if (data.Any())
                 gcInvestorProfit.DataSource = data.CopyToDataTable();
