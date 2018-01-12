@@ -182,6 +182,8 @@
             this.colCurrentProfit,
             this.colCurrentIncomeRate});
             this.bandedGridView1.GridControl = this.gridControl1;
+            this.bandedGridView1.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.None, "", null, "")});
             this.bandedGridView1.Name = "bandedGridView1";
             this.bandedGridView1.OptionsBehavior.Editable = false;
             this.bandedGridView1.OptionsBehavior.ReadOnly = true;
@@ -192,6 +194,7 @@
             this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = true;
             this.bandedGridView1.OptionsView.EnableAppearanceOddRow = true;
             this.bandedGridView1.OptionsView.ShowAutoFilterRow = true;
+            this.bandedGridView1.OptionsView.ShowFooter = true;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
             this.bandedGridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.bandedGridView1_RowCellStyle);
@@ -265,6 +268,8 @@
             this.colAnnualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colAnnualProfit.FieldName = "AnnualProfit";
             this.colAnnualProfit.Name = "colAnnualProfit";
+            this.colAnnualProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "AnnualProfit", "SUM={0:N2}")});
             this.colAnnualProfit.Visible = true;
             this.colAnnualProfit.Width = 110;
             // 
@@ -317,6 +322,8 @@
             this.colInitPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitPositionValue.FieldName = "InitPositionValue";
             this.colInitPositionValue.Name = "colInitPositionValue";
+            this.colInitPositionValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InitPositionValue", "SUM={0:N2}")});
             this.colInitPositionValue.Visible = true;
             this.colInitPositionValue.Width = 95;
             // 
@@ -329,6 +336,8 @@
             this.colInitHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colInitHoldingVolume.FieldName = "InitHoldingVolume";
             this.colInitHoldingVolume.Name = "colInitHoldingVolume";
+            this.colInitHoldingVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InitHoldingVolume", "SUM={0:N0}")});
             this.colInitHoldingVolume.Visible = true;
             this.colInitHoldingVolume.Width = 95;
             // 
@@ -372,6 +381,8 @@
             this.colCurrentPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentPositionValue.FieldName = "CurrentPositionValue";
             this.colCurrentPositionValue.Name = "colCurrentPositionValue";
+            this.colCurrentPositionValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentPositionValue", "SUM={0:N2}")});
             this.colCurrentPositionValue.Visible = true;
             this.colCurrentPositionValue.Width = 95;
             // 
@@ -384,6 +395,8 @@
             this.colCurrentHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentHoldingVolume.FieldName = "CurrentHoldingVolume";
             this.colCurrentHoldingVolume.Name = "colCurrentHoldingVolume";
+            this.colCurrentHoldingVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentHoldingVolume", "SUM={0:N0}")});
             this.colCurrentHoldingVolume.Visible = true;
             this.colCurrentHoldingVolume.Width = 95;
             // 
@@ -406,6 +419,8 @@
             this.colCurrentProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.colCurrentProfit.FieldName = "CurrentProfit";
             this.colCurrentProfit.Name = "colCurrentProfit";
+            this.colCurrentProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentProfit", "SUM={0:N2}")});
             this.colCurrentProfit.Visible = true;
             this.colCurrentProfit.Width = 95;
             // 
@@ -475,7 +490,6 @@
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup4,
             this.layoutControlGroup6});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Size = new System.Drawing.Size(1546, 801);
             this.layoutControlGroup2.TextVisible = false;

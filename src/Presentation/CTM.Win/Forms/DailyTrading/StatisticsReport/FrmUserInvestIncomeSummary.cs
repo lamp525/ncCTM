@@ -399,7 +399,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             }
 
             this.bandedGridView1.LoadLayout(_layoutXmlName);
-            this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: true, showGroupPanel: true);
+            this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: true, showGroupPanel: true,showFooter:true);
             this.bandedGridView1.SetColumnHeaderAppearance();
 
             this.ActiveControl = this.btnSearch;
@@ -412,6 +412,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 this.btnSearch.Enabled = false;
 
                 DisplaySearchResult(true);
+
             }
             catch (Exception ex)
             {
