@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
-using CTM.Core;
+﻿using CTM.Core;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.Utils;
@@ -11,9 +6,15 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Handler;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace CTM.Win.Extensions
 {
@@ -54,7 +55,6 @@ namespace CTM.Win.Extensions
 
             if (displayAdditionalItem)
             {
-                
                 comboBox.Properties.Items.Add(additionalItemText);
 
                 count += 1;
@@ -118,7 +118,7 @@ namespace CTM.Win.Extensions
                 imageComboBox.Properties.Items.Add(allSelect);
                 count += 1;
             }
-            imageComboBox.Properties.Items.AddRange(source.ToList ());
+            imageComboBox.Properties.Items.AddRange(source.ToList());
             imageComboBox.Properties.NullText = "请选择...";
             imageComboBox.Properties.DropDownRows = count;
             imageComboBox.Properties.TextEditStyle = TextEditStyles.DisableTextEditor;
@@ -174,6 +174,25 @@ namespace CTM.Win.Extensions
             if (e.Info.IsRowIndicator && e.RowHandle >= 0)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+
+        /// <summary>
+        /// Replace cell value 0 to text
+        /// </summary>
+        /// <param name="gv"></param>
+        /// <param name="e"></param>
+        /// <param name="text"></param>
+        public static void ReplaceCellValueZero(this GridView gv, RowCellCustomDrawEventArgs e, string text = "-")
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = text;
             }
         }
 

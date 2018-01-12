@@ -35,26 +35,23 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
             this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.colInvestor = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colStockFullCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colInvestorName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colStockName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAllotFund = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colTradeTypeName = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAnnualProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colAnnualIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colYearProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colYearRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.colInitAsset = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colInitPositionValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colInitHoldingVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colInitValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colInitVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.colCurrentAsset = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colCurrentPositionValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colCurrentHoldingVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colCurrentPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colCurrentProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colCurrentIncomeRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colCurValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colCurVolume = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colCurPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPeriodProfit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colPeriodRate = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colUniqueSerialNo = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.colType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDataType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.deFrom = new DevExpress.XtraEditors.DateEdit();
             this.deTo = new DevExpress.XtraEditors.DateEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
@@ -164,23 +161,20 @@
             this.gridBand3});
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
             this.colUniqueSerialNo,
-            this.colType,
-            this.colInvestor,
-            this.colStockFullCode,
+            this.colDataType,
+            this.colInvestorName,
+            this.colStockCode,
             this.colStockName,
-            this.colAllotFund,
             this.colTradeTypeName,
-            this.colAnnualProfit,
-            this.colAnnualIncomeRate,
-            this.colInitAsset,
-            this.colInitPositionValue,
-            this.colInitHoldingVolume,
-            this.colCurrentAsset,
-            this.colCurrentPositionValue,
-            this.colCurrentHoldingVolume,
-            this.colCurrentPrice,
-            this.colCurrentProfit,
-            this.colCurrentIncomeRate});
+            this.colYearProfit,
+            this.colYearRate,
+            this.colInitValue,
+            this.colInitVolume,
+            this.colCurValue,
+            this.colCurVolume,
+            this.colCurPrice,
+            this.colPeriodProfit,
+            this.colPeriodRate});
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.None, "", null, "")});
@@ -191,12 +185,10 @@
             this.bandedGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.bandedGridView1.OptionsSelection.UseIndicatorForSelection = false;
             this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
-            this.bandedGridView1.OptionsView.EnableAppearanceEvenRow = true;
-            this.bandedGridView1.OptionsView.EnableAppearanceOddRow = true;
             this.bandedGridView1.OptionsView.ShowAutoFilterRow = true;
-            this.bandedGridView1.OptionsView.ShowFooter = true;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
             this.bandedGridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.bandedGridView1_CustomDrawRowIndicator);
+            this.bandedGridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.bandedGridView1_CustomDrawCell);
             this.bandedGridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.bandedGridView1_RowCellStyle);
             this.bandedGridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.bandedGridView1_RowStyle);
             // 
@@ -207,30 +199,29 @@
             this.gridBand1.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridBand1.Caption = "基本信息";
-            this.gridBand1.Columns.Add(this.colInvestor);
-            this.gridBand1.Columns.Add(this.colStockFullCode);
+            this.gridBand1.Columns.Add(this.colInvestorName);
+            this.gridBand1.Columns.Add(this.colStockCode);
             this.gridBand1.Columns.Add(this.colStockName);
-            this.gridBand1.Columns.Add(this.colAllotFund);
             this.gridBand1.Columns.Add(this.colTradeTypeName);
-            this.gridBand1.Columns.Add(this.colAnnualProfit);
-            this.gridBand1.Columns.Add(this.colAnnualIncomeRate);
+            this.gridBand1.Columns.Add(this.colYearProfit);
+            this.gridBand1.Columns.Add(this.colYearRate);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 610;
+            this.gridBand1.Width = 510;
             // 
-            // colInvestor
+            // colInvestorName
             // 
-            this.colInvestor.Caption = "投资人员";
-            this.colInvestor.FieldName = "Investor";
-            this.colInvestor.Name = "colInvestor";
-            this.colInvestor.Visible = true;
+            this.colInvestorName.Caption = "投资人员";
+            this.colInvestorName.FieldName = "InvestorName";
+            this.colInvestorName.Name = "colInvestorName";
+            this.colInvestorName.Visible = true;
             // 
-            // colStockFullCode
+            // colStockCode
             // 
-            this.colStockFullCode.Caption = "股票代码";
-            this.colStockFullCode.FieldName = "StockFullCode";
-            this.colStockFullCode.Name = "colStockFullCode";
-            this.colStockFullCode.Visible = true;
+            this.colStockCode.Caption = "股票代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
             // 
             // colStockName
             // 
@@ -238,18 +229,6 @@
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            // 
-            // colAllotFund
-            // 
-            this.colAllotFund.AppearanceCell.Options.UseTextOptions = true;
-            this.colAllotFund.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colAllotFund.Caption = "分配资金";
-            this.colAllotFund.DisplayFormat.FormatString = "N";
-            this.colAllotFund.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colAllotFund.FieldName = "AllotFund";
-            this.colAllotFund.Name = "colAllotFund";
-            this.colAllotFund.Visible = true;
-            this.colAllotFund.Width = 100;
             // 
             // colTradeTypeName
             // 
@@ -261,29 +240,29 @@
             this.colTradeTypeName.Visible = true;
             this.colTradeTypeName.Width = 65;
             // 
-            // colAnnualProfit
+            // colYearProfit
             // 
-            this.colAnnualProfit.Caption = "本年累计收益额";
-            this.colAnnualProfit.DisplayFormat.FormatString = "N";
-            this.colAnnualProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colAnnualProfit.FieldName = "AnnualProfit";
-            this.colAnnualProfit.Name = "colAnnualProfit";
-            this.colAnnualProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colYearProfit.Caption = "本年收益额";
+            this.colYearProfit.DisplayFormat.FormatString = "N2";
+            this.colYearProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colYearProfit.FieldName = "YearProfit";
+            this.colYearProfit.Name = "colYearProfit";
+            this.colYearProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "AnnualProfit", "SUM={0:N2}")});
-            this.colAnnualProfit.Visible = true;
-            this.colAnnualProfit.Width = 110;
+            this.colYearProfit.Visible = true;
+            this.colYearProfit.Width = 110;
             // 
-            // colAnnualIncomeRate
+            // colYearRate
             // 
-            this.colAnnualIncomeRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colAnnualIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colAnnualIncomeRate.Caption = "本年累计收益率";
-            this.colAnnualIncomeRate.DisplayFormat.FormatString = "#0.00%";
-            this.colAnnualIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colAnnualIncomeRate.FieldName = "AnnualIncomeRate";
-            this.colAnnualIncomeRate.Name = "colAnnualIncomeRate";
-            this.colAnnualIncomeRate.Visible = true;
-            this.colAnnualIncomeRate.Width = 110;
+            this.colYearRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colYearRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colYearRate.Caption = "本年收益率";
+            this.colYearRate.DisplayFormat.FormatString = "P2";
+            this.colYearRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colYearRate.FieldName = "YearRate";
+            this.colYearRate.Name = "colYearRate";
+            this.colYearRate.Visible = true;
+            this.colYearRate.Width = 110;
             // 
             // gridBand2
             // 
@@ -294,52 +273,39 @@
             this.gridBand2.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridBand2.Caption = "期  初";
-            this.gridBand2.Columns.Add(this.colInitAsset);
-            this.gridBand2.Columns.Add(this.colInitPositionValue);
-            this.gridBand2.Columns.Add(this.colInitHoldingVolume);
+            this.gridBand2.Columns.Add(this.colInitValue);
+            this.gridBand2.Columns.Add(this.colInitVolume);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 285;
+            this.gridBand2.Width = 190;
             // 
-            // colInitAsset
+            // colInitValue
             // 
-            this.colInitAsset.AppearanceCell.Options.UseTextOptions = true;
-            this.colInitAsset.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colInitAsset.Caption = "期初资产";
-            this.colInitAsset.DisplayFormat.FormatString = "N";
-            this.colInitAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colInitAsset.FieldName = "InitAsset";
-            this.colInitAsset.Name = "colInitAsset";
-            this.colInitAsset.Visible = true;
-            this.colInitAsset.Width = 95;
-            // 
-            // colInitPositionValue
-            // 
-            this.colInitPositionValue.AppearanceCell.Options.UseTextOptions = true;
-            this.colInitPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colInitPositionValue.Caption = "期初市值";
-            this.colInitPositionValue.DisplayFormat.FormatString = "N";
-            this.colInitPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colInitPositionValue.FieldName = "InitPositionValue";
-            this.colInitPositionValue.Name = "colInitPositionValue";
-            this.colInitPositionValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colInitValue.AppearanceCell.Options.UseTextOptions = true;
+            this.colInitValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colInitValue.Caption = "期初市值";
+            this.colInitValue.DisplayFormat.FormatString = "N2";
+            this.colInitValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colInitValue.FieldName = "InitValue";
+            this.colInitValue.Name = "colInitValue";
+            this.colInitValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InitPositionValue", "SUM={0:N2}")});
-            this.colInitPositionValue.Visible = true;
-            this.colInitPositionValue.Width = 95;
+            this.colInitValue.Visible = true;
+            this.colInitValue.Width = 95;
             // 
-            // colInitHoldingVolume
+            // colInitVolume
             // 
-            this.colInitHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
-            this.colInitHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colInitHoldingVolume.Caption = "期初持仓量";
-            this.colInitHoldingVolume.DisplayFormat.FormatString = "N0";
-            this.colInitHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colInitHoldingVolume.FieldName = "InitHoldingVolume";
-            this.colInitHoldingVolume.Name = "colInitHoldingVolume";
-            this.colInitHoldingVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colInitVolume.AppearanceCell.Options.UseTextOptions = true;
+            this.colInitVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colInitVolume.Caption = "期初持仓量";
+            this.colInitVolume.DisplayFormat.FormatString = "N0";
+            this.colInitVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colInitVolume.FieldName = "InitVolume";
+            this.colInitVolume.Name = "colInitVolume";
+            this.colInitVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InitHoldingVolume", "SUM={0:N0}")});
-            this.colInitHoldingVolume.Visible = true;
-            this.colInitHoldingVolume.Width = 95;
+            this.colInitVolume.Visible = true;
+            this.colInitVolume.Width = 95;
             // 
             // gridBand3
             // 
@@ -350,101 +316,90 @@
             this.gridBand3.AppearanceHeader.Options.UseTextOptions = true;
             this.gridBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridBand3.Caption = "期  末";
-            this.gridBand3.Columns.Add(this.colCurrentAsset);
-            this.gridBand3.Columns.Add(this.colCurrentPositionValue);
-            this.gridBand3.Columns.Add(this.colCurrentHoldingVolume);
-            this.gridBand3.Columns.Add(this.colCurrentPrice);
-            this.gridBand3.Columns.Add(this.colCurrentProfit);
-            this.gridBand3.Columns.Add(this.colCurrentIncomeRate);
+            this.gridBand3.Columns.Add(this.colCurValue);
+            this.gridBand3.Columns.Add(this.colCurVolume);
+            this.gridBand3.Columns.Add(this.colCurPrice);
+            this.gridBand3.Columns.Add(this.colPeriodProfit);
+            this.gridBand3.Columns.Add(this.colPeriodRate);
             this.gridBand3.Name = "gridBand3";
             this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 535;
+            this.gridBand3.Width = 440;
             // 
-            // colCurrentAsset
+            // colCurValue
             // 
-            this.colCurrentAsset.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentAsset.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentAsset.Caption = "期末资产";
-            this.colCurrentAsset.DisplayFormat.FormatString = "N";
-            this.colCurrentAsset.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colCurrentAsset.FieldName = "CurrentAsset";
-            this.colCurrentAsset.Name = "colCurrentAsset";
-            this.colCurrentAsset.Visible = true;
-            this.colCurrentAsset.Width = 95;
-            // 
-            // colCurrentPositionValue
-            // 
-            this.colCurrentPositionValue.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentPositionValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentPositionValue.Caption = "期末市值";
-            this.colCurrentPositionValue.DisplayFormat.FormatString = "N";
-            this.colCurrentPositionValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colCurrentPositionValue.FieldName = "CurrentPositionValue";
-            this.colCurrentPositionValue.Name = "colCurrentPositionValue";
-            this.colCurrentPositionValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colCurValue.AppearanceCell.Options.UseTextOptions = true;
+            this.colCurValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colCurValue.Caption = "期末市值";
+            this.colCurValue.DisplayFormat.FormatString = "N2";
+            this.colCurValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colCurValue.FieldName = "CurValue";
+            this.colCurValue.Name = "colCurValue";
+            this.colCurValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentPositionValue", "SUM={0:N2}")});
-            this.colCurrentPositionValue.Visible = true;
-            this.colCurrentPositionValue.Width = 95;
+            this.colCurValue.Visible = true;
+            this.colCurValue.Width = 95;
             // 
-            // colCurrentHoldingVolume
+            // colCurVolume
             // 
-            this.colCurrentHoldingVolume.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentHoldingVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentHoldingVolume.Caption = "期末持仓量";
-            this.colCurrentHoldingVolume.DisplayFormat.FormatString = "N0";
-            this.colCurrentHoldingVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colCurrentHoldingVolume.FieldName = "CurrentHoldingVolume";
-            this.colCurrentHoldingVolume.Name = "colCurrentHoldingVolume";
-            this.colCurrentHoldingVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colCurVolume.AppearanceCell.Options.UseTextOptions = true;
+            this.colCurVolume.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colCurVolume.Caption = "期末持仓量";
+            this.colCurVolume.DisplayFormat.FormatString = "N0";
+            this.colCurVolume.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colCurVolume.FieldName = "CurVolume";
+            this.colCurVolume.Name = "colCurVolume";
+            this.colCurVolume.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentHoldingVolume", "SUM={0:N0}")});
-            this.colCurrentHoldingVolume.Visible = true;
-            this.colCurrentHoldingVolume.Width = 95;
+            this.colCurVolume.Visible = true;
+            this.colCurVolume.Width = 95;
             // 
-            // colCurrentPrice
+            // colCurPrice
             // 
-            this.colCurrentPrice.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentPrice.Caption = "最新价";
-            this.colCurrentPrice.FieldName = "CurrentPrice";
-            this.colCurrentPrice.Name = "colCurrentPrice";
-            this.colCurrentPrice.Visible = true;
-            this.colCurrentPrice.Width = 60;
+            this.colCurPrice.AppearanceCell.Options.UseTextOptions = true;
+            this.colCurPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colCurPrice.Caption = "最新价";
+            this.colCurPrice.DisplayFormat.FormatString = "N2";
+            this.colCurPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colCurPrice.FieldName = "CurPrice";
+            this.colCurPrice.Name = "colCurPrice";
+            this.colCurPrice.Visible = true;
+            this.colCurPrice.Width = 60;
             // 
-            // colCurrentProfit
+            // colPeriodProfit
             // 
-            this.colCurrentProfit.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentProfit.Caption = "本期收益额";
-            this.colCurrentProfit.DisplayFormat.FormatString = "N";
-            this.colCurrentProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colCurrentProfit.FieldName = "CurrentProfit";
-            this.colCurrentProfit.Name = "colCurrentProfit";
-            this.colCurrentProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            this.colPeriodProfit.AppearanceCell.Options.UseTextOptions = true;
+            this.colPeriodProfit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colPeriodProfit.Caption = "本期收益额";
+            this.colPeriodProfit.DisplayFormat.FormatString = "N2";
+            this.colPeriodProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colPeriodProfit.FieldName = "PeriodProfit";
+            this.colPeriodProfit.Name = "colPeriodProfit";
+            this.colPeriodProfit.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CurrentProfit", "SUM={0:N2}")});
-            this.colCurrentProfit.Visible = true;
-            this.colCurrentProfit.Width = 95;
+            this.colPeriodProfit.Visible = true;
+            this.colPeriodProfit.Width = 95;
             // 
-            // colCurrentIncomeRate
+            // colPeriodRate
             // 
-            this.colCurrentIncomeRate.AppearanceCell.Options.UseTextOptions = true;
-            this.colCurrentIncomeRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.colCurrentIncomeRate.Caption = "本期收益率";
-            this.colCurrentIncomeRate.DisplayFormat.FormatString = "#0.00%";
-            this.colCurrentIncomeRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colCurrentIncomeRate.FieldName = "CurrentIncomeRate";
-            this.colCurrentIncomeRate.Name = "colCurrentIncomeRate";
-            this.colCurrentIncomeRate.Visible = true;
-            this.colCurrentIncomeRate.Width = 95;
+            this.colPeriodRate.AppearanceCell.Options.UseTextOptions = true;
+            this.colPeriodRate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colPeriodRate.Caption = "本期收益率";
+            this.colPeriodRate.DisplayFormat.FormatString = "P2";
+            this.colPeriodRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colPeriodRate.FieldName = "PeriodRate";
+            this.colPeriodRate.Name = "colPeriodRate";
+            this.colPeriodRate.Visible = true;
+            this.colPeriodRate.Width = 95;
             // 
             // colUniqueSerialNo
             // 
-            this.colUniqueSerialNo.FieldName = "UniqueSerialNo";
+            this.colUniqueSerialNo.FieldName = "SerialNo";
             this.colUniqueSerialNo.Name = "colUniqueSerialNo";
             // 
-            // colType
+            // colDataType
             // 
-            this.colType.FieldName = "Type";
-            this.colType.Name = "colType";
+            this.colDataType.FieldName = "DataType";
+            this.colDataType.Name = "colDataType";
             // 
             // deFrom
             // 
@@ -678,22 +633,19 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bandedGridView1;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInvestor;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockFullCode;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInvestorName;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockCode;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockName;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAllotFund;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnnualProfit;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colAnnualIncomeRate;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitAsset;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitPositionValue;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitHoldingVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colYearProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colYearRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitValue;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colInitVolume;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colTradeTypeName;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentAsset;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentPositionValue;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentHoldingVolume;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentPrice;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentProfit;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurrentIncomeRate;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurValue;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurVolume;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colCurPrice;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPeriodProfit;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colPeriodRate;
         private DevExpress.XtraEditors.DateEdit deFrom;
         private DevExpress.XtraEditors.DateEdit deTo;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
@@ -711,7 +663,7 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colType;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDataType;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colUniqueSerialNo;
     }
 }

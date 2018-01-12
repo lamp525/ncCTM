@@ -677,15 +677,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
         private void bandedGridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            if (e.RowHandle < 0 || e.CellValue == null) return;
-
-            decimal cellValue;
-
-            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
-            {
-                if (cellValue == 0)
-                    e.DisplayText = "-";
-            }
+            bandedGridView1.ReplaceCellValueZero(e);
         }
 
         private void bandedGridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)

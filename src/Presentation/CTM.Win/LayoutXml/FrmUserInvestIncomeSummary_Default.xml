@@ -1,43 +1,43 @@
 ﻿<XtraSerializer version="1.0" application="View">
   <property name="#LayoutVersion" />
-  <property name="Columns" iskey="true" value="18">
+  <property name="Columns" iskey="true" value="15">
     <property name="Item1" isnull="true" iskey="true">
       <property name="VisibleIndex">-1</property>
       <property name="Fixed">None</property>
       <property name="Name">colUniqueSerialNo</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">UniqueSerialNo</property>
+      <property name="FieldName">SerialNo</property>
       <property name="ColumnEditName" />
     </property>
     <property name="Item2" isnull="true" iskey="true">
       <property name="VisibleIndex">-1</property>
       <property name="Fixed">None</property>
-      <property name="Name">colType</property>
+      <property name="Name">colDataType</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">Type</property>
+      <property name="FieldName">DataType</property>
       <property name="ColumnEditName" />
     </property>
     <property name="Item3" isnull="true" iskey="true">
       <property name="VisibleIndex">0</property>
       <property name="Fixed">None</property>
-      <property name="Name">colInvestor</property>
+      <property name="Name">colInvestorName</property>
       <property name="Caption">投资人员</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">Investor</property>
+      <property name="FieldName">InvestorName</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
     </property>
     <property name="Item4" isnull="true" iskey="true">
       <property name="VisibleIndex">1</property>
       <property name="Fixed">None</property>
-      <property name="Name">colStockFullCode</property>
+      <property name="Name">colStockCode</property>
       <property name="Caption">股票代码</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">StockFullCode</property>
+      <property name="FieldName">StockCode</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
     </property>
@@ -54,30 +54,6 @@
     </property>
     <property name="Item6" isnull="true" iskey="true">
       <property name="VisibleIndex">3</property>
-      <property name="Fixed">None</property>
-      <property name="Name">colAllotFund</property>
-      <property name="Caption">分配资金</property>
-      <property name="ImageAlignment">Near</property>
-      <property name="ImageIndex">-1</property>
-      <property name="FieldName">AllotFund</property>
-      <property name="ColumnEditName" />
-      <property name="Visible">true</property>
-      <property name="Width">100</property>
-      <property name="AppearanceCell" isnull="true" iskey="true">
-        <property name="Options" isnull="true" iskey="true">
-          <property name="UseTextOptions">true</property>
-        </property>
-        <property name="TextOptions" isnull="true" iskey="true">
-          <property name="HAlignment">Far</property>
-        </property>
-      </property>
-      <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
-        <property name="FormatType">Custom</property>
-      </property>
-    </property>
-    <property name="Item7" isnull="true" iskey="true">
-      <property name="VisibleIndex">4</property>
       <property name="Fixed">None</property>
       <property name="Name">colTradeTypeName</property>
       <property name="Caption">交易类别</property>
@@ -96,19 +72,19 @@
         </property>
       </property>
     </property>
-    <property name="Item8" isnull="true" iskey="true">
-      <property name="VisibleIndex">5</property>
+    <property name="Item7" isnull="true" iskey="true">
+      <property name="VisibleIndex">4</property>
       <property name="Fixed">None</property>
-      <property name="Name">colAnnualProfit</property>
-      <property name="Caption">本年累计收益额</property>
+      <property name="Name">colYearProfit</property>
+      <property name="Caption">本年收益额</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">AnnualProfit</property>
+      <property name="FieldName">YearProfit</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">110</property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
+        <property name="FormatString">N2</property>
         <property name="FormatType">Custom</property>
       </property>
       <property name="Summary" iskey="true" value="1">
@@ -120,14 +96,14 @@
         </property>
       </property>
     </property>
-    <property name="Item9" isnull="true" iskey="true">
-      <property name="VisibleIndex">6</property>
+    <property name="Item8" isnull="true" iskey="true">
+      <property name="VisibleIndex">5</property>
       <property name="Fixed">None</property>
-      <property name="Name">colAnnualIncomeRate</property>
-      <property name="Caption">本年累计收益率</property>
+      <property name="Name">colYearRate</property>
+      <property name="Caption">本年收益率</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">AnnualIncomeRate</property>
+      <property name="FieldName">YearRate</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">110</property>
@@ -140,42 +116,18 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">#0.00%</property>
-        <property name="FormatType">Numeric</property>
-      </property>
-    </property>
-    <property name="Item10" isnull="true" iskey="true">
-      <property name="VisibleIndex">7</property>
-      <property name="Fixed">None</property>
-      <property name="Name">colInitAsset</property>
-      <property name="Caption">期初资产</property>
-      <property name="ImageAlignment">Near</property>
-      <property name="ImageIndex">-1</property>
-      <property name="FieldName">InitAsset</property>
-      <property name="ColumnEditName" />
-      <property name="Visible">true</property>
-      <property name="Width">95</property>
-      <property name="AppearanceCell" isnull="true" iskey="true">
-        <property name="Options" isnull="true" iskey="true">
-          <property name="UseTextOptions">true</property>
-        </property>
-        <property name="TextOptions" isnull="true" iskey="true">
-          <property name="HAlignment">Far</property>
-        </property>
-      </property>
-      <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
+        <property name="FormatString">P2</property>
         <property name="FormatType">Custom</property>
       </property>
     </property>
-    <property name="Item11" isnull="true" iskey="true">
-      <property name="VisibleIndex">8</property>
+    <property name="Item9" isnull="true" iskey="true">
+      <property name="VisibleIndex">6</property>
       <property name="Fixed">None</property>
-      <property name="Name">colInitPositionValue</property>
+      <property name="Name">colInitValue</property>
       <property name="Caption">期初市值</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">InitPositionValue</property>
+      <property name="FieldName">InitValue</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -188,7 +140,7 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
+        <property name="FormatString">N2</property>
         <property name="FormatType">Custom</property>
       </property>
       <property name="Summary" iskey="true" value="1">
@@ -200,14 +152,14 @@
         </property>
       </property>
     </property>
-    <property name="Item12" isnull="true" iskey="true">
-      <property name="VisibleIndex">9</property>
+    <property name="Item10" isnull="true" iskey="true">
+      <property name="VisibleIndex">7</property>
       <property name="Fixed">None</property>
-      <property name="Name">colInitHoldingVolume</property>
+      <property name="Name">colInitVolume</property>
       <property name="Caption">期初持仓量</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">InitHoldingVolume</property>
+      <property name="FieldName">InitVolume</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -232,38 +184,14 @@
         </property>
       </property>
     </property>
-    <property name="Item13" isnull="true" iskey="true">
-      <property name="VisibleIndex">10</property>
+    <property name="Item11" isnull="true" iskey="true">
+      <property name="VisibleIndex">8</property>
       <property name="Fixed">None</property>
-      <property name="Name">colCurrentAsset</property>
-      <property name="Caption">期末资产</property>
-      <property name="ImageAlignment">Near</property>
-      <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentAsset</property>
-      <property name="ColumnEditName" />
-      <property name="Visible">true</property>
-      <property name="Width">95</property>
-      <property name="AppearanceCell" isnull="true" iskey="true">
-        <property name="Options" isnull="true" iskey="true">
-          <property name="UseTextOptions">true</property>
-        </property>
-        <property name="TextOptions" isnull="true" iskey="true">
-          <property name="HAlignment">Far</property>
-        </property>
-      </property>
-      <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
-        <property name="FormatType">Custom</property>
-      </property>
-    </property>
-    <property name="Item14" isnull="true" iskey="true">
-      <property name="VisibleIndex">11</property>
-      <property name="Fixed">None</property>
-      <property name="Name">colCurrentPositionValue</property>
+      <property name="Name">colCurValue</property>
       <property name="Caption">期末市值</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentPositionValue</property>
+      <property name="FieldName">CurValue</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -276,7 +204,7 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
+        <property name="FormatString">N2</property>
         <property name="FormatType">Custom</property>
       </property>
       <property name="Summary" iskey="true" value="1">
@@ -288,14 +216,14 @@
         </property>
       </property>
     </property>
-    <property name="Item15" isnull="true" iskey="true">
-      <property name="VisibleIndex">12</property>
+    <property name="Item12" isnull="true" iskey="true">
+      <property name="VisibleIndex">9</property>
       <property name="Fixed">None</property>
-      <property name="Name">colCurrentHoldingVolume</property>
+      <property name="Name">colCurVolume</property>
       <property name="Caption">期末持仓量</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentHoldingVolume</property>
+      <property name="FieldName">CurVolume</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -320,14 +248,14 @@
         </property>
       </property>
     </property>
-    <property name="Item16" isnull="true" iskey="true">
-      <property name="VisibleIndex">13</property>
+    <property name="Item13" isnull="true" iskey="true">
+      <property name="VisibleIndex">10</property>
       <property name="Fixed">None</property>
-      <property name="Name">colCurrentPrice</property>
+      <property name="Name">colCurPrice</property>
       <property name="Caption">最新价</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentPrice</property>
+      <property name="FieldName">CurPrice</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">60</property>
@@ -339,15 +267,19 @@
           <property name="HAlignment">Far</property>
         </property>
       </property>
+      <property name="DisplayFormat" isnull="true" iskey="true">
+        <property name="FormatString">N2</property>
+        <property name="FormatType">Custom</property>
+      </property>
     </property>
-    <property name="Item17" isnull="true" iskey="true">
-      <property name="VisibleIndex">14</property>
+    <property name="Item14" isnull="true" iskey="true">
+      <property name="VisibleIndex">11</property>
       <property name="Fixed">None</property>
-      <property name="Name">colCurrentProfit</property>
+      <property name="Name">colPeriodProfit</property>
       <property name="Caption">本期收益额</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentProfit</property>
+      <property name="FieldName">PeriodProfit</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -360,7 +292,7 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">N</property>
+        <property name="FormatString">N2</property>
         <property name="FormatType">Custom</property>
       </property>
       <property name="Summary" iskey="true" value="1">
@@ -372,14 +304,14 @@
         </property>
       </property>
     </property>
-    <property name="Item18" isnull="true" iskey="true">
-      <property name="VisibleIndex">15</property>
+    <property name="Item15" isnull="true" iskey="true">
+      <property name="VisibleIndex">12</property>
       <property name="Fixed">None</property>
-      <property name="Name">colCurrentIncomeRate</property>
+      <property name="Name">colPeriodRate</property>
       <property name="Caption">本期收益率</property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="FieldName">CurrentIncomeRate</property>
+      <property name="FieldName">PeriodRate</property>
       <property name="ColumnEditName" />
       <property name="Visible">true</property>
       <property name="Width">95</property>
@@ -392,8 +324,8 @@
         </property>
       </property>
       <property name="DisplayFormat" isnull="true" iskey="true">
-        <property name="FormatString">#0.00%</property>
-        <property name="FormatType">Numeric</property>
+        <property name="FormatString">P2</property>
+        <property name="FormatType">Custom</property>
       </property>
     </property>
   </property>
@@ -401,10 +333,7 @@
   <property name="OptionsView" isnull="true" iskey="true">
     <property name="ColumnAutoWidth">false</property>
     <property name="ShowAutoFilterRow">true</property>
-    <property name="ShowFooter">true</property>
     <property name="ShowGroupPanel">false</property>
-    <property name="EnableAppearanceOddRow">true</property>
-    <property name="EnableAppearanceEvenRow">true</property>
   </property>
   <property name="BandPanelRowHeight">-1</property>
   <property name="OptionsBehavior" isnull="true" iskey="true">
@@ -460,15 +389,14 @@
       </property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="Width">610</property>
-      <property name="Columns" iskey="true" value="7">
-        <property name="Item1">colInvestor</property>
-        <property name="Item2">colStockFullCode</property>
+      <property name="Width">510</property>
+      <property name="Columns" iskey="true" value="6">
+        <property name="Item1">colInvestorName</property>
+        <property name="Item2">colStockCode</property>
         <property name="Item3">colStockName</property>
-        <property name="Item4">colAllotFund</property>
-        <property name="Item5">colTradeTypeName</property>
-        <property name="Item6">colAnnualProfit</property>
-        <property name="Item7">colAnnualIncomeRate</property>
+        <property name="Item4">colTradeTypeName</property>
+        <property name="Item5">colYearProfit</property>
+        <property name="Item6">colYearRate</property>
       </property>
       <property name="Children" iskey="true" value="0" />
       <property name="Caption">基本信息</property>
@@ -489,11 +417,10 @@
       </property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="Width">285</property>
-      <property name="Columns" iskey="true" value="3">
-        <property name="Item1">colInitAsset</property>
-        <property name="Item2">colInitPositionValue</property>
-        <property name="Item3">colInitHoldingVolume</property>
+      <property name="Width">190</property>
+      <property name="Columns" iskey="true" value="2">
+        <property name="Item1">colInitValue</property>
+        <property name="Item2">colInitVolume</property>
       </property>
       <property name="Children" iskey="true" value="0" />
       <property name="Caption">期  初</property>
@@ -514,14 +441,13 @@
       </property>
       <property name="ImageAlignment">Near</property>
       <property name="ImageIndex">-1</property>
-      <property name="Width">535</property>
-      <property name="Columns" iskey="true" value="6">
-        <property name="Item1">colCurrentAsset</property>
-        <property name="Item2">colCurrentPositionValue</property>
-        <property name="Item3">colCurrentHoldingVolume</property>
-        <property name="Item4">colCurrentPrice</property>
-        <property name="Item5">colCurrentProfit</property>
-        <property name="Item6">colCurrentIncomeRate</property>
+      <property name="Width">440</property>
+      <property name="Columns" iskey="true" value="5">
+        <property name="Item1">colCurValue</property>
+        <property name="Item2">colCurVolume</property>
+        <property name="Item3">colCurPrice</property>
+        <property name="Item4">colPeriodProfit</property>
+        <property name="Item5">colPeriodRate</property>
       </property>
       <property name="Children" iskey="true" value="0" />
       <property name="Caption">期  末</property>
