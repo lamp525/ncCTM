@@ -50,8 +50,7 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             DataTable result = !this.chkOnWorking.Checked ? _profitData : _profitData.AsEnumerable().Where(x => x.Field<int>("IsOnWorking") == 1).CopyToDataTable();
 
-            this.gridControl1.DataSource = result;    
-
+            this.gridControl1.DataSource = result;
         }
 
         private void FilterSearchResult()
@@ -87,8 +86,9 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
             }
 
             this.bandedGridView1.LoadLayout(_layoutXmlName);
-            this.bandedGridView1.SetLayout(showCheckBoxRowSelect: false, showFilterPanel: true, showGroupPanel: true, setAlternateRowColor: false);
             this.bandedGridView1.SetColumnHeaderAppearance();
+
+            DisplaySearchResult(true);
 
             this.ActiveControl = this.btnSearch;
         }
@@ -138,12 +138,12 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
             int dataType = int.Parse(this.bandedGridView1.GetRowCellValue(e.RowHandle, this.colDataType).ToString());
 
-            if (dataType == 99)
-                e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
-            else if (dataType == 1)
+            if (dataType == 1)
                 e.Appearance.BackColor = System.Drawing.Color.SkyBlue;
             else if (dataType == 3)
-             e.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 211, 155);
+                e.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 211, 155);
+            //else if (dataType == 99)
+            //    e.Appearance.BackColor = System.Drawing.Color.FromArgb(225, 244, 255);
         }
 
         /// <summary>
