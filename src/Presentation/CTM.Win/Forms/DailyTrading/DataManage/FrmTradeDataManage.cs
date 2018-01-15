@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using CTM.Core;
+﻿using CTM.Core;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Services.Account;
@@ -14,6 +10,10 @@ using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CTM.Win.Forms.DailyTrading.DataManage
 {
@@ -190,9 +190,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             //受益人
             luBeneficiary.Initialize(dealers, "Code", "Name", showHeader: true, enableSearch: true);
 
-            //交易员
-            luOperator.Initialize(dealers, "Code", "Name", showHeader: true, enableSearch: true);
-
             var admins = _userService.GetAllAdmins(showDeleted: true);
             var importors = new List<UserInfo>();
             importors.AddRange(dealers);
@@ -263,8 +260,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
             if (LoginInfo.CurrentUser.IsAdmin || this.radioGroup1.SelectedIndex == 1)
             {
-                luOperator.EditValue = null;
-                luOperator.ReadOnly = false;
                 luBeneficiary.EditValue = null;
                 luBeneficiary.ReadOnly = false;
                 luImport.EditValue = null;
@@ -272,8 +267,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
             else if (this.radioGroup1.SelectedIndex == 0)
             {
-                luOperator.EditValue = LoginInfo.CurrentUser.UserCode;
-                luOperator.ReadOnly = true;
                 luBeneficiary.EditValue = LoginInfo.CurrentUser.UserCode;
                 luBeneficiary.ReadOnly = true;
                 luImport.EditValue = LoginInfo.CurrentUser.UserCode;
@@ -400,7 +393,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             this.DisplayForm<FrmStockTransfer>("股票持仓转移");
         }
 
-
         private void RefreshForm()
         {
             try
@@ -424,7 +416,7 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
                 this.btnEdit.Enabled = false;
                 this.btnDelete.Enabled = false;
                 this.btnSplit.Enabled = false;
-                this.btnAddVirtualRecord.Enabled = LoginInfo.CurrentUser.IsAdmin;          
+                this.btnAddVirtualRecord.Enabled = LoginInfo.CurrentUser.IsAdmin;
 
                 if (LoginInfo.CurrentUser.IsAdmin)
                     this.lciQueryMode.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -485,9 +477,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
 
                 //导入人
                 _searchCondition.ImportUser = luImport.EditValue == null ? null : luImport.EditValue.ToString();
-
-                //交易员
-                _searchCondition.Operator = luOperator.EditValue == null ? null : luOperator.EditValue.ToString();
 
                 //交易类型
                 _searchCondition.TradeType = cbTradeType.EditValue == null ? 0 : int.Parse(cbTradeType.SelectedValue());
@@ -694,7 +683,6 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
             }
         }
 
-
         private void chkSell_CheckedChanged(object sender, EventArgs e)
         {
             if (chkSell.Checked)
@@ -766,7 +754,5 @@ namespace CTM.Win.Forms.DailyTrading.DataManage
         }
 
         #endregion Events
-
-
     }
 }
