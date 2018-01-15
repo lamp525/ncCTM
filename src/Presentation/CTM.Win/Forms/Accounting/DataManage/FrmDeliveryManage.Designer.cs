@@ -356,7 +356,7 @@
             this.colStampDuty.FieldName = "StampDuty";
             this.colStampDuty.Name = "colStampDuty";
             this.colStampDuty.Visible = true;
-            this.colStampDuty.VisibleIndex = 11;
+            this.colStampDuty.VisibleIndex = 12;
             // 
             // colCommission
             // 
@@ -366,7 +366,7 @@
             this.colCommission.FieldName = "Commission";
             this.colCommission.Name = "colCommission";
             this.colCommission.Visible = true;
-            this.colCommission.VisibleIndex = 12;
+            this.colCommission.VisibleIndex = 13;
             this.colCommission.Width = 62;
             // 
             // colIncidentals
@@ -377,7 +377,7 @@
             this.colIncidentals.FieldName = "Incidentals";
             this.colIncidentals.Name = "colIncidentals";
             this.colIncidentals.Visible = true;
-            this.colIncidentals.VisibleIndex = 13;
+            this.colIncidentals.VisibleIndex = 14;
             this.colIncidentals.Width = 67;
             // 
             // colStockHolderCode
@@ -393,7 +393,7 @@
             this.colContractNo.FieldName = "ContractNo";
             this.colContractNo.Name = "colContractNo";
             this.colContractNo.Visible = true;
-            this.colContractNo.VisibleIndex = 14;
+            this.colContractNo.VisibleIndex = 11;
             // 
             // colImportUser
             // 
