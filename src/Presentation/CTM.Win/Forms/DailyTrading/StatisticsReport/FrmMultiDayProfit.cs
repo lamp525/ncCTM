@@ -1,16 +1,16 @@
-﻿using System;
+﻿using CTM.Core.Util;
+using CTM.Data;
+using CTM.Win.Extensions;
+using CTM.Win.Models;
+using CTM.Win.Util;
+using DevExpress.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CTM.Core.Util;
-using CTM.Data;
-using CTM.Win.Extensions;
-using CTM.Win.Models;
-using CTM.Win.Util;
-using DevExpress.Utils;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CTM.Win.Forms.DailyTrading.StatisticsReport
@@ -23,8 +23,10 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
 
         //数值列（无小数位）
         private const string _intFormat = @"_ * #,##0_ ;_ * -#,##0_ ;_ * ""-""_ ;_ @_ ";
+
         //数值列（2位小数位）
         private const string _numericFormat = @"_ * #,##0.00_ ;_ * -#,##0.00_ ;_ * ""-""??_ ;_ @_ ";
+
         //百分比列（2位小数位）
         private const string _percentFormat = @"0.00%";
 
@@ -602,6 +604,8 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 SqlHelper.ExecuteNonQuery(AppConfig._ConnString, CommandType.Text, sqlText);
 
                 DXMessage.ShowTips("收益核算完成！");
+
+                SearchProcess();
             }
             catch (Exception ex)
             {
