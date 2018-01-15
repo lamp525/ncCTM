@@ -187,6 +187,7 @@
             this.bandedGridView1.OptionsBehavior.Editable = false;
             this.bandedGridView1.OptionsBehavior.ReadOnly = true;
             this.bandedGridView1.OptionsSelection.MultiSelect = true;
+            this.bandedGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.bandedGridView1.OptionsView.ColumnAutoWidth = false;
             this.bandedGridView1.OptionsView.ShowAutoFilterRow = true;
             this.bandedGridView1.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
