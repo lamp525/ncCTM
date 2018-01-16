@@ -1,18 +1,19 @@
-﻿using System;
+﻿using CTM.Core;
+using CTM.Core.Util;
+using CTM.Data;
+using CTM.Services.Dictionary;
+using CTM.Win.Extensions;
+using CTM.Win.Forms.DailyTrading.TradeIdentifier;
+using CTM.Win.Models;
+using CTM.Win.Util;
+using DevExpress.XtraCharts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using CTM.Core;
-using CTM.Core.Util;
-using CTM.Data;
-using CTM.Services.Dictionary;
-using CTM.Win.Extensions;
-using CTM.Win.Models;
-using CTM.Win.Util;
-using DevExpress.XtraCharts;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
@@ -411,7 +412,6 @@ namespace CTM.Win.Forms.InvestorStudio
             Series seYearProfit = chartProfitTrend.Series[4];
             //年收益率
             Series seYearRate = chartProfitTrend.Series[5];
-     
 
             seFund.Points.Clear();
             seProfit.Points.Clear();
@@ -684,6 +684,39 @@ namespace CTM.Win.Forms.InvestorStudio
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
                     e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void gvPosition_DoubleClick(object sender, EventArgs e)
+        {
+            Point pt = gvPosition.GridControl.PointToClient(Control.MousePosition);
+            var hi = gvPosition.CalcHitInfo(pt);
+            if (hi.InRow)
+            {
+                var row = gvPosition.GetDataRow(hi.RowHandle);
+                if (row != null)
+                {
+                    decimal diffVol = decimal.Parse(row["DiffVol"].ToString());
+                    if (diffVol != 0)
+                    {
+                        var curDate = CommonHelper.StringToDateTime(dePosition.EditValue.ToString());
+
+                        TradeInfoModel tradeInfo = new TradeInfoModel
+                        {
+                            DisplayText = row["StockCode"].ToString() + '-' + row["StockName"].ToString() + '-' + LoginInfo.CurrentUser.UserName,
+                            InvestorCode = LoginInfo.CurrentUser.UserCode,
+                            InvestorName = LoginInfo.CurrentUser.UserName,
+                            StockCode = row["StockCode"].ToString(),
+                            StockName = row["StockName"].ToString(),
+                            TradeCode = row["StockCode"].ToString() + '-' + LoginInfo.CurrentUser.UserCode,
+                        };
+                        var dialog = this.CreateDialog<FrmTimeSharingTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Normal);
+                        dialog.Text = "分时交易标识";
+                        dialog.TradeDate = curDate;
+                        dialog.TradeInfo = tradeInfo;
+                        dialog.Show();
+                    }
+                }
             }
         }
 

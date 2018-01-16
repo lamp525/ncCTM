@@ -394,6 +394,7 @@
             this.gvPosition.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvPosition_CustomDrawRowIndicator);
             this.gvPosition.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvPosition_CustomDrawCell);
             this.gvPosition.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvPosition_RowCellStyle);
+            this.gvPosition.DoubleClick += new System.EventHandler(this.gvPosition_DoubleClick);
             // 
             // colStockCode
             // 
