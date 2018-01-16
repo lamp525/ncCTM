@@ -229,7 +229,7 @@ namespace CTM.Win.Forms.InvestorStudio
             if (ds1 != null && ds1.Tables.Count == 1)
                 _dtProfitContrastData = ds1.Tables[0];
 
-            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit2]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
             if (ds2 != null && ds2.Tables.Count == 1)
             {
