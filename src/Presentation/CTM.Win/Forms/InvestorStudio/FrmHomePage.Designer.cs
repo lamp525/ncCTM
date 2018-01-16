@@ -585,6 +585,8 @@
             this.ttcPosition.Appearance.ForeColor = System.Drawing.Color.Tomato;
             this.ttcPosition.Appearance.Options.UseForeColor = true;
             this.ttcPosition.Rounded = true;
+            this.ttcPosition.ShowBeak = true;
+            this.ttcPosition.ToolTipAnchor = DevExpress.Utils.ToolTipAnchor.Object;
             this.ttcPosition.ToolTipLocation = DevExpress.Utils.ToolTipLocation.TopLeft;
             // 
             // chartPosition
