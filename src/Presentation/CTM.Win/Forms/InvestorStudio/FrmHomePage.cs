@@ -87,6 +87,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 }).ToList();
             this.cbTradeTypePosition.Initialize(tradeTypes, displayAdditionalItem: true);
             this.cbTradeTypeProfit.Initialize(tradeTypes, displayAdditionalItem: true);
+
+            ttcPosition.SetToolTip(gcPosition,"双击持仓有变动的数据行，" + Environment.NewLine + "可查看分时交易标识！"); 
         }
 
         private void GetInvestorProfit()
@@ -719,7 +721,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 }
             }
         }
-
+        
         #endregion Position
 
         #region Profit
@@ -922,8 +924,11 @@ namespace CTM.Win.Forms.InvestorStudio
             gvStockProfit.DrawRowIndicator(e);
         }
 
+
         #endregion Profit
 
         #endregion Events
+
+
     }
 }

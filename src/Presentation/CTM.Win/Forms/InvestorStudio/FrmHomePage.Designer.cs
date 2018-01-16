@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHomePage));
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.PieSeriesLabel pieSeriesLabel1 = new DevExpress.XtraCharts.PieSeriesLabel();
@@ -80,6 +81,7 @@
             this.colBuyValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellVolume = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ttcPosition = new DevExpress.Utils.ToolTipController(this.components);
             this.chartPosition = new DevExpress.XtraCharts.ChartControl();
             this.lblYearR = new DevExpress.XtraEditors.LabelControl();
             this.deProfit = new DevExpress.XtraEditors.DateEdit();
@@ -364,6 +366,7 @@
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.Size = new System.Drawing.Size(968, 242);
             this.gcPosition.TabIndex = 31;
+            this.gcPosition.ToolTipController = this.ttcPosition;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
             // 
@@ -576,6 +579,13 @@
             this.colSellValue.Visible = true;
             this.colSellValue.VisibleIndex = 10;
             this.colSellValue.Width = 90;
+            // 
+            // ttcPosition
+            // 
+            this.ttcPosition.Appearance.ForeColor = System.Drawing.Color.Tomato;
+            this.ttcPosition.Appearance.Options.UseForeColor = true;
+            this.ttcPosition.Rounded = true;
+            this.ttcPosition.ToolTipLocation = DevExpress.Utils.ToolTipLocation.TopLeft;
             // 
             // chartPosition
             // 
@@ -1981,5 +1991,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraGrid.Columns.GridColumn colDiffVol;
         private DevExpress.XtraGrid.Columns.GridColumn colDiffValue;
+        private DevExpress.Utils.ToolTipController ttcPosition;
     }
 }
