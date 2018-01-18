@@ -88,12 +88,12 @@ namespace CTM.Win.Forms.InvestorStudio
             this.cbTradeTypePosition.Initialize(tradeTypes, displayAdditionalItem: true);
             this.cbTradeTypeProfit.Initialize(tradeTypes, displayAdditionalItem: true);
 
-            ttcPosition.SetToolTip(gcPosition,"双击持仓有变动的数据行，" + Environment.NewLine + "可查看分时交易标识！"); 
+            ttcPosition.SetToolTip(gcPosition, "双击持仓有变动的数据行，" + Environment.NewLine + "可查看分时交易标识！");
         }
 
         private void GetInvestorProfit()
         {
-            string date = deInvestor.Text.Trim();
+            string date = deInvestor.EditValue.ToString();
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
@@ -167,7 +167,7 @@ namespace CTM.Win.Forms.InvestorStudio
         private void GetPositionRelateData()
         {
             _dtPositionData = null;
-            string date = dePosition.Text.Trim();
+            string date = dePosition.EditValue.ToString();
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
@@ -225,7 +225,11 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void GetProfitRelateData()
         {
-            string date = dePosition.Text.Trim();
+            _dtProfitContrastData = null;
+            _dtProfitTrendData = null;
+            _dtStockProfitDate = null;
+
+            string date = deProfit.EditValue.ToString();
 
             string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
@@ -721,7 +725,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 }
             }
         }
-        
+
         #endregion Position
 
         #region Profit
@@ -924,12 +928,8 @@ namespace CTM.Win.Forms.InvestorStudio
             gvStockProfit.DrawRowIndicator(e);
         }
 
-
-
         #endregion Profit
 
         #endregion Events
-
-
     }
 }
