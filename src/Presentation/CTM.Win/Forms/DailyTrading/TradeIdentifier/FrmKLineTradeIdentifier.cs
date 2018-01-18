@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using CTM.Core;
+﻿using CTM.Core;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Domain.User;
 using CTM.Core.Util;
@@ -14,6 +8,12 @@ using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 {
@@ -24,7 +24,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private Series _seriesDayKLine;
         private CrosshairFreePosition _crosshairFreePosition1 = new CrosshairFreePosition();
         private Color _redColor = Color.FromArgb(204, 51, 0);
-
 
         private IDailyRecordService _dailyRecordService;
         private IList<DailyRecord> _tradeRecords = null;
@@ -70,6 +69,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void FormInit()
         {
+            ChartInit();
+
             this.deStart.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deEnd.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
 
@@ -259,7 +260,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
                 if (source.Any())
                     luTradeInfo.EditValue = source.First().TradeCode;
-                
             }
             catch (Exception ex)
             {
@@ -334,8 +334,6 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             try
             {
                 FormInit();
-
-                ChartInit();
             }
             catch (Exception ex)
             {
