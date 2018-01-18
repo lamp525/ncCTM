@@ -306,14 +306,25 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         private void ReDrawAxisY(ChartControl chart, RangeInfo newXRange)
         {
-            var minValueX = CommonHelper.StringToDateTime(newXRange.MinValue.ToString());
-            var maxValueX = CommonHelper.StringToDateTime(newXRange.MaxValue.ToString());
-            var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= minValueX && x.Field<DateTime>("TradeDate") <= maxValueX);
-            decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
-            decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
+            try
+            {
+                var minValueX = CommonHelper.StringToDateTime(newXRange.MinValue.ToString());
+                var maxValueX = CommonHelper.StringToDateTime(newXRange.MaxValue.ToString());
+                var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= minValueX && x.Field<DateTime>("TradeDate") <= maxValueX);
 
-            AxisY myAxisY = (chart.Diagram as XYDiagram).AxisY;
-            myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
+                if (currentKLineData.Any())
+                {
+                    decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
+                    decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
+
+                    AxisY myAxisY = (chart.Diagram as XYDiagram).AxisY;
+                    myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
         private void ShowTimeSharingForm(DateTime tradeDate, TradeInfoModel tradeInfo)
