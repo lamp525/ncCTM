@@ -88,7 +88,7 @@ namespace CTM.Win.Forms.InvestorStudio
             this.cbTradeTypePosition.Initialize(tradeTypes, displayAdditionalItem: true);
             this.cbTradeTypeProfit.Initialize(tradeTypes, displayAdditionalItem: true);
 
-            ttcPosition.SetToolTip(gcPosition, "双击持仓有变动的数据行，" + Environment.NewLine + "可查看分时交易标识！");
+            ttcPosition.SetToolTip(gcPosition, "双击有买卖操作的数据行，" + Environment.NewLine + "可查看分时交易标识！");
         }
 
         private void GetInvestorProfit()
@@ -702,8 +702,9 @@ namespace CTM.Win.Forms.InvestorStudio
                 var row = gvPosition.GetDataRow(hi.RowHandle);
                 if (row != null)
                 {
-                    decimal diffVol = decimal.Parse(row["DiffVol"].ToString());
-                    if (diffVol != 0)
+                    decimal buyVol = decimal.Parse(row["BuyVolume"].ToString());
+                    decimal sellVol = decimal.Parse(row["SellVolume"].ToString());
+                    if (buyVol != 0 || sellVol !=0)
                     {
                         var curDate = CommonHelper.StringToDateTime(dePosition.EditValue.ToString());
 

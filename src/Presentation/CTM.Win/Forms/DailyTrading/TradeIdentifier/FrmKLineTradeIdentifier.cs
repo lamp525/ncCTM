@@ -560,7 +560,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         g.DrawCustomFlodLineWithArrow(pArrow, targetPoint, -foldDX, foldDY, -straightDX);
                         textStartPoint.X = targetPoint.X - foldDX - straightDX - size.Width;
                         textStartPoint.Y = targetPoint.Y + foldDY - size.Height / 2;
-                        g.DrawString(identifierText, font, Brushes.OrangeRed, textStartPoint);
+                        g.DrawString(identifierText, font, Brushes.OrangeRed, textStartPoint);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 
                         upDeviant = !upDeviant;
                     }
