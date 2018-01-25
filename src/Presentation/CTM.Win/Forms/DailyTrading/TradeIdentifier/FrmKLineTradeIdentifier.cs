@@ -31,9 +31,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         private DataTable _KLineData = null;
         private DataTable _positionProfit = null;
 
-        private DateTime _startDate, _endDate;
-        private bool _chartGenerated = false;
-        private DateTime _currentDate;
+        private DateTime _startDate, _endDate, _currentDate;
+        private bool _chartGenerated = false;    
         private IList<TradeInfoModel> _tradeInfoList = null;
         private TradeInfoModel _tradeInfo = null;
 
@@ -75,7 +74,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             this.deEnd.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
 
             var now = DateTime.Now.Date;
-            this.deStart.EditValue = new DateTime(now.Year, 1, 1);
+            this.deStart.EditValue = new DateTime(now.Year -1, 1, 1);
             this.deEnd.EditValue = now;
             this.gridView1.SetLayout(showAutoFilterRow: false, showCheckBoxRowSelect: false, rowIndicatorWidth: 35, columnPanelRowHeight: 22);
             this.colDealFlag.SetDisplayFormatToBoolean("买", "卖");
@@ -124,6 +123,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             #region Series
 
             _seriesDayKLine = new Series("日行情", ViewType.CandleStick);
+            _seriesDayKLine.ArgumentScaleType = ScaleType.Qualitative;
 
             _seriesDayKLine.CrosshairHighlightPoints = DevExpress.Utils.DefaultBoolean.False;
             CandleStickSeriesView myView = (CandleStickSeriesView)_seriesDayKLine.View;
@@ -133,6 +133,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myView.ReductionOptions.Level = StockLevel.Close;
             myView.ReductionOptions.Color = Color.FromArgb(102, 255, 255);
             myView.ReductionOptions.Visible = true;
+      
 
             this.chartControl1.Series.Add(_seriesDayKLine);
 
@@ -157,14 +158,14 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             myAxisX.Color = _redColor;
             myAxisX.Label.TextColor = _redColor;
             myAxisX.Label.Staggered = false;
-            myAxisX.Label.TextPattern = "{A:MM/dd}";
+            //myAxisX.Label.TextPattern = "{A:MM/dd}";
             myAxisX.Label.Angle = -60;
             myAxisX.Label.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
             myAxisX.Tickmarks.MinorVisible = false;
-            myAxisX.DateTimeScaleOptions.WorkdaysOnly = true;
-            myAxisX.DateTimeScaleOptions.ProcessMissingPoints = ProcessMissingPointsMode.Skip;
-            myAxisX.DateTimeScaleOptions.MeasureUnit = DateTimeMeasureUnit.Day;
-            myAxisX.DateTimeScaleOptions.GridAlignment = DateTimeGridAlignment.Day;
+            //myAxisX.DateTimeScaleOptions.WorkdaysOnly = true;
+            //myAxisX.DateTimeScaleOptions.ProcessMissingPoints = ProcessMissingPointsMode.Skip;
+            //myAxisX.DateTimeScaleOptions.MeasureUnit = DateTimeMeasureUnit.Day;
+            //myAxisX.DateTimeScaleOptions.GridAlignment = DateTimeGridAlignment.Day;
             myAxisX.WholeRange.Auto = false;
 
             #endregion AxisX
@@ -274,16 +275,17 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             _seriesDayKLine.Points.Clear();
             chartControl1.Titles[0].Text = "";
 
+            string argument = string.Empty;
             double low, high, open, close;
             foreach (DataRow row in _KLineData.Rows)
             {
-                DateTime tradeDate = CommonHelper.StringToDateTime(row["TradeDate"].ToString().Trim()).Date;
+                argument = CommonHelper.StringToDateTime(row["TradeDate"].ToString()).ToShortDateString();
 
                 high = CommonHelper.StringToDouble(row["High"].ToString().Trim());
                 low = CommonHelper.StringToDouble(row["Low"].ToString().Trim());
                 open = CommonHelper.StringToDouble(row["Open"].ToString().Trim());
                 close = CommonHelper.StringToDouble(row["Close"].ToString().Trim());
-                SeriesPoint spDayMD = new SeriesPoint(tradeDate, new double[] { low, high, open, close });
+                SeriesPoint spDayMD = new SeriesPoint(argument, new double[] { low, high, open, close });
 
                 _seriesDayKLine.Points.Add(spDayMD);
             }
@@ -292,10 +294,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
             AxisX myAxisX = myDiagram.AxisX;
             myAxisX.WholeRange.AutoSideMargins = false;
-            myAxisX.WholeRange.SideMarginsValue = 3D;
-            myAxisX.WholeRange.SetMinMaxValues(_startDate, _endDate);
+            myAxisX.WholeRange.SideMarginsValue = 0.8D;
+            myAxisX.WholeRange.SetMinMaxValues(_startDate.ToShortDateString(), _endDate.ToShortDateString());
             myAxisX.VisualRange.Auto = false;
-            myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-3), _endDate);
+            myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-3).ToShortDateString(), _endDate.ToShortDateString());
 
             AxisY myAxisY = myDiagram.AxisY;
             var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= _endDate.AddMonths(-2) && x.Field<DateTime>("TradeDate") <= _endDate);
@@ -308,6 +310,8 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
         {
             try
             {
+                if (string.IsNullOrEmpty(newXRange.MinValue.ToString()) || string.IsNullOrEmpty(newXRange.MaxValue.ToString())) return;
+
                 var minValueX = CommonHelper.StringToDateTime(newXRange.MinValue.ToString());
                 var maxValueX = CommonHelper.StringToDateTime(newXRange.MaxValue.ToString());
                 var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= minValueX && x.Field<DateTime>("TradeDate") <= maxValueX);
@@ -407,10 +411,10 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (dsKLine == null || dsKLine.Tables.Count == 0) return;
 
                 _KLineData = dsKLine.Tables[0];
-                _startDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Min();
-                _endDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Max();
+                var startDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Min();
+                var endDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Max();
 
-                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _tradeInfo.StockCode, beneficiary: _tradeInfo.InvestorCode, tradeDateFrom: _startDate, tradeDateTo: _endDate)
+                _tradeRecords = _dailyRecordService.GetDailyRecordsDetail(stockCode: _tradeInfo.StockCode, beneficiary: _tradeInfo.InvestorCode, tradeDateFrom: startDate, tradeDateTo: endDate)
                             .Where(x => x.DealVolume != 0)
                             .OrderBy(x => x.BeneficiaryName).ThenBy(x => x.TradeDate).ThenBy(x => x.TradeTime).ToList();
 
@@ -423,7 +427,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                         TradeDate = x.Key.TradeDate,
                     }).ToList();
 
-                var sqlText2 = $@"EXEC [dbo].[sp_TIPositionProfit] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
+                var sqlText2 = $@"EXEC [dbo].[sp_TIPositionProfit] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{startDate}' ,@EndDate = '{endDate}'";
                 var dsProfit = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
 
                 if (dsProfit != null && dsProfit.Tables.Count == 1)
@@ -453,9 +457,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 {
                     DiagramCoordinates dc = (chartControl1.Diagram as XYDiagram).PointToDiagram(e.Location);
 
-                    if (!dc.IsEmpty && _currentDate != dc.DateTimeArgument.Date)
+                    if (!dc.IsEmpty && _currentDate.ToShortDateString() !=   dc.QualitativeArgument)
                     {
-                        _currentDate = dc.DateTimeArgument.Date;
+                        _currentDate = CommonHelper.StringToDateTime( dc.QualitativeArgument);
                         var currentDateRecords = _tradeRecords.Where(x => x.TradeDate == _currentDate).ToList();
                         this.gridControl1.DataSource = currentDateRecords;
 
@@ -547,7 +551,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 foreach (var item in _dealAvg)
                 {
                     var identifierText = (item.DealFlag ? "B" : "S") + ":" + item.DealPrice.ToString("F2") + " " + item.DealVolume.ToString("N0");
-                    var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(item.TradeDate, (double)item.DealPrice).Point;
+                    var dealPoint = (chartControl1.Diagram as XYDiagram).DiagramToPoint(item.TradeDate.ToShortDateString(), (double)item.DealPrice).Point;
                     targetPoint.X = dealPoint.X;
                     targetPoint.Y = dealPoint.Y;
 
