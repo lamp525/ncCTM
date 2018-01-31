@@ -268,7 +268,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             }
         }
 
-        private void DisplayChart()
+        private void DisplayChart(DateTime startDate, DateTime endDate)
         {
             chartControl1.Cursor = Cursors.Default;
 
@@ -295,15 +295,23 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
             AxisX myAxisX = myDiagram.AxisX;
             myAxisX.WholeRange.AutoSideMargins = false;
             myAxisX.WholeRange.SideMarginsValue = 0.8D;
-            myAxisX.WholeRange.SetMinMaxValues(_startDate.ToShortDateString(), _endDate.ToShortDateString());
+            myAxisX.WholeRange.SetMinMaxValues(startDate.ToShortDateString(), endDate.ToShortDateString());
             myAxisX.VisualRange.Auto = false;
-            myAxisX.VisualRange.SetMinMaxValues(_endDate.AddMonths(-3).ToShortDateString(), _endDate.ToShortDateString());
+            myAxisX.VisualRange.SetMinMaxValues(endDate.AddMonths(-3).ToShortDateString(), endDate.ToShortDateString());
 
-            AxisY myAxisY = myDiagram.AxisY;
-            var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= _endDate.AddMonths(-2) && x.Field<DateTime>("TradeDate") <= _endDate);
-            decimal minValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
-            decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
+            AxisY myAxisY = myDiagram.AxisY;                        
+            decimal minValueY = _KLineData.AsEnumerable().Select(x => x.Field<decimal>("Low")).Min();
+            decimal maxValueY = _KLineData.AsEnumerable().Select(x => x.Field<decimal>("High")).Max();
             myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
+            myAxisY.VisualRange.Auto = false;
+            var currentKLineData = _KLineData.AsEnumerable().Where(x => x.Field<DateTime>("TradeDate") >= endDate.AddMonths(-3) && x.Field<DateTime>("TradeDate") <= endDate);
+            if (currentKLineData.Any())
+            {
+                decimal curMinValueY = currentKLineData.Select(x => x.Field<decimal>("Low")).Min();
+                decimal curMaxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
+                myAxisY.VisualRange.SetMinMaxValues(curMinValueY - (curMaxValueY - curMinValueY) / 10, curMaxValueY);
+            }
+
         }
 
         private void ReDrawAxisY(ChartControl chart, RangeInfo newXRange)
@@ -322,7 +330,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                     decimal maxValueY = currentKLineData.Select(x => x.Field<decimal>("High")).Max();
 
                     AxisY myAxisY = (chart.Diagram as XYDiagram).AxisY;
-                    myAxisY.WholeRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
+                    myAxisY.VisualRange.SetMinMaxValues(minValueY - (maxValueY - minValueY) / 10, maxValueY);
                 }
             }
             catch (Exception ex)
@@ -408,7 +416,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 var sqlText1 = $@"EXEC [dbo].[sp_TIKLineData] @InvestorCode = '{_tradeInfo.InvestorCode}', @StockCode = '{_tradeInfo.StockCode}',	@StartDate = '{_startDate}' ,@EndDate = '{_endDate}'";
                 var dsKLine = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
 
-                if (dsKLine == null || dsKLine.Tables.Count == 0) return;
+                if (dsKLine == null || dsKLine.Tables.Count == 0 || dsKLine.Tables[0].Rows.Count ==0) return;
 
                 _KLineData = dsKLine.Tables[0];
                 var startDate = _KLineData.AsEnumerable().Select(x => x.Field<DateTime>("TradeDate")).Min();
@@ -433,7 +441,7 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                 if (dsProfit != null && dsProfit.Tables.Count == 1)
                     _positionProfit = dsProfit.Tables[0];
 
-                DisplayChart();
+                DisplayChart(startDate,endDate);
 
                 this._chartGenerated = true;
             }
