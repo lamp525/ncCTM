@@ -96,72 +96,85 @@ namespace CTM.Win.Forms.InvestorStudio
             string date = deInvestor.EditValue.ToString();
             string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
-            if (ds != null && ds.Tables.Count == 1)
+            if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 1)
             {
-                if (ds.Tables[0].Rows.Count == 1)
-                {
-                    _drInvestorProfit = ds.Tables[0].Rows[0];
-                }
+                _drInvestorProfit = ds.Tables[0].Rows[0];
             }
+            else
+                _drInvestorProfit = null;
         }
 
         private void BindInvestorProfit()
         {
-            if (_drInvestorProfit == null) return;
+            if (_drInvestorProfit == null)
+            {
+                string nulValue = "-";
+                lblCurValue.Text = nulValue;
+                lblDayP.Text = nulValue;
+                lblDayR.Text = nulValue;
+                lblWeekP.Text = nulValue;
+                lblWeekR.Text = nulValue;
+                lblMonthP.Text = nulValue;
+                lblMonthR.Text = nulValue;
+                lblYearP.Text = nulValue;
+                lblYearR.Text = nulValue;
+            }
+            else
+            {
+                DataRow dr = _drInvestorProfit;
 
-            DataRow dr = _drInvestorProfit;
+                string unit = " 万元";
 
-            string unit = " 万元";
+                lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2") + unit;
 
-            lblCurValue.Text = dr.Field<decimal>("CurValue").ToString("N2") + unit;
+                lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("DayProfit") > 0)
+                    lblDayP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("DayProfit") < 0)
+                    lblDayP.ForeColor = System.Drawing.Color.Green;
 
-            lblDayP.Text = dr.Field<decimal>("DayProfit").ToString("N2") + unit;
-            if (dr.Field<decimal>("DayProfit") > 0)
-                lblDayP.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("DayProfit") < 0)
-                lblDayP.ForeColor = System.Drawing.Color.Green;
+                lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
+                if (dr.Field<decimal>("DayRate") > 0)
+                    lblDayR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("DayRate") < 0)
+                    lblDayR.ForeColor = System.Drawing.Color.Green;
 
-            lblDayR.Text = dr.Field<decimal>("DayRate").ToString("P2");
-            if (dr.Field<decimal>("DayRate") > 0)
-                lblDayR.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("DayRate") < 0)
-                lblDayR.ForeColor = System.Drawing.Color.Green;
+                lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("WeekProfit") > 0)
+                    lblWeekP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("WeekProfit") < 0)
+                    lblWeekP.ForeColor = System.Drawing.Color.Green;
 
-            lblWeekP.Text = dr.Field<decimal>("WeekProfit").ToString("N2") + unit;
-            if (dr.Field<decimal>("WeekProfit") > 0)
-                lblWeekP.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("WeekProfit") < 0)
-                lblWeekP.ForeColor = System.Drawing.Color.Green;
+                lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
+                if (dr.Field<decimal>("WeekRate") > 0)
+                    lblWeekR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("WeekRate") < 0)
+                    lblWeekR.ForeColor = System.Drawing.Color.Green;
 
-            lblWeekR.Text = dr.Field<decimal>("WeekRate").ToString("P2");
-            if (dr.Field<decimal>("WeekRate") > 0)
-                lblWeekR.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("WeekRate") < 0)
-                lblWeekR.ForeColor = System.Drawing.Color.Green;
+                lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("MonthProfit") > 0)
+                    lblMonthP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("MonthProfit") < 0)
+                    lblMonthP.ForeColor = System.Drawing.Color.Green;
 
-            lblMonthP.Text = dr.Field<decimal>("MonthProfit").ToString("N2") + unit;
-            if (dr.Field<decimal>("MonthProfit") > 0)
-                lblMonthP.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("MonthProfit") < 0)
-                lblMonthP.ForeColor = System.Drawing.Color.Green;
+                lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
+                if (dr.Field<decimal>("MonthRate") > 0)
+                    lblMonthR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("MonthRate") < 0)
+                    lblMonthR.ForeColor = System.Drawing.Color.Green;
 
-            lblMonthR.Text = dr.Field<decimal>("MonthRate").ToString("P2");
-            if (dr.Field<decimal>("MonthRate") > 0)
-                lblMonthR.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("MonthRate") < 0)
-                lblMonthR.ForeColor = System.Drawing.Color.Green;
+                lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("YearProfit") > 0)
+                    lblYearP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("YearProfit") < 0)
+                    lblYearP.ForeColor = System.Drawing.Color.Green;
 
-            lblYearP.Text = dr.Field<decimal>("YearProfit").ToString("N2") + unit;
-            if (dr.Field<decimal>("YearProfit") > 0)
-                lblYearP.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("YearProfit") < 0)
-                lblYearP.ForeColor = System.Drawing.Color.Green;
-
-            lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
-            if (dr.Field<decimal>("YearRate") > 0)
-                lblYearR.ForeColor = System.Drawing.Color.Red;
-            else if (dr.Field<decimal>("YearRate") < 0)
-                lblYearR.ForeColor = System.Drawing.Color.Green;
+                lblYearR.Text = dr.Field<decimal>("YearRate").ToString("P2");
+                if (dr.Field<decimal>("YearRate") > 0)
+                    lblYearR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("YearRate") < 0)
+                    lblYearR.ForeColor = System.Drawing.Color.Green;
+            }
         }
 
         private void GetPositionRelateData()
@@ -704,7 +717,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 {
                     decimal buyVol = decimal.Parse(row["BuyVolume"].ToString());
                     decimal sellVol = decimal.Parse(row["SellVolume"].ToString());
-                    if (buyVol != 0 || sellVol !=0)
+                    if (buyVol != 0 || sellVol != 0)
                     {
                         var curDate = CommonHelper.StringToDateTime(dePosition.EditValue.ToString());
 
