@@ -46,9 +46,14 @@ namespace CTM.Win.Forms.DailyTrading.StatisticsReport
                 _profitData = ds == null || ds.Tables.Count == 0 ? null : ds.Tables[0];
             }
 
-            if (_profitData == null || _profitData.Rows.Count == 0) return;
-
-            DataTable result = !this.chkOnWorking.Checked ? _profitData : _profitData.AsEnumerable().Where(x => x.Field<int>("IsOnWorking") == 1).CopyToDataTable();
+            DataTable result = null;
+            if (_profitData != null && _profitData.Rows.Count > 0)
+            {
+                if (LoginInfo.CurrentUser.IsAdmin)
+                    result = !this.chkOnWorking.Checked ? _profitData : _profitData.AsEnumerable().Where(x => x.Field<int>("IsOnWorking") == 1).CopyToDataTable();
+                else
+                    result = _profitData.AsEnumerable().Where(x => x.Field<string>("InvestorCode") == LoginInfo.CurrentUser.UserCode).CopyToDataTable();
+            }
 
             this.gridControl1.DataSource = result;
         }
