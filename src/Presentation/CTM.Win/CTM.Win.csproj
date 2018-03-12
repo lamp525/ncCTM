@@ -298,12 +298,6 @@
     <Compile Include="Forms\DailyTrading\TradeIdentifier\FrmTimeSharingTradeIdentifier.Designer.cs">
       <DependentUpon>FrmTimeSharingTradeIdentifier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InvestorStudio\DashBoard1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\InvestorStudio\DashBoard1.Designer.cs">
-      <DependentUpon>DashBoard1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\InvestorStudio\FrmHomePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1084,9 +1078,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\TradeIdentifier\FrmTimeSharingTradeIdentifier.resx">
       <DependentUpon>FrmTimeSharingTradeIdentifier.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestorStudio\DashBoard1.resx">
-      <DependentUpon>DashBoard1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestorStudio\FrmHomePage.resx">
       <DependentUpon>FrmHomePage.cs</DependentUpon>
