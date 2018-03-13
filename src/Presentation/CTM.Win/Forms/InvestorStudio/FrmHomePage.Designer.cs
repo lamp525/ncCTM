@@ -751,7 +751,7 @@
             series2.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series2.CrosshairLabelPattern = "{S}: {V:n2}";
             series2.CrosshairLabelVisibility = DevExpress.Utils.DefaultBoolean.True;
-            series2.Name = "日均投入资金(十万元)";
+            series2.Name = "日均投入资金(万元)";
             series2.ToolTipPointPattern = "{S}{V}";
             splineSeriesView1.Color = System.Drawing.Color.DarkBlue;
             splineSeriesView1.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dash;

@@ -215,7 +215,7 @@ namespace CTM.Win.Forms.InvestorStudio
             {
                 DataRow row = data[i];
 
-                if (i < 7)
+                if (i < 12)
                 {
                     argument = row["StockName"].ToString().Trim();
                     positionValue = Math.Abs(CommonHelper.StringToDecimal(row["CurValue"].ToString().Trim()));
@@ -464,7 +464,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
                 yearProfit = CommonHelper.StringToDecimal(row["YearProfit"].ToString().Trim());
                 yearRate = CommonHelper.StringToDecimal(row["YearRate"].ToString().Trim());
-                avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim());
+                avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim()) ;
 
                 seFund.Points.Add(new SeriesPoint(argument, fund));
                 seProfit.Points.Add(new SeriesPoint(argument, profit));
