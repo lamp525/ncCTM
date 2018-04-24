@@ -29,10 +29,7 @@ namespace CTM.Win.Forms.InvestorStudio
         private DataTable _dtProfitContrastData = null;
         private DataTable _dtProfitTrendData = null;
         private DataTable _dtStockProfitDate = null;
-
-        private List<UserInfo> _investorList = null;
-        private bool _firstLoad = true;
-        private string _selectedUser;
+        private IList<UserInfo> _investorList;
 
         #endregion Fields
 
@@ -64,14 +61,13 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void FormInit()
         {
-
             string sqlText1 = $@"SELECT DISTINCT InvestorCode = U.Code,InvestorName = U.Name FROM UserInfo U INNER JOIN DSTradeTypeProfit P ON P.InvestorCode = U.Code AND P.DataType = 1 AND U.IsDeleted = 0 ";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
-            if (ds != null && ds.Tables.Count == 1 )
+            if (ds != null && ds.Tables.Count == 1)
             {
                 _investorList = ds.Tables[0].AsEnumerable().Select(x => new UserInfo
                 {
-                    Code = x.Field <string>("InvestorCode"),
+                    Code = x.Field<string>("InvestorCode"),
                     Name = x.Field<string>("InvestorName"),
                 }).ToList();
             }
@@ -81,7 +77,6 @@ namespace CTM.Win.Forms.InvestorStudio
             string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 3 AND TradeType = 0";
             var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
             string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
-
             lblInvestor.Text = "   " + LoginInfo.CurrentUser.UserName;
 
             deInvestor.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -137,6 +132,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 lblMonthR.Text = nulValue;
                 lblYearP.Text = nulValue;
                 lblYearR.Text = nulValue;
+                lblAccProfit.Text = nulValue;
+                lblAccRate.Text = nulValue;
             }
             else
             {
@@ -193,6 +190,18 @@ namespace CTM.Win.Forms.InvestorStudio
                     lblYearR.ForeColor = System.Drawing.Color.Red;
                 else if (dr.Field<decimal>("YearRate") < 0)
                     lblYearR.ForeColor = System.Drawing.Color.Green;
+
+                lblAccProfit.Text = dr.Field<decimal>("AccProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("AccProfit") > 0)
+                    lblAccProfit.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("AccProfit") < 0)
+                    lblAccProfit.ForeColor = System.Drawing.Color.Green;
+
+                lblAccRate.Text = dr.Field<decimal>("AccRate").ToString("P2");
+                if (dr.Field<decimal>("AccRate") > 0)
+                    lblAccRate.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("AccRate") < 0)
+                    lblAccRate.ForeColor = System.Drawing.Color.Green;
             }
         }
 
@@ -270,7 +279,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
-            if (ds2 != null && ds2.Tables.Count == 1)
+            if (ds2 != null && ds2.Tables.Count == 1 && ds2.Tables[0].Rows.Count > 0)
             {
                 _dtProfitTrendData = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 1).CopyToDataTable();
                 _dtStockProfitDate = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 99).CopyToDataTable();
@@ -438,14 +447,40 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void DisplayProfitTrendChart(int tradeType, string reportType)
         {
+            string reportName = string.Empty;
+            switch (reportType)
+            {
+                case "D":
+                    reportName = "日";
+                    break;
+
+                case "W":
+                    reportName = "周";
+                    break;
+
+                case "M":
+                    reportName = "月";
+                    break;
+
+                case "Y":
+                    reportName = "年";
+                    break;
+            }
+
             //日均投入资金
             Series seAvgFund = chartProfitTrend.Series[0];
+
             //使用资金
             Series seFund = chartProfitTrend.Series[1];
+
             //收益额
             Series seProfit = chartProfitTrend.Series[2];
+            seProfit.Name = reportName + "收益额";
+
             //收益率
             Series seRate = chartProfitTrend.Series[3];
+            seRate.Name = reportName + "收益率";
+
             //年收益额
             Series seYearProfit = chartProfitTrend.Series[4];
             //年收益率
@@ -471,8 +506,8 @@ namespace CTM.Win.Forms.InvestorStudio
             decimal fund;
             decimal profit;
             decimal rate;
-            decimal yearProfit;
-            decimal yearRate;
+            decimal accProfit;
+            decimal accRate;
             decimal avgFund;
 
             foreach (DataRow row in profitList)
@@ -481,15 +516,15 @@ namespace CTM.Win.Forms.InvestorStudio
                 fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
                 profit = CommonHelper.StringToDecimal(row["Profit"].ToString().Trim());
                 rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
-                yearProfit = CommonHelper.StringToDecimal(row["YearProfit"].ToString().Trim());
-                yearRate = CommonHelper.StringToDecimal(row["YearRate"].ToString().Trim());
-                avgFund = CommonHelper.StringToDecimal(row["YearAvgFund"].ToString().Trim()) ;
+                accProfit = CommonHelper.StringToDecimal(row["AccProfit"].ToString().Trim());
+                accRate = CommonHelper.StringToDecimal(row["AccRate"].ToString().Trim());
+                avgFund = CommonHelper.StringToDecimal(row["AccAvgFund"].ToString().Trim());
 
                 seFund.Points.Add(new SeriesPoint(argument, fund));
                 seProfit.Points.Add(new SeriesPoint(argument, profit));
                 seRate.Points.Add(new SeriesPoint(argument, rate));
-                seYearProfit.Points.Add(new SeriesPoint(argument, yearProfit));
-                seYearRate.Points.Add(new SeriesPoint(argument, yearRate));
+                seYearProfit.Points.Add(new SeriesPoint(argument, accProfit));
+                seYearRate.Points.Add(new SeriesPoint(argument, accRate));
                 seAvgFund.Points.Add(new SeriesPoint(argument, avgFund));
             }
         }
@@ -513,7 +548,7 @@ namespace CTM.Win.Forms.InvestorStudio
             if (_dtStockProfitDate == null) return;
 
             var data = _dtStockProfitDate.AsEnumerable()
-                        .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Profit") != 0)
+                        .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Fund") != 0)
                         .OrderBy(x => x.Field<string>("StockCode"));
 
             if (data.Any())
