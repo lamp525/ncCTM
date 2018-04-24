@@ -788,7 +788,6 @@
             splineSeriesView3.LineStyle.Thickness = 1;
             series5.View = splineSeriesView3;
             series6.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            series6.CheckableInLegend = false;
             series6.CrosshairLabelPattern = "{S}: {V:n2}";
             series6.CrosshairLabelVisibility = DevExpress.Utils.DefaultBoolean.True;
             series6.Name = "年收益额(万元)";

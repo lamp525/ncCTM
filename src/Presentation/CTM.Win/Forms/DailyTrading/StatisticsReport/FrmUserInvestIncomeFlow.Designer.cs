@@ -127,6 +127,7 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
             this.tabPane1.SuspendLayout();
             this.tabPageData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
@@ -230,7 +231,7 @@
             this.tabPane1.Controls.Add(this.tabPageChart);
             this.tabPane1.Controls.Add(this.tabPageRanking);
             this.tabPane1.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.tabPane1.Location = new System.Drawing.Point(12, 81);
+            this.tabPane1.Location = new System.Drawing.Point(12, 83);
             this.tabPane1.Name = "tabPane1";
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabPageData,
@@ -238,8 +239,7 @@
             this.tabPageRanking});
             this.tabPane1.RegularSize = new System.Drawing.Size(1742, 776);
             this.tabPane1.SelectedPage = this.tabPageData;
-            this.tabPane1.SelectedPageIndex = 1;
-            this.tabPane1.Size = new System.Drawing.Size(1742, 776);
+            this.tabPane1.Size = new System.Drawing.Size(1742, 774);
             this.tabPane1.TabIndex = 1;
             this.tabPane1.Text = "tabPane1";
             this.tabPane1.SelectedPageChanged += new DevExpress.XtraBars.Navigation.SelectedPageChangedEventHandler(this.tabPane1_SelectedPageChanged);
@@ -250,7 +250,7 @@
             this.tabPageData.Controls.Add(this.layoutControl2);
             this.tabPageData.Name = "tabPageData";
             this.tabPageData.PageText = "";
-            this.tabPageData.Size = new System.Drawing.Size(1724, 730);
+            this.tabPageData.Size = new System.Drawing.Size(1724, 728);
             // 
             // layoutControl2
             // 
@@ -260,7 +260,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1724, 730);
+            this.layoutControl2.Size = new System.Drawing.Size(1724, 728);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -269,7 +269,7 @@
             this.gridControl1.Location = new System.Drawing.Point(24, 69);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1676, 637);
+            this.gridControl1.Size = new System.Drawing.Size(1676, 635);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -578,9 +578,8 @@
             this.layoutControlGroup2.GroupBordersVisible = false;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroupDetail});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1724, 730);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1724, 728);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlGroupDetail
@@ -593,7 +592,7 @@
             this.layoutControlItem6});
             this.layoutControlGroupDetail.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroupDetail.Name = "layoutControlGroupDetail";
-            this.layoutControlGroupDetail.Size = new System.Drawing.Size(1704, 710);
+            this.layoutControlGroupDetail.Size = new System.Drawing.Size(1704, 708);
             this.layoutControlGroupDetail.Text = "投资收益明细（金额单位：万元）";
             // 
             // emptySpaceItem6
@@ -609,7 +608,7 @@
             this.layoutControlItem5.Control = this.gridControl1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1680, 641);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1680, 639);
             this.layoutControlItem5.Text = "投资收益明细";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -631,15 +630,16 @@
             this.tabPageChart.Controls.Add(this.chartControl1);
             this.tabPageChart.Font = new System.Drawing.Font("Tahoma", 9F);
             this.tabPageChart.Name = "tabPageChart";
-            this.tabPageChart.Size = new System.Drawing.Size(1724, 730);
+            this.tabPageChart.Size = new System.Drawing.Size(1724, 728);
             // 
             // chartControl1
             // 
             this.chartControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chartControl1.Legend.Name = "Default Legend";
             this.chartControl1.Location = new System.Drawing.Point(0, 0);
             this.chartControl1.Name = "chartControl1";
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl1.Size = new System.Drawing.Size(1211, 730);
+            this.chartControl1.Size = new System.Drawing.Size(1211, 728);
             this.chartControl1.TabIndex = 0;
             this.chartControl1.CustomDrawCrosshair += new DevExpress.XtraCharts.CustomDrawCrosshairEventHandler(this.chartControl1_CustomDrawCrosshair);
             this.chartControl1.CustomDrawSeriesPoint += new DevExpress.XtraCharts.CustomDrawSeriesPointEventHandler(this.chartControl1_CustomDrawSeriesPoint);
@@ -652,7 +652,7 @@
             this.tabPageRanking.Font = new System.Drawing.Font("Tahoma", 9F);
             this.tabPageRanking.Name = "tabPageRanking";
             this.tabPageRanking.PageText = "";
-            this.tabPageRanking.Size = new System.Drawing.Size(1724, 730);
+            this.tabPageRanking.Size = new System.Drawing.Size(0, 0);
             // 
             // lcRanking
             // 
@@ -669,7 +669,7 @@
             this.lcRanking.Location = new System.Drawing.Point(0, 0);
             this.lcRanking.Name = "lcRanking";
             this.lcRanking.Root = this.layoutControlGroup4;
-            this.lcRanking.Size = new System.Drawing.Size(1724, 730);
+            this.lcRanking.Size = new System.Drawing.Size(0, 0);
             this.lcRanking.TabIndex = 0;
             this.lcRanking.Text = "layoutControl3";
             // 
@@ -677,16 +677,17 @@
             // 
             this.groupControlIndependence.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupControlIndependence.AppearanceCaption.Options.UseFont = true;
-            this.groupControlIndependence.Location = new System.Drawing.Point(1282, 50);
+            this.groupControlIndependence.Location = new System.Drawing.Point(359, 48);
             this.groupControlIndependence.Name = "groupControlIndependence";
-            this.groupControlIndependence.Size = new System.Drawing.Size(418, 668);
+            this.groupControlIndependence.Size = new System.Drawing.Size(87, 6);
             this.groupControlIndependence.TabIndex = 14;
             this.groupControlIndependence.Text = "独立核算部 -  日收益率排行";
             // 
             // lblAccumulatedIncomeRate
             // 
             this.lblAccumulatedIncomeRate.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lblAccumulatedIncomeRate.Location = new System.Drawing.Point(540, 12);
+            this.lblAccumulatedIncomeRate.Appearance.Options.UseFont = true;
+            this.lblAccumulatedIncomeRate.Location = new System.Drawing.Point(344, 12);
             this.lblAccumulatedIncomeRate.Name = "lblAccumulatedIncomeRate";
             this.lblAccumulatedIncomeRate.Size = new System.Drawing.Size(102, 18);
             this.lblAccumulatedIncomeRate.StyleController = this.lcRanking;
@@ -696,23 +697,23 @@
             // deRankingDate
             // 
             this.deRankingDate.EditValue = null;
-            this.deRankingDate.Location = new System.Drawing.Point(63, 12);
+            this.deRankingDate.Location = new System.Drawing.Point(61, 12);
             this.deRankingDate.Name = "deRankingDate";
             this.deRankingDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.deRankingDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.deRankingDate.Size = new System.Drawing.Size(161, 20);
+            this.deRankingDate.Size = new System.Drawing.Size(50, 20);
             this.deRankingDate.StyleController = this.lcRanking;
             this.deRankingDate.TabIndex = 12;
             this.deRankingDate.EditValueChanged += new System.EventHandler(this.deRankingDate_EditValueChanged);
             // 
             // chkAll
             // 
-            this.chkAll.Location = new System.Drawing.Point(446, 12);
+            this.chkAll.Location = new System.Drawing.Point(280, 12);
             this.chkAll.Name = "chkAll";
             this.chkAll.Properties.Caption = "全 部";
-            this.chkAll.Size = new System.Drawing.Size(57, 19);
+            this.chkAll.Size = new System.Drawing.Size(50, 19);
             this.chkAll.StyleController = this.lcRanking;
             this.chkAll.TabIndex = 11;
             this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
@@ -720,19 +721,19 @@
             // chkWorking
             // 
             this.chkWorking.EditValue = true;
-            this.chkWorking.Location = new System.Drawing.Point(373, 12);
+            this.chkWorking.Location = new System.Drawing.Point(216, 12);
             this.chkWorking.Name = "chkWorking";
             this.chkWorking.Properties.Caption = "在 职";
-            this.chkWorking.Size = new System.Drawing.Size(57, 19);
+            this.chkWorking.Size = new System.Drawing.Size(50, 19);
             this.chkWorking.StyleController = this.lcRanking;
             this.chkWorking.TabIndex = 10;
             this.chkWorking.CheckedChanged += new System.EventHandler(this.chkWorking_CheckedChanged);
             // 
             // btnUpdateRanking
             // 
-            this.btnUpdateRanking.Location = new System.Drawing.Point(240, 12);
+            this.btnUpdateRanking.Location = new System.Drawing.Point(125, 12);
             this.btnUpdateRanking.Name = "btnUpdateRanking";
-            this.btnUpdateRanking.Size = new System.Drawing.Size(89, 22);
+            this.btnUpdateRanking.Size = new System.Drawing.Size(77, 22);
             this.btnUpdateRanking.StyleController = this.lcRanking;
             this.btnUpdateRanking.TabIndex = 8;
             this.btnUpdateRanking.Text = " 更新排行榜 ";
@@ -742,9 +743,9 @@
             // 
             this.groupControlTarget.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupControlTarget.AppearanceCaption.Options.UseFont = true;
-            this.groupControlTarget.Location = new System.Drawing.Point(858, 50);
+            this.groupControlTarget.Location = new System.Drawing.Point(246, 48);
             this.groupControlTarget.Name = "groupControlTarget";
-            this.groupControlTarget.Size = new System.Drawing.Size(408, 668);
+            this.groupControlTarget.Size = new System.Drawing.Size(99, 6);
             this.groupControlTarget.TabIndex = 7;
             this.groupControlTarget.Text = "目标部 - 日收益率排行";
             // 
@@ -752,9 +753,9 @@
             // 
             this.groupControlBand.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupControlBand.AppearanceCaption.Options.UseFont = true;
-            this.groupControlBand.Location = new System.Drawing.Point(433, 50);
+            this.groupControlBand.Location = new System.Drawing.Point(130, 48);
             this.groupControlBand.Name = "groupControlBand";
-            this.groupControlBand.Size = new System.Drawing.Size(409, 668);
+            this.groupControlBand.Size = new System.Drawing.Size(102, 6);
             this.groupControlBand.TabIndex = 6;
             this.groupControlBand.Text = "波段部 - 日收益率排行";
             // 
@@ -762,9 +763,9 @@
             // 
             this.groupControlDay.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupControlDay.AppearanceCaption.Options.UseFont = true;
-            this.groupControlDay.Location = new System.Drawing.Point(12, 50);
+            this.groupControlDay.Location = new System.Drawing.Point(12, 48);
             this.groupControlDay.Name = "groupControlDay";
-            this.groupControlDay.Size = new System.Drawing.Size(405, 668);
+            this.groupControlDay.Size = new System.Drawing.Size(104, 6);
             this.groupControlDay.TabIndex = 5;
             this.groupControlDay.Text = "短差部 - 日收益率排行";
             // 
@@ -793,25 +794,24 @@
             this.emptySpaceItem17,
             this.lciIndependenceRankingBoard,
             this.emptySpaceItem19});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1724, 730);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(468, 66);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // emptySpaceItem8
             // 
             this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(1258, 38);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(337, 36);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(12, 672);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 10);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lciDayRankingBoard
             // 
             this.lciDayRankingBoard.Control = this.groupControlDay;
-            this.lciDayRankingBoard.Location = new System.Drawing.Point(0, 38);
+            this.lciDayRankingBoard.Location = new System.Drawing.Point(0, 36);
             this.lciDayRankingBoard.Name = "lciDayRankingBoard";
-            this.lciDayRankingBoard.Size = new System.Drawing.Size(409, 672);
+            this.lciDayRankingBoard.Size = new System.Drawing.Size(108, 10);
             this.lciDayRankingBoard.TextSize = new System.Drawing.Size(0, 0);
             this.lciDayRankingBoard.TextVisible = false;
             this.lciDayRankingBoard.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -819,43 +819,43 @@
             // lciBandRaningBoard
             // 
             this.lciBandRaningBoard.Control = this.groupControlBand;
-            this.lciBandRaningBoard.Location = new System.Drawing.Point(421, 38);
+            this.lciBandRaningBoard.Location = new System.Drawing.Point(118, 36);
             this.lciBandRaningBoard.Name = "lciBandRaningBoard";
-            this.lciBandRaningBoard.Size = new System.Drawing.Size(413, 672);
+            this.lciBandRaningBoard.Size = new System.Drawing.Size(106, 10);
             this.lciBandRaningBoard.TextSize = new System.Drawing.Size(0, 0);
             this.lciBandRaningBoard.TextVisible = false;
             // 
             // lciTargetRankingBoard
             // 
             this.lciTargetRankingBoard.Control = this.groupControlTarget;
-            this.lciTargetRankingBoard.Location = new System.Drawing.Point(846, 38);
+            this.lciTargetRankingBoard.Location = new System.Drawing.Point(234, 36);
             this.lciTargetRankingBoard.Name = "lciTargetRankingBoard";
-            this.lciTargetRankingBoard.Size = new System.Drawing.Size(412, 672);
+            this.lciTargetRankingBoard.Size = new System.Drawing.Size(103, 10);
             this.lciTargetRankingBoard.TextSize = new System.Drawing.Size(0, 0);
             this.lciTargetRankingBoard.TextVisible = false;
             // 
             // emptySpaceItem9
             // 
             this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(409, 38);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(108, 36);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(12, 672);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(10, 10);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem10
             // 
             this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(834, 38);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(224, 36);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(12, 672);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(10, 10);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem11
             // 
             this.emptySpaceItem11.AllowHotTrack = false;
-            this.emptySpaceItem11.Location = new System.Drawing.Point(216, 0);
+            this.emptySpaceItem11.Location = new System.Drawing.Point(103, 0);
             this.emptySpaceItem11.Name = "emptySpaceItem11";
-            this.emptySpaceItem11.Size = new System.Drawing.Size(12, 26);
+            this.emptySpaceItem11.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem11.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem12
@@ -863,7 +863,7 @@
             this.emptySpaceItem12.AllowHotTrack = false;
             this.emptySpaceItem12.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(12, 26);
+            this.emptySpaceItem12.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem13
@@ -871,73 +871,73 @@
             this.emptySpaceItem13.AllowHotTrack = false;
             this.emptySpaceItem13.Location = new System.Drawing.Point(0, 26);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(1704, 12);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(448, 10);
             this.emptySpaceItem13.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lciCheckAll
             // 
             this.lciCheckAll.Control = this.chkAll;
-            this.lciCheckAll.Location = new System.Drawing.Point(434, 0);
+            this.lciCheckAll.Location = new System.Drawing.Point(268, 0);
             this.lciCheckAll.Name = "lciCheckAll";
-            this.lciCheckAll.Size = new System.Drawing.Size(61, 26);
+            this.lciCheckAll.Size = new System.Drawing.Size(54, 26);
             this.lciCheckAll.TextSize = new System.Drawing.Size(0, 0);
             this.lciCheckAll.TextVisible = false;
             // 
             // lciCheckWorking
             // 
             this.lciCheckWorking.Control = this.chkWorking;
-            this.lciCheckWorking.Location = new System.Drawing.Point(361, 0);
+            this.lciCheckWorking.Location = new System.Drawing.Point(204, 0);
             this.lciCheckWorking.Name = "lciCheckWorking";
-            this.lciCheckWorking.Size = new System.Drawing.Size(61, 26);
+            this.lciCheckWorking.Size = new System.Drawing.Size(54, 26);
             this.lciCheckWorking.TextSize = new System.Drawing.Size(0, 0);
             this.lciCheckWorking.TextVisible = false;
             // 
             // emptySpaceItem15
             // 
             this.emptySpaceItem15.AllowHotTrack = false;
-            this.emptySpaceItem15.Location = new System.Drawing.Point(422, 0);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(258, 0);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
-            this.emptySpaceItem15.Size = new System.Drawing.Size(12, 26);
+            this.emptySpaceItem15.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem15.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem16
             // 
             this.emptySpaceItem16.AllowHotTrack = false;
-            this.emptySpaceItem16.Location = new System.Drawing.Point(634, 0);
+            this.emptySpaceItem16.Location = new System.Drawing.Point(438, 0);
             this.emptySpaceItem16.Name = "emptySpaceItem16";
-            this.emptySpaceItem16.Size = new System.Drawing.Size(1070, 26);
+            this.emptySpaceItem16.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem16.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem12
             // 
             this.layoutControlItem12.Control = this.deRankingDate;
-            this.layoutControlItem12.Location = new System.Drawing.Point(12, 0);
+            this.layoutControlItem12.Location = new System.Drawing.Point(10, 0);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(204, 26);
+            this.layoutControlItem12.Size = new System.Drawing.Size(93, 26);
             this.layoutControlItem12.Text = "日期：";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(36, 14);
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.btnUpdateRanking;
-            this.layoutControlItem8.Location = new System.Drawing.Point(228, 0);
+            this.layoutControlItem8.Location = new System.Drawing.Point(113, 0);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(93, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(81, 26);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(321, 0);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(194, 0);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(40, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem15
             // 
             this.layoutControlItem15.Control = this.lblAccumulatedIncomeRate;
-            this.layoutControlItem15.Location = new System.Drawing.Point(528, 0);
+            this.layoutControlItem15.Location = new System.Drawing.Point(332, 0);
             this.layoutControlItem15.Name = "layoutControlItem15";
             this.layoutControlItem15.Size = new System.Drawing.Size(106, 26);
             this.layoutControlItem15.TextSize = new System.Drawing.Size(0, 0);
@@ -946,31 +946,31 @@
             // emptySpaceItem17
             // 
             this.emptySpaceItem17.AllowHotTrack = false;
-            this.emptySpaceItem17.Location = new System.Drawing.Point(495, 0);
+            this.emptySpaceItem17.Location = new System.Drawing.Point(322, 0);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(33, 26);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem17.TextSize = new System.Drawing.Size(0, 0);
             // 
             // lciIndependenceRankingBoard
             // 
             this.lciIndependenceRankingBoard.Control = this.groupControlIndependence;
-            this.lciIndependenceRankingBoard.Location = new System.Drawing.Point(1270, 38);
+            this.lciIndependenceRankingBoard.Location = new System.Drawing.Point(347, 36);
             this.lciIndependenceRankingBoard.Name = "lciIndependenceRankingBoard";
-            this.lciIndependenceRankingBoard.Size = new System.Drawing.Size(422, 672);
+            this.lciIndependenceRankingBoard.Size = new System.Drawing.Size(91, 10);
             this.lciIndependenceRankingBoard.TextSize = new System.Drawing.Size(0, 0);
             this.lciIndependenceRankingBoard.TextVisible = false;
             // 
             // emptySpaceItem19
             // 
             this.emptySpaceItem19.AllowHotTrack = false;
-            this.emptySpaceItem19.Location = new System.Drawing.Point(1692, 38);
+            this.emptySpaceItem19.Location = new System.Drawing.Point(438, 36);
             this.emptySpaceItem19.Name = "emptySpaceItem19";
-            this.emptySpaceItem19.Size = new System.Drawing.Size(12, 672);
+            this.emptySpaceItem19.Size = new System.Drawing.Size(10, 10);
             this.emptySpaceItem19.TextSize = new System.Drawing.Size(0, 0);
             // 
             // cbDepartment
             // 
-            this.cbDepartment.Location = new System.Drawing.Point(307, 43);
+            this.cbDepartment.Location = new System.Drawing.Point(307, 45);
             this.cbDepartment.Name = "cbDepartment";
             this.cbDepartment.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -982,7 +982,7 @@
             // deStartTradeDate
             // 
             this.deStartTradeDate.EditValue = null;
-            this.deStartTradeDate.Location = new System.Drawing.Point(1496, 43);
+            this.deStartTradeDate.Location = new System.Drawing.Point(1496, 45);
             this.deStartTradeDate.Name = "deStartTradeDate";
             this.deStartTradeDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -995,7 +995,7 @@
             // chkWorkingTop
             // 
             this.chkWorkingTop.EditValue = true;
-            this.chkWorkingTop.Location = new System.Drawing.Point(634, 43);
+            this.chkWorkingTop.Location = new System.Drawing.Point(634, 45);
             this.chkWorkingTop.Name = "chkWorkingTop";
             this.chkWorkingTop.Properties.Caption = "在职";
             this.chkWorkingTop.Size = new System.Drawing.Size(46, 19);
@@ -1005,7 +1005,7 @@
             // 
             // chkQuit
             // 
-            this.chkQuit.Location = new System.Drawing.Point(684, 43);
+            this.chkQuit.Location = new System.Drawing.Point(684, 45);
             this.chkQuit.Name = "chkQuit";
             this.chkQuit.Properties.Caption = "离职";
             this.chkQuit.Size = new System.Drawing.Size(46, 19);
@@ -1015,7 +1015,7 @@
             // 
             // cbReportType
             // 
-            this.cbReportType.Location = new System.Drawing.Point(997, 43);
+            this.cbReportType.Location = new System.Drawing.Point(997, 45);
             this.cbReportType.Name = "cbReportType";
             this.cbReportType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -1026,7 +1026,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1124, 43);
+            this.btnSearch.Location = new System.Drawing.Point(1124, 45);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -1036,7 +1036,7 @@
             // 
             // cbTradeType
             // 
-            this.cbTradeType.Location = new System.Drawing.Point(807, 43);
+            this.cbTradeType.Location = new System.Drawing.Point(807, 45);
             this.cbTradeType.Name = "cbTradeType";
             this.cbTradeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -1046,7 +1046,7 @@
             // 
             // luInvestor
             // 
-            this.luInvestor.Location = new System.Drawing.Point(497, 43);
+            this.luInvestor.Location = new System.Drawing.Point(497, 45);
             this.luInvestor.Name = "luInvestor";
             this.luInvestor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -1060,7 +1060,7 @@
             // deEndTradeDate
             // 
             this.deEndTradeDate.EditValue = null;
-            this.deEndTradeDate.Location = new System.Drawing.Point(97, 43);
+            this.deEndTradeDate.Location = new System.Drawing.Point(97, 45);
             this.deEndTradeDate.Name = "deEndTradeDate";
             this.deEndTradeDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.deEndTradeDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1078,7 +1078,6 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup3,
             this.layoutControlItem9});
-            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1766, 869);
             this.layoutControlGroup1.TextVisible = false;
@@ -1108,7 +1107,7 @@
             this.emptySpaceItem20});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1746, 69);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1746, 71);
             this.layoutControlGroup3.Text = "查询条件";
             // 
             // layoutControlItem1
@@ -1260,9 +1259,9 @@
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.tabPane1;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 69);
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 71);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(1746, 780);
+            this.layoutControlItem9.Size = new System.Drawing.Size(1746, 778);
             this.layoutControlItem9.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
@@ -1278,6 +1277,7 @@
             this.Load += new System.EventHandler(this.FrmUserInvestIncomFlow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).EndInit();
             this.tabPane1.ResumeLayout(false);
             this.tabPageData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();

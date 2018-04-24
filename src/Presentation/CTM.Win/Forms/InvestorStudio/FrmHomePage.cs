@@ -1,4 +1,5 @@
 ﻿using CTM.Core;
+using CTM.Core.Domain.User;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Dictionary;
@@ -28,6 +29,10 @@ namespace CTM.Win.Forms.InvestorStudio
         private DataTable _dtProfitContrastData = null;
         private DataTable _dtProfitTrendData = null;
         private DataTable _dtStockProfitDate = null;
+
+        private List<UserInfo> _investorList = null;
+        private bool _firstLoad = true;
+        private string _selectedUser;
 
         #endregion Fields
 
@@ -59,7 +64,21 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void FormInit()
         {
-            string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit";
+
+            string sqlText1 = $@"SELECT DISTINCT InvestorCode = U.Code,InvestorName = U.Name FROM UserInfo U INNER JOIN DSTradeTypeProfit P ON P.InvestorCode = U.Code AND P.DataType = 1 AND U.IsDeleted = 0 ";
+            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
+            if (ds != null && ds.Tables.Count == 1 )
+            {
+                _investorList = ds.Tables[0].AsEnumerable().Select(x => new UserInfo
+                {
+                    Code = x.Field <string>("InvestorCode"),
+                    Name = x.Field<string>("InvestorName"),
+                }).ToList();
+            }
+            else
+                _investorList = null;
+
+            string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 3 AND TradeType = 0";
             var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
             string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
 
