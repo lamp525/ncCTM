@@ -82,6 +82,8 @@
             this.colBuyValue = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellVolume = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSellValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBuyAvgPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSellAvgPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ttcPosition = new DevExpress.Utils.ToolTipController(this.components);
             this.chartPosition = new DevExpress.XtraCharts.ChartControl();
             this.lblYearR = new DevExpress.XtraEditors.LabelControl();
@@ -174,8 +176,6 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colBuyAvgPrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSellAvgPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.lcMain)).BeginInit();
             this.lcMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deInvestor.Properties.CalendarTimeProperties)).BeginInit();
@@ -491,6 +491,8 @@
             // 
             // colPrice
             // 
+            this.colPrice.AppearanceHeader.Options.UseTextOptions = true;
+            this.colPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colPrice.Caption = "最新价";
             this.colPrice.DisplayFormat.FormatString = "N2";
             this.colPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -600,6 +602,30 @@
             this.colSellValue.FieldName = "SellValue";
             this.colSellValue.Name = "colSellValue";
             this.colSellValue.Width = 83;
+            // 
+            // colBuyAvgPrice
+            // 
+            this.colBuyAvgPrice.AppearanceHeader.Options.UseTextOptions = true;
+            this.colBuyAvgPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colBuyAvgPrice.Caption = "买入均价";
+            this.colBuyAvgPrice.DisplayFormat.FormatString = "N2";
+            this.colBuyAvgPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colBuyAvgPrice.FieldName = "BuyAvgPrice";
+            this.colBuyAvgPrice.Name = "colBuyAvgPrice";
+            this.colBuyAvgPrice.Visible = true;
+            this.colBuyAvgPrice.VisibleIndex = 7;
+            // 
+            // colSellAvgPrice
+            // 
+            this.colSellAvgPrice.AppearanceHeader.Options.UseTextOptions = true;
+            this.colSellAvgPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colSellAvgPrice.Caption = "卖出均价";
+            this.colSellAvgPrice.DisplayFormat.FormatString = "N2";
+            this.colSellAvgPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colSellAvgPrice.FieldName = "SellAvgPrice";
+            this.colSellAvgPrice.Name = "colSellAvgPrice";
+            this.colSellAvgPrice.Visible = true;
+            this.colSellAvgPrice.VisibleIndex = 9;
             // 
             // ttcPosition
             // 
@@ -764,6 +790,7 @@
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1});
             this.chartProfitTrend.Diagram = xyDiagram1;
+            this.chartProfitTrend.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.LeftOutside;
             this.chartProfitTrend.Legend.BackColor = System.Drawing.Color.MistyRose;
             this.chartProfitTrend.Legend.MarkerMode = DevExpress.XtraCharts.LegendMarkerMode.CheckBox;
             this.chartProfitTrend.Legend.Name = "Default Legend";
@@ -1124,30 +1151,30 @@
             // 
             // gridColumn11
             // 
-            this.gridColumn11.Caption = "年收益额";
+            this.gridColumn11.Caption = "累计收益额";
             this.gridColumn11.DisplayFormat.FormatString = "N2";
             this.gridColumn11.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.gridColumn11.FieldName = "YearProfit";
+            this.gridColumn11.FieldName = "AccProfit";
             this.gridColumn11.Name = "gridColumn11";
             this.gridColumn11.Visible = true;
             this.gridColumn11.VisibleIndex = 6;
             // 
             // gridColumn12
             // 
-            this.gridColumn12.Caption = "年收益率";
+            this.gridColumn12.Caption = "累计收益率";
             this.gridColumn12.DisplayFormat.FormatString = "P2";
             this.gridColumn12.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.gridColumn12.FieldName = "YearRate";
+            this.gridColumn12.FieldName = "AccRate";
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Visible = true;
             this.gridColumn12.VisibleIndex = 7;
             // 
             // gridColumn13
             // 
-            this.gridColumn13.Caption = "年日均投资资金";
+            this.gridColumn13.Caption = "日均投资资金";
             this.gridColumn13.DisplayFormat.FormatString = "N2";
             this.gridColumn13.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.gridColumn13.FieldName = "YearAvgFund";
+            this.gridColumn13.FieldName = "AccAvgFund";
             this.gridColumn13.Name = "gridColumn13";
             this.gridColumn13.Visible = true;
             this.gridColumn13.VisibleIndex = 8;
@@ -1856,26 +1883,6 @@
             this.emptySpaceItem6.Name = "emptySpaceItem6";
             this.emptySpaceItem6.Size = new System.Drawing.Size(10, 239);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // colBuyAvgPrice
-            // 
-            this.colBuyAvgPrice.Caption = "买入均价";
-            this.colBuyAvgPrice.DisplayFormat.FormatString = "N2";
-            this.colBuyAvgPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colBuyAvgPrice.FieldName = "BuyAvgPrice";
-            this.colBuyAvgPrice.Name = "colBuyAvgPrice";
-            this.colBuyAvgPrice.Visible = true;
-            this.colBuyAvgPrice.VisibleIndex = 7;
-            // 
-            // colSellAvgPrice
-            // 
-            this.colSellAvgPrice.Caption = "卖出均价";
-            this.colSellAvgPrice.DisplayFormat.FormatString = "N2";
-            this.colSellAvgPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.colSellAvgPrice.FieldName = "SellAvgPrice";
-            this.colSellAvgPrice.Name = "colSellAvgPrice";
-            this.colSellAvgPrice.Visible = true;
-            this.colSellAvgPrice.VisibleIndex = 9;
             // 
             // FrmHomePage
             // 
