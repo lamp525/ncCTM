@@ -31,7 +31,8 @@ namespace CTM.Win.Forms.InvestorStudio
         private DataTable _dtPositionData = null;
         private DataTable _dtProfitContrastData = null;
         private DataTable _dtProfitTrendData = null;
-        private DataTable _dtStockProfitDate = null;
+        private DataTable _dtStockProfitData = null;
+        private DataTable _dtIndexRate = null;
 
         #endregion Fields
 
@@ -124,6 +125,19 @@ namespace CTM.Win.Forms.InvestorStudio
             this.cbTradeTypeProfit.Initialize(tradeTypes, displayAdditionalItem: true);
 
             ttcPosition.SetToolTip(gcPosition, "双击有买卖操作的数据行，" + Environment.NewLine + "可查看分时交易标识！");
+
+            string sqlText1 = $@"SELECT DISTINCT Code,Name FROM [FinancialCenter].[dbo].[IndexInfo] ORDER BY Code";
+            DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
+            if (ds1 != null && ds1.Tables.Count == 1)
+            {
+                List<ComboBoxItemModel> indexInfo = ds1.Tables[0].AsEnumerable().Select(x => new ComboBoxItemModel
+                {
+                    Text = x.Field<string>("Name"),
+                    Value = x.Field<string>("Code")
+                }).ToList();
+
+                cbIndex.Initialize(indexInfo);
+            }
         }
 
         private void GetInvestorProfit()
@@ -289,7 +303,7 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             _dtProfitContrastData = null;
             _dtProfitTrendData = null;
-            _dtStockProfitDate = null;
+            _dtStockProfitData = null;
 
             string date = deProfit.EditValue.ToString();
 
@@ -303,7 +317,7 @@ namespace CTM.Win.Forms.InvestorStudio
             if (ds2 != null && ds2.Tables.Count == 1 && ds2.Tables[0].Rows.Count > 0)
             {
                 _dtProfitTrendData = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 1).CopyToDataTable();
-                _dtStockProfitDate = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 99).CopyToDataTable();
+                _dtStockProfitData = ds2.Tables[0].AsEnumerable().Where(x => x.Field<int>("DataType") == 99).CopyToDataTable();
             }
         }
 
@@ -489,23 +503,23 @@ namespace CTM.Win.Forms.InvestorStudio
             }
 
             //日均投入资金
-            Series seAvgFund = chartProfitTrend.Series[0];
+            Series seAvgFund = chartProfitTrend.Series[1];
 
             //使用资金
-            Series seFund = chartProfitTrend.Series[1];
+            Series seFund = chartProfitTrend.Series[2];
 
             //收益额
-            Series seProfit = chartProfitTrend.Series[2];
+            Series seProfit = chartProfitTrend.Series[3];
             seProfit.Name = reportName + "收益额";
 
             //收益率
-            Series seRate = chartProfitTrend.Series[3];
+            Series seRate = chartProfitTrend.Series[4];
             seRate.Name = reportName + "收益率";
 
             //年收益额
-            Series seYearProfit = chartProfitTrend.Series[4];
+            Series seYearProfit = chartProfitTrend.Series[5];
             //年收益率
-            Series seYearRate = chartProfitTrend.Series[5];
+            Series seYearRate = chartProfitTrend.Series[6];
 
             seFund.Points.Clear();
             seProfit.Points.Clear();
@@ -566,14 +580,49 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             gcStockProfit.DataSource = null;
 
-            if (_dtStockProfitDate == null) return;
+            if (_dtStockProfitData == null) return;
 
-            var data = _dtStockProfitDate.AsEnumerable()
+            var data = _dtStockProfitData.AsEnumerable()
                         .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == tradeType && x.Field<string>("ReportType") == reportType && x.Field<decimal>("Fund") != 0)
                         .OrderBy(x => x.Field<string>("StockCode"));
 
             if (data.Any())
                 gcStockProfit.DataSource = data.CopyToDataTable();
+        }
+
+        private void GetIndexRateData()
+        {
+            string date = deProfit.EditValue.ToString();
+            string sqlText1 = $@"EXEC	[dbo].[sp_IS_Index_Rate] @CurDate = '{date}', @DayNumber = 25";
+            DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
+            if (ds1 != null && ds1.Tables.Count == 1)
+                _dtIndexRate = ds1.Tables[0];
+        }
+
+        private void DisplayIndexTrendChart()
+        {
+            DateTime date = CommonHelper.StringToDateTime(deProfit.EditValue.ToString());
+
+            string indexCode = (cbIndex.SelectedItem as ComboBoxItemModel).Value;
+            string indexName = cbIndex.Text.Trim();
+            Series seIndex = chartProfitTrend.Series[0];
+            seIndex.Name = indexName;
+
+            seIndex.Points.Clear();
+
+            DataRow[] indexData = _dtIndexRate.AsEnumerable()
+                                                    .Where(x => x.Field<string>("Code") == indexCode && x.Field<DateTime>("TradeDate") <= date).Take(25)
+                                                     .OrderBy(x => x.Field<DateTime>("TradeDate")).ToArray();
+            string argument = string.Empty;
+            decimal rate;
+
+            foreach (DataRow row in indexData)
+            {
+                argument = CommonHelper.StringToDateTime(row["TradeDate"].ToString()).ToString("yy/MM/dd");
+                rate = CommonHelper.StringToDecimal(row["Rate"].ToString().Trim());
+
+                seIndex.Points.Add(new SeriesPoint(argument, rate));
+            }
         }
 
         #endregion Utilities
@@ -844,6 +893,8 @@ namespace CTM.Win.Forms.InvestorStudio
             try
             {
                 GetProfitRelateData();
+
+                GetIndexRateData();
             }
             catch (Exception ex)
             {
@@ -861,6 +912,11 @@ namespace CTM.Win.Forms.InvestorStudio
                         cbTradeTypeProfit.DefaultSelected("0");
                     else
                         BindProfitRelateData();
+
+                    if (cbIndex.EditValue == null)
+                        cbIndex.DefaultSelected("000001");
+                    else
+                        DisplayIndexTrendChart();
 
                     deProfit.Enabled = true;
                     cbTradeTypeProfit.Enabled = true;
@@ -1017,8 +1073,22 @@ namespace CTM.Win.Forms.InvestorStudio
             gvStockProfit.DrawRowIndicator(e);
         }
 
+        private void cbIndex_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DisplayIndexTrendChart();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
         #endregion Profit
 
         #endregion Events
+
+
     }
 }
