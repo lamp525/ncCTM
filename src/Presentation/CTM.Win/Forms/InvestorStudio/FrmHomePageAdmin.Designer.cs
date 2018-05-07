@@ -1040,8 +1040,11 @@
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
             this.emptySpaceItem3.Location = new System.Drawing.Point(795, 0);
+            this.emptySpaceItem3.MaxSize = new System.Drawing.Size(10, 24);
+            this.emptySpaceItem3.MinSize = new System.Drawing.Size(10, 24);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 48);
+            this.emptySpaceItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem2
@@ -1071,8 +1074,11 @@
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
             this.emptySpaceItem4.Location = new System.Drawing.Point(430, 0);
+            this.emptySpaceItem4.MaxSize = new System.Drawing.Size(10, 24);
+            this.emptySpaceItem4.MinSize = new System.Drawing.Size(10, 24);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(10, 48);
+            this.emptySpaceItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
