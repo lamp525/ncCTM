@@ -844,7 +844,7 @@
             // 
             // bbiInvestorHome
             // 
-            this.bbiInvestorHome.Caption = "个人首页";
+            this.bbiInvestorHome.Caption = "首页";
             this.bbiInvestorHome.Id = 50;
             this.bbiInvestorHome.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bbiInvestorHome.ImageOptions.Image")));
             this.bbiInvestorHome.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("bbiInvestorHome.ImageOptions.LargeImage")));
@@ -1057,6 +1057,7 @@
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.Name = "FrmMain";
             this.Ribbon = this.ribbonControl1;
             this.StatusBar = this.ribbonStatusBar1;

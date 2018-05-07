@@ -1,5 +1,7 @@
-﻿using CTM.Core.Util;
+﻿using CTM.Core;
+using CTM.Core.Util;
 using CTM.Data;
+using CTM.Services.Dictionary;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -18,16 +20,25 @@ namespace CTM.Win.Forms.InvestorStudio
     {
         #region Fields
 
+        private readonly IDictionaryService _dictionaryService;
+
         private DataTable _dtIndexRate = null;
         private DataTable _dtSummaryProfit = null;
-        private DataTable _dtStrategyProfit = null;
+        private DataTable _dtInvestorProfit = null;
+        private int _tradeType = 0;
 
         #endregion Fields
 
-        public FrmHomePageAdmin()
+        #region Constructors
+
+        public FrmHomePageAdmin(IDictionaryService dictionaryService)
         {
             InitializeComponent();
+
+            _dictionaryService = dictionaryService;
         }
+
+        #endregion Constructors
 
         #region Utilities
 
@@ -39,6 +50,16 @@ namespace CTM.Win.Forms.InvestorStudio
             string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
             deProfit.Enabled = false;
             deProfit.EditValue = currentDate;
+
+            //交易类别
+            var tradeTypes = this._dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
+                .Select(x => new ComboBoxItemModel
+                {
+                    Text = x.Name,
+                    Value = x.Code.ToString(),
+                }).ToList();
+            this.cbTradeType.Initialize(tradeTypes, displayAdditionalItem: true);
+
 
             string sqlText1 = $@"SELECT DISTINCT Code,Name FROM [FinancialCenter].[dbo].[IndexInfo] ORDER BY Code";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
@@ -65,7 +86,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void GetSummaryProfitData(string date)
         {
-            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorProfit_Admin] @DataType  = 3, @TradeDate = '{date}'";
+            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorProfit_Admin] @TradeDate = '{date}', @DataType  = 3";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
             if (ds1 != null && ds1.Tables.Count == 1)
                 _dtSummaryProfit = ds1.Tables[0];
@@ -75,7 +96,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindSummaryInfo()
         {
-            DataRow dr = _dtSummaryProfit.AsEnumerable().FirstOrDefault();
+            DataRow dr = _dtSummaryProfit.AsEnumerable().Where(x=>x.Field<int>("TradeType") == _tradeType).FirstOrDefault();
 
             if (dr == null)
             {
@@ -122,9 +143,13 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindSummaryProfit()
         {
+
+           
             gcSummaryProfit.DataSource = null;
 
-            gcSummaryProfit.DataSource = _dtSummaryProfit;
+            DataTable dtProfit = _dtSummaryProfit.AsEnumerable().Where(x => x.Field<int>("TradeType") == _tradeType).CopyToDataTable();
+
+            gcSummaryProfit.DataSource = dtProfit;
 
             string reportName = "日";
             //日均投入资金
@@ -153,8 +178,6 @@ namespace CTM.Win.Forms.InvestorStudio
             seYearRate.Points.Clear();
             seAvgFund.Points.Clear();
 
-            DataTable dtProfit = _dtSummaryProfit.AsEnumerable().OrderBy(x => x.Field<string>("TradeDate")).CopyToDataTable();
-
             if (dtProfit == null || dtProfit.Rows.Count == 0) return;
 
             string argument = string.Empty;
@@ -165,7 +188,7 @@ namespace CTM.Win.Forms.InvestorStudio
             decimal accRate;
             decimal avgFund;
 
-            foreach (DataRow row in dtProfit.Rows)
+            foreach (DataRow row in dtProfit.AsEnumerable ().OrderBy(x => x.Field<string>("TradeDate")))
             {
                 argument = CommonHelper.StringToDateTime(row["TradeDate"].ToString()).ToString("yy/MM/dd");
                 fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
@@ -184,45 +207,49 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void BindStrategyProfit(string date)
+        private void BindInvestorProfit(string date)
         {
-            gcStrategyProfit.DataSource = null;
+            gcInvestorProfit.DataSource = null;
 
-            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorProfit_Admin] @DataType  = 1, @TradeDate = '{date}'";
+            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorProfit_Admin] @TradeDate = '{date}', @DataType  = 1";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
             if (ds1 != null && ds1.Tables.Count == 1)
-                _dtStrategyProfit = ds1.Tables[0];
+                _dtInvestorProfit = ds1.Tables[0];
             else
-                _dtStrategyProfit = null;
+                _dtInvestorProfit = null;
 
-            gcStrategyProfit.DataSource = _dtStrategyProfit.AsEnumerable().Where(x => x.Field<string>("TradeDate") == date).CopyToDataTable();
+            gcInvestorProfit.DataSource = _dtInvestorProfit.AsEnumerable()
+                                                                .Where(x => x.Field<string>("TradeDate") == date && x.Field <int>("TradeType") == _tradeType)
+                                                                .CopyToDataTable();
         }
 
-        private void DisplayStrategyProfitTrendChart(string investorCode, string investorName)
+        private void DisplayInvestorProfitTrendChart(string investorCode, string investorName)
         {
-            lcgChartStrategy.Text = investorName + " - 收益趋势图";
+            lcgChartInvestor.Text = investorName + " - 收益趋势图";
 
-            DataTable dtProfit = _dtStrategyProfit.AsEnumerable().Where(x => x.Field<string>("InvestorCode") == investorCode).OrderBy(x => x.Field<string>("TradeDate")).CopyToDataTable();
+            DataTable dtProfit = _dtInvestorProfit.AsEnumerable()
+                                                .Where(x => x.Field<string>("InvestorCode") == investorCode && x.Field<int>("TradeType") == _tradeType).OrderBy(x => x.Field<string>("TradeDate"))
+                                                .CopyToDataTable();
 
             string reportName = "日";
             //日均投入资金
-            Series seAvgFund = chartStrategyProfit.Series[1];
+            Series seAvgFund = chartInvestorProfit.Series[1];
 
             //使用资金
-            Series seFund = chartStrategyProfit.Series[2];
+            Series seFund = chartInvestorProfit.Series[2];
 
             //收益额
-            Series seProfit = chartStrategyProfit.Series[3];
+            Series seProfit = chartInvestorProfit.Series[3];
             seProfit.Name = reportName + "收益额";
 
             //收益率
-            Series seRate = chartStrategyProfit.Series[4];
+            Series seRate = chartInvestorProfit.Series[4];
             seRate.Name = reportName + "收益率";
 
             //年收益额
-            Series seYearProfit = chartStrategyProfit.Series[5];
+            Series seYearProfit = chartInvestorProfit.Series[5];
             //年收益率
-            Series seYearRate = chartStrategyProfit.Series[6];
+            Series seYearRate = chartInvestorProfit.Series[6];
 
             seFund.Points.Clear();
             seProfit.Points.Clear();
@@ -375,6 +402,22 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+        private void cbTradeType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbTradeType.EditValue != null)
+                    _tradeType = int.Parse(cbTradeType.SelectedValue());
+
+                BindSummaryInfo();
+                BindSummaryProfit();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
         private void gvSummaryProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             try
@@ -385,12 +428,12 @@ namespace CTM.Win.Forms.InvestorStudio
                 {
                     string tradeDate = dr.Field<string>("TradeDate");
 
-                    BindStrategyProfit(tradeDate);
+                    BindInvestorProfit(tradeDate);
 
                     //更新下趋势图的对标指数
                     var item = cbIndexDown.SelectedItem as ComboBoxItemModel;
                     if (item != null)
-                        DisplayIndexTrendChart(CommonHelper.StringToDateTime(tradeDate), item.Value, item.Text, chartStrategyProfit);
+                        DisplayIndexTrendChart(CommonHelper.StringToDateTime(tradeDate), item.Value, item.Text, chartInvestorProfit);
                 }
             }
             catch (Exception ex)
@@ -431,13 +474,13 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void gvStrategyProfit_DoubleClick(object sender, EventArgs e)
+        private void gvInvestorProfit_DoubleClick(object sender, EventArgs e)
         {
-            Point pt = gvStrategyProfit.GridControl.PointToClient(Control.MousePosition);
-            var hi = gvStrategyProfit.CalcHitInfo(pt);
+            Point pt = gvInvestorProfit.GridControl.PointToClient(Control.MousePosition);
+            var hi = gvInvestorProfit.CalcHitInfo(pt);
             if (hi.InRow)
             {
-                var row = gvStrategyProfit.GetDataRow(hi.RowHandle);
+                var row = gvInvestorProfit.GetDataRow(hi.RowHandle);
                 if (row != null)
                 {
                     string investorCode = row["InvestorCode"].ToString();
@@ -454,16 +497,16 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void gvStrategyProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void gvInvestorProfit_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             try
             {
-                DataRow dr = gvStrategyProfit.GetFocusedDataRow();
+                DataRow dr = gvInvestorProfit.GetFocusedDataRow();
                 if (dr != null)
                 {
                     string investorCode = dr.Field<string>("InvestorCode");
                     string investorName = dr.Field<string>("InvestorName");
-                    DisplayStrategyProfitTrendChart(investorCode, investorName);
+                    DisplayInvestorProfitTrendChart(investorCode, investorName);
                 }
             }
             catch (Exception ex)
@@ -472,12 +515,12 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void gvStrategyProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        private void gvInvestorProfit_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
-            gvStrategyProfit.DrawRowIndicator(e);
+            gvInvestorProfit.DrawRowIndicator(e);
         }
 
-        private void gvStrategyProfit_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        private void gvInvestorProfit_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
@@ -490,7 +533,7 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-        private void gvStrategyProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        private void gvInvestorProfit_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
@@ -536,7 +579,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 }
                 string indexCode = (cbIndexDown.SelectedItem as ComboBoxItemModel).Value;
                 string indexName = cbIndexDown.Text.Trim();
-                DisplayIndexTrendChart(date, indexCode, indexName, chartStrategyProfit);
+                DisplayIndexTrendChart(date, indexCode, indexName, chartInvestorProfit);
             }
             catch (Exception ex)
             {
