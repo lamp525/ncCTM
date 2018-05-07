@@ -24,6 +24,9 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private readonly IDictionaryService _dictionaryService;
 
+        private string _tradeDate;
+        private string _investorCode;
+        private string _investorName;
         private DataRow _drInvestorProfit = null;
         private DataTable _dtPositionData = null;
         private DataTable _dtProfitContrastData = null;
@@ -32,6 +35,28 @@ namespace CTM.Win.Forms.InvestorStudio
         private IList<UserInfo> _investorList;
 
         #endregion Fields
+
+        #region Properties
+
+        public string TradeDate
+        {
+            get { return _tradeDate; }
+            set { _tradeDate = value; }
+        }
+
+        public string InvestorCode
+        {
+            get { return _investorCode; }
+            set { _investorCode = value; }
+        }
+
+        public string InvestorName
+        {
+            get { return _investorName; }
+            set { _investorName = value; }
+        }
+
+        #endregion Properties
 
         #region Models
 

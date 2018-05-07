@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using CTM.Core;
-using CTM.Core.Util;
+﻿using CTM.Core.Util;
 using CTM.Services.Common;
 using CTM.Services.MarginTrading;
 using CTM.Services.User;
@@ -24,6 +20,9 @@ using CTM.Win.Forms.Setting;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraBars;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CTM.Win.Forms
 {
@@ -124,18 +123,6 @@ namespace CTM.Win.Forms
                 //个人账户投资收益查询
                 this.bbiUserInvestIncomeAccount.Visibility = BarItemVisibility.Always;
             }
-
-            if (LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Day
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
-            {
-                this.bbiInvestorHome.Visibility = BarItemVisibility.Always;
-            }
-            else
-            {
-                this.bbiInvestorHome.Visibility = BarItemVisibility.Never;
-            }
         }
 
         private void RefreshForm()
@@ -158,13 +145,10 @@ namespace CTM.Win.Forms
 
         private void DisplayStartupPage()
         {
-            if (LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Day
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Band
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Target
-                || LoginInfo.CurrentUser.DepartmentId == (int)EnumLibrary.AccountingDepartment.Independence)
-            {
+            if (LoginInfo.CurrentUser.IsAdmin)
+                this.DisplayTabbedForm<FrmHomePageAdmin>("统计首页");
+            else
                 this.DisplayTabbedForm<FrmHomePage>("个人首页");
-            }
         }
 
         #endregion Utilities
@@ -408,7 +392,10 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem40_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmHomePage>("个人首页");
+            if (LoginInfo.CurrentUser.IsAdmin)
+                this.DisplayTabbedForm<FrmHomePageAdmin>("统计首页");
+            else
+                this.DisplayTabbedForm<FrmHomePage>("个人首页");
         }
 
         /// <summary>
@@ -742,7 +729,6 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-           
         }
     }
 }
