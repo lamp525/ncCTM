@@ -32,7 +32,6 @@ namespace CTM.Win.Forms.InvestorStudio
         private DataTable _dtProfitContrastData = null;
         private DataTable _dtProfitTrendData = null;
         private DataTable _dtStockProfitDate = null;
-        private IList<UserInfo> _investorList;
 
         #endregion Fields
 
@@ -86,36 +85,33 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void FormInit()
         {
-            string sqlText1 = $@"SELECT DISTINCT InvestorCode = U.Code,InvestorName = U.Name FROM UserInfo U INNER JOIN DSTradeTypeProfit P ON P.InvestorCode = U.Code AND P.DataType = 1 AND U.IsDeleted = 0 ";
-            DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
-            if (ds != null && ds.Tables.Count == 1)
-            {
-                _investorList = ds.Tables[0].AsEnumerable().Select(x => new UserInfo
-                {
-                    Code = x.Field<string>("InvestorCode"),
-                    Name = x.Field<string>("InvestorName"),
-                }).ToList();
-            }
-            else
-                _investorList = null;
+            if (string.IsNullOrEmpty(_investorCode))
+                _investorCode = LoginInfo.CurrentUser.UserCode;
 
-            string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 3 AND TradeType = 0";
-            var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
-            string currentDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
-            lblInvestor.Text = "   " + LoginInfo.CurrentUser.UserName;
+            if (string.IsNullOrEmpty(_investorName))
+                _investorName = LoginInfo.CurrentUser.UserName;
+
+            if (string.IsNullOrEmpty(_tradeDate))
+            {
+                string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 3 AND TradeType = 0";
+                var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
+                _tradeDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
+            }
+
+            lblInvestor.Text = "   " + _investorName;
 
             deInvestor.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             deInvestor.Enabled = false;
-            deInvestor.EditValue = currentDate;
+            deInvestor.EditValue = _tradeDate;
 
             deProfit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             dePosition.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             dePosition.Enabled = false;
-            dePosition.EditValue = currentDate;
+            dePosition.EditValue = _tradeDate;
 
             deProfit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             deProfit.Enabled = false;
-            deProfit.EditValue = currentDate;
+            deProfit.EditValue = _tradeDate;
 
             //交易类别
             var tradeTypes = this._dictionaryService.GetDictionaryInfoByTypeId((int)EnumLibrary.DictionaryType.TradeType)
@@ -133,7 +129,7 @@ namespace CTM.Win.Forms.InvestorStudio
         private void GetInvestorProfit()
         {
             string date = deInvestor.EditValue.ToString();
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}',@TradeDate = '{date}'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorLatestProfit]	@InvestorCode = '{_investorCode}',@TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 1)
             {
@@ -234,7 +230,7 @@ namespace CTM.Win.Forms.InvestorStudio
         {
             _dtPositionData = null;
             string date = dePosition.EditValue.ToString();
-            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            string sqlText = $@"EXEC	[dbo].[sp_IS_InvestorStockPosition]	@InvestorCode = '{_investorCode}', @TradeDate = '{date}'";
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count == 1)
             {
@@ -297,12 +293,12 @@ namespace CTM.Win.Forms.InvestorStudio
 
             string date = deProfit.EditValue.ToString();
 
-            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            string sqlText1 = $@"EXEC	[dbo].[sp_IS_InvestorStockProfitContrast]	@InvestorCode = '{_investorCode}', @TradeDate = '{date}'";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
             if (ds1 != null && ds1.Tables.Count == 1)
                 _dtProfitContrastData = ds1.Tables[0];
 
-            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{LoginInfo.CurrentUser.UserCode}', @TradeDate = '{date}'";
+            string sqlText2 = $@"EXEC	[dbo].[sp_IS_Investor25PeriodProfit]	@InvestorCode = '{_investorCode}', @TradeDate = '{date}'";
             DataSet ds2 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText2);
             if (ds2 != null && ds2.Tables.Count == 1 && ds2.Tables[0].Rows.Count > 0)
             {
@@ -802,12 +798,12 @@ namespace CTM.Win.Forms.InvestorStudio
 
                         TradeInfoModel tradeInfo = new TradeInfoModel
                         {
-                            DisplayText = row["StockCode"].ToString() + '-' + row["StockName"].ToString() + '-' + LoginInfo.CurrentUser.UserName,
-                            InvestorCode = LoginInfo.CurrentUser.UserCode,
-                            InvestorName = LoginInfo.CurrentUser.UserName,
+                            DisplayText = row["StockCode"].ToString() + '-' + row["StockName"].ToString() + '-' + _investorName,
+                            InvestorCode = _investorCode,
+                            InvestorName = _investorName,
                             StockCode = row["StockCode"].ToString(),
                             StockName = row["StockName"].ToString(),
-                            TradeCode = row["StockCode"].ToString() + '-' + LoginInfo.CurrentUser.UserCode,
+                            TradeCode = row["StockCode"].ToString() + '-' + _investorCode,
                         };
                         var dialog = this.CreateDialog<FrmTimeSharingTradeIdentifier>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Normal);
                         dialog.Text = "分时交易标识";

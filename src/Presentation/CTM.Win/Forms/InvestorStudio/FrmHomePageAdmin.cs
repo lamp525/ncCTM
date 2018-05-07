@@ -445,7 +445,7 @@ namespace CTM.Win.Forms.InvestorStudio
                     string tradeDate = row["TradeDate"].ToString();
 
                     var dialog = this.CreateDialog<FrmHomePage>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Normal);
-                    dialog.Text = "策略统计";
+                    dialog.Text = "个人首页";
                     dialog.TradeDate = tradeDate;
                     dialog.InvestorCode = investorCode;
                     dialog.InvestorName = investorName;
