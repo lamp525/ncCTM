@@ -262,7 +262,7 @@
             this.lblDayProfit.Appearance.Options.UseFont = true;
             this.lblDayProfit.Appearance.Options.UseTextOptions = true;
             this.lblDayProfit.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblDayProfit.Location = new System.Drawing.Point(867, 24);
+            this.lblDayProfit.Location = new System.Drawing.Point(892, 24);
             this.lblDayProfit.MinimumSize = new System.Drawing.Size(0, 40);
             this.lblDayProfit.Name = "lblDayProfit";
             this.lblDayProfit.Size = new System.Drawing.Size(133, 40);
@@ -276,7 +276,7 @@
             this.lblDayRate.Appearance.Options.UseFont = true;
             this.lblDayRate.Appearance.Options.UseTextOptions = true;
             this.lblDayRate.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblDayRate.Location = new System.Drawing.Point(1070, 24);
+            this.lblDayRate.Location = new System.Drawing.Point(1095, 24);
             this.lblDayRate.MinimumSize = new System.Drawing.Size(0, 40);
             this.lblDayRate.Name = "lblDayRate";
             this.lblDayRate.Size = new System.Drawing.Size(85, 40);
@@ -290,7 +290,7 @@
             this.lblCurValue.Appearance.Options.UseFont = true;
             this.lblCurValue.Appearance.Options.UseTextOptions = true;
             this.lblCurValue.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblCurValue.Location = new System.Drawing.Point(292, 24);
+            this.lblCurValue.Location = new System.Drawing.Point(317, 24);
             this.lblCurValue.MinimumSize = new System.Drawing.Size(0, 40);
             this.lblCurValue.Name = "lblCurValue";
             this.lblCurValue.Size = new System.Drawing.Size(133, 40);
@@ -304,7 +304,7 @@
             this.lblAccProfit.Appearance.Options.UseFont = true;
             this.lblAccProfit.Appearance.Options.UseTextOptions = true;
             this.lblAccProfit.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblAccProfit.Location = new System.Drawing.Point(502, 24);
+            this.lblAccProfit.Location = new System.Drawing.Point(527, 24);
             this.lblAccProfit.MinimumSize = new System.Drawing.Size(0, 40);
             this.lblAccProfit.Name = "lblAccProfit";
             this.lblAccProfit.Size = new System.Drawing.Size(133, 40);
@@ -318,7 +318,7 @@
             this.lblAccRate.Appearance.Options.UseFont = true;
             this.lblAccRate.Appearance.Options.UseTextOptions = true;
             this.lblAccRate.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblAccRate.Location = new System.Drawing.Point(705, 24);
+            this.lblAccRate.Location = new System.Drawing.Point(730, 24);
             this.lblAccRate.MinimumSize = new System.Drawing.Size(0, 40);
             this.lblAccRate.Name = "lblAccRate";
             this.lblAccRate.Size = new System.Drawing.Size(85, 40);
@@ -933,7 +933,7 @@
             // 
             this.layoutControlItem27.Control = this.lblDayProfit;
             this.layoutControlItem27.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem27.Location = new System.Drawing.Point(780, 0);
+            this.layoutControlItem27.Location = new System.Drawing.Point(805, 0);
             this.layoutControlItem27.MaxSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem27.MinSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem27.Name = "layoutControlItem27";
@@ -947,10 +947,10 @@
             this.emptySpaceItem5.AllowHotTrack = false;
             this.emptySpaceItem5.CustomizationFormText = "emptySpaceItem5";
             this.emptySpaceItem5.Location = new System.Drawing.Point(200, 0);
-            this.emptySpaceItem5.MaxSize = new System.Drawing.Size(5, 30);
-            this.emptySpaceItem5.MinSize = new System.Drawing.Size(5, 30);
+            this.emptySpaceItem5.MaxSize = new System.Drawing.Size(30, 30);
+            this.emptySpaceItem5.MinSize = new System.Drawing.Size(30, 30);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(5, 48);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(30, 48);
             this.emptySpaceItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -958,7 +958,7 @@
             // 
             this.layoutControlItem26.Control = this.lblCurValue;
             this.layoutControlItem26.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem26.Location = new System.Drawing.Point(205, 0);
+            this.layoutControlItem26.Location = new System.Drawing.Point(230, 0);
             this.layoutControlItem26.MaxSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem26.MinSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem26.Name = "layoutControlItem26";
@@ -971,16 +971,16 @@
             // 
             this.emptySpaceItem9.AllowHotTrack = false;
             this.emptySpaceItem9.CustomizationFormText = "emptySpaceItem9";
-            this.emptySpaceItem9.Location = new System.Drawing.Point(1135, 0);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(1160, 0);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(363, 48);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(338, 48);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem12
             // 
             this.layoutControlItem12.Control = this.lblAccProfit;
             this.layoutControlItem12.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem12.Location = new System.Drawing.Point(415, 0);
+            this.layoutControlItem12.Location = new System.Drawing.Point(440, 0);
             this.layoutControlItem12.MaxSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem12.MinSize = new System.Drawing.Size(200, 42);
             this.layoutControlItem12.Name = "layoutControlItem12";
@@ -993,7 +993,7 @@
             // 
             this.layoutControlItem14.Control = this.lblAccRate;
             this.layoutControlItem14.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem14.Location = new System.Drawing.Point(620, 0);
+            this.layoutControlItem14.Location = new System.Drawing.Point(645, 0);
             this.layoutControlItem14.MaxSize = new System.Drawing.Size(150, 42);
             this.layoutControlItem14.MinSize = new System.Drawing.Size(150, 42);
             this.layoutControlItem14.Name = "layoutControlItem14";
@@ -1008,7 +1008,7 @@
             // 
             this.layoutControlItem28.Control = this.lblDayRate;
             this.layoutControlItem28.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem28.Location = new System.Drawing.Point(985, 0);
+            this.layoutControlItem28.Location = new System.Drawing.Point(1010, 0);
             this.layoutControlItem28.MaxSize = new System.Drawing.Size(150, 42);
             this.layoutControlItem28.MinSize = new System.Drawing.Size(150, 42);
             this.layoutControlItem28.Name = "layoutControlItem28";
@@ -1039,7 +1039,7 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(770, 0);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(795, 0);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 48);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -1047,7 +1047,7 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(980, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(1005, 0);
             this.emptySpaceItem2.MaxSize = new System.Drawing.Size(5, 0);
             this.emptySpaceItem2.MinSize = new System.Drawing.Size(5, 10);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
@@ -1059,7 +1059,7 @@
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
             this.emptySpaceItem7.CustomizationFormText = "emptySpaceItem7";
-            this.emptySpaceItem7.Location = new System.Drawing.Point(615, 0);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(640, 0);
             this.emptySpaceItem7.MaxSize = new System.Drawing.Size(5, 0);
             this.emptySpaceItem7.MinSize = new System.Drawing.Size(5, 10);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
@@ -1070,7 +1070,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(405, 0);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(430, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(10, 48);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
