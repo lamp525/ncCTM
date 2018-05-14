@@ -421,6 +421,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
             }
         }
 
+
         private void Export2ExcelProcess(object sender, DoWorkEventArgs e)
         {
             try

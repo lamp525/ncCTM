@@ -1108,7 +1108,7 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(599, 367);
             this.layoutControlItem6.Text = "合计收益流水（金额：万元）";
             this.layoutControlItem6.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(436, 17);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(464, 17);
             // 
             // layoutControlItem1
             // 
@@ -1119,9 +1119,9 @@
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 451);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(596, 390);
-            this.layoutControlItem1.Text = "投资人员收益明细（金额：万元）     [双击明细行查看该策略统计页面]";
+            this.layoutControlItem1.Text = "投资人员收益明细（金额：万元）     [双击明细行查看该投资人员统计页面]";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(436, 17);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(464, 17);
             // 
             // emptySpaceItem1
             // 
