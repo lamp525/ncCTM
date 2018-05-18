@@ -60,7 +60,6 @@ namespace CTM.Win.Forms.InvestorStudio
                 }).ToList();
             this.cbTradeType.Initialize(tradeTypes, displayAdditionalItem: true);
 
-
             string sqlText1 = $@"SELECT DISTINCT Code,Name FROM [FinancialCenter].[dbo].[IndexInfo] ORDER BY Code";
             DataSet ds1 = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText1);
             if (ds1 != null && ds1.Tables.Count == 1)
@@ -74,6 +73,8 @@ namespace CTM.Win.Forms.InvestorStudio
                 cbIndexUp.Initialize(indexInfo);
                 cbIndexDown.Initialize(indexInfo);
             }
+
+            ttcInvestorDetail.SetToolTip(gcInvestorProfit, "双击明细行可查看该投资人员统计页！");
         }
 
         private void GetIndexRateData(string date)
@@ -96,7 +97,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindSummaryInfo()
         {
-            DataRow dr = _dtSummaryProfit.AsEnumerable().Where(x=>x.Field<int>("TradeType") == _tradeType).FirstOrDefault();
+            DataRow dr = _dtSummaryProfit.AsEnumerable().Where(x => x.Field<int>("TradeType") == _tradeType).FirstOrDefault();
 
             if (dr == null)
             {
@@ -143,8 +144,6 @@ namespace CTM.Win.Forms.InvestorStudio
 
         private void BindSummaryProfit()
         {
-
-           
             gcSummaryProfit.DataSource = null;
 
             DataTable dtProfit = _dtSummaryProfit.AsEnumerable().Where(x => x.Field<int>("TradeType") == _tradeType).CopyToDataTable();
@@ -188,7 +187,7 @@ namespace CTM.Win.Forms.InvestorStudio
             decimal accRate;
             decimal avgFund;
 
-            foreach (DataRow row in dtProfit.AsEnumerable ().OrderBy(x => x.Field<string>("TradeDate")))
+            foreach (DataRow row in dtProfit.AsEnumerable().OrderBy(x => x.Field<string>("TradeDate")))
             {
                 argument = CommonHelper.StringToDateTime(row["TradeDate"].ToString()).ToString("yy/MM/dd");
                 fund = CommonHelper.StringToDecimal(row["Fund"].ToString().Trim());
@@ -219,7 +218,7 @@ namespace CTM.Win.Forms.InvestorStudio
                 _dtInvestorProfit = null;
 
             gcInvestorProfit.DataSource = _dtInvestorProfit.AsEnumerable()
-                                                                .Where(x => x.Field<string>("TradeDate") == date && x.Field <int>("TradeType") == _tradeType)
+                                                                .Where(x => x.Field<string>("TradeDate") == date && x.Field<int>("TradeType") == _tradeType)
                                                                 .CopyToDataTable();
         }
 
@@ -486,10 +485,11 @@ namespace CTM.Win.Forms.InvestorStudio
                     string investorCode = row["InvestorCode"].ToString();
                     string investorName = row["investorName"].ToString();
                     string tradeDate = row["TradeDate"].ToString();
+                    decimal fund = row.Field<decimal>("Fund");
 
                     var dialog = this.CreateDialog<FrmHomePage>(borderStyle: FormBorderStyle.Sizable, windowState: FormWindowState.Normal);
                     dialog.Text = "个人首页";
-                    dialog.TradeDate = tradeDate;
+                    dialog.TradeDate = fund > 0 ? tradeDate : null;
                     dialog.InvestorCode = investorCode;
                     dialog.InvestorName = investorName;
                     dialog.Show();

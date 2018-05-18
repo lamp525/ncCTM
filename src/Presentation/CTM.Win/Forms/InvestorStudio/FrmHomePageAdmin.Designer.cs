@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.ConstantLine constantLine1 = new DevExpress.XtraCharts.ConstantLine();
             DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY1 = new DevExpress.XtraCharts.SecondaryAxisY();
@@ -133,6 +134,7 @@
             this.lciStrategyChart = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.ttcInvestorDetail = new DevExpress.Utils.ToolTipController(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbTradeType.Properties)).BeginInit();
@@ -1108,7 +1110,7 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(599, 367);
             this.layoutControlItem6.Text = "合计收益流水（金额：万元）";
             this.layoutControlItem6.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(464, 17);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(210, 17);
             // 
             // layoutControlItem1
             // 
@@ -1119,9 +1121,9 @@
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 451);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(596, 390);
-            this.layoutControlItem1.Text = "投资人员收益明细（金额：万元）     [双击明细行查看该投资人员统计页面]";
+            this.layoutControlItem1.Text = "投资人员收益明细（金额：万元）";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(464, 17);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(210, 17);
             // 
             // emptySpaceItem1
             // 
@@ -1233,6 +1235,12 @@
             this.emptySpaceItem8.Name = "emptySpaceItem8";
             this.emptySpaceItem8.Size = new System.Drawing.Size(722, 24);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // ttcInvestorDetail
+            // 
+            this.ttcInvestorDetail.Appearance.ForeColor = System.Drawing.Color.Tomato;
+            this.ttcInvestorDetail.Appearance.Options.UseForeColor = true;
+            this.ttcInvestorDetail.Rounded = true;
             // 
             // FrmHomePageAdmin
             // 
@@ -1390,5 +1398,6 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
         private DevExpress.XtraEditors.ComboBoxEdit cbTradeType;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.Utils.ToolTipController ttcInvestorDetail;
     }
 }

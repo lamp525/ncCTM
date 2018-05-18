@@ -390,7 +390,9 @@ namespace CTM.Win.Forms
         /// <param name="e"></param>
         private void barButtonItem40_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            if (!LoginInfo.CurrentUser.IsAdmin)
+            if (LoginInfo.CurrentUser.IsAdmin)
+                this.DisplayTabbedForm<FrmHomePageAdmin>("统计首页");
+            else
                 this.DisplayTabbedForm<FrmHomePage>("个人首页");
         }
 

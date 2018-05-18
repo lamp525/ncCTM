@@ -94,7 +94,7 @@ namespace CTM.Win.Forms.InvestorStudio
 
             if (string.IsNullOrEmpty(_tradeDate))
             {
-                string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 3 AND TradeType = 0";
+                string sqlText = $@"SELECT  MAX(TradeDate) FROM DSTradeTypeProfit  WHERE DataType = 1 AND TradeType = 0 AND InvestorCode = '{_investorCode}' AND DayFund > 0";
                 var ret = SqlHelper.ExecuteScalar(AppConfig._ConnString, CommandType.Text, sqlText);
                 _tradeDate = ret == null ? DateTime.MinValue.ToShortDateString() : ret.ToString().Split(' ')[0];
             }
