@@ -840,6 +840,7 @@
             this.bbiMultiDayProfit.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("bbiMultiDayProfit.ImageOptions.LargeImage")));
             this.bbiMultiDayProfit.Name = "bbiMultiDayProfit";
             this.bbiMultiDayProfit.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.bbiMultiDayProfit.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.bbiMultiDayProfit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiMultiDayProfit_ItemClick);
             // 
             // bbiInvestorHome
