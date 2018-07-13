@@ -268,6 +268,12 @@
     <Compile Include="Forms\DailyTrading\ReportExport\FrmDailyReportExport.Designer.cs">
       <DependentUpon>FrmDailyReportExport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DailyTrading\RiskControl\FrmAccountRC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyTrading\RiskControl\FrmAccountRC.Designer.cs">
+      <DependentUpon>FrmAccountRC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1069,6 +1075,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\ReportExport\FrmDailyReportExport.resx">
       <DependentUpon>FrmDailyReportExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyTrading\RiskControl\FrmAccountRC.resx">
+      <DependentUpon>FrmAccountRC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DailyTrading\StatisticsReport\FrmFundTeamStrategyProfit.resx">
       <DependentUpon>FrmFundTeamStrategyProfit.cs</DependentUpon>
