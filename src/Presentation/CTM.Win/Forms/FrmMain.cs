@@ -10,6 +10,7 @@ using CTM.Win.Forms.Admin.BaseData;
 using CTM.Win.Forms.Admin.Log;
 using CTM.Win.Forms.DailyTrading.DataManage;
 using CTM.Win.Forms.DailyTrading.ReportExport;
+using CTM.Win.Forms.DailyTrading.RiskControl;
 using CTM.Win.Forms.DailyTrading.StatisticsReport;
 using CTM.Win.Forms.DailyTrading.TradeIdentifier;
 using CTM.Win.Forms.InvestmentDecision;
@@ -727,6 +728,7 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
+            this.DisplayTabbedForm<FrmAccountRC>();
         }
     }
 }
