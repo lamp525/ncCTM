@@ -100,6 +100,7 @@
             this.barButtonItem39 = new DevExpress.XtraBars.BarButtonItem();
             this.bbiMultiDayProfit = new DevExpress.XtraBars.BarButtonItem();
             this.bbiInvestorHome = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiRCAccount = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageTrade = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgInvestIncomeReport = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -205,9 +206,10 @@
             this.barButtonItem38,
             this.barButtonItem39,
             this.bbiMultiDayProfit,
-            this.bbiInvestorHome});
+            this.bbiInvestorHome,
+            this.bbiRCAccount});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 51;
+            this.ribbonControl1.MaxItemId = 52;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageTrade,
@@ -853,6 +855,16 @@
             this.bbiInvestorHome.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.bbiInvestorHome.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem40_ItemClick_1);
             // 
+            // bbiRCAccount
+            // 
+            this.bbiRCAccount.Caption = "账户 - 投资收益风控查询";
+            this.bbiRCAccount.Id = 51;
+            this.bbiRCAccount.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("bbiRCAccount.ImageOptions.Image")));
+            this.bbiRCAccount.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("bbiRCAccount.ImageOptions.LargeImage")));
+            this.bbiRCAccount.Name = "bbiRCAccount";
+            this.bbiRCAccount.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
+            this.bbiRCAccount.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRCAccount_ItemClick);
+            // 
             // ribbonPageTrade
             // 
             this.ribbonPageTrade.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -905,6 +917,7 @@
             // 
             this.ribbonPageGroup4.ItemLinks.Add(this.bbiAccountStockPosition);
             this.ribbonPageGroup4.ItemLinks.Add(this.bbiAccountInvestIncomeFlow);
+            this.ribbonPageGroup4.ItemLinks.Add(this.bbiRCAccount);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
             // 
             // ribbonPageGroup15
@@ -1171,6 +1184,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.BarButtonItem bbiMultiDayProfit;
         private DevExpress.XtraBars.BarButtonItem bbiInvestorHome;
+        private DevExpress.XtraBars.BarButtonItem bbiRCAccount;
     }
 }
 

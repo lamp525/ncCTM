@@ -728,7 +728,12 @@ namespace CTM.Win.Forms
 
         private void barButtonItem16_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.DisplayTabbedForm<FrmAccountRC>();
+          
+        }
+
+        private void bbiRCAccount_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.DisplayTabbedForm<FrmAccountRC>("账户投资收益及风控");
         }
     }
 }
