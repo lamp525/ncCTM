@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram3 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY3 = new DevExpress.XtraCharts.SecondaryAxisY();
-            DevExpress.XtraCharts.ConstantLine constantLine3 = new DevExpress.XtraCharts.ConstantLine();
-            DevExpress.XtraCharts.Series series9 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SplineSeriesView splineSeriesView9 = new DevExpress.XtraCharts.SplineSeriesView();
-            DevExpress.XtraCharts.Series series10 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel5 = new DevExpress.XtraCharts.PointSeriesLabel();
-            DevExpress.XtraCharts.SplineSeriesView splineSeriesView10 = new DevExpress.XtraCharts.SplineSeriesView();
-            DevExpress.XtraCharts.Series series11 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SplineSeriesView splineSeriesView11 = new DevExpress.XtraCharts.SplineSeriesView();
-            DevExpress.XtraCharts.Series series12 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel6 = new DevExpress.XtraCharts.PointSeriesLabel();
-            DevExpress.XtraCharts.SplineSeriesView splineSeriesView12 = new DevExpress.XtraCharts.SplineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram10 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY10 = new DevExpress.XtraCharts.SecondaryAxisY();
+            DevExpress.XtraCharts.ConstantLine constantLine10 = new DevExpress.XtraCharts.ConstantLine();
+            DevExpress.XtraCharts.Series series37 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SplineSeriesView splineSeriesView37 = new DevExpress.XtraCharts.SplineSeriesView();
+            DevExpress.XtraCharts.Series series38 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel19 = new DevExpress.XtraCharts.PointSeriesLabel();
+            DevExpress.XtraCharts.SplineSeriesView splineSeriesView38 = new DevExpress.XtraCharts.SplineSeriesView();
+            DevExpress.XtraCharts.Series series39 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SplineSeriesView splineSeriesView39 = new DevExpress.XtraCharts.SplineSeriesView();
+            DevExpress.XtraCharts.Series series40 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel20 = new DevExpress.XtraCharts.PointSeriesLabel();
+            DevExpress.XtraCharts.SplineSeriesView splineSeriesView40 = new DevExpress.XtraCharts.SplineSeriesView();
             this.sidePanel1 = new DevExpress.XtraEditors.SidePanel();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.gcList = new DevExpress.XtraGrid.GridControl();
@@ -52,6 +52,7 @@
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.sidePanel2 = new DevExpress.XtraEditors.SidePanel();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -76,7 +77,27 @@
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.pageStock = new DevExpress.XtraTab.XtraTabPage();
+            this.layoutControl5 = new DevExpress.XtraLayout.LayoutControl();
+            this.gcStock = new DevExpress.XtraGrid.GridControl();
+            this.gvStock = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colTradeId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPeriodProfit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPeriodRate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.pageTran = new DevExpress.XtraTab.XtraTabPage();
+            this.layoutControl6 = new DevExpress.XtraLayout.LayoutControl();
+            this.gcTrans = new DevExpress.XtraGrid.GridControl();
+            this.gvTrans = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.deEnd = new DevExpress.XtraEditors.DateEdit();
             this.deStart = new DevExpress.XtraEditors.DateEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -87,7 +108,16 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTransactionId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.sidePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
@@ -97,6 +127,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             this.sidePanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
@@ -109,23 +140,37 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).BeginInit();
             this.layoutControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartAccount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series40)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView40)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            this.pageStock.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).BeginInit();
+            this.layoutControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            this.pageTran.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl6)).BeginInit();
+            this.layoutControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcTrans)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvTrans)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deStart.Properties.CalendarTimeProperties)).BeginInit();
@@ -138,7 +183,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // sidePanel1
@@ -186,7 +230,7 @@
             this.gvList.OptionsView.ColumnAutoWidth = false;
             this.gvList.OptionsView.ShowGroupPanel = false;
             this.gvList.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvList_CustomDrawRowIndicator);
-            this.gvList.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvAccount_FocusedRowChanged);
+            this.gvList.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvList_FocusedRowChanged);
             // 
             // colAccountId
             // 
@@ -255,6 +299,14 @@
             this.layoutControlItem2.Size = new System.Drawing.Size(316, 713);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
+            // 
+            // emptySpaceItem4
+            // 
+            this.emptySpaceItem4.AllowHotTrack = false;
+            this.emptySpaceItem4.Location = new System.Drawing.Point(211, 0);
+            this.emptySpaceItem4.Name = "emptySpaceItem4";
+            this.emptySpaceItem4.Size = new System.Drawing.Size(105, 24);
+            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // sidePanel2
             // 
@@ -358,79 +410,79 @@
             // 
             // chartAccount
             // 
-            xyDiagram3.AxisX.Label.Angle = -45;
-            xyDiagram3.AxisX.Tickmarks.MinorVisible = false;
-            xyDiagram3.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram3.AxisY.Label.TextPattern = "{V:n2}";
-            xyDiagram3.AxisY.Tickmarks.MinorVisible = false;
-            xyDiagram3.AxisY.VisibleInPanesSerializable = "-1";
-            secondaryAxisY3.AxisID = 0;
-            constantLine3.AxisValueSerializable = "0";
-            constantLine3.Color = System.Drawing.Color.Red;
-            constantLine3.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
-            constantLine3.Name = "Constant Line 1";
-            constantLine3.ShowInLegend = false;
-            constantLine3.Title.Visible = false;
-            secondaryAxisY3.ConstantLines.AddRange(new DevExpress.XtraCharts.ConstantLine[] {
-            constantLine3});
-            secondaryAxisY3.Label.TextPattern = "{V:0.0%}";
-            secondaryAxisY3.Name = "Secondary AxisY 1";
-            secondaryAxisY3.Tickmarks.MinorVisible = false;
-            secondaryAxisY3.VisibleInPanesSerializable = "-1";
-            xyDiagram3.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
-            secondaryAxisY3});
-            this.chartAccount.Diagram = xyDiagram3;
+            xyDiagram10.AxisX.Label.Angle = -45;
+            xyDiagram10.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram10.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram10.AxisY.Label.TextPattern = "{V:n2}";
+            xyDiagram10.AxisY.Tickmarks.MinorVisible = false;
+            xyDiagram10.AxisY.VisibleInPanesSerializable = "-1";
+            secondaryAxisY10.AxisID = 0;
+            constantLine10.AxisValueSerializable = "0";
+            constantLine10.Color = System.Drawing.Color.Red;
+            constantLine10.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
+            constantLine10.Name = "Constant Line 1";
+            constantLine10.ShowInLegend = false;
+            constantLine10.Title.Visible = false;
+            secondaryAxisY10.ConstantLines.AddRange(new DevExpress.XtraCharts.ConstantLine[] {
+            constantLine10});
+            secondaryAxisY10.Label.TextPattern = "{V:0.0%}";
+            secondaryAxisY10.Name = "Secondary AxisY 1";
+            secondaryAxisY10.Tickmarks.MinorVisible = false;
+            secondaryAxisY10.VisibleInPanesSerializable = "-1";
+            xyDiagram10.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
+            secondaryAxisY10});
+            this.chartAccount.Diagram = xyDiagram10;
             this.chartAccount.Legend.MarkerMode = DevExpress.XtraCharts.LegendMarkerMode.CheckBox;
             this.chartAccount.Legend.Name = "Default Legend";
             this.chartAccount.Location = new System.Drawing.Point(12, 333);
             this.chartAccount.Name = "chartAccount";
-            series9.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            series9.CheckedInLegend = false;
-            series9.CrosshairLabelPattern = "{S}：{V:n2}万元";
-            series9.Name = "累计收益";
-            splineSeriesView9.Color = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(129)))), ((int)(((byte)(189)))));
-            splineSeriesView9.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(129)))), ((int)(((byte)(189)))));
-            splineSeriesView9.LineMarkerOptions.Size = 5;
-            splineSeriesView9.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-            series9.View = splineSeriesView9;
-            series10.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            series10.CrosshairLabelPattern = "{S}：{V:0.00%}";
-            pointSeriesLabel5.TextPattern = "{V:0.00%}";
-            series10.Label = pointSeriesLabel5;
-            series10.Name = "累计收益率";
-            splineSeriesView10.AxisYName = "Secondary AxisY 1";
-            splineSeriesView10.Color = System.Drawing.Color.OrangeRed;
-            splineSeriesView10.LineMarkerOptions.Color = System.Drawing.Color.OrangeRed;
-            splineSeriesView10.LineMarkerOptions.Size = 5;
-            splineSeriesView10.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-            series10.View = splineSeriesView10;
-            series11.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            series11.CheckedInLegend = false;
-            series11.CrosshairLabelPattern = "{S}：{V:n2}万元";
-            series11.Name = "回撤金额";
-            splineSeriesView11.Color = System.Drawing.Color.DeepSkyBlue;
-            splineSeriesView11.LineMarkerOptions.Color = System.Drawing.Color.DeepSkyBlue;
-            splineSeriesView11.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Triangle;
-            splineSeriesView11.LineMarkerOptions.Size = 5;
-            splineSeriesView11.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-            series11.View = splineSeriesView11;
-            series12.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
-            series12.CrosshairLabelPattern = "{S}：{V:0.00%}";
-            pointSeriesLabel6.TextPattern = "{V:0.00%}";
-            series12.Label = pointSeriesLabel6;
-            series12.Name = "回撤率";
-            splineSeriesView12.AxisYName = "Secondary AxisY 1";
-            splineSeriesView12.Color = System.Drawing.Color.DarkGreen;
-            splineSeriesView12.LineMarkerOptions.Color = System.Drawing.Color.DarkGreen;
-            splineSeriesView12.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Triangle;
-            splineSeriesView12.LineMarkerOptions.Size = 5;
-            splineSeriesView12.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-            series12.View = splineSeriesView12;
+            series37.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series37.CheckedInLegend = false;
+            series37.CrosshairLabelPattern = "{S}：{V:n2}万元";
+            series37.Name = "累计收益";
+            splineSeriesView37.Color = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(129)))), ((int)(((byte)(189)))));
+            splineSeriesView37.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(129)))), ((int)(((byte)(189)))));
+            splineSeriesView37.LineMarkerOptions.Size = 5;
+            splineSeriesView37.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+            series37.View = splineSeriesView37;
+            series38.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series38.CrosshairLabelPattern = "{S}：{V:0.00%}";
+            pointSeriesLabel19.TextPattern = "{V:0.00%}";
+            series38.Label = pointSeriesLabel19;
+            series38.Name = "累计收益率";
+            splineSeriesView38.AxisYName = "Secondary AxisY 1";
+            splineSeriesView38.Color = System.Drawing.Color.OrangeRed;
+            splineSeriesView38.LineMarkerOptions.Color = System.Drawing.Color.OrangeRed;
+            splineSeriesView38.LineMarkerOptions.Size = 5;
+            splineSeriesView38.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+            series38.View = splineSeriesView38;
+            series39.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series39.CheckedInLegend = false;
+            series39.CrosshairLabelPattern = "{S}：{V:n2}万元";
+            series39.Name = "回撤金额";
+            splineSeriesView39.Color = System.Drawing.Color.DeepSkyBlue;
+            splineSeriesView39.LineMarkerOptions.Color = System.Drawing.Color.DeepSkyBlue;
+            splineSeriesView39.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Triangle;
+            splineSeriesView39.LineMarkerOptions.Size = 5;
+            splineSeriesView39.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+            series39.View = splineSeriesView39;
+            series40.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            series40.CrosshairLabelPattern = "{S}：{V:0.00%}";
+            pointSeriesLabel20.TextPattern = "{V:0.00%}";
+            series40.Label = pointSeriesLabel20;
+            series40.Name = "回撤率";
+            splineSeriesView40.AxisYName = "Secondary AxisY 1";
+            splineSeriesView40.Color = System.Drawing.Color.DarkGreen;
+            splineSeriesView40.LineMarkerOptions.Color = System.Drawing.Color.DarkGreen;
+            splineSeriesView40.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Triangle;
+            splineSeriesView40.LineMarkerOptions.Size = 5;
+            splineSeriesView40.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+            series40.View = splineSeriesView40;
             this.chartAccount.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series9,
-        series10,
-        series11,
-        series12};
+        series37,
+        series38,
+        series39,
+        series40};
             this.chartAccount.Size = new System.Drawing.Size(962, 314);
             this.chartAccount.TabIndex = 1;
             // 
@@ -462,6 +514,8 @@
             this.gvAccount.OptionsView.ColumnAutoWidth = false;
             this.gvAccount.OptionsView.ShowGroupPanel = false;
             this.gvAccount.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvAccount_CustomDrawRowIndicator);
+            this.gvAccount.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvAccount_CustomDrawCell);
+            this.gvAccount.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvAccount_RowCellStyle);
             // 
             // gridColumn1
             // 
@@ -573,15 +627,238 @@
             // 
             // pageStock
             // 
+            this.pageStock.Controls.Add(this.layoutControl5);
             this.pageStock.Name = "pageStock";
             this.pageStock.Size = new System.Drawing.Size(986, 659);
             this.pageStock.Text = "  单票  ";
             // 
+            // layoutControl5
+            // 
+            this.layoutControl5.Controls.Add(this.gcStock);
+            this.layoutControl5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl5.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl5.Name = "layoutControl5";
+            this.layoutControl5.Root = this.layoutControlGroup5;
+            this.layoutControl5.Size = new System.Drawing.Size(986, 659);
+            this.layoutControl5.TabIndex = 0;
+            this.layoutControl5.Text = "layoutControl5";
+            // 
+            // gcStock
+            // 
+            this.gcStock.Location = new System.Drawing.Point(12, 12);
+            this.gcStock.MainView = this.gvStock;
+            this.gcStock.Name = "gcStock";
+            this.gcStock.Size = new System.Drawing.Size(962, 635);
+            this.gcStock.TabIndex = 4;
+            this.gcStock.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvStock});
+            // 
+            // gvStock
+            // 
+            this.gvStock.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colTradeId,
+            this.gridColumn2,
+            this.colStockCode,
+            this.colStockName,
+            this.gridColumn3,
+            this.gridColumn4,
+            this.colPeriodProfit,
+            this.colPeriodRate,
+            this.gridColumn5,
+            this.gridColumn6});
+            this.gvStock.GridControl = this.gcStock;
+            this.gvStock.IndicatorWidth = 40;
+            this.gvStock.Name = "gvStock";
+            this.gvStock.OptionsBehavior.Editable = false;
+            this.gvStock.OptionsView.ColumnAutoWidth = false;
+            this.gvStock.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvStock_CustomDrawRowIndicator);
+            this.gvStock.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvStock_CustomDrawCell);
+            this.gvStock.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvStock_RowCellStyle);
+            // 
+            // colTradeId
+            // 
+            this.colTradeId.Caption = "开仓编号";
+            this.colTradeId.FieldName = "TradeId";
+            this.colTradeId.Name = "colTradeId";
+            this.colTradeId.Visible = true;
+            this.colTradeId.VisibleIndex = 0;
+            this.colTradeId.Width = 120;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "日期";
+            this.gridColumn2.FieldName = "TradeDate";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
+            this.gridColumn2.Width = 90;
+            // 
+            // colStockCode
+            // 
+            this.colStockCode.Caption = "证券代码";
+            this.colStockCode.FieldName = "StockCode";
+            this.colStockCode.Name = "colStockCode";
+            this.colStockCode.Visible = true;
+            this.colStockCode.VisibleIndex = 2;
+            // 
+            // colStockName
+            // 
+            this.colStockName.Caption = "证券名称";
+            this.colStockName.FieldName = "StockName";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.Visible = true;
+            this.colStockName.VisibleIndex = 3;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "日收益(万元)";
+            this.gridColumn3.DisplayFormat.FormatString = "N2";
+            this.gridColumn3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn3.FieldName = "DayProfit";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 4;
+            this.gridColumn3.Width = 100;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "日收益率";
+            this.gridColumn4.DisplayFormat.FormatString = "P2";
+            this.gridColumn4.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn4.FieldName = "DayRate";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 5;
+            // 
+            // colPeriodProfit
+            // 
+            this.colPeriodProfit.Caption = "累计收益(万元)";
+            this.colPeriodProfit.DisplayFormat.FormatString = "N2";
+            this.colPeriodProfit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colPeriodProfit.FieldName = "PeriodProfit";
+            this.colPeriodProfit.Name = "colPeriodProfit";
+            this.colPeriodProfit.Visible = true;
+            this.colPeriodProfit.VisibleIndex = 6;
+            this.colPeriodProfit.Width = 100;
+            // 
+            // colPeriodRate
+            // 
+            this.colPeriodRate.Caption = "累计收益率";
+            this.colPeriodRate.DisplayFormat.FormatString = "P2";
+            this.colPeriodRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colPeriodRate.FieldName = "PeriodRate";
+            this.colPeriodRate.Name = "colPeriodRate";
+            this.colPeriodRate.Visible = true;
+            this.colPeriodRate.VisibleIndex = 7;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "回撤金额(万元)";
+            this.gridColumn5.DisplayFormat.FormatString = "N2";
+            this.gridColumn5.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn5.FieldName = "RetraceAmount";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 8;
+            this.gridColumn5.Width = 100;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "回撤率";
+            this.gridColumn6.DisplayFormat.FormatString = "P2";
+            this.gridColumn6.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn6.FieldName = "RetraceRate";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 9;
+            // 
+            // layoutControlGroup5
+            // 
+            this.layoutControlGroup5.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup5.GroupBordersVisible = false;
+            this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem9});
+            this.layoutControlGroup5.Name = "layoutControlGroup5";
+            this.layoutControlGroup5.Size = new System.Drawing.Size(986, 659);
+            this.layoutControlGroup5.TextVisible = false;
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.gcStock;
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(966, 639);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
+            // 
             // pageTran
             // 
+            this.pageTran.Controls.Add(this.layoutControl6);
             this.pageTran.Name = "pageTran";
             this.pageTran.Size = new System.Drawing.Size(986, 659);
             this.pageTran.Text = "  单笔  ";
+            // 
+            // layoutControl6
+            // 
+            this.layoutControl6.Controls.Add(this.gcTrans);
+            this.layoutControl6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl6.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl6.Name = "layoutControl6";
+            this.layoutControl6.Root = this.layoutControlGroup6;
+            this.layoutControl6.Size = new System.Drawing.Size(986, 659);
+            this.layoutControl6.TabIndex = 0;
+            this.layoutControl6.Text = "layoutControl6";
+            // 
+            // gcTrans
+            // 
+            this.gcTrans.Location = new System.Drawing.Point(12, 12);
+            this.gcTrans.MainView = this.gvTrans;
+            this.gcTrans.Name = "gcTrans";
+            this.gcTrans.Size = new System.Drawing.Size(962, 635);
+            this.gcTrans.TabIndex = 4;
+            this.gcTrans.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvTrans});
+            // 
+            // gvTrans
+            // 
+            this.gvTrans.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn7,
+            this.gridColumn8,
+            this.colTransactionId,
+            this.gridColumn9,
+            this.gridColumn10,
+            this.gridColumn11,
+            this.gridColumn12,
+            this.gridColumn13,
+            this.gridColumn14,
+            this.gridColumn15});
+            this.gvTrans.GridControl = this.gcTrans;
+            this.gvTrans.IndicatorWidth = 40;
+            this.gvTrans.Name = "gvTrans";
+            this.gvTrans.OptionsBehavior.Editable = false;
+            this.gvTrans.OptionsView.ColumnAutoWidth = false;
+            this.gvTrans.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gvTrans_CustomDrawRowIndicator);
+            this.gvTrans.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvTrans_CustomDrawCell);
+            this.gvTrans.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvTrans_RowCellStyle);
+            // 
+            // layoutControlGroup6
+            // 
+            this.layoutControlGroup6.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup6.GroupBordersVisible = false;
+            this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem11});
+            this.layoutControlGroup6.Name = "layoutControlGroup6";
+            this.layoutControlGroup6.Size = new System.Drawing.Size(986, 659);
+            this.layoutControlGroup6.TextVisible = false;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.gcTrans;
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(966, 639);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
             // 
             // deEnd
             // 
@@ -693,13 +970,101 @@
             this.emptySpaceItem3.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // emptySpaceItem4
+            // gridColumn7
             // 
-            this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(211, 0);
-            this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(105, 24);
-            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.gridColumn7.Caption = "证券代码";
+            this.gridColumn7.FieldName = "StockCode";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 0;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "证券名称";
+            this.gridColumn8.FieldName = "StockName";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 1;
+            // 
+            // colTransactionId
+            // 
+            this.colTransactionId.Caption = "单笔编号";
+            this.colTransactionId.FieldName = "TransactionId";
+            this.colTransactionId.Name = "colTransactionId";
+            this.colTransactionId.Visible = true;
+            this.colTransactionId.VisibleIndex = 2;
+            this.colTransactionId.Width = 150;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "日期";
+            this.gridColumn9.FieldName = "TradeDate";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 3;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "日收益(万元)";
+            this.gridColumn10.DisplayFormat.FormatString = "N2";
+            this.gridColumn10.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn10.FieldName = "DayProfit";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 4;
+            this.gridColumn10.Width = 100;
+            // 
+            // gridColumn11
+            // 
+            this.gridColumn11.Caption = "日收益率";
+            this.gridColumn11.DisplayFormat.FormatString = "P2";
+            this.gridColumn11.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn11.FieldName = "DayRate";
+            this.gridColumn11.Name = "gridColumn11";
+            this.gridColumn11.Visible = true;
+            this.gridColumn11.VisibleIndex = 5;
+            // 
+            // gridColumn12
+            // 
+            this.gridColumn12.Caption = "累计收益(万元)";
+            this.gridColumn12.DisplayFormat.FormatString = "N2";
+            this.gridColumn12.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn12.FieldName = "AccProfit";
+            this.gridColumn12.Name = "gridColumn12";
+            this.gridColumn12.Visible = true;
+            this.gridColumn12.VisibleIndex = 6;
+            this.gridColumn12.Width = 100;
+            // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "累计收益率";
+            this.gridColumn13.DisplayFormat.FormatString = "P2";
+            this.gridColumn13.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn13.FieldName = "AccRate";
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 7;
+            // 
+            // gridColumn14
+            // 
+            this.gridColumn14.Caption = "回撤金额(万元)";
+            this.gridColumn14.DisplayFormat.FormatString = "N2";
+            this.gridColumn14.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn14.FieldName = "RetraceAmount";
+            this.gridColumn14.Name = "gridColumn14";
+            this.gridColumn14.Visible = true;
+            this.gridColumn14.VisibleIndex = 8;
+            this.gridColumn14.Width = 100;
+            // 
+            // gridColumn15
+            // 
+            this.gridColumn15.Caption = "回撤率";
+            this.gridColumn15.DisplayFormat.FormatString = "P2";
+            this.gridColumn15.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.gridColumn15.FieldName = "RetraceRate";
+            this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.Visible = true;
+            this.gridColumn15.VisibleIndex = 9;
             // 
             // FrmAccountRC
             // 
@@ -721,6 +1086,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             this.sidePanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
@@ -732,24 +1098,38 @@
             this.pageAccount.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).EndInit();
             this.layoutControl4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(splineSeriesView12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(splineSeriesView40)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series40)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            this.pageStock.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).EndInit();
+            this.layoutControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            this.pageTran.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl6)).EndInit();
+            this.layoutControl6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcTrans)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvTrans)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deEnd.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deStart.Properties.CalendarTimeProperties)).EndInit();
@@ -762,7 +1142,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -816,5 +1195,35 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
+        private DevExpress.XtraLayout.LayoutControl layoutControl5;
+        private DevExpress.XtraGrid.GridControl gcStock;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvStock;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.LayoutControl layoutControl6;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradeId;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colStockName;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn colPeriodProfit;
+        private DevExpress.XtraGrid.Columns.GridColumn colPeriodRate;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.GridControl gcTrans;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvTrans;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn colTransactionId;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
     }
 }

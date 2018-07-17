@@ -25,6 +25,15 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
         private void FormInit()
         {
+            DateTime now = DateTime.Now;
+
+            this.deStart.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deEnd.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.deStart.EditValue = now.AddMonths(-1);
+            this.deEnd.EditValue = now;
+
+            this.btnView.Enabled = false;
+
             this.cbInvestor.Enabled = false;
 
             //投资人员列表
@@ -49,26 +58,23 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
             if (LoginInfo.CurrentUser.IsAdmin)
             {
-                this.cbInvestor.DefaultSelected(string.Empty);
+                this.cbInvestor.SelectedIndex = 0;
                 this.cbInvestor.Enabled = true;
             }
             else
                 this.cbInvestor.DefaultSelected(LoginInfo.CurrentUser.UserCode);
 
-            DateTime now = DateTime.Now;
 
-            this.deStart.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deEnd.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.deStart.EditValue = now.AddMonths(-1);
-            this.deEnd.EditValue = now;
         }
 
         private void BindAccountList()
         {
+            this.gcList.DataSource = null;           
+
             string investorCode = this.cbInvestor.SelectedValue();
             string sqlText = @" SELECT R.AccountId,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName,R.InvestFund
                                             FROM RCAccountList  R LEFT JOIN AccountInfo A ON R.AccountId = A.Id  ";
-            if (string.IsNullOrEmpty(investorCode))
+            if (!string.IsNullOrEmpty(investorCode))
             {
                 sqlText += $@"WHERE R.Principal = '{investorCode}'";
             }
@@ -77,6 +83,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             if (ds != null && ds.Tables.Count > 0)
             {
                 this.gcList.DataSource = ds.Tables[0];
+                this.btnView.Enabled = true;
             }
         }
 
@@ -96,6 +103,8 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
         private void GetAccountProfit()
         {
+            gcAccount.DataSource = null;
+
             string startDate = deStart.Text;
             string endDate = deEnd.Text;
 
@@ -107,8 +116,10 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             }
         }
 
-        private void GetTransProfit()
+        private void GetStockProfit()
         {
+            gcStock.DataSource = null;
+
             string startDate = deStart.Text;
             string endDate = deEnd.Text;
 
@@ -116,11 +127,14 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count > 0)
             {
+                gcStock.DataSource = ds.Tables[0];
             }
         }
 
-        private void GetStockProfit()
+        private void GetTransProfit()
         {
+            gcTrans.DataSource = null;
+
             string startDate = deStart.Text;
             string endDate = deEnd.Text;
 
@@ -128,12 +142,17 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count > 0)
             {
+                gcTrans.DataSource = ds.Tables[0];
             }
         }
 
         private void DisplayAccountChart()
         {
-            DataTable dtAccount = this.gcAccount.DataSource as DataTable;
+            object source = this.gcAccount.DataSource;
+
+            if (source == null) return;
+
+            DataTable dtAccount = (source as DataTable).AsEnumerable().OrderBy(x => x.Field<DateTime>("TradeDate")).CopyToDataTable();
 
             if (dtAccount == null) return;
 
@@ -221,10 +240,17 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
         private void cbInvestor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindAccountList();
+            try
+            {
+                BindAccountList();
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
         }
 
-        private void gvAccount_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void gvList_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             try
             {
@@ -236,11 +262,14 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
                 _AccountId = int.Parse(row["AccountId"].ToString());
                 DisplayLatestAccountProfit();
 
-                this.xtratabcontrol1.SelectedTabPageIndex = 0;
+                this._PageAccountFlag = false;
+                this._PageStockFlag = false;
+                this._PageTransFlag = false;
+                DisplayResultView();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                DXMessage.ShowError (ex.Message );
             }
         }
 
@@ -261,6 +290,9 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             try
             {
                 this.btnView.Enabled = false;
+                this._PageAccountFlag = false;
+                this._PageStockFlag = false;
+                this._PageTransFlag = false;
 
                 DisplayResultView();
             }
@@ -282,6 +314,97 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         private void gvAccount_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
         {
             gvAccount.DrawRowIndicator(e);
+        }
+
+        private void gvStock_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            gvStock.DrawRowIndicator(e);
+        }
+
+        private void gvTrans_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            gvTrans.DrawRowIndicator(e);
+        }
+
+        private void gvAccount_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void gvStock_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void gvTrans_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            decimal cellValue;
+
+            if (decimal.TryParse(e.CellValue.ToString(), out cellValue))
+            {
+                if (cellValue == 0)
+                    e.DisplayText = "-";
+            }
+        }
+
+        private void gvTrans_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void gvStock_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+
+        private void gvAccount_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle < 0 || e.CellValue == null) return;
+
+            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                var cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue > 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Red;
+                else if (cellValue < 0)
+                    e.Appearance.ForeColor = System.Drawing.Color.Green;
+            }
         }
     }
 }
