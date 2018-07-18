@@ -312,6 +312,8 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
                 if (row == null) return;
 
                 _AccountId = int.Parse(row["AccountId"].ToString());
+                esiAccount.Text = row["AccountName"].ToString();
+
                 DisplayLatestAccountProfit();
 
                 this._PageAccountFlag = false;
