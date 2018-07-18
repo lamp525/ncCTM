@@ -13,6 +13,10 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 {
     public partial class FrmAccountRC : BaseForm
     {
+        private DataRow _AccountRCInfo;
+        private DataRow _StockRCInfo;
+        private DataRow _TransRCInfo;
+
         private int _AccountId;
         private bool _PageAccountFlag = false;
         private bool _PageStockFlag = false;
@@ -21,6 +25,28 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         public FrmAccountRC()
         {
             InitializeComponent();
+
+            GetRCInfo();
+        }
+
+        private void GetRCInfo()
+        {
+            try
+            {
+                string sqlText = @"SELECT * FROM RCInfo ";
+                DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
+                if(ds!=null && ds.Tables.Count == 1 )
+                {
+                    _AccountRCInfo = ds.Tables[0].AsEnumerable().Where(x => x.Field<string>("Type") == "A").FirstOrDefault();
+                    _StockRCInfo = ds.Tables[0].AsEnumerable().Where(x => x.Field<string>("Type") == "S").FirstOrDefault();
+                    _TransRCInfo = ds.Tables[0].AsEnumerable().Where(x => x.Field<string>("Type") == "T").FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                DXMessage.ShowError (ex.Message);
+            }
         }
 
         private void FormInit()
@@ -39,8 +65,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             //投资人员列表
             string sqlText = $@"SELECT
 	                                            InvestorCode = T.Principal,InvestorName = U.Name
-                                            FROM
-                                            ( SELECT DISTINCT Principal FROM RCAccountList ) T
+                                            FROM ( SELECT DISTINCT Principal FROM RCAccountList ) T
                                             INNER JOIN UserInfo U ON T.Principal = U.Code
                                             ORDER BY U.Name";
 
@@ -369,7 +394,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >=0)
+            {
+                decimal plan = decimal.Parse(_TransRCInfo["PlanRetracement"].ToString());
+                decimal max = decimal.Parse(_TransRCInfo["MaxRetracement"].ToString());
+                decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue >= max)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Red;
+                }
+                else if (cellValue >= plan)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
@@ -383,7 +422,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                decimal plan = decimal.Parse(_StockRCInfo["PlanRetracement"].ToString());
+                decimal max = decimal.Parse(_StockRCInfo["MaxRetracement"].ToString());
+                decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                if (cellValue >= max)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Red;
+                }
+                else if (cellValue >= plan)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
@@ -397,7 +450,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
+            {
+                decimal plan = decimal.Parse(_AccountRCInfo["PlanRetracement"].ToString());
+                decimal max = decimal.Parse(_AccountRCInfo["MaxRetracement"].ToString());
+                decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                if(cellValue >= max)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Red;
+                }
+                else if (cellValue >= plan)
+                {
+                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+            else  if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
