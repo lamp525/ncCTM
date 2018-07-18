@@ -35,7 +35,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             {
                 string sqlText = @"SELECT * FROM RCInfo ";
                 DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
-                if(ds!=null && ds.Tables.Count == 1 )
+                if (ds != null && ds.Tables.Count == 1)
                 {
                     _AccountRCInfo = ds.Tables[0].AsEnumerable().Where(x => x.Field<string>("Type") == "A").FirstOrDefault();
                     _StockRCInfo = ds.Tables[0].AsEnumerable().Where(x => x.Field<string>("Type") == "S").FirstOrDefault();
@@ -44,8 +44,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             }
             catch (Exception ex)
             {
-
-                DXMessage.ShowError (ex.Message);
+                DXMessage.ShowError(ex.Message);
             }
         }
 
@@ -88,13 +87,11 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             }
             else
                 this.cbInvestor.DefaultSelected(LoginInfo.CurrentUser.UserCode);
-
-
         }
 
         private void BindAccountList()
         {
-            this.gcList.DataSource = null;           
+            this.gcList.DataSource = null;
 
             string investorCode = this.cbInvestor.SelectedValue();
             string sqlText = @" SELECT R.AccountId,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName,R.InvestFund
@@ -119,10 +116,40 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count > 0)
             {
-                DataRow row = ds.Tables[0].Rows[0];
+                DataRow dr = ds.Tables[0].Rows[0];
 
-                if (row != null)
-                    esiAccountProfit.Text = $@"日期：{row["TradeDate"]}   累计收益额：{row["AccProfit"]}   累计收益率：{row["AccRate"]}   当日盈亏：{row["DayProfit"]}   当日收益率：{row["DayRate"]}   最大回撤率：{row["MaxRetraceRate"]}";
+                if (dr == null) return;
+
+                string unit = " 万";
+                lblDate.Text = dr.Field<string>("TradeDate");
+                lblDate.ForeColor = System.Drawing.Color.DarkBlue;
+
+                lblDP.Text = dr.Field<decimal>("DayProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("DayProfit") > 0)
+                    lblDP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("DayProfit") < 0)
+                    lblDP.ForeColor = System.Drawing.Color.Green;
+
+                lblDR.Text = dr.Field<decimal>("DayRate").ToString("P2");
+                if (dr.Field<decimal>("DayRate") > 0)
+                    lblDR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("DayRate") < 0)
+                    lblDR.ForeColor = System.Drawing.Color.Green;
+
+                lblAP.Text = dr.Field<decimal>("AccProfit").ToString("N2") + unit;
+                if (dr.Field<decimal>("AccProfit") > 0)
+                    lblAP.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("AccProfit") < 0)
+                    lblAP.ForeColor = System.Drawing.Color.Green;
+
+                lblAR.Text = dr.Field<decimal>("AccRate").ToString("P2");
+                if (dr.Field<decimal>("AccRate") > 0)
+                    lblAR.ForeColor = System.Drawing.Color.Red;
+                else if (dr.Field<decimal>("AccRate") < 0)
+                    lblAR.ForeColor = System.Drawing.Color.Green;
+
+                lblMax.Text = dr.Field<decimal>("MaxRetraceRate").ToString("P2");
+                lblMax.ForeColor = System.Drawing.Color.DarkBlue;
             }
         }
 
@@ -294,7 +321,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             }
             catch (Exception ex)
             {
-                DXMessage.ShowError (ex.Message );
+                DXMessage.ShowError(ex.Message);
             }
         }
 
@@ -394,7 +421,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
         {
             if (e.RowHandle < 0 || e.CellValue == null) return;
 
-            if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >=0)
+            if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
             {
                 decimal plan = decimal.Parse(_TransRCInfo["PlanRetracement"].ToString());
                 decimal max = decimal.Parse(_TransRCInfo["MaxRetracement"].ToString());
@@ -455,7 +482,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
                 decimal plan = decimal.Parse(_AccountRCInfo["PlanRetracement"].ToString());
                 decimal max = decimal.Parse(_AccountRCInfo["MaxRetracement"].ToString());
                 decimal cellValue = decimal.Parse(e.CellValue.ToString());
-                if(cellValue >= max)
+                if (cellValue >= max)
                 {
                     e.Appearance.BackColor = System.Drawing.Color.Red;
                 }
@@ -464,7 +491,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
                     e.Appearance.BackColor = System.Drawing.Color.Yellow;
                 }
             }
-            else  if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
+            else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
             {
                 var cellValue = decimal.Parse(e.CellValue.ToString());
                 if (cellValue > 0)
