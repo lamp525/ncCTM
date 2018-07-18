@@ -94,7 +94,7 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             this.gcList.DataSource = null;
 
             string investorCode = this.cbInvestor.SelectedValue();
-            string sqlText = @" SELECT R.AccountId,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName,R.InvestFund
+            string sqlText = @" SELECT R.AccountId,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName,InvestFund = R.InvestFund /10000
                                             FROM RCAccountList  R LEFT JOIN AccountInfo A ON R.AccountId = A.Id  ";
             if (!string.IsNullOrEmpty(investorCode))
             {
