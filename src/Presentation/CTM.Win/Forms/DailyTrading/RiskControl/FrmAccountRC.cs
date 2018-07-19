@@ -101,12 +101,14 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
                                                     ,InvestFund = R.InvestFund /10000
                                             FROM RCAccountList  R 
                                             LEFT JOIN AccountInfo A ON R.AccountId = A.Id  
-                                            LEFT JOIN UserInfo U ON R.Principal = U.Code 
-                                            ORDER BY U.[Name]" ;
+                                            LEFT JOIN UserInfo U ON R.Principal = U.Code ";
+                                     
             if (!string.IsNullOrEmpty(investorCode))
             {
                 sqlText += $@" WHERE R.Principal = '{investorCode}'";
             }
+
+            sqlText += @" ORDER BY U.[Name]" ;
 
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);
             if (ds != null && ds.Tables.Count > 0)
