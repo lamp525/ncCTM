@@ -94,11 +94,18 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             this.gcList.DataSource = null;
 
             string investorCode = this.cbInvestor.SelectedValue();
-            string sqlText = @" SELECT R.AccountId,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName,InvestFund = R.InvestFund /10000
-                                            FROM RCAccountList  R LEFT JOIN AccountInfo A ON R.AccountId = A.Id  ";
+            string sqlText = @" SELECT 
+                                                    InvestorName = U.[Name]
+                                                    ,R.AccountId
+                                                    ,AccountName = A.Name + ' - ' + A.SecurityCompanyName + ' - '  + A.AttributeName
+                                                    ,InvestFund = R.InvestFund /10000
+                                            FROM RCAccountList  R 
+                                            LEFT JOIN AccountInfo A ON R.AccountId = A.Id  
+                                            LEFT JOIN UserInfo U ON R.Principal = U.Code 
+                                            ORDER BY U.[Name]" ;
             if (!string.IsNullOrEmpty(investorCode))
             {
-                sqlText += $@"WHERE R.Principal = '{investorCode}'";
+                sqlText += $@" WHERE R.Principal = '{investorCode}'";
             }
 
             DataSet ds = SqlHelper.ExecuteDataset(AppConfig._ConnString, CommandType.Text, sqlText);

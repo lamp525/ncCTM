@@ -46,6 +46,7 @@
             this.gcList = new DevExpress.XtraGrid.GridControl();
             this.gvList = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colAccountId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAccountName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvestFund = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbInvestor = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -214,7 +215,7 @@
             this.sidePanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.sidePanel1.Location = new System.Drawing.Point(0, 0);
             this.sidePanel1.Name = "sidePanel1";
-            this.sidePanel1.Size = new System.Drawing.Size(337, 757);
+            this.sidePanel1.Size = new System.Drawing.Size(391, 757);
             this.sidePanel1.TabIndex = 0;
             this.sidePanel1.Text = "sidePanel1";
             // 
@@ -226,7 +227,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(336, 757);
+            this.layoutControl2.Size = new System.Drawing.Size(390, 757);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -235,7 +236,7 @@
             this.gcList.Location = new System.Drawing.Point(12, 36);
             this.gcList.MainView = this.gvList;
             this.gcList.Name = "gcList";
-            this.gcList.Size = new System.Drawing.Size(312, 709);
+            this.gcList.Size = new System.Drawing.Size(366, 709);
             this.gcList.TabIndex = 5;
             this.gcList.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvList});
@@ -244,6 +245,7 @@
             // 
             this.gvList.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colAccountId,
+            this.gridColumn20,
             this.colAccountName,
             this.colInvestFund});
             this.gvList.GridControl = this.gcList;
@@ -261,14 +263,22 @@
             // 
             this.colAccountId.Name = "colAccountId";
             // 
+            // gridColumn20
+            // 
+            this.gridColumn20.Caption = "负责人";
+            this.gridColumn20.FieldName = "InvestorName";
+            this.gridColumn20.Name = "gridColumn20";
+            this.gridColumn20.Visible = true;
+            this.gridColumn20.VisibleIndex = 0;
+            // 
             // colAccountName
             // 
             this.colAccountName.Caption = "账户信息";
             this.colAccountName.FieldName = "AccountName";
             this.colAccountName.Name = "colAccountName";
             this.colAccountName.Visible = true;
-            this.colAccountName.VisibleIndex = 0;
-            this.colAccountName.Width = 179;
+            this.colAccountName.VisibleIndex = 1;
+            this.colAccountName.Width = 160;
             // 
             // colInvestFund
             // 
@@ -278,7 +288,7 @@
             this.colInvestFund.FieldName = "InvestFund";
             this.colInvestFund.Name = "colInvestFund";
             this.colInvestFund.Visible = true;
-            this.colInvestFund.VisibleIndex = 1;
+            this.colInvestFund.VisibleIndex = 2;
             this.colInvestFund.Width = 95;
             // 
             // cbInvestor
@@ -301,7 +311,7 @@
             this.layoutControlItem2,
             this.emptySpaceItem4});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(336, 757);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(390, 757);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem1
@@ -325,7 +335,7 @@
             this.layoutControlItem2.Control = this.gcList;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(316, 713);
+            this.layoutControlItem2.Size = new System.Drawing.Size(370, 713);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -334,16 +344,16 @@
             this.emptySpaceItem4.AllowHotTrack = false;
             this.emptySpaceItem4.Location = new System.Drawing.Point(211, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(105, 24);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(159, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // sidePanel2
             // 
             this.sidePanel2.Controls.Add(this.layoutControl3);
             this.sidePanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.sidePanel2.Location = new System.Drawing.Point(337, 0);
+            this.sidePanel2.Location = new System.Drawing.Point(391, 0);
             this.sidePanel2.Name = "sidePanel2";
-            this.sidePanel2.Size = new System.Drawing.Size(1155, 51);
+            this.sidePanel2.Size = new System.Drawing.Size(1145, 51);
             this.sidePanel2.TabIndex = 1;
             this.sidePanel2.Text = "sidePanel2";
             // 
@@ -359,7 +369,7 @@
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup3;
-            this.layoutControl3.Size = new System.Drawing.Size(1155, 50);
+            this.layoutControl3.Size = new System.Drawing.Size(1145, 50);
             this.layoutControl3.TabIndex = 0;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -391,7 +401,7 @@
             this.lblDR.Appearance.Options.UseFont = true;
             this.lblDR.Location = new System.Drawing.Point(603, 12);
             this.lblDR.Name = "lblDR";
-            this.lblDR.Size = new System.Drawing.Size(69, 26);
+            this.lblDR.Size = new System.Drawing.Size(68, 26);
             this.lblDR.StyleController = this.layoutControl3;
             this.lblDR.TabIndex = 4;
             this.lblDR.Text = "labelControl1";
@@ -400,7 +410,7 @@
             // 
             this.lblAP.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.lblAP.Appearance.Options.UseFont = true;
-            this.lblAP.Location = new System.Drawing.Point(744, 12);
+            this.lblAP.Location = new System.Drawing.Point(743, 12);
             this.lblAP.Name = "lblAP";
             this.lblAP.Size = new System.Drawing.Size(88, 26);
             this.lblAP.StyleController = this.layoutControl3;
@@ -411,9 +421,9 @@
             // 
             this.lblAR.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.lblAR.Appearance.Options.UseFont = true;
-            this.lblAR.Location = new System.Drawing.Point(917, 12);
+            this.lblAR.Location = new System.Drawing.Point(916, 12);
             this.lblAR.Name = "lblAR";
-            this.lblAR.Size = new System.Drawing.Size(71, 26);
+            this.lblAR.Size = new System.Drawing.Size(65, 26);
             this.lblAR.StyleController = this.layoutControl3;
             this.lblAR.TabIndex = 4;
             this.lblAR.Text = "labelControl1";
@@ -422,9 +432,9 @@
             // 
             this.lblMax.Appearance.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.lblMax.Appearance.Options.UseFont = true;
-            this.lblMax.Location = new System.Drawing.Point(1073, 12);
+            this.lblMax.Location = new System.Drawing.Point(1066, 12);
             this.lblMax.Name = "lblMax";
-            this.lblMax.Size = new System.Drawing.Size(70, 26);
+            this.lblMax.Size = new System.Drawing.Size(67, 26);
             this.lblMax.StyleController = this.layoutControl3;
             this.lblMax.TabIndex = 4;
             this.lblMax.Text = "labelControl1";
@@ -442,7 +452,7 @@
             this.layoutControlItem20,
             this.esiAccount});
             this.layoutControlGroup3.Name = "Root";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1155, 50);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1145, 50);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem16
@@ -491,7 +501,7 @@
             this.layoutControlItem17.MaxSize = new System.Drawing.Size(160, 30);
             this.layoutControlItem17.MinSize = new System.Drawing.Size(150, 30);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(154, 30);
+            this.layoutControlItem17.Size = new System.Drawing.Size(153, 30);
             this.layoutControlItem17.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem17.Text = "当日收益率：";
             this.layoutControlItem17.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
@@ -505,7 +515,7 @@
             this.layoutControlItem18.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem18.Control = this.lblAP;
             this.layoutControlItem18.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem18.Location = new System.Drawing.Point(664, 0);
+            this.layoutControlItem18.Location = new System.Drawing.Point(663, 0);
             this.layoutControlItem18.MaxSize = new System.Drawing.Size(160, 30);
             this.layoutControlItem18.MinSize = new System.Drawing.Size(160, 30);
             this.layoutControlItem18.Name = "layoutControlItem18";
@@ -523,11 +533,11 @@
             this.layoutControlItem19.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem19.Control = this.lblAR;
             this.layoutControlItem19.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem19.Location = new System.Drawing.Point(824, 0);
+            this.layoutControlItem19.Location = new System.Drawing.Point(823, 0);
             this.layoutControlItem19.MaxSize = new System.Drawing.Size(160, 30);
             this.layoutControlItem19.MinSize = new System.Drawing.Size(150, 30);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(156, 30);
+            this.layoutControlItem19.Size = new System.Drawing.Size(150, 30);
             this.layoutControlItem19.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem19.Text = "累计收益率：";
             this.layoutControlItem19.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
@@ -541,11 +551,11 @@
             this.layoutControlItem20.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem20.Control = this.lblMax;
             this.layoutControlItem20.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem20.Location = new System.Drawing.Point(980, 0);
+            this.layoutControlItem20.Location = new System.Drawing.Point(973, 0);
             this.layoutControlItem20.MaxSize = new System.Drawing.Size(160, 30);
             this.layoutControlItem20.MinSize = new System.Drawing.Size(150, 30);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(155, 30);
+            this.layoutControlItem20.Size = new System.Drawing.Size(152, 30);
             this.layoutControlItem20.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem20.Text = "最大回撤率：";
             this.layoutControlItem20.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
@@ -576,10 +586,10 @@
             this.layoutControl1.Controls.Add(this.deEnd);
             this.layoutControl1.Controls.Add(this.deStart);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutControl1.Location = new System.Drawing.Point(337, 51);
+            this.layoutControl1.Location = new System.Drawing.Point(391, 51);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1155, 706);
+            this.layoutControl1.Size = new System.Drawing.Size(1145, 706);
             this.layoutControl1.TabIndex = 2;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -587,7 +597,7 @@
             // 
             this.btnView.Location = new System.Drawing.Point(395, 12);
             this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(72, 22);
+            this.btnView.Size = new System.Drawing.Size(71, 22);
             this.btnView.StyleController = this.layoutControl1;
             this.btnView.TabIndex = 7;
             this.btnView.Text = "   查  看   ";
@@ -604,7 +614,7 @@
             this.xtratabcontrol1.Location = new System.Drawing.Point(12, 38);
             this.xtratabcontrol1.Name = "xtratabcontrol1";
             this.xtratabcontrol1.SelectedTabPage = this.pageAccount;
-            this.xtratabcontrol1.Size = new System.Drawing.Size(1131, 656);
+            this.xtratabcontrol1.Size = new System.Drawing.Size(1121, 656);
             this.xtratabcontrol1.TabIndex = 6;
             this.xtratabcontrol1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageAccount,
@@ -616,7 +626,7 @@
             // 
             this.pageAccount.Controls.Add(this.layoutControl4);
             this.pageAccount.Name = "pageAccount";
-            this.pageAccount.Size = new System.Drawing.Size(1072, 654);
+            this.pageAccount.Size = new System.Drawing.Size(1062, 654);
             this.pageAccount.Text = "  账户  ";
             // 
             // layoutControl4
@@ -627,7 +637,7 @@
             this.layoutControl4.Location = new System.Drawing.Point(0, 0);
             this.layoutControl4.Name = "layoutControl4";
             this.layoutControl4.Root = this.layoutControlGroup4;
-            this.layoutControl4.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControl4.Size = new System.Drawing.Size(1062, 654);
             this.layoutControl4.TabIndex = 0;
             this.layoutControl4.Text = "layoutControl4";
             // 
@@ -706,7 +716,7 @@
         series2,
         series3,
         series4};
-            this.chartAccount.Size = new System.Drawing.Size(1048, 312);
+            this.chartAccount.Size = new System.Drawing.Size(1038, 312);
             this.chartAccount.TabIndex = 1;
             // 
             // gcAccount
@@ -714,7 +724,7 @@
             this.gcAccount.Location = new System.Drawing.Point(12, 12);
             this.gcAccount.MainView = this.gvAccount;
             this.gcAccount.Name = "gcAccount";
-            this.gcAccount.Size = new System.Drawing.Size(1048, 314);
+            this.gcAccount.Size = new System.Drawing.Size(1038, 314);
             this.gcAccount.TabIndex = 0;
             this.gcAccount.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvAccount});
@@ -772,7 +782,7 @@
             this.gridColumn19.Name = "gridColumn19";
             this.gridColumn19.Visible = true;
             this.gridColumn19.VisibleIndex = 1;
-            this.gridColumn19.Width = 100;
+            this.gridColumn19.Width = 80;
             // 
             // gridColumn18
             // 
@@ -805,7 +815,7 @@
             this.gridColumn16.Name = "gridColumn16";
             this.gridColumn16.Visible = true;
             this.gridColumn16.VisibleIndex = 4;
-            this.gridColumn16.Width = 100;
+            this.gridColumn16.Width = 90;
             // 
             // colAccProfit
             // 
@@ -816,7 +826,7 @@
             this.colAccProfit.Name = "colAccProfit";
             this.colAccProfit.Visible = true;
             this.colAccProfit.VisibleIndex = 5;
-            this.colAccProfit.Width = 100;
+            this.colAccProfit.Width = 90;
             // 
             // colAccRate
             // 
@@ -838,7 +848,7 @@
             this.colDayProfit.Name = "colDayProfit";
             this.colDayProfit.Visible = true;
             this.colDayProfit.VisibleIndex = 7;
-            this.colDayProfit.Width = 100;
+            this.colDayProfit.Width = 90;
             // 
             // colDayRate
             // 
@@ -881,7 +891,7 @@
             this.layoutControlItem7,
             this.layoutControlItem6});
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1062, 654);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // layoutControlItem7
@@ -889,7 +899,7 @@
             this.layoutControlItem7.Control = this.chartAccount;
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 318);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(1052, 316);
+            this.layoutControlItem7.Size = new System.Drawing.Size(1042, 316);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -898,7 +908,7 @@
             this.layoutControlItem6.Control = this.gcAccount;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(1052, 318);
+            this.layoutControlItem6.Size = new System.Drawing.Size(1042, 318);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -906,7 +916,7 @@
             // 
             this.pageStock.Controls.Add(this.layoutControl5);
             this.pageStock.Name = "pageStock";
-            this.pageStock.Size = new System.Drawing.Size(1072, 654);
+            this.pageStock.Size = new System.Drawing.Size(1090, 654);
             this.pageStock.Text = "  单票  ";
             // 
             // layoutControl5
@@ -916,7 +926,7 @@
             this.layoutControl5.Location = new System.Drawing.Point(0, 0);
             this.layoutControl5.Name = "layoutControl5";
             this.layoutControl5.Root = this.layoutControlGroup5;
-            this.layoutControl5.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControl5.Size = new System.Drawing.Size(1090, 654);
             this.layoutControl5.TabIndex = 0;
             this.layoutControl5.Text = "layoutControl5";
             // 
@@ -925,7 +935,7 @@
             this.gcStock.Location = new System.Drawing.Point(12, 12);
             this.gcStock.MainView = this.gvStock;
             this.gcStock.Name = "gcStock";
-            this.gcStock.Size = new System.Drawing.Size(1048, 630);
+            this.gcStock.Size = new System.Drawing.Size(1066, 630);
             this.gcStock.TabIndex = 4;
             this.gcStock.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvStock});
@@ -1061,7 +1071,7 @@
             this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem9});
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(1090, 654);
             this.layoutControlGroup5.TextVisible = false;
             // 
             // layoutControlItem9
@@ -1069,7 +1079,7 @@
             this.layoutControlItem9.Control = this.gcStock;
             this.layoutControlItem9.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(1052, 634);
+            this.layoutControlItem9.Size = new System.Drawing.Size(1070, 634);
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
             // 
@@ -1077,7 +1087,7 @@
             // 
             this.pageTran.Controls.Add(this.layoutControl6);
             this.pageTran.Name = "pageTran";
-            this.pageTran.Size = new System.Drawing.Size(1072, 654);
+            this.pageTran.Size = new System.Drawing.Size(1090, 654);
             this.pageTran.Text = "  单笔  ";
             // 
             // layoutControl6
@@ -1087,7 +1097,7 @@
             this.layoutControl6.Location = new System.Drawing.Point(0, 0);
             this.layoutControl6.Name = "layoutControl6";
             this.layoutControl6.Root = this.layoutControlGroup6;
-            this.layoutControl6.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControl6.Size = new System.Drawing.Size(1090, 654);
             this.layoutControl6.TabIndex = 0;
             this.layoutControl6.Text = "layoutControl6";
             // 
@@ -1096,7 +1106,7 @@
             this.gcTrans.Location = new System.Drawing.Point(12, 12);
             this.gcTrans.MainView = this.gvTrans;
             this.gcTrans.Name = "gcTrans";
-            this.gcTrans.Size = new System.Drawing.Size(1048, 630);
+            this.gcTrans.Size = new System.Drawing.Size(1066, 630);
             this.gcTrans.TabIndex = 4;
             this.gcTrans.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvTrans});
@@ -1232,7 +1242,7 @@
             this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem11});
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(1072, 654);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(1090, 654);
             this.layoutControlGroup6.TextVisible = false;
             // 
             // layoutControlItem11
@@ -1240,7 +1250,7 @@
             this.layoutControlItem11.Control = this.gcTrans;
             this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(1052, 634);
+            this.layoutControlItem11.Size = new System.Drawing.Size(1070, 634);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
@@ -1283,7 +1293,7 @@
             this.layoutControlItem8,
             this.emptySpaceItem3});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1155, 706);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1145, 706);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem3
@@ -1315,7 +1325,7 @@
             this.layoutControlItem5.Control = this.xtratabcontrol1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1135, 660);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1125, 660);
             this.layoutControlItem5.Text = "收益及回撤报表";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -1332,9 +1342,9 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(459, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(458, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(676, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(667, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem8
@@ -1342,7 +1352,7 @@
             this.layoutControlItem8.Control = this.btnView;
             this.layoutControlItem8.Location = new System.Drawing.Point(383, 0);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(76, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(75, 26);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -1358,7 +1368,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1492, 757);
+            this.ClientSize = new System.Drawing.Size(1536, 757);
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.sidePanel2);
             this.Controls.Add(this.sidePanel1);
@@ -1536,5 +1546,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn17;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn19;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
     }
 }
