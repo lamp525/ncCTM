@@ -221,9 +221,9 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
             Series seAccP = this.chartAccount.Series[0];
             //累计收益率
             Series seAccR = this.chartAccount.Series[1];
-            //累计回撤
+            //回撤金额
             Series seRetraceA = this.chartAccount.Series[2];
-            //累计回撤率
+            //回撤率
             Series seRetraceR = this.chartAccount.Series[3];
 
             seAccP.Points.Clear();
@@ -434,16 +434,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
             if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
             {
-                decimal plan = decimal.Parse(_TransRCInfo["PlanRetracement"].ToString());
-                decimal max = decimal.Parse(_TransRCInfo["MaxRetracement"].ToString());
-                decimal cellValue = decimal.Parse(e.CellValue.ToString());
-                if (cellValue >= max)
+                DataRow data = gvTrans.GetDataRow(e.RowHandle);
+                decimal accRate =decimal.Parse ( data["AccRate"].ToString());
+                if (accRate < 0)
                 {
-                    e.Appearance.BackColor = System.Drawing.Color.Red;
-                }
-                else if (cellValue >= plan)
-                {
-                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    decimal plan = decimal.Parse(_TransRCInfo["PlanRetracement"].ToString());
+                    decimal max = decimal.Parse(_TransRCInfo["MaxRetracement"].ToString());
+                    decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                    if (cellValue >= max)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Red;
+                    }
+                    else if (cellValue >= plan)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    }
                 }
             }
             else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
@@ -462,16 +467,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
             if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
             {
-                decimal plan = decimal.Parse(_StockRCInfo["PlanRetracement"].ToString());
-                decimal max = decimal.Parse(_StockRCInfo["MaxRetracement"].ToString());
-                decimal cellValue = decimal.Parse(e.CellValue.ToString());
-                if (cellValue >= max)
+                DataRow data = gvStock.GetDataRow(e.RowHandle);
+                decimal accRate = decimal.Parse(data["PeriodRate"].ToString());
+                if (accRate < 0)
                 {
-                    e.Appearance.BackColor = System.Drawing.Color.Red;
-                }
-                else if (cellValue >= plan)
-                {
-                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    decimal plan = decimal.Parse(_StockRCInfo["PlanRetracement"].ToString());
+                    decimal max = decimal.Parse(_StockRCInfo["MaxRetracement"].ToString());
+                    decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                    if (cellValue >= max)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Red;
+                    }
+                    else if (cellValue >= plan)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    }
                 }
             }
             else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
@@ -490,16 +500,21 @@ namespace CTM.Win.Forms.DailyTrading.RiskControl
 
             if (e.Column.FieldName.IndexOf("Retrace") >= 0 && e.Column.FieldName.IndexOf("Rate") >= 0)
             {
-                decimal plan = decimal.Parse(_AccountRCInfo["PlanRetracement"].ToString());
-                decimal max = decimal.Parse(_AccountRCInfo["MaxRetracement"].ToString());
-                decimal cellValue = decimal.Parse(e.CellValue.ToString());
-                if (cellValue >= max)
+                DataRow data = gvAccount.GetDataRow(e.RowHandle);
+                decimal accRate = decimal.Parse(data["AccRate"].ToString());
+                if (accRate < 0)
                 {
-                    e.Appearance.BackColor = System.Drawing.Color.Red;
-                }
-                else if (cellValue >= plan)
-                {
-                    e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    decimal plan = decimal.Parse(_AccountRCInfo["PlanRetracement"].ToString());
+                    decimal max = decimal.Parse(_AccountRCInfo["MaxRetracement"].ToString());
+                    decimal cellValue = decimal.Parse(e.CellValue.ToString());
+                    if (cellValue >= max)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Red;
+                    }
+                    else if (cellValue >= plan)
+                    {
+                        e.Appearance.BackColor = System.Drawing.Color.Yellow;
+                    }
                 }
             }
             else if (e.Column.FieldName.IndexOf("Profit") >= 0 || e.Column.FieldName.IndexOf("Rate") >= 0)
