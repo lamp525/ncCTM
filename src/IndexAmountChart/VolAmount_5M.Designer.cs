@@ -36,6 +36,7 @@
             DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.LineSeriesView lineSeriesView3 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
             this.sidePanel1 = new DevExpress.XtraEditors.SidePanel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -172,11 +173,11 @@
             series1.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series1.Name = "昨金额比";
             lineSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            lineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             lineSeriesView1.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Plus;
             lineSeriesView1.LineMarkerOptions.Size = 3;
             lineSeriesView1.LineStyle.DashStyle = DevExpress.XtraCharts.DashStyle.Dot;
             lineSeriesView1.LineStyle.Thickness = 1;
+            lineSeriesView1.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
             series1.View = lineSeriesView1;
             series2.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
             series2.Name = "昨金额比_红";
@@ -199,6 +200,9 @@
         series3};
             this.chartControl1.Size = new System.Drawing.Size(573, 186);
             this.chartControl1.TabIndex = 4;
+            chartTitle1.Text = "五分钟金额比";
+            this.chartControl1.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle1});
             // 
             // layoutControlItem1
             // 
