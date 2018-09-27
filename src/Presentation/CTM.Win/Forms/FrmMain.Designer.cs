@@ -134,7 +134,9 @@
             // 
             // ribbonControl1
             // 
+            this.ribbonControl1.AllowMinimizeRibbon = false;
             this.ribbonControl1.ApplicationButtonDropDownControl = this.popupMenu1;
+            this.ribbonControl1.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.ExpandCollapseItem.RememberLastCommand = true;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
@@ -219,8 +221,17 @@
             this.ribbonPageAdmin,
             this.ribbonPageSetting});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
-            this.ribbonControl1.Size = new System.Drawing.Size(1557, 151);
+            this.ribbonControl1.ShowCategoryInCaption = false;
+            this.ribbonControl1.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowPageHeadersInFormCaption = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.ShowOnMultiplePages;
+            this.ribbonControl1.ShowQatLocationSelector = false;
+            this.ribbonControl1.ShowToolbarCustomizeItem = false;
+            this.ribbonControl1.Size = new System.Drawing.Size(1557, 133);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
+            this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
+            this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // popupMenu1
             // 
@@ -885,22 +896,26 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem35);
             this.ribbonPageGroup2.ItemLinks.Add(this.bbiTradeDataManage);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.ShowCaptionButton = false;
             // 
             // rpgInvestIncomeReport
             // 
             this.rpgInvestIncomeReport.ItemLinks.Add(this.bbiInvestIncomeReportExport);
             this.rpgInvestIncomeReport.Name = "rpgInvestIncomeReport";
+            this.rpgInvestIncomeReport.ShowCaptionButton = false;
             // 
             // ribbonPageGroup7
             // 
             this.ribbonPageGroup7.ItemLinks.Add(this.barButtonItem39);
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
+            this.ribbonPageGroup7.ShowCaptionButton = false;
             // 
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.bbiDailyTradeIdentification);
             this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem38);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.ShowCaptionButton = false;
             // 
             // ribbonPageGroup13
             // 
@@ -912,6 +927,7 @@
             this.ribbonPageGroup13.ItemLinks.Add(this.bbiUserInvestIncomeAccount);
             this.ribbonPageGroup13.ItemLinks.Add(this.bbiMultiDayProfit);
             this.ribbonPageGroup13.Name = "ribbonPageGroup13";
+            this.ribbonPageGroup13.ShowCaptionButton = false;
             // 
             // ribbonPageGroup4
             // 
@@ -919,12 +935,14 @@
             this.ribbonPageGroup4.ItemLinks.Add(this.bbiAccountInvestIncomeFlow);
             this.ribbonPageGroup4.ItemLinks.Add(this.bbiRCAccount);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.ShowCaptionButton = false;
             // 
             // ribbonPageGroup15
             // 
             this.ribbonPageGroup15.ItemLinks.Add(this.bbiStockPosition);
             this.ribbonPageGroup15.ItemLinks.Add(this.bbiStockInvestIncomeSummary);
             this.ribbonPageGroup15.Name = "ribbonPageGroup15";
+            this.ribbonPageGroup15.ShowCaptionButton = false;
             // 
             // ribbonPageLoan
             // 
@@ -937,6 +955,7 @@
             // 
             this.ribbonPageGroup16.ItemLinks.Add(this.bbiUserDayMarginTrading);
             this.ribbonPageGroup16.Name = "ribbonPageGroup16";
+            this.ribbonPageGroup16.ShowCaptionButton = false;
             // 
             // ribbonPageInvestmentDecision
             // 
@@ -951,6 +970,7 @@
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem7);
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem8);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.ShowCaptionButton = false;
             // 
             // ribbonPageAccounting
             // 
@@ -968,6 +988,7 @@
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDataVerify);
             this.rgpAccountingDataManage.ItemLinks.Add(this.bbiDeliveryManage);
             this.rgpAccountingDataManage.Name = "rgpAccountingDataManage";
+            this.rgpAccountingDataManage.ShowCaptionButton = false;
             // 
             // rpgAccountManage
             // 
@@ -976,6 +997,7 @@
             this.rpgAccountManage.ItemLinks.Add(this.barButtonItem36);
             this.rpgAccountManage.ItemLinks.Add(this.barButtonItem37);
             this.rpgAccountManage.Name = "rpgAccountManage";
+            this.rpgAccountManage.ShowCaptionButton = false;
             // 
             // rpgAccountingReport
             // 
@@ -983,11 +1005,13 @@
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeFlow);
             this.rpgAccountingReport.ItemLinks.Add(this.bbiDeliveryAccountInvestIncomeDetail);
             this.rpgAccountingReport.Name = "rpgAccountingReport";
+            this.rpgAccountingReport.ShowCaptionButton = false;
             // 
             // ribbonPageGroup6
             // 
             this.ribbonPageGroup6.ItemLinks.Add(this.barButtonItem32);
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
+            this.ribbonPageGroup6.ShowCaptionButton = false;
             // 
             // ribbonPageAdmin
             // 
@@ -1009,14 +1033,14 @@
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem9);
             this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem24);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
-            this.ribbonPageGroup5.Text = "基础数据";
+            this.ribbonPageGroup5.ShowCaptionButton = false;
             // 
             // ribbonPageGroup10
             // 
             this.ribbonPageGroup10.ItemLinks.Add(this.barButtonItem33);
             this.ribbonPageGroup10.ItemLinks.Add(this.barButtonItem34);
             this.ribbonPageGroup10.Name = "ribbonPageGroup10";
-            this.ribbonPageGroup10.Text = "日志管理";
+            this.ribbonPageGroup10.ShowCaptionButton = false;
             // 
             // ribbonPageSetting
             // 
@@ -1031,13 +1055,13 @@
             this.ribbonPageGroup11.ItemLinks.Add(this.barButtonItem16);
             this.ribbonPageGroup11.ItemLinks.Add(this.barButtonItem17);
             this.ribbonPageGroup11.Name = "ribbonPageGroup11";
-            this.ribbonPageGroup11.Text = "用户信息";
+            this.ribbonPageGroup11.ShowCaptionButton = false;
             // 
             // ribbonPageGroup12
             // 
             this.ribbonPageGroup12.ItemLinks.Add(this.skinRibbonGalleryBarItem1);
             this.ribbonPageGroup12.Name = "ribbonPageGroup12";
-            this.ribbonPageGroup12.Text = "界面风格";
+            this.ribbonPageGroup12.ShowCaptionButton = false;
             // 
             // ribbonStatusBar1
             // 
