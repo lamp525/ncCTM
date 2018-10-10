@@ -110,6 +110,7 @@
             // 
             // chartControl1
             // 
+            this.chartControl1.Legend.Name = "Default Legend";
             this.chartControl1.Location = new System.Drawing.Point(487, 51);
             this.chartControl1.Name = "chartControl1";
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
@@ -207,7 +208,6 @@
             this.layoutControlItem4,
             this.emptySpaceItem3,
             this.emptySpaceItem4});
-            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1543, 791);
             this.layoutControlGroup1.TextVisible = false;

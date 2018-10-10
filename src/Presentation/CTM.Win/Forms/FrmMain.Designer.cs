@@ -843,6 +843,7 @@
             this.barButtonItem39.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem39.ImageOptions.LargeImage")));
             this.barButtonItem39.Name = "barButtonItem39";
             this.barButtonItem39.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem39.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItem39.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem39_ItemClick_1);
             // 
             // bbiMultiDayProfit
@@ -909,6 +910,7 @@
             this.ribbonPageGroup7.ItemLinks.Add(this.barButtonItem39);
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             this.ribbonPageGroup7.ShowCaptionButton = false;
+            this.ribbonPageGroup7.Visible = false;
             // 
             // ribbonPageGroup3
             // 
