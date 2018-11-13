@@ -1088,7 +1088,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.TradeTime), "委托时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
-            columnList.Add(nameof(record.DealFlag), "操作");
+            columnList.Add(nameof(record.DealFlag), "订单类型");
             columnList.Add(nameof(record.EntrustVolume), "委托数量");
             columnList.Add(nameof(record.EntrustPrice), "委托价格");
             columnList.Add(nameof(record.EntrustAmount), null);
