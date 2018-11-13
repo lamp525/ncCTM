@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using CTM.Core.Infrastructure;
-using DevExpress.XtraRichEdit.API.Word;
+
 
 namespace CTM.Win.Extensions
 {

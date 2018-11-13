@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using DevExpress.Data.Extensions;
 
 namespace CTM.Win.Util
 {
