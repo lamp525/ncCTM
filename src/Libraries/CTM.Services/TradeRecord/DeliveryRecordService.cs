@@ -28,6 +28,9 @@ namespace CTM.Services.TradeRecord
 
         private IList<DataRow> _skippedRecords = null;
 
+        private readonly List<string> _buyTexts = new List<string> { "融券回购", "融资借入", "红股入帐", "新股入帐", "红股入账", "新股入账" };
+        private readonly List<string> _sellTexts = new List<string> { "融券购回", "卖券还款" };
+
         #endregion Fields
 
         #region Constructors
@@ -72,7 +75,10 @@ namespace CTM.Services.TradeRecord
             List<DataRow> validRecords = new List<DataRow>();
 
             ///过滤记录
-            validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0).ToList();
+            if (!string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
+                validRecords = importDataTable.AsEnumerable().Where(x => CommonHelper.StringToDecimal(x.Field<string>(columnList[nameof(record.ActualAmount)]).Trim()) != 0).ToList();
+            else
+                validRecords = importDataTable.AsEnumerable().ToList();
 
             _skippedRecords = importDataTable.AsEnumerable().Where(x => !validRecords.Contains(x)).ToList();
 
@@ -80,8 +86,32 @@ namespace CTM.Services.TradeRecord
             {
                 record = new DeliveryRecord();
 
+                ////买卖标志
+                //record.DealFlag = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0 ? false : true;
+
                 //买卖标志
-                record.DealFlag = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0 ? false : true;
+                if (!string.IsNullOrEmpty(columnList[nameof(record.DealFlag)]))
+                {
+                    if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买") > -1)
+                        record.DealFlag = true;
+                    else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖") > -1)
+                        record.DealFlag = false;
+                    else
+                    {
+                        _skippedRecords.Add(row);
+                        continue;
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
+                    {
+                        if (CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0)
+                            record.DealFlag = false;
+                        else
+                            record.DealFlag = true;
+                    }
+                }
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
                 var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
@@ -118,8 +148,7 @@ namespace CTM.Services.TradeRecord
                     record.DealAmount = record.DealPrice * Math.Abs(record.DealVolume);
                 else
                     record.DealAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.DealAmount)]].ToString().Trim());
-                //发生金额
-                record.ActualAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
+
                 //佣金
                 if (!string.IsNullOrEmpty(columnList[nameof(record.Commission)]))
                     record.Commission = CommonHelper.StringToDecimal(row[columnList[nameof(record.Commission)]].ToString().Trim());
@@ -135,6 +164,12 @@ namespace CTM.Services.TradeRecord
                     record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee2"]].ToString().Trim());
                 if (!string.IsNullOrEmpty(columnList["OtherFee3"]))
                     record.Incidentals += CommonHelper.StringToDecimal(row[columnList["OtherFee3"]].ToString().Trim());
+
+                //发生金额
+                if (string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
+                    record.ActualAmount = (record.DealFlag ? CommonHelper.ConvertToNegtive(record.DealAmount) : CommonHelper.ConvertToPositive(record.DealAmount)) - record.Commission - record.StampDuty - record.Incidentals;
+                else
+                    record.ActualAmount = CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim());
 
                 //成交编号
                 record.DealNo = row[columnList[nameof(record.DealNo)]].ToString().Trim();
@@ -811,25 +846,25 @@ namespace CTM.Services.TradeRecord
             Dictionary<string, string> columnList = new Dictionary<string, string>();
             DeliveryRecord record = null;
 
-            columnList.Add(nameof(record.TradeDate), "发生日期");
-            columnList.Add(nameof(record.TradeTime),"成交时间");
+            columnList.Add(nameof(record.TradeDate), "成交日期");
+            columnList.Add(nameof(record.TradeTime), "成交时间");
             columnList.Add(nameof(record.StockCode), "证券代码");
             columnList.Add(nameof(record.StockName), "证券名称");
-            columnList.Add(nameof(record.DealFlag), "业务名称");
+            columnList.Add(nameof(record.DealFlag), "买卖标志");
             columnList.Add(nameof(record.DealPrice), "成交价格");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), "成交金额");
-            columnList.Add(nameof(record.ActualAmount), "发生金额");
-            columnList.Add(nameof(record.Commission), "手续费");
-            columnList.Add(nameof(record.StampDuty), "印花税");
-            columnList.Add(nameof(record.Incidentals), "过户费");
-            columnList.Add("OtherFee1", "其他费");
+            columnList.Add(nameof(record.ActualAmount), null);
+            columnList.Add(nameof(record.Commission), null);
+            columnList.Add(nameof(record.StampDuty), null);
+            columnList.Add(nameof(record.Incidentals), null);
+            columnList.Add("OtherFee1", null);
             columnList.Add("OtherFee2", null);
             columnList.Add("OtherFee3", null);
             columnList.Add(nameof(record.StockHolderCode), "股东代码");
             columnList.Add(nameof(record.DealNo), "委托编号");
             columnList.Add(nameof(record.ContractNo), "委托编号");
-            columnList.Add(nameof(record.Remarks), "业务名称");
+            columnList.Add(nameof(record.Remarks), "买卖标志");
 
             List<string> templateColumnNames = columnList.Values.Where(x => !string.IsNullOrEmpty(x)).ToList();
             this._dataImportService.DataFormatCheck(templateColumnNames, importDataTable);
