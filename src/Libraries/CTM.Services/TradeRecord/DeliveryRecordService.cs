@@ -86,32 +86,30 @@ namespace CTM.Services.TradeRecord
             {
                 record = new DeliveryRecord();
 
-                ////买卖标志
-                //record.DealFlag = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0 ? false : true;
-
-                //买卖标志
-                if (!string.IsNullOrEmpty(columnList[nameof(record.DealFlag)]))
+                if (string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
                 {
-                    if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买") > -1)
-                        record.DealFlag = true;
-                    else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖") > -1)
-                        record.DealFlag = false;
-                    else
+                    //买卖标志
+                    if (string.IsNullOrEmpty(columnList[nameof(record.DealFlag)]))
                     {
                         _skippedRecords.Add(row);
                         continue;
                     }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(columnList[nameof(record.ActualAmount)]))
+                    else
                     {
-                        if (CommonHelper.StringToDecimal(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0)
+                        if (_buyTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("买") > -1)
+                            record.DealFlag = true;
+                        else if (_sellTexts.Contains(row[columnList[nameof(record.DealFlag)]].ToString().Trim()) || row[columnList[nameof(record.DealFlag)]].ToString().Trim().IndexOf("卖") > -1)
                             record.DealFlag = false;
                         else
-                            record.DealFlag = true;
+                        {
+                            _skippedRecords.Add(row);
+                            continue;
+                        }
                     }
                 }
+                else
+                    //买卖标志
+                    record.DealFlag = decimal.Parse(row[columnList[nameof(record.ActualAmount)]].ToString().Trim()) > 0 ? false : true;
 
                 var stockCode = string.IsNullOrEmpty(columnList[nameof(record.StockCode)]) ? string.Empty : CommonHelper.StockCodeZerofill(row[columnList[nameof(record.StockCode)]].ToString().Trim());
                 var stockName = row[columnList[nameof(record.StockName)]].ToString().Trim();
