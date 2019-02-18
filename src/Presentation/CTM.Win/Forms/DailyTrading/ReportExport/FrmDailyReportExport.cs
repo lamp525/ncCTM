@@ -262,7 +262,7 @@ namespace CTM.Win.Forms.DailyTrading.ReportExport
 
             Excel.Worksheet curSheet = null;
             Excel.ChartObject chartObj = null;
-            int rowNumOfPage = 40;
+            int rowNumOfPage = 43;
 
             int sheetCount = _excelEdit._wb.Sheets.Count;
 
