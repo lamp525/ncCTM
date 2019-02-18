@@ -227,6 +227,22 @@ namespace CTM.Services.User
             _userInfoRepository.Update(query);
         }
 
+        public virtual void EnableUser(int[] userIds)
+        {
+            if (userIds == null)
+                throw new ArgumentNullException(nameof(userIds));
+
+            var query = _userInfoRepository.Table;
+            query = query.Where(x => userIds.Contains(x.Id));
+
+            query.ToList().ForEach(x =>
+            {
+                x.IsDeleted = false;
+            });
+
+            _userInfoRepository.Update(query);
+        }
+
         public virtual void ResetPwd(int[] userIds)
         {
             if (userIds == null)

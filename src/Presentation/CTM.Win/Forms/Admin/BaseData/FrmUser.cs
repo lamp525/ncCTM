@@ -44,6 +44,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             this.btnEdit.Enabled = false;
             this.btnDisable.Enabled = false;
+            this.btnEnable.Enabled = false;
             this.btnResetPwd.Enabled = false;
         }
 
@@ -186,6 +187,42 @@ namespace CTM.Win.Forms.Admin.BaseData
             }
         }
 
+        private void btnEnable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnEnable .Enabled = false;
+
+                var myView = this.gridView1;
+
+                var selectedHandles = myView.GetSelectedRows();
+
+                if (selectedHandles.Any())
+                    selectedHandles = selectedHandles.Where(x => x > -1).ToArray();
+
+                if (DXMessage.ShowYesNoAndWarning("确定启用选择的用户吗？") == DialogResult.Yes)
+                {
+                    var userIds = new List<int>();
+
+                    for (var rowhandle = 0; rowhandle < selectedHandles.Length; rowhandle++)
+                    {
+                        userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
+
+                        myView.UnselectRow(selectedHandles[rowhandle]);
+
+                    }
+
+                    this._userService.EnableUser(userIds.ToArray());
+
+                    RefreshForm(this._departmentId);
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -267,11 +304,13 @@ namespace CTM.Win.Forms.Admin.BaseData
             {
                 btnEdit.Enabled = false;
                 btnDisable.Enabled = false;
+                btnEnable.Enabled = false;
                 btnResetPwd.Enabled = false;
             }
             else if (selectedHandles.Length > 0)
             {
                 btnDisable.Enabled = true;
+                btnEnable.Enabled = true;
                 btnResetPwd.Enabled = true;
 
                 if (selectedHandles.Length == 1)
@@ -299,5 +338,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         }
 
         #endregion Events
+
+
     }
 }
