@@ -94,7 +94,9 @@ namespace CTM.Win.Forms.Admin.DataManage
             this.txtTransferPrice.Text = this.txtCurrentPrice.Text;
             this.txtTransferVolume.EditValue = this.txtHoldingVolume.Text;
 
-            var dealers = _userService.GetAllOperators(showDeleted: false).Where(x => x.Code != _record.DealerCode).OrderBy(x => x.Code).ToList();
+            //var dealers = _userService.GetAllOperators(showDeleted: false).Where(x => x.Code != _record.DealerCode).OrderBy(x => x.Code).ToList();
+            var dealers = _userService.GetAllOperators(showDeleted: true).OrderBy(x => x.Code).ToList();
+
 
             this.luReceiver.Initialize(dealers, "Code", "Name", enableSearch: true);
         }
