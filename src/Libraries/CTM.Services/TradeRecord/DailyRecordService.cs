@@ -732,7 +732,7 @@ namespace CTM.Services.TradeRecord
             columnList.Add(nameof(record.EntrustVolume), "委托数量");
             columnList.Add(nameof(record.EntrustPrice), "委托价格");
             columnList.Add(nameof(record.EntrustAmount), null);
-            columnList.Add(nameof(record.DealPrice), "委托价格");
+            columnList.Add(nameof(record.DealPrice), "成交均价");
             columnList.Add(nameof(record.DealVolume), "成交数量");
             columnList.Add(nameof(record.DealAmount), null);
             columnList.Add(nameof(record.StockHolderCode), "股东代码");
