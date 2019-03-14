@@ -18,7 +18,6 @@ namespace CTM.Win.Forms.Admin.BaseData
         private readonly IDepartmentService _departmentService;
 
         private const string _layoutXmlName = "FrmUser";
-        private bool _firstFocused = true;
         private int _departmentId;
 
         #endregion Fields
@@ -173,7 +172,6 @@ namespace CTM.Win.Forms.Admin.BaseData
                         userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
 
                         myView.UnselectRow(selectedHandles[rowhandle]);
-
                     }
 
                     this._userService.DisableUser(userIds.ToArray());
@@ -191,7 +189,7 @@ namespace CTM.Win.Forms.Admin.BaseData
         {
             try
             {
-                this.btnEnable .Enabled = false;
+                this.btnEnable.Enabled = false;
 
                 var myView = this.gridView1;
 
@@ -209,7 +207,6 @@ namespace CTM.Win.Forms.Admin.BaseData
                         userIds.Add(int.Parse(myView.GetRowCellValue(selectedHandles[rowhandle], colId).ToString()));
 
                         myView.UnselectRow(selectedHandles[rowhandle]);
-
                     }
 
                     this._userService.EnableUser(userIds.ToArray());
@@ -279,12 +276,8 @@ namespace CTM.Win.Forms.Admin.BaseData
 
                 if (selectedNode == null) return;
 
-                if (!this._firstFocused)
-                {
-                    _departmentId = int.Parse(selectedNode.GetValue(treeColId).ToString());
-                    BindUserInfo(_departmentId);
-                }
-                this._firstFocused = false;
+                _departmentId = int.Parse(selectedNode.GetValue(treeColId).ToString());
+                BindUserInfo(_departmentId);
             }
             catch (Exception ex)
             {
@@ -338,7 +331,5 @@ namespace CTM.Win.Forms.Admin.BaseData
         }
 
         #endregion Events
-
-
     }
 }

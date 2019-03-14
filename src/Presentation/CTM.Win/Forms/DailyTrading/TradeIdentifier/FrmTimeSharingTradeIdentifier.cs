@@ -7,7 +7,9 @@ using System.Text;
 using CTM.Core.Domain.TradeRecord;
 using CTM.Core.Util;
 using CTM.Data;
+using CTM.Services.Department;
 using CTM.Services.TradeRecord;
+using CTM.Services.User;
 using CTM.Win.Extensions;
 using CTM.Win.Models;
 using CTM.Win.Util;
@@ -19,8 +21,9 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
     {
         #region Fields
 
-    
         private IDailyRecordService _dailyRecordService;
+        private IDepartmentService _deptService;
+        private IUserService _userService;
         private IList<DailyRecord> _tradeRecords = null;
         private DataTable _timeSharingData;
         private DateTime _tradeDate = DateTime.MinValue;
@@ -53,11 +56,13 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
 
         #region Constructors
 
-        public FrmTimeSharingTradeIdentifier(IDailyRecordService dailyRecordService)
+        public FrmTimeSharingTradeIdentifier(IDailyRecordService dailyRecordService, IDepartmentService deptService,IUserService userService)
         {
             InitializeComponent();
 
             this._dailyRecordService = dailyRecordService;
+            this._deptService = deptService;
+            this._userService = userService;
 
             _sePrice = chartControl1.Series[0];
             _seVolume = chartControl1.Series[1];
@@ -125,7 +130,19 @@ namespace CTM.Win.Forms.DailyTrading.TradeIdentifier
                                     }).ToList();
 
                 if (!LoginInfo.CurrentUser.IsAdmin)
-                    source = source.Where(x => x.InvestorCode == LoginInfo.CurrentUser.UserCode).ToList();
+                {
+                    List<string> userList = new List<string>();
+                    var deptInfo = this._deptService.GetDepartmentInfoById(LoginInfo.CurrentUser.DepartmentId);
+                    if (deptInfo != null && deptInfo.PrincipalCode == LoginInfo.CurrentUser.UserCode)
+                    {
+                        userList = this._userService.GetUserInfos(new int[] { LoginInfo.CurrentUser.DepartmentId }).Select(x => x.Code).ToList();
+
+                    }
+                    else
+                        userList.Add(LoginInfo.CurrentUser.UserCode);
+
+                    source = source.Where(x => userList.Contains( x.InvestorCode )).ToList();
+                }
 
                 luTradeInfo.Initialize(source, "TradeCode", "DisplayText", enableSearch: true);
             }
