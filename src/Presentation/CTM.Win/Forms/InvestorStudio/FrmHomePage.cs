@@ -1085,10 +1085,11 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
+
         #endregion Profit
 
         #endregion Events
 
-
+     
     }
 }
