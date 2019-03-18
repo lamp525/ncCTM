@@ -1,5 +1,12 @@
-﻿using CTM.Core;
-using CTM.Core.Domain.User;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using CTM.Core;
 using CTM.Core.Util;
 using CTM.Data;
 using CTM.Services.Dictionary;
@@ -8,13 +15,6 @@ using CTM.Win.Forms.DailyTrading.TradeIdentifier;
 using CTM.Win.Models;
 using CTM.Win.Util;
 using DevExpress.XtraCharts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace CTM.Win.Forms.InvestorStudio
 {
@@ -1085,11 +1085,66 @@ namespace CTM.Win.Forms.InvestorStudio
             }
         }
 
-
         #endregion Profit
 
-        #endregion Events
+        #region Export
 
-     
+        private void btnExportFlow_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExportFlow.Enabled = false;
+                if (this.gcInvestorProfit.DataSource != null)
+                {
+                    string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string fileName = "交易员收益流水_" + DateTime.Now.ToString("yyyyMMdd") + "_" + this._investorName + ".xlsx";
+                    string destinyFilePath = Path.Combine(filePath, fileName);
+                    if (File.Exists(destinyFilePath))
+                        File.Delete(destinyFilePath);
+                    this.gvInvestorProfit.ExportToXlsx(destinyFilePath);
+                    DXMessage.ShowTips($@"报表[{fileName}]已成功导出至桌面！");
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExportFlow.Enabled = true;
+            }
+        }
+
+        private void btnExportDetail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.btnExportDetail.Enabled = false;
+
+                if (this.gcStockProfit.DataSource != null)
+                {
+                    string curDate = this.gvInvestorProfit.GetFocusedDataRow()?["TradeDate"].ToString().Replace("-", "");
+                    string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string fileName = "股票收益明细_" + curDate + "_" + this._investorName + ".xlsx";
+                    string destinyFilePath = Path.Combine(filePath, fileName);
+                    if (File.Exists(destinyFilePath))
+                        File.Delete(destinyFilePath);
+                    this.gvStockProfit.ExportToXlsx(destinyFilePath);
+                    DXMessage.ShowTips($@"报表[{fileName}]已成功导出至桌面！");
+                }
+            }
+            catch (Exception ex)
+            {
+                DXMessage.ShowError(ex.Message);
+            }
+            finally
+            {
+                this.btnExportDetail.Enabled = true;
+            }
+        }
+
+        #endregion Export
+
+        #endregion Events
     }
 }
